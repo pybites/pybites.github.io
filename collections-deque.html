@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Pybites" />
+<meta name="description" content="Use collections.deque to rotate letters in string (or elements in list). It has a native method which performs faster too." />
+<meta name="keywords" content="collections, data structures, performance, stdlib, deque">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Read the stdlib: deque"/>
+<meta property="og:description" content="Use collections.deque to rotate letters in string (or elements in list). It has a native method which performs faster too."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/collections-deque.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-12-21 00:05:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/pybites.html">
+<meta property="article:section" content="Data types"/>
+<meta property="article:tag" content="collections"/>
+<meta property="article:tag" content="data structures"/>
+<meta property="article:tag" content="performance"/>
+<meta property="article:tag" content="stdlib"/>
+<meta property="article:tag" content="deque"/>
+<meta property="og:image" content="https://avatars0.githubusercontent.com/u/24620154?v=3&s=460">
+
+  <title>PyBites &ndash; Read the stdlib: deque</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="https://avatars0.githubusercontent.com/u/24620154?v=3&s=460" alt="" title="">
+      </a>
+      <h1><a href="http://pybit.es"></a></h1>
+
+
+      <nav>
+        <ul class="list">
+
+          <li><a href="about.md" target="_blank">About</a></li>
+          <li><a href="Archive.md" target="_blank">Archive</a></li>
+          <li><a href="http://www.techmoneykids.com" target="_blank">Julian</a></li>
+          <li><a href="http://www.bobcodes.it" target="_blank">Bob</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-Twitter" href="https://twittter/#" target="_blank"><i class="fa fa-Twitter"></i></a></li>
+        <li><a class="sc-Github" href="https://github.com/pybites" target="_blank"><i class="fa fa-Github"></i></a></li>
+        <li><a class="sc-FB Group" href="https://www.facebook.com/groups/1305028816183522/" target="_blank"><i class="fa fa-FB Group"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="collections-deque">Read the stdlib: deque</h1>
+    <p>
+          Posted on Wed 21 December 2016 in <a href="http://pybit.es/category/data-types.html">Data types</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <h2>Deque</h2>
+<p>From the <a href="https://docs.python.org/2/library/collections.html#collections.deque">stdlib docs</a>:</p>
+<blockquote>
+<p>Deques support thread-safe, memory efficient appends and pops from either side of the deque with approximately the same O(1) performance in either direction.</p>
+</blockquote>
+<p>Coincidence: I was brainstorming how to rotate letters and independently I found the solution reading about deque later in the evening (see further down).</p>
+<h2>Rotate without deque</h2>
+<p>One solution I found on Google / Stackoverflow shows a reasonable way to go:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def rotate(strg,n):
+...     return strg[n:] + strg[:n]
+... 
+&gt;&gt;&gt; assert(rotate(&#39;hello&#39;, 2) == &#39;llohe&#39;)
+&gt;&gt;&gt; assert(rotate(&#39;hello&#39;, -2) == &#39;lohel&#39;)
+</pre></div>
+
+
+<h2>Deque 2 birds: better performance and native rotate method</h2>
+<p>But using a list is not the most efficient way - see <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity</a></p>
+<blockquote>
+<p>Internally, a list is represented as an array; the largest costs come from growing beyond the current allocation size (because everything must move), or from inserting or deleting somewhere near the beginning (because everything after that must move). If you need to add/remove at both ends, consider using a collections.deque instead.</p>
+</blockquote>
+<p>That led me to the collections.deque doc quotes at the start. Not only is it more efficient - O(1) vs O(n) - it also has a method that just does the rotation I wanted, so no need to define your own. </p>
+<p>Only note that that the pos/neg are the other way around this time:</p>
+<blockquote>
+<p>Rotate the deque n steps to the right. If n is negative, rotate to the left.</p>
+</blockquote>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
+&gt;&gt;&gt; d = deque(s)
+&gt;&gt;&gt; d
+deque([&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;])
+# 2 to left
+&gt;&gt;&gt; d.rotate(-2)
+&gt;&gt;&gt; d
+deque([&#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;])
+# reset
+&gt;&gt;&gt; d.rotate(2)
+&gt;&gt;&gt; d
+deque([&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;])
+# 2 to right
+&gt;&gt;&gt; d.rotate(2)
+&gt;&gt;&gt; d
+deque([&#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;, &#39;l&#39;])
+</pre></div>
+
+
+<h2>Reminder to self</h2>
+<p>Read code, read (stdlib) docs, and ask silly questions. "how do I ...?" makes you a better programmer. Even if you don't need it for anything specific you will find new ways, learn new tricks and those will make you better/faster when it does count.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/collections.html">collections</a>
+      <a href="http://pybit.es/tag/data-structures.html">data structures</a>
+      <a href="http://pybit.es/tag/performance.html">performance</a>
+      <a href="http://pybit.es/tag/stdlib.html">stdlib</a>
+      <a href="http://pybit.es/tag/deque.html">deque</a>
+    </p>
+  </div>
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "https://avatars0.githubusercontent.com/u/24620154?v=3&s=460",
+  "description": ""
+}
+</script>
+</body>
+</html>
