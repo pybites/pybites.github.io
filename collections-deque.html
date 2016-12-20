@@ -104,7 +104,7 @@
 
 
 <h2>Deque 2 birds: better performance and native rotate method</h2>
-<p>But using a list is not the most efficient way - see <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity</a></p>
+<p>But using a list is not the most efficient way - see <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity</a> [1]</p>
 <blockquote>
 <p>Internally, a list is represented as an array; the largest costs come from growing beyond the current allocation size (because everything must move), or from inserting or deleting somewhere near the beginning (because everything after that must move). If you need to add/remove at both ends, consider using a collections.deque instead.</p>
 </blockquote>
@@ -134,6 +134,8 @@ deque([&#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;, &#39;l&#39;])
 
 <h2>Reminder to self</h2>
 <p>Read code, read (stdlib) docs, and ask silly questions. "how do I ...?" makes you a better programmer. Even if you don't need it for anything specific you will find new ways, learn new tricks and those will make you better/faster when it does count.</p>
+<hr>
+<p>[1] Here we also see the more expensive (and commonly used/needed) lookup 'x in s' for list = O(n) vs set/dict = O(1), see <a href="https://en.wikipedia.org/wiki/Hash_table">hash table</a></p>
   </div>
   <div class="tag-cloud">
     <p>
