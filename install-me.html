@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Pybites" />
+<meta name="description" content="This is a short post for Julian" />
+<meta name="keywords" content="pelican, publishing, github, pip, virtualenv">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to get me up and running"/>
+<meta property="og:description" content="This is a short post for Julian"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/install-me.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-12-20 10:40:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/pybites.html">
+<meta property="article:section" content="Meta"/>
+<meta property="article:tag" content="pelican"/>
+<meta property="article:tag" content="publishing"/>
+<meta property="article:tag" content="github"/>
+<meta property="article:tag" content="pip"/>
+<meta property="article:tag" content="virtualenv"/>
+<meta property="og:image" content="https://avatars0.githubusercontent.com/u/24620154?v=3&s=460">
+
+  <title>PyBites &ndash; How to get me up and running</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="https://avatars0.githubusercontent.com/u/24620154?v=3&s=460" alt="" title="">
+      </a>
+      <h1><a href="http://pybit.es"></a></h1>
+
+
+      <nav>
+        <ul class="list">
+
+          <li><a href="about.md" target="_blank">About</a></li>
+          <li><a href="Archive.md" target="_blank">Archive</a></li>
+          <li><a href="http://www.techmoneykids.com" target="_blank">Julian</a></li>
+          <li><a href="http://www.bobcodes.it" target="_blank">Bob</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-Twitter" href="https://twittter/#" target="_blank"><i class="fa fa-Twitter"></i></a></li>
+        <li><a class="sc-Github" href="https://github.com/pybites" target="_blank"><i class="fa fa-Github"></i></a></li>
+        <li><a class="sc-FB Group" href="https://www.facebook.com/groups/1305028816183522/" target="_blank"><i class="fa fa-FB Group"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="install-me">How to get me up and running</h1>
+    <p>
+          Posted on Tue 20 December 2016 in <a href="http://pybit.es/category/meta.html">Meta</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>This is also a useful ref for future collaborators ...</p>
+<p>We're open source right? ;)</p>
+<h2>Pybites install guide</h2>
+<div class="highlight"><pre><span></span><span class="c1"># we have a src, output and theme (Flex) repo, use --recursive to get all</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">recursive</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">pybites</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">-</span><span class="n">src</span> <span class="n">pybites</span>
+<span class="err">$</span> <span class="n">cd</span> <span class="n">pybites</span>
+
+<span class="c1"># set up env and install dependencies</span>
+<span class="err">$</span> <span class="n">virtualenv</span> <span class="n">venv</span> <span class="p">(</span><span class="n">might</span> <span class="n">need</span><span class="p">:</span> <span class="n">virtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="n">python3</span> <span class="n">venv</span><span class="p">)</span>
+<span class="err">$</span> <span class="n">source</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="c1"># add some content</span>
+<span class="err">$</span> <span class="n">cd</span> <span class="n">content</span>
+<span class="err">$</span> <span class="n">vi</span> <span class="n">new</span><span class="o">-</span><span class="n">blog</span><span class="o">-</span><span class="n">post</span><span class="o">.</span><span class="n">md</span> <span class="p">;</span> <span class="n">wq</span><span class="err">!</span>
+
+<span class="c1"># check changes on localhost</span>
+<span class="err">$</span> <span class="n">cd</span> <span class="o">..</span>
+<span class="err">$</span> <span class="n">make</span> <span class="n">html</span> <span class="o">&amp;&amp;</span> <span class="n">make</span> <span class="n">serve</span>
+
+<span class="c1"># push this new content to the parent -src repo</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="o">.</span> 
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;my new blog post&quot;</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span>
+
+<span class="c1"># push the static blog change to the child -io repo</span>
+<span class="c1"># TODO: this is duplicate step, should we use gph-import / post-commit?</span>
+<span class="c1"># http://docs.getpelican.com/en/3.3.0/tips.html</span>
+<span class="err">$</span> <span class="n">cd</span> <span class="n">output</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="o">.</span> 
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;my new blog post&quot;</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span>
+</pre></div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/pelican.html">pelican</a>
+      <a href="http://pybit.es/tag/publishing.html">publishing</a>
+      <a href="http://pybit.es/tag/github.html">github</a>
+      <a href="http://pybit.es/tag/pip.html">pip</a>
+      <a href="http://pybit.es/tag/virtualenv.html">virtualenv</a>
+    </p>
+  </div>
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "https://avatars0.githubusercontent.com/u/24620154?v=3&s=460",
+  "description": ""
+}
+</script>
+</body>
+</html>
