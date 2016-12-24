@@ -21,26 +21,25 @@
   <meta name="robots" content="" />
 
 
-<meta name="author" content="Pybites" />
-<meta name="description" content="Welcome to our new PyBites blog where our goal is to further develop our Python skills and share what we learn." />
-<meta name="keywords" content="pelican, publishing, blog, pybites">
+<meta name="author" content="Bob" />
+<meta name="description" content="In this post a script we use to get a weekly digest of our posts." />
+<meta name="keywords" content="pelican, feedparser, rss">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Hello world"/>
-<meta property="og:description" content="Welcome to our new PyBites blog where our goal is to further develop our Python skills and share what we learn."/>
+<meta property="og:title" content="Get a weekly digest from a Pelican blog"/>
+<meta property="og:description" content="In this post a script we use to get a weekly digest of our posts."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="http://pybit.es/hello-world.html"/>
+<meta property="og:url" content="http://pybit.es/blog-digest.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-19 10:26:00+01:00"/>
+<meta property="article:published_time" content="2016-12-24 15:40:00+01:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="http://pybit.es/author/pybites.html">
-<meta property="article:section" content="Meta"/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
 <meta property="article:tag" content="pelican"/>
-<meta property="article:tag" content="publishing"/>
-<meta property="article:tag" content="blog"/>
-<meta property="article:tag" content="pybites"/>
+<meta property="article:tag" content="feedparser"/>
+<meta property="article:tag" content="rss"/>
 <meta property="og:image" content="">
 
-  <title>PyBites &ndash; Hello world</title>
+  <title>PyBites &ndash; Get a weekly digest from a Pelican blog</title>
 
 
   <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
@@ -76,9 +75,9 @@
 
 <article class="single">
   <header>
-    <h1 id="hello-world">Hello world</h1>
+    <h1 id="blog-digest">Get a weekly digest from a Pelican blog</h1>
     <p>
-          Posted by <a href="http://pybit.es/author/pybites.html">Pybites</a> on Mon 19 December 2016 in <a href="http://pybit.es/category/meta.html">Meta</a>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Sat 24 December 2016 in <a href="http://pybit.es/category/tools.html">Tools</a>
 
 
     </p>
@@ -86,15 +85,47 @@
 
 
   <div>
-    <p>Welcome to our PyBites blog hosted by <a href="http://www.techmoneykids.com">Julian</a> and <a href="http://www.bobcodes.it">Bob</a>.</p>
-<p>Apart from here you can follow us on <a href="https://twittter/#">Twitter</a>, <a href="https://github.com/pybites">Github</a> or join our <a href="https://www.facebook.com/groups/1305028816183522/">FB Group</a>.</p>
+    <h2>Prep work</h2>
+<p>We built this blog in Pelican, adding this in pelicanconf.py adds an RSS feed:</p>
+<p>FEED_RSS = 'feeds/all.rss.xml'</p>
+<p>And voila, after pushing this change we have <a href="http://pybit.es/feeds/all.rss.xml">our RSS feed</a>.</p>
+<h2>Script (use PyPi!)</h2>
+<p>The script is <a href="https://github.com/pybites/blog_code/tree/master/pybites_digest">on github</a> in our <a href="https://github.com/pybites/blog_code">new blog repo</a>.</p>
+<p>No need to re-invent the wheel, PyPI (Python Package Index) has so much good stuff, feedparser is just what we need. It can take both a remote as well as local xml file, so you don't even need requests. </p>
+<p>This single line parses the feed into a comprehensive data structure:</p>
+<div class="highlight"><pre><span></span>feed = feedparser.parse(xml)
+for article in feed[&#39;entries&#39;]:
+    ...
+</pre></div>
+
+
+<p>Only thing I had to add was some timestamp conversations/calculations to go x days back (the returned feed data has a convenient <a href="https://docs.python.org/3.5/library/time.html#time.struct_time">time.struct_time field</a>.</p>
+<h2>Mail html</h2>
+<p>I left this for sendmail which accepts a mailheader, see <a href="http://stackoverflow.com/questions/24010230/mailx-send-html-message">here</a>. So this is my weekly cronjob:</p>
+<div class="highlight"><pre><span></span># html email 
+0 7 * * 6 cat pybites_header &lt;(python3 /path/to/pybites_digest/digest.py 7 1) | sendmail -t
+
+# text version for copy+paste into social media
+0 7 * * 6 cat pybites_header &lt;(python3 /path/to/pybites_digest/digest.py 7) | sendmail -t
+</pre></div>
+
+
+<ul>
+<li>
+<p>First arg is "days back" = 7 = one week / 2nd arg = html True</p>
+</li>
+<li>
+<p>You might need to do a export PYTHONPATH=/path/to/python3.x/site-packages if you installed Python3 on your shared hosting</p>
+</li>
+</ul>
+<h2>One last thing</h2>
+<p>If you are interested to receive these weekly digests automatically you can subscribe to this blog via the automatic (Sumome) popup.</p>
   </div>
   <div class="tag-cloud">
     <p>
       <a href="http://pybit.es/tag/pelican.html">pelican</a>
-      <a href="http://pybit.es/tag/publishing.html">publishing</a>
-      <a href="http://pybit.es/tag/blog.html">blog</a>
-      <a href="http://pybit.es/tag/pybites.html">pybites</a>
+      <a href="http://pybit.es/tag/feedparser.html">feedparser</a>
+      <a href="http://pybit.es/tag/rss.html">rss</a>
     </p>
   </div>
 
