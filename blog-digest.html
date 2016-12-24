@@ -94,13 +94,18 @@
 <p>No need to re-invent the wheel, PyPI (Python Package Index) has so much good stuff, feedparser is just what we need. It can take both a remote as well as local xml file, so you don't even need requests. </p>
 <p>This single line parses the feed into a comprehensive data structure:</p>
 <div class="highlight"><pre><span></span>feed = feedparser.parse(xml)
-for article in feed[&#39;entries&#39;]:
-    ...
 </pre></div>
 
 
-<p>Only thing I had to add was some timestamp conversations/calculations to go x days back (the returned feed data has a convenient <a href="https://docs.python.org/3.5/library/time.html#time.struct_time">time.struct_time field</a>.</p>
-<h2>Mail html</h2>
+<p>Which you can then easily consume: </p>
+<div class="highlight"><pre><span></span>for article in feed[&#39;entries&#39;]:
+    # ... filtering
+    yield article
+</pre></div>
+
+
+<p>The only thing I had to add was some timestamp conversations/calculations to go x days back (the returned feed data has a convenient <a href="https://docs.python.org/3.5/library/time.html#time.struct_time">time.struct_time field</a>).</p>
+<h2>Mail digest as txt/html in a cronjob</h2>
 <p>I left this for sendmail which accepts a mailheader, see <a href="http://stackoverflow.com/questions/24010230/mailx-send-html-message">here</a>. So this is my weekly cronjob:</p>
 <div class="highlight"><pre><span></span># html email 
 0 7 * * 6 cat pybites_header &lt;(python3 /path/to/pybites_digest/digest.py 7 1) | sendmail -t
@@ -115,11 +120,14 @@ for article in feed[&#39;entries&#39;]:
 <p>First arg is "days back" = 7 = one week / 2nd arg = html True</p>
 </li>
 <li>
-<p>You might need to do a export PYTHONPATH=/path/to/python3.x/site-packages if you installed Python3 on your shared hosting</p>
+<p>You might need to do a export PYTHONPATH=/path/to/python3.x/site-packages if you installed Python3 in your $HOME on a shared hosting provider. </p>
+</li>
+<li>
+<p>The '&lt;()' syntax is a nice way in Unix to join in output from a subprocess.</p>
 </li>
 </ul>
-<h2>One last thing</h2>
-<p>If you are interested to receive these weekly digests automatically you can subscribe to this blog via the automatic (Sumome) popup.</p>
+<h2>Don't miss any post</h2>
+<p>If you want to receive these weekly digests please subscribe to our blog or join our <a href="https://www.facebook.com/groups/1305028816183522/">FB group</a>.</p>
   </div>
   <div class="tag-cloud">
     <p>
