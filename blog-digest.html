@@ -110,8 +110,8 @@
 <div class="highlight"><pre><span></span># html email 
 0 7 * * 6 cat pybites_header &lt;(python3 /path/to/pybites_digest/digest.py 7 1) | sendmail -t
 
-# text version for copy+paste into social media
-0 7 * * 6 cat pybites_header &lt;(python3 /path/to/pybites_digest/digest.py 7) | sendmail -t
+# text version for copy+paste into social media (no need to cat header file)
+10 7 * * 6 python3 /path/to/pybites_digest/digest.py 7 | mailx -s &quot;Weekly PyBites digest (txt ed)&quot; &lt;email&gt;
 </pre></div>
 
 
