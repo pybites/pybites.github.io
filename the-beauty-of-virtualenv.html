@@ -88,31 +88,56 @@
 
 
   <div>
-    <p>JULIAN: THIS IS A TEST POST WHILE I FIGURE OUT MY DEV ENV.</p>
-<p>Ever heard of a Python virtualenv before? No? Neither had I, until one awesome day when I was enlightened while following 
-a video course on Python Flask.</p>
+    <p>Ever heard of a Python virtualenv? No? Neither had I, until I discovered them while following a video course on Python Flask.</p>
 <p>A virtualenv (AKA venv) is essentially a Virtual Machine (VM) or sandbox environment that runs an independent and untouched Python environment.
 When you create and activate the venv you no longer have access to the main Python environment running on your system.</p>
 <p>The problem programmers have is that it can be hard to isolate problems in code when their primary environment is cluttered with imported modules and the like.
-When you activate the venv you're launching a standalone Python instance that has pretty much nothing installed by default (see below code).</p>
-<div class="highlight"><pre><span></span>$ activate
-$ pip list
+Best practice would be to create a venv within your project and use it to run your project.</p>
+<h2>Step by Step</h2>
+<p>Let's create a venv called "awesome-test". You'd preferably run the following commands in your project root dir:</p>
+<div class="highlight"><pre><span></span># python3 -m venv awesome-test
+# ls
+awesome-test
 </pre></div>
 
 
-<p>You can then play around and install whatever the heck you want without having to worry about corrupting or screwing up your primary environment.</p>
-<div class="highlight"><pre><span></span>$ foo
-$ pelican rocks
+<p><strong><em>In Python 3, virtualenvs come installed by default. In Python 2.7 you install them with pip install virtualenv.</em></strong></p>
+<p>The next step is to activate the venv.
+Activating the venv puts you into a standalone Python instance that has pretty much nothing installed by default:</p>
+<div class="highlight"><pre><span></span># cd awesome-test
+# ls
+bin     include     lib     pyvenv.cfg
+#
+# source bin/activate
+(awesome-test) #
+(awesome-test) # echo YAY!
+YAY!
 </pre></div>
 
 
-<p>Furthermore, you can exit (deactivate) and re-enter (activate) the venv whenever you want and all of your test config will still be in place. It doesn't wipe on exit! (Yay!).</p>
+<p>The <em>(awesome-test)</em> tag preceding your shell prompt indicates you're now in the venv.
+Now list out the modules installed in this python instance:</p>
+<div class="highlight"><pre><span></span># pip list
+pip (9.0.1)
+setuptools (28.8.0)
+#
+</pre></div>
+
+
+<p>If you've been using Python already, you'll know that your main env would have a boat load of modules installed. It's nice to be able to run from a clean slate when desiging new code!</p>
+<p>You can now play around and install whatever the heck you want without having to worry about corrupting or screwing up your primary environment. All modules installed in this venv will remain local to the venv.</p>
+<p>When you're done using the venv you then exit (deactivate) it using the deactivate command:</p>
+<div class="highlight"><pre><span></span>(awesome-test) # deactivate
+# 
+</pre></div>
+
+
+<p><strong><em>Note: All of changes you made in the venv will NOT be lost. It's all stored safely within the venv.</em></strong></p>
+<h2>Conclusion</h2>
 <p>The seasoned veteran out there will surely read this and call me a noob... and they'd be right! It's exactly why I'm so stoked to have discovered venvs!</p>
-<p>If you're not using virtualenvs yet, install the package and give it a whirl. Below is some example code detailing the process.</p>
+<p>If you're not using virtualenvs yet, install the package and give it a whirl.</p>
 <p>Keep Calm and Code in Python!</p>
-<ul>
-<li>Julian</li>
-</ul>
+<p>-- Julian</p>
   </div>
   <div class="tag-cloud">
     <p>
