@@ -13,6 +13,8 @@
 
 
 
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,11 +24,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="In this post I share a simple script to convert Bookcision json into a html page for your blog." />
+<meta name="description" content="In this post I share a simple script to convert Bookcision JSON into a HTML page for your blog." />
 <meta name="keywords" content="kindle, Template strings, json, html, books, bookcision, generators">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Simple script to generate a blog page of your kindle book notes"/>
-<meta property="og:description" content="In this post I share a simple script to convert Bookcision json into a html page for your blog."/>
+<meta property="og:title" content="How to create a nice-looking HTML page of your Kindle book highlights (notes)"/>
+<meta property="og:description" content="In this post I share a simple script to convert Bookcision JSON into a HTML page for your blog."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/kindle-json-to-html.html"/>
 <meta property="og:type" content="article"/>
@@ -43,7 +45,7 @@
 <meta property="article:tag" content="generators"/>
 <meta property="og:image" content="">
 
-  <title>PyBites &ndash; Simple script to generate a blog page of your kindle book notes</title>
+  <title>PyBites &ndash; How to create a nice-looking HTML page of your Kindle book highlights (notes)</title>
 
 
   <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
@@ -79,7 +81,7 @@
 
 <article class="single">
   <header>
-    <h1 id="kindle-json-to-html">Simple script to generate a blog page of your kindle book notes</h1>
+    <h1 id="kindle-json-to-html">How to create a nice-looking HTML page of your Kindle book highlights (notes)</h1>
     <p>
           Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Tue 27 December 2016 in <a href="http://pybit.es/category/tools.html">Tools</a>
 
@@ -95,58 +97,74 @@
 <p>Then I found a much better starting point: <a href="https://kindle.amazon.com">https://kindle.amazon.com</a> = cloud. OK, this only works for Kindle purchased books, but using Amazon's <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=200911660">Whispersync</a> really makes this convenient. Also, the Kindle site lets you filter / adjust your highlights and notes before exporting. </p>
 <p>For export I use the nice <a href="http://www.norbauer.com/bookcision/">Bookcision JS bookmarklet</a> which - when used in Chrome - gives you the ability to dowload the highlights JSON format.</p>
 <h2>JSON =&gt; HTML</h2>
-<p>I wrote a script to convert the Bookcision JSON download into a static html page (for blog use, inspired by <a href="https://sivers.org/book">Sivers</a>).</p>
+<p>I wrote a script to convert the Bookcision JSON download into a static HTML page (for blog use, inspired by <a href="https://sivers.org/book">Sivers</a>).</p>
 <p>Code is <a href="https://github.com/pybites/blog_code/tree/master/kindle_notes">here</a>.</p>
 <p>Some things to note:</p>
 <ul>
 <li>
-<p>Use json.loads(fh) to convert json into dict: </p>
-<p>def load_json(json_file):
+<p>Use json.loads(fh) to convert JSON into dict: </p>
+<div class="highlight"><pre><span></span>def load_json(json_file):
     with open(json_file) as f:
-        return json.loads(f.read())</p>
+        return json.loads(f.read())
+</pre></div>
+
+
 </li>
 <li>
 <p><a href="https://docs.python.org/2/library/string.html#template-strings">Template strings</a>: in <a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/templates.py">templates.py</a> PAGE defines the whole page, I use embedded CSS to make this a standalone solution. QUOTE defines a list item (highlight). Variables are defined with $ so: $title, $author, etc. In the <a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/kindle_json2html.py">main script</a> I can substitute these variable placeholders with a dict: </p>
-<p>def get_highlights(highlights):
+<div class="highlight"><pre><span></span>def get_highlights(highlights):
     for hl in highlights:
         yield QUOTE.safe_substitute({
-            'text' : hl['text'],
-            'note' : ' / note: ' + hl['note'] if hl['note'] else '',
-            'url' : hl['location']['url'],
-            'location': hl['location']['value'],
-        })</p>
+            &#39;text&#39; : hl[&#39;text&#39;],
+            &#39;note&#39; : &#39; / note: &#39; + hl[&#39;note&#39;] if hl[&#39;note&#39;] else &#39;&#39;,
+            &#39;url&#39; : hl[&#39;location&#39;][&#39;url&#39;],
+            &#39;location&#39;: hl[&#39;location&#39;][&#39;value&#39;],
+        })
+</pre></div>
+
+
 </li>
 </ul>
 <p>Note the 'yield' makes get_highlights() a generator. If this is new, check out <a href="http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do">this SO thread</a> about Iterables -&gt; Generators -&gt; Yield.</p>
 <ul>
 <li>
 <p>Use list() to consume all generator's values in one go: </p>
-<p>highlights = get_highlights(content['highlights'])
+<div class="highlight"><pre><span></span>highlights = get_highlights(content[&#39;highlights&#39;])
 ...
 ...
-    'content': '\n'.join(list(highlights)),</p>
+    &#39;content&#39;: &#39;\n&#39;.join(list(highlights)),
+</pre></div>
+
+
 </li>
 <li>
-<p>You can give the script one or more json files simply by using a slice on sys.argv:</p>
-<p>for json_file in sys.argv[1:]:
-    ...</p>
+<p>You can give the script one or more JSON files simply by using a slice on sys.argv:</p>
+<div class="highlight"><pre><span></span>for json_file in sys.argv[1:]:
+    ...
+</pre></div>
+
+
 </li>
 <li>
-<p>So you can batch process json downloads:</p>
-<p>$ ls *json
-anything-you-want.json  arnold.json     choose-yourself.json    hustle.json     the-circle.json</p>
-<p>$ python kindle_json2html.py *json
+<p>So you can batch process JSON downloads:</p>
+<div class="highlight"><pre><span></span>$ ls *json
+anything-you-want.json  arnold.json     choose-yourself.json    hustle.json     the-circle.json
+
+$ python kindle_json2html.py *json
 anything-you-want.html created
 arnold.html created
 choose-yourself.html created
 hustle.html created
-the-circle.html created</p>
+the-circle.html created
+</pre></div>
+
+
 </li>
 </ul>
 <h2>Example</h2>
 <p>Here is how an output looks:</p>
 <p><img alt="resulting html page" src="http://pybit.es/images/example-book-html.png"></p>
-<p>As the html contains everything you can just put this file in your blog version control, commit, push, done.</p>
+<p>As the HTML contains everything you can just put this file in your blog version control, commit, push, done.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
