@@ -125,7 +125,7 @@
 
 </li>
 </ul>
-<p>Note the 'yield' makes get_highlights() a generator. If this is new, check out <a href="http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do">this SO thread</a> about Iterables -&gt; Generators -&gt; Yield.</p>
+<p>Note the 'yield' makes get_highlights() a generator. If this is new, check out <a href="http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do">this SO thread</a> about Iterables -&gt; Generators -&gt; Yield [1]</p>
 <ul>
 <li>
 <p>Use list() to consume all generator's values in one go: </p>
@@ -167,6 +167,7 @@ the-circle.html created
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
+<p>[1] Generators save memory by not materializing the the values of an iterable in memory = better performance. Here we don't really need that, yet I stil find the yield vs building and returning a local list more elegant. It's also shorter.</p>
   </div>
   <div class="tag-cloud">
     <p>
