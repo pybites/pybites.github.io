@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this post I summarize some great lessons Mike Pirnat shared in his free ebook 'How to make mistakes in Python'" />
+<meta name="keywords" content="best practices, pep8, virtualenv, cleancode">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Learning from Python mistakes"/>
+<meta property="og:description" content="In this post I summarize some great lessons Mike Pirnat shared in his free ebook 'How to make mistakes in Python'"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/py-mistakes.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-12-28 09:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="best practices"/>
+<meta property="article:tag" content="pep8"/>
+<meta property="article:tag" content="virtualenv"/>
+<meta property="article:tag" content="cleancode"/>
+<meta property="og:image" content="">
+
+  <title>PyBites &ndash; Learning from Python mistakes</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Sharing our passion for Python, one bite a day.</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="py-mistakes">Learning from Python mistakes</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Wed 28 December 2016 in <a href="http://pybit.es/category/learning.html">Learning</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>There are some great <a href="http://www.oreilly.com/programming/free/">free Python O'Reilly ebooks</a>. In this post some useful tips from Mike Pirnat's 'How to make mistakes in Python':</p>
+<ul>
+<li>
+<p>Use <a href="http://pybit.es/the-beauty-of-virtualenv.html">virtualenv / pyvenv</a> to isolate your environment.</p>
+</li>
+<li>
+<p>I am still doing this: using the default REPL which leads to a lot of arrow-up repeating, use IPython or Jupyter Notebooks.</p>
+</li>
+<li>
+<p>Always return a value from your functions / methods.</p>
+</li>
+<li>
+<p>Use PyLint (I am also relatively late in this, future post, promise ...)</p>
+</li>
+<li>
+<p>Read, use, abide by <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a>, the Python style guide.</p>
+</li>
+<li>
+<p>(not Python per se) name your variables wisely. There is a whole chapter in <a href="https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">clean code</a> dedicated to this.</p>
+</li>
+<li>
+<p>Don't abuse lambdas, I almost only use them for <a href="https://docs.python.org/3/howto/sorting.html">sorting</a>. Ditto for list comprehension, too much nesting makes it hard to read them. Same goes for decorators, too much nesting makes for complex code.</p>
+</li>
+<li>
+<p>Avoid long if/elif/ blocks, wrap options into classes or dicts, use Enums, look at the <a href="http://refactoring.com/catalog/replaceConditionalWithPolymorphism.html">Replace Conditional with Polymorphism pattern</a>.</p>
+</li>
+<li>
+<p>Leave extensive getters and setters for Java, use properties (future post).</p>
+</li>
+<li>
+<p>Write small methods and (decoupled) modules, I wrote about this generically <a href="http://bobbelderbos.com/2016/03/building-maintainable-software/">here</a>.</p>
+</li>
+<li>
+<p>Avoid global scope </p>
+</li>
+<li>
+<p>Be specific in your imports, from time import * is asking for trouble. Use time.time() instead and you won't have name clashes.</p>
+</li>
+<li>
+<p>"Explicit is better than implicit" (import this): don't use pass in except, handle the error (log it). And be specific what exception to catch (e.g. 'except IOError' is better than just 'except' which catches everything).</p>
+</li>
+<li>
+<p>Don't re-invent the wheel: <a href="https://pypi.python.org">PyPI</a> is full of great modules you can pip install.</p>
+</li>
+<li>
+<p>Never use mutable default values for methods, it leads to weird behavior because each time you call the method you expect a new object (say list), yet you modify an existing one, use None instead. This and other common gotchas are described <a href="http://docs.python-guide.org/en/latest/writing/gotchas/">here</a>.</p>
+</li>
+<li>
+<p>Overeager Code: keep your <strong>init</strong> methods lean, watch out for modules doing a lot of operations when being imported. </p>
+</li>
+<li>
+<p><a href="http://docs.python-guide.org/en/latest/writing/tests/">Test your code!</a> There are great frameworks apart from unittest, checkout <a href="http://docs.pytest.org/en/latest/">pytest</a>.</p>
+</li>
+<li>
+<p>Logging is cheap, <a href="https://docs.python.org/3.5/library/logging.html">use it!</a> Config is tricky will do a future post ...</p>
+</li>
+</ul>
+<p>Let's thank Mike Pirnat for sharing all these great learnings/ insights in just 80 pages freely available via O'Reilly.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob and Julian </p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/best-practices.html">best practices</a>
+      <a href="http://pybit.es/tag/pep8.html">pep8</a>
+      <a href="http://pybit.es/tag/virtualenv.html">virtualenv</a>
+      <a href="http://pybit.es/tag/cleancode.html">cleancode</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "",
+  "description": ""
+}
+</script>
+</body>
+</html>
