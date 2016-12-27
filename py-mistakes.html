@@ -88,7 +88,7 @@
 
 
   <div>
-    <p>There are some great <a href="http://www.oreilly.com/programming/free/">free Python O'Reilly ebooks</a>. In this post some useful tips from Mike Pirnat's 'How to make mistakes in Python':</p>
+    <p>There are some great <a href="http://www.oreilly.com/programming/free/">free Python O'Reilly ebooks</a>. In this post some useful tips from Mike Pirnat's <a href="http://www.oreilly.com/programming/free/how-to-make-mistakes-in-python.csp?intcmp=il-prog-free-product-lgen_python_mistakes">How to make mistakes in Python</a>:</p>
 <ul>
 <li>
 <p>Use <a href="http://pybit.es/the-beauty-of-virtualenv.html">virtualenv / pyvenv</a> to isolate your environment.</p>
@@ -121,7 +121,7 @@
 <p>Write small methods and (decoupled) modules, I wrote about this generically <a href="http://bobbelderbos.com/2016/03/building-maintainable-software/">here</a>.</p>
 </li>
 <li>
-<p>Avoid global scope </p>
+<p>Avoid the global scope.</p>
 </li>
 <li>
 <p>Be specific in your imports, from time import * is asking for trouble. Use time.time() instead and you won't have name clashes.</p>
@@ -136,16 +136,16 @@
 <p>Never use mutable default values for methods, it leads to weird behavior because each time you call the method you expect a new object (say list), yet you modify an existing one, use None instead. This and other common gotchas are described <a href="http://docs.python-guide.org/en/latest/writing/gotchas/">here</a>.</p>
 </li>
 <li>
-<p>Overeager Code: keep your <strong>init</strong> methods lean, watch out for modules doing a lot of operations when being imported. </p>
+<p>Overeager Code: keep your constuctors (dunder inits) methods lean, watch out for modules doing a lot of operations when being imported. </p>
 </li>
 <li>
 <p><a href="http://docs.python-guide.org/en/latest/writing/tests/">Test your code!</a> There are great frameworks apart from unittest, checkout <a href="http://docs.pytest.org/en/latest/">pytest</a>.</p>
 </li>
 <li>
-<p>Logging is cheap, <a href="https://docs.python.org/3.5/library/logging.html">use it!</a> Config is tricky will do a future post ...</p>
+<p>Logging is cheap, <a href="https://docs.python.org/3.5/library/logging.html">use it!</a> Config is tricky (future post ...)</p>
 </li>
 </ul>
-<p>Let's thank Mike Pirnat for sharing all these great learnings/ insights in just 80 pages freely available via O'Reilly.</p>
+<p>Let's thank Mike Pirnat for sharing all these great insights in this <a href="http://www.oreilly.com/programming/free/how-to-make-mistakes-in-python.csp?intcmp=il-prog-free-product-lgen_python_mistakes">freely distributed ebook</a> of just 80 pages.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob and Julian </p>
