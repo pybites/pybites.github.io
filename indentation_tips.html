@@ -30,7 +30,7 @@
 <meta property="og:title" content="Don't Let Indentation Catch You Out"/>
 <meta property="og:description" content="Python indentation can be a cruel mistress. Let's get it right!"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="http://pybit.es/drafts/indentation_tips.html"/>
+<meta property="og:url" content="http://pybit.es/indentation_tips.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2016-12-30 19:51:00+01:00"/>
 <meta property="article:modified_time" content=""/>
@@ -42,7 +42,7 @@
 <meta property="article:tag" content="tips"/>
 <meta property="article:tag" content="cleancode"/>
 <meta property="article:tag" content="best-practices"/>
-<meta property="og:image" content="http://pybit.es/theme/img/profile.png">
+<meta property="og:image" content="http://pybit.es/images/featured/indentation.png">
 
   <title>PyBites &ndash; Don't Let Indentation Catch You Out</title>
 
@@ -154,9 +154,9 @@
 <p>I initially wrote this post assuming that tabs were mandatory in Python (as that's how I keep my code clean in other languages). <a href="https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces">The official Python Style Guide</a> actually says otherwise! </p>
 <p>Python.org recommends that we use only spaces and never tabs (unless it's to keep consistent with code already with tabs). Always something new to learn!</p>
 <h2>Further Reading on Indentation</h2>
-<p>There's a really good list of examples of different indentation scenarios on the <a href="https://www.python.org/dev/peps/pep-0008/#indentation">Python Style Guide</a>. It's a really interesting read!</p>
+<p>There's an extensive list of different indentation scenarios on the <a href="https://www.python.org/dev/peps/pep-0008/#indentation">Python Style Guide</a>. I found it to be quite enlightening! I recommend checking it out posthaste!</p>
 <h2>Vim Settings to Make Your Life Easier</h2>
-<p>For the vim lovers out there, adding the following to your <em>.vimrc</em> file will take care of a lot of your indentation woes:</p>
+<p>For the Vim lovers out there, adding the following to your <em>.vimrc</em> file will take care of a lot of your indentation woes (for more useful Vim settings for Python see this <a href="https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/">great article by Real Python</a>):</p>
 <div class="highlight"><pre><span></span>au BufNewFile,BufRead *.py
     \ set tabstop=4
     \ set softtabstop=4
@@ -168,15 +168,19 @@
 </pre></div>
 
 
-<p>These settings will do 3 things:</p>
+<p>These settings will make the following 3 adjustments:</p>
 <ol>
-<li>Change your tab to only tab 4 spaces instead of the usual 8.</li>
+<li>Change your tab to be only 4 spaces long instead of the usual 8.</li>
 <li>Limit the length of your lines to be 79 characters as per <a href="https://www.python.org/dev/peps/pep-0008/#maximum-line-length">Python specifications</a>.</li>
 <li>Save your files in a unix format (helpful for github sharing/interactions etc).</li>
 </ol>
+<p>Thanks to RealPython.com for this info. They've actually got a heap of other handy settings for vim in their <a href="https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/">original article</a>. Definitely worth checking out!</p>
 <h2>Conclusion</h2>
-<p>For such a simple concept, indentation can be super complex which is why even the might Bob was caught out leaving only 2 spaces in his blocks of code (Sorry Bob!). I no longer feel bad for getting this wrong myself!</p>
-<p>Indentation is what makes Python beautiful but is also something that can ruin your afternoon so do yourself a favour, get those vim settings in place to automate this and keep it in the back of your mind that a stray space somewhere could be foiling your Python master plans!</p>
+<p>For such a simple concept, indentation can be super complex which is why even the mighty Bob was caught out leaving only 2 spaces in his blocks of code (Sorry Bob!). I no longer feel bad for getting this wrong!</p>
+<blockquote>
+<p>edit Bob: I shamefully admit I used 2 spaces before, now that I compy with PEP8 using 4 spaces I am so much happier, and people reading my code probably too :)</p>
+</blockquote>
+<p>Indentation is what makes Python beautiful but is also something that can ruin your afternoon so do yourself a favour, get those vim settings in place to automate it and keep it in the back of your mind that a stray space somewhere could be foiling your Python master plans!</p>
 <p>Remember, Keep Calm and Code in Python!</p>
 <p>-- Julian</p>
   </div>
