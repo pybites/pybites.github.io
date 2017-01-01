@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="Naming conventions can be tricky in Py. It's good to make sure we're all on the same page." />
+<meta name="keywords" content="learning, python, beginners, tips, cleancode, best-practices">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Python Naming Conventions"/>
+<meta property="og:description" content="Naming conventions can be tricky in Py. It's good to make sure we're all on the same page."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/naming_conventions.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-01 11:14:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/julian.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="beginners"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="cleancode"/>
+<meta property="article:tag" content="best-practices"/>
+<meta property="og:image" content="http://pybit.es/images/featured/python_naming_conventions.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Python Naming Conventions" />
+<meta name="twitter:description" content="Naming conventions can be tricky in Py. It's good to make sure we're all on the same page." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/python_naming_conventions.png">
+
+  <title>PyBites &ndash; Python Naming Conventions</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Sharing our passion for Python, one bite a day.</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="naming_conventions">Python Naming Conventions</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/julian.html">Julian</a> on Sun 01 January 2017 in <a href="http://pybit.es/category/learning.html">Learning</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>As I mentioned in my <a href="http://pybit.es/automate_the_boring_stuff_review.html">Automate the Boring Stuff review</a>, I was led astray with regards to naming my functions and variables. That is, the book was telling me to use camelCase rather than the approved underscore method.</p>
+<p>After writing that article I decided to do some digging and I totally feel this needs a dedicated post!</p>
+<h2>The Consensus</h2>
+<p>A lot of people are divided on this topic! Doing a quick Google search found people who believe it doesn't matter what you use and those that would fight for their chosen method.</p>
+<p>The one thing everyone agrees on however is that you need to remain consistent. If you decide to use camelCase in your code, then do so for the entirety of your project, <strong>don't mix</strong>.</p>
+<h2>Quick Example</h2>
+<p>After Bob informed me that camelCase <em>wasn't</em> the way to go, I went through and renamed all of my functions and variables using the underscore method. Here's a quick snippet in case you don't know what this all looks like:</p>
+<p><strong>camelCase</strong></p>
+<div class="highlight"><pre><span></span>happyNewYearEveryone():
+    partyTime()
+</pre></div>
+
+
+<p><strong>Underscore Method</strong></p>
+<div class="highlight"><pre><span></span>happy_new_year_everyone():
+    party_time()
+</pre></div>
+
+
+<h2>Sticking with PEP8</h2>
+<p>I did wonder where this guidance was coming from though. How did Bob know this was exactly how it should be?</p>
+<p>That was when I discovered the <a href="https://www.python.org/dev/peps/pep-0008/">PEP8 Style Guide</a> on python.org. If you have any doubts as to how your code should be laid out, reference this baby and you'll be on your way. </p>
+<p>What does it say about naming conventions? Quite a bit actually! For the pupose of this post there, here's what it says about Function names (also applicable to Methods and Instance Variables):</p>
+<blockquote>
+<p>Function names should be lowercase, with words separated by underscores as necessary to improve readability.</p>
+</blockquote>
+<p>If you check out the page for yourself you'll see further explanations on other naming convention options within Py.</p>
+<h2>Conclusion</h2>
+<p>Given the existence of the PEP8 standards, I don't think we really have a choice nor do I think there's any debate about how we should be naming variables and the like.</p>
+<p>Going forward I'll definitely be using these rules when working on my code. If I don't, feel free to correct me!</p>
+<p>Imagine a world where we all code to the same rules. Mmmm.</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/learning.html">learning</a>
+      <a href="http://pybit.es/tag/python.html">python</a>
+      <a href="http://pybit.es/tag/beginners.html">beginners</a>
+      <a href="http://pybit.es/tag/tips.html">tips</a>
+      <a href="http://pybit.es/tag/cleancode.html">cleancode</a>
+      <a href="http://pybit.es/tag/best-practices.html">best-practices</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Sharing our passion for Python, one bite a day."
+}
+</script>
+</body>
+</html>
