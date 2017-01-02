@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Today a post on PEP8, the Style Guide for Python Code" />
+<meta name="keywords" content="pep8, cleancode, guidelines, coding style, best practices">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="5 min guide to PEP8"/>
+<meta property="og:description" content="Today a post on PEP8, the Style Guide for Python Code"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/pep8.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-02 09:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="pep8"/>
+<meta property="article:tag" content="cleancode"/>
+<meta property="article:tag" content="guidelines"/>
+<meta property="article:tag" content="coding style"/>
+<meta property="article:tag" content="best practices"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pep8-5min.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="5 min guide to PEP8" />
+<meta name="twitter:description" content="Today a post on PEP8, the Style Guide for Python Code" />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pep8-5min.png">
+
+  <title>PyBites &ndash; 5 min guide to PEP8</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Sharing our passion for Python, one bite a day.</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="pep8">5 min guide to PEP8</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Mon 02 January 2017 in <a href="http://pybit.es/category/learning.html">Learning</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>One of Guido's key insights is that code is read much more often than it is written - PEP8</p>
+<p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler</p>
+</blockquote>
+<p>After Julian's two recent style posts on <a href="http://pybit.es/indentation_tips.html">indentation</a> and <a href="http://pybit.es/naming_conventions.html">naming convention</a> a nice follow-up is <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, the Style Guide for Python Code. Also a comment on Twitter caught my eye stating that even book authors do not always follow PEP8!</p>
+<h2>Why bother?</h2>
+<p>I think everybody writing code in Python should become familiar with PEP8 and use its guidelines rather sooner than later.</p>
+<p>It leads to more readable code which saves brain cycles and better maintainable code (= fewer bug).</p>
+<p>Of course there can be exceptions to the rule, PEP8 states: "do not break backwards compatibility just to comply with this PEP!" - Raymond Hettinger did a great talk on this: <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M">Beyond PEP 8</a></p>
+<h2>Summary of the guidelines</h2>
+<p>A read that is aimed for '5 min' cannot have all, so I just summarize what I think is important, read the full spec for details:</p>
+<ul>
+<li>
+<p>Use 4 spaces per indentation level. Use spaces, not tabs. See <a href="http://pybit.es/indentation_tips.html">our post</a> for more on this, including recommended .vimrc settings.</p>
+</li>
+<li>
+<p>Limit all lines to a maximum of 79 characters. Usually I have a script.py and test_script.py open, vertically alligned (vi -O file1 file2), keeping lines short makes this very convenient.</p>
+</li>
+<li>
+<p>Imports I) be as specific as possible with your imports: </p>
+<div class="highlight"><pre><span></span><span class="c1"># don&#39;t do: </span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="p">(</span><span class="n">unless</span> <span class="n">needed</span><span class="p">,</span> <span class="n">then</span> <span class="n">use</span> <span class="n">the</span> <span class="n">__all__</span> <span class="n">mechanism</span> <span class="n">to</span> <span class="n">prevent</span> <span class="n">exporting</span> <span class="nb">globals</span><span class="p">)</span>
+<span class="c1"># do:</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="c1"># or:</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="c1"># then prepends each method with module name: </span>
+<span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Imports II) absolute imports are recommended:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mypkg.sibling</span> <span class="kn">import</span> <span class="n">example</span>   
+<span class="c1"># over</span>
+<span class="kn">from</span> <span class="nn">.sibling</span> <span class="kn">import</span> <span class="n">example</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Imports III) split imports in stdlib - third party - application/library specific. For example our <a href="https://github.com/pybites/blog_code/blob/master/twitter_bot/tweetbot.py">twitter bot</a> followed this convention:</p>
+<div class="highlight"><pre><span></span><span class="c1"># stdlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># pip installed</span>
+<span class="kn">import</span> <span class="nn">feedparser</span>
+<span class="kn">import</span> <span class="nn">tweepy</span>
+
+<span class="c1"># app modules</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Watch your <a href="https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements">use of whitespace</a>: this takes practice, but becomes habit/ automatic over time.</p>
+</li>
+<li>
+<p>Comments that contradict the code are worse than no comments, so keep them up2date. Use inline comments sparingly. Of course good code is mostly self-documenting.</p>
+</li>
+<li>
+<p>Use docstrings, they are a great aid for auto-documenting your project with tools like <a href="http://www.sphinx-doc.org/en/1.5.1/">Sphinx</a>. Here is the <a href="https://www.python.org/dev/peps/pep-0257/">recommended syntax</a>: </p>
+<div class="highlight"><pre><span></span>&quot;&quot;&quot;Multi-line docstrings consist of a summary line just like a one-line docstring
+
+Followed by a blank line, followed by a more elaborate description. 
+&quot;&quot;&quot;
+</pre></div>
+
+
+</li>
+<li>
+<p>Naming:</p>
+<ul>
+<li>
+<p>Non-public methods and instance variables start with a leading underscore: _helper_method(), although not enforced by the compiler, the reader knows this is an internal method, not to be called from outside of the class.</p>
+</li>
+<li>
+<p>If you need to use a Python keyword append an underscore: str_ = 'bob'</p>
+</li>
+<li>
+<p>You probably want to avoid single-char variables all together, but if you use them never use these easily confused chars: 'l' (lowercase letter el), 'O' (uppercase letter oh), or 'I' (uppercase letter eye).</p>
+</li>
+<li>
+<p>Use CapWords for class names.</p>
+</li>
+<li>
+<p>Use short, all-lowercase names for modules.</p>
+</li>
+<li>
+<p>Constants are all uppercase, in our Twitter bot example: CONSUMER_KEY, CONSUMER_SECRET, etc.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.python.org/dev/peps/pep-0008/#programming-recommendations">Programming Recommendations</a> has some great tips: use ''.join(list) instead of string concatenation which is slow, use str.startswith/endswith instead of slicing (or more generically don't re-invent the wheel), boolean checks don't need == True/False, etc. </p>
+<p>Interesting is the part on exceptions: two common mis-uses are putting too much in the try block, or catching exceptions that are too generic, so train yourself to use specific exceptions: 'except SomeError' instead of the catch-all 'except'.</p>
+</li>
+</ul>
+<h2>Tools to check for compliant PEP8</h2>
+<p>You can use <a href="https://pypi.python.org/pypi/pep8">pep8</a></p>
+<div class="highlight"><pre><span></span>$ pip install pep8
+</pre></div>
+
+
+<p>Our <a href="https://github.com/pybites/blog_code/blob/master/pybites_digest/digest.py">digest.py</a> seemed compliant but let's make some edits to see this checker in action. I changed spaces from 4 to 2 in a method, mis-aligned a multi-line statement, and removed a whitespace before '='. Of course pep8 complains: </p>
+<div class="highlight"><pre><span></span>$ pep8 digest.py 
+digest.py:24:3: E111 indentation is not a multiple of four
+digest.py:25:3: E111 indentation is not a multiple of four
+digest.py:26:3: E111 indentation is not a multiple of four
+digest.py:50:18: E225 missing whitespace around operator
+digest.py:54:80: E501 line too long <span class="o">(</span><span class="m">83</span> &gt; <span class="m">79</span> characters<span class="o">)</span>
+</pre></div>
+
+
+<p>Another tool is <a href="https://pypi.python.org/pypi/flake8">flake8</a> which is "a wrapper around these tools: PyFlakes, pycodestyle and Ned Batchelder’s McCabe script". It also has a nice <a href="https://github.com/nvie/vim-flake8">integration in Vim</a>: it runs the checks and presents them in a split window with line numbers, pretty convenient! </p>
+<p><img alt="flake 8 inside vim" src="http://pybit.es/images/flake8_vim.png"></p>
+<div class="highlight"><pre><span></span># I remapped the F7 key to ,f adding this to .vimrc: 
+autocmd FileType python map &lt;buffer&gt; ,f :call Flake8()&lt;CR&gt;
+</pre></div>
+
+
+<h2>Wrapping it up</h2>
+<p>So following PEP8 leads to code that is more easy to read an maintain. PEP8 is required reading for any Python developer. Read the full doc and start using it in your code. Using a linter tool is the best way to train yourself. Just google for plugins / integration with your favorite editor.</p>
+<p>Any feedback, questions or experiences, use the comments below.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/pep8.html">pep8</a>
+      <a href="http://pybit.es/tag/cleancode.html">cleancode</a>
+      <a href="http://pybit.es/tag/guidelines.html">guidelines</a>
+      <a href="http://pybit.es/tag/coding-style.html">coding style</a>
+      <a href="http://pybit.es/tag/best-practices.html">best practices</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Sharing our passion for Python, one bite a day."
+}
+</script>
+</body>
+</html>
