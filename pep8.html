@@ -25,7 +25,7 @@
 
 <meta name="author" content="Bob" />
 <meta name="description" content="Today a post on PEP8, the Style Guide for Python Code" />
-<meta name="keywords" content="pep8, cleancode, guidelines, coding style, best practices">
+<meta name="keywords" content="pep8, cleancode, guidelines, coding style, best practices, pythonic, vim">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="5 min guide to PEP8"/>
 <meta property="og:description" content="Today a post on PEP8, the Style Guide for Python Code"/>
@@ -41,6 +41,8 @@
 <meta property="article:tag" content="guidelines"/>
 <meta property="article:tag" content="coding style"/>
 <meta property="article:tag" content="best practices"/>
+<meta property="article:tag" content="pythonic"/>
+<meta property="article:tag" content="vim"/>
 <meta property="og:image" content="http://pybit.es/images/featured/pep8-5min.png">
 
 <meta name="twitter:card" content="summary" />
@@ -98,19 +100,21 @@
 
   <div>
     <blockquote>
-<p>One of Guido's key insights is that code is read much more often than it is written - PEP8</p>
+<p>One of Guido's key insights is that code is read much more often than it is written. - PEP8</p>
+<p>There should be one—and preferably only one—obvious way to do it. - The Zen of Python</p>
 <p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler</p>
 </blockquote>
 <p>After Julian's two recent style posts on <a href="http://pybit.es/indentation_tips.html">indentation</a> and <a href="http://pybit.es/naming_conventions.html">naming convention</a> a nice follow-up is <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, the Style Guide for Python Code. Also a comment on Twitter caught my eye stating that even book authors do not always follow PEP8!</p>
 <h2>Why bother?</h2>
 <p>I think everybody writing code in Python should become familiar with PEP8 and use its guidelines rather sooner than later.</p>
 <p>It leads to more readable code which saves brain cycles and better maintainable code (= fewer bug).</p>
+<p>Also sharing a common coding style makes it easier to collaborate with others in the Python community.</p>
 <p>Of course there can be exceptions to the rule, PEP8 states: "do not break backwards compatibility just to comply with this PEP!" - Raymond Hettinger did a great talk on this: <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M">Beyond PEP 8</a></p>
 <h2>Summary of the guidelines</h2>
 <p>A read that is aimed for '5 min' cannot have all, so I just summarize what I think is important, read the full spec for details:</p>
 <ul>
 <li>
-<p>Use 4 spaces per indentation level. Use spaces, not tabs. See <a href="http://pybit.es/indentation_tips.html">our post</a> for more on this, including recommended .vimrc settings.</p>
+<p>Use 4 spaces per indentation level. Use spaces, not tabs. See <a href="http://pybit.es/indentation_tips.html">our post</a> for more on this, including recommended .vimrc settings. Overall watch your <a href="https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements">use of whitespace</a>: this takes practice, but becomes habit/ automatic over time.</p>
 </li>
 <li>
 <p>Limit all lines to a maximum of 79 characters. Usually I have a script.py and test_script.py open, vertically alligned (vi -O file1 file2), keeping lines short makes this very convenient.</p>
@@ -158,9 +162,6 @@
 
 </li>
 <li>
-<p>Watch your <a href="https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements">use of whitespace</a>: this takes practice, but becomes habit/ automatic over time.</p>
-</li>
-<li>
 <p>Comments that contradict the code are worse than no comments, so keep them up2date. Use inline comments sparingly. Of course good code is mostly self-documenting.</p>
 </li>
 <li>
@@ -192,13 +193,17 @@ Followed by a blank line, followed by a more elaborate description.
 <p>Use short, all-lowercase names for modules.</p>
 </li>
 <li>
+<p>Use lowercase and underscores for method names.</p>
+</li>
+<li>
 <p>Constants are all uppercase, in our Twitter bot example: CONSUMER_KEY, CONSUMER_SECRET, etc.</p>
 </li>
 </ul>
 </li>
 <li>
-<p><a href="https://www.python.org/dev/peps/pep-0008/#programming-recommendations">Programming Recommendations</a> has some great tips: use ''.join(list) instead of string concatenation which is slow, use str.startswith/endswith instead of slicing (or more generically don't re-invent the wheel), boolean checks don't need == True/False, etc. </p>
+<p><a href="https://www.python.org/dev/peps/pep-0008/#programming-recommendations">Programming Recommendations</a> has some great tips: use ''.join(list) instead of string concatenation which is slow, use str.startswith/endswith instead of slicing (or more generically don't re-invent the wheel), boolean checks don't need == True/False, be consistent in return statements (even if returning None, use return None, not just return).</p>
 <p>Interesting is the part on exceptions: two common mis-uses are putting too much in the try block, or catching exceptions that are too generic, so train yourself to use specific exceptions: 'except SomeError' instead of the catch-all 'except'.</p>
+<p>Another interesting best practice is checking booleans, newcomers usually check False like 'if len(somelist) == 0', the Pythonic way is to just to use the fact that non-empty values are implicitly True, so in this case you could just do: 'if not somelist'.</p>
 </li>
 </ul>
 <h2>Tools to check for compliant PEP8</h2>
@@ -224,8 +229,11 @@ digest.py:54:80: E501 line too long <span class="o">(</span><span class="m">83</
 </pre></div>
 
 
+<p>Another linter is <a href="https://www.pylint.org">pylint</a> but I have not used that. What is your favorite linter? </p>
 <h2>Wrapping it up</h2>
-<p>Following PEP8 leads to code that is more easy to read an maintain. PEP8 is required reading for any Python developer. Read the full doc and start using it in your code. Using a linter tool is the best way to train yourself. Just google for plugins / integration with your favorite editor.</p>
+<p>Always follow the PEP 8 style guide when writing Python code.</p>
+<p>Therefor keep a copy of PEP8 at hand and review it often to ingrain its recommendations. It makes code cleaner and collaboration easier. </p>
+<p>Using a linter tool is the best way to remind/ train yourself. Just google for plugins / integration with your favorite editor.</p>
 <p>Any feedback, questions or experiences, use the comments below.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
@@ -238,6 +246,8 @@ digest.py:54:80: E501 line too long <span class="o">(</span><span class="m">83</
       <a href="http://pybit.es/tag/guidelines.html">guidelines</a>
       <a href="http://pybit.es/tag/coding-style.html">coding style</a>
       <a href="http://pybit.es/tag/best-practices.html">best practices</a>
+      <a href="http://pybit.es/tag/pythonic.html">pythonic</a>
+      <a href="http://pybit.es/tag/vim.html">vim</a>
     </p>
   </div>
 
