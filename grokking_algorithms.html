@@ -27,7 +27,7 @@
 <meta name="description" content="I finished reading Grokking Algorithms, it's a very accessible resource for learning algorithms / data structures, highly recommended." />
 <meta name="keywords" content="algorithms, data structures, performance, collections">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Book that makes algorithms accessible"/>
+<meta property="og:title" content="A great book that makes algorithms accessible"/>
 <meta property="og:description" content="I finished reading Grokking Algorithms, it's a very accessible resource for learning algorithms / data structures, highly recommended."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/grokking_algorithms.html"/>
@@ -44,11 +44,11 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Book that makes algorithms accessible" />
+<meta name="twitter:title" content="A great book that makes algorithms accessible" />
 <meta name="twitter:description" content="I finished reading Grokking Algorithms, it's a very accessible resource for learning algorithms / data structures, highly recommended." />
 <meta name="twitter:image" content="http://pybit.es/images/featured/grokking-algorithms.png">
 
-  <title>PyBites &ndash; Book that makes algorithms accessible</title>
+  <title>PyBites &ndash; A great book that makes algorithms accessible</title>
 
 
   <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
@@ -86,7 +86,7 @@
 
 <article class="single">
   <header>
-    <h1 id="grokking_algorithms">Book that makes algorithms accessible</h1>
+    <h1 id="grokking_algorithms">A great book that makes algorithms accessible</h1>
     <p>
           Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Tue 03 January 2017 in <a href="http://pybit.es/category/algorithms.html">Algorithms</a>
 
@@ -96,10 +96,12 @@
 
 
   <div>
-    <p><a href="https://www.manning.com/books/grokking-algorithms">Grokking algorithms</a> is a unique gem. I discovered it on <a href="https://talkpython.fm/episodes/show/82/grokking-algorithms-in-python">episode 82 of Talk Python</a>. Knowing algorithms is fundamental for programming and problem solving. This book makes presents the key algorithms in an accessible way using great examples and over <a href="https://github.com/egonSchiele/grokking_algorithms/tree/master/images">hundreds of illustrations</a> with <a href="https://github.com/egonSchiele/grokking_algorithms">code samples in Python</a>. Specially for self-taught programmers (like myself) this approach is awesome. After reading it I noted that I more easily grasp related books and I am now more confident picking up more advanced algorithms (which will be needed for Machine learning).</p>
+    <p><a href="https://www.manning.com/books/grokking-algorithms">Grokking algorithms</a> is a unique gem. I discovered it on <a href="https://talkpython.fm/episodes/show/82/grokking-algorithms-in-python">episode 82 of Talk Python</a>. Knowing algorithms is fundamental for programming and problem solving. This book presents the key algorithms in an accessible way using great examples and <a href="https://github.com/egonSchiele/grokking_algorithms/tree/master/images">hundreds of illustrations</a> with <a href="https://github.com/egonSchiele/grokking_algorithms">code samples in Python</a>. Specially for self-taught programmers (like myself) this approach is awesome. After reading it I noted that I more easily grasp related topics in other books and I am now more confident picking up more advanced algorithms (which will be needed when learning ML).</p>
 <h2>Visual learning</h2>
-<p>This is a great summarizing video about some basic algorithms and how visually this stuff is presented:</p>
+<p>This is a great summarizing video about some basic algorithms and the way the book teaches them:</p>
+<div class="container">
 <iframe src="https://www.youtube.com/embed/oo_sb4luiPo" frameborder="0" allowfullscreen class="video"></iframe>
+</div>
 
 <h2>Performance</h2>
 <p>The examples in the book are easy to follow. For example to explain the performance between an array (Python's list) and linked list (Python's <a href="http://pybit.es/collections-deque.html">deque</a>) we are taken to the movies. What if you are 5 and a 6th friend joined? Possibly you have to relocate all 6 to find new seats if you are an array. Not so with a linked list, because the new friend can just sit 'anywhere' ( = linked to). This visualization stayed with me and I much better understand why inserts on arrays are slower.</p>
@@ -117,25 +119,54 @@
 </pre></div>
 
 
-<p>See Python's <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity wiki</a> for performance details on stdlib collections.</p>
+<p>Another good example is binary search. Compared to selection sort the number of steps needed to search a (sorted) list goes from 4 billion down to 32. That demonstrates an important concept of Big O, quoting the book: "algorithm times are measured in terms of growth of an algorithm." Fascinating! </p>
+<p>See Python's <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity wiki</a> for performance details on all stdlib collections.</p>
 <h2>Cool use cases</h2>
 <p>Some cool stuff you can do with basic algorithms: </p>
 <ul>
 <li>
-<p>Hashtable lookups (dict, set) are O(1) so they are ideal for building search engines. On the mentioned episode of Talk Python Michael Kennedy mentions he made the search for his show using dicts because of this performance advantage.</p>
+<p>Hashtable lookups (dict, set) are O(1) so they are ideal for building search engines. On the mentioned episode of Talk Python Michael Kennedy explained he made the search for his show using dicts because of this.</p>
 </li>
 <li>
-<p>Recusion provides elegant solutions. The book shows an example of finding a key in boxes, the recursive solution is much shorter and cleaner. </p>
+<p>Recusion provides elegant solutions. The book shows an example of finding a key in boxes, the recursive solution is much shorter and cleaner. And recursion at its simplest really comes down to <a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/03_recursion/python/01_countdown.py">just a few lines of code</a>:</p>
+<div class="highlight"><pre><span></span>def countdown(i):
+print i
+# base case
+if i &lt;= 0:
+    return
+# recursive case
+else:
+    countdown(i-1)
+
+countdown(5)
+</pre></div>
+
+
+<p>For example to do a manual os.walk it only takes this: </p>
+<div class="highlight"><pre><span></span>def get_files_in_dir(dirname=&quot;.&quot;):
+    for file_name in os.listdir(dirname):
+        abs_path = os.path.join(dirname, file_name)
+        if os.path.isdir(abs_path):
+            yield from get_files_in_dir(abs_path)
+        else:
+            yield abs_path
+</pre></div>
+
+
 </li>
 <li>
-<p>Always wondered how Netflix recommends those cool movies to you? They are probably using the <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">k-nearest neighbors algorithm</a> (k-nn) </p>
+<p>Wondered how Netflix recommends those cool movies to you? They are probably using the <a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">k-nearest neighbors algorithm</a> (k-nn) </p>
 </li>
 <li>
-<p>Graphs: what is the shortest path on Facebook between you and Brad Pitt? Similarly what' the shortest path from NY to LA? You can use <a href="https://en.wikipedia.org/wiki/Dijkstra's_algorithm">Dijkstra's algorithm</a>.</p>
+<p>Graphs: what is the shortest path on Facebook between you and Brad Pitt? Similarly what is the shortest path from NY to LA? You can use <a href="https://en.wikipedia.org/wiki/Dijkstra's_algorithm">Dijkstra's algorithm</a>.</p>
+</li>
+<li>
+<p>Dynamic programming is useful when you’re trying to optimize something given a constraint. The book starts out with the 'knapsack problem': maximizing the value of a set of goods to steal, being constrained by the size of the knapsack. </p>
+<p>Then it shows a simple implementation of suggesting similar words based on misspelled words (like Google). This is a bit more complex to grasp but very powerful. This chapter, as all the others, shows a lot of practical / real life use cases.</p>
 </li>
 </ul>
 <h2>Conclusion</h2>
-<p>The explanation of Big O, array vs list and hash tables (Maggie!) are worth the price alone, but there is much more. If you are new to algorithms or need a refresher this is a great book.</p>
+<p>The explanation of Big O, array vs list and hash tables (meet Maggie!) are worth the price alone, but there is much more. If you are new to algorithms or need a refresher this is un unmissable book.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
