@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Transforming Code into Beautiful, Idiomatic Python is a must-watch to write more Pythonic code. In this post some highlights." />
+<meta name="keywords" content="pythonic, cleancode, collections, 2vs3, namedtuple, decorators, contextmanagers">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Beautiful, idiomatic Python"/>
+<meta property="og:description" content="Transforming Code into Beautiful, Idiomatic Python is a must-watch to write more Pythonic code. In this post some highlights."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/beautiful-python.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-10 09:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Best practices"/>
+<meta property="article:tag" content="pythonic"/>
+<meta property="article:tag" content="cleancode"/>
+<meta property="article:tag" content="collections"/>
+<meta property="article:tag" content="2vs3"/>
+<meta property="article:tag" content="namedtuple"/>
+<meta property="article:tag" content="decorators"/>
+<meta property="article:tag" content="contextmanagers"/>
+<meta property="og:image" content="http://pybit.es/images/featured/beautiful-python.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Beautiful, idiomatic Python" />
+<meta name="twitter:description" content="Transforming Code into Beautiful, Idiomatic Python is a must-watch to write more Pythonic code. In this post some highlights." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/beautiful-python.png">
+
+  <title>PyBites &ndash; Beautiful, idiomatic Python</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="beautiful-python">Beautiful, idiomatic Python</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Tue 10 January 2017 in <a href="http://pybit.es/category/best-practices.html">Best practices</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="container">
+<iframe src="https://www.youtube.com/embed/OSGv2VnC0go" frameborder="0" allowfullscreen class="video"></iframe>
+</div>
+
+<h2>Resources</h2>
+<p>The slidedeck is <a href="https://speakerdeck.com/pyconslides/transforming-code-into-beautiful-idiomatic-python-by-raymond-hettinger-1">here</a>.
+Thanks Jeff Paine for this awesome <a href="https://gist.github.com/JeffPaine/6213790">set of notes</a>.</p>
+<h2>When you see this, do that instead</h2>
+<p>A quick digest below. Note that Python3 takes some of these features to the next level, so switching from 2 to 3 is a good idea :)</p>
+<ul>
+<li>
+<p>Use enumerate to loop over collections and indices, use reversed(collections) to loop backwards.</p>
+</li>
+<li>
+<p>Use the zip built-in to loop over two collections: zip(collection1, collection2). To make a dict from two collections: dict(zip(names, colors)). Use izip if the collections are not of the same length. </p>
+</li>
+<li>
+<p>Use the sorted key argument to customize sort order of a collection, so to sort by dict value you can use: sorted(d.items(), key=lambda a: a[1])</p>
+</li>
+<li>
+<p>Use iter() if you need to call a function until a sentinel value, see a good example <a href="http://amir.rachum.com/blog/2013/11/10/python-tips-iterate-with-a-sentinel-value/">here</a>.</p>
+</li>
+<li>
+<p>The for / else construct can be useful to know if a loop made it to the end (that is no break was hit).</p>
+</li>
+<li>
+<p>Dicts: don't mutate a dictionary when looping over it! In Python3 dictionaries have <a href="https://docs.python.org/3/library/stdtypes.html#dict-views">view objects</a>: "The objects returned by dict.keys(), dict.values() and dict.items() are view objects. They provide a dynamic view on the dictionary’s entries, which means that when the dictionary changes, the view reflects these changes.". For Python2 use iteritems() which returns an iterator (faster).</p>
+</li>
+<li>
+<p>Use collections.defaultdict to prevent initializing keys manually.</p>
+</li>
+<li>
+<p>Use ChainMap to link (concatenate) dictionaries together.</p>
+</li>
+<li>
+<p>Keyword arguments can make a function more readable, same goes for the light-weight namedtuple (collections module).</p>
+</li>
+<li>
+<p>Unpacking: bob, julian = 'bob julian'.split(), or a variable swap is as easy as a, b = b, a (no temp variable).</p>
+</li>
+<li>
+<p>Use ''.join(collection) instread of concatenating a string in a loop (more efficient).</p>
+</li>
+<li>
+<p>Use <a href="http://pybit.es/collections-deque.html">deque</a> if you need a stack / queue ('linked list') instead of a regular list ('array'). When you do somecollection.insert(0, 'value'), it is time to change to a deque structure and use somecollection.appendleft('value').</p>
+</li>
+<li>
+<p>Use decorators to factor-out administrative logic, for example @cache, @timeit, etc. (use functools.lru_cache for caching starting 3.2).</p>
+</li>
+<li>
+<p>Use the with statement (context manager) to open and (automatically) close files. Another use case is threading locks or more generically when you need to factor-out "temporary contexts".</p>
+</li>
+<li>
+<p>Generator expressions are faster, you can use them (instead of list comprehensions) in sum() / max() / min() to gain performance. Hard to beat this for compactness: sum(i**2 for i in range(10))</p>
+</li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/pythonic.html">pythonic</a>
+      <a href="http://pybit.es/tag/cleancode.html">cleancode</a>
+      <a href="http://pybit.es/tag/collections.html">collections</a>
+      <a href="http://pybit.es/tag/2vs3.html">2vs3</a>
+      <a href="http://pybit.es/tag/namedtuple.html">namedtuple</a>
+      <a href="http://pybit.es/tag/decorators.html">decorators</a>
+      <a href="http://pybit.es/tag/contextmanagers.html">contextmanagers</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
