@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Itertools is a very useful module. In this short post I show some 5 examples how you can use it. Some of this stuff might be useful in next week's challenge ..." />
+<meta name="keywords" content="iterators, itertools, tricks, generator, games, notebooks, permutations">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="5 cool things you can do with itertools"/>
+<meta property="og:description" content="Itertools is a very useful module. In this short post I show some 5 examples how you can use it. Some of this stuff might be useful in next week's challenge ..."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/itertools-examples.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-12 23:55:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Modules"/>
+<meta property="article:tag" content="iterators"/>
+<meta property="article:tag" content="itertools"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="generator"/>
+<meta property="article:tag" content="games"/>
+<meta property="article:tag" content="notebooks"/>
+<meta property="article:tag" content="permutations"/>
+<meta property="og:image" content="http://pybit.es/images/featured/itertools-by-example.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="5 cool things you can do with itertools" />
+<meta name="twitter:description" content="Itertools is a very useful module. In this short post I show some 5 examples how you can use it. Some of this stuff might be useful in next week's challenge ..." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/itertools-by-example.png">
+
+  <title>PyBites &ndash; 5 cool things you can do with itertools</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="itertools-examples">5 cool things you can do with itertools</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Thu 12 January 2017 in <a href="http://pybit.es/category/modules.html">Modules</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <h2>What is itertools?</h2>
+<p>Itertools is a stdlib module that provides functions that create <a href="http://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols">iterators</a> "inspired by constructs from APL, Haskell, and SML". See <a href="https://docs.python.org/3/library/itertools.html">the docs page</a> as well as <a href="https://github.com/vterron/EuroPython-2016/blob/master/kung-fu-itertools.ipynb">this great EuroPython preso</a>.</p>
+<h2>5 cool things you can do with itertools</h2>
+<p>I created <a href="https://github.com/pybites/blog_code/blob/master/notebooks/itertools.ipynb">this notebook</a> so you can follow along. Below a summary:</p>
+<h3>1. Use product to get all combinations between two iterators</h3>
+<p>Common game techniques: build a card deck or roll two dices:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># from Fluent Python</span>
+<span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;JQKA&#39;</span><span class="p">)</span>
+<span class="n">suits</span> <span class="o">=</span> <span class="s1">&#39;S D C H&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="c1"># spades diamonds clubs hearts</span>
+<span class="c1"># but instead of double list comprehension, using product</span>
+<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;{}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">suits</span><span class="p">,</span> <span class="n">ranks</span><span class="p">)]</span>
+
+<span class="c1"># another use case: roll 2 dices</span>
+<span class="n">dice</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)])</span>
+
+<span class="c1"># output: </span>
+<span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>2. Show a progress spinner for a console app</h3>
+<p>From <a href="https://github.com/vterron/EuroPython-2016/blob/master/kung-fu-itertools.ipynb">before-mentioned EuroPython preso</a>:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">spinner</span><span class="p">(</span><span class="n">seconds</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show an animated spinner while we sleep.&quot;&quot;&quot;</span>
+    <span class="n">symbols</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="s1">&#39;-\|/&#39;</span><span class="p">)</span>
+    <span class="n">tend</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">seconds</span>
+    <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">tend</span><span class="p">:</span>
+        <span class="c1"># &#39;\r&#39; is carriage return: return cursor to the start of the line.</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">Please wait... &#39;</span> <span class="o">+</span> <span class="nb">next</span><span class="p">(</span><span class="n">symbols</span><span class="p">))</span> <span class="c1"># no newline</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">()</span> <span class="c1"># newline</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">spinner</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>3. Use dropwhile to get counts of &gt;= n in a Counter dict</h3>
+<p>Given a books Counter object, get me books with &gt;= 2 occurences:</p>
+<div class="highlight"><pre><span></span><span class="n">books</span> <span class="o">=</span> <span class="p">...</span> <span class="err">#</span> <span class="n">can</span> <span class="n">use</span> <span class="p">[</span><span class="n">this</span> <span class="n">script</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/pybites/blog_code/blob/master/BeautifulSoup/titans_books.py)</span>
+
+<span class="n">def</span> <span class="n">get_multiple_mentions</span><span class="p">(</span><span class="n">books</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">:</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">count</span> <span class="k">in</span> <span class="n">itertools</span><span class="p">.</span><span class="n">dropwhile</span><span class="p">(</span><span class="n">lambda</span> <span class="nl">key_count</span><span class="p">:</span> <span class="n">key_count</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">keep</span><span class="p">,</span> <span class="n">books</span><span class="p">.</span><span class="n">most_common</span><span class="p">())</span><span class="o">:</span>
+        <span class="n">del</span> <span class="n">books</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">books</span>
+
+<span class="cp"># output: </span>
+<span class="n">Counter</span><span class="p">({</span><span class="err">&#39;</span><span class="mi">4</span><span class="o">-</span><span class="n">hour</span><span class="o">-</span><span class="n">workweek</span><span class="o">-</span><span class="n">escape</span><span class="o">-</span><span class="n">live</span><span class="o">-</span><span class="n">anywhere</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="err">&#39;</span><span class="n">alchemist</span><span class="o">-</span><span class="n">paulo</span><span class="o">-</span><span class="n">coelho</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="err">&#39;</span><span class="n">atlas</span><span class="o">-</span><span class="n">shrugged</span><span class="o">-</span><span class="n">ayn</span><span class="o">-</span><span class="n">rand</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="err">&#39;</span><span class="n">black</span><span class="o">-</span><span class="n">swan</span><span class="o">-</span><span class="n">improbable</span><span class="o">-</span><span class="n">robustness</span><span class="o">-</span><span class="n">fragility</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="err">&#39;</span><span class="n">checklist</span><span class="o">-</span><span class="n">manifesto</span><span class="o">-</span><span class="n">how</span><span class="o">-</span><span class="n">things</span><span class="o">-</span><span class="n">right</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">...</span>
+        <span class="p">...</span>
+</pre></div>
+
+
+<h3>4. Combinations and permutations</h3>
+<p>Given a list of friends how many pairs can be formed?</p>
+<div class="highlight"><pre><span></span>friends = &#39;bob tim julian fred&#39;.split()
+# as these are &quot;Combinatoric generators&quot; I consume them here for example purposes using list()
+list(itertools.combinations(friends, 2))
+
+# output:
+[(&#39;bob&#39;, &#39;tim&#39;),
+(&#39;bob&#39;, &#39;julian&#39;),
+(&#39;bob&#39;, &#39;fred&#39;),
+(&#39;tim&#39;, &#39;julian&#39;),
+(&#39;tim&#39;, &#39;fred&#39;),
+(&#39;julian&#39;, &#39;fred&#39;)]
+</pre></div>
+
+
+<p>How many 3 letter strings can you from 7 letters? (hint: upcoming challenge)</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
+<span class="n">letters</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">letters</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
+<span class="c1"># = 840 (7 * 6 * 5 * 4)</span>
+</pre></div>
+
+
+<h3>5. Groupby to count amount of keys for specific value in dic</h3>
+<p>Count the number of keys for a value, for example count the number of users (keys) that have email as pref (value) in a user_prefs dict:</p>
+<div class="highlight"><pre><span></span># set up dict
+users = &#39;tim bob julian sue fred frank maria&#39;.split()
+prefs = &#39;email phone IM email F2F email phone&#39;.split()
+user_prefs = dict(zip(users, prefs))
+user_prefs
+
+user_prefs_sorted = sorted(user_prefs.items(), key=itemgetter(1))
+for pref, users in itertools.groupby(user_prefs_sorted, key=itemgetter(1)):
+    print(pref, list(map(itemgetter(0), users)))
+
+# output: 
+F2F [&#39;fred&#39;]
+IM [&#39;julian&#39;]
+email [&#39;frank&#39;, &#39;tim&#39;, &#39;sue&#39;]
+phone [&#39;bob&#39;, &#39;maria&#39;]
+</pre></div>
+
+
+<h2>Other uses?</h2>
+<p>Where do you use itertools mostly for? Share your experience in the comments below ...</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/iterators.html">iterators</a>
+      <a href="http://pybit.es/tag/itertools.html">itertools</a>
+      <a href="http://pybit.es/tag/tricks.html">tricks</a>
+      <a href="http://pybit.es/tag/generator.html">generator</a>
+      <a href="http://pybit.es/tag/games.html">games</a>
+      <a href="http://pybit.es/tag/notebooks.html">notebooks</a>
+      <a href="http://pybit.es/tag/permutations.html">permutations</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
