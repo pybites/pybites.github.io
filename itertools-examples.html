@@ -100,7 +100,7 @@
 
   <div>
     <h2>What is itertools?</h2>
-<p>Itertools is a stdlib module that provides functions that create <a href="http://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols">iterators</a> "inspired by constructs from APL, Haskell, and SML". See <a href="https://docs.python.org/3/library/itertools.html">the docs page</a> as well as <a href="https://github.com/vterron/EuroPython-2016/blob/master/kung-fu-itertools.ipynb">this great EuroPython preso</a>.</p>
+<p>Itertools is a stdlib module that provides functions that create <a href="http://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols">iterators</a> "inspired by constructs from APL, Haskell, and SML". See <a href="https://docs.python.org/3/library/itertools.html">the docs page</a>, <a href="https://pymotw.com/2/itertools/">pymotw</a>, as well as <a href="https://github.com/vterron/EuroPython-2016/blob/master/kung-fu-itertools.ipynb">this great EuroPython preso</a>.</p>
 <h2>5 cool things you can do with itertools</h2>
 <p>I created <a href="https://github.com/pybites/blog_code/blob/master/notebooks/itertools.ipynb">this notebook</a> so you can follow along. Below a summary:</p>
 <h3>1. Use product to get all combinations between two iterators</h3>
@@ -113,16 +113,18 @@
 <span class="n">suits</span> <span class="o">=</span> <span class="s1">&#39;S D C H&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="c1"># spades diamonds clubs hearts</span>
 <span class="c1"># but instead of double list comprehension, using product</span>
 <span class="n">cards</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;{}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">suits</span><span class="p">,</span> <span class="n">ranks</span><span class="p">)]</span>
+</pre></div>
 
-<span class="c1"># another use case: roll 2 dices</span>
-<span class="n">dice</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-<span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)])</span>
 
-<span class="c1"># output: </span>
-<span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<p>Another use case: roll 2 dices (<a href="http://stackoverflow.com/questions/3099987/generating-permutations-with-repetitions-in-python">SO is your friend</a>): </p>
+<div class="highlight"><pre><span></span>dice = range(2, 7)
+random.choice([p for p in itertools.product(dice, repeat=2)])
+
+# output: 
+(5, 2)
+(2, 5)
+(2, 5)
+(6, 5)
 </pre></div>
 
 
@@ -149,7 +151,8 @@
 
 
 <h3>3. Use dropwhile to get counts of &gt;= n in a Counter dict</h3>
-<p>Given a books Counter object, get me books with &gt;= 2 occurences:</p>
+<p>Given a books Counter object, get me books with &gt;= 2 occurences. </p>
+<p>I needed this for my <a href="http://bobbelderbos.com/2016/12/code-kata/">tools of titans kata</a> to see which books got recommended more than once by Tim Ferriss' podcast guests. </p>
 <div class="highlight"><pre><span></span>def get_multiple_mentions(books, keep=2):
     for key, count in itertools.dropwhile(lambda key_count: key_count[1] &gt;= keep, books.most_common()):
         del books[key]
@@ -166,6 +169,7 @@ Counter({&#39;4-hour-workweek-escape-live-anywhere&#39;: 2,
 
 
 <h3>4. Combinations and permutations</h3>
+<p>For the difference read <a href="https://betterexplained.com/articles/easy-permutations-and-combinations/">this great explanation</a>. </p>
 <p>Given a list of friends how many pairs can be formed?</p>
 <div class="highlight"><pre><span></span>friends = &#39;bob tim julian fred&#39;.split()
 # as these are &quot;Combinatoric generators&quot; I consume them here for example purposes using list()
@@ -181,7 +185,7 @@ list(itertools.combinations(friends, 2))
 </pre></div>
 
 
-<p>How many 3 letter strings can you from 7 letters? (hint: upcoming challenge)</p>
+<p>How many 4 letter strings can you from 7 letters? (hint: upcoming challenge)</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
 <span class="n">letters</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">letters</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
@@ -190,7 +194,8 @@ list(itertools.combinations(friends, 2))
 
 
 <h3>5. Groupby to count amount of keys for specific value in dic</h3>
-<p>Count the number of keys for a value, for example count the number of users (keys) that have email as pref (value) in a user_prefs dict:</p>
+<p>Count the number of keys for a value, for example count the number of users (keys) that have email as pref (value) in a user_prefs dict.</p>
+<p>This example is based on the one I found at <a href="https://pymotw.com/2/itertools/">pymotw</a>.</p>
 <div class="highlight"><pre><span></span># set up dict
 users = &#39;tim bob julian sue fred frank maria&#39;.split()
 prefs = &#39;email phone IM email F2F email phone&#39;.split()
