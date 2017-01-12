@@ -150,21 +150,18 @@
 
 <h3>3. Use dropwhile to get counts of &gt;= n in a Counter dict</h3>
 <p>Given a books Counter object, get me books with &gt;= 2 occurences:</p>
-<div class="highlight"><pre><span></span><span class="n">books</span> <span class="o">=</span> <span class="p">...</span> <span class="err">#</span> <span class="n">can</span> <span class="n">use</span> <span class="p">[</span><span class="n">this</span> <span class="n">script</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/pybites/blog_code/blob/master/BeautifulSoup/titans_books.py)</span>
+<div class="highlight"><pre><span></span>def get_multiple_mentions(books, keep=2):
+    for key, count in itertools.dropwhile(lambda key_count: key_count[1] &gt;= keep, books.most_common()):
+        del books[key]
+    return books
 
-<span class="n">def</span> <span class="n">get_multiple_mentions</span><span class="p">(</span><span class="n">books</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">:</span>
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">count</span> <span class="k">in</span> <span class="n">itertools</span><span class="p">.</span><span class="n">dropwhile</span><span class="p">(</span><span class="n">lambda</span> <span class="nl">key_count</span><span class="p">:</span> <span class="n">key_count</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">keep</span><span class="p">,</span> <span class="n">books</span><span class="p">.</span><span class="n">most_common</span><span class="p">())</span><span class="o">:</span>
-        <span class="n">del</span> <span class="n">books</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">books</span>
-
-<span class="cp"># output: </span>
-<span class="n">Counter</span><span class="p">({</span><span class="err">&#39;</span><span class="mi">4</span><span class="o">-</span><span class="n">hour</span><span class="o">-</span><span class="n">workweek</span><span class="o">-</span><span class="n">escape</span><span class="o">-</span><span class="n">live</span><span class="o">-</span><span class="n">anywhere</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="err">&#39;</span><span class="n">alchemist</span><span class="o">-</span><span class="n">paulo</span><span class="o">-</span><span class="n">coelho</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="err">&#39;</span><span class="n">atlas</span><span class="o">-</span><span class="n">shrugged</span><span class="o">-</span><span class="n">ayn</span><span class="o">-</span><span class="n">rand</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="err">&#39;</span><span class="n">black</span><span class="o">-</span><span class="n">swan</span><span class="o">-</span><span class="n">improbable</span><span class="o">-</span><span class="n">robustness</span><span class="o">-</span><span class="n">fragility</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="err">&#39;</span><span class="n">checklist</span><span class="o">-</span><span class="n">manifesto</span><span class="o">-</span><span class="n">how</span><span class="o">-</span><span class="n">things</span><span class="o">-</span><span class="n">right</span><span class="err">&#39;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="p">...</span>
-        <span class="p">...</span>
+# filters all books with count (occurence = 1) out:
+Counter({&#39;4-hour-workweek-escape-live-anywhere&#39;: 2,
+        &#39;alchemist-paulo-coelho&#39;: 2,
+        &#39;atlas-shrugged-ayn-rand&#39;: 3,
+        &#39;black-swan-improbable-robustness-fragility&#39;: 2,
+        &#39;checklist-manifesto-how-things-right&#39;: 2,
+        ...
 </pre></div>
 
 
