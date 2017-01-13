@@ -194,14 +194,17 @@ Furthermore, working with the external data.py file also added a little complexi
 <p>The max builtin calculates the max of an iterator, very convenient here. The cool thing is that it takes a key optional argument (like the sorted() builtin) which you can give a function to 'max on'. </p>
 <p>In this case I don't want to max on for example len of word, but on the word value, so we re-use calc_word_value() here. For more details on this I recommend reading <a href="https://dbader.org/blog/python-min-max-and-nested-lists">this great article</a>.</p>
 <h2>PyBites digest of comments on Monday's challenge post</h2>
-<p>Thanks for <a href="http://pybit.es/codechallenge01.html">your comments</a>. We are really stoked to learn about all these different approaches. Also you cannot read enough other developers' code, it's a great way to learn fast!</p>
+<p>Thanks for <a href="http://pybit.es/codechallenge01.html#disqus_thread">your comments</a>. We are really stoked to learn about all these different approaches. Also you cannot read enough other developers' code, it's a great way to learn fast!</p>
 <ul>
 <li>
 <p>We already mentioned <a href="https://github.com/sesh/challenges/blob/master/01/wordvalue.py">Sesh' solution</a>, similar to ours, yet still some minor differences / improvements. Queston for the comments (anybody?): words=load_words() as default arg to max_word_value(), probably not a problem here, but doesn't that fall under the <a href="http://docs.python-guide.org/en/latest/writing/gotchas/">Mutable Default Arguments gotcha</a>?</p>
 </li>
 <li>
 <p><a href="https://github.com/ukaratay/challenges/blob/master/01/wordvalue.py">ukaratay solution</a> is also similar, but he uses upper() on the word = 1 call instead my multiple calls for each char = better. Tiny details but they matter when you add them up and when things scale.</p>
-<p>return sum(LETTER_SCORES.get(char, 0) for char in word.upper())</p>
+<div class="highlight"><pre><span></span>return sum(LETTER_SCORES.get(char, 0) for char in word.upper())
+</pre></div>
+
+
 </li>
 <li>
 <p><a href="https://github.com/alhart2015/challenges/blob/master/01/wordvalue.py">alhart2015 solution</a> is a great addition, specially max_word_value() has a longer format, probably easier to read to people just starting out in Python.</p>
