@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="Iteration in Python is incredibly simple compared to C and other languages. It's easy... maybe a little TOO easy..." />
+<meta name="keywords" content="python, tips, tricks, iteration, resources">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Python Iteration"/>
+<meta property="og:description" content="Iteration in Python is incredibly simple compared to C and other languages. It's easy... maybe a little TOO easy..."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/python_iteration.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-19 19:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/julian.html">
+<meta property="article:section" content="Concepts"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="iteration"/>
+<meta property="article:tag" content="resources"/>
+<meta property="og:image" content="http://pybit.es/images/featured/python-iteration.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Python Iteration" />
+<meta name="twitter:description" content="Iteration in Python is incredibly simple compared to C and other languages. It's easy... maybe a little TOO easy..." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/python-iteration.png">
+
+  <title>PyBites &ndash; Python Iteration</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+          <li><a href="http://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef" target="_blank">Subscribe</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="python_iteration">Python Iteration</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/julian.html">Julian</a> on Thu 19 January 2017 in <a href="http://pybit.es/category/concepts.html">Concepts</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>When I first started writing Python code I realised I was bringing across some bad habits and very non-Pythonic coding styles.</p>
+<p>For loops in particular took me by surprise.</p>
+<h2>For Loop in C</h2>
+<p>It's worth showing how I/we wrote for loops prior to reaching Pylightenment (ha!):</p>
+<div class="highlight"><pre><span></span>demo_list = [];
+
+for(int i = 0; i &lt; 10; i++){
+    printf(demo_list[i]);
+}
+</pre></div>
+
+
+<p>Forgive any syntax errors in the above, my C is a little rusty.
+The concept however, is that we have a counter, <em>i</em>, that will allow the loop to print out the contents of <em>demo_list</em> (if it had contents) 10 times.</p>
+<p>I always found this tricky because you had to get your counter values right. There was always so much room to mess up by being off by one. Furthermore, you'd have to know how many items are in <em>demo_list</em> in order to list out the entire list. Getting around this would then add further complication and possibly more lines of code.</p>
+<h2>For Loop in Python</h2>
+<p>On the other hand, Python doesn't use a counter whatsoever. It simply iterates over the entire object until finished. Here's the same code in Python:</p>
+<div class="highlight"><pre><span></span>for item in demo_list:
+    print(item)
+</pre></div>
+
+
+<p>It's simple and actually logical when reading it. It's also human readable!</p>
+<p>This is precisely why I love it. I no longer need to worry about a counter. No matter how large <em>demo_list</em> gets, I'll be able to iterate over it until the end.</p>
+<h2>Iterable Objects</h2>
+<p>I was pretty surprised to see just how many objects were iterable. I originally figured it was just lists, dicts and tuples that could be iterated over but that's not the case. You're able to iterate over all of the following:</p>
+<ul>
+<li>Strings! (str)</li>
+<li>bytes</li>
+<li>tuples</li>
+<li>dicts</li>
+<li>set</li>
+<li>io.TextIOWrapper</li>
+<li>models.query.QuerySet</li>
+<li>numpy.ndarray</li>
+</ul>
+<p>This list was taken from an incredibly detailed and interesting <a href="https://www.youtube.com/watch?v=o5gByn3RKFI">training video</a> by Luciano Ramalho.</p>
+<h2>Iteration Fun - Parallel Assignment</h2>
+<p>The simplicity and flexibility of Python iteration makes it pretty satisfying and fun to use.</p>
+<p>One of my favourites is Parallel Assignment:</p>
+<div class="highlight"><pre><span></span>awesomeness_levels = [(&#39;Bob&#39;, 8), (&#39;Julian&#39;, 11), (&#39;PyBites&#39;, 3)]
+
+for name, level in awesomeness_levels:
+    print(name + &#39;: &#39; + str(level))
+
+Bob: 8
+Julian: 11
+PyBites: 3
+
+# I turned it up to eleven!
+</pre></div>
+
+
+<p>I love that in a minimal amount of code I'm able to iterate over the entire list but also assign a variable to each item.</p>
+<h2>Another example</h2>
+<p>Another nice example is argument unpacking (a.k.a splat), using the example of the same video, min 15, to write below:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">itertools</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Julian&#39;</span><span class="p">,</span> <span class="s1">&#39;PyBites&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} teams up with {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pair</span><span class="p">))</span>
+<span class="o">...</span> 
+<span class="n">Bob</span> <span class="n">teams</span> <span class="n">up</span> <span class="k">with</span> <span class="n">Julian</span>
+<span class="n">Bob</span> <span class="n">teams</span> <span class="n">up</span> <span class="k">with</span> <span class="n">PyBites</span>
+<span class="n">Julian</span> <span class="n">teams</span> <span class="n">up</span> <span class="k">with</span> <span class="n">PyBites</span>
+</pre></div>
+
+
+<h2>Conclusion</h2>
+<p>There's a <strong>lot</strong> to cover when it comes to iteration and also a lot that you could be doing in a non-Pythonic way.</p>
+<p>I'd wholeheartedly recommend watching the <a href="https://www.youtube.com/watch?v=o5gByn3RKFI">aforementioned video</a> by Luciano Ramalho.</p>
+<p>For best practices when it comes to loops, check out the <em>The Little Book of Anti-Patterns</em> section on <a href="http://docs.quantifiedcode.com/python-code-patterns/readability/using_an_unpythonic_loop.html">unpythonic loops</a>.</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/python.html">python</a>
+      <a href="http://pybit.es/tag/tips.html">tips</a>
+      <a href="http://pybit.es/tag/tricks.html">tricks</a>
+      <a href="http://pybit.es/tag/iteration.html">iteration</a>
+      <a href="http://pybit.es/tag/resources.html">resources</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
