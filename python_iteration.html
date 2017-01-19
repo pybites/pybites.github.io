@@ -152,12 +152,12 @@ PyBites: 3
 
 
 <p>I love that in a minimal amount of code I'm able to iterate over the entire list but also assign a variable to each item.</p>
-<h2>Another example</h2>
-<p>Another nice example is argument unpacking (a.k.a splat), using the example of the same video, min 15, to write below:</p>
+<h2>Iteration Fun II - One iterable providing multiple arguments</h2>
+<p>Another cool example is function argument unpacking (min 15 of the video) which allows you to do something like:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Julian&#39;</span><span class="p">,</span> <span class="s1">&#39;PyBites&#39;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
-<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} teams up with {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pair</span><span class="p">))</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} teams up with {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pair</span><span class="p">))</span>  <span class="c1"># unpacks pair tuple in the 2 {} format placeholders</span>
 <span class="o">...</span> 
 <span class="n">Bob</span> <span class="n">teams</span> <span class="n">up</span> <span class="k">with</span> <span class="n">Julian</span>
 <span class="n">Bob</span> <span class="n">teams</span> <span class="n">up</span> <span class="k">with</span> <span class="n">PyBites</span>
