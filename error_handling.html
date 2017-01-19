@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Some important anti-patterns regarding error handling and how to solve them making your code more Pythonic and easier to maintain." />
+<meta name="keywords" content="exceptions, Zen of Python, error handling, cleancode">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Errors should never pass silently"/>
+<meta property="og:description" content="Some important anti-patterns regarding error handling and how to solve them making your code more Pythonic and easier to maintain."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/error_handling.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-18 23:59:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Best practices"/>
+<meta property="article:tag" content="exceptions"/>
+<meta property="article:tag" content="Zen of Python"/>
+<meta property="article:tag" content="error handling"/>
+<meta property="article:tag" content="cleancode"/>
+<meta property="og:image" content="http://pybit.es/images/featured/error-handling.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Errors should never pass silently" />
+<meta name="twitter:description" content="Some important anti-patterns regarding error handling and how to solve them making your code more Pythonic and easier to maintain." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/error-handling.png">
+
+  <title>PyBites &ndash; Errors should never pass silently</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+          <li><a href="http://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef" target="_blank">Subscribe</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="error_handling">Errors should never pass silently</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Wed 18 January 2017 in <a href="http://pybit.es/category/best-practices.html">Best practices</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">this</span>
+<span class="n">The</span> <span class="n">Zen</span> <span class="n">of</span> <span class="n">Python</span><span class="p">,</span> <span class="n">by</span> <span class="n">Tim</span> <span class="n">Peters</span>
+
+<span class="n">Explicit</span> <span class="ow">is</span> <span class="n">better</span> <span class="n">than</span> <span class="n">implicit</span><span class="o">.</span>
+<span class="o">...</span>
+<span class="n">Errors</span> <span class="n">should</span> <span class="n">never</span> <span class="k">pass</span> <span class="n">silently</span><span class="o">.</span>
+</pre></div>
+
+
+<h3>Anti-Patterns</h3>
+<p>There is this great read: <a href="http://docs.quantifiedcode.com/python-code-patterns/">The Little Book of Python Anti-Patterns</a>. For the more experienced Pythonistas most is well known, yet it is a good refresher and you probably still find something new.</p>
+<p>Today a bit about error handling. In <a href="http://pybit.es/py-mistakes.html">Learning from Python mistakes</a> we already mentioned not to use pass in except. It is actually the worst anti-pattern (listen to Andreas Dewes, the author of the book, <a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes">here</a>)</p>
+<h3>The problem with except: pass</h3>
+<p>Why is it so bad? See <a href="http://stackoverflow.com/questions/21553327/why-is-except-pass-a-bad-programming-practice">SO</a> for a detailed explanation:</p>
+<blockquote>
+<p>The worst offender though is the combination of both. This means that we are willingly catching any error although we are absolutely not prepared for it and we also don’t do anything about it.</p>
+</blockquote>
+<p>So this violates the two of the Zen's aphorisms or guiding principles.</p>
+<p>You always want to catch errors explicitly:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; try:
+...     1/0
+... except ZeroDivisionError:
+...     print(&#39;cannot divide by 0&#39;)
+... 
+cannot divide by 0
+</pre></div>
+
+
+<p>You can use else and finally as well with a try/except as shown in this little toy example:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; a, b, c = 1, 2, 0
+&gt;&gt;&gt; try:
+...     a/b
+... except ZeroDivisionError:
+...     print(&#39;cannot divide by 0&#39;)
+... else:
+...     print(&#39;division was ok&#39;)
+... finally:
+...     print(&#39;this always runs&#39;)
+... 
+0.5
+division was ok
+this always runs
+&gt;&gt;&gt; try:
+...     b/c
+... except ZeroDivisionError:
+...     print(&#39;cannot divide by 0&#39;)
+... else:
+...     print(&#39;division was ok&#39;)
+... finally:
+...     print(&#39;this always runs&#39;)
+... 
+cannot divide by 0
+this always runs
+</pre></div>
+
+
+<h3>Asking for permission instead of forgiveness</h3>
+<p>It becomes even more important because <a href="http://docs.quantifiedcode.com/python-code-patterns/readability/asking_for_permission_instead_of_forgiveness_when_working_with_files.html">the Python community uses an EAFP (easier to ask for forgiveness than permission) coding style</a>.</p>
+<p>I have done this a lot:</p>
+<div class="highlight"><pre><span></span>if os.path.exists(&quot;file.txt&quot;):
+</pre></div>
+
+
+<p>But the Pythonic way to do it is:</p>
+<div class="highlight"><pre><span></span><span class="k">try</span><span class="o">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">unlink</span><span class="o">(</span><span class="s2">&quot;file.txt&quot;</span><span class="o">)</span>
+<span class="n">except</span> <span class="n">OSError</span><span class="o">:</span>
+    <span class="err">#</span> <span class="n">handle</span> <span class="n">the</span> <span class="n">error</span>
+</pre></div>
+
+
+<p>So exceptions again.</p>
+<h3>Customer exceptions</h3>
+<p>Another great way to make your code more readable and taking exceptions to the next level is to write your own. Sounds scary? It is actually pretty easy:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">NameTooShortError</span>(<span class="n">ValueError</span>):
+    <span class="nb">pass</span>
+
+<span class="n">def</span> <span class="n">validate</span>(<span class="nb">name</span>):
+    <span class="k">if</span> <span class="n">len</span>(<span class="nb">name</span>) &lt; <span class="mi">10</span>:
+        <span class="n">raise</span> <span class="n">NameTooShortError</span>(<span class="nb">name</span>)
+</pre></div>
+
+
+<p><a href="https://dbader.org/blog/python-custom-exceptions">snippet source</a></p>
+<p>Another example from <a href="https://github.com/tweepy/tweepy/blob/master/tweepy/error.py">tweepy</a>:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">TweepError</span>(<span class="nb">Exception</span>):
+    <span class="s">&quot;&quot;&quot;Tweepy exception&quot;&quot;&quot;</span>
+
+    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="n">reason</span>, <span class="n">response</span>=<span class="n">None</span>, <span class="n">api_code</span>=<span class="n">None</span>):
+        <span class="k">self</span>.<span class="n">reason</span> = <span class="n">six</span>.<span class="n">text_type</span>(<span class="n">reason</span>)
+        <span class="k">self</span>.<span class="n">response</span> = <span class="n">response</span>
+        <span class="k">self</span>.<span class="n">api_code</span> = <span class="n">api_code</span>
+        <span class="nb">Exception</span>.<span class="n">__init__</span>(<span class="k">self</span>, <span class="n">reason</span>)
+
+    <span class="n">def</span> <span class="n">__str__</span>(<span class="k">self</span>):
+        <span class="k">return</span> <span class="k">self</span>.<span class="n">reason</span>
+</pre></div>
+
+
+<p>Which I used in our <a href="https://github.com/pybites/blog_code/blob/master/twitter_bot/tweetbot.py">Twitter bot</a>:</p>
+<div class="highlight"><pre><span></span>def post_tweet(self, status):
+    try:
+        self.api.update_status(status)
+        logging.debug(&#39;posted status {} to twitter&#39;.format(status))
+    except TweepError as err:
+        logging.error(&#39;tweepy update_status error: {}&#39;.format(err))
+</pre></div>
+
+
+<h3>Reference</h3>
+<p>Recommended reading: </p>
+<ul>
+<li>
+<p><a href="https://www.python.org/dev/peps/pep-0020/">Zen of Python</a></p>
+</li>
+<li>
+<p><a href="http://docs.quantifiedcode.com/python-code-patterns/">The Little Book of Python Anti-Patterns</a></p>
+</li>
+<li>
+<p><a href="https://docs.python.org/3/tutorial/errors.html">Python Tutorial - Errors and Exceptions</a></p>
+</li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/exceptions.html">exceptions</a>
+      <a href="http://pybit.es/tag/zen-of-python.html">Zen of Python</a>
+      <a href="http://pybit.es/tag/error-handling.html">error handling</a>
+      <a href="http://pybit.es/tag/cleancode.html">cleancode</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
