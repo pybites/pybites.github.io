@@ -102,7 +102,7 @@
   <div>
     <p>It's Friday again so we review the <a href="http://pybit.es/codechallenge02.html">code challenge of this week</a>. It's never late to join, just fork our <a href="https://github.com/pybites/challenges">challenges repo</a> and start coding.</p>
 <h2>A possible solution</h2>
-<p>See <a href="https://github.com/bbelderbos/challenges/blob/master/02/game.py">here</a> for the complete script.</p>
+<p>See <a href="https://github.com/pybites/challenges/blob/solutions/02/game.py">here</a> for the complete solution.</p>
 <p>Some learnings:</p>
 <ul>
 <li>
@@ -120,36 +120,33 @@
 </pre></div>
 
 
-<p>But after learning about <a href="http://pybit.es/error_handling.html">EAFP (easier to ask for forgiveness than permission)</a> we thought it was more Pythonic to use exceptions:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">WrongInput</span>(<span class="n">ValueError</span>):
-    <span class="nb">pass</span>
+<p>But after learning about <a href="http://pybit.es/error_handling.html">EAFP (easier to ask for forgiveness than permission)</a> we thought it was more Pythonic to use exceptions. There was also a bug in the first check above (see comments, great learning!)</p>
+<div class="highlight"><pre><span></span>def input_word(draw):
+    while True:
+        word = input(&#39;Form a valid word: &#39;).upper()
+        try:
+            return _validation(word, draw)
+        except ValueError as e:
+            print(e)
+            continue
 
-<span class="n">def</span> <span class="n">input_word</span>(<span class="n">draw</span>):
-    <span class="k">while</span> <span class="n">True:</span>
-        <span class="n">word</span> = <span class="n">input</span>(<span class="s">&#39;Form a valid word: &#39;</span>).<span class="n">upper</span>()
-        <span class="n">try:</span>
-            <span class="k">return</span> <span class="n">_validation</span>(<span class="n">word</span>, <span class="n">draw</span>)
-        <span class="n">except</span> <span class="n">WrongInput</span> <span class="k">as</span> <span class="n">exc:</span>
-            <span class="nb">print</span>(<span class="n">exc</span>)
-            <span class="k">continue</span>
-
-<span class="n">def</span> <span class="n">_validation</span>(<span class="n">word</span>, <span class="n">draw</span>):
-    <span class="k">if</span> <span class="nb">not</span> <span class="n">set</span>(<span class="n">word</span>) &lt; <span class="n">set</span>(<span class="n">draw</span>):
-        <span class="n">raise</span> <span class="n">WrongInput</span>(<span class="s">&#39;One or more characters not in draw, try again&#39;</span>)
-    <span class="k">if</span> <span class="nb">not</span> <span class="n">word</span>.<span class="n">lower</span>() <span class="n">in</span> <span class="n">DICTIONARY:</span>
-        <span class="n">raise</span> <span class="n">WrongInput</span>(<span class="s">&#39;Not a valid dictionary word, try again&#39;</span>)
-    <span class="k">return</span> <span class="n">word</span>
+def _validation(word, draw):
+    # thanks Durmus
+    for char in word.upper():
+        if char in draw:
+            draw.remove(char)
+        else:
+        raise ValueError(&quot;{} is not a valid word!&quot;.format(word))
+    if not word.lower() in DICTIONARY:
+        raise ValueError(&#39;Not a valid dictionary word, try again&#39;)
+    return word
 </pre></div>
 
 
 </li>
 <li>
-<p>We use <a href="http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch16s04.html">set operations</a> here to compare the word letteres against the draw. We also use it later on to check for all valid dictionary words.</p>
-</li>
-<li>
 <p>random.sample makes it easy to get n number of random letters in one go: </p>
 <div class="highlight"><pre><span></span>def draw_letters():
-    &quot;&quot;&quot;Pick NUM_LETTERS letters randomly. Hint: use stdlib random&quot;&quot;&quot;
     return random.sample(POUCH, NUM_LETTERS)
 </pre></div>
 
@@ -164,7 +161,7 @@
 </pre></div>
 
 
-<p>See also <a href="http://pybit.es/itertools-examples.html">our post on itertools</a>.</p>
+<p>See also <a href="http://pybit.es/itertools-examples.html">our post on itertools</a>. See also Durmus' comment / solution here for an alternative using combinations ...</p>
 </li>
 <li>
 <p>First the helper generator to do the work:</p>
@@ -189,9 +186,9 @@
 <h2>Tests</h2>
 <p>We got a request in the comments for tests to verify the work. Good idea, they are <a href="https://github.com/pybites/challenges/blob/master/02/test_game.py">here</a>.</p>
 <div class="highlight"><pre><span></span>$ python test_game.py 
-.....
+......
 ----------------------------------------------------------------------
-Ran <span class="m">5</span> tests in 0.068s
+Ran <span class="m">6</span> tests in 0.056s
 
 OK
 </pre></div>

@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="I created a notebook on OOP (object oriented programming) in Python." />
+<meta name="keywords" content="tutorial, oop, objectoriented, programming, inheritance, polymorphism, ABC, encapsulation, property">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Everything is an Object, Python OOP primer"/>
+<meta property="og:description" content="I created a notebook on OOP (object oriented programming) in Python."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/oop-primer.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-24 00:01:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Concepts"/>
+<meta property="article:tag" content="tutorial"/>
+<meta property="article:tag" content="oop"/>
+<meta property="article:tag" content="objectoriented"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="inheritance"/>
+<meta property="article:tag" content="polymorphism"/>
+<meta property="article:tag" content="ABC"/>
+<meta property="article:tag" content="encapsulation"/>
+<meta property="article:tag" content="property"/>
+<meta property="og:image" content="http://pybit.es/images/featured/oop-primer.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Everything is an Object, Python OOP primer" />
+<meta name="twitter:description" content="I created a notebook on OOP (object oriented programming) in Python." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/oop-primer.png">
+
+  <title>PyBites &ndash; Everything is an Object, Python OOP primer</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+          <li><a href="http://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef" target="_blank">Subscribe</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="oop-primer">Everything is an Object, Python OOP primer</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Tue 24 January 2017 in <a href="http://pybit.es/category/concepts.html">Concepts</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>Everything in Python is an object, and almost everything has attributes and methods. All functions have a built-in attribute __doc__, which returns the doc string defined in the function's source code. The sys module is an object which has (among other things) an attribute called path. And so forth. - <a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html">Dive into Python</a></p>
+</blockquote>
+<p>I created <a href="https://github.com/pybites/blog_code/blob/master/notebooks/oop_fun.ipynb">a notebook</a> on OOP (object oriented programming) in Python. Highlights:</p>
+<ul>
+<li>
+<p>Definition example class, class vs instance variables:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">Blog</span>(<span class="n">object</span>):
+    <span class="s">&quot;&quot;&quot;Good practice (py3) is to explicitly inherit from object&quot;&quot;&quot;</span>
+
+    <span class="c c-Singleline"># class variable = shared among instances</span>
+    <span class="n">num_blogs</span> = <span class="mi">0</span>
+
+    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="nb">name</span>, <span class="n">bio</span>):
+        <span class="s">&quot;&quot;&quot;The constructor, gets called implicitly when instantiating a new object (next cell)&quot;&quot;&quot;</span>
+        <span class="k">self</span>.<span class="nb">name</span> = <span class="nb">name</span>
+        <span class="k">self</span>.<span class="n">bio</span> = <span class="n">bio</span>
+        <span class="n">Blog</span>.<span class="n">num_blogs</span> += <span class="mi">1</span>  <span class="c c-Singleline"># we access a class variable like this (or use a class method)</span>
+
+    <span class="n">def</span> <span class="n">get_articles</span>(<span class="k">self</span>, <span class="n">rss</span>):
+        <span class="s">&quot;&quot;&quot;Get all articles from RSS&quot;&quot;&quot;</span>
+        <span class="nb">print</span>(<span class="s">&#39;Articles {}: ...&#39;</span>.<span class="n">format</span>(<span class="n">rss</span>))
+
+    <span class="n">def</span> <span class="n">post_article</span>(<span class="k">self</span>, <span class="n">title</span>):
+        <span class="s">&quot;&quot;&quot;Add a new article&quot;&quot;&quot;</span>
+        <span class="nb">print</span>(<span class="s">&#39;Posted new article: {}&#39;</span>.<span class="n">format</span>(<span class="n">title</span>))
+
+    <span class="n">def</span> <span class="n">__str__</span>(<span class="k">self</span>):
+        <span class="s">&quot;&quot;&quot;Informal or nicely printable string representation of an object&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s">&#39;{}: {}&#39;</span>.<span class="n">format</span>(<span class="k">self</span>.<span class="nb">name</span>, <span class="k">self</span>.<span class="n">bio</span>)
+</pre></div>
+
+
+</li>
+<li>
+<p>Instantiate class = make an object</p>
+<div class="highlight"><pre><span></span>name = &#39;PyBites&#39;
+bio = &#39;Python code challenges, tutorials and news, one bite a day&#39;
+blog = Blog(name, bio)
+</pre></div>
+
+
+</li>
+<li>
+<p>Call a method:</p>
+<div class="highlight"><pre><span></span>blog.get_articles(&#39;http://pybit.es/feeds/all.rss.xml&#39;)
+# Articles http://pybit.es/feeds/all.rss.xml: ...
+</pre></div>
+
+
+</li>
+<li>
+<p>ABC's lets you force derived classes to implement certain behaviors / methods (tip from Dan Bader)</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+<span class="k">class</span> <span class="nc">Developer</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_post_days</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Classes that inherit from Developer need to implement this method&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</pre></div>
+
+
+<p>Julian inherits from Developer so has to implement get_post_days() method otherwise you get a TypeError.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">Julian</span>(<span class="n">Developer</span>):
+
+    <span class="n">def</span> <span class="n">get_post_days</span>(<span class="k">self</span>):
+        <span class="k">return</span> <span class="s">&#39;Tue Wed&#39;</span>.<span class="nb">split</span>()
+
+<span class="k">class</span> <span class="n">Bob</span>(<span class="n">Developer</span>):
+
+        <span class="n">def</span> <span class="n">get_post_days</span>(<span class="k">self</span>):
+                <span class="k">return</span> <span class="s">&#39;Wed Thurs&#39;</span>.<span class="nb">split</span>()
+
+<span class="k">class</span> <span class="n">PyBites</span>(<span class="n">Developer</span>):
+
+    <span class="n">def</span> <span class="n">get_post_days</span>(<span class="k">self</span>):
+        <span class="k">return</span> <span class="s">&#39;Mon Fri Sat&#39;</span>.<span class="nb">split</span>()
+
+<span class="n">julian</span> = <span class="n">Julian</span>()
+<span class="n">bob</span> = <span class="n">Bob</span>()
+<span class="n">pybites</span> = <span class="n">PyBites</span>()
+</pre></div>
+
+
+</li>
+<li>
+<p>Inheritance and calling the parent constructor:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">PyBitesBlog</span>(<span class="n">Blog</span>):
+    <span class="s">&quot;&quot;&quot;PyBitesBlog inherits from parent class Blog&quot;&quot;&quot;</span>
+
+    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, *<span class="n">args</span>):
+        <span class="s">&quot;&quot;&quot;We get a variable-length argument list of developers&quot;&quot;&quot;</span>
+        <span class="k">self</span>.<span class="nb">name</span> = <span class="k">self</span>.<span class="n">__class__</span>.<span class="n">__name__</span>  <span class="c c-Singleline"># how to get name of class &#39;PyBitesBlog&#39; as string</span>
+        <span class="k">self</span>.<span class="n">bio</span> = <span class="s">&#39;Python code challenges, tutorials and news, one bite a day&#39;</span>
+        <span class="k">self</span>.<span class="n">developers</span> = <span class="n">args</span>
+        <span class="c c-Singleline"># pass name and bio to the parent class</span>
+        <span class="c c-Singleline"># py2 requires longer syntax: super(PyBitesBlog, self).__init__</span>
+        <span class="n">super</span>().<span class="n">__init__</span>(<span class="k">self</span>.<span class="nb">name</span>, <span class="k">self</span>.<span class="n">bio</span>)
+</pre></div>
+
+
+</li>
+<li>
+<p>Loop over developer objects, calling their individually defined get_post_days() methods:</p>
+<div class="highlight"><pre><span></span>    ...
+    def schedule(self):
+        &quot;&quot;&quot;Loop over all developer objects calling their get_post_days method&quot;&quot;&quot;
+        for dev in self.developers:
+            print(&#39;{}: {}&#39;.format(dev, &#39;, &#39;.join(dev.get_post_days())))
+</pre></div>
+
+
+</li>
+<li>
+<p>Overriding __str__ from Blog:</p>
+<div class="highlight"><pre><span></span>    ...
+    def __str__(self):
+        &quot;&quot;&quot;Use the parent __str__ adding something extra&quot;&quot;&quot;
+        return super().__str__() + &#39;\nAuthors: &#39; + &#39;, &#39;.join([str(dev) for dev in self.developers])
+
+pyblog = PyBitesBlog(julian, bob, pybites)
+
+print(pyblog)  # again call object&#39;s __str__
+# PyBitesBlog: Python code challenges, tutorials and news, one bite a day
+# Authors: Julian, Bob, PyBites
+</pre></div>
+
+
+</li>
+<li>
+<p>Polymorphism in action: </p>
+<div class="highlight"><pre><span></span>pyblog.schedule()
+# Julian: Tue, Wed
+# Bob: Wed, Thurs
+# PyBites: Mon, Fri, Sat
+</pre></div>
+
+
+<p>Here we call get_post_days() on every developer (instance), each one giving a different result. Other examples from stdlib are len (= __len__()) and + (= __add__()): they just do what you expect them to do for each type (as long as compatible):</p>
+<div class="highlight"><pre><span></span>s = &#39;a string&#39;
+t = (0, 1)
+d = dict(zip([1,2,3], [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]))
+
+for var in (s, t, d): 
+    print(&#39;len of {} (type {}) = {}&#39;.format(var, type(var), len(var)))
+# len of a string (type &lt;class &#39;str&#39;&gt;) = 8
+# len of (0, 1) (type &lt;class &#39;tuple&#39;&gt;) = 2
+# len of {1: &#39;a&#39;, 2: &#39;b&#39;, 3: &#39;c&#39;} (type &lt;class &#39;dict&#39;&gt;) = 3
+</pre></div>
+
+
+</li>
+<li>
+<p>Notes on encapsulation: </p>
+<blockquote>
+<p>What it doesn't have is access control such as private and protected attributes. However, in Python, there is an attribute naming convention to denote private attributes by prefixing the attribute with one or two underscores. - <a href="http://stackoverflow.com/questions/26216563/how-to-do-encapsulation-in-python">Stackoverflow</a></p>
+</blockquote>
+<p>If you want getter / setter behavior look at the <a href="http://stackabuse.com/python-properties/">@property decorator</a>.</p>
+</li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/tutorial.html">tutorial</a>
+      <a href="http://pybit.es/tag/oop.html">oop</a>
+      <a href="http://pybit.es/tag/objectoriented.html">objectoriented</a>
+      <a href="http://pybit.es/tag/programming.html">programming</a>
+      <a href="http://pybit.es/tag/inheritance.html">inheritance</a>
+      <a href="http://pybit.es/tag/polymorphism.html">polymorphism</a>
+      <a href="http://pybit.es/tag/abc.html">ABC</a>
+      <a href="http://pybit.es/tag/encapsulation.html">encapsulation</a>
+      <a href="http://pybit.es/tag/property.html">property</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
