@@ -127,7 +127,7 @@ SIMILAR = 0.87
 
 </li>
 <li>
-<p>We could have used feedparser for xml feed parsing, but we kept it stdlib so we use a regular expression to get the tags:</p>
+<p>We used a regular expression to show that you can. A better way would be to use a PyPI package like feedparser or BeautifulSoup (see further down). </p>
 <div class="highlight"><pre><span></span>TAG_HTML = re.compile(r&#39;<span class="nt">&lt;category&gt;</span>([^<span class="err">&lt;</span>]+)<span class="nt">&lt;/category&gt;</span>&#39;)
 
 def get_tags():
@@ -182,9 +182,24 @@ def get_tags():
 
 
 </li>
+<li>
+<p>Tests pass:</p>
+<div class="highlight"><pre><span></span>$ git checkout solutions
+$ python test_tags.py 
+...
+----------------------------------------------------------------------
+Ran <span class="m">3</span> tests in 0.153s
+
+OK
+</pre></div>
+
+
+</li>
 </ul>
 <hr>
-<p>Obviously this is just one solutions. We are eager to learn what you have come up with ...</p>
+<h2>Code challenges != Python's 'preferably only one way'</h2>
+<p>We know '&gt;&gt;&gt; import this' says: "There should be one-- and preferably only one --obvious way to do it." and usually there is. Yet for our challenges we encourage people to be creative and not stick to the template + tests per se (we improve the code challenge format as we learn ...). </p>
+<p>For example Jeffrey parses our feed directly in <a href="https://gist.github.com/jrjames83/eeda4324116dde12ea8d45c47a151ab0">his solution</a> with requests and BeautifulSoup not stripping off the dash. This is great addition to our solution, using PyPI whenever you can is recommended. Also by parsing the live feed he created us a tool to run this check every now and then (thanks Jeffrey). We like to see different solutions.</p>
 <h2>Any issues or feedback?</h2>
 <p>What did you learn this challenge? Feel free to share you code in the comments below. </p>
 <p>How are you experiencing these challenges? You like the format? What can we do differently and/or better?</p>
