@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="Learn how to send emails using Python" />
+<meta name="keywords" content="python, tips, tricks, code, pybites, email, automation">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Send Emails with Python smtplib"/>
+<meta property="og:description" content="Learn how to send emails using Python"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/python-smtplib.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-26 19:25:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/julian.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="pybites"/>
+<meta property="article:tag" content="email"/>
+<meta property="article:tag" content="automation"/>
+<meta property="og:image" content="http://pybit.es/images/featured/python-smtplib.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Send Emails with Python smtplib" />
+<meta name="twitter:description" content="Learn how to send emails using Python" />
+<meta name="twitter:image" content="http://pybit.es/images/featured/python-smtplib.png">
+
+  <title>PyBites &ndash; Send Emails with Python smtplib</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/archives.html">Archives</a></li>
+          <li><a href="http://pybit.es/pages/contact.html">Contact</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="http://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef" target="_blank">Newsletter</a></li>
+          <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+          <li><a href="http://pybit.es/feeds/all.rss.xml" target="_blank">RSS</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="python-smtplib">Send Emails with Python smtplib</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/julian.html">Julian</a> on Thu 26 January 2017 in <a href="http://pybit.es/category/tools.html">Tools</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>I was recently given a <a href="https://www.raspberrypi.org">Raspberry Pi</a> as a gift and figured it'd make a cool host for cron jobs. I've always wanted to set up an email notification service for myself so I started playing around with <em>smtplib</em> in Python.</p>
+<h2>Set up an Application Password with Gmail</h2>
+<p>It was surprisingly simple to send a basic email using my Gmail account. The complexity came from Google's 2-step Verification security settings. If using Gmail, you'll need to <a href="https://support.google.com/accounts/answer/185833?hl=en">set up an Application Password</a> for the machine you're running your Py script from.</p>
+<blockquote>
+<p>Once generated, the App Password will be your Gmail Password for this script.</p>
+</blockquote>
+<h2>Sending a Basic Email</h2>
+<p>The first thing you should try is sending the simplest of emails. Just plain text.</p>
+<p>There are a few steps, which I'll detail one by one:</p>
+<ol>
+<li>
+<p>Import the smtplib module.</p>
+</li>
+<li>
+<p>Using smtplib, specify the SMTP server and port you'll be accessing. In this example I'm using Gmail's servers.</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">smtplib</span>
+
+<span class="n">smtp_server</span> <span class="o">=</span> <span class="n">smptlib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s1">&#39;smtp.gmail.com&#39;</span><span class="p">,</span> <span class="mi">587</span><span class="p">)</span>
+</pre></div>
+
+
+<ol>
+<li>The SMTP server you're connecting to requires a sort of 'handshake' for the service to work properly. This is done using the .ehlo() function of smtplib.</li>
+</ol>
+<div class="highlight"><pre><span></span>smtp_server.ehlo()
+</pre></div>
+
+
+<ol>
+<li>As Google doesn't use SSL, we need to kick off TLS Encryption manually.</li>
+</ol>
+<div class="highlight"><pre><span></span>smtp_server.starttls()
+</pre></div>
+
+
+<ol>
+<li>Now for the login. Keep in mind at this point, you'll use the App Password you obtained earlier instead of your usual Gmail password.</li>
+</ol>
+<div class="highlight"><pre><span></span>smtp_server.login(&#39;pybitesblog@gmail.com&#39;, &#39;&lt;App Password&gt;&#39;)
+</pre></div>
+
+
+<ol>
+<li>Next we send the actual email message. The first email address is the address you're emailing from, the second is the recipient.</li>
+</ol>
+<div class="highlight"><pre><span></span>smtp_server.sendmail(&#39;pybitesblog@gmail.com&#39;, &#39;recipient@gmail.com&#39;, &#39;Subject: Happy Australia Day!\nHi Everyone! Happy Australia Day! Cheers, Julian&#39;)
+</pre></div>
+
+
+<blockquote>
+<p>Things to note in the above. The \n is mandatory. It's what separates your Subject line from the body of the email. Note: if you're running this in IDLE, when the email is sent successfully, you'll see '{}' characters appear as the return message. If part of a script, you can always add a print statement or other to show this instead.</p>
+</blockquote>
+<ol>
+<li>Finally, disconnect from the SMTP server when complete.</li>
+</ol>
+<div class="highlight"><pre><span></span>smtp_server.quit()
+</pre></div>
+
+
+<p>And we're done! Here's the/my final code:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">smtplib</span>
+
+<span class="n">smtp_server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s1">&#39;smtp.gmail.com&#39;</span><span class="p">,</span> <span class="mi">587</span><span class="p">)</span>
+<span class="n">smtp_server</span><span class="o">.</span><span class="n">ehlo</span><span class="p">()</span>
+<span class="n">smtp_server</span><span class="o">.</span><span class="n">starttls</span><span class="p">()</span>
+<span class="n">smtp_server</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;App Password&gt;&#39;</span><span class="p">)</span>
+
+<span class="n">smtp_server</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="p">,</span> <span class="s1">&#39;recipient@gmail.com&#39;</span><span class="p">,</span> <span class="s1">&#39;Subject: Happy Australia Day!</span><span class="se">\n</span><span class="s1">Hi Everyone! Happy Australia Day! Cheers, Julian&#39;</span><span class="p">)</span>
+
+<span class="n">smtp_server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Email sent successfully&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Next Steps</h2>
+<p>Clearly this is as basic as it gets. Moving forward you'll want the ability to send more detailed emails with some essence of formatting.</p>
+<p>To do this you'll need to import the MIME (Multipurpose Internet Mail Extensions) modules into your script.</p>
+<p>I want to expand on this current email example and will do so my next post. It also allows us to make the code a little more Pythonic!</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/python.html">python</a>
+      <a href="http://pybit.es/tag/tips.html">tips</a>
+      <a href="http://pybit.es/tag/tricks.html">tricks</a>
+      <a href="http://pybit.es/tag/code.html">code</a>
+      <a href="http://pybit.es/tag/pybites.html">pybites</a>
+      <a href="http://pybit.es/tag/email.html">email</a>
+      <a href="http://pybit.es/tag/automation.html">automation</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
