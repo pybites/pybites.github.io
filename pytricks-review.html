@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/pytricks-review.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-01-29 09:00:00+01:00"/>
+<meta property="article:published_time" content="2017-01-31 09:00:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/bob.html">
 <meta property="article:section" content="Books"/>
@@ -93,7 +93,7 @@
   <header>
     <h1 id="pytricks-review">Python Tricks book review</h1>
     <p>
-          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Sun 29 January 2017 in <a href="http://pybit.es/category/books.html">Books</a>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Tue 31 January 2017 in <a href="http://pybit.es/category/books.html">Books</a>
 
 
     </p>
@@ -101,35 +101,36 @@
 
 
   <div>
-    <p>A review of Dan Bader's <a href="https://dbader.org/products/python-tricks-book/">Python tricks book</a>.</p>
+    <p>A review of Dan Bader's <a href="https://dbader.org/products/python-tricks-book/">Python tricks book</a>:</p>
 <blockquote>
 <p>Discover Python’s Best Practices with Simple Examples and Start Writing Beautiful &amp; Pythonic Code</p>
 </blockquote>
 <h3>Take your Python to the next level</h3>
-<p>I found out about this book through Dan's Python Tricks I get via email / Twitter:</p>
+<p>I found out about this book through Dan's Python Tricks I get via email / Twitter. The book defines:</p>
 <blockquote>
-<p>Python Trick: A short Python code snippet meant as a teaching tool. A Python Trick either teaches an aspect of Python with a simple illustration, or serves as a mo- tivating example to dig deeper and develop an intuitive understanding.</p>
+<p>Python Trick: A short Python code snippet meant as a teaching tool. A Python Trick either teaches an aspect of Python with a simple illustration, or serves as a motivating example to dig deeper and develop an intuitive understanding.</p>
 </blockquote>
-<p>I really enjoyed reading Dan's book. He explains some pretty important Python aspects with clear examples (using two twin cats to explain "is" vs "==" for example). It is not just code samples, it discusses relevant implementation details in a very comprehensible way. </p>
-<p>The examples also go from less to more Pythonic, for example using try/except KeyError (still <a href="https://docs.python.org/3/glossary.html">EAFP</a> style!) to get a default key vs. using the dict's get() method.</p>
+<p>I really enjoyed reading Dan's book. He explains important Python aspects with clear examples (using two twin cats to explain "is" vs "==" for example). It is not just code samples, it discusses relevant implementation details comprehensibly.</p>
+<p>Since <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M">this talk by Raymond Hettinger</a> I am more conscious about writing Pythonic code. This book cares too. Most tricks show the "one-- and preferably only one --obvious way to do it" (import this), for example how to merge dicts, or for dict access use try/except (<a href="https://docs.python.org/3/glossary.html">EAFP style</a>) but prefer dict.get() as being even more precise. The beginner gets into Pythonic mode, the expert might still pick up new stuff. Another good book in this context is <a href="https://www.amazon.com/Effective-Python-Specific-Software-Development/dp/0134034287/ref=sr_1_1?ie=UTF8&amp;qid=1485688050&amp;sr=8-1&amp;keywords=effective+python">Effective Python: 59 Specific Ways to Write Better Python</a>.</p>
 <h3>Few things I learned (refreshed)</h3>
 <ul>
 <li>
-<p>Language features section: mentioned "is" vs "==", dictionary internals, deep vs shallow copy. The article on 4 ways of string formatting is awesome. I like Dan’s Python String Formatting Rule of Thumb:</p>
+<p>Language features section: the "is" vs "==" I mentioned, dictionary internals, deep vs shallow copy. The article on 4 ways of string formatting is awesome. I like Dan’s Python String Formatting Rule of Thumb:</p>
 <blockquote>
 <p>If your format strings are user-supplied, use Template Strings to avoid security issues. Otherwise, use Literal String Interpolation if you’re on Python 3.6+, and "New Style" String Formatting if you’re not.</p>
 </blockquote>
 </li>
 <li>
-<p>Cleaner Python section: use your own exceptions (used <a href="http://pybit.es/error_handling.html">here</a>), ABC's (used <a href="http://pybit.es/oop-primer.html">here</a>), the key func of sorted() which is shown with both lambda and operator.getitem syntax, and refactoring an ugly switch statement.</p>
+<p>Cleaner Python section (my favorite part of the book): use your own exceptions (which we used <a href="http://pybit.es/error_handling.html">here</a>), ABC's (we used <a href="http://pybit.es/oop-primer.html">here</a>), the key func of sorted() (we used <a href="http://pybit.es/codechallenge01_review.html">here</a>), which is shown with both lambda and operator.getitem syntax, refactoring an ugly switch statement.</p>
 </li>
 <li>
-<p>Pythonic syntactic sugar section: * and ** (splat) function arg unpacking (very Pythonic), various ways to merge dicts. There are some other ways with itertools and collections not highlighted, but I think the point of this book is to use stdlib as much as possible.</p>
+<p>Pythonic syntactic sugar section: * and ** (splat) function arg unpacking (very Pythonic), various (stdlib) ways to merge dicts. </p>
 </li>
 </ul>
-<h3>&gt;&gt;&gt; import this ... Now is better than never.</h3>
-<p>And more so because you can get it for just 9 bucks, eventually it will cost 29.</p>
-<p>Keep in mind this is a work in progress. I did find the initial version of 60 pages a bit short, but last weekend I got an update of 25+ pages so the final version will be longer. Besides, quality of this material is very good. </p>
+<h3>Now is better than never (import this)</h3>
+<p>And more so because you can still get it for a lower early-access price, eventually the final version of the book will cost more.</p>
+<p>Keep in mind this is a work in progress. I did find the initial version of 60 pages a bit short, but recently I got an update of 25+ pages so the final version will be longer. </p>
+<p>What really matters though is that this book makes you write better Python code! The book is actually responsible for recent new good py habits I picked up, for example: using custom exceptions and ABC's (I found Dan's blog searching for abstract classes). These new learnings alone are worth the price.</p>
 <p>Thanks Dan for sharing your great work.</p>
   </div>
   <div class="tag-cloud">
