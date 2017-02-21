@@ -310,6 +310,18 @@ Telemarketers 5
 <p>Note: Not really my top 5 pet peeves!</p>
 <h2>Conclusion</h2>
 <p>How great is Python? If you have any other ideas or comments regarding ordering the output of a dict, please let me know! Always be Learning!</p>
+<h2>Update comments Reddit</h2>
+<p>Some good discussion <a href="https://www.reddit.com/r/learnpython/comments/5v3kks/ordering_dict_output/?st=izdve470&amp;sh=6797b6e3">on Reddit</a>. Thanks ManyInterests and nadrimajstor for suggesting itemgetter!</p>
+<p>Here is an example how you can use it for sorting instead of lambda: </p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ages</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;julian&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;zack&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;anthony&#39;</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span> <span class="s1">&#39;daniel&#39;</span><span class="p">:</span> <span class="mi">41</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sort_key</span> <span class="o">=</span> <span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ages</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">sort_key</span><span class="p">)</span>
+<span class="p">[(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">)]</span>
+</pre></div>
+
+
+<hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Julian</p>
   </div>

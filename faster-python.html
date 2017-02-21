@@ -24,11 +24,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="In this post I will give you 10 tips to speed up your code." />
-<meta name="keywords" content="performance, data structures, pythonic, generators, map, numba, algorithms">
+<meta name="description" content="In this post I will give you 5 tips to speed up your code." />
+<meta name="keywords" content="performance, data structures, pythonic, generators, map, Numba, algorithms">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="10 tips to speed up your Python code"/>
-<meta property="og:description" content="In this post I will give you 10 tips to speed up your code."/>
+<meta property="og:title" content="5 tips to speed up your Python code"/>
+<meta property="og:description" content="In this post I will give you 5 tips to speed up your code."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/faster-python.html"/>
 <meta property="og:type" content="article"/>
@@ -41,17 +41,17 @@
 <meta property="article:tag" content="pythonic"/>
 <meta property="article:tag" content="generators"/>
 <meta property="article:tag" content="map"/>
-<meta property="article:tag" content="numba"/>
+<meta property="article:tag" content="Numba"/>
 <meta property="article:tag" content="algorithms"/>
 <meta property="og:image" content="http://pybit.es/images/featured/faster-python.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="10 tips to speed up your Python code" />
-<meta name="twitter:description" content="In this post I will give you 10 tips to speed up your code." />
+<meta name="twitter:title" content="5 tips to speed up your Python code" />
+<meta name="twitter:description" content="In this post I will give you 5 tips to speed up your code." />
 <meta name="twitter:image" content="http://pybit.es/images/featured/faster-python.png">
 
-  <title>PyBites &ndash; 10 tips to speed up your Python code</title>
+  <title>PyBites &ndash; 5 tips to speed up your Python code</title>
 
 
   <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
@@ -87,7 +87,7 @@
 
 <article class="single">
   <header>
-    <h1 id="faster-python">10 tips to speed up your Python code</h1>
+    <h1 id="faster-python">5 tips to speed up your Python code</h1>
     <p>
           Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Tue 21 February 2017 in <a href="http://pybit.es/category/best-practices.html">Best practices</a>
 
@@ -97,21 +97,28 @@
 
 
   <div>
-    <p>First off: optimizing usually is not your primary concern, writing readable code is. However a lot of the tips I investigated below go hand-in-hand with writing good, Pythonic code. </p>
+    <p>This article is about native Python, not <a href="https://en.wikipedia.org/wiki/List_of_compilers#Python_compilers">compilers</a> nor <a href="https://docs.python.org/3/library/concurrency.html">concurrency</a>.</p>
+<p>First off: optimizing usually is not your primary concern, writing readable code is. </p>
 <blockquote>
 <p>Premature optimization is the root of all evil. (Donald Knuth)</p>
 </blockquote>
-<p>With that said, lets dive in: </p>
-<h2>1. Use hashable objects for lookup</h2>
-<p>As already mentioned <a href="http://pybit.es/collections-deque.html#collections-deque">here</a> dicts and sets use hash tables so have O(1) performance.</p>
+<p>However a lot of the tips I investigated below go hand-in-hand with writing good, Pythonic code. </p>
+<p>Here are 5 important things to keep in mind in order to write efficient Python code.</p>
+<h2>1. Know the basic data structures</h2>
+<p>As already mentioned <a href="http://pybit.es/collections-deque.html">here</a> dicts and sets use hash tables so have O(1) performance.</p>
 <p>This is easy to use even if you happen to have lists:</p>
 <div class="highlight"><pre><span></span>if value in set(list):
     ...
 </pre></div>
 
 
-<p>Overall a good understanding of basic algorithms / data structures pays off. </p>
-<h2>2. Don't str append</h2>
+<p>Each data structure has efficient features you can use. For example this set operation to avoid a double for loop:</p>
+<div class="highlight"><pre><span></span>return set(a) &amp; set(b)
+</pre></div>
+
+
+<p>Overall a good understanding of basic algorithms / data structures pays off.</p>
+<h2>2. Reduce memory footprint</h2>
 <div class="highlight"><pre><span></span>msg = &#39;line1\n&#39;
 msg += &#39;line2\n&#39;
 msg += &#39;line3\n&#39;
@@ -128,14 +135,29 @@ msg += &#39;line3\n&#39;
 <div class="highlight"><pre><span></span># slow
 msg = &#39;hello &#39; + my_var + &#39; world&#39;
 
-# fast
-msg = &#39;hello %s world&#39; % my_var  # or use format()
+# faster
+msg = &#39;hello %s world&#39; % my_var
+
+# even better (more pythonic)
+msg = &#39;hello {} world&#39;.format(my_var)
 </pre></div>
 
 
+<p>Other memory saving techniques:</p>
+<ul>
+<li>
+<p>probably best known are generators which result in the lazy (on demand) generation of values, which translates to lower memory usage. Good news is that in Python 3 range, d.items() etc return generators (in Python 2 use xrange, d.iteritems() respectively). Another good reason to switch to Python 3 :)</p>
+</li>
+<li>
+<p>list.sort() is in place vs sorted() which makes a copy. Honestly I have mostly used latter, but it might matter if your data set grows.</p>
+</li>
+<li>
+<p><a href="https://docs.python.org/2/reference/datamodel.html">__slots__</a>: 'the __slots__ declaration takes a sequence of instance variables and reserves just enough space in each instance to hold a value for each variable. Space is saved because __dict__ is not created for each instance', so this is really useful if you have a lot of instances (here is a <a href="http://tech.oyster.com/save-ram-with-python-slots/">real-world example</a>).</p>
+</li>
+</ul>
 <h2>3. Use builtin functions and libraries</h2>
-<p>Builtin functions like map are implemented in C code.</p>
-<p>Example barrowed from this <a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips">great wiki</a>:</p>
+<p>Builtin functions like sum, max, any, map, etc are implemented in C. They are very efficient and well tested. Use them!</p>
+<p>Example borrowed from this <a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips">great wiki</a>:</p>
 <div class="highlight"><pre><span></span>newlist = []
 for word in oldlist:
     newlist.append(word.upper())
@@ -143,27 +165,17 @@ for word in oldlist:
 
 
 <p>Better:</p>
-<div class="highlight"><pre><span></span>newlist = map(str.upper, oldlist)  # wiki calls &#39;map a for moved into C code&#39;
+<div class="highlight"><pre><span></span>newlist = map(str.upper, oldlist)  # wiki cites map as a for loop moved into C code
 </pre></div>
 
 
-<p>Maybe more readable = list comprehension (still faster than the classic for loop): </p>
-<div class="highlight"><pre><span></span>newlist = [s.upper() for s in oldlist]
-</pre></div>
-
-
-<p>But loads whole list in memory, so if size is an issue use a generator (lazy loading):</p>
-<div class="highlight"><pre><span></span>iterator = (s.upper() for s in oldlist)
-</pre></div>
-
-
-<p>Good news is that in Python 3 range, d.items() etc return generators (still in Python2? ...)</p>
+<p>Maybe more readable = list comprehension (still faster than the classic for loop):</p>
 <p>Guido's <a href="https://www.python.org/doc/essays/list2str/">Python Patterns - An Optimization Anecdote</a> is a great read:</p>
 <blockquote>
-<p>If you feel the need for speed, go for built-in functions - you can't beat a loop written in C. Check the library manual for a built-in function that does what you want. </p>
+<p>If you feel the need for speed, go for built-in functions - you can't beat a loop written in C. Check the library manual for a built-in function that does what you want.</p>
 </blockquote>
 <p>Another example of using builtins is the <a href="https://docs.python.org/2/library/collections.html">collections</a> module which offers Pythonic and efficient data structures (deque, defaultdict, Counter, etc)</p>
-<p>defaultdict is a really good example: </p>
+<p>defaultdict is a good example:</p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;mississippi&#39;
 &gt;&gt;&gt; d = defaultdict(int)
 &gt;&gt;&gt; for k in s:
@@ -175,23 +187,8 @@ for word in oldlist:
 <blockquote>
 <p>I hate code and I want as little of it as possible in our product.</p>
 </blockquote>
-<h2>4. Use set operations where possible</h2>
-<p>I found this nice example <a href="https://www.monitis.com/blog/7-ways-to-improve-your-python-performance/">here</a>:</p>
-<div class="highlight"><pre><span></span>for x in a:
-    for y in b:
-        if x == y:
-            yield (x,y)
-</pre></div>
-
-
-<p>Try this instead which is faster:</p>
-<div class="highlight"><pre><span></span>return set(a) &amp; set(b)
-</pre></div>
-
-
-<p>Added benefit: 1 instead of 4 lines of code.</p>
-<h2>5. Use re.compile</h2>
-<p>If you have a big iterator and you need to do some regex matching, for example match a date ...</p>
+<h2>4. Move calculations outside the loop</h2>
+<p>If you have a big iterator and you need to do some regex matching, for example match a date:</p>
 <div class="highlight"><pre><span></span>for i in big_it:
     m = re.search(r&#39;\d{2}-\d{2}-\d{4}&#39;, i)
     if m:
@@ -200,69 +197,68 @@ for word in oldlist:
 
 
 <p>Better to compile the regex once and use that 'cached' version in the loop:</p>
-<div class="highlight"><pre><span></span>REGEX_DATE = re.compile(r&#39;\d{2}-\d{2}-\d{4}&#39;)
+<div class="highlight"><pre><span></span>date_regex = re.compile(r&#39;\d{2}-\d{2}-\d{4}&#39;)
 
 for i in big_it:
-    m = REGEX_DATE.search(i)
+    m = date_regex.search(i)
     if m:
         ...
 </pre></div>
 
 
 <p>More generically evaluate as much as possible outside the loop!</p>
-<h2>6. Local vars</h2>
-<p>From the same <a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips">PerformanceTips wiki</a> mentioned earlier: "Python accesses local variables much more efficiently than global variables.", so:</p>
+<p>Another trick is to asign a function (calculation) to a local variable:</p>
+<blockquote>
+<p>Python accesses local variables much more efficiently than global variables. (<a href="[PerformanceTips wiki](https://wiki.python.org/moin/PythonSpeed/PerformanceTips)">source</a>)</p>
+</blockquote>
 <div class="highlight"><pre><span></span>myfunc = myObj.func
 fcor i in range(n):
     myfunc(i) # faster than myObj.func(i)
 </pre></div>
 
 
-<h2>7. Imports</h2>
-<p>Common sense but still: be conscious what you put in the module vs main level (latter being below __main__ statement). When you import a module potentially a lot of code runs and can slow down your program. Keep imports at the top of your program (don't import in a method), and just import what you need.</p>
-<h2>8. Ask for forgiveness</h2>
-<p>Using try/except usually leads to more readable code and is <a href="http://pybit.es/error_handling.html">considered more Pythonic</a>. It turns out it is also faster because it does not have to compute the if as I learned from this <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">great EuroPython talk</a>: </p>
+<h2>5. Keep your code base small</h2>
+<p>Common sense but still: be conscious what you put in the module vs main level (latter being below the __main__ statement). When you import a module potentially a lot of code runs and can slow down your program! </p>
+<p>Reduce the amounts of if/elif/and/or. An interesting example I learned from <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">this great talk</a>: the ask forgiveness code style actually runs faster because it eliminates the need for the if check:</p>
 <div class="highlight"><pre><span></span>if os.path.isfile(some_file):
     ...
 
+# better (and more pythonic)
 try:
     with open(some_file) as f:
         ...
 </pre></div>
 
 
-<p>Overall more Pythonic is easier to read but also faster. Another example is 'if variable:' being faster than the un-idiomatic 'if variable == True:' !</p>
-<h2>9. Avoid redundant copies</h2>
-<p>Honestly I liked sorted() which can take an optional key argument. And I have never had to use sort() over sorted(). However to explain the difference when it matters: list.sort() sorts in place, sorted(list) creates a new list, hence is slower. </p>
-<p>So as most of these techniques it depends on context. Another example is <a href="https://docs.python.org/2/reference/datamodel.html">__slots__</a>: 'the __slots__ declaration takes a sequence of instance variables and reserves just enough space in each instance to hold a value for each variable. Space is saved because __dict__ is not created for each instance' (<a href="http://tech.oyster.com/save-ram-with-python-slots/">real-world example</a>).</p>
-<h2>10. Use a compiler</h2>
-<p>For example: <a href="http://cython.org">Cython</a> or <a href="http://numba.pydata.org">Numba</a></p>
-<blockquote>
-<p>Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language </p>
-<p>Numba works by generating optimized machine code using the LLVM compiler infrastructure at import time, runtime, or statically</p>
-</blockquote>
-<p>Here is <a href="https://www.youtube.com/watch?v=eYIPEDnp5C4">a talk</a> how Numba works.</p>
+<p>Overall more Pythonic is easier to read but also faster. Another example (same talk): 'if variable:' is faster than the un-idiomatic 'if variable == True:' </p>
 <hr>
 <h2>How to spot performance issues?</h2>
-<p>We are pretty bad at guessing, you can use the <a href="https://docs.python.org/3.6/library/profile.html">profile module</a>:</p>
+<p>Humans are pretty bad at guessing, I can tell ... once I wanted to optimize a Python script I built that did heavy text parsing but took a bit of time. Profiling the code it was caused by a different part than I had intuitively thought!</p>
+<p>You can use the <a href="https://docs.python.org/3.6/library/profile.html">profile module</a>:</p>
 <div class="highlight"><pre><span></span>python -m profile script [args ...]
 # add -o to save the output
 </pre></div>
 
 
-<p>And you can use the <a href="https://docs.python.org/3/library/timeit.html">timeit module</a> (or simply time.clock()) to time blocks of code.</p>
-<h2>Further reading (watching)</h2>
+<p>To time code, see <a href="http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python">this SO thread</a>.</p>
+<hr>
+<h2>Resources</h2>
 <ul>
 <li>
-<p>Again <a href="https://www.python.org/doc/essays/list2str/">Python Patterns - An Optimization Anecdote</a> sums up a lot of this in a nice and concise way. </p>
+<p>Again Guido's <a href="https://www.python.org/doc/essays/list2str/">Python Patterns - An Optimization Anecdote</a> is a great read.</p>
 </li>
 <li>
-<p>Sebastian Witowski's talk: <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">Writing faster Python</a>.</p>
+<p>Reference: <a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips">Performance tips wiki</a>.</p>
 </li>
 <li>
-<p>For a book on the subject, checkout <a href="https://www.amazon.com/High-Performance-Python-Performant-Programming/dp/1449361595/ref=sr_1_1?ie=UTF8&amp;qid=1487234279&amp;sr=8-1&amp;keywords=high+performance+python">High Performance Python: Practical Performant Programming for Humans</a>.</p>
+<p>Mentioned talk <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">Writing faster Python</a> by Sebastian Witowski.</p>
+</li>
+<li>
+<p>Book on the subject: <a href="https://www.amazon.com/High-Performance-Python-Performant-Programming/dp/1449361595/ref=sr_1_1?ie=UTF8&amp;qid=1487234279&amp;sr=8-1&amp;keywords=high+performance+python">High Performance Python: Practical Performant Programming for Humans</a>.</p>
 </li>
 </ul>
+<hr>
+<p>What are your favorite tricks to speed up your Python code?</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
@@ -274,7 +270,7 @@ try:
       <a href="http://pybit.es/tag/pythonic.html">pythonic</a>
       <a href="http://pybit.es/tag/generators.html">generators</a>
       <a href="http://pybit.es/tag/map.html">map</a>
-      <a href="http://pybit.es/tag/numba.html">numba</a>
+      <a href="http://pybit.es/tag/numba.html">Numba</a>
       <a href="http://pybit.es/tag/algorithms.html">algorithms</a>
     </p>
   </div>
