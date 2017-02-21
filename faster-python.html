@@ -25,7 +25,7 @@
 
 <meta name="author" content="Bob" />
 <meta name="description" content="In this post I will give you 5 tips to speed up your code." />
-<meta name="keywords" content="performance, data structures, pythonic, generators, map, Numba, algorithms">
+<meta name="keywords" content="performance, data structures, pythonic, generators, map, builtin, algorithms, regex, patterns">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="5 tips to speed up your Python code"/>
 <meta property="og:description" content="In this post I will give you 5 tips to speed up your code."/>
@@ -41,8 +41,10 @@
 <meta property="article:tag" content="pythonic"/>
 <meta property="article:tag" content="generators"/>
 <meta property="article:tag" content="map"/>
-<meta property="article:tag" content="Numba"/>
+<meta property="article:tag" content="builtin"/>
 <meta property="article:tag" content="algorithms"/>
+<meta property="article:tag" content="regex"/>
+<meta property="article:tag" content="patterns"/>
 <meta property="og:image" content="http://pybit.es/images/featured/faster-python.png">
 
 <meta name="twitter:card" content="summary" />
@@ -105,19 +107,8 @@
 <p>However a lot of the tips I investigated below go hand-in-hand with writing good, Pythonic code. </p>
 <p>Here are 5 important things to keep in mind in order to write efficient Python code.</p>
 <h2>1. Know the basic data structures</h2>
-<p>As already mentioned <a href="http://pybit.es/collections-deque.html">here</a> dicts and sets use hash tables so have O(1) performance.</p>
-<p>This is easy to use even if you happen to have lists:</p>
-<div class="highlight"><pre><span></span>if value in set(list):
-    ...
-</pre></div>
-
-
-<p>Each data structure has efficient features you can use. For example this set operation to avoid a double for loop:</p>
-<div class="highlight"><pre><span></span>return set(a) &amp; set(b)
-</pre></div>
-
-
-<p>Overall a good understanding of basic algorithms / data structures pays off.</p>
+<p>As already mentioned <a href="http://pybit.es/collections-deque.html">here</a> dicts and sets use hash tables so have O(1) lookup performance. Good reference: <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity</a> for the main data types.</p>
+<p>Update: in the first iteration of this article I did a 'value in set(list)' but this is actually expensive because you have to do the list-to-set cast. The suggested set(a) &amp; set(b) instead of double-for-loop has this same problem. Thanks for pointing this out <a href="https://redd.it/5vapzt">on Reddit</a>.</p>
 <h2>2. Reduce memory footprint</h2>
 <div class="highlight"><pre><span></span>msg = &#39;line1\n&#39;
 msg += &#39;line2\n&#39;
@@ -251,6 +242,9 @@ try:
 <p>Reference: <a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips">Performance tips wiki</a>.</p>
 </li>
 <li>
+<p><a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity reference</a>.</p>
+</li>
+<li>
 <p>Mentioned talk <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">Writing faster Python</a> by Sebastian Witowski.</p>
 </li>
 <li>
@@ -270,8 +264,10 @@ try:
       <a href="http://pybit.es/tag/pythonic.html">pythonic</a>
       <a href="http://pybit.es/tag/generators.html">generators</a>
       <a href="http://pybit.es/tag/map.html">map</a>
-      <a href="http://pybit.es/tag/numba.html">Numba</a>
+      <a href="http://pybit.es/tag/builtin.html">builtin</a>
       <a href="http://pybit.es/tag/algorithms.html">algorithms</a>
+      <a href="http://pybit.es/tag/regex.html">regex</a>
+      <a href="http://pybit.es/tag/patterns.html">patterns</a>
     </p>
   </div>
 
