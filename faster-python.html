@@ -107,8 +107,17 @@
 <p>However a lot of the tips I investigated below go hand-in-hand with writing good, Pythonic code. </p>
 <p>Here are 5 important things to keep in mind in order to write efficient Python code.</p>
 <h2>1. Know the basic data structures</h2>
-<p>As already mentioned <a href="http://pybit.es/collections-deque.html">here</a> dicts and sets use hash tables so have O(1) lookup performance. Good reference: <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity</a> for the main data types.</p>
-<p>Update: in the first iteration of this article I did a 'value in set(list)' but this is actually expensive because you have to do the list-to-set cast. The suggested set(a) &amp; set(b) instead of double-for-loop has this same problem. Thanks for pointing this out <a href="https://redd.it/5vapzt">on Reddit</a>.</p>
+<p>As already mentioned <a href="http://pybit.es/collections-deque.html">here</a> dicts and sets use hash tables so have O(1) lookup performance.  As the <a href="http://docs.python-guide.org/en/latest/writing/style/">The Hitchhiker's Guide</a> states:</p>
+<blockquote>
+<p>... it is often a good idea to use sets or dictionaries instead of lists in cases where:</p>
+<ul>
+<li>The collection will contain a large number of items</li>
+<li>You will be repeatedly searching for items in the collection</li>
+<li>You do not have duplicate items.</li>
+</ul>
+</blockquote>
+<p>For a performance cheat sheet for al the main data types refer to <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity</a>. For a nice, accessible and visual book on algorithms see <a href="http://pybit.es/grokking_algorithms.html">here</a>.</p>
+<p>Update: in the first iteration of this article I did a 'value in set(list)' but this is actually expensive because you have to do the list-to-set cast. The suggested set(a) &amp; set(b) instead of double-for-loop has this same problem. Thanks for pointing this out <a href="https://redd.it/5vapzt">on Reddit</a>. There were some more comments there which I will update in this article for completeness and correctness.</p>
 <h2>2. Reduce memory footprint</h2>
 <div class="highlight"><pre><span></span>msg = &#39;line1\n&#39;
 msg += &#39;line2\n&#39;
@@ -129,11 +138,12 @@ msg = &#39;hello &#39; + my_var + &#39; world&#39;
 # faster
 msg = &#39;hello %s world&#39; % my_var
 
-# even better (more pythonic)
+# or better:
 msg = &#39;hello {} world&#39;.format(my_var)
 </pre></div>
 
 
+<p>Pythonic code is not only more readable but also faster, another example: 'if variable:' is faster than the un-idiomatic 'if variable == True:' </p>
 <p>Other memory saving techniques:</p>
 <ul>
 <li>
@@ -160,21 +170,27 @@ for word in oldlist:
 </pre></div>
 
 
-<p>Maybe more readable = list comprehension (still faster than the classic for loop):</p>
+<p>For readability I much prefer a list comprehension though. And as another redditor commented a list comprehension is just as fast as list(map(x)) and a generator comprehension is just as fast as map(x).</p>
 <p>Guido's <a href="https://www.python.org/doc/essays/list2str/">Python Patterns - An Optimization Anecdote</a> is a great read:</p>
 <blockquote>
 <p>If you feel the need for speed, go for built-in functions - you can't beat a loop written in C. Check the library manual for a built-in function that does what you want.</p>
 </blockquote>
-<p>Another example of using builtins is the <a href="https://docs.python.org/2/library/collections.html">collections</a> module which offers Pythonic and efficient data structures (deque, defaultdict, Counter, etc)</p>
-<p>defaultdict is a good example:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;mississippi&#39;
-&gt;&gt;&gt; d = defaultdict(int)
-&gt;&gt;&gt; for k in s:
-...     d[k] += 1
+<p>Another example of using builtins is the <a href="https://docs.python.org/2/library/collections.html">collections</a> module which offers Pythonic and efficient data structures (deque, defaultdict, Counter, etc):</p>
+<p>For example defaultdict ('list as the default_factory' example from documentation):</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = [(&#39;yellow&#39;, 1), (&#39;blue&#39;, 2), (&#39;yellow&#39;, 3), (&#39;blue&#39;, 4), (&#39;red&#39;, 1)]
+&gt;&gt;&gt; d = defaultdict(list)
+&gt;&gt;&gt; for k, v in s:
+...     d[k].append(v)
 </pre></div>
 
 
-<p>No need to see if key is in dict, faster, less code. As Jack Diederich says in <a href="https://www.youtube.com/watch?v=o9pEzgHorH0">this great talk</a>:</p>
+<p>Or use Counter, just one line of code:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; Counter(&#39;mississippi&#39;)
+Counter({&#39;i&#39;: 4, &#39;s&#39;: 4, &#39;p&#39;: 2, &#39;m&#39;: 1})
+</pre></div>
+
+
+<p>As Jack Diederich says in <a href="https://www.youtube.com/watch?v=o9pEzgHorH0">this great talk</a> :)</p>
 <blockquote>
 <p>I hate code and I want as little of it as possible in our product.</p>
 </blockquote>
@@ -197,6 +213,7 @@ for i in big_it:
 </pre></div>
 
 
+<p>Update: another redditor commented: "it's by the mercy of the interpreter's implementation, most (including the common CPython) have their own cache for a certain number of regexes, so it probably wouldn't cause any extra time.".</p>
 <p>More generically evaluate as much as possible outside the loop!</p>
 <p>Another trick is to asign a function (calculation) to a local variable:</p>
 <blockquote>
@@ -208,30 +225,19 @@ fcor i in range(n):
 </pre></div>
 
 
+<p>On the subject of caching, for memoization (an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again) you can use the <a href="https://docs.python.org/3/library/functools.html#functools.lru_cache">functools.lru_cache decorator</a>. LRU = <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_Recently_Used_.28LRU.29">Least Recently Used</a> and a good use case is fetching data from the web (<a href="https://docs.python.org/3/library/functools.html#functools.lru_cache">the docs page</a> has an example of LRU cache for static web content).</p>
 <h2>5. Keep your code base small</h2>
 <p>Common sense but still: be conscious what you put in the module vs main level (latter being below the __main__ statement). When you import a module potentially a lot of code runs and can slow down your program! </p>
-<p>Reduce the amounts of if/elif/and/or. An interesting example I learned from <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">this great talk</a>: the ask forgiveness code style actually runs faster because it eliminates the need for the if check:</p>
-<div class="highlight"><pre><span></span>if os.path.isfile(some_file):
-    ...
-
-# better (and more pythonic)
-try:
-    with open(some_file) as f:
-        ...
-</pre></div>
-
-
-<p>Overall more Pythonic is easier to read but also faster. Another example (same talk): 'if variable:' is faster than the un-idiomatic 'if variable == True:' </p>
-<hr>
+<p>Reduce the amounts of if/elif/and/or. An interesting example I learned from <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">this great talk</a>: the ask forgiveness code style might run faster because it eliminates the need for the if check.</p>
+<p>Update: on the mentioned Reddit thread we got some feedback on try/except vs 'if os.path.isfile', latter might actually be better. </p>
 <h2>How to spot performance issues?</h2>
 <p>Humans are pretty bad at guessing, I can tell ... once I wanted to optimize a Python script I built that did heavy text parsing but took a bit of time. Profiling the code it was caused by a different part than I had intuitively thought!</p>
-<p>You can use the <a href="https://docs.python.org/3.6/library/profile.html">profile module</a>:</p>
-<div class="highlight"><pre><span></span>python -m profile script [args ...]
-# add -o to save the output
+<p>You can use <a href="https://docs.python.org/3.6/library/profile.html">a profiler</a>, for example:</p>
+<div class="highlight"><pre><span></span>python -m cProfile [-o output_file] [-s sort_order] myscript.py
 </pre></div>
 
 
-<p>To time code, see <a href="http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python">this SO thread</a>.</p>
+<p>To time your code, see <a href="http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python">this SO thread</a>.</p>
 <hr>
 <h2>Resources</h2>
 <ul>
