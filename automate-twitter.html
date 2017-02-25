@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/automate-twitter.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-29 01:28:00"/>
+<meta property="article:published_time" content="2016-12-29 01:28:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/bob.html">
 <meta property="article:section" content="Tools"/>
@@ -47,13 +47,13 @@
 <meta property="article:tag" content="venv"/>
 <meta property="article:tag" content="news"/>
 <meta property="article:tag" content="3.6"/>
-<meta property="og:image" content="http://pybit.es/images/featured/automate-twitter.png">
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Automate Tweeting: how to build a Twitterbot" />
 <meta name="twitter:description" content="In this post I will show you how we automate part of our Twitter posting using feedparser and tweepy." />
-<meta name="twitter:image" content="http://pybit.es/images/featured/automate-twitter.png">
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Automate Tweeting: how to build a Twitterbot</title>
 
@@ -107,7 +107,7 @@
 <p>To auto-post to Twitter you need to get a Consumer Key/Secret and Access Token (Secret) from <a href="https://apps.twitter.com">https://apps.twitter.com</a>, my <a href="http://bobbelderbos.com/2016/06/twitter-bot/">previous post</a> explains this in more detail (it's pretty easy).</p>
 <h2>Feeds</h2>
 <p>Probably the best site to follow Python news feeds is <a href="http://planetpython.org/">Planet Python</a>, yet for this exercise I found reposting <a href="http://planetpython.org/titles_only.html">20+ new links</a> a day too much (not another spam bot please!), so I decided to watch these 7:</p>
-<div class="highlight"><pre># more feeds 
+<div class="highlight"><pre><span></span># more feeds 
 http://pybit.es/feeds/all.rss.xml
 https://talkpython.fm/episodes/rss
 https://pythonbytes.fm/episodes/rss
@@ -132,21 +132,21 @@ http://www.weeklypython.chat/feed/
 <p>All together pretty impressive that you can do all this in just 67 LOC, mainly because we use <a href="https://pypi.python.org">PyPI</a>.</p>
 <h2>Env / dependencies</h2>
 <p>I developed this in a <a href="http://pybit.es/the-beauty-of-virtualenv.html">virtual environment</a>, so a good practice I adopted is to ship the code with <a href="https://github.com/pybites/blog_code/blob/master/twitter_bot/requirements.txt">a requirements file</a> which I obtained with: </p>
-<div class="highlight"><pre>(venv) $ pip freeze &gt; requirements.txt
+<div class="highlight"><pre><span></span>(venv) $ pip freeze &gt; requirements.txt
 </pre></div>
 
 
 <p>Now you can get this script running simply by cloning my env:</p>
-<div class="highlight"><pre><span class="nv">$ </span>virtualenv venv <span class="o">[</span>1<span class="o">]</span>
-<span class="nv">$ </span><span class="nb">source </span>venv/bin/activate
-<span class="o">(</span>venv<span class="o">)</span> <span class="nv">$ </span>pip install -r requirements.txt
+<div class="highlight"><pre><span></span>$ virtualenv venv <span class="o">[</span>1<span class="o">]</span>
+$ <span class="nb">source</span> venv/bin/activate
+<span class="o">(</span>venv<span class="o">)</span> $ pip install -r requirements.txt
 </pre></div>
 
 
 <p>[1] I was going to say: use pyvenv instead of virtualenv, but <a href="https://docs.python.org/dev/whatsnew/3.6.html">since 3.6</a> the recommended way is <a href="https://docs.python.org/dev/whatsnew/3.6.html#id7">python3 -m venv</a>.</p>
 <h2>Result</h2>
 <p>Here is a filter of this morning's run where we caught our last post, a new Talk Python podcast episode and a nice new post from Dan Bader:</p>
-<div class="highlight"><pre># grep posted pybites_twitter.log 
+<div class="highlight"><pre><span></span># grep posted pybites_twitter.log 
 04:55:54 root         DEBUG    posted status Learning from Python mistakes http://pybit.es/py-mistakes.html #python to twitter
 04:55:57 root         DEBUG    posted status #91 Top 10 Data Science Stories of 2016 https://talkpython.fm/episodes/show/91/top-10-data-science-stories-of-2016 #python to twitter
 04:56:00 root         DEBUG    posted status The Difference Between “is” and “==” in Python https://dbader.org/blog/difference-between-is-and-equals-in-python #python to twitter
@@ -154,10 +154,10 @@ http://www.weeklypython.chat/feed/
 
 
 <p>Automating Twitter :)</p>
-<p><img alt="auto-tweets" src="http://pybit.es/images/auto-tweets.png" /></p>
+<p><img alt="auto-tweets" src="http://pybit.es/images/auto-tweets.png"></p>
 <h2>Logging all-in</h2>
 <p>Another cool thing about the <a href="https://docs.python.org/3.6/library/logging.html">logging module</a> is that you get the imported packages logging for free. The following entries in my log files were not added by the code I wrote, they came from tweepy and/or feedparser and/or their dependencies!</p>
-<div class="highlight"><pre># more pybites_twitter.log |cut -d&#39; &#39; -f2|sort|uniq -c |sort -nr
+<div class="highlight"><pre><span></span># more pybites_twitter.log |cut -d&#39; &#39; -f2|sort|uniq -c |sort -nr
 ...
      15 requests_oauthlib.oauth1_auth  
      15 oauthlib.oauth1.rfc5849
@@ -168,7 +168,7 @@ http://www.weeklypython.chat/feed/
 
 <h2>Deployment</h2>
 <p>Daily cronjob on server. I needed to export the site-packages path defined in PYTHONPATH:</p>
-<div class="highlight"><pre>0 2 * * * export PYTHONPATH=/path/to/python3.5/site-packages &amp;&amp; cd /path/to/twitter_bot &amp;&amp; /path/to/python3.5 tweetbot.py
+<div class="highlight"><pre><span></span>0 2 * * * export PYTHONPATH=/path/to/python3.5/site-packages &amp;&amp; cd /path/to/twitter_bot &amp;&amp; /path/to/python3.5 tweetbot.py
 </pre></div>
 
 
@@ -177,10 +177,10 @@ http://www.weeklypython.chat/feed/
 <p>Again, <a href="https://pypi.python.org">using PyPI</a> you save yourself a lot of coding (= time).</p>
 <p>In just 67 LOC I could built a complete Twitterbot that will auto-post our new blog posts as well as some other good Python blogs and podcasts. We might add a few more feeds but this will do for starters.</p>
 <p>Tests?! Yeah I know ... as I am writing this I am adding some tests using (learning) <a href="http://doc.pytest.org/en/latest/">pytest</a> (I used unittest so far). I will blog about this framework in an upcoming post ...</p>
-<hr />
+<hr>
 <p>Any suggestion of feedback use the comments below. Thanks for reading.</p>
 <p>And to get our latest posts and other good Python content follow <a href="https://twitter.com/pybites">@pybites</a>.</p>
-<hr />
+<hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
   </div>

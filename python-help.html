@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/python-help.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-02-02 21:45:00"/>
+<meta property="article:published_time" content="2017-02-02 21:45:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/julian.html">
 <meta property="article:section" content="Tips"/>
@@ -42,13 +42,13 @@
 <meta property="article:tag" content="code"/>
 <meta property="article:tag" content="pybites"/>
 <meta property="article:tag" content="help"/>
-<meta property="og:image" content="http://pybit.es/images/featured/python-help.png">
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Discover Python Help Options" />
 <meta name="twitter:description" content="Discover some of the numerous Python Help functions." />
-<meta name="twitter:image" content="http://pybit.es/images/featured/python-help.png">
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Discover Python Help Options</title>
 
@@ -100,13 +100,13 @@
 <p>There are 3 help related options I'm going to discuss: help(), dir() and pydoc.</p>
 <h2>help()</h2>
 <p>I face palmed over not finding out about help() sooner. Just like on any operating system, help exists to assist with commands. In Python you simply put whatever object you want within the help function and you'll be presented with a very "man page-esque" looking help page. For example, let's say we wanted to find out more about the <em>len</em> function: </p>
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nx">help</span><span class="p">(</span><span class="nx">len</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; help(len)
 
-<span class="nx">Help</span> <span class="nx">on</span> <span class="nx">built</span><span class="o">-</span><span class="k">in</span> <span class="kd">function</span> <span class="nx">len</span> <span class="k">in</span> <span class="nx">module</span> <span class="nx">builtins</span><span class="o">:</span>
+Help on built-in function len in module builtins:
 
-<span class="nx">len</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="err">/)</span>
-    <span class="nx">Return</span> <span class="nx">the</span> <span class="nx">number</span> <span class="nx">of</span> <span class="nx">items</span> <span class="k">in</span> <span class="nx">a</span> <span class="nx">container</span><span class="p">.</span>
-<span class="p">(</span><span class="nx">END</span><span class="p">)</span>
+len(obj, /)
+    Return the number of items in a container.
+(END)
 </pre></div>
 
 
@@ -115,7 +115,7 @@
 <p>It constantly baffled me as to how programmers like Bob seemed to just <em>know</em> the attributes to use with a specific object. I may never know the answer but I'm
 definitely one step closer thanks to dir().</p>
 <p>dir() is just as wonderful as help(). It allows you to query an object and return its attributes. That is to say, if you've ever wondered what to use with <em>len</em> (eg: len.<attribute/module>) then use dir(len) to get a list. Check out what happens if we use dir() on <em>range</em>:</p>
-<div class="highlight"><pre>&gt;&gt;&gt; dir(range)
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; dir(range)
 [&#39;__class__&#39;, &#39;__contains__&#39;, &#39;__delattr__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__getitem__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__iter__&#39;, &#39;__le__&#39;, &#39;__len__&#39;, &#39;__lt__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__reversed__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;count&#39;, &#39;index&#39;, &#39;start&#39;, &#39;step&#39;, &#39;stop&#39;]
 &gt;&gt;&gt;
 </pre></div>
@@ -126,7 +126,7 @@ definitely one step closer thanks to dir().</p>
 <p>The best part is that both help() and dir() compliment each other perfectly.</p>
 <p>Using the previous example of <em>range</em> we found that we can use the <em>count</em> function with it. The question is how?</p>
 <p>Use help() of course!</p>
-<div class="highlight"><pre>&gt;&gt;&gt; help(range.count)
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; help(range.count)
 Help on method_descriptor:
 
 count(...)
@@ -137,7 +137,7 @@ count(...)
 
 <p>How awesome is that?!</p>
 <p>Modules that aren't in stdlib respond to help() and dir() as well:</p>
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">tweepy</span>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">tweepy</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="n">tweepy</span><span class="p">)</span>
 <span class="n">Help</span> <span class="n">on</span> <span class="n">package</span> <span class="n">tweepy</span><span class="p">:</span>
 
@@ -160,19 +160,19 @@ count(...)
     <span class="n">debug</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">DATA</span>
-    <span class="n">__license__</span> <span class="o">=</span> <span class="s">&#39;MIT&#39;</span>
+    <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;MIT&#39;</span>
     <span class="n">api</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">tweepy</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">API</span> <span class="nb">object</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">snip</span><span class="o">&gt;</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">tweepy</span><span class="p">)</span>
-<span class="p">[</span><span class="s">&#39;API&#39;</span><span class="p">,</span> <span class="s">&#39;AppAuthHandler&#39;</span><span class="p">,</span> <span class="s">&#39;Cache&#39;</span><span class="p">,</span> <span class="s">&#39;Category&#39;</span><span class="p">,</span> <span class="s">&#39;Cursor&#39;</span><span class="p">,</span> <span class="s">&#39;DirectMessage&#39;</span><span class="p">,</span> <span class="s">&#39;FileCache&#39;</span><span class="p">,</span> <span class="s">&#39;Friendship&#39;</span><span class="p">,</span> <span class="s">&#39;MemoryCache&#39;</span><span class="p">,</span> <span class="s">&#39;ModelFactory&#39;</span><span class="p">,</span> <span class="s">&#39;OAuthHandler&#39;</span><span class="p">,</span> <span class="s">&#39;RateLimitError&#39;</span><span class="p">,</span> <span class="s">&#39;SavedSearch&#39;</span><span class="p">,</span> <span class="s">&#39;SearchResults&#39;</span><span class="p">,</span> <span class="s">&#39;Status&#39;</span><span class="p">,</span> <span class="s">&#39;Stream&#39;</span><span class="p">,</span> <span class="s">&#39;StreamListener&#39;</span><span class="p">,</span> <span class="s">&#39;TweepError&#39;</span><span class="p">,</span> <span class="s">&#39;User&#39;</span><span class="p">,</span> <span class="s">&#39;__author__&#39;</span><span class="p">,</span> <span class="s">&#39;__builtins__&#39;</span><span class="p">,</span> <span class="s">&#39;__cached__&#39;</span><span class="p">,</span> <span class="s">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s">&#39;__file__&#39;</span><span class="p">,</span> <span class="s">&#39;__license__&#39;</span><span class="p">,</span> <span class="s">&#39;__loader__&#39;</span><span class="p">,</span> <span class="s">&#39;__name__&#39;</span><span class="p">,</span> <span class="s">&#39;__package__&#39;</span><span class="p">,</span> <span class="s">&#39;__path__&#39;</span><span class="p">,</span> <span class="s">&#39;__spec__&#39;</span><span class="p">,</span> <span class="s">&#39;__version__&#39;</span><span class="p">,</span> <span class="s">&#39;api&#39;</span><span class="p">,</span> <span class="s">&#39;auth&#39;</span><span class="p">,</span> <span class="s">&#39;binder&#39;</span><span class="p">,</span> <span class="s">&#39;cache&#39;</span><span class="p">,</span> <span class="s">&#39;cursor&#39;</span><span class="p">,</span> <span class="s">&#39;debug&#39;</span><span class="p">,</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="s">&#39;models&#39;</span><span class="p">,</span> <span class="s">&#39;parsers&#39;</span><span class="p">,</span> <span class="s">&#39;streaming&#39;</span><span class="p">,</span> <span class="s">&#39;utils&#39;</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;API&#39;</span><span class="p">,</span> <span class="s1">&#39;AppAuthHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;Cache&#39;</span><span class="p">,</span> <span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="s1">&#39;Cursor&#39;</span><span class="p">,</span> <span class="s1">&#39;DirectMessage&#39;</span><span class="p">,</span> <span class="s1">&#39;FileCache&#39;</span><span class="p">,</span> <span class="s1">&#39;Friendship&#39;</span><span class="p">,</span> <span class="s1">&#39;MemoryCache&#39;</span><span class="p">,</span> <span class="s1">&#39;ModelFactory&#39;</span><span class="p">,</span> <span class="s1">&#39;OAuthHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;RateLimitError&#39;</span><span class="p">,</span> <span class="s1">&#39;SavedSearch&#39;</span><span class="p">,</span> <span class="s1">&#39;SearchResults&#39;</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Stream&#39;</span><span class="p">,</span> <span class="s1">&#39;StreamListener&#39;</span><span class="p">,</span> <span class="s1">&#39;TweepError&#39;</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">,</span> <span class="s1">&#39;__author__&#39;</span><span class="p">,</span> <span class="s1">&#39;__builtins__&#39;</span><span class="p">,</span> <span class="s1">&#39;__cached__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">,</span> <span class="s1">&#39;__license__&#39;</span><span class="p">,</span> <span class="s1">&#39;__loader__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__package__&#39;</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">,</span> <span class="s1">&#39;__spec__&#39;</span><span class="p">,</span> <span class="s1">&#39;__version__&#39;</span><span class="p">,</span> <span class="s1">&#39;api&#39;</span><span class="p">,</span> <span class="s1">&#39;auth&#39;</span><span class="p">,</span> <span class="s1">&#39;binder&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="s1">&#39;cursor&#39;</span><span class="p">,</span> <span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;parsers&#39;</span><span class="p">,</span> <span class="s1">&#39;streaming&#39;</span><span class="p">,</span> <span class="s1">&#39;utils&#39;</span><span class="p">]</span>
 </pre></div>
 
 
 <h2>pydoc</h2>
 <p>Pydoc is different to help() and dir() in that you don't actually run it in IDLE or within a script. It's a command line tool that gets installed with Python.</p>
 <p>That said, Pydoc is actually quite similar to help(). It displays a help page (again, man page similarities!) of the Python object you want to query but does so on the command line. No need to start up IDLE.</p>
-<div class="highlight"><pre>(venv) juliansequeira$ pydoc datetime
+<div class="highlight"><pre><span></span>(venv) juliansequeira$ pydoc datetime
 Help on module datetime:
 
 NAME
@@ -189,7 +189,7 @@ MODULE DOCS
 
 <p>The text displayed is made up of the docstrings within the object which means you can create your own if you make your own module etc.</p>
 <p>In typical Python fashion though, Pydoc takes it up a notch. It actually has the ability to display documentation for your installed modules/packages using the built in Python web server!</p>
-<div class="highlight"><pre>pydoc -p 8000
+<div class="highlight"><pre><span></span>pydoc -p 8000
 </pre></div>
 
 

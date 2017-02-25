@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/python_iteration.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-01-19 19:00:00"/>
+<meta property="article:published_time" content="2017-01-19 19:00:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/julian.html">
 <meta property="article:section" content="Concepts"/>
@@ -41,13 +41,13 @@
 <meta property="article:tag" content="tricks"/>
 <meta property="article:tag" content="iteration"/>
 <meta property="article:tag" content="resources"/>
-<meta property="og:image" content="http://pybit.es/images/featured/python-iteration.png">
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Python Iteration" />
 <meta name="twitter:description" content="Iteration in Python is incredibly simple compared to C and other languages. It's easy... maybe a little TOO easy..." />
-<meta name="twitter:image" content="http://pybit.es/images/featured/python-iteration.png">
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Python Iteration</title>
 
@@ -99,7 +99,7 @@
 <p>For loops in particular took me by surprise.</p>
 <h2>For Loop in C</h2>
 <p>It's worth showing how I/we wrote for loops prior to reaching Pylightenment (ha!):</p>
-<div class="highlight"><pre>demo_list = [];
+<div class="highlight"><pre><span></span>demo_list = [];
 
 for(int i = 0; i &lt; 10; i++){
     printf(demo_list[i]);
@@ -112,7 +112,7 @@ The concept however, is that we have a counter, <em>i</em>, that will allow the 
 <p>I always found this tricky because you had to get your counter values right. There was always so much room to mess up by being off by one. Furthermore, you'd have to know how many items are in <em>demo_list</em> in order to list out the entire list. Getting around this would then add further complication and possibly more lines of code.</p>
 <h2>For Loop in Python</h2>
 <p>On the other hand, Python doesn't use a counter whatsoever. It simply iterates over the entire object until finished. Here's the same code in Python:</p>
-<div class="highlight"><pre>for item in demo_list:
+<div class="highlight"><pre><span></span>for item in demo_list:
     print(item)
 </pre></div>
 
@@ -134,7 +134,7 @@ The concept however, is that we have a counter, <em>i</em>, that will allow the 
 <p>This list was taken from an incredibly detailed and interesting <a href="https://www.youtube.com/watch?v=o5gByn3RKFI">training video</a> by Luciano Ramalho.</p>
 <h2>The Iteration Protocol</h2>
 <p>This is how a for loop works internally, it cathces the StopIteration for you:</p>
-<div class="highlight"><pre>&gt;&gt;&gt; name = &#39;Julian&#39;
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; name = &#39;Julian&#39;
 &gt;&gt;&gt; name.__iter__
 &lt;method-wrapper &#39;__iter__&#39; of str object at 0x102a85848&gt;
 &gt;&gt;&gt; it = name.__iter__()
@@ -158,7 +158,7 @@ StopIteration
 
 
 <p>The __iter__ method is what makes an object iterable. You can use that in your own classes, for example:</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="n">Challenge</span>(<span class="n">object</span>):
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">Challenge</span>(<span class="n">object</span>):
     <span class="n">number</span> = <span class="mi">0</span>
 
     <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="nb">name</span>, <span class="n">users</span>):
@@ -175,7 +175,7 @@ StopIteration
         <span class="k">for</span> <span class="n">usr</span> <span class="n">in</span> <span class="k">self</span>.<span class="n">users:</span>
             <span class="n">yield</span> <span class="n">usr</span>
 
-<span class="c-Singleline"># now use it:</span>
+<span class="c c-Singleline"># now use it:</span>
 <span class="n">users</span> = <span class="s">&#39;tim&#39;</span>, <span class="s">&#39;bob&#39;</span>, <span class="s">&#39;victor&#39;</span>, <span class="s">&#39;julian&#39;</span>, <span class="s">&#39;henk&#39;</span>
 <span class="n">ch01</span> = <span class="n">Challenge</span>(<span class="s">&#39;wordvalue&#39;</span>, <span class="n">users</span>)
 <span class="nb">print</span>(<span class="n">ch01</span>)
@@ -207,7 +207,7 @@ StopIteration
 <h2>Iteration Fun - Parallel Assignment</h2>
 <p>The simplicity and flexibility of Python iteration makes it pretty satisfying and fun to use.</p>
 <p>One of my favourites is Parallel Assignment:</p>
-<div class="highlight"><pre>awesomeness_levels = [(&#39;Bob&#39;, 8), (&#39;Julian&#39;, 11), (&#39;PyBites&#39;, 3)]
+<div class="highlight"><pre><span></span>awesomeness_levels = [(&#39;Bob&#39;, 8), (&#39;Julian&#39;, 11), (&#39;PyBites&#39;, 3)]
 
 for name, level in awesomeness_levels:
     print(name + &#39;: &#39; + str(level))
@@ -223,10 +223,10 @@ PyBites: 3
 <p>I love that in a minimal amount of code I'm able to iterate over the entire list but also assign a variable to each item.</p>
 <h2>Iteration Fun II - One iterable providing multiple arguments</h2>
 <p>Another cool example is function argument unpacking (min 15 of the video) which allows you to do something like:</p>
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">itertools</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;Bob&#39;</span><span class="p">,</span> <span class="s">&#39;Julian&#39;</span><span class="p">,</span> <span class="s">&#39;PyBites&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">itertools</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Julian&#39;</span><span class="p">,</span> <span class="s1">&#39;PyBites&#39;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s">&#39;{} teams up with {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pair</span><span class="p">))</span>  <span class="c"># unpacks pair tuple in the 2 {} format placeholders</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} teams up with {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">pair</span><span class="p">))</span>  <span class="c1"># unpacks pair tuple in the 2 {} format placeholders</span>
 <span class="o">...</span> 
 <span class="n">Bob</span> <span class="n">teams</span> <span class="n">up</span> <span class="k">with</span> <span class="n">Julian</span>
 <span class="n">Bob</span> <span class="n">teams</span> <span class="n">up</span> <span class="k">with</span> <span class="n">PyBites</span>

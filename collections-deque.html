@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/collections-deque.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-21 00:05:00"/>
+<meta property="article:published_time" content="2016-12-21 00:05:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/bob.html">
 <meta property="article:section" content="Data"/>
@@ -41,13 +41,13 @@
 <meta property="article:tag" content="performance"/>
 <meta property="article:tag" content="stdlib"/>
 <meta property="article:tag" content="deque"/>
-<meta property="og:image" content="http://pybit.es/images/featured/collections-deque.png">
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Read the stdlib: deque" />
 <meta name="twitter:description" content="Use collections.deque to rotate letters in string (or elements in list). It has a native method which performs faster too." />
-<meta name="twitter:image" content="http://pybit.es/images/featured/collections-deque.png">
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Read the stdlib: deque</title>
 
@@ -103,7 +103,7 @@
 <p>Coincidence: I was brainstorming how to rotate letters and independently I found the solution reading about deque later in the evening (see further down).</p>
 <h2>Rotate without deque</h2>
 <p>One solution I found on Google / Stackoverflow shows a reasonable way to go:</p>
-<div class="highlight"><pre>&gt;&gt;&gt; def rotate(strg,n):
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def rotate(strg,n):
 ...     return strg[n:] + strg[:n]
 ... 
 &gt;&gt;&gt; assert(rotate(&#39;hello&#39;, 2) == &#39;llohe&#39;)
@@ -121,7 +121,7 @@
 <blockquote>
 <p>Rotate the deque n steps to the right. If n is negative, rotate to the left.</p>
 </blockquote>
-<div class="highlight"><pre>&gt;&gt;&gt; s = &#39;hello&#39;
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
 &gt;&gt;&gt; d = deque(s)
 &gt;&gt;&gt; d
 deque([&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;])
@@ -142,7 +142,7 @@ deque([&#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;, &#39;l&#39;])
 
 <h2>Reminder to self</h2>
 <p>Read code, read (stdlib) docs, and ask silly questions. "how do I ...?" makes you a better programmer. Even if you don't need it for anything specific you will find new ways, learn new tricks and those will make you better/faster when it does count.</p>
-<hr />
+<hr>
 <p>[1] Here we also see the more expensive (and commonly used/needed) lookup 'x in s' for list = O(n) vs faster set/dict = O(1), see <a href="https://en.wikipedia.org/wiki/Hash_table">hash table</a></p>
   </div>
   <div class="tag-cloud">

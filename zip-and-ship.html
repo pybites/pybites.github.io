@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/zip-and-ship.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-25 09:06:00"/>
+<meta property="article:published_time" content="2016-12-25 09:06:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/bob.html">
 <meta property="article:section" content="Packages"/>
@@ -40,13 +40,13 @@
 <meta property="article:tag" content="packaging"/>
 <meta property="article:tag" content="distribute"/>
 <meta property="article:tag" content="pip"/>
-<meta property="og:image" content="http://pybit.es/images/featured/zip-and-ship.png">
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Zip and ship, make an executable zipfile of your py project" />
 <meta name="twitter:description" content="In this post I show an example how you can distribute your code as an executable zipfile, a neat trick I discovered in Chapter 6 of The Hitchhiker's Guide to Python" />
-<meta name="twitter:image" content="http://pybit.es/images/featured/zip-and-ship.png">
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Zip and ship, make an executable zipfile of your py project</title>
 
@@ -99,8 +99,8 @@
 <p>We're going to use <a href="https://github.com/pybites/blog_code/tree/master/pybites_digest">the code</a> of our last post: <a href="http://pybit.es/blog-digest.html">Get a weekly digest from a Pelican blog</a>. </p>
 <h2>Step by step</h2>
 <p>OK here we go:</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">blog_code</span> <span class="nb">zip</span><span class="o">-</span><span class="n">example</span>
-<span class="n">Cloning</span> <span class="n">into</span> <span class="s">&#39;zip-example&#39;</span><span class="o">...</span>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">blog_code</span> <span class="nb">zip</span><span class="o">-</span><span class="n">example</span>
+<span class="n">Cloning</span> <span class="n">into</span> <span class="s1">&#39;zip-example&#39;</span><span class="o">...</span>
 <span class="n">remote</span><span class="p">:</span> <span class="n">Counting</span> <span class="n">objects</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="n">done</span><span class="o">.</span>
 <span class="n">remote</span><span class="p">:</span> <span class="n">Compressing</span> <span class="n">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">14</span><span class="o">/</span><span class="mi">14</span><span class="p">),</span> <span class="n">done</span><span class="o">.</span>
 <span class="n">remote</span><span class="p">:</span> <span class="n">Total</span> <span class="mi">22</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">4</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">22</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">4</span><span class="p">),</span> <span class="n">pack</span><span class="o">-</span><span class="n">reused</span> <span class="mi">0</span>
@@ -111,7 +111,7 @@
 <span class="err">$</span> <span class="n">mkdir</span> <span class="n">archive</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="err">$</span><span class="n">_</span>
 <span class="err">$</span> <span class="n">cp</span> <span class="o">../</span><span class="n">digest</span><span class="o">.</span><span class="n">py</span> <span class="n">__main__</span><span class="o">.</span><span class="n">py</span>
 
-<span class="c"># Note that where I say python3 and pip3 for you it might be python and pip</span>
+<span class="c1"># Note that where I say python3 and pip3 for you it might be python and pip</span>
 
 <span class="err">$</span> <span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="o">../</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">target</span><span class="o">=</span><span class="n">packages</span>
 <span class="n">Collecting</span> <span class="n">feedparser</span><span class="o">==</span><span class="mf">5.2</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="kn">from</span> <span class="o">-</span><span class="n">r</span> <span class="o">../</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span> <span class="p">(</span><span class="n">line</span> <span class="mi">1</span><span class="p">))</span>
@@ -124,10 +124,10 @@
 <span class="n">packages</span><span class="p">:</span>
 <span class="n">__init__</span><span class="o">.</span><span class="n">py</span>         <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
 
-<span class="c"># edit the main script to use the locally installed package (doing &#39;in place&#39; edit)</span>
-<span class="err">$</span> <span class="n">perl</span> <span class="o">-</span><span class="n">pi</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;s/import feedparser/import packages.feedparser as feedparser/g&#39;</span> <span class="n">__main__</span><span class="o">.</span><span class="n">py</span>
+<span class="c1"># edit the main script to use the locally installed package (doing &#39;in place&#39; edit)</span>
+<span class="err">$</span> <span class="n">perl</span> <span class="o">-</span><span class="n">pi</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;s/import feedparser/import packages.feedparser as feedparser/g&#39;</span> <span class="n">__main__</span><span class="o">.</span><span class="n">py</span>
 
-<span class="c"># zip it up</span>
+<span class="c1"># zip it up</span>
 <span class="err">$</span> <span class="nb">zip</span> <span class="n">my_script</span><span class="o">.</span><span class="n">zip</span> <span class="o">-</span><span class="n">r</span> <span class="o">*</span>
 <span class="n">adding</span><span class="p">:</span> <span class="n">__main__</span><span class="o">.</span><span class="n">py</span> <span class="p">(</span><span class="n">deflated</span> <span class="mi">55</span><span class="o">%</span><span class="p">)</span>
 <span class="n">adding</span><span class="p">:</span> <span class="n">packages</span><span class="o">/</span> <span class="p">(</span><span class="n">stored</span> <span class="mi">0</span><span class="o">%</span><span class="p">)</span>
@@ -144,22 +144,22 @@
 <span class="n">adding</span><span class="p">:</span> <span class="n">packages</span><span class="o">/</span><span class="n">feedparser</span><span class="o">-</span><span class="mf">5.2</span><span class="o">.</span><span class="mf">1.</span><span class="n">dist</span><span class="o">-</span><span class="n">info</span><span class="o">/</span><span class="n">WHEEL</span> <span class="p">(</span><span class="n">stored</span> <span class="mi">0</span><span class="o">%</span><span class="p">)</span>
 <span class="n">adding</span><span class="p">:</span> <span class="n">packages</span><span class="o">/</span><span class="n">feedparser</span><span class="o">.</span><span class="n">py</span> <span class="p">(</span><span class="n">deflated</span> <span class="mi">74</span><span class="o">%</span><span class="p">)</span>
 
-<span class="err">$</span> <span class="n">echo</span> <span class="s">&#39;#!/usr/bin/env python3&#39;</span> <span class="o">&gt;</span> <span class="n">my_script</span>
+<span class="err">$</span> <span class="n">echo</span> <span class="s1">&#39;#!/usr/bin/env python3&#39;</span> <span class="o">&gt;</span> <span class="n">my_script</span>
 <span class="err">$</span> <span class="n">cat</span> <span class="n">my_script</span><span class="o">.</span><span class="n">zip</span> <span class="o">&gt;&gt;</span> <span class="n">my_script</span>
 <span class="err">$</span> <span class="n">chmod</span> <span class="n">ug</span><span class="o">+</span><span class="n">x</span> <span class="n">my_script</span>
 
-<span class="c"># to prove it shows the feedparser package is not installed in my main py3 installation</span>
+<span class="c1"># to prove it shows the feedparser package is not installed in my main py3 installation</span>
 <span class="err">$</span> <span class="n">python3</span>
 <span class="n">Python</span> <span class="mf">3.5</span><span class="o">.</span><span class="mi">1</span> <span class="o">|</span><span class="n">Anaconda</span> <span class="mf">4.0</span><span class="o">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">x86_64</span><span class="p">)</span><span class="o">|</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Dec</span>  <span class="mi">7</span> <span class="mi">2015</span><span class="p">,</span> <span class="mi">11</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">55</span><span class="p">)</span> 
 <span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">Apple</span> <span class="n">Inc</span><span class="o">.</span> <span class="n">build</span> <span class="mi">5577</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
-<span class="n">Type</span> <span class="s">&quot;help&quot;</span><span class="p">,</span> <span class="s">&quot;copyright&quot;</span><span class="p">,</span> <span class="s">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">feedparser</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">ImportError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s">&#39;feedparser&#39;</span>
+<span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">ImportError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;feedparser&#39;</span>
 <span class="o">&gt;&gt;&gt;</span>
 
-<span class="c"># yet it works with the zipped package :)</span>
+<span class="c1"># yet it works with the zipped package :)</span>
 <span class="err">$</span> <span class="o">./</span><span class="n">my_script</span> 
 <span class="n">Get</span> <span class="n">a</span> <span class="n">weekly</span> <span class="n">digest</span> <span class="kn">from</span> <span class="nn">a</span> <span class="nn">Pelican</span> <span class="nn">blog</span>
 <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">pybit</span><span class="o">.</span><span class="n">es</span><span class="o">/</span><span class="n">blog</span><span class="o">-</span><span class="n">digest</span><span class="o">.</span><span class="n">html</span>
@@ -172,7 +172,7 @@
 <span class="o">...</span>
 <span class="o">...</span>
 
-<span class="c"># I can put it in my $HOME/bin now as well:</span>
+<span class="c1"># I can put it in my $HOME/bin now as well:</span>
 
 <span class="err">$</span> <span class="n">cp</span> <span class="n">my_script</span> <span class="o">~/</span><span class="nb">bin</span><span class="o">/</span><span class="n">pybites_digest</span>
 <span class="err">$</span> <span class="n">which</span> <span class="n">pybites_digest</span>
@@ -180,7 +180,7 @@
 <span class="err">$</span> <span class="n">pybites_digest</span>
 <span class="n">Zip</span> <span class="ow">and</span> <span class="n">ship</span><span class="p">,</span> <span class="n">make</span> <span class="n">an</span> <span class="n">executable</span> <span class="n">zipfile</span> <span class="n">of</span> <span class="n">your</span> <span class="n">py</span> <span class="n">project</span>
 <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">pybit</span><span class="o">.</span><span class="n">es</span><span class="o">/</span><span class="nb">zip</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">ship</span><span class="o">.</span><span class="n">html</span>
-<span class="n">In</span> <span class="n">this</span> <span class="n">post</span> <span class="n">I</span> <span class="n">show</span> <span class="n">an</span> <span class="n">example</span> <span class="n">how</span> <span class="n">you</span> <span class="n">can</span> <span class="n">distribute</span> <span class="n">your</span> <span class="n">code</span> <span class="k">as</span> <span class="n">an</span> <span class="n">executable</span> <span class="n">zipfile</span><span class="p">,</span> <span class="n">a</span> <span class="n">neat</span> <span class="n">trick</span> <span class="n">I</span> <span class="n">discovered</span> <span class="ow">in</span> <span class="n">Chapter</span> <span class="mi">6</span> <span class="n">of</span> <span class="n">The</span> <span class="n">Hitchhiker</span><span class="s">&#39;s Guide to Python</span>
+<span class="n">In</span> <span class="n">this</span> <span class="n">post</span> <span class="n">I</span> <span class="n">show</span> <span class="n">an</span> <span class="n">example</span> <span class="n">how</span> <span class="n">you</span> <span class="n">can</span> <span class="n">distribute</span> <span class="n">your</span> <span class="n">code</span> <span class="k">as</span> <span class="n">an</span> <span class="n">executable</span> <span class="n">zipfile</span><span class="p">,</span> <span class="n">a</span> <span class="n">neat</span> <span class="n">trick</span> <span class="n">I</span> <span class="n">discovered</span> <span class="ow">in</span> <span class="n">Chapter</span> <span class="mi">6</span> <span class="n">of</span> <span class="n">The</span> <span class="n">Hitchhiker</span><span class="s1">&#39;s Guide to Python</span>
 <span class="o">--</span>
 <span class="o">...</span>
 <span class="o">...</span>
