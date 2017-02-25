@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/itertools-examples.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-01-12 23:55:00+01:00"/>
+<meta property="article:published_time" content="2017-01-12 23:55:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/bob.html">
 <meta property="article:section" content="Modules"/>
@@ -103,19 +103,19 @@
 <p>I created <a href="https://github.com/pybites/blog_code/blob/master/notebooks/itertools.ipynb">this notebook</a> so you can follow along. Below a summary:</p>
 <h3>1. Use product to get all combinations between two iterators</h3>
 <p>Common game techniques: build a card deck or roll two dices:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">random</span>
 
-<span class="c1"># from Fluent Python</span>
-<span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s1">&#39;JQKA&#39;</span><span class="p">)</span>
-<span class="n">suits</span> <span class="o">=</span> <span class="s1">&#39;S D C H&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="c1"># spades diamonds clubs hearts</span>
-<span class="c1"># but instead of double list comprehension, using product</span>
-<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;{}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">suits</span><span class="p">,</span> <span class="n">ranks</span><span class="p">)]</span>
+<span class="c"># from Fluent Python</span>
+<span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="s">&#39;JQKA&#39;</span><span class="p">)</span>
+<span class="n">suits</span> <span class="o">=</span> <span class="s">&#39;S D C H&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="c"># spades diamonds clubs hearts</span>
+<span class="c"># but instead of double list comprehension, using product</span>
+<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;{}{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">suits</span><span class="p">,</span> <span class="n">ranks</span><span class="p">)]</span>
 </pre></div>
 
 
 <p>Another use case: roll 2 dices (<a href="http://stackoverflow.com/questions/3099987/generating-permutations-with-repetitions-in-python">SO is your friend</a>): </p>
-<div class="highlight"><pre><span></span>dice = range(2, 7)
+<div class="highlight"><pre>dice = range(2, 7)
 random.choice([p for p in itertools.product(dice, repeat=2)])
 
 # output: 
@@ -128,22 +128,22 @@ random.choice([p for p in itertools.product(dice, repeat=2)])
 
 <h3>2. Show a progress spinner for a console app</h3>
 <p>From <a href="https://github.com/vterron/EuroPython-2016/blob/master/kung-fu-itertools.ipynb">before-mentioned EuroPython preso</a>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="k">def</span> <span class="nf">spinner</span><span class="p">(</span><span class="n">seconds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Show an animated spinner while we sleep.&quot;&quot;&quot;</span>
-    <span class="n">symbols</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="s1">&#39;-\|/&#39;</span><span class="p">)</span>
+    <span class="n">symbols</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="s">&#39;-\|/&#39;</span><span class="p">)</span>
     <span class="n">tend</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">seconds</span>
     <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">tend</span><span class="p">:</span>
-        <span class="c1"># &#39;\r&#39; is carriage return: return cursor to the start of the line.</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">Please wait... &#39;</span> <span class="o">+</span> <span class="nb">next</span><span class="p">(</span><span class="n">symbols</span><span class="p">))</span> <span class="c1"># no newline</span>
+        <span class="c"># &#39;\r&#39; is carriage return: return cursor to the start of the line.</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r</span><span class="s">Please wait... &#39;</span> <span class="o">+</span> <span class="nb">next</span><span class="p">(</span><span class="n">symbols</span><span class="p">))</span> <span class="c"># no newline</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">()</span> <span class="c1"># newline</span>
+    <span class="k">print</span><span class="p">()</span> <span class="c"># newline</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">spinner</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -151,7 +151,7 @@ random.choice([p for p in itertools.product(dice, repeat=2)])
 <h3>3. Use dropwhile to get counts of &gt;= n in a Counter dict</h3>
 <p>Given a books Counter object, get me books with &gt;= 2 occurences. </p>
 <p>I needed this for my <a href="http://bobbelderbos.com/2016/12/code-kata/">tools of titans kata</a> to see which books got recommended more than once by Tim Ferriss' podcast guests. </p>
-<div class="highlight"><pre><span></span>def get_multiple_mentions(books, keep=2):
+<div class="highlight"><pre>def get_multiple_mentions(books, keep=2):
     for key, count in itertools.dropwhile(lambda key_count: key_count[1] &gt;= keep, books.most_common()):
         del books[key]
     return books
@@ -169,7 +169,7 @@ Counter({&#39;4-hour-workweek-escape-live-anywhere&#39;: 2,
 <h3>4. Combinations and permutations</h3>
 <p>For the difference read <a href="https://betterexplained.com/articles/easy-permutations-and-combinations/">this great explanation</a>. </p>
 <p>Given a list of friends how many pairs can be formed?</p>
-<div class="highlight"><pre><span></span>friends = &#39;bob tim julian fred&#39;.split()
+<div class="highlight"><pre>friends = &#39;bob tim julian fred&#39;.split()
 # as these are &quot;Combinatoric generators&quot; I consume them here for example purposes using list()
 list(itertools.combinations(friends, 2))
 
@@ -184,17 +184,17 @@ list(itertools.combinations(friends, 2))
 
 
 <p>How many 4 letter strings can you from 7 letters? (hint: upcoming challenge)</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
 <span class="n">letters</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">letters</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
-<span class="c1"># = 840 (7 * 6 * 5 * 4)</span>
+<span class="c"># = 840 (7 * 6 * 5 * 4)</span>
 </pre></div>
 
 
 <h3>5. Groupby to count amount of keys for specific value in dict</h3>
 <p>Count the number of keys for a value, for example count the number of users (keys) that have email as pref (value) in a user_prefs dict.</p>
 <p>This example is based on the one I found at <a href="https://pymotw.com/2/itertools/">pymotw</a>.</p>
-<div class="highlight"><pre><span></span># set up dict
+<div class="highlight"><pre># set up dict
 users = &#39;tim bob julian sue fred frank maria&#39;.split()
 prefs = &#39;email phone IM email F2F email phone&#39;.split()
 user_prefs = dict(zip(users, prefs))

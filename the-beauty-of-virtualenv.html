@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/the-beauty-of-virtualenv.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-22 22:11:00+01:00"/>
+<meta property="article:published_time" content="2016-12-22 22:11:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/julian.html">
 <meta property="article:section" content="Tools"/>
@@ -101,7 +101,7 @@ When you create and activate the venv you no longer have access to the main Pyth
 Best practice would be to create a venv within your project and use it to run your project.</p>
 <h2>Step by Step</h2>
 <p>Let's create a venv called "awesome-test". You'd preferably run the following commands in your project root dir:</p>
-<div class="highlight"><pre><span></span># python3 -m venv awesome-test
+<div class="highlight"><pre># python3 -m venv awesome-test
 # ls
 awesome-test
 </pre></div>
@@ -110,7 +110,7 @@ awesome-test
 <p><strong><em>In Python 3, virtualenvs come installed by default. In Python 2.7 you install them with pip install virtualenv.</em></strong></p>
 <p>The next step is to activate the venv.
 Activating the venv puts you into a standalone Python instance that has pretty much nothing installed by default:</p>
-<div class="highlight"><pre><span></span># cd awesome-test
+<div class="highlight"><pre># cd awesome-test
 # ls
 bin     include     lib     pyvenv.cfg
 #
@@ -123,7 +123,7 @@ YAY!
 
 <p>The <em>(awesome-test)</em> tag preceding your shell prompt indicates you're now in the venv.
 Now list out the modules installed in this python instance:</p>
-<div class="highlight"><pre><span></span># pip list
+<div class="highlight"><pre># pip list
 pip (9.0.1)
 setuptools (28.8.0)
 #
@@ -133,7 +133,7 @@ setuptools (28.8.0)
 <p>If you've been using Python already, you'll know that your main env would have a boat load of modules installed. It's nice to be able to run from a clean slate when desiging new code!</p>
 <p>You can now play around and install whatever the heck you want without having to worry about corrupting or screwing up your primary environment. All modules installed in this venv will remain local to the venv.</p>
 <p>When you're done using the venv you then exit (deactivate) it using the deactivate command:</p>
-<div class="highlight"><pre><span></span>(awesome-test) # deactivate
+<div class="highlight"><pre>(awesome-test) # deactivate
 # 
 </pre></div>
 

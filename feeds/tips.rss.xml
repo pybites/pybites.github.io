@@ -1,2 +1,331 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>PyBites - Tips</title><link>http://pybit.es/</link><description>Python code challenges, tutorials and news, one bite a day</description><lastBuildDate>Thu, 16 Feb 2017 23:00:00 +0100</lastBuildDate><item><title>How to Order Dict Output in Python</title><link>http://pybit.es/dict-ordering.html</link><description>&lt;p&gt;Learn how to order the output of a Python Dict&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Julian</dc:creator><pubDate>Thu, 16 Feb 2017 23:00:00 +0100</pubDate><guid isPermaLink="false">tag:pybit.es,2017-02-16:/dict-ordering.html</guid><category>python</category><category>tips</category><category>tricks</category><category>code</category><category>pybites</category><category>dicts</category><category>data structures</category></item><item><title>Discover Python Help Options</title><link>http://pybit.es/python-help.html</link><description>&lt;p&gt;Discover some of the numerous Python Help functions.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Julian</dc:creator><pubDate>Thu, 02 Feb 2017 21:45:00 +0100</pubDate><guid isPermaLink="false">tag:pybit.es,2017-02-02:/python-help.html</guid><category>python</category><category>tips</category><category>tricks</category><category>code</category><category>pybites</category><category>help</category></item></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PyBites</title><link>http://pybit.es/</link><description>Python code challenges, tutorials and news, one bite a day</description><atom:link href="http://pybit.es/feeds/tips.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 16 Feb 2017 23:00:00 +0100</lastBuildDate><item><title>How to Order Dict Output in Python</title><link>http://pybit.es/dict-ordering.html</link><description>&lt;p&gt;Dicts are awesome, even for a beginner like me. What isn't so awesome is trying to figure out how to list out their contents for the first time! Lists are easy enough but how on earth do you list out the key/value contents of a dict, let alone in any sort of order?&lt;/p&gt;
+&lt;h2&gt;Listing the Contents of a Dict&lt;/h2&gt;
+&lt;p&gt;Let's start by simply listing out the dict contents. In the below example I have a dict stored in the &lt;em&gt;ages&lt;/em&gt; variable.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Disclaimer: I'm not having a mid-life crisis. I'm quite aware that I'm no longer 20.&lt;/p&gt;
+&lt;p&gt;Disclaimer 2: I'm being generous when I say Bob is 23. Sorry Bob!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; ages = {&amp;#39;julian&amp;#39;: 20, &amp;#39;bob&amp;#39;: 23, &amp;#39;zack&amp;#39;: 3, &amp;#39;anthony&amp;#39;: 95, &amp;#39;daniel&amp;#39;: 41}
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; for k, v in ages.items():
+    print(k, v)
+
+julian 20
+bob 23
+zack 3
+anthony 95
+daniel 41
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First we create the dict. For the sake of this example I've made sure the keys and the values are not in alphabetical or numerical order.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The for loop iterates over the keys, &lt;em&gt;k&lt;/em&gt; and values, &lt;em&gt;v&lt;/em&gt; in &lt;em&gt;ages.items&lt;/em&gt;. Each key/value pair in a dict is called an &lt;strong&gt;item&lt;/strong&gt; thus we use .items().&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We print the key and value.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Note that the output is in the same "order" as it was inside the dict. It wasn't automatically ordered alphabetically or numerically.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Using a Lambda to Order the Output in Alphabetical Order&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you're unsure of what a Lambda is, I strongly urge you to read &lt;a href="https://dbader.org/blog/python-lambda-functions"&gt;this article by Dan Bader&lt;/a&gt;. It was my source for learning what they were and how to use them. It's a great post!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The previous output is great but what if I wanted to print the &lt;em&gt;ages&lt;/em&gt; data in alphabetical order? Not only do I need to sort it by the letter but also make sure I point my sorting method at the &lt;strong&gt;key&lt;/strong&gt; in the dict. I can do this with a lambda!&lt;/p&gt;
+&lt;p&gt;First, let's sort it alphabetically with the help of a lambda:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; sorted(ages.items(), key=lambda x: x[0])
+[(&amp;#39;anthony&amp;#39;, 95), (&amp;#39;bob&amp;#39;, 23), (&amp;#39;daniel&amp;#39;, 41), (&amp;#39;julian&amp;#39;, 20), (&amp;#39;zack&amp;#39;, 3)]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First, note that we're going to use &lt;em&gt;sorted&lt;/em&gt;. This will sort everything between the () in ascending order. Run &lt;em&gt;help(sorted)&lt;/em&gt; to see the available options to &lt;em&gt;sorted&lt;/em&gt;. You'll see that we can specify a key function to help sort the data. (See more about Python's Help function &lt;a href="http://pybit.es/python-help.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;ages.items()&lt;/em&gt; is called to break the &lt;em&gt;ages&lt;/em&gt; dict up into the five individual &lt;strong&gt;items&lt;/strong&gt;. Note that these "items" I'm referring to are actually tuples!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We then use a lambda function as the key to help sort. &lt;em&gt;lambda x&lt;/em&gt; at this point will be the individual &lt;strong&gt;item&lt;/strong&gt; in &lt;em&gt;ages.items()&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The function of &lt;em&gt;lambda x&lt;/em&gt; is to sort by &lt;em&gt;x[0]&lt;/em&gt; The contents of x[] is the key/value pair in the dict. For example, {'julian', 20}. The 0 indicates the first position in the pair, the key, which in this case is the name 'julian'.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The output is then sorted by the key position in ascending, alphabetical order.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Note: The output of &lt;em&gt;sorted()&lt;/em&gt; is a new list. The &lt;em&gt;ages&lt;/em&gt; dict was not altered, a new list was generated and can thus be stored (hint hint!).&lt;/p&gt;
+&lt;h2&gt;Sorting the Output in Numerical Order&lt;/h2&gt;
+&lt;p&gt;Now for the flip side. What if I wanted to sort it in numerical order which would be by the &lt;strong&gt;value&lt;/strong&gt; in this case?&lt;/p&gt;
+&lt;p&gt;Identical as the above sort with one tiny change:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; sorted(ages.items(), key=lambda x: x[1])
+[(&amp;#39;zack&amp;#39;, 3), (&amp;#39;julian&amp;#39;, 20), (&amp;#39;bob&amp;#39;, 23), (&amp;#39;daniel&amp;#39;, 41), (&amp;#39;anthony&amp;#39;, 95)]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Yep! All we do is change the lambda x function to point at position &lt;em&gt;x[1]&lt;/em&gt;, the value.&lt;/p&gt;
+&lt;h2&gt;Sorting in Reverse!&lt;/h2&gt;
+&lt;p&gt;Sorting that output in reverse is quite simple as well. We use the &lt;em&gt;reverse&lt;/em&gt; flag that &lt;em&gt;sorted()&lt;/em&gt; so handily supports:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; #Reverse/Descending Name Sort
+&amp;gt;&amp;gt;&amp;gt; sorted(ages.items(), key=lambda x: x[0], reverse=True)
+[(&amp;#39;zack&amp;#39;, 3), (&amp;#39;julian&amp;#39;, 20), (&amp;#39;daniel&amp;#39;, 41), (&amp;#39;bob&amp;#39;, 23), (&amp;#39;anthony&amp;#39;, 95)]
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; #Reverse/Descending Age Sort
+&amp;gt;&amp;gt;&amp;gt; sorted(ages.items(), key=lambda x: x[1], reverse=True)
+[(&amp;#39;anthony&amp;#39;, 95), (&amp;#39;daniel&amp;#39;, 41), (&amp;#39;bob&amp;#39;, 23), (&amp;#39;julian&amp;#39;, 20), (&amp;#39;zack&amp;#39;, 3)]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Storing the Sorted Output in a Dict&lt;/h2&gt;
+&lt;p&gt;You'll have noticed that we still have the output in a list and haven't used &lt;em&gt;print()&lt;/em&gt; yet. There's a reason for that.&lt;/p&gt;
+&lt;p&gt;The thing is, it's a lot harder and less Pythonic to print the output of a dict as a list, then iterate over that to get our friendlier &lt;em&gt;print()&lt;/em&gt; output.&lt;/p&gt;
+&lt;p&gt;It'd be much better to iterate over the output like we did at the start of this post but to do that, our &lt;em&gt;sorted()&lt;/em&gt; output would need to be a dict. How do we do that if we know &lt;em&gt;sorted()&lt;/em&gt; always returns a list?&lt;/p&gt;
+&lt;p&gt;Easy!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; dict(sorted(ages.items(), key=lambda x: x[0]))
+{&amp;#39;anthony&amp;#39;: 95, &amp;#39;bob&amp;#39;: 23, &amp;#39;daniel&amp;#39;: 41, &amp;#39;julian&amp;#39;: 20, &amp;#39;zack&amp;#39;: 3}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We simply call dict on the output of &lt;em&gt;sorted()&lt;/em&gt;. How cool is that? The output is now a dict!&lt;/p&gt;
+&lt;h2&gt;Printing the Final Result&lt;/h2&gt;
+&lt;p&gt;The moment of truth. Let's print the sorted dict output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; alpha = dict(sorted(ages.items(), key=lambda x: x[0]))
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; for k, v in alpha.items():
+    print(k, v)
+
+anthony 95
+bob 23
+daniel 41
+julian 20
+zack 3
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; num = dict(sorted(ages.items(), key=lambda x: x[1]))
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; for k, v in num.items():
+    print(k, v)
+
+zack 3
+julian 20
+bob 23
+daniel 41
+anthony 95
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Is it Really Sorted Though?&lt;/h2&gt;
+&lt;p&gt;Have we &lt;em&gt;really&lt;/em&gt; sorted the dict? Here's what we've done:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Iterated over a dict.&lt;/li&gt;
+&lt;li&gt;Sorted the items within the dict into a List.&lt;/li&gt;
+&lt;li&gt;"Converted" that list to a dict.&lt;/li&gt;
+&lt;li&gt;Assigned the new dict with alphabetically sorted items to a variable.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Dicts are unordered data structures.&lt;/strong&gt; This new dict, &lt;em&gt;alpha&lt;/em&gt;, while containing alphabetically sorted data, is still, technically, unordered.&lt;/p&gt;
+&lt;p&gt;Can we order it? Sort of. This is where we can use &lt;em&gt;OrderedDict&lt;/em&gt; which is part of the Python stdlib module, &lt;em&gt;collections&lt;/em&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;collections&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;OrderedDict&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;alpha&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;OrderedDict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ages&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;alpha&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;anthony&lt;/span&gt; &lt;span class="mi"&gt;95&lt;/span&gt;
+&lt;span class="n"&gt;bob&lt;/span&gt; &lt;span class="mi"&gt;23&lt;/span&gt;
+&lt;span class="n"&gt;daniel&lt;/span&gt; &lt;span class="mi"&gt;41&lt;/span&gt;
+&lt;span class="n"&gt;julian&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;
+&lt;span class="n"&gt;zack&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The output is ultimately the same with one exception. In the background, the dict &lt;em&gt;alpha&lt;/em&gt; will remember the &lt;em&gt;order&lt;/em&gt; of the keys as they were inserted.&lt;/p&gt;
+&lt;p&gt;While this will work without OrderedDict, there's no &lt;em&gt;guarantee&lt;/em&gt; that keys will keep the same order.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Read more on OrderedDicts &lt;a href="https://docs.python.org/3/library/collections.html#collections.OrderedDict"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Bonus: Substituting the Lambda for Readability&lt;/h2&gt;
+&lt;p&gt;We &lt;em&gt;could&lt;/em&gt; leave things as they are but let's make this a little more readable by storing the lambda function in a variable:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; get_alpha = lambda x: x[0]
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; sorted(ages.items(), key=get_alpha)
+[(&amp;#39;anthony&amp;#39;, 95), (&amp;#39;bob&amp;#39;, 23), (&amp;#39;daniel&amp;#39;, 41), (&amp;#39;julian&amp;#39;, 20), (&amp;#39;zack&amp;#39;, 3)]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Not too bad! We could also do that for the numerical sort by making a &lt;em&gt;get_num&lt;/em&gt; variable!&lt;/p&gt;
+&lt;h2&gt;Bonus: Printing the Highest/Lowest Dict Item&lt;/h2&gt;
+&lt;p&gt;Okay this is way out of scope for this post but I got playing and figured I'd add it in for good measure.&lt;/p&gt;
+&lt;p&gt;What if I wanted to list out the oldest chap in this list? Well, we don't need to sort anything, we just need to know the &lt;em&gt;max&lt;/em&gt; number/age right? (For readability, I'm substituting the &lt;strong&gt;value&lt;/strong&gt; lambda from the previous examples with &lt;em&gt;get_num&lt;/em&gt;).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; max(ages.items(), key=get_num)
+(&amp;#39;anthony&amp;#39;, 95)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can also pull the youngest/lowest entry:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; min(ages.items(), key=get_num)
+(&amp;#39;zack&amp;#39;, 3)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Bonus: Wrap it all up in a def&lt;/h2&gt;
+&lt;p&gt;Okay last one, I swear!&lt;/p&gt;
+&lt;p&gt;Why don't we put all of this into a function that we can call easily at any time? I mean, it'd be nice to have the ability to reuse this code on any dict we want to sort alphabetically or numerically right?&lt;/p&gt;
+&lt;p&gt;Keep in mind the below is assuming the dict key is the string we're sorting by. If we tried to give it a dict where the key was a number and the value was a string it would sort it by the key/number.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; def alpha_sort(some_dict):
+...     alpha = OrderedDict(sorted(some_dict.items(), key=lambda x: x[0]))
+...     for k, v in alpha.items():
+...         print(k,v)
+... 
+&amp;gt;&amp;gt;&amp;gt; 
+&amp;gt;&amp;gt;&amp;gt; alpha_sort(ages)
+anthony 95
+bob 23
+daniel 41
+julian 20
+zack 3
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can then use this same &lt;em&gt;alpha_sort&lt;/em&gt; function on any similarly constructed dict we want!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; #Top 5 pet peeves
+&amp;gt;&amp;gt;&amp;gt; alpha_sort(pet_peeves)
+Bad Drivers 2
+Laziness 3
+Predictable TV Shows 4
+Rude People 1
+Telemarketers 5
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note: Not really my top 5 pet peeves!&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;How great is Python? If you have any other ideas or comments regarding ordering the output of a dict, please let me know! Always be Learning!&lt;/p&gt;
+&lt;h2&gt;Update comments Reddit&lt;/h2&gt;
+&lt;p&gt;Some good discussion &lt;a href="https://www.reddit.com/r/learnpython/comments/5v3kks/ordering_dict_output/?st=izdve470&amp;amp;sh=6797b6e3"&gt;on Reddit&lt;/a&gt;. Thanks ManyInterests and nadrimajstor for suggesting itemgetter!&lt;/p&gt;
+&lt;p&gt;Here is an example how you can use it for sorting instead of lambda: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;operator&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;itemgetter&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;ages&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;julian&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;bob&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;zack&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;anthony&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;95&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;daniel&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;41&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sort_key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;itemgetter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ages&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;sort_key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;[(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;zack&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;julian&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;bob&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;daniel&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;41&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;anthony&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;95&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Julian</dc:creator><pubDate>Thu, 16 Feb 2017 23:00:00 +0100</pubDate><guid>tag:pybit.es,2017-02-16:dict-ordering.html</guid><category>python</category><category>tips</category><category>tricks</category><category>code</category><category>pybites</category><category>dicts</category><category>data structures</category></item><item><title>Discover Python Help Options</title><link>http://pybit.es/python-help.html</link><description>&lt;p&gt;When it comes to Python I'm pretty much self taught so it came as no surprise to me when I discovered that Python had help functions. I was blown away to say the least!&lt;/p&gt;
+&lt;p&gt;There are 3 help related options I'm going to discuss: help(), dir() and pydoc.&lt;/p&gt;
+&lt;h2&gt;help()&lt;/h2&gt;
+&lt;p&gt;I face palmed over not finding out about help() sooner. Just like on any operating system, help exists to assist with commands. In Python you simply put whatever object you want within the help function and you'll be presented with a very "man page-esque" looking help page. For example, let's say we wanted to find out more about the &lt;em&gt;len&lt;/em&gt; function: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;help&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;len&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nx"&gt;Help&lt;/span&gt; &lt;span class="nx"&gt;on&lt;/span&gt; &lt;span class="nx"&gt;built&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;len&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;module&lt;/span&gt; &lt;span class="nx"&gt;builtins&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="nx"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;/)&lt;/span&gt;
+    &lt;span class="nx"&gt;Return&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;number&lt;/span&gt; &lt;span class="nx"&gt;of&lt;/span&gt; &lt;span class="nx"&gt;items&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="nx"&gt;container&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;END&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The help page will detail the syntax for running the object as well as an explanation as to what it does. Some objects return much more detail than others based on their complexity. Try running &lt;strong&gt;help(range)&lt;/strong&gt; in IDLE to see an example of the detail help() can provide. It's pretty awesome!&lt;/p&gt;
+&lt;h2&gt;dir()&lt;/h2&gt;
+&lt;p&gt;It constantly baffled me as to how programmers like Bob seemed to just &lt;em&gt;know&lt;/em&gt; the attributes to use with a specific object. I may never know the answer but I'm
+definitely one step closer thanks to dir().&lt;/p&gt;
+&lt;p&gt;dir() is just as wonderful as help(). It allows you to query an object and return its attributes. That is to say, if you've ever wondered what to use with &lt;em&gt;len&lt;/em&gt; (eg: len.&lt;attribute/module&gt;) then use dir(len) to get a list. Check out what happens if we use dir() on &lt;em&gt;range&lt;/em&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; dir(range)
+[&amp;#39;__class__&amp;#39;, &amp;#39;__contains__&amp;#39;, &amp;#39;__delattr__&amp;#39;, &amp;#39;__dir__&amp;#39;, &amp;#39;__doc__&amp;#39;, &amp;#39;__eq__&amp;#39;, &amp;#39;__format__&amp;#39;, &amp;#39;__ge__&amp;#39;, &amp;#39;__getattribute__&amp;#39;, &amp;#39;__getitem__&amp;#39;, &amp;#39;__gt__&amp;#39;, &amp;#39;__hash__&amp;#39;, &amp;#39;__init__&amp;#39;, &amp;#39;__init_subclass__&amp;#39;, &amp;#39;__iter__&amp;#39;, &amp;#39;__le__&amp;#39;, &amp;#39;__len__&amp;#39;, &amp;#39;__lt__&amp;#39;, &amp;#39;__ne__&amp;#39;, &amp;#39;__new__&amp;#39;, &amp;#39;__reduce__&amp;#39;, &amp;#39;__reduce_ex__&amp;#39;, &amp;#39;__repr__&amp;#39;, &amp;#39;__reversed__&amp;#39;, &amp;#39;__setattr__&amp;#39;, &amp;#39;__sizeof__&amp;#39;, &amp;#39;__str__&amp;#39;, &amp;#39;__subclasshook__&amp;#39;, &amp;#39;count&amp;#39;, &amp;#39;index&amp;#39;, &amp;#39;start&amp;#39;, &amp;#39;step&amp;#39;, &amp;#39;stop&amp;#39;]
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We now know we can use the &lt;em&gt;count&lt;/em&gt; function with range: range.count.&lt;/p&gt;
+&lt;h2&gt;help() and dir() Together&lt;/h2&gt;
+&lt;p&gt;The best part is that both help() and dir() compliment each other perfectly.&lt;/p&gt;
+&lt;p&gt;Using the previous example of &lt;em&gt;range&lt;/em&gt; we found that we can use the &lt;em&gt;count&lt;/em&gt; function with it. The question is how?&lt;/p&gt;
+&lt;p&gt;Use help() of course!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; help(range.count)
+Help on method_descriptor:
+
+count(...)
+    rangeobject.count(value) -&amp;gt; integer -- return number of occurrences of value
+(END)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;How awesome is that?!&lt;/p&gt;
+&lt;p&gt;Modules that aren't in stdlib respond to help() and dir() as well:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tweepy&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tweepy&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Help&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;package&lt;/span&gt; &lt;span class="n"&gt;tweepy&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+&lt;span class="n"&gt;NAME&lt;/span&gt;
+    &lt;span class="n"&gt;tweepy&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Tweepy&lt;/span&gt; &lt;span class="n"&gt;Twitter&lt;/span&gt; &lt;span class="n"&gt;API&lt;/span&gt; &lt;span class="n"&gt;library&lt;/span&gt;
+
+&lt;span class="n"&gt;PACKAGE&lt;/span&gt; &lt;span class="n"&gt;CONTENTS&lt;/span&gt;
+    &lt;span class="n"&gt;api&lt;/span&gt;
+    &lt;span class="n"&gt;auth&lt;/span&gt;
+    &lt;span class="n"&gt;binder&lt;/span&gt;
+    &lt;span class="n"&gt;cache&lt;/span&gt;
+    &lt;span class="n"&gt;cursor&lt;/span&gt;
+    &lt;span class="n"&gt;error&lt;/span&gt;
+    &lt;span class="n"&gt;models&lt;/span&gt;
+    &lt;span class="n"&gt;parsers&lt;/span&gt;
+    &lt;span class="n"&gt;streaming&lt;/span&gt;
+    &lt;span class="n"&gt;utils&lt;/span&gt;
+
+&lt;span class="n"&gt;FUNCTIONS&lt;/span&gt;
+    &lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;level&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;DATA&lt;/span&gt;
+    &lt;span class="n"&gt;__license__&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;MIT&amp;#39;&lt;/span&gt;
+    &lt;span class="n"&gt;api&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;tweepy&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;api&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;API&lt;/span&gt; &lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;snip&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tweepy&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;API&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;AppAuthHandler&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Cache&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Category&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Cursor&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;DirectMessage&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;FileCache&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Friendship&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;MemoryCache&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;ModelFactory&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;OAuthHandler&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;RateLimitError&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;SavedSearch&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;SearchResults&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Status&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Stream&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;StreamListener&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;TweepError&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;User&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__author__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__builtins__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__cached__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__doc__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__file__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__license__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__loader__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__name__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__package__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__path__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__spec__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__version__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;api&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;auth&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;binder&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;cache&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;cursor&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;debug&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;error&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;models&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;parsers&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;streaming&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;utils&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;pydoc&lt;/h2&gt;
+&lt;p&gt;Pydoc is different to help() and dir() in that you don't actually run it in IDLE or within a script. It's a command line tool that gets installed with Python.&lt;/p&gt;
+&lt;p&gt;That said, Pydoc is actually quite similar to help(). It displays a help page (again, man page similarities!) of the Python object you want to query but does so on the command line. No need to start up IDLE.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;(venv) juliansequeira$ pydoc datetime
+Help on module datetime:
+
+NAME
+    datetime - Fast implementation of the datetime type.
+
+FILE
+    /System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/datetime.so
+
+MODULE DOCS
+    http://docs.python.org/library/datetime
+&amp;lt;snip&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The text displayed is made up of the docstrings within the object which means you can create your own if you make your own module etc.&lt;/p&gt;
+&lt;p&gt;In typical Python fashion though, Pydoc takes it up a notch. It actually has the ability to display documentation for your installed modules/packages using the built in Python web server!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pydoc -p 8000
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;When you point your browser to localhost:8000 you'll get a (relatively) nice web page with links to your Python package documentation.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Help is everywhere! I'm almost annoyed that it took me a year to discover this stuff. Better late than never I guess!&lt;/p&gt;
+&lt;p&gt;It's so much nicer being able to get the syntax and attribute help that I need from within IDLE rather than having to Google it and sort through pages of stack overflow articles.&lt;/p&gt;
+&lt;p&gt;Let me know if there are any other cool help modules or functions out there. I'd love to know!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Julian</dc:creator><pubDate>Thu, 02 Feb 2017 21:45:00 +0100</pubDate><guid>tag:pybit.es,2017-02-02:python-help.html</guid><category>python</category><category>tips</category><category>tricks</category><category>code</category><category>pybites</category><category>help</category></item></channel></rss>

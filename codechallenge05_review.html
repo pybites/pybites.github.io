@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/codechallenge05_review.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-02-10 23:00:00+01:00"/>
+<meta property="article:published_time" content="2017-02-10 23:00:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/pybites.html">
 <meta property="article:section" content="Challenges"/>
@@ -108,7 +108,7 @@
 </li>
 <li>
 <p>We load all tweets per user in with get_user_tokens() and tokenize them with: </p>
-<div class="highlight"><pre><span></span>def tokenize_text(words):
+<div class="highlight"><pre>def tokenize_text(words):
     words = [word for word in words if len(word) &gt; 4 and word not in STOPWORDS]
     words = [word for word in words if _is_ascii(word)]
     words = [word for word in words if not IS_LINK_OBJ.search(word)]
@@ -117,13 +117,13 @@
 
 
 <p>Where IS_LINK_OBJ discards links and mentions:</p>
-<div class="highlight"><pre><span></span>IS_LINK_OBJ = re.compile(r&#39;^(?:@|https?://)&#39;)
+<div class="highlight"><pre>IS_LINK_OBJ = re.compile(r&#39;^(?:@|https?://)&#39;)
 </pre></div>
 
 
 <p>We get stopwords from nltk:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
-<span class="n">STOPWORDS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="n">STOPWORDS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s">&#39;english&#39;</span><span class="p">))</span>
 </pre></div>
 
 
@@ -131,10 +131,10 @@
 </li>
 <li>
 <p>Then we use Gensim to compare a user against the set. This took quite some effort, hopefully our method is correct, the results (see further down) look promosing. We partially used <a href="http://stackoverflow.com/questions/22433884/python-gensim-how-to-calculate-document-similarity-using-the-lda-model">this thread</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">similarities</span>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">similarities</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">du</span> <span class="ow">in</span> <span class="n">diff_users</span><span class="p">:</span>  <span class="c1"># globbing csv files in data/ or provided with sys.argv[1:]</span>
+<span class="k">for</span> <span class="n">du</span> <span class="ow">in</span> <span class="n">diff_users</span><span class="p">:</span>  <span class="c"># globbing csv files in data/ or provided with sys.argv[1:]</span>
     <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_user_tokens</span><span class="p">(</span><span class="n">du</span><span class="p">))</span>
 <span class="n">dictionary</span> <span class="o">=</span> <span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
@@ -160,15 +160,15 @@
 <li>
 <p>Interestingly this model worked kind of ok, but got different results upon running and not much polarity. It turned out that the sample Twitter set (200 tweets per user) was too small, so we created a data/new directory and used <a href="https://gist.github.com/yanofsky/5436496">yanofsky's awesome tweet_dumper</a> to get 3200 tweets per user. </p>
 <p>Data set before vs after:</p>
-<div class="highlight"><pre><span></span>$ wc -l *<span class="p">|</span>grep total
+<div class="highlight"><pre><span class="nv">$ </span>wc -l *<span class="p">|</span>grep total
     <span class="m">3618</span> total
-$ wc -l new/*<span class="p">|</span>grep total
+<span class="nv">$ </span>wc -l new/*<span class="p">|</span>grep total
    <span class="m">45573</span> total
 </pre></div>
 
 
 <p>This did not make sense due to small data set:</p>
-<div class="highlight"><pre><span></span>$ python similar_tweeters.py Pybonacci
+<div class="highlight"><pre><span class="nv">$ </span>python similar_tweeters.py Pybonacci
 cine_tv_es 0.999743 -&gt; nothing to <span class="k">do</span> yet almost 1.0 ?!
 github 0.999743
 gvanrossum 0.455312
@@ -177,7 +177,7 @@ gvanrossum 0.455312
 
 
 <p>With the new data set, although the script takes longer to run, now the results are much better:</p>
-<div class="highlight"><pre><span></span># not much Python: 
+<div class="highlight"><pre># not much Python: 
 $ python similar_tweeters.py paugasol
 jsonmez 0.739746
 Schwarzenegger 0.739746
@@ -237,7 +237,7 @@ cine_tv_es 0.0451122
 
 
 <p>Running one more, my personal Twitter. Also a lot of Python at the top, jsonmez/ tferriss/ pybites I have mentioned/retweeted more than once. This looks pretty good ...</p>
-<div class="highlight"><pre><span></span>$ python similar_tweeters.py bbelderbos
+<div class="highlight"><pre><span class="nv">$ </span>python similar_tweeters.py bbelderbos
 dbader_org 0.985021
 gvanrossum 0.985021
 importpython 0.985021

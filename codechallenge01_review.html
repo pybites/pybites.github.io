@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/codechallenge01_review.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-01-13 12:40:00+01:00"/>
+<meta property="article:published_time" content="2017-01-13 12:40:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/pybites.html">
 <meta property="article:section" content="Challenges"/>
@@ -102,7 +102,7 @@
     <h2>Thanks for coding with us!</h2>
 <p>Wow! We have been amazed by the great response on <a href="https://github.com/pybites/challenges">github</a> and <a href="https://news.ycombinator.com/item?id=13352447">HN</a>. It's so cool to see <a href="https://github.com/pybites/challenges/network/members">many developers</a> jump on this :) </p>
 <p>This is awesome!</p>
-<p><img alt="awesome response on github, 70 forks as of this writing" src="http://pybit.es/images/awesome-response.png"></p>
+<p><img alt="awesome response on github, 70 forks as of this writing" src="http://pybit.es/images/awesome-response.png" /></p>
 <p>It's Friday so we review the code challenge of this week. We describe our learning, a possible solution. We will also digest comments left on the <a href="http://pybit.es/codechallenge01.html">Monday post</a>.</p>
 <h2>Process and learning</h2>
 <h3>&gt;&gt;&gt; Julian</h3>
@@ -111,7 +111,7 @@ The concept was simple enough and I had a decent idea as to how I was going to w
 <p>As a newbie programmer, having to almost "restrict" my code to work with the unittest was quite difficult.
 Furthermore, working with the external data.py file also added a little complexity. I'm definitely used to having all data and variables located in the local file I'm working on.</p>
 <p>Probably the biggest pain point was trying to work with the LETTER_SCORES dict:</p>
-<div class="highlight"><pre><span></span>LETTER_SCORES = {letter: score for score, letters in scrabble_scores
+<div class="highlight"><pre>LETTER_SCORES = {letter: score for score, letters in scrabble_scores
                               for letter in letters.split()}
 </pre></div>
 
@@ -128,7 +128,7 @@ Furthermore, working with the external data.py file also added a little complexi
 <p>This was a good exercise. As Julian said we might leave out unittests next time to make it less stringent and make up other requirements like max LOC. We also will provide two template files: beginner (more hand-holding) and advanced (almost blank file). You will see it on Monday ...</p>
 <p>My code is <a href="https://github.com/bbelderbos/challenges/blob/master/01/wordvalue.py">here</a>. Some comments:</p>
 <h4>load_words()</h4>
-<div class="highlight"><pre><span></span>def load_words():
+<div class="highlight"><pre>def load_words():
     with open(DICTIONARY) as f:
         return [word.strip() for word in f.read().split()]
 </pre></div>
@@ -136,35 +136,35 @@ Furthermore, working with the external data.py file also added a little complexi
 
 <p>Yes, "with" is the way to go to open files. Initially I had return f.read().split() but then I saw the comment of <a href="http://pybit.es/codechallenge01.html">sesh00</a>: he used a list comprehension to make sure each word had whitespace stripped which is a good approach.</p>
 <h4>calc_word_value(word)</h4>
-<div class="highlight"><pre><span></span>def calc_word_value(word):
+<div class="highlight"><pre>def calc_word_value(word):
     return sum(LETTER_SCORES.get(char.upper(), 0) for char in word)
 </pre></div>
 
 
 <p>The dictionary. You can access values by using letter keys as LETTER_SCORES['A'] etc, but what if there is a non-valid character? There were two words with '-' in it so they would cause a KeyError. Using the dict get() method you can give it a default value of 0. Safety first: </p>
-<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">grep</span> <span class="p">[</span><span class="o">^</span><span class="n">A</span><span class="o">-</span><span class="n">Za</span><span class="o">-</span><span class="n">z</span><span class="p">]</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">txt</span> 
+<div class="highlight"><pre><span class="err">$</span> <span class="n">grep</span> <span class="p">[</span><span class="o">^</span><span class="n">A</span><span class="o">-</span><span class="n">Za</span><span class="o">-</span><span class="n">z</span><span class="p">]</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">txt</span> 
 <span class="n">Jean</span><span class="o">-</span><span class="n">Christophe</span>
 <span class="n">Jean</span><span class="o">-</span><span class="n">Pierre</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">word</span> <span class="o">=</span> <span class="s1">&#39;Jean-Christophe&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">word</span> <span class="o">=</span> <span class="s">&#39;Jean-Christophe&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">data</span> <span class="kn">import</span> <span class="n">LETTER_SCORES</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">LETTER_SCORES</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">word</span><span class="p">]</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">listcomp</span><span class="o">&gt;</span>
-<span class="ne">KeyError</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span>
+<span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">listcomp</span><span class="o">&gt;</span>
+<span class="ne">KeyError</span><span class="p">:</span> <span class="s">&#39;-&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">LETTER_SCORES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">word</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
 
 <p>For another more verbose (cleaner?) way to write this see <a href="https://github.com/jrjames83/pybit-es-01/blob/master/01%20Scrabble%20Solution.ipynb">here</a>:</p>
-<div class="highlight"><pre><span></span>scores = [LETTER_SCORES[letter] for letter in letters 
+<div class="highlight"><pre>scores = [LETTER_SCORES[letter] for letter in letters 
             if letter in LETTER_SCORES.keys()]
 </pre></div>
 
 
 <p>Then I use sum() to add up all letter values. You can give it a list comprehension but also a generator which is best practice (lazy loading):</p>
-<div class="highlight"><pre><span></span># sum with list comprehension
+<div class="highlight"><pre># sum with list comprehension
 &gt;&gt;&gt; sum([LETTER_SCORES.get(c.upper(), 0) for c in word])
 31
 # or with a generator, just drop the []
@@ -175,7 +175,7 @@ Furthermore, working with the external data.py file also added a little complexi
 
 <p>Of course you can totally write just a for loop and sum to a total variable. And as a beginner I encourage you to actually do this to get a feel for how an iterator works internally.</p>
 <h4>max_word_value(words)</h4>
-<div class="highlight"><pre><span></span>def max_word_value(words=None):
+<div class="highlight"><pre>def max_word_value(words=None):
     return max(words or load_words(), key=lambda w: calc_word_value(w))
 </pre></div>
 
@@ -199,7 +199,7 @@ Furthermore, working with the external data.py file also added a little complexi
 </li>
 <li>
 <p><a href="https://github.com/ukaratay/challenges/blob/master/01/wordvalue.py">ukaratay solution</a> is also similar, but he uses upper() on the word = 1 call instead my multiple calls for each char = better. Tiny details but they matter when you add them up and when things scale.</p>
-<div class="highlight"><pre><span></span>return sum(LETTER_SCORES.get(char, 0) for char in word.upper())
+<div class="highlight"><pre>return sum(LETTER_SCORES.get(char, 0) for char in word.upper())
 </pre></div>
 
 

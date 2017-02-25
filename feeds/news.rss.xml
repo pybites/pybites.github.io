@@ -1,2 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>PyBites - News</title><link>http://pybit.es/</link><description>Python code challenges, tutorials and news, one bite a day</description><lastBuildDate>Sat, 31 Dec 2016 11:39:00 +0100</lastBuildDate><item><title>3.6 new features</title><link>http://pybit.es/3.6_new.html</link><description>&lt;p&gt;Finally got a chance to look into Python 3.6's new features. In this post some highlights and pointers.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Sat, 31 Dec 2016 11:39:00 +0100</pubDate><guid isPermaLink="false">tag:pybit.es,2016-12-31:/3.6_new.html</guid><category>3.6</category><category>features</category><category>release</category><category>asyncio</category><category>formatting</category><category>typing</category><category>dicts</category><category>secrets</category><category>generators</category><category>readability</category></item></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PyBites</title><link>http://pybit.es/</link><description>Python code challenges, tutorials and news, one bite a day</description><atom:link href="http://pybit.es/feeds/news.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 31 Dec 2016 11:39:00 +0100</lastBuildDate><item><title>3.6 new features</title><link>http://pybit.es/3.6_new.html</link><description>&lt;p&gt;Python 3.6 is out for over a week now. In this post some features and pointers. &lt;a href="https://docs.python.org/3.6/whatsnew/3.6.html"&gt;What’s New In Python 3.6&lt;/a&gt; is worth reviewing to get a full overview.&lt;/p&gt;
+&lt;p&gt;Getting it installed is supersimple. I am on Mac so I just installed the pkg file from the &lt;a href="https://www.python.org/downloads/"&gt;downloads page&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Some highlights&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python3.6 -VV &lt;span class="c"&gt;# verbose version info&lt;/span&gt;
+Python 3.6.0 &lt;span class="o"&gt;(&lt;/span&gt;v3.6.0:41df79263a11, Dec &lt;span class="m"&gt;22&lt;/span&gt; 2016, 17:23:13&lt;span class="o"&gt;)&lt;/span&gt; 
+&lt;span class="o"&gt;[&lt;/span&gt;GCC 4.2.1 &lt;span class="o"&gt;(&lt;/span&gt;Apple Inc. build 5666&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;dot 3&lt;span class="o"&gt;)]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;String formatting: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; name = &amp;#39;bob&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; print(&amp;#39;Hello %s&amp;#39; % name) # not pythonic
+&amp;gt;&amp;gt;&amp;gt; print(&amp;#39;Hello {}&amp;#39;.format(name)) # better
+Hello bob
+&amp;gt;&amp;gt;&amp;gt; print(f&amp;#39;Hello {name}&amp;#39;) # new in 3.6
+Hello bob
+&amp;gt;&amp;gt;&amp;gt; a = 2
+&amp;gt;&amp;gt;&amp;gt; b = 4
+&amp;gt;&amp;gt;&amp;gt; print(f&amp;#39;Look I even can do math: { 5 * (a + b) }&amp;#39;)
+Look I even can do math: 30
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make big numbers more readable with underscores: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; 1_000_000_000_000_000
+1000000000000000
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Type hints:&lt;/p&gt;
+&lt;p&gt;In 3.5 you could do this already for methods:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; sys.version
+&amp;#39;3.5.1 |Anaconda 4.0.0 (x86_64)| (default, Dec  7 2015, 11:24:55) \n[GCC 4.2.1 (Apple Inc. build 5577)]&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; def name(name: str) -&amp;gt; str:
+...     return &amp;#39;My name is {}&amp;#39;.format(name)
+... 
+&amp;gt;&amp;gt;&amp;gt; name(&amp;#39;bob&amp;#39;)
+&amp;#39;My name is bob&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now you can 'document' a standalone / instance variable's 'intent' as well:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; price : float = 9.99 # saves comments
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;'Intent' because nothing stops you from assigning another type: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; name : str = &amp;#39;bob&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; name = 2
+&amp;gt;&amp;gt;&amp;gt; type(name)
+&amp;lt;class &amp;#39;int&amp;#39;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As PEP 484 states:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;While these annotations are available at runtime through the usual &lt;strong&gt;annotations&lt;/strong&gt; attribute, no type checking happens at runtime . Instead, the proposal assumes the existence of a separate off-line type checker which users can run over their source code voluntarily. Essentially, such a type checker acts as a very powerful linter. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Asyncio:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Starting with Python 3.6 the asyncio module is no longer provisional and its API is considered stable.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I have to yet work with asyncio, will do a future post. It has some nice coverage in &lt;a href="https://www.amazon.com/Fluent-Python-Concise-Effective-Programming/dp/1491946008/ref=sr_1_1?ie=UTF8&amp;amp;qid=1483179119&amp;amp;sr=8-1&amp;amp;keywords=fluent+python"&gt;Fluent Python&lt;/a&gt;. &lt;a href="https://blog.jetbrains.com/pycharm/2016/12/python-3-6-a-quick-look/"&gt;This article&lt;/a&gt; by the PyCharm Team shows a nice refactoring using the new &lt;a href="https://docs.python.org/dev/whatsnew/3.6.html#pep-525-asynchronous-generators"&gt;Asynchronous Generators feature&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;New dict implementation: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The memory usage of the new dict() is between 20% and 25% smaller compared to Python 3.5. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I also heard that new dicts keep their order, but read now that:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The order-preserving aspect of this new implementation is considered an implementation detail and should not be relied upon.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If you need order you can use &lt;a href="https://docs.python.org/3.6/library/collections.html#collections.OrderedDict"&gt;collections.OrderedDict&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;New secrets module: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The main purpose of the new secrets module is to provide an obvious way to reliably generate cryptographically strong pseudo-random values suitable for managing secrets, such as account authentication, tokens, and similar.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Good to know: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note that the pseudo-random generators in the random module should NOT be used for security purposes. Use secrets on Python 3.6+ and os.urandom() on Python 3.5 and earlier.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Of course random is fine for simulation, but for applications using cryptography, you want to use secrets.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The pyvenv script has been deprecated in favour of python3 -m venv (new to Virtual Envs, read &lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;our article&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Lot of improvements: again, worth reading through &lt;a href="https://docs.python.org/3.6/whatsnew/3.6.html"&gt;the official release doc&lt;/a&gt;. &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2 or 3?&lt;/h2&gt;
+&lt;p&gt;Unless you are bound to Python 2.x due to environment / requirements, it is a really good time to switch to 3 now. 2.x is not actively developed anymore, all new cool stuff is added to 3 as you can see from this new big release. I use 3.x whenever I can!&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Sat, 31 Dec 2016 11:39:00 +0100</pubDate><guid>tag:pybit.es,2016-12-31:3.6_new.html</guid><category>3.6</category><category>features</category><category>release</category><category>asyncio</category><category>formatting</category><category>typing</category><category>dicts</category><category>secrets</category><category>generators</category><category>readability</category></item></channel></rss>

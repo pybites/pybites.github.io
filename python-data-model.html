@@ -25,23 +25,24 @@
 
 <meta name="author" content="Bob" />
 <meta name="description" content="After last post on OOP a logical follow-up is Python's data model. We use the great Fluent Python book to code up an example of our own, showing the powerful way you can leverage this data model. You can download the notebook here." />
-<meta name="keywords" content="datamodel, oop, magicmethods, builtin, pythonic, iterators, slicing">
+<meta name="keywords" content="datamodel, oop, magic, dunder, builtin, pythonic, iterator, slicing">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Python's data model by example"/>
 <meta property="og:description" content="After last post on OOP a logical follow-up is Python's data model. We use the great Fluent Python book to code up an example of our own, showing the powerful way you can leverage this data model. You can download the notebook here."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/python-data-model.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-01-25 12:00:00+01:00"/>
+<meta property="article:published_time" content="2017-01-25 12:00:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/bob.html">
 <meta property="article:section" content="Concepts"/>
 <meta property="article:tag" content="datamodel"/>
 <meta property="article:tag" content="oop"/>
-<meta property="article:tag" content="magicmethods"/>
+<meta property="article:tag" content="magic"/>
+<meta property="article:tag" content="dunder"/>
 <meta property="article:tag" content="builtin"/>
 <meta property="article:tag" content="pythonic"/>
-<meta property="article:tag" content="iterators"/>
+<meta property="article:tag" content="iterator"/>
 <meta property="article:tag" content="slicing"/>
 <meta property="og:image" content="http://pybit.es/images/featured/python-data-model.png">
 
@@ -101,878 +102,15 @@
 *
 * IPython notebook
 *
-*/
-/* CSS font colors for translated ANSI colors. */
-.ansibold {
-  font-weight: bold;
-}
-/* use dark versions for foreground, to improve visibility */
-.ansiblack {
-  color: black;
-}
-.ansired {
-  color: darkred;
-}
-.ansigreen {
-  color: darkgreen;
-}
-.ansiyellow {
-  color: #c4a000;
-}
-.ansiblue {
-  color: darkblue;
-}
-.ansipurple {
-  color: darkviolet;
-}
-.ansicyan {
-  color: steelblue;
-}
-.ansigray {
-  color: gray;
-}
-/* and light for background, for the same reason */
-.ansibgblack {
-  background-color: black;
-}
-.ansibgred {
-  background-color: red;
-}
-.ansibggreen {
-  background-color: green;
-}
-.ansibgyellow {
-  background-color: yellow;
-}
-.ansibgblue {
-  background-color: blue;
-}
-.ansibgpurple {
-  background-color: magenta;
-}
-.ansibgcyan {
-  background-color: cyan;
-}
-.ansibggray {
-  background-color: gray;
-}
-div.cell {
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: vertical;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: vertical;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  border-radius: 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  width: 100%;
-  padding: 5px;
-  /* This acts as a spacer between cells, that is outside the border */
-  margin: 0px;
-  outline: none;
-  border-left-width: 1px;
-  padding-left: 5px;
-  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
-}
-div.cell.jupyter-soft-selected {
-  border-left-color: #90CAF9;
-  border-left-color: #E3F2FD;
-  border-left-width: 1px;
-  padding-left: 5px;
-  border-right-color: #E3F2FD;
-  border-right-width: 1px;
-  background: #E3F2FD;
-}
-@media print {
-  div.cell.jupyter-soft-selected {
-    border-color: transparent;
-  }
-}
-div.cell.selected {
-  border-color: #ababab;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
-}
-@media print {
-  div.cell.selected {
-    border-color: transparent;
-  }
-}
-div.cell.selected.jupyter-soft-selected {
-  border-left-width: 0;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
-}
-.edit_mode div.cell.selected {
-  border-color: #66BB6A;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
-}
-@media print {
-  .edit_mode div.cell.selected {
-    border-color: transparent;
-  }
-}
-.prompt {
-  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
-  min-width: 14ex;
-  /* This padding is tuned to match the padding on the CodeMirror editor. */
-  padding: 0.4em;
-  margin: 0px;
-  font-family: monospace;
-  text-align: right;
-  /* This has to match that of the the CodeMirror class line-height below */
-  line-height: 1.21429em;
-  /* Don't highlight prompt number selection */
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  /* Use default cursor */
-  cursor: default;
-}
-@media (max-width: 540px) {
-  .prompt {
-    text-align: left;
-  }
-}
-div.inner_cell {
-  min-width: 0;
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: vertical;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: vertical;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  /* Old browsers */
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  box-flex: 1;
-  /* Modern browsers */
-  flex: 1;
-}
-/* input_area and input_prompt must match in top border and margin for alignment */
-div.input_area {
-  border: 1px solid #cfcfcf;
-  border-radius: 2px;
-  background: #f7f7f7;
-  line-height: 1.21429em;
-}
-/* This is needed so that empty prompt areas can collapse to zero height when there
-   is no content in the output_subarea and the prompt. The main purpose of this is
-   to make sure that empty JavaScript output_subareas have no height. */
-div.prompt:empty {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-div.unrecognized_cell {
-  padding: 5px 5px 5px 0px;
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: horizontal;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: horizontal;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
-div.unrecognized_cell .inner_cell {
-  border-radius: 2px;
-  padding: 5px;
-  font-weight: bold;
-  color: red;
-  border: 1px solid #cfcfcf;
-  background: #eaeaea;
-}
-div.unrecognized_cell .inner_cell a {
-  color: inherit;
-  text-decoration: none;
-}
-div.unrecognized_cell .inner_cell a:hover {
-  color: inherit;
-  text-decoration: none;
-}
-@media (max-width: 540px) {
-  div.unrecognized_cell > div.prompt {
-    display: none;
-  }
-}
-div.code_cell {
-  /* avoid page breaking on code cells when printing */
-}
-@media print {
-  div.code_cell {
-    page-break-inside: avoid;
-  }
-}
-/* any special styling for code cells that are currently running goes here */
-div.input {
-  page-break-inside: avoid;
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: horizontal;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: horizontal;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
-@media (max-width: 540px) {
-  div.input {
-    /* Old browsers */
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-box-align: stretch;
-    display: -moz-box;
-    -moz-box-orient: vertical;
-    -moz-box-align: stretch;
-    display: box;
-    box-orient: vertical;
-    box-align: stretch;
-    /* Modern browsers */
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-/* input_area and input_prompt must match in top border and margin for alignment */
-div.input_prompt {
-  color: #303F9F;
-  border-top: 1px solid transparent;
-}
-div.input_area > div.highlight {
-  margin: 0.4em;
-  border: none;
-  padding: 0px;
-  background-color: transparent;
-}
-div.input_area > div.highlight > pre {
-  margin: 0px;
-  border: none;
-  padding: 0px;
-  background-color: transparent;
-}
-/* The following gets added to the <head> if it is detected that the user has a
- * monospace font with inconsistent normal/bold/italic height.  See
- * notebookmain.js.  Such fonts will have keywords vertically offset with
- * respect to the rest of the text.  The user should select a better font.
- * See: https://github.com/ipython/ipython/issues/1503
- *
- * .CodeMirror span {
- *      vertical-align: bottom;
- * }
- */
-.CodeMirror {
-  line-height: 1.21429em;
-  /* Changed from 1em to our global default */
-  font-size: 14px;
-  height: auto;
-  /* Changed to auto to autogrow */
-  background: none;
-  /* Changed from white to allow our bg to show through */
-}
-.CodeMirror-scroll {
-  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
-  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
-  overflow-y: hidden;
-  overflow-x: auto;
-}
-.CodeMirror-lines {
-  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
-  /* we have set a different line-height and want this to scale with that. */
-  padding: 0.4em;
-}
-.CodeMirror-linenumber {
-  padding: 0 8px 0 4px;
-}
-.CodeMirror-gutters {
-  border-bottom-left-radius: 2px;
-  border-top-left-radius: 2px;
-}
-.CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
-  /* .CodeMirror-lines */
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-}
-/*
-
-Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
-Adapted from GitHub theme
-
-*/
-.highlight-base {
-  color: #000;
-}
-.highlight-variable {
-  color: #000;
-}
-.highlight-variable-2 {
-  color: #1a1a1a;
-}
-.highlight-variable-3 {
-  color: #333333;
-}
-.highlight-string {
-  color: #BA2121;
-}
-.highlight-comment {
-  color: #408080;
-  font-style: italic;
-}
-.highlight-number {
-  color: #080;
-}
-.highlight-atom {
-  color: #88F;
-}
-.highlight-keyword {
-  color: #008000;
-  font-weight: bold;
-}
-.highlight-builtin {
-  color: #008000;
-}
-.highlight-error {
-  color: #f00;
-}
-.highlight-operator {
-  color: #AA22FF;
-  font-weight: bold;
-}
-.highlight-meta {
-  color: #AA22FF;
-}
-/* previously not defined, copying from default codemirror */
-.highlight-def {
-  color: #00f;
-}
-.highlight-string-2 {
-  color: #f50;
-}
-.highlight-qualifier {
-  color: #555;
-}
-.highlight-bracket {
-  color: #997;
-}
-.highlight-tag {
-  color: #170;
-}
-.highlight-attribute {
-  color: #00c;
-}
-.highlight-header {
-  color: blue;
-}
-.highlight-quote {
-  color: #090;
-}
-.highlight-link {
-  color: #00c;
-}
-/* apply the same style to codemirror */
-.cm-s-ipython span.cm-keyword {
-  color: #008000;
-  font-weight: bold;
-}
-.cm-s-ipython span.cm-atom {
-  color: #88F;
-}
-.cm-s-ipython span.cm-number {
-  color: #080;
-}
-.cm-s-ipython span.cm-def {
-  color: #00f;
-}
-.cm-s-ipython span.cm-variable {
-  color: #000;
-}
-.cm-s-ipython span.cm-operator {
-  color: #AA22FF;
-  font-weight: bold;
-}
-.cm-s-ipython span.cm-variable-2 {
-  color: #1a1a1a;
-}
-.cm-s-ipython span.cm-variable-3 {
-  color: #333333;
-}
-.cm-s-ipython span.cm-comment {
-  color: #408080;
-  font-style: italic;
-}
-.cm-s-ipython span.cm-string {
-  color: #BA2121;
-}
-.cm-s-ipython span.cm-string-2 {
-  color: #f50;
-}
-.cm-s-ipython span.cm-meta {
-  color: #AA22FF;
-}
-.cm-s-ipython span.cm-qualifier {
-  color: #555;
-}
-.cm-s-ipython span.cm-builtin {
-  color: #008000;
-}
-.cm-s-ipython span.cm-bracket {
-  color: #997;
-}
-.cm-s-ipython span.cm-tag {
-  color: #170;
-}
-.cm-s-ipython span.cm-attribute {
-  color: #00c;
-}
-.cm-s-ipython span.cm-header {
-  color: blue;
-}
-.cm-s-ipython span.cm-quote {
-  color: #090;
-}
-.cm-s-ipython span.cm-link {
-  color: #00c;
-}
-.cm-s-ipython span.cm-error {
-  color: #f00;
-}
-.cm-s-ipython span.cm-tab {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
-  background-position: right;
-  background-repeat: no-repeat;
-}
-div.output_wrapper {
-  /* this position must be relative to enable descendents to be absolute within it */
-  position: relative;
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: vertical;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: vertical;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  z-index: 1;
-}
-/* class for the output area when it should be height-limited */
-div.output_scroll {
-  /* ideally, this would be max-height, but FF barfs all over that */
-  height: 24em;
-  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
-  width: 100%;
-  overflow: auto;
-  border-radius: 2px;
-  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
-  display: block;
-}
-/* output div while it is collapsed */
-div.output_collapsed {
-  margin: 0px;
-  padding: 0px;
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: vertical;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: vertical;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-div.out_prompt_overlay {
-  height: 100%;
-  padding: 0px 0.4em;
-  position: absolute;
-  border-radius: 2px;
-}
-div.out_prompt_overlay:hover {
-  /* use inner shadow to get border that is computed the same on WebKit/FF */
-  -webkit-box-shadow: inset 0 0 1px #000;
-  box-shadow: inset 0 0 1px #000;
-  background: rgba(240, 240, 240, 0.5);
-}
-div.output_prompt {
-  color: #D84315;
-}
-/* This class is the outer container of all output sections. */
-div.output_area {
-  padding: 0px;
-  page-break-inside: avoid;
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: horizontal;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: horizontal;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
-div.output_area .MathJax_Display {
-  text-align: left !important;
-}
-div.output_area 
-div.output_area 
-div.output_area img,
-div.output_area svg {
-  max-width: 100%;
-  height: auto;
-}
-div.output_area img.unconfined,
-div.output_area svg.unconfined {
-  max-width: none;
-}
-/* This is needed to protect the pre formating from global settings such
-   as that of bootstrap */
-.output {
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: vertical;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: vertical;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-@media (max-width: 540px) {
-  div.output_area {
-    /* Old browsers */
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-box-align: stretch;
-    display: -moz-box;
-    -moz-box-orient: vertical;
-    -moz-box-align: stretch;
-    display: box;
-    box-orient: vertical;
-    box-align: stretch;
-    /* Modern browsers */
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-div.output_area pre {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  vertical-align: baseline;
-  color: black;
-  background-color: transparent;
-  border-radius: 0;
-}
-/* This class is for the output subarea inside the output_area and after
-   the prompt div. */
-div.output_subarea {
-  overflow-x: auto;
-  padding: 0.4em;
-  /* Old browsers */
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  box-flex: 1;
-  /* Modern browsers */
-  flex: 1;
-  max-width: calc(100% - 14ex);
-}
-div.output_scroll div.output_subarea {
-  overflow-x: visible;
-}
-/* The rest of the output_* classes are for special styling of the different
-   output types */
-/* all text output has this class: */
-div.output_text {
-  text-align: left;
-  color: #000;
-  /* This has to match that of the the CodeMirror class line-height below */
-  line-height: 1.21429em;
-}
-/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
-div.output_stderr {
-  background: #fdd;
-  /* very light red background for stderr */
-}
-div.output_latex {
-  text-align: left;
-}
-/* Empty output_javascript divs should have no height */
-div.output_javascript:empty {
-  padding: 0;
-}
-.js-error {
-  color: darkred;
-}
-/* raw_input styles */
-div.raw_input_container {
-  line-height: 1.21429em;
-  padding-top: 5px;
-}
-pre.raw_input_prompt {
-  /* nothing needed here. */
-}
-input.raw_input {
-  font-family: monospace;
-  font-size: inherit;
-  color: inherit;
-  width: auto;
-  /* make sure input baseline aligns with prompt */
-  vertical-align: baseline;
-  /* padding + margin = 0.5em between prompt and cursor */
-  padding: 0em 0.25em;
-  margin: 0em 0.25em;
-}
-input.raw_input:focus {
-  box-shadow: none;
-}
-p.p-space {
-  margin-bottom: 10px;
-}
-div.output_unrecognized {
-  padding: 5px;
-  font-weight: bold;
-  color: red;
-}
-div.output_unrecognized a {
-  color: inherit;
-  text-decoration: none;
-}
-div.output_unrecognized a:hover {
-  color: inherit;
-  text-decoration: none;
-}
-.rendered_html {
-  color: #000;
-  /* any extras will just be numbers: */
-}
-
-
-
-.rendered_html :link {
-  text-decoration: underline;
-}
-.rendered_html :visited {
-  text-decoration: underline;
-}
-
-
-
-
-
-
-.rendered_html h1:first-child {
-  margin-top: 0.538em;
-}
-.rendered_html h2:first-child {
-  margin-top: 0.636em;
-}
-.rendered_html h3:first-child {
-  margin-top: 0.777em;
-}
-.rendered_html h4:first-child {
-  margin-top: 1em;
-}
-.rendered_html h5:first-child {
-  margin-top: 1em;
-}
-.rendered_html h6:first-child {
-  margin-top: 1em;
-}
-
-
-
-
-
-
-
-
-.rendered_html * + ul {
-  margin-top: 1em;
-}
-.rendered_html * + ol {
-  margin-top: 1em;
-}
-
-
-.rendered_html pre,
-
-
-
-.rendered_html tr,
-.rendered_html th,
-
-.rendered_html td,
-
-
-.rendered_html * + table {
-  margin-top: 1em;
-}
-
-.rendered_html * + p {
-  margin-top: 1em;
-}
-
-.rendered_html * + img {
-  margin-top: 1em;
-}
-.rendered_html img,
-
-.rendered_html img.unconfined,
-
-div.text_cell {
-  /* Old browsers */
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-align: stretch;
-  display: -moz-box;
-  -moz-box-orient: horizontal;
-  -moz-box-align: stretch;
-  display: box;
-  box-orient: horizontal;
-  box-align: stretch;
-  /* Modern browsers */
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
-@media (max-width: 540px) {
-  div.text_cell > div.prompt {
-    display: none;
-  }
-}
-div.text_cell_render {
-  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
-  outline: none;
-  resize: none;
-  width: inherit;
-  border-style: none;
-  padding: 0.5em 0.5em 0.5em 0.4em;
-  color: #000;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-a.anchor-link:link {
-  text-decoration: none;
-  padding: 0px 20px;
-  visibility: hidden;
-}
-h1:hover .anchor-link,
-h2:hover .anchor-link,
-h3:hover .anchor-link,
-h4:hover .anchor-link,
-h5:hover .anchor-link,
-h6:hover .anchor-link {
-  visibility: visible;
-}
-.text_cell.rendered .input_area {
-  display: none;
-}
-.text_cell.rendered 
-.text_cell.unrendered .text_cell_render {
-  display: none;
-}
-.cm-header-1,
-.cm-header-2,
-.cm-header-3,
-.cm-header-4,
-.cm-header-5,
-.cm-header-6 {
-  font-weight: bold;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.cm-header-1 {
-  font-size: 185.7%;
-}
-.cm-header-2 {
-  font-size: 157.1%;
-}
-.cm-header-3 {
-  font-size: 128.6%;
-}
-.cm-header-4 {
-  font-size: 110%;
-}
-.cm-header-5 {
-  font-size: 100%;
-  font-style: italic;
-}
-.cm-header-6 {
-  font-size: 100%;
-  font-style: italic;
-}
-</style>
+*/.ansibold{font-weight:700}.ansiblack{}.ansired{color:#8b0000}.ansigreen{6400}.ansiyellow{color:#c4a000}.ansiblue{8b}.ansipurple{color:#9400d3}.ansicyan{color:#4682b4}.ansigray{color:gray}.ansibgblack{background-}.ansibgred{background-color:red}.ansibggreen{background-color:green}.ansibgyellow{background-color:#ff0}.ansibgblue{background-f}.ansibgpurple{background-color:#ff00ff}.ansibgcyan{background-ff}.ansibggray{background-color:gray}div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;border-radius:2px;box-sizing:border-box;-moz-box-sizing:border-box;border-width:thin;border-style:solid;width:100%;padding:5px;margin:0;outline:0}div.cell.selected{border-color:#ababab}@media print{div.cell.selected{border-color:transparent}}.edit_mode div.cell.selected{border-color:green}.prompt{min-width:14ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}@-moz-document url-prefix(){div.inner_cell{overflow-x:hidden}}div.input_area{border:1px solid #cfcfcf;border-radius:2px;background:#f7f7f7;line-height:1.21429em}div.prompt:empty{padding-top:0;padding-bottom:0}div.unrecognized_cell{padding:5px 5px 5px 0;display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}div.unrecognized_cell .inner_cell{border-radius:2px;padding:5px;font-weight:700;color:red;border:1px solid #cfcfcf;background:#eaeaea}div.unrecognized_cell .inner_cell a,div.unrecognized_cell .inner_cell a:hover{color:inherit;text-decoration:none}@media (max-width:540px){.prompt{text-align:left}div.unrecognized_cell>div.prompt{display:none}}div.code_cell{}div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}@media (max-width:540px){div.input{-webkit-box-orient:vertical;-moz-box-orient:vertical;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:navy;border-top:1px solid transparent}div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}.CodeMirror{line-height:1.21429em;font-size:14px;height:auto;background:0 0}.CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}.CodeMirror-lines{padding:.4em}.CodeMirror-linenumber{padding:0 8px 0 4px}.CodeMirror-gutters{border-bottom-left-radius:2px;border-top-left-radius:2px}.CodeMirror pre{padding:0;border:0;border-radius:0}.highlight-base,.highlight-variable{}.highlight-variable-2{color:#1a1a1a}.highlight-variable-3{color:#333}.highlight-string{color:#BA2121}.highlight-comment{color:#408080;font-style:italic}.highlight-number{80}.highlight-atom{color:#88F}.highlight-keyword{color:green;font-weight:700}.highlight-builtin{color:green}.highlight-error{color:red}.highlight-operator{color:#A2F;font-weight:700}.highlight-meta{color:#A2F}.highlight-def{f}.highlight-string-2{color:#f50}.highlight-qualifier{color:#555}.highlight-bracket{color:#997}.highlight-tag{color:#170}.highlight-attribute{c}.highlight-header{f}.highlight-quote{90}.highlight-link{c}.cm-s-ipython span.cm-keyword{color:green;font-weight:700}.cm-s-ipython span.cm-atom{color:#88F}.cm-s-ipython span.cm-number{80}.cm-s-ipython span.cm-def{f}.cm-s-ipython span.cm-variable{}.cm-s-ipython span.cm-operator{color:#A2F;font-weight:700}.cm-s-ipython span.cm-variable-2{color:#1a1a1a}.cm-s-ipython span.cm-variable-3{color:#333}.cm-s-ipython span.cm-comment{color:#408080;font-style:italic}.cm-s-ipython span.cm-string{color:#BA2121}.cm-s-ipython span.cm-string-2{color:#f50}.cm-s-ipython span.cm-meta{color:#A2F}.cm-s-ipython span.cm-qualifier{color:#555}.cm-s-ipython span.cm-builtin{color:green}.cm-s-ipython span.cm-bracket{color:#997}.cm-s-ipython span.cm-tag{color:#170}.cm-s-ipython span.cm-attribute{c}.cm-s-ipython span.cm-header{f}.cm-s-ipython span.cm-quote{90}.cm-s-ipython span.cm-link{c}.cm-s-ipython span.cm-error{color:red}.cm-s-ipython span.cm-tab{background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=')right no-repeat}div.output_wrapper{display:-webkit-box;-webkit-box-align:stretch;display:-moz-box;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;z-index:1}div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:2px;-webkit-box-shadow:inset 0 2px 8px rgba(0,0,0,.8);box-shadow:inset 0 2px 8px rgba(0,0,0,.8);display:block}div.output_collapsed{margin:0;padding:0;display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.out_prompt_overlay{height:100%;padding:0 .4em;position:absolute;border-radius:2px}div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000;box-shadow:inset 0 0 1px #000;background:rgba(240,240,240,.5)}div.output_prompt{color:#8b0000}div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}div.output_area .MathJax_Display{text-align:left!important}div.output_area div.output_area img,div.output_area svg{max-width:100%;height:auto}div.output_area img.unconfined,div.output_area svg.unconfined{max-width:none}.output{display:-webkit-box;-webkit-box-orient:vertical;display:-moz-box;-moz-box-orient:vertical;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}@media (max-width:540px){div.output_area{-webkit-box-orient:vertical;-moz-box-orient:vertical;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;background-color:transparent;border-radius:0}div.output_subarea{overflow-x:auto;padding:.4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1;max-width:calc(100% - 14ex)}div.output_text{text-align:left;line-height:1.21429em}div.output_stderr{background:#fdd}div.output_latex{text-align:left}div.output_javascript:empty{padding:0}.js-error{color:#8b0000}div.raw_input_container{font-family:monospace;padding-top:5px}span.raw_input_prompt{}input.raw_input{font-family:inherit;font-size:inherit;color:inherit;width:auto;vertical-align:baseline;padding:0 .25em;margin:0 .25em}input.raw_input:focus{box-shadow:none}p.p-space{margin-bottom:10px}div.output_unrecognized{padding:5px;font-weight:700;color:red}div.output_unrecognized a,div.output_unrecognized a:hover{color:inherit;text-decoration:none}.rendered_html{}.rendered_html :link,.rendered_html :visited,.rendered_html h1:first-child{margin-top:.538em}.rendered_html h2:first-child{margin-top:.636em}.rendered_html h3:first-child{margin-top:.777em}.rendered_html h4:first-child,.rendered_html h5:first-child,.rendered_html h6:first-child{margin-top:1em}.rendered_html *+ol,.rendered_html *+ul{margin-top:1em}.rendered_html *+table{margin-top:1em}.rendered_html *+p{margin-top:1em}.rendered_html *+img{margin-top:1em}div.text_cell{display:-webkit-box;-webkit-box-orient:horizontal;display:-moz-box;-moz-box-orient:horizontal;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}@media (max-width:540px){div.text_cell>div.prompt{display:none}}div.text_cell_render{outline:0;resize:none;width:inherit;border-style:none;padding:.5em .5em .5em .4em;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}a.anchor-link:link{text-decoration:none;padding:0 20px;visibility:hidden}h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible}.text_cell.rendered .input_area{display:none}.text_cell.rendered .text_cell.unrendered .text_cell_render{display:none}.cm-header-1,.cm-header-2,.cm-header-3,.cm-header-4,.cm-header-5,.cm-header-6{font-weight:700;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.cm-header-1{font-size:185.7%}.cm-header-2{font-size:157.1%}.cm-header-3{font-size:128.6%}.cm-header-4{font-size:110%}.cm-header-5,.cm-header-6{font-size:100%;font-style:italic}</style>
 <style type="text/css">.highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
-.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
 .highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
 .highlight .cp { color: #BC7A00 } /* Comment.Preproc */
-.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
 .highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
 .highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
@@ -1028,43 +166,6 @@ h6:hover .anchor-link {
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
-<style type="text/css">
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-</style>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1090,18 +191,18 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># for simplicity mock up some tweets</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># for simplicity mock up some tweets</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
 <span class="kn">import</span> <span class="nn">random</span>
 
-<span class="n">Tweet</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">'Tweet'</span><span class="p">,</span> <span class="s1">'time text likes'</span><span class="p">)</span>
+<span class="n">Tweet</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s">'Tweet'</span><span class="p">,</span> <span class="s">'time text likes'</span><span class="p">)</span>
 
 <span class="n">tweets</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">Tweet</span><span class="p">(</span><span class="s1">'2017-01-25 08:45:00'</span><span class="p">,</span> <span class="s1">'Teaching Python today, feels great'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-    <span class="n">Tweet</span><span class="p">(</span><span class="s1">'2017-01-25 09:45:00'</span><span class="p">,</span> <span class="s1">'Writing a post on the Python data model'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="n">Tweet</span><span class="p">(</span><span class="s1">'2017-01-25 07:45:00'</span><span class="p">,</span> <span class="s1">'from __future__ import braces ... not a chance'</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="n">Tweet</span><span class="p">(</span><span class="s1">'2017-01-25 10:45:00'</span><span class="p">,</span> <span class="s1">'Doing code challenge 03, learning a lot'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="n">Tweet</span><span class="p">(</span><span class="s1">'2017-01-25 12:45:00'</span><span class="p">,</span> <span class="s1">'Done with code challenge 03'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">Tweet</span><span class="p">(</span><span class="s">'2017-01-25 08:45:00'</span><span class="p">,</span> <span class="s">'Teaching Python today, feels great'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">Tweet</span><span class="p">(</span><span class="s">'2017-01-25 09:45:00'</span><span class="p">,</span> <span class="s">'Writing a post on the Python data model'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">Tweet</span><span class="p">(</span><span class="s">'2017-01-25 07:45:00'</span><span class="p">,</span> <span class="s">'from __future__ import braces ... not a chance'</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">Tweet</span><span class="p">(</span><span class="s">'2017-01-25 10:45:00'</span><span class="p">,</span> <span class="s">'Doing code challenge 03, learning a lot'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">Tweet</span><span class="p">(</span><span class="s">'2017-01-25 12:45:00'</span><span class="p">,</span> <span class="s">'Done with code challenge 03'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tweets</span><span class="p">)</span>
 </pre></div>
@@ -1110,10 +211,9 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(Tweet(time='2017-01-25 08:45:00', text='Teaching Python today, feels great', likes=3), Tweet(time='2017-01-25 09:45:00', text='Writing a post on the Python data model', likes=2), Tweet(time='2017-01-25 07:45:00', text='from __future__ import braces ... not a chance', likes=10), Tweet(time='2017-01-25 10:45:00', text='Doing code challenge 03, learning a lot', likes=5), Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1))
+<pre>(Tweet(time=&apos;2017-01-25 08:45:00&apos;, text=&apos;Teaching Python today, feels great&apos;, likes=3), Tweet(time=&apos;2017-01-25 09:45:00&apos;, text=&apos;Writing a post on the Python data model&apos;, likes=2), Tweet(time=&apos;2017-01-25 07:45:00&apos;, text=&apos;from __future__ import braces ... not a chance&apos;, likes=10), Tweet(time=&apos;2017-01-25 10:45:00&apos;, text=&apos;Doing code challenge 03, learning a lot&apos;, likes=5), Tweet(time=&apos;2017-01-25 12:45:00&apos;, text=&apos;Done with code challenge 03&apos;, likes=1))
 </pre>
 </div>
 </div>
@@ -1125,21 +225,21 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># lets make twitter handle a bit more sophisticated, we are going to work with a parent-child relation for this example</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># lets make twitter handle a bit more sophisticated, we are going to work with a parent-child relation for this example</span>
 
 <span class="k">class</span> <span class="nc">Handle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="k">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle</span> <span class="o">=</span> <span class="n">handle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shared_handle</span> <span class="o">=</span> <span class="n">shared_handle</span>
     
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">shared</span> <span class="o">=</span> <span class="s1">''</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shared_handle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">shared</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="n">shared</span> <span class="o">=</span> <span class="s">''</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shared_handle</span> <span class="ow">is</span> <span class="k">None</span><span class="p">:</span>
+            <span class="n">shared</span> <span class="o">=</span> <span class="s">''</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">shared</span> <span class="o">=</span> <span class="s1">' (shared handle: </span><span class="si">{}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shared_handle</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">{}{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">shared</span><span class="p">)</span>
+            <span class="n">shared</span> <span class="o">=</span> <span class="s">' (shared handle: {})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shared_handle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">'{}{}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="n">shared</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1150,7 +250,7 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a TwitterUser has a handle name and a bunch of tweets, note the two dunder methods after the constructor ...</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># a TwitterUser has a handle name and a bunch of tweets, note the two dunder methods after the constructor ...</span>
 
 <span class="k">class</span> <span class="nc">TwitterUser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     
@@ -1173,8 +273,8 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bob</span> <span class="o">=</span> <span class="n">TwitterUser</span><span class="p">(</span>
-    <span class="n">Handle</span><span class="p">(</span><span class="s1">'bbelderbos'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s1">'pybites'</span><span class="p">),</span> <span class="n">tweets</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">bob</span> <span class="o">=</span> <span class="n">TwitterUser</span><span class="p">(</span>
+    <span class="n">Handle</span><span class="p">(</span><span class="s">'bbelderbos'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s">'pybites'</span><span class="p">),</span> <span class="n">tweets</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1186,7 +286,7 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># implementing len we can call it on the object like this: </span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># implementing len we can call it on the object like this: </span>
 
 <span class="nb">len</span><span class="p">(</span><span class="n">bob</span><span class="p">)</span>
 </pre></div>
@@ -1195,8 +295,7 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>5</pre>
 </div>
@@ -1209,7 +308,7 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># implementing getitem we can get tweets by index</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># implementing getitem we can get tweets by index</span>
 
 <span class="n">bob</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
@@ -1218,10 +317,9 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[6]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 <div class="output_text output_subarea output_execute_result">
-<pre>Tweet(time='2017-01-25 08:45:00', text='Teaching Python today, feels great', likes=3)</pre>
+<pre>Tweet(time=&apos;2017-01-25 08:45:00&apos;, text=&apos;Teaching Python today, feels great&apos;, likes=3)</pre>
 </div>
 </div>
 </div>
@@ -1232,7 +330,7 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># or with a slice</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># or with a slice</span>
 
 <span class="n">bob</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
 </pre></div>
@@ -1241,11 +339,10 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[7]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
 <div class="output_text output_subarea output_execute_result">
-<pre>(Tweet(time='2017-01-25 10:45:00', text='Doing code challenge 03, learning a lot', likes=5),
- Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1))</pre>
+<pre>(Tweet(time=&apos;2017-01-25 10:45:00&apos;, text=&apos;Doing code challenge 03, learning a lot&apos;, likes=5),
+ Tweet(time=&apos;2017-01-25 12:45:00&apos;, text=&apos;Done with code challenge 03&apos;, likes=1))</pre>
 </div>
 </div>
 </div>
@@ -1256,7 +353,7 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># wow implementing __getitem__ bob turns into an iterable!</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># wow implementing __getitem__ bob turns into an iterable!</span>
 
 <span class="k">for</span> <span class="n">tw</span> <span class="ow">in</span> <span class="n">bob</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">tw</span><span class="p">)</span>
@@ -1266,14 +363,13 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Tweet(time='2017-01-25 08:45:00', text='Teaching Python today, feels great', likes=3)
-Tweet(time='2017-01-25 09:45:00', text='Writing a post on the Python data model', likes=2)
-Tweet(time='2017-01-25 07:45:00', text='from __future__ import braces ... not a chance', likes=10)
-Tweet(time='2017-01-25 10:45:00', text='Doing code challenge 03, learning a lot', likes=5)
-Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
+<pre>Tweet(time=&apos;2017-01-25 08:45:00&apos;, text=&apos;Teaching Python today, feels great&apos;, likes=3)
+Tweet(time=&apos;2017-01-25 09:45:00&apos;, text=&apos;Writing a post on the Python data model&apos;, likes=2)
+Tweet(time=&apos;2017-01-25 07:45:00&apos;, text=&apos;from __future__ import braces ... not a chance&apos;, likes=10)
+Tweet(time=&apos;2017-01-25 10:45:00&apos;, text=&apos;Doing code challenge 03, learning a lot&apos;, likes=5)
+Tweet(time=&apos;2017-01-25 12:45:00&apos;, text=&apos;Done with code challenge 03&apos;, likes=1)
 </pre>
 </div>
 </div>
@@ -1285,7 +381,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># and can be passed as a sequence object to other builtins</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># and can be passed as a sequence object to other builtins</span>
 
 <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">bob</span><span class="p">)</span>
 </pre></div>
@@ -1294,10 +390,9 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 <div class="output_text output_subarea output_execute_result">
-<pre>Tweet(time='2017-01-25 07:45:00', text='from __future__ import braces ... not a chance', likes=10)</pre>
+<pre>Tweet(time=&apos;2017-01-25 07:45:00&apos;, text=&apos;from __future__ import braces ... not a chance&apos;, likes=10)</pre>
 </div>
 </div>
 </div>
@@ -1308,10 +403,10 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># or give it to sorted so we can use its key arg to sort by most likes</span>
-<span class="c1"># easter eggs are well received :)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># or give it to sorted so we can use its key arg to sort by most likes</span>
+<span class="c"># easter eggs are well received :)</span>
 
-<span class="k">for</span> <span class="n">tw</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bob</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">likes</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">tw</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bob</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">likes</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="k">True</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">tw</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1319,14 +414,13 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Tweet(time='2017-01-25 07:45:00', text='from __future__ import braces ... not a chance', likes=10)
-Tweet(time='2017-01-25 10:45:00', text='Doing code challenge 03, learning a lot', likes=5)
-Tweet(time='2017-01-25 08:45:00', text='Teaching Python today, feels great', likes=3)
-Tweet(time='2017-01-25 09:45:00', text='Writing a post on the Python data model', likes=2)
-Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
+<pre>Tweet(time=&apos;2017-01-25 07:45:00&apos;, text=&apos;from __future__ import braces ... not a chance&apos;, likes=10)
+Tweet(time=&apos;2017-01-25 10:45:00&apos;, text=&apos;Doing code challenge 03, learning a lot&apos;, likes=5)
+Tweet(time=&apos;2017-01-25 08:45:00&apos;, text=&apos;Teaching Python today, feels great&apos;, likes=3)
+Tweet(time=&apos;2017-01-25 09:45:00&apos;, text=&apos;Writing a post on the Python data model&apos;, likes=2)
+Tweet(time=&apos;2017-01-25 12:45:00&apos;, text=&apos;Done with code challenge 03&apos;, likes=1)
 </pre>
 </div>
 </div>
@@ -1338,7 +432,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a></h3><p>A real eye-opener reading Fluent Python: by only implementing __len__() and __getitem__() we got nice features like slicing and iteration out of the box!</p>
+<h3 id=" Conclusion"> Conclusion<a class="anchor-link" href="# Conclusion">¶</a></h3><p>A real eye-opener reading Fluent Python: by only implementing __len__() and __getitem__() we got nice features like slicing and iteration out of the box!</p>
 </div>
 </div>
 </div>
@@ -1356,13 +450,13 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># making another user</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># making another user</span>
 <span class="n">tweets2</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">Tweet</span><span class="p">(</span><span class="s1">'2017-01-25 10:46:00'</span><span class="p">,</span> <span class="s1">'Writing a blog post on a cool new module I discovered'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="n">Tweet</span><span class="p">(</span><span class="s1">'2017-01-25 12:46:00'</span><span class="p">,</span> <span class="s1">'Learning some Python today, feeling great'</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">Tweet</span><span class="p">(</span><span class="s">'2017-01-25 10:46:00'</span><span class="p">,</span> <span class="s">'Writing a blog post on a cool new module I discovered'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">Tweet</span><span class="p">(</span><span class="s">'2017-01-25 12:46:00'</span><span class="p">,</span> <span class="s">'Learning some Python today, feeling great'</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">julian</span> <span class="o">=</span> <span class="n">TwitterUser</span><span class="p">(</span>
-    <span class="n">Handle</span><span class="p">(</span><span class="s1">'techmoneykids'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s1">'pybites'</span><span class="p">),</span> <span class="n">tweets2</span>
+    <span class="n">Handle</span><span class="p">(</span><span class="s">'techmoneykids'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s">'pybites'</span><span class="p">),</span> <span class="n">tweets2</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1374,8 +468,8 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># I want to be able to merge tweets, just as we can do with lists: [1] + [2,3] = [1,2,3]</span>
-<span class="c1"># however this does not work out of the box</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># I want to be able to merge tweets, just as we can do with lists: [1] + [2,3] = [1,2,3]</span>
+<span class="c"># however this does not work out of the box</span>
 
 <span class="n">bob</span> <span class="o">+</span> <span class="n">julian</span>
 </pre></div>
@@ -1384,18 +478,17 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-12-08fc7fe18fd0></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-red-fg"># however this does not work out of the box</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-fg">----> 4</span><span class="ansi-red-fg"> </span>bob <span class="ansi-blue-fg">+</span> julian
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansigreen"><ipython-input-12-08fc7fe18fd0></span> in <span class="ansicyan"><module></span><span class="ansiblue">()</span>
+<span class="ansigreen">      2</span> <span class="ansired"># however this does not work out of the box</span><span class="ansiblue"></span><span class="ansiblue"></span>
+<span class="ansigreen">      3</span> <span class="ansiblue"></span>
+<span class="ansigreen">----> 4</span><span class="ansired"> </span>bob <span class="ansiblue">+</span> julian<span class="ansiblue"></span>
 
-<span class="ansi-red-fg">TypeError</span>: unsupported operand type(s) for +: 'TwitterUser' and 'TwitterUser'</pre>
+<span class="ansired">TypeError</span>: unsupported operand type(s) for +: &apos;TwitterUser&apos; and &apos;TwitterUser&apos;</pre>
 </div>
 </div>
 </div>
@@ -1406,7 +499,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># we can make this work implementing __add__()</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># we can make this work implementing __add__()</span>
 
 <span class="k">class</span> <span class="nc">IncompatibleHandle</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -1415,7 +508,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">tweets</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handle</span> <span class="o">=</span> <span class="n">handle</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tweets</span> <span class="o">=</span> <span class="n">tweets</span>  <span class="c1"># making interfacce public as we need it in __add__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tweets</span> <span class="o">=</span> <span class="n">tweets</span>  <span class="c"># making interfacce public as we need it in __add__</span>
         
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tweets</span><span class="p">)</span>
@@ -1425,23 +518,23 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     
     <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">shared_handle</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">shared_handle</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">IncompatibleHandle</span><span class="p">(</span><span class="s1">'Not the same shared handle, cannot merge tweets'</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">IncompatibleHandle</span><span class="p">(</span><span class="s">'Not the same shared handle, cannot merge tweets'</span><span class="p">)</span>
         <span class="n">all_tweets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweets</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">tweets</span>
         <span class="k">return</span> <span class="n">TwitterUser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">shared_handle</span><span class="p">,</span> <span class="n">all_tweets</span><span class="p">)</span>
     
-    <span class="c1"># adding object string representation methods</span>
+    <span class="c"># adding object string representation methods</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'TwitterUser(</span><span class="si">%r</span><span class="s1">, </span><span class="si">%r</span><span class="s1">)'</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweets</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">'TwitterUser(%r, %r)'</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweets</span><span class="p">)</span>
     
-    <span class="c1"># difference between the repr and str: </span>
-    <span class="c1"># http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python</span>
+    <span class="c"># difference between the repr and str: </span>
+    <span class="c"># http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python</span>
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">{}</span><span class="s1"> => likes: </span><span class="si">{}</span><span class="s1"> for </span><span class="si">{}</span><span class="s1"> tweets = </span><span class="si">{:.1f}</span><span class="s1"> avg'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">return</span> <span class="s">'{} => likes: {} for {} tweets = {:.1f} avg'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_likes</span><span class="p">(),</span> 
             <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg_likes</span><span class="p">()</span>
         <span class="p">)</span>
     
-    <span class="c1"># adding some public methods to show later on that the merged object behaves just as its parts</span>
+    <span class="c"># adding some public methods to show later on that the merged object behaves just as its parts</span>
     <span class="k">def</span> <span class="nf">total_likes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tw</span><span class="o">.</span><span class="n">likes</span> <span class="k">for</span> <span class="n">tw</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweets</span><span class="p">)</span>
     
@@ -1457,17 +550,17 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># need to create bob, julian again using the rewritten class </span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># need to create bob, julian again using the rewritten class </span>
 
 <span class="n">bob</span> <span class="o">=</span> <span class="n">TwitterUser</span><span class="p">(</span>
-    <span class="n">Handle</span><span class="p">(</span><span class="s1">'bbelderbos'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s1">'pybites'</span><span class="p">),</span> <span class="n">tweets</span>
+    <span class="n">Handle</span><span class="p">(</span><span class="s">'bbelderbos'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s">'pybites'</span><span class="p">),</span> <span class="n">tweets</span>
 <span class="p">)</span>
 <span class="n">julian</span> <span class="o">=</span> <span class="n">TwitterUser</span><span class="p">(</span>
-    <span class="n">Handle</span><span class="p">(</span><span class="s1">'techmoneykids'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s1">'pybites'</span><span class="p">),</span> <span class="n">tweets2</span>
+    <span class="n">Handle</span><span class="p">(</span><span class="s">'techmoneykids'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s">'pybites'</span><span class="p">),</span> <span class="n">tweets2</span>
 <span class="p">)</span>
-<span class="c1"># lets also add a not-compatible handle</span>
+<span class="c"># lets also add a not-compatible handle</span>
 <span class="n">stranger</span> <span class="o">=</span> <span class="n">TwitterUser</span><span class="p">(</span>
-    <span class="n">Handle</span><span class="p">(</span><span class="s1">'someblogger'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s1">'stranger'</span><span class="p">),</span> <span class="n">tweets2</span>
+    <span class="n">Handle</span><span class="p">(</span><span class="s">'someblogger'</span><span class="p">,</span> <span class="n">shared_handle</span><span class="o">=</span><span class="s">'stranger'</span><span class="p">),</span> <span class="n">tweets2</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1479,7 +572,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [15]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># now it works, thanks to __add__ </span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># now it works, thanks to __add__ </span>
 
 <span class="n">pybites</span> <span class="o">=</span> <span class="n">bob</span> <span class="o">+</span> <span class="n">julian</span>
 </pre></div>
@@ -1492,9 +585,9 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [16]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># our tweets are merged, glad to have Julian most liked tweet now ;)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># our tweets are merged, glad to have Julian most liked tweet now ;)</span>
 
-<span class="k">for</span> <span class="n">tw</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pybites</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">likes</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">tw</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pybites</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">likes</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="k">True</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">tw</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1502,16 +595,15 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Tweet(time='2017-01-25 12:46:00', text='Learning some Python today, feeling great', likes=15)
-Tweet(time='2017-01-25 07:45:00', text='from __future__ import braces ... not a chance', likes=10)
-Tweet(time='2017-01-25 10:45:00', text='Doing code challenge 03, learning a lot', likes=5)
-Tweet(time='2017-01-25 10:46:00', text='Writing a blog post on a cool new module I discovered', likes=5)
-Tweet(time='2017-01-25 08:45:00', text='Teaching Python today, feels great', likes=3)
-Tweet(time='2017-01-25 09:45:00', text='Writing a post on the Python data model', likes=2)
-Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
+<pre>Tweet(time=&apos;2017-01-25 12:46:00&apos;, text=&apos;Learning some Python today, feeling great&apos;, likes=15)
+Tweet(time=&apos;2017-01-25 07:45:00&apos;, text=&apos;from __future__ import braces ... not a chance&apos;, likes=10)
+Tweet(time=&apos;2017-01-25 10:45:00&apos;, text=&apos;Doing code challenge 03, learning a lot&apos;, likes=5)
+Tweet(time=&apos;2017-01-25 10:46:00&apos;, text=&apos;Writing a blog post on a cool new module I discovered&apos;, likes=5)
+Tweet(time=&apos;2017-01-25 08:45:00&apos;, text=&apos;Teaching Python today, feels great&apos;, likes=3)
+Tweet(time=&apos;2017-01-25 09:45:00&apos;, text=&apos;Writing a post on the Python data model&apos;, likes=2)
+Tweet(time=&apos;2017-01-25 12:45:00&apos;, text=&apos;Done with code challenge 03&apos;, likes=1)
 </pre>
 </div>
 </div>
@@ -1523,7 +615,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># but stranger is not part of pybites, so custom exception is raised (as implemented in __add__)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># but stranger is not part of pybites, so custom exception is raised (as implemented in __add__)</span>
 
 <span class="n">bob</span> <span class="o">+</span> <span class="n">stranger</span>
 </pre></div>
@@ -1532,25 +624,24 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">IncompatibleHandle</span>                        Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-17-9ee66cd5c34d></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># but stranger is not part of pybites, so custom exception is raised (as implemented in __add__)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> 
-<span class="ansi-green-fg">----> 3</span><span class="ansi-red-fg"> </span>bob <span class="ansi-blue-fg">+</span> stranger
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">IncompatibleHandle</span>                        Traceback (most recent call last)
+<span class="ansigreen"><ipython-input-17-9ee66cd5c34d></span> in <span class="ansicyan"><module></span><span class="ansiblue">()</span>
+<span class="ansigreen">      1</span> <span class="ansired"># but stranger is not part of pybites, so custom exception is raised (as implemented in __add__)</span><span class="ansiblue"></span><span class="ansiblue"></span>
+<span class="ansigreen">      2</span> <span class="ansiblue"></span>
+<span class="ansigreen">----> 3</span><span class="ansired"> </span>bob <span class="ansiblue">+</span> stranger<span class="ansiblue"></span>
 
-<span class="ansi-green-fg"><ipython-input-13-d86635054781></span> in <span class="ansi-cyan-fg">__add__</span><span class="ansi-blue-fg">(self, other)</span>
-<span class="ansi-green-intense-fg ansi-bold">     18</span>     <span class="ansi-green-fg">def</span> __add__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> other<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     19</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>handle<span class="ansi-blue-fg">.</span>shared_handle <span class="ansi-blue-fg">!=</span> other<span class="ansi-blue-fg">.</span>handle<span class="ansi-blue-fg">.</span>shared_handle<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---> 20</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> IncompatibleHandle<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'Not the same shared handle, cannot merge tweets'</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     21</span>         all_tweets <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>tweets <span class="ansi-blue-fg">+</span> other<span class="ansi-blue-fg">.</span>tweets
-<span class="ansi-green-intense-fg ansi-bold">     22</span>         <span class="ansi-green-fg">return</span> TwitterUser<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>handle<span class="ansi-blue-fg">.</span>shared_handle<span class="ansi-blue-fg">,</span> all_tweets<span class="ansi-blue-fg">)</span>
+<span class="ansigreen"><ipython-input-13-d86635054781></span> in <span class="ansicyan">__add__</span><span class="ansiblue">(self, other)</span>
+<span class="ansigreen">     18</span>     <span class="ansigreen">def</span> __add__<span class="ansiblue">(</span>self<span class="ansiblue">,</span> other<span class="ansiblue">)</span><span class="ansiblue">:</span><span class="ansiblue"></span>
+<span class="ansigreen">     19</span>         <span class="ansigreen">if</span> self<span class="ansiblue">.</span>handle<span class="ansiblue">.</span>shared_handle <span class="ansiblue">!=</span> other<span class="ansiblue">.</span>handle<span class="ansiblue">.</span>shared_handle<span class="ansiblue">:</span><span class="ansiblue"></span>
+<span class="ansigreen">---> 20</span><span class="ansired">             </span><span class="ansigreen">raise</span> IncompatibleHandle<span class="ansiblue">(</span><span class="ansiblue">&apos;Not the same shared handle, cannot merge tweets&apos;</span><span class="ansiblue">)</span><span class="ansiblue"></span>
+<span class="ansigreen">     21</span>         all_tweets <span class="ansiblue">=</span> self<span class="ansiblue">.</span>tweets <span class="ansiblue">+</span> other<span class="ansiblue">.</span>tweets<span class="ansiblue"></span>
+<span class="ansigreen">     22</span>         <span class="ansigreen">return</span> TwitterUser<span class="ansiblue">(</span>self<span class="ansiblue">.</span>handle<span class="ansiblue">.</span>shared_handle<span class="ansiblue">,</span> all_tweets<span class="ansiblue">)</span><span class="ansiblue"></span>
 
-<span class="ansi-red-fg">IncompatibleHandle</span>: Not the same shared handle, cannot merge tweets</pre>
+<span class="ansired">IncompatibleHandle</span>: Not the same shared handle, cannot merge tweets</pre>
 </div>
 </div>
 </div>
@@ -1561,8 +652,8 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [18]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print on object calls the underlying __str__ which we used to print some stats</span>
-<span class="c1"># also notes it embeds the __str__ of the Handle object</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># print on object calls the underlying __str__ which we used to print some stats</span>
+<span class="c"># also notes it embeds the __str__ of the Handle object</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">bob</span><span class="p">)</span>
 </pre></div>
@@ -1571,8 +662,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>bbelderbos (shared handle: pybites) => likes: 21 for 5 tweets = 4.2 avg
 </pre>
@@ -1586,7 +676,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [19]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Julian is definitely more influential than me :) </span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Julian is definitely more influential than me :) </span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">julian</span><span class="p">)</span>
 </pre></div>
@@ -1595,8 +685,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>techmoneykids (shared handle: pybites) => likes: 20 for 2 tweets = 10.0 avg
 </pre>
@@ -1610,7 +699,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="prompt input_prompt">In [20]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... improving the average</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># ... improving the average</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">pybites</span><span class="p">)</span>
 </pre></div>
@@ -1619,8 +708,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>pybites => likes: 41 for 7 tweets = 5.9 avg
 </pre>
@@ -1629,7 +717,6 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 </div>
 </div>
 </div>
-
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -1663,10 +750,11 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     <p>
       <a href="http://pybit.es/tag/datamodel.html">datamodel</a>
       <a href="http://pybit.es/tag/oop.html">oop</a>
-      <a href="http://pybit.es/tag/magicmethods.html">magicmethods</a>
+      <a href="http://pybit.es/tag/magic.html">magic</a>
+      <a href="http://pybit.es/tag/dunder.html">dunder</a>
       <a href="http://pybit.es/tag/builtin.html">builtin</a>
       <a href="http://pybit.es/tag/pythonic.html">pythonic</a>
-      <a href="http://pybit.es/tag/iterators.html">iterators</a>
+      <a href="http://pybit.es/tag/iterator.html">iterator</a>
       <a href="http://pybit.es/tag/slicing.html">slicing</a>
     </p>
   </div>

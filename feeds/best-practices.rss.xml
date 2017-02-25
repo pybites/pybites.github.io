@@ -1,2 +1,499 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>PyBites - Best practices</title><link>http://pybit.es/</link><description>Python code challenges, tutorials and news, one bite a day</description><lastBuildDate>Tue, 21 Feb 2017 09:00:00 +0100</lastBuildDate><item><title>5 tips to speed up your Python code</title><link>http://pybit.es/faster-python.html</link><description>&lt;p&gt;In this post I will give you 5 tips to speed up your code.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Tue, 21 Feb 2017 09:00:00 +0100</pubDate><guid isPermaLink="false">tag:pybit.es,2017-02-21:/faster-python.html</guid><category>performance</category><category>data structures</category><category>pythonic</category><category>generators</category><category>map</category><category>builtin</category><category>algorithms</category><category>regex</category><category>patterns</category></item><item><title>Errors should never pass silently</title><link>http://pybit.es/error_handling.html</link><description>&lt;p&gt;In this article some important anti-patterns regarding error handling and how to solve them making your code more Pythonic and easier to maintain.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Wed, 18 Jan 2017 23:59:00 +0100</pubDate><guid isPermaLink="false">tag:pybit.es,2017-01-18:/error_handling.html</guid><category>exceptions</category><category>Zen of Python</category><category>error handling</category><category>cleancode</category><category>anti-patterns</category></item><item><title>Beautiful, idiomatic Python</title><link>http://pybit.es/beautiful-python.html</link><description>&lt;p&gt;&lt;a href="https://www.youtube.com/watch?v=OSGv2VnC0go"&gt;Transforming Code into Beautiful, Idiomatic Python&lt;/a&gt; is a must-watch to write more Pythonic code. In this post some highlights.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Tue, 10 Jan 2017 09:00:00 +0100</pubDate><guid isPermaLink="false">tag:pybit.es,2017-01-10:/beautiful-python.html</guid><category>pythonic</category><category>cleancode</category><category>collections</category><category>2vs3</category><category>namedtuple</category><category>decorators</category><category>contextmanagers</category></item><item><title>5 min guide to PEP8</title><link>http://pybit.es/pep8.html</link><description>&lt;p&gt;Today a post on PEP8, the Style Guide for Python Code&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Mon, 02 Jan 2017 09:00:00 +0100</pubDate><guid isPermaLink="false">tag:pybit.es,2017-01-02:/pep8.html</guid><category>pep8</category><category>cleancode</category><category>guidelines</category><category>coding style</category><category>bestpractices</category><category>pythonic</category><category>vim</category></item></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PyBites</title><link>http://pybit.es/</link><description>Python code challenges, tutorials and news, one bite a day</description><atom:link href="http://pybit.es/feeds/best-practices.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 21 Feb 2017 09:00:00 +0100</lastBuildDate><item><title>5 tips to speed up your Python code</title><link>http://pybit.es/faster-python.html</link><description>&lt;p&gt;This article is about native Python, not &lt;a href="https://en.wikipedia.org/wiki/List_of_compilers#Python_compilers"&gt;compilers&lt;/a&gt; nor &lt;a href="https://docs.python.org/3/library/concurrency.html"&gt;concurrency&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;First off: optimizing usually is not your primary concern, writing readable code is. &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Premature optimization is the root of all evil. (Donald Knuth)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;However a lot of the tips I investigated below go hand-in-hand with writing good, Pythonic code. &lt;/p&gt;
+&lt;p&gt;Here are 5 important things to keep in mind in order to write efficient Python code.&lt;/p&gt;
+&lt;h2&gt;1. Know the basic data structures&lt;/h2&gt;
+&lt;p&gt;As already mentioned &lt;a href="http://pybit.es/collections-deque.html"&gt;here&lt;/a&gt; dicts and sets use hash tables so have O(1) lookup performance.  As the &lt;a href="http://docs.python-guide.org/en/latest/writing/style/"&gt;The Hitchhiker's Guide&lt;/a&gt; states:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;... it is often a good idea to use sets or dictionaries instead of lists in cases where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The collection will contain a large number of items&lt;/li&gt;
+&lt;li&gt;You will be repeatedly searching for items in the collection&lt;/li&gt;
+&lt;li&gt;You do not have duplicate items.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For a performance cheat sheet for al the main data types refer to &lt;a href="https://wiki.python.org/moin/TimeComplexity"&gt;TimeComplexity&lt;/a&gt;. For a nice, accessible and visual book on algorithms see &lt;a href="http://pybit.es/grokking_algorithms.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Update: in the first iteration of this article I did a 'value in set(list)' but this is actually expensive because you have to do the list-to-set cast. The suggested set(a) &amp;amp; set(b) instead of double-for-loop has this same problem. Thanks for pointing this out &lt;a href="https://redd.it/5vapzt"&gt;on Reddit&lt;/a&gt;. There were some more comments there which I will update in this article for completeness and correctness.&lt;/p&gt;
+&lt;h2&gt;2. Reduce memory footprint&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;msg = &amp;#39;line1\n&amp;#39;
+msg += &amp;#39;line2\n&amp;#39;
+msg += &amp;#39;line3\n&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is inefficient because a new string gets created upon each pass. Use a list and join it together:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;msg = [&amp;#39;line1&amp;#39;, &amp;#39;line2&amp;#39;, &amp;#39;line3&amp;#39;]
+&amp;#39;\n&amp;#39;.join(msg)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Similarly avoid the + operator on strings:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# slow
+msg = &amp;#39;hello &amp;#39; + my_var + &amp;#39; world&amp;#39;
+
+# faster
+msg = &amp;#39;hello %s world&amp;#39; % my_var
+
+# or better:
+msg = &amp;#39;hello {} world&amp;#39;.format(my_var)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pythonic code is not only more readable but also faster, another example: 'if variable:' is faster than the un-idiomatic 'if variable == True:' &lt;/p&gt;
+&lt;p&gt;Other memory saving techniques:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;probably best known are generators which result in the lazy (on demand) generation of values, which translates to lower memory usage. Good news is that in Python 3 range, d.items() etc return generators (in Python 2 use xrange, d.iteritems() respectively). Another good reason to switch to Python 3 :)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;list.sort() is in place vs sorted() which makes a copy. Honestly I have mostly used latter, but it might matter if your data set grows.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://docs.python.org/2/reference/datamodel.html"&gt;__slots__&lt;/a&gt;: 'the __slots__ declaration takes a sequence of instance variables and reserves just enough space in each instance to hold a value for each variable. Space is saved because __dict__ is not created for each instance', so this is really useful if you have a lot of instances (here is a &lt;a href="http://tech.oyster.com/save-ram-with-python-slots/"&gt;real-world example&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. Use builtin functions and libraries&lt;/h2&gt;
+&lt;p&gt;Builtin functions like sum, max, any, map, etc are implemented in C. They are very efficient and well tested. Use them!&lt;/p&gt;
+&lt;p&gt;Example borrowed from this &lt;a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips"&gt;great wiki&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;newlist = []
+for word in oldlist:
+    newlist.append(word.upper())
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Better:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;newlist = map(str.upper, oldlist)  # wiki cites map as a for loop moved into C code
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;For readability I much prefer a list comprehension though. And as another redditor commented a list comprehension is just as fast as list(map(x)) and a generator comprehension is just as fast as map(x).&lt;/p&gt;
+&lt;p&gt;Guido's &lt;a href="https://www.python.org/doc/essays/list2str/"&gt;Python Patterns - An Optimization Anecdote&lt;/a&gt; is a great read:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you feel the need for speed, go for built-in functions - you can't beat a loop written in C. Check the library manual for a built-in function that does what you want.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Another example of using builtins is the &lt;a href="https://docs.python.org/2/library/collections.html"&gt;collections&lt;/a&gt; module which offers Pythonic and efficient data structures (deque, defaultdict, Counter, etc):&lt;/p&gt;
+&lt;p&gt;For example defaultdict ('list as the default_factory' example from documentation):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; s = [(&amp;#39;yellow&amp;#39;, 1), (&amp;#39;blue&amp;#39;, 2), (&amp;#39;yellow&amp;#39;, 3), (&amp;#39;blue&amp;#39;, 4), (&amp;#39;red&amp;#39;, 1)]
+&amp;gt;&amp;gt;&amp;gt; d = defaultdict(list)
+&amp;gt;&amp;gt;&amp;gt; for k, v in s:
+...     d[k].append(v)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Or use Counter, just one line of code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; Counter(&amp;#39;mississippi&amp;#39;)
+Counter({&amp;#39;i&amp;#39;: 4, &amp;#39;s&amp;#39;: 4, &amp;#39;p&amp;#39;: 2, &amp;#39;m&amp;#39;: 1})
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As Jack Diederich says in &lt;a href="https://www.youtube.com/watch?v=o9pEzgHorH0"&gt;this great talk&lt;/a&gt; :)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I hate code and I want as little of it as possible in our product.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;4. Move calculations outside the loop&lt;/h2&gt;
+&lt;p&gt;If you have a big iterator and you need to do some regex matching, for example match a date:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;for i in big_it:
+    m = re.search(r&amp;#39;\d{2}-\d{2}-\d{4}&amp;#39;, i)
+    if m:
+        ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Better to compile the regex once and use that 'cached' version in the loop:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;date_regex = re.compile(r&amp;#39;\d{2}-\d{2}-\d{4}&amp;#39;)
+
+for i in big_it:
+    m = date_regex.search(i)
+    if m:
+        ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Update: another redditor commented: "it's by the mercy of the interpreter's implementation, most (including the common CPython) have their own cache for a certain number of regexes, so it probably wouldn't cause any extra time.".&lt;/p&gt;
+&lt;p&gt;More generically evaluate as much as possible outside the loop!&lt;/p&gt;
+&lt;p&gt;Another trick is to asign a function (calculation) to a local variable:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Python accesses local variables much more efficiently than global variables. (&lt;a href="[PerformanceTips wiki](https://wiki.python.org/moin/PythonSpeed/PerformanceTips)"&gt;source&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;myfunc = myObj.func
+fcor i in range(n):
+    myfunc(i) # faster than myObj.func(i)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;On the subject of caching, for memoization (an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again) you can use the &lt;a href="https://docs.python.org/3/library/functools.html#functools.lru_cache"&gt;functools.lru_cache decorator&lt;/a&gt;. LRU = &lt;a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_Recently_Used_.28LRU.29"&gt;Least Recently Used&lt;/a&gt; and a good use case is fetching data from the web (&lt;a href="https://docs.python.org/3/library/functools.html#functools.lru_cache"&gt;the docs page&lt;/a&gt; has an example of LRU cache for static web content).&lt;/p&gt;
+&lt;h2&gt;5. Keep your code base small&lt;/h2&gt;
+&lt;p&gt;Common sense but still: be conscious what you put in the module vs main level (latter being below the __main__ statement). When you import a module potentially a lot of code runs and can slow down your program! &lt;/p&gt;
+&lt;p&gt;Reduce the amounts of if/elif/and/or. An interesting example I learned from &lt;a href="https://www.youtube.com/watch?v=YjHsOrOOSuI"&gt;this great talk&lt;/a&gt;: the ask forgiveness code style might run faster because it eliminates the need for the if check.&lt;/p&gt;
+&lt;p&gt;Update: on the mentioned Reddit thread we got some feedback on try/except vs 'if os.path.isfile', latter might actually be better. &lt;/p&gt;
+&lt;h2&gt;How to spot performance issues?&lt;/h2&gt;
+&lt;p&gt;Humans are pretty bad at guessing, I can tell ... once I wanted to optimize a Python script I built that did heavy text parsing but took a bit of time. Profiling the code it was caused by a different part than I had intuitively thought!&lt;/p&gt;
+&lt;p&gt;You can use &lt;a href="https://docs.python.org/3.6/library/profile.html"&gt;a profiler&lt;/a&gt;, for example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;python -m cProfile [-o output_file] [-s sort_order] myscript.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To time your code, see &lt;a href="http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python"&gt;this SO thread&lt;/a&gt;.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Again Guido's &lt;a href="https://www.python.org/doc/essays/list2str/"&gt;Python Patterns - An Optimization Anecdote&lt;/a&gt; is a great read.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reference: &lt;a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips"&gt;Performance tips wiki&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://wiki.python.org/moin/TimeComplexity"&gt;TimeComplexity reference&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mentioned talk &lt;a href="https://www.youtube.com/watch?v=YjHsOrOOSuI"&gt;Writing faster Python&lt;/a&gt; by Sebastian Witowski.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Book on the subject: &lt;a href="https://www.amazon.com/High-Performance-Python-Performant-Programming/dp/1449361595/ref=sr_1_1?ie=UTF8&amp;amp;qid=1487234279&amp;amp;sr=8-1&amp;amp;keywords=high+performance+python"&gt;High Performance Python: Practical Performant Programming for Humans&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;p&gt;What are your favorite tricks to speed up your Python code?&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Tue, 21 Feb 2017 09:00:00 +0100</pubDate><guid>tag:pybit.es,2017-02-21:faster-python.html</guid><category>performance</category><category>data structures</category><category>pythonic</category><category>generators</category><category>map</category><category>builtin</category><category>algorithms</category><category>regex</category><category>patterns</category></item><item><title>Errors should never pass silently</title><link>http://pybit.es/error_handling.html</link><description>&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;this&lt;/span&gt;
+&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;Zen&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;Tim&lt;/span&gt; &lt;span class="n"&gt;Peters&lt;/span&gt;
+
+&lt;span class="n"&gt;Explicit&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;better&lt;/span&gt; &lt;span class="n"&gt;than&lt;/span&gt; &lt;span class="n"&gt;implicit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="n"&gt;Errors&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;never&lt;/span&gt; &lt;span class="k"&gt;pass&lt;/span&gt; &lt;span class="n"&gt;silently&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Anti-Patterns&lt;/h3&gt;
+&lt;p&gt;This is a great read: &lt;a href="http://docs.quantifiedcode.com/python-code-patterns/"&gt;The Little Book of Python Anti-Patterns&lt;/a&gt;. For the more experienced Pythonistas most is well known, yet it is a good refresher and you probably still find something new.&lt;/p&gt;
+&lt;p&gt;Today a bit about error handling. In our &lt;a href="http://pybit.es/py-mistakes.html"&gt;Learning from Python mistakes article&lt;/a&gt; we already mentioned not to use pass in except. It is actually the worst anti-pattern (as stated by Andreas Dewes, the author of the book, you can listen to the interview &lt;a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes"&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;h3&gt;The problem with except: pass&lt;/h3&gt;
+&lt;p&gt;Why is it so bad? See &lt;a href="http://stackoverflow.com/questions/21553327/why-is-except-pass-a-bad-programming-practice"&gt;SO&lt;/a&gt; for a detailed explanation:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;As you correctly guessed, there are two sides to it: Catching any error by specifying no exception type after except, and simply passing it without taking any action.&lt;/p&gt;
+&lt;p&gt;My explanation is “a bit” longer—so tl;dr it breaks down to this:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Don’t catch any error. Always specify which exceptions you are prepared to recover from and only catch those.&lt;/li&gt;
+&lt;li&gt;Try to avoid passing in except blocks. Unless explicitly desired, this is usually not a good sign.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;...&lt;/p&gt;
+&lt;p&gt;The worst offender though is the combination of both. This means that we are willingly catching any error although we are absolutely not prepared for it and we also don’t do anything about it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So this violates the two Zen aphorisms above. You always want to catch errors explicitly:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; try:
+...     1/0
+... except ZeroDivisionError:
+...     print(&amp;#39;cannot divide by 0&amp;#39;)
+... 
+cannot divide by 0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can use else and finally with a try/except as shown in this toy example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; a, b, c = 1, 2, 0
+&amp;gt;&amp;gt;&amp;gt; try:
+...     a/b
+... except ZeroDivisionError:
+...     print(&amp;#39;cannot divide by 0&amp;#39;)
+... else:
+...     print(&amp;#39;division was ok&amp;#39;)
+... finally:
+...     print(&amp;#39;this always runs&amp;#39;)
+... 
+0.5
+division was ok
+this always runs
+&amp;gt;&amp;gt;&amp;gt; try:
+...     b/c
+... except ZeroDivisionError:
+...     print(&amp;#39;cannot divide by 0&amp;#39;)
+... else:
+...     print(&amp;#39;division was ok&amp;#39;)
+... finally:
+...     print(&amp;#39;this always runs&amp;#39;)
+... 
+cannot divide by 0
+this always runs
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;One thing to watch out for is &lt;a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/bad_except_clauses_order.html"&gt;except clause order&lt;/a&gt; if you have more than one: always go from more specific to more generic (bottom to top in the inheritance chain), for example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; ZeroDivisionError.__mro__
+(&amp;lt;class &amp;#39;ZeroDivisionError&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;ArithmeticError&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;Exception&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;BaseException&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;object&amp;#39;&amp;gt;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;(about &lt;a href="http://stackoverflow.com/questions/2010692/what-does-mro-do-in-python"&gt;mro&lt;/a&gt;)&lt;/p&gt;
+&lt;h3&gt;Asking for permission instead of forgiveness&lt;/h3&gt;
+&lt;p&gt;It becomes even more important because &lt;a href="http://docs.quantifiedcode.com/python-code-patterns/readability/asking_for_permission_instead_of_forgiveness_when_working_with_files.html"&gt;the Python community uses an EAFP (easier to ask for forgiveness than permission) coding style&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I have done this a lot:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;if os.path.exists(&amp;quot;file.txt&amp;quot;):
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But the Pythonic way to do it is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;try:
+    # assume the file is there
+    os.unlink(&amp;quot;file.txt&amp;quot;)
+except OSError:
+    # if not, handle the (explicit) error
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Hence, more reason to manage exceptions well!&lt;/p&gt;
+&lt;h3&gt;Custom exceptions&lt;/h3&gt;
+&lt;p&gt;Another great way to make your code more readable and taking exceptions to the next level is to write your own. Sounds scary? It is actually pretty easy as &lt;a href="https://dbader.org/blog/python-custom-exceptions"&gt;this great post shows&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="n"&gt;NameTooShortError&lt;/span&gt;(&lt;span class="n"&gt;ValueError&lt;/span&gt;):
+    &lt;span class="nb"&gt;pass&lt;/span&gt;
+
+&lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;validate&lt;/span&gt;(&lt;span class="nb"&gt;name&lt;/span&gt;):
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;(&lt;span class="nb"&gt;name&lt;/span&gt;) &amp;lt; &lt;span class="mi"&gt;10&lt;/span&gt;:
+        &lt;span class="n"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;NameTooShortError&lt;/span&gt;(&lt;span class="nb"&gt;name&lt;/span&gt;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;A bit more involved (yet still easy to follow) example from &lt;a href="https://github.com/tweepy/tweepy/blob/master/tweepy/error.py"&gt;tweepy&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="n"&gt;TweepError&lt;/span&gt;(&lt;span class="nb"&gt;Exception&lt;/span&gt;):
+    &lt;span class="s"&gt;&amp;quot;&amp;quot;&amp;quot;Tweepy exception&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+
+    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;__init__&lt;/span&gt;(&lt;span class="k"&gt;self&lt;/span&gt;, &lt;span class="n"&gt;reason&lt;/span&gt;, &lt;span class="n"&gt;response&lt;/span&gt;=&lt;span class="n"&gt;None&lt;/span&gt;, &lt;span class="n"&gt;api_code&lt;/span&gt;=&lt;span class="n"&gt;None&lt;/span&gt;):
+        &lt;span class="k"&gt;self&lt;/span&gt;.&lt;span class="n"&gt;reason&lt;/span&gt; = &lt;span class="n"&gt;six&lt;/span&gt;.&lt;span class="n"&gt;text_type&lt;/span&gt;(&lt;span class="n"&gt;reason&lt;/span&gt;)
+        &lt;span class="k"&gt;self&lt;/span&gt;.&lt;span class="n"&gt;response&lt;/span&gt; = &lt;span class="n"&gt;response&lt;/span&gt;
+        &lt;span class="k"&gt;self&lt;/span&gt;.&lt;span class="n"&gt;api_code&lt;/span&gt; = &lt;span class="n"&gt;api_code&lt;/span&gt;
+        &lt;span class="nb"&gt;Exception&lt;/span&gt;.&lt;span class="n"&gt;__init__&lt;/span&gt;(&lt;span class="k"&gt;self&lt;/span&gt;, &lt;span class="n"&gt;reason&lt;/span&gt;)
+
+    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;__str__&lt;/span&gt;(&lt;span class="k"&gt;self&lt;/span&gt;):
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;self&lt;/span&gt;.&lt;span class="n"&gt;reason&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Which we used in our &lt;a href="https://github.com/pybites/blog_code/blob/master/twitter_bot/tweetbot.py"&gt;Twitter bot&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;def post_tweet(self, status):
+    try:
+        self.api.update_status(status)
+        logging.debug(&amp;#39;posted status {} to twitter&amp;#39;.format(status))
+    except TweepError as err:
+        logging.error(&amp;#39;tweepy update_status error: {}&amp;#39;.format(err))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Reference&lt;/h3&gt;
+&lt;p&gt;Recommended reading: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://www.python.org/dev/peps/pep-0020/"&gt;Zen of Python&lt;/a&gt; (not only reading, printing and hanging on the wall actually!)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://docs.quantifiedcode.com/python-code-patterns/"&gt;The Little Book of Python Anti-Patterns&lt;/a&gt; and &lt;a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes"&gt;chat with the author&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Exception sections:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/no_exception_type_specified.html"&gt;No exception type(s) specified&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/bad_except_clauses_order.html"&gt;Bad except clauses order&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://docs.python.org/3/tutorial/errors.html"&gt;Python Tutorial - Errors and Exceptions&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://docs.python-guide.org/en/latest/writing/style/"&gt;The Hitchhiker’s Guide to Python - Code Style&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Wed, 18 Jan 2017 23:59:00 +0100</pubDate><guid>tag:pybit.es,2017-01-18:error_handling.html</guid><category>exceptions</category><category>Zen of Python</category><category>error handling</category><category>cleancode</category><category>anti-patterns</category></item><item><title>Beautiful, idiomatic Python</title><link>http://pybit.es/beautiful-python.html</link><description>&lt;div class="container"&gt;
+&lt;iframe src="https://www.youtube.com/embed/OSGv2VnC0go" frameborder="0" allowfullscreen class="video"&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Resources&lt;/h2&gt;
+&lt;p&gt;The slidedeck is &lt;a href="https://speakerdeck.com/pyconslides/transforming-code-into-beautiful-idiomatic-python-by-raymond-hettinger-1"&gt;here&lt;/a&gt;.
+Thanks Jeff Paine for this awesome &lt;a href="https://gist.github.com/JeffPaine/6213790"&gt;set of notes&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;When you see this, do that instead&lt;/h2&gt;
+&lt;p&gt;A quick digest below. Note that Python3 takes some of these features to the next level, so switching from 2 to 3 is a good idea :)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use enumerate to loop over collections and indices, use reversed(collections) to loop backwards.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the zip built-in to loop over two collections: zip(collection1, collection2). To make a dict from two collections: dict(zip(names, colors)). Use izip if the collections are not of the same length. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the sorted key argument to customize sort order of a collection, so to sort by dict value you can use: sorted(d.items(), key=lambda a: a[1])&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use iter() if you need to call a function until a sentinel value, see a good example &lt;a href="http://amir.rachum.com/blog/2013/11/10/python-tips-iterate-with-a-sentinel-value/"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The for / else construct can be useful to know if a loop made it to the end (that is no break was hit).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Dicts: don't mutate a dictionary when looping over it! In Python3 dictionaries have &lt;a href="https://docs.python.org/3/library/stdtypes.html#dict-views"&gt;view objects&lt;/a&gt;: "The objects returned by dict.keys(), dict.values() and dict.items() are view objects. They provide a dynamic view on the dictionary’s entries, which means that when the dictionary changes, the view reflects these changes.". For Python2 use iteritems() which returns an iterator (faster).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use collections.defaultdict to prevent initializing keys manually.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use ChainMap to link (concatenate) dictionaries together.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Keyword arguments can make a function more readable, same goes for the light-weight namedtuple (collections module).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unpacking: bob, julian = 'bob julian'.split(), or a variable swap is as easy as a, b = b, a (no temp variable).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use ''.join(collection) instread of concatenating a string in a loop (more efficient).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use &lt;a href="http://pybit.es/collections-deque.html"&gt;deque&lt;/a&gt; if you need a stack / queue ('linked list') instead of a regular list ('array'). When you do somecollection.insert(0, 'value'), it is time to change to a deque structure and use somecollection.appendleft('value').&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use decorators to factor-out administrative logic, for example @cache, @timeit, etc. (use functools.lru_cache for caching starting 3.2).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the with statement (context manager) to open and (automatically) close files. Another use case is threading locks or more generically when you need to factor-out "temporary contexts".&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Generator expressions are faster, you can use them (instead of list comprehensions) in sum() / max() / min() to gain performance. Hard to beat this for compactness: sum(i**2 for i in range(10))&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Tue, 10 Jan 2017 09:00:00 +0100</pubDate><guid>tag:pybit.es,2017-01-10:beautiful-python.html</guid><category>pythonic</category><category>cleancode</category><category>collections</category><category>2vs3</category><category>namedtuple</category><category>decorators</category><category>contextmanagers</category></item><item><title>5 min guide to PEP8</title><link>http://pybit.es/pep8.html</link><description>&lt;blockquote&gt;
+&lt;p&gt;One of Guido's key insights is that code is read much more often than it is written. - PEP8&lt;/p&gt;
+&lt;p&gt;There should be one—and preferably only one—obvious way to do it. - The Zen of Python&lt;/p&gt;
+&lt;p&gt;Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;After Julian's two recent style posts on &lt;a href="http://pybit.es/indentation_tips.html"&gt;indentation&lt;/a&gt; and &lt;a href="http://pybit.es/naming_conventions.html"&gt;naming convention&lt;/a&gt; a nice follow-up is &lt;a href="https://www.python.org/dev/peps/pep-0008/"&gt;PEP8&lt;/a&gt;, the Style Guide for Python Code. Also a comment on Twitter caught my eye stating that even book authors do not always follow PEP8!&lt;/p&gt;
+&lt;h2&gt;Why bother?&lt;/h2&gt;
+&lt;p&gt;I think everybody writing code in Python should become familiar with PEP8 and use its guidelines rather sooner than later.&lt;/p&gt;
+&lt;p&gt;It leads to more readable code which saves brain cycles and better maintainable code (= fewer bug).&lt;/p&gt;
+&lt;p&gt;Also sharing a common coding style makes it easier to collaborate with others in the Python community.&lt;/p&gt;
+&lt;p&gt;Of course there can be exceptions to the rule, PEP8 states: "do not break backwards compatibility just to comply with this PEP!" - Raymond Hettinger did a great talk on this: &lt;a href="https://www.youtube.com/watch?v=wf-BqAjZb8M"&gt;Beyond PEP 8&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Summary of the guidelines&lt;/h2&gt;
+&lt;p&gt;A read that is aimed for '5 min' cannot have all, so I just summarize what I think is important, read the full spec for details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use 4 spaces per indentation level. Use spaces, not tabs. See &lt;a href="http://pybit.es/indentation_tips.html"&gt;our post&lt;/a&gt; for more on this, including recommended .vimrc settings. Overall watch your &lt;a href="https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements"&gt;use of whitespace&lt;/a&gt;: this takes practice, but becomes habit/ automatic over time.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Limit all lines to a maximum of 79 characters. Usually I have a script.py and test_script.py open, vertically alligned (vi -O file1 file2), keeping lines short makes this very convenient.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Imports I) be as specific as possible with your imports: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# don&amp;#39;t do: &lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;unless&lt;/span&gt; &lt;span class="n"&gt;needed&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;then&lt;/span&gt; &lt;span class="n"&gt;use&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;__all__&lt;/span&gt; &lt;span class="n"&gt;mechanism&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;prevent&lt;/span&gt; &lt;span class="n"&gt;exporting&lt;/span&gt; &lt;span class="nb"&gt;globals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# do:&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;
+&lt;span class="c"&gt;# or:&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+&lt;span class="c"&gt;# then prepends each method with module name: &lt;/span&gt;
+&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Imports II) absolute imports are recommended:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;mypkg.sibling&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;   
+&lt;span class="c"&gt;# over&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.sibling&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Imports III) split imports in stdlib - third party - application/library specific. For example our &lt;a href="https://github.com/pybites/blog_code/blob/master/twitter_bot/tweetbot.py"&gt;twitter bot&lt;/a&gt; followed this convention:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# stdlib&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;logging&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+
+&lt;span class="c"&gt;# pip installed&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;feedparser&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tweepy&lt;/span&gt;
+
+&lt;span class="c"&gt;# app modules&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;config&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Comments that contradict the code are worse than no comments, so keep them up2date. Use inline comments sparingly. Of course good code is mostly self-documenting.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use docstrings, they are a great aid for auto-documenting your project with tools like &lt;a href="http://www.sphinx-doc.org/en/1.5.1/"&gt;Sphinx&lt;/a&gt;. Here is the &lt;a href="https://www.python.org/dev/peps/pep-0257/"&gt;recommended syntax&lt;/a&gt;: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;quot;&amp;quot;&amp;quot;Multi-line docstrings consist of a summary line just like a one-line docstring
+
+Followed by a blank line, followed by a more elaborate description. 
+&amp;quot;&amp;quot;&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Naming:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Non-public methods and instance variables start with a leading underscore: _helper_method(), although not enforced by the compiler, the reader knows this is an internal method, not to be called from outside of the class.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you need to use a Python keyword append an underscore: str_ = 'bob'&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You probably want to avoid single-char variables all together, but if you use them never use these easily confused chars: 'l' (lowercase letter el), 'O' (uppercase letter oh), or 'I' (uppercase letter eye).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use CapWords for class names.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use short, all-lowercase names for modules.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use lowercase and underscores for method names.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Constants are all uppercase, in our Twitter bot example: CONSUMER_KEY, CONSUMER_SECRET, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://www.python.org/dev/peps/pep-0008/#programming-recommendations"&gt;Programming Recommendations&lt;/a&gt; has some great tips: use ''.join(list) instead of string concatenation which is slow, use str.startswith/endswith instead of slicing (or more generically don't re-invent the wheel), boolean checks don't need == True/False, be consistent in return statements (even if returning None, use return None, not just return).&lt;/p&gt;
+&lt;p&gt;Interesting is the part on exceptions: two common mis-uses are putting too much in the try block, or catching exceptions that are too generic, so train yourself to use specific exceptions: 'except SomeError' instead of the catch-all 'except'.&lt;/p&gt;
+&lt;p&gt;Another interesting best practice is checking booleans, newcomers usually check False like 'if len(somelist) == 0', the Pythonic way is to just to use the fact that non-empty values are implicitly True, so in this case you could just do: 'if not somelist'.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Tools to check for compliant PEP8&lt;/h2&gt;
+&lt;p&gt;You can use &lt;a href="https://pypi.python.org/pypi/pep8"&gt;pep8&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install pep8
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Our &lt;a href="https://github.com/pybites/blog_code/blob/master/pybites_digest/digest.py"&gt;digest.py&lt;/a&gt; seemed compliant but let's make some edits to see this checker in action. I changed spaces from 4 to 2 in a method, mis-aligned a multi-line statement, and removed a whitespace before '='. Of course pep8 complains: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pep8 digest.py 
+digest.py:24:3: E111 indentation is not a multiple of four
+digest.py:25:3: E111 indentation is not a multiple of four
+digest.py:26:3: E111 indentation is not a multiple of four
+digest.py:50:18: E225 missing whitespace around operator
+digest.py:54:80: E501 line too long &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;83&lt;/span&gt; &amp;gt; &lt;span class="m"&gt;79&lt;/span&gt; characters&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Another tool is &lt;a href="https://pypi.python.org/pypi/flake8"&gt;flake8&lt;/a&gt; which is "a wrapper around these tools: PyFlakes, pycodestyle and Ned Batchelder’s McCabe script". It also has a nice &lt;a href="https://github.com/nvie/vim-flake8"&gt;integration in Vim&lt;/a&gt;: it runs the checks and presents them in a split window with line numbers, pretty convenient! &lt;/p&gt;
+&lt;p&gt;&lt;img alt="flake 8 inside vim" src="http://pybit.es/images/flake8_vim.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Btw I got this split window pressing ,f which I find easier on a Mac than F7, you can create a shortcut like this in your .vimrc:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;autocmd FileType python map &amp;lt;buffer&amp;gt; ,f :call Flake8()&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Another linter is &lt;a href="https://www.pylint.org"&gt;pylint&lt;/a&gt; but I have not used that. What is your favorite linter? &lt;/p&gt;
+&lt;h2&gt;Wrapping it up&lt;/h2&gt;
+&lt;p&gt;Always follow the PEP 8 style guide when writing Python code.&lt;/p&gt;
+&lt;p&gt;Therefor keep a copy of PEP8 at hand and review it often to ingrain its recommendations. It makes code cleaner and collaboration easier. &lt;/p&gt;
+&lt;p&gt;Using a linter tool is the best way to remind/ train yourself. Just google for plugins / integration with your favorite editor.&lt;/p&gt;
+&lt;p&gt;Any feedback, questions or experiences, use the comments below.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Bob</dc:creator><pubDate>Mon, 02 Jan 2017 09:00:00 +0100</pubDate><guid>tag:pybit.es,2017-01-02:pep8.html</guid><category>pep8</category><category>cleancode</category><category>guidelines</category><category>coding style</category><category>bestpractices</category><category>pythonic</category><category>vim</category></item></channel></rss>

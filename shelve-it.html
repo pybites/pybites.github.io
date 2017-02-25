@@ -32,7 +32,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/shelve-it.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-02-14 00:48:00+01:00"/>
+<meta property="article:published_time" content="2017-02-14 00:48:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/julian.html">
 <meta property="article:section" content="Learning"/>
@@ -102,12 +102,12 @@
 <p>My first foray into Python shelves was actually rather painless (for me). I was impressed by how simple they were. They were almost as simple as opening and working text files.</p>
 <h2>Creating a Shelf File</h2>
 <p>A quick overview for the uninitiated.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shelve</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">shelve</span>
 
-<span class="n">db</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
 
-<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Julian&#39;</span>
-<span class="n">db</span><span class="p">[</span><span class="s1">&#39;db_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Julian&#39;</span>
+<span class="n">db</span><span class="p">[</span><span class="s">&#39;db_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
 
 <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -135,11 +135,11 @@
 <h2>UnShelve It!</h2>
 <p>It's not actually called unshelving. Just roll with it.</p>
 <p>To read the data back in, we do the following:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shelve</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">shelve</span>
 
-<span class="n">db</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
 
-<span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s1">&#39;db_names&#39;</span><span class="p">]</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s">&#39;db_names&#39;</span><span class="p">]</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
@@ -152,7 +152,7 @@
 <p>The above is super basic of course. Shelves become really useful when we start storing lists and dicts in them.</p>
 <p>There is a catch though. Any data you read in from the shelf is not automatically updated in the shelf if changed by your script. Using the above script, after reading in <em>db_names</em>, if we were to change the name variable to contain 'Bob' instead of 'Julian', that update would not be pushed back to the <em>db</em> shelf.</p>
 <p>To enable automatic writing to the shelf you can open the shelf with "writeback" enabled:</p>
-<div class="highlight"><pre><span></span>db = shelve.open(&#39;data&#39;, writeback=True)
+<div class="highlight"><pre>db = shelve.open(&#39;data&#39;, writeback=True)
 </pre></div>
 
 
@@ -173,7 +173,7 @@
 </li>
 </ol>
 <p>As with all things Python, I found I was <em>try</em>-ing (pun intended!) too hard. It was as simple as using <em>try</em>:</p>
-<div class="highlight"><pre><span></span>name = []
+<div class="highlight"><pre>name = []
 
 while True:
     try:
