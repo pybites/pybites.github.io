@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="PyBites" />
+<meta name="description" content="It's end of the week again so we review the code challenge of this week. It's never late to sign up, just fork our challenges repo and start coding." />
+<meta name="keywords" content="codechallenges, code review, learning, Twitter, sentiment, TextBlob">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Code Challenge 07 - Twitter sentiment analysis - review"/>
+<meta property="og:description" content="It's end of the week again so we review the code challenge of this week. It's never late to sign up, just fork our challenges repo and start coding."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/codechallenge07_review.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-02-26 00:50:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/pybites.html">
+<meta property="article:section" content="Challenges"/>
+<meta property="article:tag" content="codechallenges"/>
+<meta property="article:tag" content="code review"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="Twitter"/>
+<meta property="article:tag" content="sentiment"/>
+<meta property="article:tag" content="TextBlob"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pb-challenge.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Code Challenge 07 - Twitter sentiment analysis - review" />
+<meta name="twitter:description" content="It's end of the week again so we review the code challenge of this week. It's never late to sign up, just fork our challenges repo and start coding." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-challenge.png">
+
+  <title>PyBites &ndash; Code Challenge 07 - Twitter sentiment analysis - review</title>
+
+
+  <script src="//load.sumome.com/" data-sumo-site-id="4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50" async="async"></script>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/resources.html">Resources</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+          <li><a href="http://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef" target="_blank">Newsletter</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="codechallenge07_review">Code Challenge 07 - Twitter sentiment analysis - review</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/pybites.html">PyBites</a> on Sun 26 February 2017 in <a href="http://pybit.es/category/challenges.html">Challenges</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>It's end of the week again so we review the <a href="http://pybit.es/codechallenge07.html">code challenge of this week</a>. It's never late to join, just fork our <a href="https://github.com/pybites/challenges">challenges repo</a> and start coding.</p>
+<h2>Possible solution / learning</h2>
+<h3>Getting the data</h3>
+<p>First we let the <a href="https://github.com/pybites/challenges/blob/solutions/07/getting_data.py">data gathering script we provided</a> run for 5 days and 10 hours. As promised we would do the analysis on <a href="http://www.imdb.com/title/tt4465564/">50 shades of darker</a>:</p>
+<div class="highlight"><pre><span></span>$ nohup python getting_data.py <span class="m">50</span> shades darker <span class="p">&amp;</span>
+</pre></div>
+
+
+<p>It ran Mon Feb 20 09:13 - Sat Feb 25 19:25 and collected &gt; 10K tweets, storing them in data_1487581986.json</p>
+<p>We kept it simple, question to be answered: </p>
+<blockquote>
+<p>Is there overly positive or negative talk about 50 shades of darker on Twitter?</p>
+</blockquote>
+<h3>Enter TextBlob</h3>
+<blockquote>
+<p><a href="https://textblob.readthedocs.io/en/dev/">TextBlob</a> is a Python (2 and 3) library for processing textual data. It provides a simple API for diving into common natural language processing (NLP) tasks such as part-of-speech tagging, noun phrase extraction, sentiment analysis, classification, translation, and more.</p>
+</blockquote>
+<p>It makes sentiment analysis very easy. </p>
+<h3>Possible solution</h3>
+<p>See <a href="https://github.com/pybites/challenges/blob/solutions/07/sentiment.py">here</a> and commented below:</p>
+<ul>
+<li>
+<p>Import required libraries: </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">textblob</span> <span class="kn">import</span> <span class="n">TextBlob</span>
+</pre></div>
+
+
+<p>If you want to follow along, create a virtual env and do a pip install -r requirements.txt (from subdirectory 07, after having cloned the challenges repo).</p>
+</li>
+<li>
+<p>Each retrieved tweet (and its meta data) was stored as json by the data collector script. This generator retrieves them from the input file (further down):</p>
+<div class="highlight"><pre><span></span>def get_tweets(input_file):
+    with open(input_file) as f:
+        for line in f.readlines():
+            yield json.loads(line)
+</pre></div>
+
+
+</li>
+<li>
+<p><a href="http://textblob.readthedocs.io/en/dev/quickstart.html">TextBlob Quickstart</a> offers an easy API for sentiment analysis:</p>
+<blockquote>
+<p>The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0].</p>
+</blockquote>
+<p>So we defined:  </p>
+<div class="highlight"><pre><span></span>def get_sentiment(polarity):
+    if polarity &lt; 0:
+        return &quot;negative&quot;
+    elif polarity == 0:
+        return &quot;neutral&quot;
+    else:
+        return &quot;positive&quot;
+</pre></div>
+
+
+</li>
+<li>
+<p>We pass the script the data_1487581986.json file we collected on our server:</p>
+<div class="highlight"><pre><span></span>if __name__ == &quot;__main__&quot;:
+    if len(sys.argv) &lt; 2:
+        print(&#39;please provide json data file&#39;)
+        sys.exit(1)
+
+    input_file = sys.argv[1]
+
+    tweets = get_tweets(input_file)
+</pre></div>
+
+
+</li>
+<li>
+<p>We use a defaultdict to store the sentiments. We use a collections.defaultdict + set here (over the simpler collections.Counter) for two reasons: 1. ignore duplicate tweets, 2. store the texts for further inspection (see further down).</p>
+<p>This really shows the magic of external libraries and a nice API: few lines of code, hiding complexity:</p>
+<div class="highlight"><pre><span></span>    sentiments = defaultdict(set)
+
+    for tw in tweets:
+        text = dict(tw)[&#39;text&#39;].lower()
+        blob = TextBlob(text)
+        sent = get_sentiment(blob.sentiment.polarity)
+        sentiments[sent].add(text)
+</pre></div>
+
+
+</li>
+<li>
+<p>Calculate percentages and print the results:</p>
+<div class="highlight"><pre><span></span>    total = sum(len(i) for i in sentiments.values())
+
+    perc_pos = len(sentiments[&quot;positive&quot;]) / total * 100
+    perc_neg = len(sentiments[&quot;negative&quot;]) / total * 100
+    perc_neu = len(sentiments[&quot;neutral&quot;]) / total * 100
+
+    print(&quot;Analyzed {} tweets&quot;.format(total))
+    print(&quot;Positive: {:.2f}%&quot;.format(perc_pos))
+    print(&quot;Negative: {:.2f}%&quot;.format(perc_neg))
+    print(&quot;Neutral: {:.2f}%&quot;.format(perc_neu))
+</pre></div>
+
+
+</li>
+</ul>
+<h3>The verdict</h3>
+<p>People talk mostly positive about the movie:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">time</span> python sentiment.py data_1487581986.json
+Analyzed <span class="m">10053</span> tweets
+Positive: 33.85%
+Negative: 13.86%
+Neutral: 52.29%
+</pre></div>
+
+
+<p>Would be nice to break this down further, maybe by region. We wanted to look at gender, but this data was not provided by the Twitter API. </p>
+<h3>Some anonymous examples</h3>
+<p>We peaked at some tweets for validation. As you see it's not 100% correct (doubts marked with '?'), but it does give you a good indication:</p>
+<div class="highlight"><pre><span></span>neutral
+-- 50 shades darker though.. oouuu. 🙆🏽
+-- ❤🤴🏼❤ — watching 50 shades darker...
+-- still don&#39;t know what to think of 50 shades darker🤔🤔
+---
+
+positive
+-- can&#39;t get over how amazing 50 shades darker is 😍
+-- i enjoyed 50 shades darker very much
+?-- that 50 shades darker was kind of sorry
+---
+
+negative
+?-- still haven&#39;t seen 50 shades darker :(  
+-- 50 shades darker might be the worst movie i&#39;ve ever seen ...
+-- 50 shades darker was terrible god i wish i could get those 2 hours back
+---
+</pre></div>
+
+
+<h3>Further reading</h3>
+<p><a href="https://realpython.com/blog/python/twitter-sentiment-python-docker-elasticsearch-kibana/">This great article by Real Python</a> takes this further with database persistence and data visualization, worth exploration..</p>
+<h2>Feedback</h2>
+<p>What was your solution? Feel free to share in the comments below.</p>
+<p>We hope you enjoy these challenges. Please provide us feedback if we can improve anything ...</p>
+<p>If you have an interesting challenge you want us to feature, don't hesitate to reach out to us.</p>
+<h2>next(challenges)</h2>
+<p>Next week we return to the Twitter API to do a sentiment analysis! Stay tuned ...</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/codechallenges.html">codechallenges</a>
+      <a href="http://pybit.es/tag/code-review.html">code review</a>
+      <a href="http://pybit.es/tag/learning.html">learning</a>
+      <a href="http://pybit.es/tag/twitter.html">Twitter</a>
+      <a href="http://pybit.es/tag/sentiment.html">sentiment</a>
+      <a href="http://pybit.es/tag/textblob.html">TextBlob</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
