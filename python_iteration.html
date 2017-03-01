@@ -158,49 +158,49 @@ StopIteration
 
 
 <p>The __iter__ method is what makes an object iterable. You can use that in your own classes, for example:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">Challenge</span>(<span class="n">object</span>):
-    <span class="n">number</span> = <span class="mi">0</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Challenge</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span><span class="o">:</span>
+    <span class="kt">number</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="nb">name</span>, <span class="n">users</span>):
-        <span class="k">self</span>.<span class="nb">name</span> = <span class="nb">name</span>
-        <span class="k">self</span>.<span class="n">users</span> = <span class="n">users</span>
-        <span class="n">Challenge</span>.<span class="n">number</span> += <span class="mi">1</span>
+    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">users</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">users</span> <span class="o">=</span> <span class="nx">users</span>
+        <span class="nx">Challenge</span><span class="p">.</span><span class="kt">number</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    <span class="n">def</span> <span class="n">__str__</span>(<span class="k">self</span>):
-        <span class="nb">num</span> = <span class="n">str</span>(<span class="n">Challenge</span>.<span class="n">number</span>).<span class="n">zfill</span>(<span class="mi">2</span>)
-        <span class="k">return</span> <span class="s">&#39;Challenge {}: {}&#39;</span>.<span class="n">format</span>(<span class="nb">num</span>, <span class="k">self</span>.<span class="nb">name</span>)
+    <span class="nx">def</span> <span class="nx">__str__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">num</span> <span class="o">=</span> <span class="nx">str</span><span class="p">(</span><span class="nx">Challenge</span><span class="p">.</span><span class="kt">number</span><span class="p">).</span><span class="nx">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;Challenge {}: {}&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
 
-    <span class="n">def</span> <span class="n">__iter__</span>(<span class="k">self</span>):
-        <span class="s">&quot;&quot;&quot;Make the object iterable&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">usr</span> <span class="n">in</span> <span class="k">self</span>.<span class="n">users:</span>
-            <span class="n">yield</span> <span class="n">usr</span>
+    <span class="nx">def</span> <span class="nx">__iter__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="s2">&quot;&quot;&quot;Make the object iterable&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="nx">usr</span> <span class="k">in</span> <span class="nx">self.users</span>:
+            <span class="kt">yield</span> <span class="nx">usr</span>
 
-<span class="c c-Singleline"># now use it:</span>
-<span class="n">users</span> = <span class="s">&#39;tim&#39;</span>, <span class="s">&#39;bob&#39;</span>, <span class="s">&#39;victor&#39;</span>, <span class="s">&#39;julian&#39;</span>, <span class="s">&#39;henk&#39;</span>
-<span class="n">ch01</span> = <span class="n">Challenge</span>(<span class="s">&#39;wordvalue&#39;</span>, <span class="n">users</span>)
-<span class="nb">print</span>(<span class="n">ch01</span>)
-<span class="n">Challenge</span> <span class="mo">01</span>: <span class="n">wordvalue</span>
-<span class="k">for</span> <span class="n">usr</span> <span class="n">in</span> <span class="n">ch01:</span>
-    <span class="nb">print</span>(<span class="n">usr</span>)
-<span class="n">tim</span>
-<span class="n">bob</span>
-<span class="n">victor</span>
-<span class="n">julian</span>
-<span class="n">henk</span>
+<span class="err">#</span> <span class="nx">now</span> <span class="nx">use</span> <span class="nx">it</span>:
+<span class="kt">users</span> <span class="o">=</span> <span class="s1">&#39;tim&#39;</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="s1">&#39;victor&#39;</span><span class="p">,</span> <span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="s1">&#39;henk&#39;</span>
+<span class="nx">ch01</span> <span class="o">=</span> <span class="nx">Challenge</span><span class="p">(</span><span class="s1">&#39;wordvalue&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">)</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">ch01</span><span class="p">)</span>
+<span class="nx">Challenge</span> <span class="nx">01</span>: <span class="kt">wordvalue</span>
+<span class="k">for</span> <span class="nx">usr</span> <span class="k">in</span> <span class="nx">ch01</span>:
+    <span class="kt">print</span><span class="p">(</span><span class="nx">usr</span><span class="p">)</span>
+<span class="nx">tim</span>
+<span class="nx">bob</span>
+<span class="nx">victor</span>
+<span class="nx">julian</span>
+<span class="nx">henk</span>
 
-<span class="n">users2</span> = <span class="s">&#39;tim&#39;</span>, <span class="s">&#39;bob&#39;</span>, <span class="s">&#39;sam&#39;</span>, <span class="s">&#39;julian&#39;</span>, <span class="s">&#39;maria&#39;</span> 
-<span class="n">ch02</span> = <span class="n">Challenge</span>(<span class="s">&#39;wordvalue part II&#39;</span>, <span class="n">users2</span>)
+<span class="nx">users2</span> <span class="o">=</span> <span class="s1">&#39;tim&#39;</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="s1">&#39;sam&#39;</span><span class="p">,</span> <span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="s1">&#39;maria&#39;</span> 
+<span class="nx">ch02</span> <span class="o">=</span> <span class="nx">Challenge</span><span class="p">(</span><span class="s1">&#39;wordvalue part II&#39;</span><span class="p">,</span> <span class="nx">users2</span><span class="p">)</span>
 
-<span class="nb">print</span>(<span class="n">ch02</span>)
-<span class="n">Challenge</span> <span class="mo">02</span>: <span class="n">wordvalue</span> <span class="n">part</span> <span class="n">II</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">ch02</span><span class="p">)</span>
+<span class="nx">Challenge</span> <span class="nx">02</span>: <span class="kt">wordvalue</span> <span class="nx">part</span> <span class="nx">II</span>
 
-<span class="k">for</span> <span class="n">usr</span> <span class="n">in</span> <span class="n">ch02:</span>
-    <span class="nb">print</span>(<span class="n">usr</span>)
-<span class="n">tim</span>
-<span class="n">bob</span>
-<span class="n">sam</span>
-<span class="n">julian</span>
-<span class="n">maria</span>
+<span class="k">for</span> <span class="nx">usr</span> <span class="k">in</span> <span class="nx">ch02</span>:
+    <span class="kt">print</span><span class="p">(</span><span class="nx">usr</span><span class="p">)</span>
+<span class="nx">tim</span>
+<span class="nx">bob</span>
+<span class="nx">sam</span>
+<span class="nx">julian</span>
+<span class="nx">maria</span>
 </pre></div>
 
 

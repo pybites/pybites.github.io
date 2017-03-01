@@ -183,27 +183,27 @@ except OSError:
 <p>Hence, more reason to manage exceptions well!</p>
 <h3>Custom exceptions</h3>
 <p>Another great way to make your code more readable and taking exceptions to the next level is to write your own. Sounds scary? It is actually pretty easy as <a href="https://dbader.org/blog/python-custom-exceptions">this great post shows</a>:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">NameTooShortError</span>(<span class="n">ValueError</span>):
-    <span class="nb">pass</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">NameTooShortError</span><span class="p">(</span><span class="nx">ValueError</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">pass</span>
 
-<span class="n">def</span> <span class="n">validate</span>(<span class="nb">name</span>):
-    <span class="k">if</span> <span class="n">len</span>(<span class="nb">name</span>) &lt; <span class="mi">10</span>:
-        <span class="n">raise</span> <span class="n">NameTooShortError</span>(<span class="nb">name</span>)
+<span class="nx">def</span> <span class="nx">validate</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="o">:</span>
+    <span class="k">if</span> <span class="nx">len</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">10</span>:
+        <span class="kt">raise</span> <span class="nx">NameTooShortError</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
 </pre></div>
 
 
 <p>A bit more involved (yet still easy to follow) example from <a href="https://github.com/tweepy/tweepy/blob/master/tweepy/error.py">tweepy</a>:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">TweepError</span>(<span class="nb">Exception</span>):
-    <span class="s">&quot;&quot;&quot;Tweepy exception&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">TweepError</span><span class="p">(</span><span class="nx">Exception</span><span class="p">)</span><span class="o">:</span>
+    <span class="s2">&quot;&quot;&quot;Tweepy exception&quot;&quot;&quot;</span>
 
-    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="n">reason</span>, <span class="n">response</span>=<span class="n">None</span>, <span class="n">api_code</span>=<span class="n">None</span>):
-        <span class="k">self</span>.<span class="n">reason</span> = <span class="n">six</span>.<span class="n">text_type</span>(<span class="n">reason</span>)
-        <span class="k">self</span>.<span class="n">response</span> = <span class="n">response</span>
-        <span class="k">self</span>.<span class="n">api_code</span> = <span class="n">api_code</span>
-        <span class="nb">Exception</span>.<span class="n">__init__</span>(<span class="k">self</span>, <span class="n">reason</span>)
+    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">reason</span><span class="p">,</span> <span class="nx">response</span><span class="o">=</span><span class="nx">None</span><span class="p">,</span> <span class="nx">api_code</span><span class="o">=</span><span class="nx">None</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">reason</span> <span class="o">=</span> <span class="nx">six</span><span class="p">.</span><span class="nx">text_type</span><span class="p">(</span><span class="nx">reason</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">response</span> <span class="o">=</span> <span class="nx">response</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">api_code</span> <span class="o">=</span> <span class="nx">api_code</span>
+        <span class="nx">Exception</span><span class="p">.</span><span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">reason</span><span class="p">)</span>
 
-    <span class="n">def</span> <span class="n">__str__</span>(<span class="k">self</span>):
-        <span class="k">return</span> <span class="k">self</span>.<span class="n">reason</span>
+    <span class="nx">def</span> <span class="nx">__str__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">reason</span>
 </pre></div>
 
 
