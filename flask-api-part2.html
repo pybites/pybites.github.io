@@ -98,6 +98,7 @@
     <p>After <a href="http://pybit.es/simple-flask-api.html">Simple API - part 1</a> a more practical app in this part 2 tutorial: a Deep Work logger integrating Google docs and Slack, including deployment of the app to Heroku.</p>
 <p>Sometimes you come across an article you think: "I definitely need to play with this!", enter <a href="https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html">Google Spreadsheets and Python</a>.</p>
 <p>I decided to make a Flask app to log the amount of deep work. Why? Read <a href="http://calnewport.com/books/deep-work/">the book</a>, in short: it is a powerful success habit.</p>
+<h2>Design</h2>
 <p>So we have the API = Flask, the back-end = Google Docs. What about the interface? </p>
 <p>I wanted something for both laptop and mobile = Slack. Enter the <a href="https://api.slack.com/slash-commands">Slack API / Slash Commands</a>. I defined this super basic interface: </p>
 <div class="highlight"><pre><span></span>/dw &lt;time&gt; (&lt;activity&gt;)
@@ -107,7 +108,7 @@
 </pre></div>
 
 
-<h3>Step by step</h3>
+<h2>Step by step</h2>
 <p>Here is roughly what I did. I document it here so you can start building something similar to scratch your own itch. The code so far is <a href="https://github.com/pybites/deepwork/">here</a>.</p>
 <ul>
 <li>
@@ -117,30 +118,17 @@
 <p>pip install flask and pygsheets, implement GET and POST, again more details <a href="https://github.com/pybites/deepwork/blob/master/api.py">here</a>. I used Flask's <a href="http://flask.pocoo.org/snippets/8/">HTTP Basic Auth snippet</a> to protect the GET. For the POST I verify the Slack token. As <a href="https://12factor.net/config">good practice</a> I stored user/pw in (OS) env variables. I defined some helpers in <a href="https://github.com/pybites/deepwork/blob/master/backend.py">backend.py</a>. </p>
 </li>
 <li>
-<p>Deploy the app to Heroku, I was so glad <a href="http://bobbelderbos.com/2016/12/learning-flask-building-quote-app/">I took notes</a> some time ago (section "Deployment to Heroku"), summary:</p>
-<div class="highlight"><pre><span></span>$ heroku login
-$ heroku create &lt;appname&gt;
-$ pip freeze &gt; requirements.txt
-$ <span class="nb">echo</span> <span class="s2">&quot;web: gunicorn api:app&quot;</span> &gt; Procfile
-$ <span class="nb">echo</span> <span class="s2">&quot;python-3.5.2&quot;</span> &gt; runtime.txt
-$ heroku config:set <span class="nv">SLACK_DW_CMD_TOKEN</span><span class="o">=</span>xyz
-$ heroku config:set <span class="nv">SLACK_DW_USER</span><span class="o">=</span>xyz
-$ heroku config:set <span class="nv">SLACK_DW_PW</span><span class="o">=</span>xyz
-$ git push heroku master  <span class="c1"># see note next section</span>
-$ heroku run python manage.py deploy
-</pre></div>
-
-
-<ul>
-<li>Deploying an app is a challenge in itself. For example how do you get the client_secret.json file in Heroku? I had to go with <a href="http://stackoverflow.com/questions/7908667/how-to-deploy-heroku-app-with-secret-yaml-configuration-file-without-committing">this (not ideal) workaround</a>.<div class="highlight"><pre><span></span># put client_secret.json in .gitignore on master
+<p>Deploy the app to Heroku (Free plan), I was so glad <a href="http://bobbelderbos.com/2016/12/learning-flask-building-quote-app/">I took notes</a> some time ago (section "Deployment to Heroku"). I captured the steps as good as I could <a href="https://github.com/pybites/deepwork/blob/master/heroku.md">here</a> (I will adjust next time I deploy an app to Heroku).</p>
+</li>
+<li>
+<p>Deploying an app is a challenge in itself. For example how do you get the client_secret.json file in Heroku? I had to go with <a href="http://stackoverflow.com/questions/7908667/how-to-deploy-heroku-app-with-secret-yaml-configuration-file-without-committing">this (not ideal) workaround</a>.</p>
+<div class="highlight"><pre><span></span># put client_secret.json in .gitignore on master
 # commit it to secret-branch you keep between localhost and Heroku (not Github)
 ...
 $ git push heroku secret-branch:master
 </pre></div>
 
 
-</li>
-</ul>
 </li>
 <li>
 <p><a href="https://api.slack.com/apps?new_app=1">Create a Slack app</a>, then a <a href="https://my.slack.com/services/new/slash-commands">Slash Command</a> where I defined: </p>
@@ -150,9 +138,7 @@ $ git push heroku secret-branch:master
 <li>Method = POST</li>
 <li>Token = generated, I put that in env variable SLACK_DW_CMD_TOKEN above</li>
 <li>You can set an Autocomplete help text which is useful to your team</li>
-</ul>
-</li>
-</ul>
+<li>
 <p>This is the payload Slack sends to your API for consumption: </p>
 <div class="highlight"><pre><span></span>token=xyz
 team_id=T0001
@@ -168,12 +154,16 @@ response_url=https://hooks.slack.com/commands/1234/5678
 
 
 <p>See the parsing of it in the <em><a href="https://github.com/pybites/deepwork/blob/master/api.py">post_entry</a></em> method.</p>
-<h3>Result</h3>
+</li>
+</ul>
+</li>
+</ul>
+<h2>The app in action</h2>
 <p><img alt="the complete flow" src="http://pybit.es/images/slackapi.png"></p>
-<h3>Lessons learned</h3>
+<h2>Lessons learned</h2>
 <ul>
 <li>
-<p>Scratch your own itch. This was a nice exercise to integrate with apps I often use. The whole integration thing taught me a lot mainly because I got stuck and had to debug. </p>
+<p>Scratch your own itch. This was a nice exercise to integrate with apps I often use. It taught me a lot because I got stuck so had to debug. </p>
 </li>
 <li>
 <p>For example Slack does not seem to use JSON so in my Flask I had to change request.json to request.form, using <a href="https://ngrok.com">ngrok</a> speeded up the debugging.</p>
