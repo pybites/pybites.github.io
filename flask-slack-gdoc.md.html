@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="After Simple API - part 1 a more practical app in this part 2 tutorial: a Deep Work logger integrating Google docs and Slack, including deployment of the app to Heroku." />
+<meta name="keywords" content="Flask, Slack, Google docs, Heroku, APIs, productivity, learning">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Flask API part 2 - Building a Deep Work Logger with Flask, Slack and Google Docs"/>
+<meta property="og:description" content="After Simple API - part 1 a more practical app in this part 2 tutorial: a Deep Work logger integrating Google docs and Slack, including deployment of the app to Heroku."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/flask-slack-gdoc.md.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-03-10 18:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="Flask"/>
+<meta property="article:tag" content="Slack"/>
+<meta property="article:tag" content="Google docs"/>
+<meta property="article:tag" content="Heroku"/>
+<meta property="article:tag" content="APIs"/>
+<meta property="article:tag" content="productivity"/>
+<meta property="article:tag" content="learning"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Flask API part 2 - Building a Deep Work Logger with Flask, Slack and Google Docs" />
+<meta name="twitter:description" content="After Simple API - part 1 a more practical app in this part 2 tutorial: a Deep Work logger integrating Google docs and Slack, including deployment of the app to Heroku." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Flask API part 2 - Building a Deep Work Logger with Flask, Slack and Google Docs</title>
+
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="http://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="http://pybit.es/pages/news.html">News</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="flask-slack-gdoc.md">Flask API part 2 - Building a Deep Work Logger with Flask, Slack and Google Docs</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Fri 10 March 2017 in <a href="http://pybit.es/category/tools.html">Tools</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>After <a href="http://pybit.es/simple-flask-api.html">Simple API - part 1</a> a more practical app in this part 2 tutorial: a Deep Work logger integrating Google docs and Slack, including deployment of the app to Heroku.</p>
+<p>Sometimes you come across an article you think: "I definitely need to play with this!", enter <a href="https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html">Google Spreadsheets and Python</a>.</p>
+<p>I decided to make a Flask app to log the amount of deep work. Why? Read <a href="http://calnewport.com/books/deep-work/">the book</a>, in short: it is a powerful success habit.</p>
+<p>So we have the API = Flask, the back-end = Google Docs. What about the interface? </p>
+<p>I wanted something for both laptop and mobile = Slack. Enter the <a href="https://api.slack.com/slash-commands">Slack API / Slash Commands</a>. I defined this super basic interface: </p>
+<div class="highlight"><pre><span></span>/dw &lt;time&gt; (&lt;activity&gt;)
+- /dw is the slack command
+- time can be an int (hour) or more specifically hh:mm
+- activity is optional, if not provided it defaults to the name of the channel
+</pre></div>
+
+
+<h3>Step by step</h3>
+<p>Here is roughly what I did. I document it here so you can start building something similar to scratch your own itch. The code so far is <a href="https://github.com/pybites/deepwork/">here</a>.</p>
+<ul>
+<li>
+<p>To be able to write to a Google Doc follow <a href="https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html">Google Spreadsheets and Python</a> to create an app via the Google API and obtain the client_secret.json file.</p>
+</li>
+<li>
+<p>pip install flask and pygsheets, implement GET and POST, again more details <a href="https://github.com/pybites/deepwork/blob/master/api.py">here</a>. I used Flask's <a href="http://flask.pocoo.org/snippets/8/">HTTP Basic Auth snippet</a> to protect the GET. For the POST I verify the Slack token. As <a href="https://12factor.net/config">good practice</a> I stored user/pw in (OS) env variables. I defined some helpers in <a href="https://github.com/pybites/deepwork/blob/master/backend.py">backend.py</a>. </p>
+</li>
+<li>
+<p>Deploy the app to Heroku, I was so glad <a href="http://bobbelderbos.com/2016/12/learning-flask-building-quote-app/">I took notes</a> some time ago (section "Deployment to Heroku"), summary:</p>
+<div class="highlight"><pre><span></span>$ heroku login
+$ heroku create &lt;appname&gt;
+$ pip freeze &gt; requirements.txt
+$ <span class="nb">echo</span> <span class="s2">&quot;web: gunicorn api:app&quot;</span> &gt; Procfile
+$ <span class="nb">echo</span> <span class="s2">&quot;python-3.5.2&quot;</span> &gt; runtime.txt
+$ heroku config:set <span class="nv">SLACK_DW_CMD_TOKEN</span><span class="o">=</span>xyz
+$ heroku config:set <span class="nv">SLACK_DW_USER</span><span class="o">=</span>xyz
+$ heroku config:set <span class="nv">SLACK_DW_PW</span><span class="o">=</span>xyz
+$ git push heroku master  <span class="c1"># see note next section</span>
+$ heroku run python manage.py deploy
+</pre></div>
+
+
+<ul>
+<li>Deploying an app is a challenge in itself. For example how do you get the client_secret.json file in Heroku? I had to go with <a href="http://stackoverflow.com/questions/7908667/how-to-deploy-heroku-app-with-secret-yaml-configuration-file-without-committing">this (not ideal) workaround</a>.<div class="highlight"><pre><span></span># put client_secret.json in .gitignore on master
+# commit it to secret-branch you keep between localhost and Heroku (not Github)
+...
+$ git push heroku secret-branch:master
+</pre></div>
+
+
+</li>
+</ul>
+</li>
+<li>
+<p><a href="https://api.slack.com/apps?new_app=1">Create a Slack app</a>, then a <a href="https://my.slack.com/services/new/slash-commands">Slash Command</a> where I defined: </p>
+<ul>
+<li>Command: /dw</li>
+<li>URL = API endpoint on Heroku</li>
+<li>Method = POST</li>
+<li>Token = generated, I put that in env variable SLACK_DW_CMD_TOKEN above</li>
+<li>You can set an Autocomplete help text which is useful to your team</li>
+</ul>
+</li>
+</ul>
+<p>This is the payload Slack sends to your API for consumption: </p>
+<div class="highlight"><pre><span></span>token=xyz
+team_id=T0001
+team_domain=example
+channel_id=C123
+channel_name=deepwork
+user_id=U123
+user_name=bbelderbos  -&gt; cool: the app can be used by the whole team on Slack
+command=/dw
+text=your_entered_text
+response_url=https://hooks.slack.com/commands/1234/5678
+</pre></div>
+
+
+<p>See the parsing of it in the <em><a href="https://github.com/pybites/deepwork/blob/master/api.py">post_entry</a></em> method.</p>
+<h3>Result</h3>
+<p><img alt="the complete flow" src="http://pybit.es/images/slackapi.png"></p>
+<h3>Lessons learned</h3>
+<ul>
+<li>
+<p>Scratch your own itch. This was a nice exercise to integrate with apps I often use. The whole integration thing taught me a lot mainly because I got stuck and had to debug. </p>
+</li>
+<li>
+<p>For example Slack does not seem to use JSON so in my Flask I had to change request.json to request.form, using <a href="https://ngrok.com">ngrok</a> speeded up the debugging.</p>
+</li>
+<li>
+<p>I lost quite some time struggling with gspread (used in the mentioned Twilio article) which was way too slow (2 min for a POST request?!), using <a href="https://github.com/nithinmurali/pygsheets">pygsheets</a> response times went down to 1-2 seconds or less which made Slack, Heroku and me happy. Lesson: fail fast and small, compare different libraries, and obviously read article comments first before trying!</p>
+</li>
+</ul>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/flask.html">Flask</a>
+      <a href="http://pybit.es/tag/slack.html">Slack</a>
+      <a href="http://pybit.es/tag/google-docs.html">Google docs</a>
+      <a href="http://pybit.es/tag/heroku.html">Heroku</a>
+      <a href="http://pybit.es/tag/apis.html">APIs</a>
+      <a href="http://pybit.es/tag/productivity.html">productivity</a>
+      <a href="http://pybit.es/tag/learning.html">learning</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
