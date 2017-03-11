@@ -24,7 +24,7 @@
 
 <meta name="author" content="PyBites" />
 <meta name="description" content="It's end of the week again so we review the code challenge of this week. It's never late to sign up, just fork our challenges repo and start coding." />
-<meta name="keywords" content="codechallenges, code review, learning, with, contextmanagers, ssh">
+<meta name="keywords" content="codechallenges, code review, learning, with, contextmanagers, Paramiko, pytest">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Code Challenge 09 - With Statement / Context Manager - review"/>
 <meta property="og:description" content="It's end of the week again so we review the code challenge of this week. It's never late to sign up, just fork our challenges repo and start coding."/>
@@ -40,7 +40,8 @@
 <meta property="article:tag" content="learning"/>
 <meta property="article:tag" content="with"/>
 <meta property="article:tag" content="contextmanagers"/>
-<meta property="article:tag" content="ssh"/>
+<meta property="article:tag" content="Paramiko"/>
+<meta property="article:tag" content="pytest"/>
 <meta property="og:image" content="http://pybit.es/images/featured/pb-challenge.png">
 
 <meta name="twitter:card" content="summary" />
@@ -105,10 +106,10 @@ In a venv, I installed the <a href="http://www.paramiko.org/">paramiko SSH packa
 <p>After figuring out how to get the SSH connection going, I then spent the time bundling it all up within the context manager. <a href="https://dbader.org/blog/python-context-managers-and-with-statement">Dan Bader's post</a>; the <a href="https://www.python.org/dev/peps/pep-0343/">pep-0343 doc</a> and a few Googled questions on Stack Overflow helped sort me out.</p>
 <p>See the full code <a href="https://github.com/pybites/challenges/blob/solutions/09/with_ssh.py">here</a>. Not only does it work, but I'm also now using at home with my NAS!</p>
 <h3>Bob</h3>
-<p>This was a nice challenge. I got inspired by the DB rollback example of <a href="https://www.python.org/dev/peps/pep-0343/">PEP 343</a>. I wanted to see if I could use some existing code. </p>
-<p>That's why I did some refactoring on my <a href="http://pybit.es/simple-flask-api.html">Simple Flask API</a> test code. Just as an exercise, in real life I actually like the setUp/tearDown sandwich unittest already provides. </p>
-<p>What I really liked was that I got to think about different ways to implement this: <a href="https://github.com/pybites/challenges/blob/solutions/09/with_testdb_class.py">class</a> vs <a href="https://github.com/pybites/challenges/blob/solutions/09/with_testdb.py">contextmanager</a>. All this experimentation led to some good learning, Julian experienced the same working on his solution.</p>
-<p>And I got to use pytest :)</p>
+<p>This was a nice challenge. I got inspired by the DB rollback example of <a href="https://www.python.org/dev/peps/pep-0343/">PEP 343</a>. </p>
+<p>I wanted to see if I could use some existing code so I re-used the <a href="https://github.com/pybites/blog_code/blob/master/flaskapi/test_app.py">test code</a> of my <a href="http://pybit.es/simple-flask-api.html">Simple Flask API article</a>. Just as an exercise, in real life I actually like the setUp/tearDown sandwich unittest already provides. </p>
+<p>What I really liked was that I got to think about different ways to implement this: <a href="https://github.com/pybites/challenges/blob/solutions/09/with_testdb_class.py">class</a> vs <a href="https://github.com/pybites/challenges/blob/solutions/09/with_testdb.py">contextmanager</a>. All this experimentation led to some good learning.</p>
+<p>And I got to use pytest which I really want to explore further :)</p>
 <div class="highlight"><pre><span></span>(venv) [bbelderb@macbook 09 (solutions)]$ pytest with_tes*
 === test session starts ===
 ...
@@ -154,7 +155,8 @@ with_testdb_class.py ..
       <a href="http://pybit.es/tag/learning.html">learning</a>
       <a href="http://pybit.es/tag/with.html">with</a>
       <a href="http://pybit.es/tag/contextmanagers.html">contextmanagers</a>
-      <a href="http://pybit.es/tag/ssh.html">ssh</a>
+      <a href="http://pybit.es/tag/paramiko.html">Paramiko</a>
+      <a href="http://pybit.es/tag/pytest.html">pytest</a>
     </p>
   </div>
 
