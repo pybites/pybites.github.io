@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module." />
+<meta name="keywords" content="regex, tips, parsing, regular expressions, findall">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="10 Tips to Get More out of Your Regexes"/>
+<meta property="og:description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/mastering-regex.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-03-15 07:45:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Tips"/>
+<meta property="article:tag" content="regex"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="parsing"/>
+<meta property="article:tag" content="regular expressions"/>
+<meta property="article:tag" content="findall"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="10 Tips to Get More out of Your Regexes" />
+<meta name="twitter:description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; 10 Tips to Get More out of Your Regexes</title>
+
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="http://pybit.es">
+        <img src="http://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python code challenges, tutorials and news, one bite a day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="http://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="http://pybit.es/pages/news.html">News</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="mastering-regex">10 Tips to Get More out of Your Regexes</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Wed 15 March 2017 in <a href="http://pybit.es/category/tips.html">Tips</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module.</p>
+<blockquote>
+<p>Some people, when confronted with a problem, think, "I know, I'll use regular expressions." Now they have two problems. - Jamie Zawinski</p>
+</blockquote>
+<h2>1. Do we need a regex?</h2>
+<p>First and foremost don't overuse them, specially when you can use simple string operations.</p>
+<p>I like this comparison <a href="https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/">by Jeff Atwood</a>, explaining the quote above:</p>
+<blockquote>
+<p>Regular expressions are like a particularly spicy hot sauce – to be used in moderation and with restraint only when appropriate.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">re</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;regexes are powerful but use with care, some more text, lets play!&#39;</span>
+
+<span class="c1"># overkill!</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;a bit&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="s1">&#39;regexes are powerful but use with care, a bit more text, lets play!&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^regex&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span><span class="p">;</span> <span class="n">span</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">match</span><span class="o">=</span><span class="s1">&#39;regex&#39;</span><span class="o">&gt;</span>
+
+<span class="c1"># just use</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;a bit&#39;</span><span class="p">)</span>
+<span class="s1">&#39;regexes are powerful but use with care, a bit more text, lets play!&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;regex&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<h2>2. re.match() vs re.search()</h2>
+<ul>
+<li>match() checks at the start of a string and returns None if nothing is found.</li>
+<li>search() moves up the string, looking for the first occurrence of the given pattern, and returns None only if the pattern occurs nowhere in the string.<div class="highlight"><pre><span></span>&gt;&gt;&gt; text = &#39;Use match vs search appropriately&#39;
+&gt;&gt;&gt; re.match(&#39;search&#39;, text)
+# don&#39;t do:
+&gt;&gt;&gt; re.match(&#39;.*search&#39;, text)
+# better:
+&gt;&gt;&gt; re.search(&#39;search&#39;, text)
+&lt;_sre.SRE_Match object; span=(13, 19), match=&#39;search&#39;&gt;
+</pre></div>
+
+
+</li>
+</ul>
+<h2>3. Non-capturing parenthesis</h2>
+<p>Use (?: ) to not capture matching contents, for example lets get all links and hashtags out of the tweet below. I need the outer parenthesis for capturing and the inner parenthesis to say '# or http', latter should not capture anything:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; tweet = &#39;New PyBites article: Module of the Week - Requests-cache for Repeated API Calls - http://pybit.es/requests-cache.html … #python #APIs&#39;
+&gt;&gt;&gt; re.findall(r&#39;((?:#|http)\S+)&#39;, tweet)
+[&#39;http://pybit.es/requests-cache.html&#39;, &#39;#python&#39;, &#39;#APIs&#39;]
+</pre></div>
+
+
+<p>When I don't use (?: ) it goes wrong:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; re.findall(r&#39;((#|http)\S+)&#39;, tweet)
+[(&#39;http://pybit.es/requests-cache.html&#39;, &#39;http&#39;), (&#39;#python&#39;, &#39;#&#39;), (&#39;#APIs&#39;, &#39;#&#39;)]
+</pre></div>
+
+
+<h2>4. Always use raw string (r'<your_regex>')</h2>
+<p>The <a href="https://docs.python.org/3.6/howto/regex.html">excellent Regex HOWTO</a> gives a nice example: in order to match \section you end up writing \\\\section in your regex :( </p>
+<blockquote>
+<p>The solution is to use Python’s raw string notation for regular expressions; backslashes are not handled in any special way in a string literal prefixed with 'r', so r"\n" is a two-character string containing '\' and 'n', while "\n" is a one-character string containing a newline. Regular expressions will often be written in Python code using this raw string notation.</p>
+</blockquote>
+<p>Regexes can be complex enough, use r'' and take escaping out of the equation.</p>
+<h2>5. Regexes are greedy!</h2>
+<p>Take this modified html from our blog: </p>
+<div class="highlight"><pre><span></span>html = &quot;&quot;&quot;<span class="nt">&lt;div&gt;&lt;p&gt;</span>Today a quick article on a nice caching module when working with APIs.<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Read more ...<span class="nt">&lt;/p&gt;&lt;/div&gt;</span>&quot;&quot;&quot;
+</pre></div>
+
+
+<p>Imagine we want to match the first paragraph:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; m = re.search(&#39;<span class="nt">&lt;p&gt;</span>.*<span class="nt">&lt;/p&gt;</span>&#39;, html)
+</pre></div>
+
+
+<p>Oops, it matched too much:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; m.group()
+&#39;<span class="nt">&lt;p&gt;</span>Today a quick article on a nice caching module when working with APIs.<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Read more ...<span class="nt">&lt;/p&gt;</span>&#39;
+</pre></div>
+
+
+<p>You can prevent this default greediness by using the ? after the repeating metacharacter (*, +, etc) which makes it match as little text as possible:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; m = re.search(&#39;<span class="nt">&lt;p&gt;</span>.*?<span class="nt">&lt;/p&gt;</span>&#39;, html)
+&gt;&gt;&gt; m.group()
+&#39;<span class="nt">&lt;p&gt;</span>Today a quick article on a nice caching module when working with APIs.<span class="nt">&lt;/p&gt;</span>&#39;
+</pre></div>
+
+
+<h2>6. Backreferences are powerful</h2>
+<p>I like this example from the HOWTO: find double words in a text:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; p = re.compile(r&#39;(\b\w+)\s+\1&#39;)
+&gt;&gt;&gt; p.search(&#39;Paris in the the spring&#39;).group()
+&#39;the the&#39;
+</pre></div>
+
+
+<p>See also 9/re.sub where we use them for string replacements.</p>
+<h2>7. findall (finditer) is awesome</h2>
+<p>We used it <a href="https://github.com/pybites/blog_code/blob/1f4dc534d43ec2c8582a890a15fb54486b58af39/katas/course_time/js_course_time_scraper.py">here</a> for example to get al mm:ss timestamps of a course TOC, very cool:</p>
+<div class="highlight"><pre><span></span>def search_file(file):
+    file_content = open(file).read()  # should have used with
+    time_regex = re.compile(r&#39;\(\d+:\d+\)&#39;)  # seems we needed literal parenthesis as part of the match
+    return time_regex.findall(file_content)
+</pre></div>
+
+
+<p>Output: </p>
+<div class="highlight"><pre><span></span>$ python js_course_time_scraper.py
+
+<span class="c1"># intermediate result from findall:</span>
+<span class="o">[</span><span class="s1">&#39;(3:47)&#39;</span>, <span class="s1">&#39;(4:41)&#39;</span>, <span class="s1">&#39;(1:21)&#39;</span>, <span class="s1">&#39;(5:32)&#39;</span>, <span class="s1">&#39;(2:23)&#39;</span>, <span class="s1">&#39;(1:01)&#39;</span>, ...
+
+<span class="c1"># further parsing + sum</span>
+The course takes <span class="m">6</span>.841944444444445 hours to complete.
+</pre></div>
+
+
+<h2>8. String replacements</h2>
+<p>re.sub is your friend, I use it quite often, for example <a href="https://github.com/pybites/challenges/blob/master/10/movies.py">for our last challenge</a> to extract a movie title:</p>
+<div class="highlight"><pre><span></span>MOVIE_TITLE = re.compile(r&#39;\d+\.\s+(.*)\s\(.*&#39;).sub
+
+def get_movie():
+    with open(&#39;movies.txt&#39;) as f:
+        rand_line = random.choice(f.readlines())
+        return MOVIE_TITLE(r&#39;\1&#39;, rand_line.rstrip())
+</pre></div>
+
+
+<p>Use subn to also get the number of replacements done. Here for example it stripped 6 html tags:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; html
+&#39;<span class="nt">&lt;div&gt;&lt;p&gt;</span>Today a quick article on a nice caching module when working with APIs.<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Read more ...<span class="nt">&lt;/p&gt;&lt;/div&gt;</span>&#39;
+&gt;&gt;&gt; def strip_html(text):
+...     return re.subn(r&#39;<span class="err">&lt;</span>[^<span class="err">&lt;</span>]+?&gt;&#39;, &#39;&#39;, text)  # non-greediness again
+...
+&gt;&gt;&gt; strip_html(html)
+(&#39;Today a quick article on a nice caching module when working with APIs.Read more ...&#39;, 6)
+</pre></div>
+
+
+<p>re.sub even can take a function, nice example from <a href="https://docs.python.org/2/library/re.html">the documentation</a>:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def repl(m):
+...     inner_word = list(m.group(2))
+...     random.shuffle(inner_word)
+...     return m.group(1) + &quot;&quot;.join(inner_word) + m.group(3)
+&gt;&gt;&gt; text = &quot;Professor Abdolmalek, please report your absences promptly.&quot;
+&gt;&gt;&gt; re.sub(r&quot;(\w)(\w+)(\w)&quot;, repl, text)
+&#39;Poefsrosr Aealmlobdk, pslaee reorpt your abnseces plmrptoy.&#39;
+</pre></div>
+
+
+<h2>9. Compilation flags / modifiers</h2>
+<p>See <a href="https://docs.python.org/3.6/howto/regex.html#compilation-flags">this table</a>: apart from re.I (IGNORECASE), I don't use them often, but they can be very handy when your match spans various lines or working with other character sets.</p>
+<p>The VERBOSE (X) flag can make a regex much more readable as nicely shown <a href="https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/">in Jeff Atwood's article</a> or taking this example from the <a href="https://docs.python.org/3.6/howto/regex.html">mentioned HOWTO</a>:</p>
+<div class="highlight"><pre><span></span>pat = re.compile(r&quot;&quot;&quot;
+\s*                 # Skip leading whitespace
+(?P&lt;header&gt;[^:]+)   # Header name
+\s* :               # Whitespace, and a colon
+(?P&lt;value&gt;.*?)      # The header&#39;s value -- *? used to
+                    # lose the following trailing whitespace
+\s*$                # Trailing whitespace to end-of-line
+&quot;&quot;&quot;, re.VERBOSE)
+</pre></div>
+
+
+<h2>10. Python's unique naming style</h2>
+<p>Another readability feature is Python's specific regex syntax for named groups. This allows you to grab matches by key instead of number. I have not used this much, but writing one now I really like this so planning to adopt this syntax: </p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; bio = &#39;&#39;&#39;
+... name: Bob Belderbos
+... country: Spain
+... language: Python&#39;&#39;&#39;
+
+&gt;&gt;&gt; m = re.search(r&#39;name: (?P&lt;name&gt;.*)\ncountry: (?P&lt;country&gt;.*)\nlanguage: (?P&lt;lang&gt;.*)&#39;, bio)
+&gt;&gt;&gt; m.group(&#39;name&#39;)
+&#39;Bob Belderbos&#39;
+&gt;&gt;&gt; m.groupdict()
+{&#39;name&#39;: &#39;Bob Belderbos&#39;, &#39;country&#39;: &#39;Spain&#39;, &#39;lang&#39;: &#39;Python&#39;}
+</pre></div>
+
+
+<hr>
+<p>I hope you picked something useful from this article. Use the comments below to share any cool regexes you use on a regular basis. </p>
+<p>Cheers</p>
+<hr>
+<h2>Further reading</h2>
+<ul>
+<li>
+<p><a href="https://docs.python.org/3.6/howto/regex.html">Regular Expression HOWTO doc</a> </p>
+</li>
+<li>
+<p><a href="https://docs.python.org/3.6/library/re.html">Docs: 6.2. re — Regular expression operations</a></p>
+</li>
+<li>
+<p><a href="https://www.amazon.com/Core-Python-Applications-Programming-3rd/dp/0132678209/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1489510087&amp;sr=1-1&amp;keywords=wesley+chun">Wesley Chun's book Core Python Applications Programming</a> - Chapter 1. Regular Expressions</p>
+</li>
+<li>
+<p><a href="https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/">Codinghorror article: Regular Expressions: Now You Have Two Problems</a></p>
+</li>
+<li>
+<p>To go really deep <a href="https://www.amazon.com/Mastering-Regular-Expressions-Jeffrey-Friedl/dp/0596528124/ref=sr_1_1?ie=UTF8&amp;qid=1489509976&amp;sr=8-1&amp;keywords=regular+expressions">Mastering Regular Expressions</a> - warning: for generic regex overview, language specific chapters include Perl/Java/.NET/PHP sections, not Python.</p>
+</li>
+</ul>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/regex.html">regex</a>
+      <a href="http://pybit.es/tag/tips.html">tips</a>
+      <a href="http://pybit.es/tag/parsing.html">parsing</a>
+      <a href="http://pybit.es/tag/regular-expressions.html">regular expressions</a>
+      <a href="http://pybit.es/tag/findall.html">findall</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python code challenges, tutorials and news, one bite a day"
+}
+</script>
+</body>
+</html>
