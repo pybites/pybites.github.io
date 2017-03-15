@@ -23,11 +23,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module." />
+<meta name="description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get more out of your regexes when using Python's re module." />
 <meta name="keywords" content="regex, tips, parsing, regular expressions, findall">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="10 Tips to Get More out of Your Regexes"/>
-<meta property="og:description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module."/>
+<meta property="og:description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get more out of your regexes when using Python's re module."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/mastering-regex.html"/>
 <meta property="og:type" content="article"/>
@@ -45,7 +45,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="10 Tips to Get More out of Your Regexes" />
-<meta name="twitter:description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module." />
+<meta name="twitter:description" content="Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get more out of your regexes when using Python's re module." />
 <meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; 10 Tips to Get More out of Your Regexes</title>
@@ -93,7 +93,7 @@
 
 
   <div>
-    <p>Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get the most out of your regexes when using Python's re module.</p>
+    <p>Regular expressions can be arcane, yet when used with care they can also be very powerful. In this post a couple of tips to get more out of your regexes when using Python's re module.</p>
 <blockquote>
 <p>Some people, when confronted with a problem, think, "I know, I'll use regular expressions." Now they have two problems. - Jamie Zawinski</p>
 </blockquote>
@@ -187,7 +187,7 @@
 </pre></div>
 
 
-<p>See also 9/re.sub where we use them for string replacements.</p>
+<p>See also 8/re.sub where we use them for string replacements.</p>
 <h2>7. findall (finditer) is awesome</h2>
 <p>We used it <a href="https://github.com/pybites/blog_code/blob/1f4dc534d43ec2c8582a890a15fb54486b58af39/katas/course_time/js_course_time_scraper.py">here</a> for example to get al mm:ss timestamps of a course TOC, very cool:</p>
 <div class="highlight"><pre><span></span>def search_file(file):
@@ -271,9 +271,6 @@ def get_movie():
 
 
 <hr>
-<p>I hope you picked something useful from this article. Use the comments below to share any cool regexes you use on a regular basis. </p>
-<p>Cheers</p>
-<hr>
 <h2>Further reading</h2>
 <ul>
 <li>
@@ -289,9 +286,15 @@ def get_movie():
 <p><a href="https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/">Codinghorror article: Regular Expressions: Now You Have Two Problems</a></p>
 </li>
 <li>
-<p>To go really deep <a href="https://www.amazon.com/Mastering-Regular-Expressions-Jeffrey-Friedl/dp/0596528124/ref=sr_1_1?ie=UTF8&amp;qid=1489509976&amp;sr=8-1&amp;keywords=regular+expressions">Mastering Regular Expressions</a> - warning: for generic regex overview, language specific chapters include Perl/Java/.NET/PHP sections, not Python.</p>
+<p>To go really deep: <a href="https://www.amazon.com/Mastering-Regular-Expressions-Jeffrey-Friedl/dp/0596528124/ref=sr_1_1?ie=UTF8&amp;qid=1489509976&amp;sr=8-1&amp;keywords=regular+expressions">Mastering Regular Expressions</a> is THE book on regular expressions, an awesome reference. Note though that language specific chapters include Perl/Java/.NET/PHP, not Python. </p>
+</li>
+<li>
+<p>Lookahead assertions: I have not needed those yet, but they have their use cases. They finally 'clicked' reading <a href="https://docs.python.org/3.6/howto/regex.html#lookahead-assertions">the example of the HOWTO</a>.</p>
 </li>
 </ul>
+<hr>
+<p>I hope you picked up something useful from this article. Use the comments below to share any cool regexes you use on a regular basis. </p>
+<p>Cheers</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
