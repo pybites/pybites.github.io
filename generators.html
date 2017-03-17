@@ -75,6 +75,10 @@
       </nav>
 
 
+	  <a class="twitter-follow-button" href="https://twitter.com/pybites"
+	  	data-show-screen-name="false" data-size="large" data-show-count="false"> 
+		Follow @pybites</a>
+
 	
     </div>
 
@@ -203,7 +207,7 @@ StopIteration
 <p>Here are some examples from our <a href="https://github.com/pybites/challenges">challenges repo (solutions branch)</a>:</p>
 <ul>
 <li>
-<p>get all permutations of a draw in a simple game:</p>
+<p>Get all permutations of a draw in a simple game:</p>
 <div class="highlight"><pre><span></span>def _get_permutations_draw(draw):
     for i in range(1, 8):
         yield from list(itertools.permutations(draw, i))
@@ -214,7 +218,7 @@ StopIteration
 <p>Related: <a href="http://pybit.es/itertools-examples.html">5 cool things you can do with itertools</a></p>
 </li>
 <li>
-<p>get similar tags:</p>
+<p>Get similar tags:</p>
 <div class="highlight"><pre><span></span>def get_similarities(tags):
     for pair in product(tags, tags):
         pair = tuple(sorted(pair))  
@@ -226,10 +230,10 @@ StopIteration
 
 </li>
 </ul>
-<p>Grepping on yield in our <a href="https://github.com/pybites/blog_code">blog code repo</a> we use it quite a bit:</p>
+<p>We grep on yield in our <a href="https://github.com/pybites/blog_code">blog code repo</a> quite a bit:</p>
 <ul>
 <li>
-<p>a tweet pipeline:</p>
+<p>A tweet pipeline:</p>
 <div class="highlight"><pre><span></span>def get_tweets(search):
     for tweet in tweepy.Cursor(api.search,
                             q=search,
@@ -244,7 +248,7 @@ StopIteration
 
 </li>
 <li>
-<p>get all our challenges repo's forks:</p>
+<p>Get all our challenges repo's forks:</p>
 <div class="highlight"><pre><span></span>def get_forks():
     page_num = 0
     while True:
@@ -266,14 +270,14 @@ StopIteration
 </ul>
 <h2>Using a Generator to SSH to Multiple Hosts Idea</h2>
 <p>I came up with a <a href="https://github.com/pybites/challenges/blob/solutions/09/with_ssh.py">useful SSH script</a> for last week’s context manager challenge.</p>
-<p>It works great but is only for one host.</p>
-<p>A cool idea from here (that I’ll probably use for work now that I think about it!) would be to make a generator to get a list of node IP addresses and consume it using the ssh with statement. Perhaps to run a health check command on each node?</p>
-<p>The catch would be the authentication, though it shouldn’t be an issue if your credentials are the same for each server you’re connecting to.</p>
+<p>It works great but it’s only for one host.</p>
+<p>A cool idea from here (that I’ll probably use for work now that I think about it!) would be to make a generator to create a list of node IP addresses to use with the ssh code.</p>
+<p>The catch would be the SSH authentication for each server if your credentials aren’t the same across your fleet.</p>
 <p>Simplistically but potentially it could look like this:</p>
-<div class="highlight"><pre><span></span>IP_BASE = &#39;192.168.0.&#39;
+<div class="highlight"><pre><span></span>IP_BASE = input()
 
 # define the generator
-def get_nodes():
+def get_nodes(IP_BASE):
     for i in range(1, 256):
         yield &#39;{}{}&#39;.format(IP_BASE, i)
 
@@ -289,12 +293,12 @@ for node in get_nodes():
     finally:
         ssh.close()
 
-    confirrm = input(&#39;You want to continue? &#39;)
+    confirm = input(‘Do you want to continue? &#39;)
     ...
 </pre></div>
 
 
-<p>Output:</p>
+<p>Output (assuming IP_BASE was entered as 192.168.0.):</p>
 <div class="highlight"><pre><span></span>Checking IP 192.168.0.1
 -- output --
 Checking IP 192.168.0.2
@@ -312,16 +316,15 @@ Checking IP 192.168.0.255
 </pre></div>
 
 
-<p>(No StopIteration because the for loop catches that for you)</p>
+<p>(Note the lack of StopIteration. This is because the for loop catches that for you).</p>
 <h2>Conclusion</h2>
-<p>Generators are extremely useful for keeping memory usage low. Not a huge deal for your run of the mill script at home or on your laptop but definitely worth keeping in your coding arsenal.</p>
+<p>Generators are extremely useful for keeping memory usage low. Not a huge deal for your run of the mill script at home or on your laptop but definitely worth keeping in mind and learning for your coding arsenal.</p>
 <blockquote>
 <p>There are many ways to skin a… actually, we’re animal lovers here. There are many ways to code a solution! As I wrote the SSH script above I was thinking it’d be much easier to do it differently (not force the generator) but I wanted to for the sake of this post.</p>
 </blockquote>
 <p>Do you use generators in any creative ways? Maybe you can <em>generate</em> some interest with your solutions…  pun intended! <a href="https://www.youtube.com/watch?v=bcYppAs6ZdI">I’m here all week!</a>.</p>
 <h2>next(PyBites_Generators)</h2>
-<p>'send' (yes, you can send data into a generator, how cool is that!) -&gt; coroutines -&gt; asyncio ... but that requires some more learning still ...</p>
-<hr>
+<p>The next step (ha!) is to learn ’send' (yes, you can send data into a generator, how cool is that?!) -&gt; coroutines -&gt; asyncio ... So much to learn, so little time!</p>
 <p>Keep Calm and Code in Python!</p>
 <p>— Julian</p>
   </div>
