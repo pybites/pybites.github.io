@@ -31,7 +31,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/codechallenge10_review.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-03-18 10:00:00+01:00"/>
+<meta property="article:published_time" content="2017-03-18 18:00:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/pybites.html">
 <meta property="article:section" content="Challenges"/>
@@ -114,22 +114,22 @@ self.guessed_word = [PLACEHOLDER if c in ASCII else c
 
 </li>
 <li>
-<p>We could probably save the extra self.num_wrong_guesses variable by just popping states of the HANG_GRAPHICS list (or use the hang_graphics() generator directly). It's a real eye opener how you pick up these kind of improvements from reading other's code. If you pick up one habit from our challenges let it be to <em>start reading source</em>. As somebody remarked:</p>
+<p>We could probably save the extra self.num_wrong_guesses variable by just popping states of the HANG_GRAPHICS list (or use the hang_graphics() generator directly). It's a real eye opener how you pick up these kind of improvements from reading each other's code. If you pick up one habit from our challenges let it be to <em>start reading source</em>. As somebody remarked:</p>
 <blockquote>
 <p>I like seeing the other solutions. There are definitely small things that I could have done better/more pythonically.</p>
 </blockquote>
 </li>
 <li>
-<p>It was also fascinating to see that there are various ways to accomplish this task: to check for a win, you can compare word with secret. We checked for absense of PLACEHOLDER in the guess letter list. </p>
+<p>It was also fascinating to see that there are various ways to accomplish this task: to check for a win, you can compare guess with secret. We took another approach by checking for absense of PLACEHOLDER (_) in the self.guessed_word list.</p>
 </li>
 <li>
-<p>Small details. For example we had a debug flag while developing, and we used the __str__ dunder to build up a string representation of the object. What was new though was that you can use it with 'self' as in .format(self). Small tricks you pick up by practice. </p>
+<p>Small details. For example we had a debug flag while developing, and we used the __str__ dunder to build up a string representation of the object. What was new though was that you can use it with 'self' as well, as in '.format(self)'. Small tricks you only pick up by actually practicing. </p>
 </li>
 <li>
-<p>UI: we saw other solutions clearing the screen after each guess, and showing the ASCII constant (alphabet) with guesses stripped out, nice. </p>
+<p>UI: we saw other solutions clearing the screen after each guess, and showing the ASCII constant (alphabet) with guesses stripped out, bit more GUI like. Nice. </p>
 </li>
 <li>
-<p>We even saw an try/except block wrapped around 'input = raw_input' to account for Python 2vs3. We will study this topic in more detail soon ...</p>
+<p>We saw an try/except block wrapped around 'input = raw_input' to support Python 2 and 3. We will study 2vs3 in more detail next week ...</p>
 </li>
 </ul>
 <h2>Process update around Forking</h2>
