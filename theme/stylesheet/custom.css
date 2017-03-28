@@ -97,3 +97,39 @@ aside nav ul li {
 .pink {
 	background-color: #771da4;
 }
+
+/* articles search */
+#search {
+  background-image: url('../img/search.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#articleList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#articleList li a {
+  border: 1px solid #f2f2f2;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #fff;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  display: block
+}
+
+#articleList li a.header {
+  background-color: #e2e2e2;
+  cursor: default;
+}
+
+#articleList li a:hover:not(.header) {
+  background-color: #eee;
+}

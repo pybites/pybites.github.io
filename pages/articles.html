@@ -100,14 +100,14 @@
   <header>
     <h1>    Articles
 </h1>
-	<img src='http://pybit.es/images/featured/pb-article.png' alt='article logo' class='theme-logo'>
+	<img src="http://pybit.es/theme/img/page-articles.png" alt='article logo' class='theme-logo'>
   </header>
 
   <p>Below is a listing of our articles. Every week we share our learning, one bite at the time. If you have anything you struggle with in Python, suggestions or ideas for topics please do <a href='https://twitter.com/intent/tweet?text=%40pybites'>reach out</a> ...</p>
 
-  <hr>
-
-  <ul>
+  <br>
+  <input type="text" id="search" onkeyup="filterList()" placeholder="Search Articles .." title="What do you like to learn about?"<>
+  <ul id='articleList'>
       		<li><a href="http://pybit.es/vim-tricks.html">5 Vim Tricks to Speed up Your Python Development</a></li>
       		<li><a href="http://pybit.es/ipaddress.html">Module of the Week - ipaddress</a></li>
       		<li><a href="http://pybit.es/python-porting.html">Best Practices for Compatible Python 2 and 3 Code</a></li>
@@ -194,6 +194,8 @@
 	}(document, "script", "twitter-wjs"));</script>
 
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+  	<!-- search input field or archive pages -->
+  	<script src="http://pybit.es/theme/scripts/base.js" type="text/javascript"></script>
 
 
 <script type="application/ld+json">
