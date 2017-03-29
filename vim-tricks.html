@@ -135,6 +135,11 @@
 </pre></div>
 
 
+<p>I also have ,v to run the Python of my active <a href="http://pybit.es/the-beauty-of-virtualenv.html">virtual env</a>:</p>
+<div class="highlight"><pre><span></span>nmap ,v :w&lt;CR&gt;:!venv/bin/python %&lt;CR&gt;
+</pre></div>
+
+
 <h2>2. Flake8 check</h2>
 <p>As featured in our <a href="http://pybit.es/pep8.html">pep8 article</a> I find it very useful to flake8 my code before committing. If you have not heard of <a href="https://pypi.python.org/pypi/flake8">flake8</a>, it is "the modular source code checker", a wrapper around PyFlakes, pycodestyle and Ned Batchelder’s McCabe script. You need the <a href="https://github.com/nvie/vim-flake8">vim-flake8</a> plugin. I invoke it with ,f - having this in my vimrc:</p>
 <div class="highlight"><pre><span></span>autocmd FileType python map &lt;buffer&gt; ,f :call Flake8()&lt;CR&gt;
@@ -225,8 +230,10 @@ fh      # go to h
 <p><a href="http://liuchengxu.org/posts/use-vim-as-a-python-ide/">Use Vim as a Python IDE</a></p>
 </li>
 </ul>
-<h2>What about bashrc?</h2>
-<p>Oh yeah, I do have a lot of shell aliases as well, 2 Python related ones I like:</p>
+<h2>What is a good Vim book?</h2>
+<p><a href="http://www.amazon.com/dp/1680501275/?tag=pyb0f-20">Practical Vim: Edit Text at the Speed of Thought</a> from the author of <a href="http://vimcasts.org">vimcasts</a>, is THE book that got my Vim skills to the next level.</p>
+<h2>Two more useful shell aliases</h2>
+<p>Not Vim related, but now that we are talking shortcuts, here are two Python related ones I got in my bashrc:</p>
 <ul>
 <li>
 <p>As soon as I start a new project I run 'pvenv' to create and start a fresh new <a href="http://pybit.es/the-beauty-of-virtualenv.html">virtual env</a>:</p>
@@ -241,11 +248,9 @@ fh      # go to h
 </pre></div>
 
 
-<p>However I think you can use nosetests for this as well.</p>
 </li>
 </ul>
-<h2>What is a good Vim book?</h2>
-<p><a href="http://www.amazon.com/dp/1680501275/?tag=pyb0f-20">Practical Vim: Edit Text at the Speed of Thought</a> from the author of <a href="http://vimcasts.org">vimcasts</a>, is THE book that got my Vim skills to the next level.</p>
+<p>(although at the time of this writing I discovered <a href="http://nose.readthedocs.io/en/latest/">the nosetests script</a>)</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
