@@ -103,7 +103,7 @@
 
   <div>
     <p>I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example.</p>
-<p>This was an interesting coding exercise, but also keep in mind its relevance. Bots are hot, <a href="http://www.oreilly.com/data/free/what-are-conversational-bots.csp?imm_mid=0ef9cf&amp;cmp=em-data-free-na-ainy17_nurture_em2_what_are_conversational_bots">people have become comfortable with conversational interfaces</a>. </p>
+<p>This was an interesting coding exercise, but also keep in mind its relevance. Bots are hot, <a href="http://www.oreilly.com/data/free/what-are-conversational-bots.csp?imm_mid=0ef9cf&amp;cmp=em-data-free-na-ainy17_nurture_em2_what_are_conversational_bots">people have become comfortable with conversational interfaces</a>.</p>
 <p><img alt="some commands our bot listens to" src="http://pybit.es/images/slackbot.gif"></p>
 <p>(GIF made with <a href="https://github.com/pybites/100DaysOfCode/tree/master/003">100DaysOfCode day 003 script</a>)</p>
 <hr>
@@ -118,8 +118,20 @@
 
 <p>Secondly you need to pip install slackclient, I also used <a href="https://github.com/pybites/slackbot/blob/master/requirements.txt">some other modules</a>.</p>
 <p>I took the <a href="https://github.com/pybites/slackbot/blob/master/starterbot.py">starterbot code</a> I found in this excellent article: <a href="https://www.fullstackpython.com/blog/build-first-slack-bot-python.html">How to Build Your First Slack Bot with Python</a>. This made it a lot easier because it catered for all the initial setup, listening for mentions of the bot, intercepting targeted messages.</p>
-<p>I wrote a bunch of scripts which repond to <a href="https://github.com/pybites/slackbot/tree/master/commands">different commands</a>, some also as part of our <a href="http://pybit.es/special-100days.html">100DaysOfCode challenge</a>. I put them in the commands subdirectory. This structure makes it easy to add more commands over time.</p>
-<p>In the <a href="https://github.com/pybites/slackbot/blob/master/pybitesbot.py">main bot script</a> I import all the commands: </p>
+<p>Only thing you have to do is to <a href="https://github.com/pybites/slackbot/blob/master/get_botid.py">get the BOT ID</a> and store it in your login script (in my case .bashrc):</p>
+<div class="highlight"><pre><span></span>$ python get_botid.py
+Bot ID <span class="k">for</span> <span class="s1">&#39;pybitesbot&#39;</span> is XYZ
+
+<span class="c1"># .bashrc</span>
+<span class="nb">export</span> <span class="nv">SLACK_BOT_TOKEN</span><span class="o">=</span>ABC      <span class="c1"># first step</span>
+<span class="nb">export</span> <span class="nv">BOT_ID</span><span class="o">=</span>XYZ               <span class="c1"># as retrieved from previous command</span>
+<span class="nb">export</span> <span class="nv">WEATHER_API</span><span class="o">=</span><span class="m">123</span>          <span class="c1"># used for one of the command scripts, see below</span>
+</pre></div>
+
+
+<hr>
+<p>I wrote a bunch of scripts which respond to <a href="https://github.com/pybites/slackbot/tree/master/commands">different commands</a>, some also as part of our <a href="http://pybit.es/special-100days.html">100DaysOfCode challenge</a>. I put them in the commands subdirectory. This structure makes it easy to add more commands over time.</p>
+<p>In the <a href="https://github.com/pybites/slackbot/blob/master/pybitesbot.py">main bot script</a> I import all the commands:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">commands.mood</span> <span class="kn">import</span> <span class="n">get_mood</span>  <span class="c1"># just a silly one</span>
 <span class="kn">from</span> <span class="nn">commands.special</span> <span class="kn">import</span> <span class="n">celebration</span>
 <span class="kn">from</span> <span class="nn">commands.articles</span> <span class="kn">import</span> <span class="n">get_num_posts</span>
@@ -133,7 +145,7 @@
 </pre></div>
 
 
-<p>I then overwrote the (provided) handle_command function to have the bot respond to various commands. </p>
+<p>I then overwrote the (provided) handle_command function to have the bot respond to various commands.</p>
 <div class="highlight"><pre><span></span>def handle_command(cmd, channel):
 
     cmd = cmd.split()
@@ -160,7 +172,8 @@
 </pre></div>
 
 
-<p>And that's it for the code. On my server I run the bot with nohup to keep it running: </p>
+<hr>
+<p>And that's it for the code. On my server I run the bot with nohup to keep it running:</p>
 <div class="highlight"><pre><span></span>nohup python3 pybitesbot.py &amp;
 </pre></div>
 
@@ -169,9 +182,9 @@
 <p><img alt="bot smart ass I" src="http://pybit.es/images/slack_response1.png"></p>
 <p><img alt="bot smart ass II" src="http://pybit.es/images/slack_response2.png"></p>
 <hr>
-<p>Although this tutorial showed a simple deterministic bot, this really inspired me to think about ways we can make our pybitesbot smarter and help us automate tasks. Or what if we open up a Slack for our community and we have a bot helping people with common Python questions? That would be really cool! </p>
+<p>Although this tutorial showed a simple deterministic bot, this really inspired me to think about ways we can make our pybitesbot smarter and help us automate tasks. Or what if we open up a Slack for our community and we have a bot helping people with common Python questions? That would be really cool!</p>
 <p>I will do a part 2 when we have more progress in this space ...</p>
-<p>The full code of the bot is <a href="https://github.com/pybites/slackbot">here</a>. We encourage you to fork it and start building your own cool bot (and tell us about it in the comments below). </p>
+<p>The full code of the bot is <a href="https://github.com/pybites/slackbot">here</a>. We encourage you to fork it and start building your own cool bot (and tell us about it in the comments below).</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
