@@ -24,7 +24,7 @@
 
 <meta name="author" content="Bob" />
 <meta name="description" content="I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example." />
-<meta name="keywords" content="slack, API, bot, chatbot">
+<meta name="keywords" content="slack, API, bot, chatbot, deployment, shell, nohup, automation">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="How to Build a Simple Slack Bot"/>
 <meta property="og:description" content="I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example."/>
@@ -39,6 +39,10 @@
 <meta property="article:tag" content="API"/>
 <meta property="article:tag" content="bot"/>
 <meta property="article:tag" content="chatbot"/>
+<meta property="article:tag" content="deployment"/>
+<meta property="article:tag" content="shell"/>
+<meta property="article:tag" content="nohup"/>
+<meta property="article:tag" content="automation"/>
 <meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
@@ -103,14 +107,17 @@
 
   <div>
     <p>I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example.</p>
+<h2>Bots are hot</h2>
 <p>This was an interesting coding exercise, but also keep in mind its relevance. Bots are hot, <a href="http://www.oreilly.com/data/free/what-are-conversational-bots.csp?imm_mid=0ef9cf&amp;cmp=em-data-free-na-ainy17_nurture_em2_what_are_conversational_bots">people have become comfortable with conversational interfaces</a>.</p>
 <p><img alt="some commands our bot listens to" src="http://pybit.es/images/slackbot.gif"></p>
 <p>(GIF made with <a href="https://github.com/pybites/100DaysOfCode/tree/master/003">100DaysOfCode day 003 script</a>)</p>
 <hr>
+<h2>Slack API</h2>
 <p>About Slack's <a href="https://api.slack.com/rtm">Real Time Messaging API</a>:</p>
 <blockquote>
 <p>The Real Time Messaging API is a WebSocket-based API that allows you to receive events from Slack in real time and send messages as users. It's sometimes referred to as simply the "RTM API".  It is the basis for all Slack clients. It's also commonly used with the bot user integration to create helper bots for your team.</p>
 </blockquote>
+<h2>Getting ready</h2>
 <p>Read <a href="https://api.slack.com/bot-users">here</a> about Bot Users, you need to <a href="https://my.slack.com/services/new/bot">create a new bot user</a> first. This will give you an API Token. Keep this private! I added mine to .bashrc to keep it out of version control. I retrieve it like this:</p>
 <div class="highlight"><pre><span></span>slack_client = SlackClient(os.environ.get(&#39;SLACK_BOT_TOKEN&#39;))
 </pre></div>
@@ -129,7 +136,7 @@ Bot ID <span class="k">for</span> <span class="s1">&#39;pybitesbot&#39;</span> i
 </pre></div>
 
 
-<hr>
+<h2>Bot actions</h2>
 <p>I wrote a bunch of scripts which respond to <a href="https://github.com/pybites/slackbot/tree/master/commands">different commands</a>, some also as part of our <a href="http://pybit.es/special-100days.html">100DaysOfCode challenge</a>. I put them in the commands subdirectory. This structure makes it easy to add more commands over time.</p>
 <p>In the <a href="https://github.com/pybites/slackbot/blob/master/pybitesbot.py">main bot script</a> I import all the commands:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">commands.mood</span> <span class="kn">import</span> <span class="n">get_mood</span>  <span class="c1"># just a silly one</span>
@@ -172,16 +179,43 @@ Bot ID <span class="k">for</span> <span class="s1">&#39;pybitesbot&#39;</span> i
 </pre></div>
 
 
-<hr>
+<h2>Deployment</h2>
 <p>And that's it for the code. On my server I run the bot with nohup to keep it running:</p>
 <div class="highlight"><pre><span></span>nohup python3 pybitesbot.py &amp;
 </pre></div>
 
 
+<p>Update: I found an issue where the bot stopped working, so I added <a href="">a little script</a> (based on this <a href="http://stackoverflow.com/a/697064/1128469">SO answer</a>) to respawn it:</p>
+<div class="highlight"><pre><span></span>$ cat slackbot.sh
+<span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/bin/python3/bin/python3.5 pybitesbot.py&quot;</span>
+<span class="k">until</span> <span class="nv">$cmd</span><span class="p">;</span> <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Slack bot crashed with exit code </span><span class="nv">$?</span><span class="s2">.  Respawning..&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+    sleep <span class="m">1</span>
+<span class="k">done</span>
+
+$ ./slackbot.sh
+StarterBot connected and running!
+
+... pressing ctrl + c
+
+^CTraceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+File <span class="s2">&quot;pybitesbot.py&quot;</span>, line <span class="m">44</span>, in &lt;module&gt;
+    time.sleep<span class="o">(</span>READ_WEBSOCKET_DELAY<span class="o">)</span>
+    KeyboardInterrupt
+
+    Slack bot crashed with <span class="nb">exit</span> code <span class="m">1</span>.  Respawning..   <span class="o">=</span>&gt; thanks <span class="k">for</span> the shell script
+    StarterBot connected and running!
+
+<span class="c1"># that was for demo, I still use nohup to leave the shell</span>
+$ nohup slackbot.sh  <span class="p">&amp;</span>
+</pre></div>
+
+
+<h2>Result</h2>
 <p>And there you go ... as you can see we had some fun with it the other day :)</p>
 <p><img alt="bot smart ass I" src="http://pybit.es/images/slack_response1.png"></p>
 <p><img alt="bot smart ass II" src="http://pybit.es/images/slack_response2.png"></p>
-<hr>
+<h2>What's next?</h2>
 <p>Although this tutorial showed a simple deterministic bot, this really inspired me to think about ways we can make our pybitesbot smarter and help us automate tasks. Or what if we open up a Slack for our community and we have a bot helping people with common Python questions? That would be really cool!</p>
 <p>I will do a part 2 when we have more progress in this space ...</p>
 <p>The full code of the bot is <a href="https://github.com/pybites/slackbot">here</a>. We encourage you to fork it and start building your own cool bot (and tell us about it in the comments below).</p>
@@ -216,6 +250,10 @@ Bot ID <span class="k">for</span> <span class="s1">&#39;pybitesbot&#39;</span> i
       <a href="http://pybit.es/tag/api.html">API</a>
       <a href="http://pybit.es/tag/bot.html">bot</a>
       <a href="http://pybit.es/tag/chatbot.html">chatbot</a>
+      <a href="http://pybit.es/tag/deployment.html">deployment</a>
+      <a href="http://pybit.es/tag/shell.html">shell</a>
+      <a href="http://pybit.es/tag/nohup.html">nohup</a>
+      <a href="http://pybit.es/tag/automation.html">automation</a>
     </p>
   </div>
 

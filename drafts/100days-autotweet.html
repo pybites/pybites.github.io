@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this article I show you a way to automatically tweet your 100DaysOfCode Challenge progress. This saves you some extra time to focus on the coding, isn't that all that matters?" />
+<meta name="keywords" content="twitter, automation, tools, 100days">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How we Automated our 100DaysOfCode Daily Tweet"/>
+<meta property="og:description" content="In this article I show you a way to automatically tweet your 100DaysOfCode Challenge progress. This saves you some extra time to focus on the coding, isn't that all that matters?"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/drafts/100days-autotweet.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-04-05 23:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="twitter"/>
+<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="tools"/>
+<meta property="article:tag" content="100days"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How we Automated our 100DaysOfCode Daily Tweet" />
+<meta name="twitter:description" content="In this article I show you a way to automatically tweet your 100DaysOfCode Challenge progress. This saves you some extra time to focus on the coding, isn't that all that matters?" />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; How we Automated our 100DaysOfCode Daily Tweet</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="http://pybit.es">
+
+			<img src="http://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="http://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="http://pybit.es/pages/news.html">News</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	  <a class="twitter-follow-button" href="https://twitter.com/pybites"
+	  	data-show-screen-name="false" data-size="large" data-show-count="false"> 
+		Follow @pybites</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="100days-autotweet">How we Automated our 100DaysOfCode Daily Tweet</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Wed 05 April 2017 in <a href="http://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this article I show you a way to automatically tweet your 100DaysOfCode Challenge progress. This saves you some extra time to focus on the coding, isn't that all that matters?</p>
+<h2>Day 007 progress</h2>
+<p>This in itself is part of our <a href="http://pybit.es/special-100days.html">100 Days of Code</a> challenge. You can follow along by forking <a href="https://github.com/pybites/100DaysOfCode">our repo</a>.</p>
+<h2>Getting ready</h2>
+<p>You need pytz and tweepy, you can <a href="https://github.com/pybites/100DaysOfCode/blob/master/007/requirements.txt">pip install -r requirements.txt</a> if you cloned our repo (after cd-ing in 0007). You could isolate them by using <a href="http://pybit.es/the-beauty-of-virtualenv.html">an virtualenv</a>.</p>
+<p>As explained <a href="http://pybit.es/automate-twitter.html">in a previous article</a> you need to get a Consumer Key/Secret and Access Token (Secret). I added those to my .bashrc which I load via os.environ in <a href="https://github.com/pybites/100DaysOfCode/blob/master/007/config.py">config.py</a>. There I also started the logging.basicConfig to log the tweets that go out.</p>
+<h2>The main script</h2>
+<p>See <a href="https://github.com/pybites/100DaysOfCode/blob/master/007/100day_autotweet.py">here</a> and below what I picked up:</p>
+<ul>
+<li>
+<p>As per PEP8 we import stdlib, followed by external modules, followed by own modules</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">logging</span><span class="p">,</span> <span class="n">api</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>I learned to work with pytz, a very convenient package. I wanted to set the timezone because my server runs on MT and I want to talk EMEA times. I calculate the day number from the start 0 index = when PyBites became 100 days. I defined constants with uppercase + underscores:</p>
+<div class="highlight"><pre><span></span>tz = pytz.timezone(&#39;Europe/Amsterdam&#39;)
+now = datetime.datetime.now(tz)
+start = datetime.datetime(2017, 3, 29, tzinfo=tz)  # = PyBites 100 days :)
+CURRENT_CHALLENGE_DAY = str((now - start).days).zfill(3)
+
+LOG = &#39;https://raw.githubusercontent.com/pybites/100DaysOfCode/master/LOG.md&#39;
+LOG_ENTRY = re.compile(r&#39;\[(?P&lt;title&gt;.*?)\]\((?P&lt;day&gt;\d+)\)&#39;)
+REPO_URL = &#39;https://github.com/pybites/100DaysOfCode/tree/master/&#39;
+TWEET_LEN = 140
+TWEET_LINK_LEN = 23
+</pre></div>
+
+
+</li>
+<li>
+<p>Where were we without requests? Here I get the LOG.md file from Github:</p>
+<div class="highlight"><pre><span></span>def get_log():
+    return requests.get(LOG).text.split(&#39;\n&#39;)
+</pre></div>
+
+
+</li>
+<li>
+<p>I get the script title and day string from the line in LOG.md that matches the exact day string (today = '007'):</p>
+<div class="highlight"><pre><span></span>def get_day_progress(html):
+    lines = [line.strip()
+            for line in html
+            if line.strip()]
+
+    for line in lines:
+        day_entry = line.strip(&#39;|&#39;).split(&#39;|&#39;)[0].strip()
+        if day_entry == CURRENT_CHALLENGE_DAY:
+            return LOG_ENTRY.search(line).groupdict()
+</pre></div>
+
+
+</li>
+<li>
+<p>I create the tweet. I just did an extra commit to account for script titles being too long, if so they are shortened to make sure we keep it within allowed tweet size (140 chars):</p>
+<div class="highlight"><pre><span></span><span class="s s-Atom">def</span> <span class="nf">create_tweet</span><span class="p">(</span><span class="s s-Atom">m</span><span class="p">)</span><span class="s s-Atom">:</span>
+    <span class="s s-Atom">ht1</span><span class="p">,</span> <span class="s s-Atom">ht2</span> <span class="o">=</span> <span class="s s-Atom">&#39;#100DaysOfCode&#39;</span><span class="p">,</span> <span class="s s-Atom">&#39;#Python&#39;</span>
+    <span class="s s-Atom">title</span> <span class="o">=</span> <span class="s s-Atom">m</span><span class="p">[</span><span class="s s-Atom">&#39;title&#39;</span><span class="p">]</span>
+    <span class="s s-Atom">day</span> <span class="o">=</span> <span class="s s-Atom">m</span><span class="p">[</span><span class="s s-Atom">&#39;day&#39;</span><span class="p">]</span>
+    <span class="s s-Atom">url</span> <span class="o">=</span> <span class="nv">REPO_URL</span> <span class="o">+</span> <span class="s s-Atom">day</span>
+    <span class="s s-Atom">allowed_len</span> <span class="o">=</span> <span class="nv">TWEET_LEN</span> <span class="o">+</span> <span class="nf">len</span><span class="p">(</span><span class="s s-Atom">url</span><span class="p">)</span> <span class="o">-</span> <span class="nv">TWEET_LINK_LEN</span>
+
+    <span class="s s-Atom">fmt</span> <span class="o">=</span> <span class="s s-Atom">&#39;{} - Day {}: {} {} {}&#39;</span>
+    <span class="s s-Atom">tweet</span> <span class="o">=</span> <span class="s s-Atom">fmt</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="s s-Atom">ht1</span><span class="p">,</span> <span class="s s-Atom">day</span><span class="p">,</span> <span class="s s-Atom">title</span><span class="p">,</span> <span class="s s-Atom">url</span><span class="p">,</span> <span class="s s-Atom">ht2</span><span class="p">)</span>
+    <span class="s s-Atom">surplus</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="s s-Atom">tweet</span><span class="p">)</span> <span class="o">-</span> <span class="s s-Atom">allowed_len</span>
+
+    <span class="s s-Atom">if</span> <span class="s s-Atom">surplus</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="s s-Atom">:</span>
+        <span class="s s-Atom">new_title</span> <span class="o">=</span> <span class="s s-Atom">title</span><span class="p">[:-(</span><span class="s s-Atom">surplus</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)]</span> <span class="o">+</span> <span class="s s-Atom">&#39;...&#39;</span>
+        <span class="s s-Atom">tweet</span> <span class="o">=</span> <span class="s s-Atom">tweet</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="s s-Atom">title</span><span class="p">,</span> <span class="s s-Atom">new_title</span><span class="p">)</span>
+    <span class="s s-Atom">return</span> <span class="s s-Atom">tweet</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Here we use the imported api object (from config.py) to send the tweet and we log an info if success, or error if any exception:</p>
+<div class="highlight"><pre><span></span>def tweet_status(tweet):
+    try:
+        api.update_status(tweet)
+        logging.info(&#39;Posted to Twitter&#39;)
+    except Exception as exc:
+        logging.error(&#39;Error posting to Twitter: {}&#39;.format(exc))
+</pre></div>
+
+
+</li>
+<li>
+<p>We drive the script under main (= if run as standalone, that is: not imported by another module). I set up some variables to allow for testing / dry runs:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">socket</span>
+    <span class="n">local</span> <span class="o">=</span> <span class="s1">&#39;MacBook&#39;</span> <span class="ow">in</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">local</span> <span class="ow">or</span> <span class="s1">&#39;dry&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>If test I use my local LOG file:</p>
+<div class="highlight"><pre><span></span>    if test:
+        log = os.path.basename(LOG)
+        with open(log) as f:
+            html = f.readlines()
+    else:
+        html = get_log()
+</pre></div>
+
+
+</li>
+<li>
+<p>If for some reason I don't get a valid return from get_day_progress() I abort the script, logging the error:</p>
+<div class="highlight"><pre><span></span>    m = get_day_progress(html)
+    if not m:
+        logging.error(&#39;Error getting day progress from log&#39;)
+        sys.exit(1)
+</pre></div>
+
+
+</li>
+<li>
+<p>If dry run just log the tweet:</p>
+<div class="highlight"><pre><span></span>    tweet = create_tweet(m)
+    if test:
+        logging.info(&#39;Test: tweet to send: {}&#39;.format(tweet))
+    else:
+        tweet_status(tweet)
+</pre></div>
+
+
+</li>
+</ul>
+<h2>Deploy</h2>
+<p>On my server I had to do some magic to get it all working: source .bashrc to load in the ENV vars, because cronjob does not know about the your typical env when logged in. For the same reason you need to export your PYTHONPATH..site-packages, and specify the full path to your python3 install. Maybe there is an easier way but this works great for me. It runs daily at 1434 MT == 2234 Spanish time:</p>
+<div class="highlight"><pre><span></span>$ crontab -l
+...
+<span class="m">34</span> <span class="m">14</span> * * * <span class="nb">source</span> <span class="nv">$HOME</span>/.bashrc <span class="o">&amp;&amp;</span> <span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$HOME</span>/bin/python3/lib/python3.5/site-packages <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$HOME</span>/code/100days/007 <span class="o">&amp;&amp;</span> <span class="nv">$HOME</span>/bin/python3/bin/python3.5 100day_autotweet.py
+</pre></div>
+
+
+<h2>Result</h2>
+<p>What a coincidence: I write this my 10.34PM cronjob just <a href="https://twitter.com/pybites/status/849721815538712576">went out</a> :)</p>
+<p><img alt="my automated tweet" src="http://pybit.es/images/auto-tweet.png"></p>
+<h2>Logging</h2>
+<p>The cool thing about the logging module is that you get the external packages' logging for free:</p>
+<div class="highlight"><pre><span></span>$ vi 100day_autotweet.log
+...
+...
+<span class="m">14</span>:34:02 tweepy.binder INFO     PARAMS: <span class="o">{</span><span class="s1">&#39;status&#39;</span>: b<span class="s1">&#39;#100DaysOfCode - Day 007: script to automatically tweet 100DayOfCode progress tweet https://github.com/pybites/100DaysOfCode/tree/master/007 #Python&#39;</span><span class="o">}</span>
+...
+more log entries ...
+...
+<span class="m">14</span>:34:02 requests.packages.urllib3.connectionpool DEBUG    https://api.twitter.com:443 <span class="s2">&quot;POST /1.1/statuses/update.json?status=%23100DaysOfCode+-+Day+007%3A+script+to+automatically+tweet+100DayOfCode+progress+tweet+https%3A%2F%2Fgithub.com%2Fpybites%2F100DaysOfCode%2Ftree%2Fmaster%2F007+%23Python HTTP/1.1&quot;</span> <span class="m">200</span> <span class="m">2693</span>
+<span class="m">14</span>:34:02 root         INFO     Posted to <span class="nv">Twitter</span> <span class="o">==</span>&gt; my message
+</pre></div>
+
+
+<hr>
+<p>I hope this taught you a bite of Python and it inspired you to automate your 100DaysOfCode tweets and/or other tasks. Happy coding!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/twitter.html">twitter</a>
+      <a href="http://pybit.es/tag/automation.html">automation</a>
+      <a href="http://pybit.es/tag/tools.html">tools</a>
+      <a href="http://pybit.es/tag/100days.html">100days</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
