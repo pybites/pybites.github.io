@@ -23,15 +23,15 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="When playing with decorators (our next challenge) I got stuck: how do you write a decorator that takes an optional argument? Python cookbook 3rd ed edition to the rescue. In this post how I failed my way to the right solution." />
+<meta name="description" content="When playing with decorators (this week's challenge) I got stuck: how do you write a decorator that takes an optional argument? Python cookbook 3rd ed edition to the rescue. In this post how I failed my way to the right solution." />
 <meta name="keywords" content="decorators, arguments, tricks, tips, cookbook">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="How to Write a Decorator with an Optional Argument?"/>
-<meta property="og:description" content="When playing with decorators (our next challenge) I got stuck: how do you write a decorator that takes an optional argument? Python cookbook 3rd ed edition to the rescue. In this post how I failed my way to the right solution."/>
+<meta property="og:description" content="When playing with decorators (this week's challenge) I got stuck: how do you write a decorator that takes an optional argument? Python cookbook 3rd ed edition to the rescue. In this post how I failed my way to the right solution."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://pybit.es/decorator-optional-argument.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-04-07 19:19:00+02:00"/>
+<meta property="article:published_time" content="2017-04-11 09:00:00+02:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/bob.html">
 <meta property="article:section" content="Tips"/>
@@ -45,7 +45,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="How to Write a Decorator with an Optional Argument?" />
-<meta name="twitter:description" content="When playing with decorators (our next challenge) I got stuck: how do you write a decorator that takes an optional argument? Python cookbook 3rd ed edition to the rescue. In this post how I failed my way to the right solution." />
+<meta name="twitter:description" content="When playing with decorators (this week's challenge) I got stuck: how do you write a decorator that takes an optional argument? Python cookbook 3rd ed edition to the rescue. In this post how I failed my way to the right solution." />
 <meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; How to Write a Decorator with an Optional Argument?</title>
@@ -94,7 +94,7 @@
   <header>
     <h1 id="decorator-optional-argument">How to Write a Decorator with an Optional Argument?</h1>
     <p>
-          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Fri 07 April 2017 in <a href="http://pybit.es/category/tips.html">Tips</a>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Tue 11 April 2017 in <a href="http://pybit.es/category/tips.html">Tips</a>
 
 
         &#8226; 3 min read
@@ -103,9 +103,8 @@
 
 
   <div>
-    <p>When playing with decorators (our next challenge) I got stuck: how do you write a decorator that takes an optional argument? <a href="http://www.amazon.com/dp/1449340377/?tag=pyb0f-20">Python cookbook 3rd ed</a> to the rescue. In this post how I failed my way to the right solution.</p>
+    <p>When playing with decorators (<a href="http://pybit.es/codechallenge14.html">this week's challenge</a>) I got stuck: how do you write a decorator that takes an optional argument? <a href="http://www.amazon.com/dp/1449340377/?tag=pyb0f-20">Python cookbook 3rd ed</a> edition to the rescue. In this post how I failed my way to the right solution.</p>
 <p>The code for this article is <a href="https://github.com/pybites/blog_code/tree/master/decorator_opt_arg">here</a>.</p>
-<p>Need to get up2speed with decorators? Dan Bader gave us a <a href="https://dbader.org/blog/python-decorators">good intro</a> this week.</p>
 <h2>First attempt</h2>
 <p>To add an argument to a decorator I ended up having three levels of functions (see <a href="http://stackoverflow.com/questions/5929107/python-decorators-with-parameters">here</a> and <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240845">here</a>):</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
@@ -163,7 +162,7 @@ TypeError: real_decorator() missing 1 required positional argument: &#39;func&#3
 
 
 <h2>Can we use a class?</h2>
-<p>My intuition was that the above syntax was pretty complex so secondly I went with the class decorator syntax:</p>
+<p>My intuition was that the above syntax was pretty complex so I went with the class decorator syntax (a nice exercise too):</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
@@ -223,7 +222,7 @@ TypeError: __call__() missing 1 required positional argument: &#39;func&#39;
 
 
 <h2>Allow for optional arguments</h2>
-<p>OK so luckily I had <a href="http://www.amazon.com/dp/1449340377/?tag=pyb0f-20">Python cookbook 3rd ed</a> nearby. What I love about this book, apart from its technical depth, is that it offers short and concise recipes that you can start using right away. This really covered a need I had when I was writing my decorators: have the ability to behave them in certain ways. </p>
+<p>Luckily I had <a href="http://www.amazon.com/dp/1449340377/?tag=pyb0f-20">Python cookbook 3rd ed</a> nearby. What I love about this book, apart from its technical depth, is that it offers short and concise recipes that you can start using right away. This really covered a need I had when I was writing my decorators: the ability to have them behave in certain ways.</p>
 <p>Here is the cookbook's solution modified for my sleep decorator:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span><span class="p">,</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -249,7 +248,7 @@ TypeError: __call__() missing 1 required positional argument: &#39;func&#39;
 <blockquote>
 <p>The partial() is used for partial function application which “freezes” some portion of a function’s arguments and/or keywords resulting in a new object with a simplified signature - <a href="https://docs.python.org/3.6/library/functools.html#functools.partial">docs</a>.</p>
 </blockquote>
-<p>I should probably write another article on partial(), it's a pretty nifty feature.</p>
+<p>I should probably write another article on this useful feature ...</p>
 <h2>It works :)</h2>
 <div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
 
@@ -313,7 +312,7 @@ hello world
 
 
 <h2>Next</h2>
-<p>Stay tuned for our new challenge on Monday where we let you write your own decorators. It's a great addition to your toolbox!</p>
+<p>As mentioned our <a href="http://pybit.es/codechallenge14.html">code challenge of this week</a> is all about decorators. Maybe you can use what you learned in this article to write more versatile decorators.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
