@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this post I show you how to build a simple Flask app to compare the weather of 2 cities using the OpenWeatherMap API. Maybe this aids you in solving this week's challenge." />
+<meta name="keywords" content="Flask, weather, API, OpenWeatherMap, learning, Heroku, pytz, deploy, Jinja, CSS">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Simple Flask app to compare the weather of 2 cities"/>
+<meta property="og:description" content="In this post I show you how to build a simple Flask app to compare the weather of 2 cities using the OpenWeatherMap API. Maybe this aids you in solving this week's challenge."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/flask-simple-weather-app.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-04-20 09:40:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/bob.html">
+<meta property="article:section" content="Flask"/>
+<meta property="article:tag" content="Flask"/>
+<meta property="article:tag" content="weather"/>
+<meta property="article:tag" content="API"/>
+<meta property="article:tag" content="OpenWeatherMap"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="Heroku"/>
+<meta property="article:tag" content="pytz"/>
+<meta property="article:tag" content="deploy"/>
+<meta property="article:tag" content="Jinja"/>
+<meta property="article:tag" content="CSS"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Simple Flask app to compare the weather of 2 cities" />
+<meta name="twitter:description" content="In this post I show you how to build a simple Flask app to compare the weather of 2 cities using the OpenWeatherMap API. Maybe this aids you in solving this week's challenge." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Simple Flask app to compare the weather of 2 cities</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="http://pybit.es">
+
+			<img src="http://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="http://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="http://pybit.es/pages/news.html">News</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	  <a class="twitter-follow-button" href="https://twitter.com/pybites"
+	  	data-show-screen-name="false" data-size="large" data-show-count="false"> 
+		Follow @pybites</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="flask-simple-weather-app">Simple Flask app to compare the weather of 2 cities</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Thu 20 April 2017 in <a href="http://pybit.es/category/flask.html">Flask</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Some nice things coming out of our <a href="http://pybit.es/special-100days.html">100DaysOfCode Challenge</a>. You seemed to like <a href="https://twitter.com/pybites/status/851896144594583552">this one</a> so I decided to do an article on it.</p>
+<p>In this post I show you how to build a simple Flask app to compare the weather of 2 cities using the OpenWeatherMap API. Maybe this aids you in solving <a href="http://pybit.es/codechallenge15.html">this week's challenge</a>. </p>
+<p><img alt="Our simple Flask app" src="http://pybit.es/images/weather-app.png"></p>
+<h2>Step by step</h2>
+<p>The full code is <a href="https://github.com/pybites/flask-weather">here</a>. We deployed the app <a href="http://weathercompare.herokuapp.com/">here</a>.</p>
+<ul>
+<li>
+<p>First install dependencies we put in <a href="https://github.com/pybites/flask-weather/blob/master/requirements.txt">requirements.txt</a>.</p>
+<div class="highlight"><pre><span></span>$ python -m venv venv <span class="o">&amp;&amp;</span> <span class="nb">source</span> venv/bin/activate
+$ pip install -r requirements.txt
+</pre></div>
+
+
+</li>
+<li>
+<p>Get an API key from <a href="https://openweathermap.org/current">OpenWeatherMap API</a> and store it in your environment</p>
+<div class="highlight"><pre><span></span>$ vi .bashrc
+...
+<span class="nb">export</span> <span class="nv">WEATHER_API</span><span class="o">=</span>xyz
+</pre></div>
+
+
+</li>
+<li>
+<p>Project code:</p>
+<ul>
+<li>
+<p>CSS goes into the static directory, our template into templates. <a href="https://github.com/pybites/weather_compare/blob/master/templates/weather.html">It contains</a> a POST form to submit 2 cities and a table for the results of the query. The nice and simple design are thanks to <a href="https://purecss.io/">PureCSS</a>.</p>
+</li>
+<li>
+<p>The <a href="https://github.com/pybites/weather_compare/blob/master/weather.py">weather.py</a> gets the API_KEY from the OS env, sets up some other constants and defines two helpers: </p>
+<ol>
+<li>
+<p>get_local_time() -&gt; tries to be as specific regarding timezone as possible, looking for both city and country. I had a good play with the pytz package here.</p>
+</li>
+<li>
+<p>query_api() queries the OpenWeatherMap API via requests</p>
+</li>
+<li>
+<p>With these helpers the <a href="https://github.com/pybites/weather_compare/blob/master/app.py">main app</a> becomes pretty lean (just 32 LOC). I only use the root (/) path for both view and POST. If POST, I get the 2 cities from the form with request.form.get, I query the API for both cities appending the results to data. If data does not have 2 items we set the error variable. All the data gets passed to the weather html template with this: </p>
+<div class="highlight"><pre><span></span>return render_template(&quot;weather.html&quot;,
+                    data=data,
+                    error=error,
+                    time=get_local_time)
+</pre></div>
+
+
+<p>Note that we can pass in a function as well: get_local_time() which we use <a href="https://github.com/pybites/weather_compare/blob/master/templates/weather.html">in the template</a>:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">time</span><span class="o">(</span><span class="nv">d</span><span class="o">[</span><span class="s1">&#39;sys&#39;</span><span class="o">][</span><span class="s1">&#39;sunrise&#39;</span><span class="o">],</span> <span class="nv">d</span><span class="o">[</span><span class="s1">&#39;sys&#39;</span><span class="o">][</span><span class="s1">&#39;country&#39;</span><span class="o">],</span> <span class="nv">d</span><span class="o">[</span><span class="s1">&#39;name&#39;</span><span class="o">])</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
+</pre></div>
+
+
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Deploy to Heroku</h2>
+<ul>
+<li>I then <a href="http://weathercompare.herokuapp.com/">deployed the app</a> and luckily took some notes. Prerequisite is installing <a href="https://devcenter.heroku.com/articles/heroku-cli">Heroku CLI</a>.<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">with</span> <span class="n">your</span> <span class="n">virtualenv</span> <span class="n">enabled</span><span class="p">)</span>
+
+<span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">gunicorn</span>
+
+<span class="err">$</span> <span class="n">pip</span> <span class="n">freeze</span> <span class="o">&gt;</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+<span class="err">$</span> <span class="n">echo</span> <span class="s">&quot;web: gunicorn &lt;APP_FILE_NAME&gt;:app&quot;</span> <span class="o">&gt;</span> <span class="n">Procfile</span>
+<span class="err">$</span> <span class="n">echo</span> <span class="s">&quot;python-3.5.2&quot;</span> <span class="o">&gt;</span> <span class="n">runtime</span><span class="p">.</span><span class="n">txt</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="p">.</span> <span class="o">&amp;&amp;</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">prep</span> <span class="n">files</span> <span class="n">heroku</span><span class="err">&#39;</span>
+
+<span class="err">$</span> <span class="n">heroku</span> <span class="n">login</span>
+<span class="n">Enter</span> <span class="n">your</span> <span class="n">Heroku</span> <span class="n">credentials</span><span class="p">.</span>
+<span class="nl">Email</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">email</span><span class="o">&gt;</span>
+<span class="n">Password</span> <span class="p">(</span><span class="n">typing</span> <span class="n">will</span> <span class="n">be</span> <span class="n">hidden</span><span class="p">)</span><span class="o">:</span>
+<span class="n">Logged</span> <span class="k">in</span> <span class="n">as</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">email</span><span class="o">&gt;</span>
+
+<span class="err">$</span> <span class="n">heroku</span> <span class="n">create</span> <span class="n">weathercompare</span>
+<span class="n">Creating</span> <span class="err">⬢</span> <span class="n">weathercompare</span><span class="p">...</span> <span class="n">done</span>
+<span class="nl">https</span><span class="p">:</span><span class="c1">//weathercompare.herokuapp.com/ | https://git.heroku.com/weathercompare.git</span>
+
+<span class="err">$</span> <span class="n">heroku</span> <span class="nl">git</span><span class="p">:</span><span class="n">remote</span> <span class="o">-</span><span class="n">a</span> <span class="n">weathercompare</span>
+<span class="n">set</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">heroku</span> <span class="n">to</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git</span>
+
+<span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+<span class="n">heroku</span>    <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git (fetch)</span>
+<span class="n">heroku</span>    <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git (push)</span>
+
+<span class="err">$</span> <span class="n">heroku</span> <span class="nl">config</span><span class="p">:</span><span class="n">set</span> <span class="n">WEATHER_API</span><span class="o">=</span><span class="n">XYZ</span>
+<span class="n">Setting</span> <span class="n">WEATHER_API</span> <span class="n">and</span> <span class="n">restarting</span> <span class="err">⬢</span> <span class="n">weathercompare</span><span class="p">...</span> <span class="n">done</span><span class="p">,</span> <span class="n">v3</span>
+<span class="nl">WEATHER_API</span><span class="p">:</span> <span class="n">XYZ</span>
+
+<span class="err">$</span> <span class="n">heroku</span> <span class="nl">ps</span><span class="p">:</span><span class="n">scale</span> <span class="n">web</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">master</span>
+<span class="n">Counting</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="n">done</span><span class="p">.</span>
+<span class="n">Delta</span> <span class="n">compression</span> <span class="n">using</span> <span class="n">up</span> <span class="n">to</span> <span class="mi">4</span> <span class="n">threads</span><span class="p">.</span>
+<span class="n">Compressing</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">9</span><span class="o">/</span><span class="mi">9</span><span class="p">),</span> <span class="n">done</span><span class="p">.</span>
+<span class="n">Writing</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">15</span><span class="p">),</span> <span class="mf">2.55</span> <span class="n">KiB</span> <span class="o">|</span> <span class="mi">0</span> <span class="n">bytes</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="n">done</span><span class="p">.</span>
+<span class="n">Total</span> <span class="mi">15</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">1</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">0</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Compressing</span> <span class="n">source</span> <span class="n">files</span><span class="p">...</span> <span class="n">done</span><span class="p">.</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Building</span> <span class="nl">source</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Python</span> <span class="n">app</span> <span class="n">detected</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Installing</span> <span class="n">python</span><span class="o">-</span><span class="mf">3.5.2</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Installing</span> <span class="n">pip</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Installing</span> <span class="n">requirements</span> <span class="n">with</span> <span class="n">pip</span>
+<span class="p">...</span>
+<span class="p">...</span>
+<span class="p">...</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Launching</span><span class="p">...</span>
+<span class="nl">remote</span><span class="p">:</span>        <span class="n">Released</span> <span class="n">v4</span>
+<span class="nl">remote</span><span class="p">:</span>        <span class="nl">https</span><span class="p">:</span><span class="c1">//weathercompare.herokuapp.com/ deployed to Heroku</span>
+<span class="nl">remote</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Verifying</span> <span class="n">deploy</span><span class="p">...</span> <span class="n">done</span><span class="p">.</span>
+<span class="n">To</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git</span>
+<span class="o">*</span> <span class="p">[</span><span class="n">new</span> <span class="n">branch</span><span class="p">]</span>      <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+
+<span class="cp"># made a change? e.g. I added the CSS later, no problem, just deploy again</span>
+
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span>
+<span class="p">...</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Building</span> <span class="nl">source</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Python</span> <span class="n">app</span> <span class="n">detected</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Installing</span> <span class="n">requirements</span> <span class="n">with</span> <span class="n">pip</span>
+<span class="nl">remote</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Discovering</span> <span class="n">process</span> <span class="n">types</span>
+<span class="nl">remote</span><span class="p">:</span>        <span class="n">Procfile</span> <span class="n">declares</span> <span class="n">types</span> <span class="o">-&gt;</span> <span class="n">web</span>
+<span class="nl">remote</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Compressing</span><span class="p">...</span>
+<span class="nl">remote</span><span class="p">:</span>        <span class="nl">Done</span><span class="p">:</span> <span class="mf">57.5</span><span class="n">M</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="o">-----&gt;</span> <span class="n">Launching</span><span class="p">...</span>
+<span class="nl">remote</span><span class="p">:</span>        <span class="n">Released</span> <span class="n">v7</span>
+<span class="nl">remote</span><span class="p">:</span>        <span class="nl">https</span><span class="p">:</span><span class="c1">//weathercompare.herokuapp.com/ deployed to Heroku</span>
+<span class="nl">remote</span><span class="p">:</span>
+<span class="nl">remote</span><span class="p">:</span> <span class="n">Verifying</span> <span class="n">deploy</span><span class="p">...</span> <span class="n">done</span><span class="p">.</span>
+<span class="n">To</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git</span>
+<span class="n">c9771bb</span><span class="p">.</span><span class="mf">.77</span><span class="n">abb53</span>  <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+</pre></div>
+
+
+</li>
+</ul>
+<hr>
+<p>I hope this inspired you to build your own mini Flask app using an API and putting it on Heroku. I hope I have convinced you this is pretty awesome stuff, not too hard to grasp, yet powerful if you further exploit its features. </p>
+<p>Leave a comment below if you want to share what you've built and/or join our <a href="http://pybit.es/codechallenge15.html">Flask Code Challenge</a> of this week.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/flask.html">Flask</a>
+      <a href="http://pybit.es/tag/weather.html">weather</a>
+      <a href="http://pybit.es/tag/api.html">API</a>
+      <a href="http://pybit.es/tag/openweathermap.html">OpenWeatherMap</a>
+      <a href="http://pybit.es/tag/learning.html">learning</a>
+      <a href="http://pybit.es/tag/heroku.html">Heroku</a>
+      <a href="http://pybit.es/tag/pytz.html">pytz</a>
+      <a href="http://pybit.es/tag/deploy.html">deploy</a>
+      <a href="http://pybit.es/tag/jinja.html">Jinja</a>
+      <a href="http://pybit.es/tag/css.html">CSS</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
