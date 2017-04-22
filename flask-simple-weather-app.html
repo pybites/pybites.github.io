@@ -183,6 +183,7 @@ $ pip install -r requirements.txt
 <span class="n">Password</span> <span class="p">(</span><span class="n">typing</span> <span class="n">will</span> <span class="n">be</span> <span class="n">hidden</span><span class="p">)</span><span class="o">:</span>
 <span class="n">Logged</span> <span class="k">in</span> <span class="n">as</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">email</span><span class="o">&gt;</span>
 
+<span class="cp"># you can name your app or let Heroku give you a random name</span>
 <span class="err">$</span> <span class="n">heroku</span> <span class="n">create</span> <span class="n">weathercompare</span>
 <span class="n">Creating</span> <span class="err">⬢</span> <span class="n">weathercompare</span><span class="p">...</span> <span class="n">done</span>
 <span class="nl">https</span><span class="p">:</span><span class="c1">//weathercompare.herokuapp.com/ | https://git.heroku.com/weathercompare.git</span>
@@ -194,11 +195,10 @@ $ pip install -r requirements.txt
 <span class="n">heroku</span>    <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git (fetch)</span>
 <span class="n">heroku</span>    <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git (push)</span>
 
+<span class="cp"># if ENV variables</span>
 <span class="err">$</span> <span class="n">heroku</span> <span class="nl">config</span><span class="p">:</span><span class="n">set</span> <span class="n">WEATHER_API</span><span class="o">=</span><span class="n">XYZ</span>
 <span class="n">Setting</span> <span class="n">WEATHER_API</span> <span class="n">and</span> <span class="n">restarting</span> <span class="err">⬢</span> <span class="n">weathercompare</span><span class="p">...</span> <span class="n">done</span><span class="p">,</span> <span class="n">v3</span>
 <span class="nl">WEATHER_API</span><span class="p">:</span> <span class="n">XYZ</span>
-
-<span class="err">$</span> <span class="n">heroku</span> <span class="nl">ps</span><span class="p">:</span><span class="n">scale</span> <span class="n">web</span><span class="o">=</span><span class="mi">1</span>
 
 <span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">master</span>
 <span class="n">Counting</span> <span class="nl">objects</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="n">done</span><span class="p">.</span>
@@ -223,6 +223,9 @@ $ pip install -r requirements.txt
 <span class="nl">remote</span><span class="p">:</span> <span class="n">Verifying</span> <span class="n">deploy</span><span class="p">...</span> <span class="n">done</span><span class="p">.</span>
 <span class="n">To</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//git.heroku.com/weathercompare.git</span>
 <span class="o">*</span> <span class="p">[</span><span class="n">new</span> <span class="n">branch</span><span class="p">]</span>      <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+
+<span class="err">$</span> <span class="n">heroku</span> <span class="nl">ps</span><span class="p">:</span><span class="n">scale</span> <span class="n">web</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">Scaling</span> <span class="n">dynos</span><span class="p">...</span> <span class="n">done</span><span class="p">,</span> <span class="n">now</span> <span class="n">running</span> <span class="n">web</span> <span class="n">at</span> <span class="mi">1</span><span class="o">:</span><span class="n">Free</span>
 
 <span class="cp"># made a change? e.g. I added the CSS later, no problem, just deploy again</span>
 
