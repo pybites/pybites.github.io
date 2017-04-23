@@ -118,13 +118,13 @@
 <p>This is a very simple program that asks you for the last thing you ate and drank and tracks it in a database. You can then print out the "meal history" (ie, dump of the db) on another web page.</p>
 </li>
 <li>
-<p>Everything is run within an <em>app.py</em> file. I can definitely go back and refactor this code to be more Pythonic. For example, I control the connection to the sqlite db by using a <em>with</em> statement. You can see this statement occur three times in the program. Way too much repetition for my liking!</p>
+<p>Everything is run within an <em>app.py</em> file. I can definitely go back and refactor this code to be more Pythonic. For example, I control the connection to the sqlite db using a <em>with</em> statement. You can see this statement occur three times in the program which is way too much repetition for my liking!</p>
 </li>
 <li>
 <p>The most difficult thing to get right was the passing of the data from the form back to the Python script for storage. The difficulty was more in wrapping my head around how this worked as I wasn't 100% across the whole HTTP GET and POST methods.</p>
 </li>
 <li>
-<p>Point of learning: In my <em>def index()</em> function, the first load of the web page causes the return value to be passed to the page straight away. The entire if statement isn't processes <strong>until the POST request is made by submitting the form</strong>. Figuring this out was like reaching enlightenment to me.</p>
+<p>Point of learning: In my <em>def index()</em> function, the first load of the web page causes the return value to be passed to the page straight away. The entire if statement isn't processed <strong>until the POST request is made by submitting the form</strong>. (Figuring this out was like reaching enlightenment).</p>
 </li>
 <li>
 <p>I spent an entire evening this week learning sqlite3 just for this challenge. Totally worth it. If you don't know it already, do it. It's a wonderful way of storing data! It's also super handy being able to view the .db file in the SQLite DB browser to sanity check your app is doing what it's supposed to.</p>
