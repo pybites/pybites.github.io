@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Dante" />
+<meta name="description" content="In this guest post Dante tells us about his Wisdom of the Ages app he built for PyBites code challenge 16 (reviewed here). The best way to learn Python is to build something and we are proud of our community achieving just that." />
+<meta name="keywords" content="challenges, learning, guest, wikipedia, API, code review, flask, requests, quotes, forismatic">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Learning Python by Building a Wisdom Quotes App"/>
+<meta property="og:description" content="In this guest post Dante tells us about his Wisdom of the Ages app he built for PyBites code challenge 16 (reviewed here). The best way to learn Python is to build something and we are proud of our community achieving just that."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/guest-learning-apis.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-05-09 14:10:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/dante.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="challenges"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="guest"/>
+<meta property="article:tag" content="wikipedia"/>
+<meta property="article:tag" content="API"/>
+<meta property="article:tag" content="code review"/>
+<meta property="article:tag" content="flask"/>
+<meta property="article:tag" content="requests"/>
+<meta property="article:tag" content="quotes"/>
+<meta property="article:tag" content="forismatic"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Learning Python by Building a Wisdom Quotes App" />
+<meta name="twitter:description" content="In this guest post Dante tells us about his Wisdom of the Ages app he built for PyBites code challenge 16 (reviewed here). The best way to learn Python is to build something and we are proud of our community achieving just that." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Learning Python by Building a Wisdom Quotes App</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='brown'>
+
+    <div>
+      <a href="http://pybit.es">
+
+			<img src="http://pybit.es/theme/img/guest.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="http://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="http://pybit.es/pages/news.html">News</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	  <a class="twitter-follow-button" href="https://twitter.com/pybites"
+	  	data-show-screen-name="false" data-size="large" data-show-count="false"> 
+		Follow @pybites</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="guest-learning-apis">Learning Python by Building a Wisdom Quotes App</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/dante.html">Dante</a> on Tue 09 May 2017 in <a href="http://pybit.es/category/learning.html">Learning</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this guest post Dante tells us about his <a href="https://github.com/pybites/challenges/tree/community/16/dseptem">Wisdom of the Ages</a> app he built for <a href="http://pybit.es/codechallenge16.html">PyBites code challenge 16</a> (reviewed <a href="http://pybit.es/codechallenge16_review.html">here</a>). The best way to learn Python is to build something and we are proud of our community achieving just that. </p>
+<hr>
+<h2>Query Your Favorite API Challenge</h2>
+<p>Only recently I started following PyBites, but I really liked the idea of the <a href="http://pybit.es/pages/challenges.html">code challenges</a>, so when I saw the opportunity to put some of my knowledge in practice, I took it without thinking twice.</p>
+<p>As I like to challenge myself and up the bets, I decided I was going to query one API and then query another one using somehow the results of the first. Since I had some experience querying the Wikipedia API, I chose it then googled up for free APIs on the internet to use. I came by <a href="http://forismatic.com/en/api/">an API to get random inspirational quotes</a>, and the idea struck me: </p>
+<blockquote>
+<p>A simple website that displays a random inspirational quote, with its author's biography as an addendum. Wikipedia could provide those biographies!</p>
+</blockquote>
+<h3>App implementation</h3>
+<p>I quickly sketched the app using the well-known 'flask' and 'requests' modules, with a simple jinja2 template to display three variables: </p>
+<ul>
+<li>The quote, </li>
+<li>the quote's author, and </li>
+<li>the quote's author's biography.</li>
+</ul>
+<h3>Error handling</h3>
+<p>After the core functionality was done, I started to iron out some bugs by adding try/except blocks for expected errors: </p>
+<ul>
+<li>the quotes API sometimes returned malformed JSON, </li>
+<li>I couldn't grab a biography for an anonymous author.</li>
+</ul>
+<h2>Making it pretty</h2>
+<p>Done with the 'insides' of my machine, I wanted to make it look pretty on the outside too, so I used my google-fu to search for bootstrap templates and themes, found one I liked (<a href="https://bootstraptaste.com/free-one-page-bootstrap-template-amoeba/">Amoeba</a>) and after cutting down all the things I didn't need and downloading a favicon, my first iteration of <a href="https://github.com/pybites/challenges/tree/community/16/dseptem"><strong>Wisdom of the Ages</strong></a> was finished:</p>
+<p><img alt="wisdom of ages design" src="http://pybit.es/images/pcc16_dseptem2.png"></p>
+<h2>Experimenting</h2>
+<p>But I wanted more! Recently I had heard about a Python module called <a href="https://github.com/r0x0r/pywebview">pywebview</a>, which displays a barebones browser as an application to the user. I figured I could make the user of my script choose between the 'embedded' simple view of the website flask created and her own browser, but eventually dropped the functionality because it made everything more complicated (I even had to use threading to run code after starting the flask app website) with no real benefit.</p>
+<h2>Refactoring</h2>
+<p>Finally, after some back-and-forth with PyBites (thanks for the feedback, again!), I refactored the code for readability, made it more pythonic, added an "another quote" button that refreshes the website on click and last but not least, prepared the app to display an 'Internal server error' if the quotes API is down or the user has no internet connection.</p>
+<h2>Conclusion</h2>
+<p>I really enjoyed this experience and I'm looking forward to more challenges! Peer-reviewing code is a joy I don't usually get to experience. Thanks to the folks at PyBites and have fun with your coding!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Dante Septem</p>
+<blockquote>
+<p>Dante describes himself as "a Pythonista in the making, digital magician and complete fool". You can follow him <a href="https://github.com/dseptem">on Github</a></p>
+</blockquote>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/challenges.html">challenges</a>
+      <a href="http://pybit.es/tag/learning.html">learning</a>
+      <a href="http://pybit.es/tag/guest.html">guest</a>
+      <a href="http://pybit.es/tag/wikipedia.html">wikipedia</a>
+      <a href="http://pybit.es/tag/api.html">API</a>
+      <a href="http://pybit.es/tag/code-review.html">code review</a>
+      <a href="http://pybit.es/tag/flask.html">flask</a>
+      <a href="http://pybit.es/tag/requests.html">requests</a>
+      <a href="http://pybit.es/tag/quotes.html">quotes</a>
+      <a href="http://pybit.es/tag/forismatic.html">forismatic</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
