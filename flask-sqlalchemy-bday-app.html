@@ -100,7 +100,7 @@
           Posted by <a href="http://pybit.es/author/bob.html">Bob</a> on Thu 11 May 2017 in <a href="http://pybit.es/category/flask.html">Flask</a>
 
 
-        &#8226; 2 min read
+        &#8226; 3 min read
     </p>
   </header>
 
@@ -142,8 +142,9 @@ db.create_all()
 </pre></div>
 
 
-<p>I use the bdays.py ics parsing code to populate the table with all birthdays. You can even strip out the names (which was useful to share printscreens here):</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">bd</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_birthdays</span><span class="p">(</span><span class="s1">&#39;cal.ics&#39;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">bday</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">bday</span><span class="o">.</span><span class="n">day</span><span class="p">)):</span>
+<p>I use the bdays.py ics parsing code to populate the table with all birthdays. You can even strip out the names (which was useful to share printscreens here). I store all birthdays with the same year (calendar ics ranges May '17 - May '18), otherwise the date querying fails (next step):</p>
+<div class="highlight"><pre><span></span><span class="c1"># insert birthdays sorted</span>
+<span class="k">for</span> <span class="n">bd</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_birthdays</span><span class="p">(</span><span class="s1">&#39;cal.ics&#39;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">bday</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">bday</span><span class="o">.</span><span class="n">day</span><span class="p">)):</span>
 
     <span class="c1"># no real names</span>
     <span class="k">if</span> <span class="n">TEST_MODE</span><span class="p">:</span>
@@ -176,7 +177,7 @@ bdays = Birthday.query.filter(Birthday.bday &lt;= end).filter(Birthday.bday &gt;
 
 </li>
 <li>
-<p>How to get all birthdays of month n (<a href="http://stackoverflow.com/questions/36155332/how-to-get-the-first-day-and-last-day-of-current-month-in-python">SO help</a>). I use THIS_YEAR (2017) to store all birthdays with the same year (calendar ics had them from May '17 to May '18). The SQLAlchemy query is the same:</p>
+<p>How to get all birthdays of month n (<a href="http://stackoverflow.com/questions/36155332/how-to-get-the-first-day-and-last-day-of-current-month-in-python">see SO</a>). The SQLAlchemy query is the same:</p>
 <div class="highlight"><pre><span></span>@app.route(&#39;/&lt;int:month&gt;&#39;)
 ...
 _, num_days = calendar.monthrange(THIS_YEAR, month)
@@ -212,19 +213,28 @@ bdays = Birthday.query.filter(Birthday.bday &lt;= end).filter(Birthday.bday &gt;
 <p>Full CRUD: add/update/delete friends and/or re-import new ics download.</p>
 </li>
 <li>
-<p>Second (relational) table/ model to add the notifications sent and a "complete" (boolean) column to be update when I sent Happy Birthday wishes to friend.</p>
+<p>Second (relational) model for tracking: </p>
+<ul>
+<li>
+<p>add the notifications sent to this table </p>
+</li>
+<li>
+<p>have a "done" flag to update when I sent Happy Birthday wishes to a particular friend.</p>
+</li>
+</ul>
+<p>This is a nice extension to use Flask-SQLAlchemy's db.ForeignKey.</p>
 </li>
 </ul>
 <h2>Resources</h2>
 <ul>
 <li>
-<p>Flask-SQLAlchemy <a href="http://flask-sqlalchemy.pocoo.org/2.1/">docs</a> get you up2speed fast.</p>
+<p>Flask-SQLAlchemy <a href="http://flask-sqlalchemy.pocoo.org/2.1/">docs</a> is a great start.</p>
 </li>
 <li>
 <p>See our <a href="http://pybit.es/codechallenge15_review.html">code challenge 15 review</a> for more example apps using Flask-SQLAlchemy.</p>
 </li>
 <li>
-<p>For examples of standard SQLAlchemy (outside Flask) see our <a href="http://pybit.es/codechallenge17_review.html">code challenge 17 review</a> has some examples.</p>
+<p>For examples of standard SQLAlchemy (outside Flask), our <a href="http://pybit.es/codechallenge17_review.html">code challenge 17 review</a> has some examples.</p>
 </li>
 <li>
 <p>To learn SQLAlchemy start with the <a href="http://sqlalchemy.readthedocs.io/en/latest/orm/tutorial.html">Object Relational Tutorial</a>.</p>
