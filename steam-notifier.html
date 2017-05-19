@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="http://pybit.es/theme/stylesheet/custom.css">
+
+
+
+    <link rel="shortcut icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="PyBites" />
+<meta name="description" content="In this post we demonstrate ways in which you can parse common data formats used in Python." />
+<meta name="keywords" content="learning, code, programming, python, sqlite3, xml, email, automation, tools, feedparser, game">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to Create Your Own Steam Game Release Notifier"/>
+<meta property="og:description" content="In this post we demonstrate ways in which you can parse common data formats used in Python."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="http://pybit.es/steam-notifier.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-05-19 19:53:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="http://pybit.es/author/pybites.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="sqlite3"/>
+<meta property="article:tag" content="xml"/>
+<meta property="article:tag" content="email"/>
+<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="tools"/>
+<meta property="article:tag" content="feedparser"/>
+<meta property="article:tag" content="game"/>
+<meta property="og:image" content="http://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How to Create Your Own Steam Game Release Notifier" />
+<meta name="twitter:description" content="In this post we demonstrate ways in which you can parse common data formats used in Python." />
+<meta name="twitter:image" content="http://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; How to Create Your Own Steam Game Release Notifier</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="http://pybit.es">
+
+			<img src="http://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="http://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="http://pybit.es/pages/about.html">About</a></li>
+          <li><a href="http://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="http://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="http://pybit.es/pages/news.html">News</a></li>
+          <li><a href="http://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	  <a class="twitter-follow-button" href="https://twitter.com/pybites"
+	  	data-show-screen-name="false" data-size="large" data-show-count="false"> 
+		Follow @pybites</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="steam-notifier">How to Create Your Own Steam Game Release Notifier</h1>
+    <p>
+          Posted by <a href="http://pybit.es/author/pybites.html">PyBites</a> on Fri 19 May 2017 in <a href="http://pybit.es/category/learning.html">Learning</a>
+
+
+        &#8226; 6 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>If you’ve been following our <a href="http://pybit.es/special-100days.html">100 Days of Code Challenge</a> you’ll have noticed that I’ve been contributing snippets of code relating to the <a href="http://store.steampowered.com/">Steam</a> gaming platform and store.</p>
+<p>When people ask us what the best way to learn Python is, we always tell them to get their hands dirty and to <a href="http://pybit.es/learn-by-doing.html">learn by doing</a>. Idea wise, we tell people to scratch their own itch. That’s exactly what I’ve been doing between code challenges, work and family life. I made my own Steam Game Notifier that emails me the latest Steam game releases!</p>
+<p>Steam does have its own RSS feed which I could have just loaded in an RSS app but there’s no fun in that! I wanted the challenge of coding up a solution myself. This post will break down the code and describe the solution.</p>
+<p><a href="https://github.com/pybites/blog_code/tree/master/steam_notifier">Full code here</a>.</p>
+<p><br></p>
+<h2>Splitting the Code Up</h2>
+<p>Looking at the above code link you’ll notice there are four Python scripts that make up the program:</p>
+<ul>
+<li><strong>email_list.py:</strong> Stores the email addresses of recipients for this tool.</li>
+<li><strong>emailer.py:</strong> The script that sends the email. It reads in the emails stored in email_list.py.</li>
+<li><strong>pull_xml.py:</strong> This script pulls down the newreleases.xml file from the Steam servers and saves it to the local directory.</li>
+<li><strong>xml_steam_scraper.py:</strong> The main script. This parses the XML file and manipulates the database.</li>
+</ul>
+<p><br></p>
+<h2>pull_xml.py</h2>
+<p>We’ll attack this in executional order. First up is <code>pull_xml.py</code>.</p>
+<p>This is a very simple <code>requests</code> pull. It requests the newreleases.xml file from Steam and saves the contents to the local directory. The main thing to note in the code is the <code>wb</code> open mode:</p>
+<div class="highlight"><pre><span></span>with open(&#39;newreleases.xml&#39;, &#39;wb&#39;) as f:
+    f.write(r.content)
+</pre></div>
+
+
+<p>The <code>wb</code> (write binary) mode is required to correctly write the XML data to a local file called new releases.xml.</p>
+<p><br></p>
+<h2>xml_steam_scraper.py</h2>
+<p>Now for the meat. I’ll cover the noteworthy parts as it should hopefully help anyone learning Python.</p>
+<p><br></p>
+<div class="highlight"><pre><span></span>Game = namedtuple(&#39;Game&#39;, &#39;title url&#39;)
+</pre></div>
+
+
+<p>Here we have a <code>namedtuple</code> from the <code>collections</code> module. Read this <a href="https://docs.python.org/3/library/collections.html#collections.namedtuple">docs.python doc</a> if you’re new to these. Essentially we’re creating a tuple subclass named <code>Game</code>. It has two fields associated with it: <code>title</code> and <code>url</code> (more on this later).</p>
+<p><br></p>
+<div class="highlight"><pre><span></span>def check_create_db():
+    with sqlite3.connect(DB_NAME) as connection:
+        c = connection.cursor()
+        try:
+            c.execute(&quot;&quot;&quot;CREATE TABLE new_steam_games
+                (Name TEXT, Link TEXT, Emailed TEXT)
+                    &quot;&quot;&quot;)        
+        except:
+            pass
+</pre></div>
+
+
+<p>This entire function handles the database creation we’re using for this program. The <code>sqlite</code> code will create the DB <code>steam_games.db</code> (as per the declaration at the top of the code) if the DB doesn’t exist. If it does exist, it just continues on.</p>
+<p><br></p>
+<div class="highlight"><pre><span></span>c.execute(&quot;SELECT Name from new_steam_games&quot;)
+db_games_list = c.fetchall()
+</pre></div>
+
+
+<p>Within the <code>pull_db_data()</code> function you’ll see this line. This code will pull the <code>Name</code> data from the <code>steam_games.db</code> file and populate the <code>db_games_list</code> list with the data.</p>
+<p><br></p>
+<div class="highlight"><pre><span></span>#Ignore my intentionally awesome function names
+def parse_that_feed_baby():
+    feed_list = []
+    feed = feedparser.parse(FEED_FILE)
+    for entry in feed[&#39;entries&#39;]:
+        game_data = Game(title=entry[&#39;title&#39;], url=entry[&#39;link&#39;])
+        feed_list.append(game_data)
+    return feed_list
+</pre></div>
+
+
+<p>This is where I use <code>feedparser</code> to interrogate the <code>newreleases.xml</code> file. We also see the usage of that <code>namedtuple</code> <code>Game</code>. The fields we specified earlier are being assigned “entries” pulled from the XML file with feedparser.</p>
+<p>The <code>title</code> field is given the XML “title” of the game; the <code>url</code> field is given the link to the game.</p>
+<p>This is done for every individual “entry” (game) in the XML file using the <code>for</code> loop. It’s all appended to <code>feed_list</code>.</p>
+<p><br></p>
+<div class="highlight"><pre><span></span>def check_for_new(feed_list, db_games):
+    new_games_list = []
+    for data in feed_list:
+        if (data.title,) not in db_games:
+            new_games_list.append(data)
+    return new_games_list
+</pre></div>
+
+
+<p>This function creates an empty list called <code>new_games_list</code>. It then checks whether <code>data.title</code> (<code>.title</code> being the field from the namedtuple) is <strong>not</strong> in the existing games database <code>db_games</code>. I’m essentially doing a name match. Eg: Does the game name from the feed list exist in the list of games already in the database.</p>
+<p>If the name <strong>isn’t</strong> in the existing DB, then we add it to the <code>new_games_list</code> list.</p>
+<p><br></p>
+<div class="highlight"><pre><span></span>c.executemany(&quot;INSERT INTO new_steam_games VALUES (?, ?, 0)&quot;, new_games)
+</pre></div>
+
+
+<p>Finally, at the end of the <code>main()</code> function, we add the <strong>new games</strong> to the DB. The 2x ?s are placeholders for the data in the <code>new_games</code> list. The 0 at the end will be explained in a moment.</p>
+<p><br></p>
+<h2>DB Table Layout and Emailed Flag</h2>
+<p>The DB we create at the start of the script has 3x columns: <code>Name</code>, <code>Link</code>, and <code>Emailed</code>, all of which are <code>TEXT</code> types.</p>
+<p><code>Name</code> and <code>Link</code> are self explanatory but why <code>Emailed</code>?</p>
+<p>I needed a way to determine whether a row (game) had been emailed out already. I decided to go with a boolean flag, i.e., Yes/No, True/False, 0/1.</p>
+<p>When new games are added to the DB at the end of the code, they’re added with a 0 in the 3rd column (<code>Emailed</code>). This indicates that they are new and have <strong>not</strong> been emailed.</p>
+<p><br></p>
+<h2>emailer.py</h2>
+<p>I’ve covered sending advanced emails using Python MIME in a <a href="http://pybit.es/python-MIME.html">previous article</a> so have a read through of that for the basics if you’re not sure what you’re looking at here.</p>
+<p>The important code is this:</p>
+<div class="highlight"><pre><span></span>with sqlite3.connect(DATA_FILE) as connection:
+    c = connection.cursor()
+    c.execute(&quot;SELECT Name, Link FROM new_steam_games WHERE Emailed=&#39;0&#39;&quot;)
+    for item in c.fetchall():
+        body += item[0] + &#39;: &#39; + item[1] + &#39;\n&#39;
+    c.execute(&quot;UPDATE new_steam_games SET Emailed=&#39;1&#39;&quot;)
+</pre></div>
+
+
+<p>In this code I grab the data from the database that has a “0” in the <code>Emailed</code> column. (Pulling the new games!).</p>
+<p>I then add the name, <code>item[0]</code>, and link, <code>item[1]</code> to the body of the email using a <code>for</code> loop. This will add the new games one by one.</p>
+<p>After this, the games are then flagged as being emailed by changing the <code>Emailed</code> flag to “1”. This will ensure that the next time the emailer is run, the same games don’t get emailed again.</p>
+<p><br></p>
+<h2>Automate it!</h2>
+<p>Done! What next? Add it to a cron job and automate the sucker!</p>
+<p>I’ve got the pull, the feedparse and emailer all running on separate cron jobs, one after the other (2 mins apart).</p>
+<p>The pull writes over newreleases.xml with fresh data; feedparser updates the DB with fresh data (if any) and the emailer sends out any new games.</p>
+<p>An example crontab entry could be:</p>
+<div class="highlight"><pre><span></span>30 20 * * * cd /opt/development/steamscraper &amp;&amp; /usr/bin/python3 pull_xml.py
+</pre></div>
+
+
+<p><br></p>
+<h2>Improvements</h2>
+<p>I’m seeing plenty of room for improvement just writing this article! The curse of the programmer!</p>
+<ul>
+<li>
+<p>What happens if there isn’t a new game to email out? Does it break or just send an empty email? (No idea at the time of writing!). The script should either not send an email or (easier) just email a “No new games” message.</p>
+</li>
+<li>
+<p>In the xml_steam_scraper.py script I access the sqlite DB using a <code>with</code> statement <strong>three</strong> times. This seems unpythonic to me. I need to figure out a better way to talk to the DB throughout the script. I could do a <code>connect</code> at the start and then a <code>close</code> at the end of <code>main()</code> but is it Pythonic to leave the DB connection open for the entirety of the script?</p>
+</li>
+<li>
+<p>I could have some nicer text (a header maybe?) in the email rather than just a plain text dump of the Names/URLs.</p>
+</li>
+<li>
+<p>What happens if the emailer fails <em>after</em> I’ve already changed the <code>Emailed</code> DB flag to 1? The new games will <strong>not</strong> have been mailed out but the DB will have potentially been updated to reflect that they have been. I could probably move the update to the end of the script to avoid this.</p>
+</li>
+<li>
+<p>Create funnier function names (just on my copy of the code of course!).</p>
+</li>
+</ul>
+<p><br></p>
+<h2>Learning</h2>
+<p>I’m stoked that this thing actually WORKS! And boy did I learn a lot! In this program alone I’ve tackled so many different concepts:</p>
+<ul>
+<li>feedparser (web scraping)</li>
+<li>sqlite (persistent storage)</li>
+<li>with statements</li>
+<li>smtplib (emailers)</li>
+<li>requests (more web scraping)</li>
+<li>collections (namedtuples)</li>
+</ul>
+<p>The biggest hurdle for me was figuring out how to store the data in the DB and determine whether an entry had been emailed or not. That took me <em>ages</em>!</p>
+<p>Very happy with the final result, regardless of its Pythonicness (roll with the word). I’ll keep refactoring as I go but for now I’ll enjoy the satisfaction of automatically emailing myself games to buy!</p>
+<p>If you have any feedback or improvements <em>please</em> let me know. It’s the best way to learn!</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="http://pybit.es/tag/learning.html">learning</a>
+      <a href="http://pybit.es/tag/code.html">code</a>
+      <a href="http://pybit.es/tag/programming.html">programming</a>
+      <a href="http://pybit.es/tag/python.html">python</a>
+      <a href="http://pybit.es/tag/sqlite3.html">sqlite3</a>
+      <a href="http://pybit.es/tag/xml.html">xml</a>
+      <a href="http://pybit.es/tag/email.html">email</a>
+      <a href="http://pybit.es/tag/automation.html">automation</a>
+      <a href="http://pybit.es/tag/tools.html">tools</a>
+      <a href="http://pybit.es/tag/feedparser.html">feedparser</a>
+      <a href="http://pybit.es/tag/game.html">game</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "http://pybit.es",
+  "image": "http://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
