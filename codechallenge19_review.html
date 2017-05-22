@@ -23,38 +23,33 @@
 
 
 <meta name="author" content="PyBites" />
-<meta name="description" content="Before moving onto the new challenge let's review last week's challenge. It's never late to sign up, just fork our challenges repo and start coding." />
-<meta name="keywords" content="codechallenges, books, Goodreads, API, oauth, Manning, Machine Learning, Netflix, recommendation engine, Parrotread, recommender system">
+<meta name="description" content="This week was pretty busy due to PyCon, but what an amazing conference! A lot to absorb which we will digest in the upcoming articles. First our regular schedule though: review of last week's challenge: post to your favorite API." />
+<meta name="keywords" content="codechallenges, learning, API, POST, Twitter, Facebook">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Code Challenge 18 - Get Recommendations - Review"/>
-<meta property="og:description" content="Before moving onto the new challenge let's review last week's challenge. It's never late to sign up, just fork our challenges repo and start coding."/>
+<meta property="og:title" content="Code Challenge 19 - Post to Your Favorite API - Review"/>
+<meta property="og:description" content="This week was pretty busy due to PyCon, but what an amazing conference! A lot to absorb which we will digest in the upcoming articles. First our regular schedule though: review of last week's challenge: post to your favorite API."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="http://pybit.es/codechallenge18_review.html"/>
+<meta property="og:url" content="http://pybit.es/codechallenge19_review.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-05-15 11:37:00+02:00"/>
+<meta property="article:published_time" content="2017-05-22 15:00:00+02:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="http://pybit.es/author/pybites.html">
 <meta property="article:section" content="Challenges"/>
 <meta property="article:tag" content="codechallenges"/>
-<meta property="article:tag" content="books"/>
-<meta property="article:tag" content="Goodreads"/>
+<meta property="article:tag" content="learning"/>
 <meta property="article:tag" content="API"/>
-<meta property="article:tag" content="oauth"/>
-<meta property="article:tag" content="Manning"/>
-<meta property="article:tag" content="Machine Learning"/>
-<meta property="article:tag" content="Netflix"/>
-<meta property="article:tag" content="recommendation engine"/>
-<meta property="article:tag" content="Parrotread"/>
-<meta property="article:tag" content="recommender system"/>
+<meta property="article:tag" content="POST"/>
+<meta property="article:tag" content="Twitter"/>
+<meta property="article:tag" content="Facebook"/>
 <meta property="og:image" content="http://pybit.es/images/featured/pb-challenge.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Code Challenge 18 - Get Recommendations - Review" />
-<meta name="twitter:description" content="Before moving onto the new challenge let's review last week's challenge. It's never late to sign up, just fork our challenges repo and start coding." />
+<meta name="twitter:title" content="Code Challenge 19 - Post to Your Favorite API - Review" />
+<meta name="twitter:description" content="This week was pretty busy due to PyCon, but what an amazing conference! A lot to absorb which we will digest in the upcoming articles. First our regular schedule though: review of last week's challenge: post to your favorite API." />
 <meta name="twitter:image" content="http://pybit.es/images/featured/pb-challenge.png">
 
-  <title>PyBites &ndash; Code Challenge 18 - Get Recommendations - Review</title>
+  <title>PyBites &ndash; Code Challenge 19 - Post to Your Favorite API - Review</title>
 
 
 </head>
@@ -98,9 +93,9 @@
 
 <article class="single">
   <header>
-    <h1 id="codechallenge18_review">Code Challenge 18 - Get Recommendations - Review</h1>
+    <h1 id="codechallenge19_review">Code Challenge 19 - Post to Your Favorite API - Review</h1>
     <p>
-          Posted by <a href="http://pybit.es/author/pybites.html">PyBites</a> on Mon 15 May 2017 in <a href="http://pybit.es/category/challenges.html">Challenges</a>
+          Posted by <a href="http://pybit.es/author/pybites.html">PyBites</a> on Mon 22 May 2017 in <a href="http://pybit.es/category/challenges.html">Challenges</a>
 
 
         &#8226; 2 min read
@@ -109,24 +104,43 @@
 
 
   <div>
-    <p>Last week we aimed at <a href="http://pybit.es/codechallenge18.html">Getting Recommendations From Twitter Influencers</a>. It required a bit more work and knowledge than anticipated so we leave it pending/working for now. We were also pretty busy last week.</p>
-<p>We did fiddle with the Goodreads API managing to get a user authorized (oauth) and pull their friends' updates. We only need to parse the output and probably filter "books read" with a rating of &gt;= 4 (out of 5). Some code to get you started <a href="https://github.com/pybites/challenges/tree/solutions/18">here</a>.</p>
-<p>Another thing we'd like to build at some point is getting Netflix recommendations (digest email) because there is just too much to watch. Netflix does not have an API anymore though :( - Twitter has <a href="https://twitter.com/search?q=netflix%20recommend&amp;src=typd">a lot of Netflix tweets</a> but the challenge is the free text (spam) and filtering out the exact show name. <a href="https://parrotread.com/">Parrotread</a> managed to do it for books so there must be a way. To be continued ... </p>
-<p>So building a recommendation engine takes more (structured) data and ML skills. We found some good resources to get started: </p>
+    <p>This week was pretty busy due to PyCon, but what an amazing conference! A lot to absorb which we will digest in the upcoming articles. First our regular schedule though: review of <a href="http://pybit.es/codechallenge19.html">last week's challenge</a>: post to your favorite API. </p>
+<h2>PyCon</h2>
+<p>Before we dive in just to say we are absolutely stoked about the positive feedback we got engaging with fellow Pythonistas at PyCon this week! People got excited about the code challenges: the fact it stretches fellow programmers and the way they can submit their work via PR. So we definitely keep using this format for now. Do reach out though if you have any feedback or want to submit a code challenge / share your ideas, they are more than welcome. Thanks. </p>
+<h2>Our solutions</h2>
+<p>Here are some scripts that POST to APIs all taken from our <a href="https://github.com/pybites/100DaysOfCode">100 Days of Code repo</a>: </p>
 <ul>
 <li>
-<p><a href="https://github.com/grahamjenson/list_of_recommender_systems">List of Recommender Systems</a> </p>
+<p>This week's contribution:</p>
+<ul>
+<li>Facebook API: <a href="https://github.com/pybites/100DaysOfCode/blob/master/053/">a script to automatically post to our FB group</a> which uses the <a href="">facebook-sdk package</a> and <a href="">click</a> which is neat to create command line interfaces.</li>
+</ul>
 </li>
 <li>
-<p>ML starter book: <a href="http://www.amazon.com/dp/1449369413/?tag=pyb0f-20">Introduction to Machine Learning with Python: A Guide for Data Scientists</a>. </p>
+<p>Previously featured:</p>
+<ul>
+<li>
+<p>Twitter API: <a href="https://github.com/pybites/100DaysOfCode/blob/master/053/">script to (daily) auto-tweet our 100 Days of Code progress</a> (<a href="">article</a>). If you are curious about Twitter bots, you might want to check out <a href="">our article</a> and <a href="">this poster</a> spotted at PyCon.</p>
 </li>
 <li>
-<p>In the making: Manning's <a href="https://www.manning.com/books/practical-recommender-systems">Practical Recommender Systems</a>. You can download a free chapter and <a href="https://github.com/practical-recommender-systems">source</a> is already up and seems to use an interesting data set: <a href="https://github.com/sidooms/MovieTweetings">MovieTweetings</a>.</p>
+<p>Slack API: <a href="https://github.com/pybites/100DaysOfCode/blob/master/020/">post to Slack upon each domain mention on Twitter</a> (<a href="">article</a>). We also have <a href="">an article</a> on how to build a Slack bot.</p>
 </li>
 </ul>
-<p>Challenges don't have deadlines so we will refer back to this one when we learned more about recommendation engines. Let us know if you made further progress on this one.</p>
-<hr>
-<p>This week we have another nice free-form challenge for you: after last time's <a href="http://pybit.es/codechallenge16.html">API challenge</a> success, we have a part 2 this week where we will let you post to your favorite API. Standby as we post the challenge in a bit ...</p>
+</li>
+<li>
+<p>TODO</p>
+<ul>
+<li>We initially wanted to look at the <a href="https://developer.spotify.com/web-api/">Spotify</a> or <a href="https://developers.google.com/youtube/">YouTube</a> API but we lacked the time. We will update this article when we get around it. Or maybe it's a nice one for you to contribute?</li>
+</ul>
+</li>
+</ul>
+<h2>next(Challenges)</h2>
+<p>This week we will dive into Object Oriented Programming. We will set up a nice free-form challenge to let you experiment with classes, inheritance and more. Stay tuned ...</p>
+<blockquote>
+<p>Now is better than never.</p>
+</blockquote>
+<p>We hope you are having fun with these challenges. Remember there is no deadline, you can PR your code anytime. Just remember to isolate (branch) your changes and submit against our Community branch (as per instructions).</p>
+<p>Come code with us forking <a href="https://github.com/pybites/challenges">our challenges repo</a>. Have fun!</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob and Julian</p>
@@ -155,16 +169,11 @@
   <div class="tag-cloud">
     <p>
       <a href="http://pybit.es/tag/codechallenges.html">codechallenges</a>
-      <a href="http://pybit.es/tag/books.html">books</a>
-      <a href="http://pybit.es/tag/goodreads.html">Goodreads</a>
+      <a href="http://pybit.es/tag/learning.html">learning</a>
       <a href="http://pybit.es/tag/api.html">API</a>
-      <a href="http://pybit.es/tag/oauth.html">oauth</a>
-      <a href="http://pybit.es/tag/manning.html">Manning</a>
-      <a href="http://pybit.es/tag/machine-learning.html">Machine Learning</a>
-      <a href="http://pybit.es/tag/netflix.html">Netflix</a>
-      <a href="http://pybit.es/tag/recommendation-engine.html">recommendation engine</a>
-      <a href="http://pybit.es/tag/parrotread.html">Parrotread</a>
-      <a href="http://pybit.es/tag/recommender-system.html">recommender system</a>
+      <a href="http://pybit.es/tag/post.html">POST</a>
+      <a href="http://pybit.es/tag/twitter.html">Twitter</a>
+      <a href="http://pybit.es/tag/facebook.html">Facebook</a>
     </p>
   </div>
 
