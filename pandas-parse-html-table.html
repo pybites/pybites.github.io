@@ -22,50 +22,50 @@
   <meta name="robots" content="" />
 
 
-<meta name="author" content="PyBites" />
-<meta name="description" content="In this article we review this week's code challenge #21 for which we got some nice PRs." />
-<meta name="keywords" content="codechallenges, calculation, electricity, Flask, Django, cli, data, BeautifulSoup, Python Anywhere, Pythonista 3">
+<meta name="author" content="Bob" />
+<meta name="description" content="Last week I did some html table parsing with BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas." />
+<meta name="keywords" content="BeautifulSoup, regex, Pandas, parsing, data, data cleaning, energy, json, csv, html">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Code Challenge 21 - Electricity Cost Calculation App - Review"/>
-<meta property="og:description" content="In this article we review this week's code challenge #21 for which we got some nice PRs."/>
+<meta property="og:title" content="Next Time I Will Use Pandas to Parse Html Tables"/>
+<meta property="og:description" content="Last week I did some html table parsing with BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/codechallenge21_review.html"/>
+<meta property="og:url" content="https://pybit.es/pandas-parse-html-table.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-06-05 11:15:00+02:00"/>
+<meta property="article:published_time" content="2017-06-08 12:46:00+02:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://pybit.es/author/pybites.html">
-<meta property="article:section" content="Challenges"/>
-<meta property="article:tag" content="codechallenges"/>
-<meta property="article:tag" content="calculation"/>
-<meta property="article:tag" content="electricity"/>
-<meta property="article:tag" content="Flask"/>
-<meta property="article:tag" content="Django"/>
-<meta property="article:tag" content="cli"/>
-<meta property="article:tag" content="data"/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Concepts"/>
 <meta property="article:tag" content="BeautifulSoup"/>
-<meta property="article:tag" content="Python Anywhere"/>
-<meta property="article:tag" content="Pythonista 3"/>
-<meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
+<meta property="article:tag" content="regex"/>
+<meta property="article:tag" content="Pandas"/>
+<meta property="article:tag" content="parsing"/>
+<meta property="article:tag" content="data"/>
+<meta property="article:tag" content="data cleaning"/>
+<meta property="article:tag" content="energy"/>
+<meta property="article:tag" content="json"/>
+<meta property="article:tag" content="csv"/>
+<meta property="article:tag" content="html"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Code Challenge 21 - Electricity Cost Calculation App - Review" />
-<meta name="twitter:description" content="In this article we review this week's code challenge #21 for which we got some nice PRs." />
-<meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
+<meta name="twitter:title" content="Next Time I Will Use Pandas to Parse Html Tables" />
+<meta name="twitter:description" content="Last week I did some html table parsing with BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
-  <title>PyBites &ndash; Code Challenge 21 - Electricity Cost Calculation App - Review</title>
+  <title>PyBites &ndash; Next Time I Will Use Pandas to Parse Html Tables</title>
 
 
 </head>
 <body>
 
   <!-- change aside color based on article vs challenge vs news -->
-    <aside class='red'>
+    <aside class='blue'>
 
     <div>
       <a href="https://pybit.es">
 
-			<img src="https://pybit.es/theme/img/challenges.png" alt="PyBites" title="PyBites">
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
 
       </a>
       <h1><a href="https://pybit.es">PyBites</a></h1>
@@ -97,9 +97,9 @@
 
 <article class="single">
   <header>
-    <h1 id="codechallenge21_review">Code Challenge 21 - Electricity Cost Calculation App - Review</h1>
+    <h1 id="pandas-parse-html-table">Next Time I Will Use Pandas to Parse Html Tables</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 05 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Thu 08 June 2017 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
 
 
         &#8226; 2 min read
@@ -108,32 +108,24 @@
 
 
   <div>
-    <p>In this article we review this week's <a href="http://pybit.es/codechallenge21.html">code challenge #21</a> for which we got some nice PRs.</p>
-<p>This was a relatively easy challenge but building it out to something cool had its challenge. We are stoked to receive solutions with similar functionality yet using different technologies.</p>
-<h2>Submissions</h2>
-<p>We merged 4 PRs onto our <a href="https://github.com/pybites/challenges/tree/community">Community branch</a>:</p>
-<ul>
-<li>
-<p>Martin made <a href="https://github.com/pybites/challenges/tree/community/21/clamytoe">a nice app</a> for iPhone use with Pythonista 3. We really like how you guys provide screenshots and other meta data.</p>
-</li>
-<li>
-<p>Dante made a cool Flask app: <a href="https://github.com/pybites/challenges/tree/community/21/dseptem/wattapp">wattapp</a>. Features include: simple interface, history of energy consumption and an option to clear items. Check it out to learn about useful Flask extensions like Flask-SQLAlchemy and Flask-WTF for forms.</p>
-</li>
-<li>
-<p>And we got some Django! Wonderfulboyx made an energy app that lets us add devices and companies, then do the calculation based on inputs. It also saves the history. It's hosted <a href="http://wonderfulboyx.pythonanywhere.com/">here</a>.</p>
-</li>
-<li>
-<p>PyBites: we made a simple <a href="https://github.com/pybites/challenges/tree/community/21/bbelderbos">cli app</a> that loads in real data from the web: kwh per country and estimated wattages per device (parsing this was a challenge, html tables arg!). It's not done yet, we still need to cache the data and write some more tests. We found out that energy in expensive in Spain!</p>
-</li>
-</ul>
-<hr>
-<p>Everytime a PR comes in we cheer with joy, humbled by the fact we see you are stretching yourselves by taking our challenges (we do too!). Keep up the good work, the stuff you are building is amazing!</p>
-<p>Remember there is no deadline, you can PR your code anytime. Just remember to isolate (branch) your changes and submit against our Community branch (as per instructions).</p>
-<p>When we merge your work onto our Challenges branch the PR auto-closes but you can still add comments to it. For new revisions, just open a new PR.</p>
-<p>Come code with us forking <a href="https://github.com/pybites/challenges">our challenges repo</a>. Have fun!</p>
+    <p>Last week I did some html table parsing for our <a href="https://pybit.es/codechallenge21_review.html">Electricity Cost Calculation App challenge</a>. I used BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas.</p>
+<h2>Parsing html tables</h2>
+<h3>Take 1: BeautifulSoup and regex</h3>
+<p>For our challenge I wanted to include a table of wattage uses of standard devices. I did not find any API so ended up with <a href="https://www.wholesalesolar.com/solar-information/how-to-save-energy/power-table">Wholesale Solar's power table</a>. </p>
+<p>However even having a great library like <a href="https://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a> available it was still a pain parsing the html (see <code>get_appliance_wattages()</code> <a href="https://github.com/pybites/challenges/blob/community/21/bbelderbos/data.py">here</a>)</p>
+<h3>Take 2: Pandas</h3>
+<p>Luckily I stumbled upon <a href="https://medium.com/@ageitgey/quick-tip-the-easiest-way-to-grab-data-out-of-a-web-page-in-python-7153cecfca58">this article</a> which shows you how to use Pandas' <code>read_html()</code> to grab tabular data from html pages. Very useful! Here is <a href="https://github.com/pybites/100DaysOfCode/blob/master/070/pandas-html-tables.ipynb">a Jupyter notebook</a> applying it to the power table problem.</p>
+<p>Although easy to use, I still had to do some data conversion in Pandas, because the table came with duplicated column names: 3 columns of Appliances and 3 columns of Watts.</p>
+<p>So I did end up spending time on both methods, but the Pandas way is more extensible, because once you have the data in a <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a> you have a rich API to your disposal to do all kinds of data manipulations, like grouping, filtering and format conversion (to csv/json).</p>
+<h2>The manual part: Data cleaning</h2>
+<p>The take away is to use specialized libraries as much as possible. They have most of the common use cases figured out. </p>
+<p>However be it BeautifulSoup, regex or Pandas, there is always some data (manual) manipulation and cleaning involved. </p>
+<p>As you can see in the notebook, although Pandas took care of stripping the thousand separators, I still needed to manually manipulate/clean values like: <code>80-150</code> (average), <code>400-1000+</code> (strip), or <code>1080 watt-hours /day*</code> (normalize).</p>
+<p>If you have a magic method for that let me know or if you want to share your data parsing story do so in the comments below, specially if it involved a lot of nasty manipulation and cleaning :)</p>
+<p>I realize this would be an ideal code challenge too, if you agree, feel free to suggest one <a href="https://github.com/pybites/challenges/issues">here</a>.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
-<p>-- Bob and Julian</p>
+<p>-- Bob</p>
   </div>
 
   <h3>&gt;&gt;&gt; next(PyBites)</h3>
@@ -158,16 +150,16 @@
 <!--End mc_embed_signup-->
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>
-      <a href="https://pybit.es/tag/calculation.html">calculation</a>
-      <a href="https://pybit.es/tag/electricity.html">electricity</a>
-      <a href="https://pybit.es/tag/flask.html">Flask</a>
-      <a href="https://pybit.es/tag/django.html">Django</a>
-      <a href="https://pybit.es/tag/cli.html">cli</a>
-      <a href="https://pybit.es/tag/data.html">data</a>
       <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>
-      <a href="https://pybit.es/tag/python-anywhere.html">Python Anywhere</a>
-      <a href="https://pybit.es/tag/pythonista-3.html">Pythonista 3</a>
+      <a href="https://pybit.es/tag/regex.html">regex</a>
+      <a href="https://pybit.es/tag/pandas.html">Pandas</a>
+      <a href="https://pybit.es/tag/parsing.html">parsing</a>
+      <a href="https://pybit.es/tag/data.html">data</a>
+      <a href="https://pybit.es/tag/data-cleaning.html">data cleaning</a>
+      <a href="https://pybit.es/tag/energy.html">energy</a>
+      <a href="https://pybit.es/tag/json.html">json</a>
+      <a href="https://pybit.es/tag/csv.html">csv</a>
+      <a href="https://pybit.es/tag/html.html">html</a>
     </p>
   </div>
 
