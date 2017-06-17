@@ -113,7 +113,7 @@
 <p>Vehicle &gt; Car &gt; Mercedes.</p>
 <p>See that? Now we’re talking! Multiple levels! <code>Vehicle</code> would be the parent class, <code>Car</code> would be the <strong>Subclass</strong> and <code>Mercedes</code> would be an object we create using the <code>Car</code> subclass.</p>
 <p>Not only that, but the Mercedes we just created will <em>inherit</em> all of the attributes and functions associated with the <code>Vehicle</code> parent class <em>and</em> those from the <code>Car</code> class.</p>
-<p>That is, the Mercedes will be deemed a car vehicle in that it has four wheels and a windshield as a oppose to a motorbike vehicle which only has two wheels. Both the car and the motorbike are vehicles but just two different <em>types</em> of vehicles. Get it?</p>
+<p>That is, the Mercedes will be deemed a car vehicle in that it has four wheels and a windshield as opposed to a motorbike vehicle which only has two wheels and a tiny windshield. Both the car and the motorbike are vehicles but just two different <em>types</em> of vehicles. Get it?</p>
 <p><br></p>
 <h2>A Familiar Example</h2>
 <blockquote>
@@ -164,9 +164,12 @@ Now, let’s start working on the Boss Subclasses. What kind of Bosses do we wan
 <p>In the init dunder, we have to specify <code>self</code> as well as all of the attributes defined in the parent <code>Boss</code> class. We can then <strong>add</strong> whatever ‘GoodBoss’ unique attributes we want, such as a “laugh” attribute (good bosses laugh right?). In this case, I’m not adding any, thus the last attribute you see is <code>face</code>.</p>
 </li>
 <li>
-<p>The <code>super()</code> statement is probably the most confusing. This is how we <em>initialise</em> the parent class at the time that we create the subclass. If we don’t have this code here, the <code>GoodBoss</code> subclass won’t be able to run any of the Class Functions within the parent class.</p>
+<p>The <code>super()</code> statement is probably the most confusing. It relates to the inheritance from the base class. </p>
 </li>
 </ol>
+<blockquote>
+<p>I’d be doing you a disservice trying to explain super() in one bullet point so I’m going to direct you to where I read up on it. The 3rd answer in <a href="https://stackoverflow.com/questions/576169/understanding-python-super-with-init-methods">this Stack Overflow thread</a> is amazing as is this <a href="https://www.programiz.com/python-programming/methods/built-in/super">Programiz article</a>.</p>
+</blockquote>
 <p><br></p>
 <p>Phew! Okay. Next up, we can define some GoodBoss specific class functions. These can <em>only</em> be used by an object created using the <code>GoodBoss</code> class:</p>
 <div class="highlight"><pre><span></span>def nurture_talent(self):
