@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="We love Slack! But using their API you can make it even cooler. I spent some time today to make a Karma bot which is a nice plugin and I learned a thing or two. In this article I shoare the approach I took." />
+<meta name="keywords" content="Slack, karma, bot, API, picle, packaging, logging, Counter">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Using Slack's Real Time Messaging API and Python to Build a Karma Bot"/>
+<meta property="og:description" content="We love Slack! But using their API you can make it even cooler. I spent some time today to make a Karma bot which is a nice plugin and I learned a thing or two. In this article I shoare the approach I took."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/drafts/slack-karma-bot.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-06-25 19:34:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="Slack"/>
+<meta property="article:tag" content="karma"/>
+<meta property="article:tag" content="bot"/>
+<meta property="article:tag" content="API"/>
+<meta property="article:tag" content="picle"/>
+<meta property="article:tag" content="packaging"/>
+<meta property="article:tag" content="logging"/>
+<meta property="article:tag" content="Counter"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Using Slack's Real Time Messaging API and Python to Build a Karma Bot" />
+<meta name="twitter:description" content="We love Slack! But using their API you can make it even cooler. I spent some time today to make a Karma bot which is a nice plugin and I learned a thing or two. In this article I shoare the approach I took." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Using Slack's Real Time Messaging API and Python to Build a Karma Bot</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	  <a class="twitter-follow-button" href="https://twitter.com/pybites"
+	  	data-show-screen-name="false" data-size="large" data-show-count="false"> 
+		Follow @pybites</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="slack-karma-bot">Using Slack's Real Time Messaging API and Python to Build a Karma Bot</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sun 25 June 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>We love Slack! But using their <a href="https://api.slack.com/rtm">Real Time Messaging API</a> you can make it even cooler. I spent some time today to make a <a href="https://blog.hipchat.com/2016/05/02/meet-karma-bot/">Karma bot</a> which is a nice plugin and I learned a thing or two. In this article I shoare the approach I took.</p>
+<h2>From Script to Distributed App</h2>
+<p>This artcle will be part of a multi-parter (this list might change as we go):</p>
+<ol>
+<li>This one: the app</li>
+<li>Writing tests</li>
+<li>Making a package</li>
+<li>Documentation</li>
+<li>Distribute</li>
+</ol>
+<p>The code for this project is <a href="https://github.com/pybites/karmabot">here</a>.</p>
+<h2>Setup</h2>
+<p>This exercise is similar to our <a href="https://pybit.es/simple-chatbot.html">How to Build a Simple Slack Bot</a> article. You have to create a bot user and get an API_KEY from Slack. You set these up in your <code>.bashrc</code> or env file.</p>
+<p>Bot user needs to be defined as ID so you need to retrieve it with this helper script:</p>
+<div class="highlight"><pre><span></span>$ python3 -m utils.get_botid
+Bot ID <span class="k">for</span> <span class="s1">&#39;karmabot&#39;</span> is U5Z6KGX4L
+</pre></div>
+
+
+<p>This calls the get_botid.py script in the utils package. I will post an article on modules and packaging next week, but here you can already see it in action. </p>
+<p>The same for the core bot code, I put this in the bot folder and put all setup code like constants, API keys, regular expressions, caching and logging in <a href="https://github.com/pybites/karmabot/blob/master/bot/__init__.py">__init__.py</a>, the file that is meant for setup and that turns a directory into a package. </p>
+<h2>The script</h2>
+<p>The <a href="https://github.com/pybites/karmabot/blob/master/main.py">main.py</a> script drives the script and calls methods from the bot package:</p>
+<ul>
+<li>
+<p>it connects to the Real Time Messaging API with <code>SLACK_CLIENT.rtm_connect()</code></p>
+</li>
+<li>
+<p>each second it checks our Slack for new messages with the helper <code>parse_next_msg</code> (<a href="https://github.com/pybites/karmabot/blob/master/bot/karma.py">karma.py</a>) which pings the API with <code>SLACK_CLIENT.rtm_read()</code> and parses the response</p>
+</li>
+<li>
+<p>one of my favorite regex methods <code>findall</code> checks each new message for potential karma actions:</p>
+<div class="highlight"><pre><span></span>karma_changes = KARMA_ACTION.findall(text)
+</pre></div>
+
+
+<p>where: </p>
+<div class="highlight"><pre><span></span>KARMA_ACTION = re.compile(r&#39;(?:^| )([^\+\- ]+)\s*([\+\-]+)&#39;)
+</pre></div>
+
+
+<p>This is a bit complex so break it down: start of message of preceding space -&gt; one or more characters that are not +, - or space -&gt; 0 or more optional spaces -&gt; the voting component = one ore more +'s and/or -'s</p>
+</li>
+<li>
+<p><a href="https://github.com/pybites/karmabot/blob/master/bot/karma.py">karma.py</a>'s <code>parse_karma_change</code> is then called to parse out giver, receiver and points. Giver and receiver are returned by the API as IDs so I need <a href="https://github.com/pybites/karmabot/blob/master/bot/slack.py">slack.py</a>'s <code>lookup_username</code> which uses <code>USERNAME_CACHE</code> if username has been looked up before, if not it calls the Slack API.</p>
+</li>
+<li>
+<p>Then <code>change_karma</code> (<a href="https://github.com/pybites/karmabot/blob/master/bot/karma.py">karma.py</a>) is called to increase/decrease the karma and return a message for the bot to post.</p>
+</li>
+<li>
+<p>Lastly <code>post_msg</code> (<a href="https://github.com/pybites/karmabot/blob/master/bot/slack.py">slack.py</a>) is called to post the message back to the same channel in Slack the original message originated from.</p>
+</li>
+</ul>
+<h2>Simple caching with pickle</h2>
+<p>For caching results I use <code>Counter</code> and for persistence between script runs <code>pickle</code></p>
+<p><a href="https://github.com/pybites/karmabot/blob/master/bot/__init__.py">__init__.py</a>:</p>
+<div class="highlight"><pre><span></span><span class="k">try</span><span class="o">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s1">&#39;Retrieving karma cache file&#39;</span><span class="o">)</span>
+    <span class="n">karmas</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">open</span><span class="o">(</span><span class="n">KARMA_CACHE</span><span class="o">,</span> <span class="s2">&quot;rb&quot;</span><span class="o">))</span>
+<span class="n">except</span> <span class="n">FileNotFoundError</span><span class="o">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s1">&#39;No cache file starting new Counter object in memory&#39;</span><span class="o">)</span>
+    <span class="n">karmas</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">()</span>
+</pre></div>
+
+
+<p>And a neat trick I learned, in <a href="https://github.com/pybites/karmabot/blob/master/main.py">main.py</a> I have a try/finally construct to guarantee cashing of the results when the script ends: </p>
+<div class="highlight"><pre><span></span>try:
+    # ... main script look ...
+finally:
+    _end_script()
+
+
+def _end_script():
+    logging.info(&#39;Script ended, saving karma cache to file&#39;)
+    pickle.dump(karmas, open(KARMA_CACHE, &quot;wb&quot;))
+</pre></div>
+
+
+<p>I found this technique discussed <a href="https://stackoverflow.com/questions/3850261/doing-something-before-program-exit">here</a>.</p>
+<h2>Deploy</h2>
+<p>As last time I made <a href="https://github.com/pybites/karmabot/blob/master/run.sh">run.sh</a> script to keep it alive (auto-respawn). I invoke the script once as a nohup background process on my server:</p>
+<div class="highlight"><pre><span></span>$ nohup ./run.sh <span class="p">&amp;</span>
+</pre></div>
+
+
+<h2>Example</h2>
+<p>Here is a practice session in the bot's private channel: </p>
+<p><img alt="karma example" src="https://pybit.es/images/karma_example.png"></p>
+<p>Logging will be useful if any issues: </p>
+<p><img alt="karma logging" src="https://pybit.es/images/karma_logs.png"></p>
+<h2>Next week</h2>
+<p>In part 2 where I will get into how to test this app to make it more robust for refactoring, feature expansion and collabortion.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/slack.html">Slack</a>
+      <a href="https://pybit.es/tag/karma.html">karma</a>
+      <a href="https://pybit.es/tag/bot.html">bot</a>
+      <a href="https://pybit.es/tag/api.html">API</a>
+      <a href="https://pybit.es/tag/picle.html">picle</a>
+      <a href="https://pybit.es/tag/packaging.html">packaging</a>
+      <a href="https://pybit.es/tag/logging.html">logging</a>
+      <a href="https://pybit.es/tag/counter.html">Counter</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
