@@ -110,7 +110,7 @@
 </blockquote>
 <p>This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple.</p>
 <p>Last week we introduced <a href="https://github.com/pybites/karmabot">Karma Bot</a> in part 1 of this series. I will use it to show you how I ended up organizing the code. Then I will show a simpler script refactored into a package.</p>
-<p>Packaging your code makes it easier for others to use. It also adds more structure to your code which leads to more maintainable code. Finally it mamespaces your code, <em>one honking great idea</em>.</p>
+<p>Packaging your code makes it easier for others to use. It also adds more structure to your code which leads to more maintainable code. Finally it namespaces your code, <em>one honking great idea</em>.</p>
 <p>At the very basic level you create a package by putting one or more modules (.py files) inside a folder together with a __init__.py file. This file turns the folder into a package. Your code should ideally not go in that file. It is used for imports and setup.</p>
 <h2>Example 1 - Karma bot</h2>
 <p>At this moment karmabot has two packages:</p>
@@ -130,7 +130,7 @@ main.py
 </pre></div>
 
 
-<p>There is not one best way to structure you code. A better grouping could be adding <code>slack.py</code> and <code>get_botid.py</code> to a <em>slack</em> package. Work in progress.</p>
+<p>There is not one best way to structure your code. A better grouping could be adding <code>slack.py</code> and <code>get_botid.py</code> to a <em>slack</em> package. Work in progress.</p>
 <p>At least this is far better than the first version where I had all code in one big file. Unfortunately this was before my first commit so cannot retrieve it. That's why I have another example lined up ... </p>
 <h2>Example 2 - Twitter Archive Stats</h2>
 <p>This is a smaller script so better to demo. Take a minute to look at the <a href="https://github.com/pybites/100DaysOfCode/blob/master/086/twitter_archive.py">original script</a>.</p>
