@@ -135,7 +135,7 @@ main.py
 <h2>Example 2 - Twitter Archive Stats</h2>
 <p>This is a smaller script so better to demo. Take a minute to look at the <a href="https://github.com/pybites/100DaysOfCode/blob/master/086/twitter_archive.py">original script</a>.</p>
 <blockquote>
-<p>This code is part of our <a href="https://pybit.es/special-100days.html">100 Days of PyBites, 100 Days of Code</a> (days 086 and 093) which we are about to finish. Stay tuned for a review article next week!</p>
+<p>This code is part of our <a href="https://github.com/pybites/100DaysOfCode">100 Days of PyBites, 100 Days of Code</a> (days 086 and 093) which we are about to finish. Stay tuned for a review article next week!</p>
 </blockquote>
 <p>As you see all the code is lumped together in one file. There is also way too much going on under <code>if __name__ == '__main__'</code>. This is not code we can re-use. Most scripts start like this. If you don't step back every now and then though, it becomes a mess.</p>
 <blockquote>
@@ -155,11 +155,16 @@ main.py
 <p>So it does 3 things. As it is a small script one package is fine. I created a folder called "archive" with:</p>
 <ul>
 <li>a module (Python script file) for each functionality,</li>
-<li>an __init__.py file that turns it into a package.</li>
+<li>an __init__.py file that turns it into a package:<div class="highlight"><pre><span></span>$ ls archive/
+__init__.py    report.py    stats.py    tweets.py
+</pre></div>
+
+
+</li>
 </ul>
 </li>
 <li>
-<p>Then I started moving code around. This actually led to additional refactoring! For example the <code>for row in data:</code> block was reduced from 25 to 15 lines using the <a href="https://refactoring.com/catalog/extractMethod.html">extract method</a>. The additional helper methods also made it more readable.</p>
+<p>Then I started moving code around. This actually led to additional refactoring! For example the <code>for row in data:</code> block was reduced from 25 to 15 lines using the <a href="https://refactoring.com/catalog/extractMethod.html">extract method</a>. The additional helper methods also made it more readable. The final code is <a href="https://github.com/pybites/100DaysOfCode/tree/master/093">here</a>.</p>
 </li>
 </ul>
 <blockquote>
@@ -187,12 +192,12 @@ archive    main.py
 </pre></div>
 
 
-<p>Now I can just import from archive, reducing 3 import statements to only 1: </p>
+<p>Now I can just import from <em>archive</em>, reducing 3 import statements to only 1: </p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">archive</span> <span class="kn">import</span> <span class="n">parse_csv</span><span class="p">,</span> <span class="n">calc_stats</span><span class="p">,</span> <span class="n">print_header</span><span class="p">,</span> <span class="n">print_results</span>
 </pre></div>
 
 
-<p>See also the article <a href="http://mikegrouchy.com/blog/2012/05/be-pythonic-__init__py.html">Be Pythonic: __init__.py</a>.</p>
+<p>See also <a href="http://mikegrouchy.com/blog/2012/05/be-pythonic-__init__py.html">Be Pythonic: __init__.py</a>.</p>
 </li>
 </ul>
 <h2>Reference</h2>
