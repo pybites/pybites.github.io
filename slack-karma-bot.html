@@ -100,25 +100,22 @@
           Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sun 25 June 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
 
 
-        &#8226; 4 min read
+        &#8226; 3 min read
     </p>
   </header>
 
 
   <div>
     <p>We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter <em>Karma Bot</em>. This is <a href="https://blog.hipchat.com/2016/05/02/meet-karma-bot/">nothing new</a> but building one myself was a good learning exercise and will kick-start our series on packaging your code. </p>
-<p>In this first article I will show you how I implemented our Karma Bot using Slack's <a href="https://api.slack.com/rtm">Real Time Messaging API</a>. This will be the groundwork to extend it into a more mature open source package over the next 8 weeks.</p>
+<p>In this first article I will show you how I implemented our Karma Bot using Slack's <a href="https://api.slack.com/rtm">Real Time Messaging API</a>. This will be the groundwork to extend it into an open source package over the coming articles in this series. </p>
 <h2>From Script to Project Series</h2>
-<p>This is my idea for the coming articles, one a week, but I will update if progress warrants a better structure: </p>
+<p>This is my idea for this article series, but this might change as we go:</p>
 <ol>
-<li>You are reading now = <a href="https://github.com/pybites/karmabot">Karma Bot</a> = theme app for fun and packaging</li>
-<li>Modularize your code by creating packages</li>
-<li>Writing tests for the Karma Bot, mocking Slack's API</li>
-<li>Use Sphinx to provide your users with beautiful documentation </li>
-<li>Creating a Python project with Cookiecutter</li>
-<li>Releasing your code to PyPI</li>
-<li>Automated testing and deployment </li>
-<li>Github collaboration workflow for an Open Source project</li>
+<li>This article = <a href="https://github.com/pybites/karmabot">Karma Bot</a> = theme app to extend</li>
+<li>Packiging your code</li>
+<li>Writing tests</li>
+<li>Documentation</li>
+<li>Distribute your code</li>
 </ol>
 <h2>Setup</h2>
 <p>This exercise is similar to our <a href="https://pybit.es/simple-chatbot.html">How to Build a Simple Slack Bot</a> article. First you create a bot user and get an API_KEY from Slack. </p>

@@ -24,7 +24,7 @@
 
 <meta name="author" content="PyBites" />
 <meta name="description" content="In this article we review last week's Challenge Estimated Time API. This was a cool challenge and we implemented it using Github's awesome platform and API." />
-<meta name="keywords" content="codechallenges, APIs, Github, PyGithub, PR template, tracking, meta, data, platform">
+<meta name="keywords" content="codechallenges, APIs, Github, PyGithub, PR template, tracking, meta, data, platform, packaging, peewee, click, maya">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Code Challenge 23 - Challenge Estimated Time API - Review"/>
 <meta property="og:description" content="In this article we review last week's Challenge Estimated Time API. This was a cool challenge and we implemented it using Github's awesome platform and API."/>
@@ -44,6 +44,10 @@
 <meta property="article:tag" content="meta"/>
 <meta property="article:tag" content="data"/>
 <meta property="article:tag" content="platform"/>
+<meta property="article:tag" content="packaging"/>
+<meta property="article:tag" content="peewee"/>
+<meta property="article:tag" content="click"/>
+<meta property="article:tag" content="maya"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
 
 <meta name="twitter:card" content="summary" />
@@ -143,9 +147,19 @@ defaultdict<span class="o">(</span>&lt;class <span class="s1">&#39;dict&#39;</sp
 
 
 <p>That's where we leave it for now. This will be a handy script to get recorded stats of all PR submissions. When we have enough data, we can write some more code to parse these metrics and show (anonymous) averages on <a href="https://pybit.es/pages/challenges.html">our challenges page</a>.</p>
-<h3>Other submissions</h3>
-<p>I know some folks are giving this one a serious try. No worries! No deadline here! As we get more PRs we will showcase your work here. </p>
-<p>We also look forward to new PRs to further test <code>challenge_stats.py</code>, so please use the new PR template :)</p>
+<h3>PR: PyTrack</h3>
+<p>We got a nice PR from <a href="https://github.com/clamytoe">clamytoe (Martin)</a>: <em>PyTrack</em></p>
+<blockquote>
+<p>A simple project/task time tracker for Python 3.6.0+ </p>
+</blockquote>
+<p><a href="https://github.com/pybites/challenges/tree/community/23/clamytoe">on community branch</a> | <a href="https://github.com/clamytoe/pyTrack/">original repo</a></p>
+<p>To quote the excellent Readme documentation: </p>
+<blockquote>
+<p>Helps you keep track of how much time you spend on your projects and tasks. A sqlite database is used to track your time logs, and it is kept simple by only implementing as few commands as needed to get a full featured application. You can add/remove multiple projects, start/stop tracking any of them, or completely reset the database to start with a clean slate.</p>
+</blockquote>
+<p>We like how this works as a stopwatch, just stop and start to track a project, and it stores all timings in a DB. </p>
+<p>It uses click for command line interface, maya for datetime parsing, and peewee for ORM, check out the code if you want to learn about these packages. </p>
+<p>Another nice aspect is that Matin refactored this into a package.</p>
 <h3>Thanks for joining</h3>
 <p>Great work is coming out of these challenges, we are humbled and stoked creating our PyBites community this way!</p>
 <p>You can start any challenge at any time, just follow <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">our instructions</a> and start coding. Have fun!</p>
@@ -185,6 +199,10 @@ defaultdict<span class="o">(</span>&lt;class <span class="s1">&#39;dict&#39;</sp
       <a href="https://pybit.es/tag/meta.html">meta</a>
       <a href="https://pybit.es/tag/data.html">data</a>
       <a href="https://pybit.es/tag/platform.html">platform</a>
+      <a href="https://pybit.es/tag/packaging.html">packaging</a>
+      <a href="https://pybit.es/tag/peewee.html">peewee</a>
+      <a href="https://pybit.es/tag/click.html">click</a>
+      <a href="https://pybit.es/tag/maya.html">maya</a>
     </p>
   </div>
 
