@@ -23,11 +23,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="This week's article is about packaging your Python code. It can be daunting at first but it is actually pretty simple." />
+<meta name="description" content="This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple." />
 <meta name="keywords" content="packaging, modules, init, imports, refactoring, karma, Twitter">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="From Script to Project part 2. - Packaging Your Code in Python"/>
-<meta property="og:description" content="This week's article is about packaging your Python code. It can be daunting at first but it is actually pretty simple."/>
+<meta property="og:description" content="This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/python-packaging.html"/>
 <meta property="og:type" content="article"/>
@@ -47,7 +47,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="From Script to Project part 2. - Packaging Your Code in Python" />
-<meta name="twitter:description" content="This week's article is about packaging your Python code. It can be daunting at first but it is actually pretty simple." />
+<meta name="twitter:description" content="This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; From Script to Project part 2. - Packaging Your Code in Python</title>
@@ -99,18 +99,21 @@
           Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 01 July 2017 in <a href="https://pybit.es/category/learning.html">Learning</a>
 
 
-        &#8226; 4 min read
+        &#8226; 3 min read
     </p>
   </header>
 
 
   <div>
-    <p>This week's article is about packaging your Python code. It can be daunting at first but it is actually pretty simple.</p>
-<p>Last week we introduced <a href="https://github.com/pybites/karmabot">Karma Bot</a> in part 1 of this series. I will use it to show you how I ended up organizing the code. Then I will show a simpler script which I refactored yesterday into a package.</p>
-<p>Packaging your code makes it easier for others to use. It also adds more structure to your code which makes it more maintainable. Finally it mamespaces your code, "one honking great idea" as the Zen puts it.</p>
-<p>At the very basic level you create a package by putting one or more modules (.py files) inside a folder together with a __init__.py file. The __init__.py file turns the folder into a package. Your code should ideally not go in that file. It is used for imports and setup.</p>
+    <blockquote>
+<p>Namespaces are one honking great idea -- let's do more of those!</p>
+</blockquote>
+<p>This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple.</p>
+<p>Last week we introduced <a href="https://github.com/pybites/karmabot">Karma Bot</a> in part 1 of this series. I will use it to show you how I ended up organizing the code. Then I will show a simpler script refactored into a package.</p>
+<p>Packaging your code makes it easier for others to use. It also adds more structure to your code which leads to more maintainable code. Finally it mamespaces your code, <em>one honking great idea</em>.</p>
+<p>At the very basic level you create a package by putting one or more modules (.py files) inside a folder together with a __init__.py file. This file turns the folder into a package. Your code should ideally not go in that file. It is used for imports and setup.</p>
 <h2>Example 1 - Karma bot</h2>
-<p>At this moment we have two packages in karmabot:</p>
+<p>At this moment karmabot has two packages:</p>
 <div class="highlight"><pre><span></span>$ ls bot
 __init__.py    karma.py    slack.py
 
@@ -127,41 +130,40 @@ main.py
 </pre></div>
 
 
-<p>There is not one best way to structure you code. Looking at above I might actually refactor this to add slack.py and get_botid.py into a slack package. This is work in progress.</p>
-<p>I tried to limit init to imports and setup. I might move things around as we go, but this is far better than the first version I had. This had all code in one big file. Unfortunately this was before my first commit so cannot show it.</p>
+<p>There is not one best way to structure you code. A better grouping could be adding <code>slack.py</code> and <code>get_botid.py</code> to a <em>slack</em> package. Work in progress.</p>
+<p>At least this is far better than the first version where I had all code in one big file. Unfortunately this was before my first commit so cannot retrieve it. That's why I have another example lined up ... </p>
 <h2>Example 2 - Twitter Archive Stats</h2>
-<p>That's why I have another example lined up. It's a smaller script so better to demo.</p>
-<p>Take a minute to look at the <a href="https://github.com/pybites/100DaysOfCode/blob/master/086/twitter_archive.py">original script</a>.</p>
+<p>This is a smaller script so better to demo. Take a minute to look at the <a href="https://github.com/pybites/100DaysOfCode/blob/master/086/twitter_archive.py">original script</a>.</p>
 <blockquote>
-<p>All this code is part of our <a href="https://pybit.es/special-100days.html">100 Days of PyBites, 100 Days of Code</a> which we are about to finish. Stay tuned for a review article next week!</p>
+<p>This code is part of our <a href="https://pybit.es/special-100days.html">100 Days of PyBites, 100 Days of Code</a> (days 086 and 093) which we are about to finish. Stay tuned for a review article next week!</p>
 </blockquote>
-<p>As you see all the code is lumped together in one file. There is also way too much going on under <code>if __name__ == '__main__':</code>. This is not code we can re-use. Of course most scripts start like this. But if you don't step back every now and then, it becomes a mess really quickly.</p>
+<p>As you see all the code is lumped together in one file. There is also way too much going on under <code>if __name__ == '__main__'</code>. This is not code we can re-use. Most scripts start like this. If you don't step back every now and then though, it becomes a mess.</p>
 <blockquote>
-<p>A great book on refactoring I read this year is Martin Fowler's <a href="https://martinfowler.com/books/refactoring.html">Refactoring</a>. The code samples are Java, but easy to follow. More importantly the concepts are generic you will fully benefit as a Python programmer.</p>
+<p>A great book on refactoring I read this year is Martin Fowler's <a href="https://martinfowler.com/books/refactoring.html">Refactoring</a>. Read it. You will write better code!</p>
 </blockquote>
 <p>Packaging to the rescue! Here are the steps:</p>
 <ul>
 <li>
-<p>First. Don't write any code yet. Think about the various things this script tries to accomplish. What are the main responsibilities? In this case we:</p>
+<p>First. Don't write any code yet. Think about the various things this script tries to accomplish. What are the main responsibilities? In this case it:</p>
 <ol>
-<li>Grab <code>tweets.csv</code> we obtained from Twitter and parse the data out</li>
-<li>We Parse the tweets counting certain objects</li>
-<li>We print the results to stdout</li>
+<li>parses the data from <code>tweets.csv</code>, the exported Twitter archive,</li>
+<li>parses the obtained data from 1., counting certain metrics,</li>
+<li>prints the results to stdout.</li>
 </ol>
 </li>
 <li>
-<p>So we have 3 things it does. As it is a small script I will just make one package. I created a folder called "archive" with in it:</p>
+<p>So it does 3 things. As it is a small script one package is fine. I created a folder called "archive" with:</p>
 <ul>
-<li>A module = Python script file for each functionality</li>
-<li>An __init__.py file that makes it into a package</li>
+<li>a module (Python script file) for each functionality,</li>
+<li>an __init__.py file that turns it into a package.</li>
 </ul>
 </li>
 <li>
-<p>Then I started moving code around. The nice thing I noted that this led to more refactoring! For example the <code>for row in data:</code> loop was 25 lines, now it's only 15 lines, 4 of which are blank. I used the <a href="https://refactoring.com/catalog/extractMethod.html">extract method</a> refactoring technique for this. Having additional helper methods makes it also more readable.</p>
+<p>Then I started moving code around. This actually led to additional refactoring! For example the <code>for row in data:</code> block was reduced from 25 to 15 lines using the <a href="https://refactoring.com/catalog/extractMethod.html">extract method</a>. The additional helper methods also made it more readable.</p>
 </li>
 </ul>
 <blockquote>
-<p>Refactoring your code is a really positive side effect of packaging!</p>
+<p>Refactoring your code is a positive side effect of packaging!</p>
 </blockquote>
 <ul>
 <li>
@@ -177,7 +179,7 @@ archive    main.py
 </pre></div>
 
 
-<p>It's common to make this shorter by adding imports to the init file, like so:</p>
+<p>It's common to make this shorter by bringing the imports into the package namespace:</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">more</span> <span class="n">archive</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
 <span class="kn">from</span> <span class="nn">.tweets</span> <span class="kn">import</span> <span class="n">parse_csv</span>
 <span class="kn">from</span> <span class="nn">.stats</span> <span class="kn">import</span> <span class="n">calc_stats</span>
@@ -185,21 +187,22 @@ archive    main.py
 </pre></div>
 
 
-<p>Now I can just import from the archive package, adding them to one import statement:</p>
+<p>Now I can just import from archive, reducing 3 import statements to only 1: </p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">archive</span> <span class="kn">import</span> <span class="n">parse_csv</span><span class="p">,</span> <span class="n">calc_stats</span><span class="p">,</span> <span class="n">print_header</span><span class="p">,</span> <span class="n">print_results</span>
 </pre></div>
 
 
+<p>See also the article <a href="http://mikegrouchy.com/blog/2012/05/be-pythonic-__init__py.html">Be Pythonic: __init__.py</a>.</p>
 </li>
 </ul>
-<p>See also <a href="http://mikegrouchy.com/blog/2012/05/be-pythonic-__init__py.html">Be Pythonic: __init__.py</a></p>
 <h2>Reference</h2>
-<p>I hope this is useful. Making a package is rather easy. Next thing you want to do is make a <code>setup.py</code> and other things to make it distributable. We will come back to this topic. First I want to dive further into testing and documentation in the next parts of the upcoming articles in this series.</p>
+<p>Next thing you want to do is add a <code>setup.py</code> etc to make your code distributable. You could use a tool like <a href="(https://github.com/audreyr/cookiecutter)">cookiecutter</a> for this. We will explore this further in part 5. First we dive into testing and documentation in part 3 and 4.</p>
 <p>In closing here are some links for further inspection:</p>
 <ul>
 <li><a href="https://python-packaging.readthedocs.io/en/latest/">How To Package Your Python Code</a></li>
 <li><a href="https://packaging.python.org/">Python Packaging User Guide</a></li>
 <li><a href="https://medium.com/small-things-about-python/lets-talk-about-python-packaging-6d84b81f1bb5">A Simple Guide for Python Packaging</a></li>
+<li><a href="https://github.com/audreyr/cookiecutter">Cookiecutter - a cli utility that creates projects from cookiecutters</a></li>
 </ul>
 <hr>
 <p>Keep Calm and Code in Python!</p>
