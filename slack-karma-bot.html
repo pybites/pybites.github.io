@@ -4,16 +4,16 @@
 <head>
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/custom.css">
 
 
 
-    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,11 +29,11 @@
 <meta property="og:title" content="From Script to Project part 1. - Building a Karma Bot with Python and the Slack API"/>
 <meta property="og:description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a good learning exercise and will kick-start our series on packaging your code."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/slack-karma-bot.html"/>
+<meta property="og:url" content="./slack-karma-bot.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2017-06-25 20:00:00+02:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:author" content="./author/bob.html">
 <meta property="article:section" content="Tools"/>
 <meta property="article:tag" content="Slack"/>
 <meta property="article:tag" content="karma"/>
@@ -43,13 +43,13 @@
 <meta property="article:tag" content="packaging"/>
 <meta property="article:tag" content="logging"/>
 <meta property="article:tag" content="Counter"/>
-<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+<meta property="og:image" content="./images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="From Script to Project part 1. - Building a Karma Bot with Python and the Slack API" />
 <meta name="twitter:description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a good learning exercise and will kick-start our series on packaging your code." />
-<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+<meta name="twitter:image" content="./images/featured/pb-article.png">
 
   <title>PyBites &ndash; From Script to Project part 1. - Building a Karma Bot with Python and the Slack API</title>
 
@@ -61,21 +61,21 @@
     <aside class='blue'>
 
     <div>
-      <a href="https://pybit.es">
+      <a href=".">
 
-			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+			<img src="./theme/img/article.png" alt="PyBites" title="PyBites">
 
       </a>
-      <h1><a href="https://pybit.es">PyBites</a></h1>
+      <h1><a href=".">PyBites</a></h1>
 
 <p>Python Code Challenges, Articles and News - One Bite a Day</p>
       <nav>
         <ul class="list">
-          <li><a href="https://pybit.es/pages/about.html">About</a></li>
-          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
-          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
-          <li><a href="https://pybit.es/pages/news.html">News</a></li>
-          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+          <li><a href="./pages/about.html">About</a></li>
+          <li><a href="./pages/articles.html">Articles</a></li>
+          <li><a href="./pages/challenges.html">Challenges</a></li>
+          <li><a href="./pages/news.html">News</a></li>
+          <li><a href="./pages/search.html">Search</a></li>
 
         </ul>
       </nav>
@@ -97,7 +97,7 @@
   <header>
     <h1 id="slack-karma-bot">From Script to Project part 1. - Building a Karma Bot with Python and the Slack API</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sun 25 June 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+          Posted by <a href="./author/bob.html">Bob</a> on Sun 25 June 2017 in <a href="./category/tools.html">Tools</a>
 
 
         &#8226; 3 min read
@@ -199,7 +199,7 @@ export SLACK_KARMA_TOKEN=super-secret
 
 <h2>Example</h2>
 <p>Test session in private Karma Bot channel:</p>
-<p><img alt="karma example" src="https://pybit.es/images/karma_example.png"></p>
+<p><img alt="karma example" src="./images/karma_example.png"></p>
 <p>You need to invite the bot to any channel you want to use this in.</p>
 <h2>Next week</h2>
 <p>My first attempt at this was one big script. I then splitted it out into different modules (responsabilities). Unfortunately I did not commit the initial script to compare. No worries though. Next week I go back to basics on modules and packaging, explaining how they work. I will explain how we import from them which often leads to confusion. We now have an interesting app to work with.</p>
@@ -230,14 +230,14 @@ export SLACK_KARMA_TOKEN=super-secret
 <!--End mc_embed_signup-->
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/slack.html">Slack</a>
-      <a href="https://pybit.es/tag/karma.html">karma</a>
-      <a href="https://pybit.es/tag/bot.html">bot</a>
-      <a href="https://pybit.es/tag/api.html">API</a>
-      <a href="https://pybit.es/tag/picle.html">picle</a>
-      <a href="https://pybit.es/tag/packaging.html">packaging</a>
-      <a href="https://pybit.es/tag/logging.html">logging</a>
-      <a href="https://pybit.es/tag/counter.html">Counter</a>
+      <a href="./tag/slack.html">Slack</a>
+      <a href="./tag/karma.html">karma</a>
+      <a href="./tag/bot.html">bot</a>
+      <a href="./tag/api.html">API</a>
+      <a href="./tag/picle.html">picle</a>
+      <a href="./tag/packaging.html">packaging</a>
+      <a href="./tag/logging.html">logging</a>
+      <a href="./tag/counter.html">Counter</a>
     </p>
   </div>
 
@@ -306,7 +306,7 @@ export SLACK_KARMA_TOKEN=super-secret
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " PyBites ",
-  "url" : "https://pybit.es",
+  "url" : ".",
   "image": "https://pybit.es/theme/img/profile.png",
   "description": "Python Code Challenges, Articles and News - One Bite a Day"
 }
