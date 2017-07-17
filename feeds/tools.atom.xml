@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites - Tools</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/tools.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2017-06-25T20:00:00+02:00</updated><entry><title>From Script to Project part 1. - Building a Karma Bot with Python and the Slack API</title><link href="https://pybit.es/slack-karma-bot.html" rel="alternate"></link><published>2017-06-25T20:00:00+02:00</published><updated>2017-06-25T20:00:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-06-25:/slack-karma-bot.html</id><summary type="html">&lt;p&gt;We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter &lt;em&gt;Karma Bot&lt;/em&gt;. This is &lt;a href="https://blog.hipchat.com/2016/05/02/meet-karma-bot/"&gt;nothing new&lt;/a&gt; but building one myself was a good learning exercise and will kick-start our series on packaging your code.&lt;/p&gt;</summary><content type="html">&lt;p&gt;We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter &lt;em&gt;Karma Bot&lt;/em&gt;. This is &lt;a href="https://blog.hipchat.com/2016/05/02/meet-karma-bot/"&gt;nothing new&lt;/a&gt; but building one myself was a good learning exercise and will kick-start our series on packaging your code. &lt;/p&gt;
+&lt;p&gt;In this first article I will show you how I implemented our Karma Bot using Slack's &lt;a href="https://api.slack.com/rtm"&gt;Real Time Messaging API&lt;/a&gt;. This will be the groundwork to extend it into an open source package over the coming articles in this series. &lt;/p&gt;
+&lt;h2&gt;From Script to Project Series&lt;/h2&gt;
+&lt;p&gt;This is my idea for this article series, but this might change as we go:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;This article = &lt;a href="https://github.com/pybites/karmabot"&gt;Karma Bot&lt;/a&gt; = theme app to extend&lt;/li&gt;
+&lt;li&gt;Packiging your code&lt;/li&gt;
+&lt;li&gt;Writing tests&lt;/li&gt;
+&lt;li&gt;Documentation&lt;/li&gt;
+&lt;li&gt;Distribute your code&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;p&gt;This exercise is similar to our &lt;a href="https://pybit.es/simple-chatbot.html"&gt;How to Build a Simple Slack Bot&lt;/a&gt; article. First you create a bot user and get an API_KEY from Slack. &lt;/p&gt;
+&lt;p&gt;The bot user needs to be defined as ID so you need to retrieve it for which I made a helper script:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python3 -m utils.get_botid
+Bot ID &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;karmabot&amp;#39;&lt;/span&gt; is xyz
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;(This calls the get_botid.py script in the utils package. More on packaging next week ...)&lt;/p&gt;
+&lt;p&gt;Then I stored the following two env variables in my &lt;code&gt;bashrc&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export SLACK_KARMA_BOTUSER=xyz
+export SLACK_KARMA_TOKEN=super-secret
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As we will see next week __init__.py makes a folder a package. You can use this file to do setup. I read env variables in, define my (regex) constants, instantiate the &lt;code&gt;SlackClient&lt;/code&gt; object to talk to the Slack API, and setup logging and caching. See &lt;a href="https://github.com/pybites/karmabot/blob/master/bot/__init__.py"&gt;__init__.py&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Structure&lt;/h2&gt;
+&lt;p&gt;The code for this project is &lt;a href="https://github.com/pybites/karmabot"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;a href="https://github.com/pybites/karmabot/blob/master/main.py"&gt;main.py&lt;/a&gt; script is the driver calling methods from the bot package (folder):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;It connects to the &lt;a href="https://api.slack.com/rtm"&gt;Real Time Messaging API&lt;/a&gt; with &lt;code&gt;SLACK_CLIENT.rtm_connect()&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Each second it checks our Slack for new messages with the helper &lt;code&gt;parse_next_msg&lt;/code&gt; (&lt;a href="https://github.com/pybites/karmabot/blob/master/bot/karma.py"&gt;karma.py&lt;/a&gt;) which pings the API with &lt;code&gt;SLACK_CLIENT.rtm_read()&lt;/code&gt; and parses the response.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;One of my favorite regex methods &lt;code&gt;findall&lt;/code&gt; checks each new message for potential karma actions:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;karma_changes = KARMA_ACTION.findall(text)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;where: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;KARMA_ACTION = re.compile(r&amp;#39;(?:^| )(\S{2,}?)\s?([\+\-]{2,})&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is a complex regex so let me break it down: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;start of message or preceding space &lt;/li&gt;
+&lt;li&gt;two or more non-space characters&lt;/li&gt;
+&lt;li&gt;one optional space (convenient because Slack's autocomplete-select of username inserts one)&lt;/li&gt;
+&lt;li&gt;the voting component = two or more +'s and/or -'s (one + or - led to a lot of false positives!)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/pybites/karmabot/blob/master/bot/karma.py"&gt;karma.py&lt;/a&gt;'s &lt;code&gt;parse_karma_change&lt;/code&gt; is then called to parse out giver, receiver and points. Giver and receiver are returned by the Slack API as IDs so I need &lt;a href="https://github.com/pybites/karmabot/blob/master/bot/slack.py"&gt;slack.py&lt;/a&gt;'s &lt;code&gt;lookup_username&lt;/code&gt; to convert them to usernames (which I cache in &lt;code&gt;USERNAME_CACHE&lt;/code&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Then &lt;a href="https://github.com/pybites/karmabot/blob/master/bot/karma.py"&gt;karma.py&lt;/a&gt;'s &lt;code&gt;change_karma&lt;/code&gt; is called to increase/decrease the karma and returns a message for the bot to post.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Lastly &lt;code&gt;post_msg&lt;/code&gt; (&lt;a href="https://github.com/pybites/karmabot/blob/master/bot/slack.py"&gt;slack.py&lt;/a&gt;) is called to have the bot post the karma result message back to the same channel the original message (request) came from.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To keep track of scores I use a &lt;code&gt;Counter&lt;/code&gt; object which is stored to disk with &lt;code&gt;pickle&lt;/code&gt;. This is setup in &lt;a href="https://github.com/pybites/karmabot/blob/master/bot/__init__.py"&gt;__init__.py&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;logging&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;info&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Retrieving karma cache file&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;karmas&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pickle&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;load&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;KARMA_CACHE&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;rb&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+&lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;FileNotFoundError&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;logging&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;info&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;No cache file starting new Counter object in memory&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;karmas&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Counter&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;... and is backed up every minute with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def _save_cache():
+    pickle.dump(karmas, open(KARMA_CACHE, &amp;quot;wb&amp;quot;))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I might actually turn this into a real DB.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Deploy&lt;/h2&gt;
+&lt;p&gt;When we built our first Slack bot for &lt;a href="https://pybit.es/simple-chatbot.html"&gt;How to Build a Simple Slack Bot&lt;/a&gt; we needed a way to keep the bot alive even if it crashed or the process was terminated by the OS. For Karma Bot I went with the same workaround as then: a &lt;a href="https://github.com/pybites/karmabot/blob/master/run.sh"&gt;run.sh&lt;/a&gt; wrapper that respawns. So if you want to use this code yourself, you would kick it off like this: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nohup ./run.sh &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Example&lt;/h2&gt;
+&lt;p&gt;Test session in private Karma Bot channel:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="karma example" src="https://pybit.es/images/karma_example.png"&gt;&lt;/p&gt;
+&lt;p&gt;You need to invite the bot to any channel you want to use this in.&lt;/p&gt;
+&lt;h2&gt;Next week&lt;/h2&gt;
+&lt;p&gt;My first attempt at this was one big script. I then splitted it out into different modules (responsabilities). Unfortunately I did not commit the initial script to compare. No worries though. Next week I go back to basics on modules and packaging, explaining how they work. I will explain how we import from them which often leads to confusion. We now have an interesting app to work with.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="Slack"></category><category term="karma"></category><category term="bot"></category><category term="API"></category><category term="picle"></category><category term="packaging"></category><category term="logging"></category><category term="Counter"></category></entry><entry><title>How to Write a Simple Slack Bot to Monitor Your Brand on Twitter</title><link href="https://pybit.es/twitter-monitor-slack-notify.html" rel="alternate"></link><published>2017-04-25T11:00:00+02:00</published><updated>2017-04-25T11:00:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-04-25:/twitter-monitor-slack-notify.html</id><summary type="html">&lt;p&gt;In this article I show you how to monitor Twitter and post alerts to a Slack channel. We built a nice tool to monitor whenever our domain gets mentioned on Twitter. The slacker and twython modules made this pretty easy. We also use configparser and logging.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I show you how to monitor Twitter and post alerts to a Slack channel. We built a nice tool to monitor whenever our domain gets mentioned on Twitter. The slacker and twython modules made this pretty easy. We also use configparser and logging.&lt;/p&gt;
+&lt;p&gt;This was &lt;a href="https://twitter.com/pybites/status/854432856386420736"&gt;another script&lt;/a&gt; that came out of our &lt;a href="http://pybit.es/special-100days.html"&gt;100DaysOfCode challenge&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;The funny thing is that we started out using &lt;a href="https://www.mediatrigger.io/"&gt;mediatrigger.io&lt;/a&gt; using a free trial, but soon we thought: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How difficult would it be to build this ourselves?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Not that much, in this article we show you how. &lt;/p&gt;
+&lt;p&gt;By the way, if at some point you lack inspiration what to build next, apart from &lt;a href="http://pybit.es/pages/challenges.html"&gt;joining our code challenges&lt;/a&gt;, think about how you can scratch your own itch. When we do this we tend to stumble upon &lt;a href="http://pybit.es/flask-api-part2.html"&gt;interesting projects&lt;/a&gt;. We think it's the best way to learn.&lt;/p&gt;
+&lt;p&gt;With that said let's get coding!&lt;/p&gt;
+&lt;h2&gt;Requirements and Setup&lt;/h2&gt;
+&lt;p&gt;We use &lt;a href="https://pypi.python.org/pypi/slacker/"&gt;slacker&lt;/a&gt; and &lt;a href="https://pypi.python.org/pypi/twython"&gt;twython&lt;/a&gt; so pip install them or pip install -r &lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/020/requirements.txt"&gt;requirements.txt&lt;/a&gt; (after creating &lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;a virtual env&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;You will need Twitter API tokens and a Slack token. We wrote about the &lt;a href="http://pybit.es/tag/twitterapi.html"&gt;Twitter API&lt;/a&gt; and &lt;a href="http://pybit.es/tag/slack.html"&gt;Slack&lt;/a&gt; before. &lt;/p&gt;
+&lt;p&gt;We use configparser to read these tokens in from a &lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/020/config.ini-example"&gt;config file&lt;/a&gt;. Note we only store the template config file on GH, the real one &lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/020/.gitignore"&gt;is ignored&lt;/a&gt; to not reveal any secret info.&lt;/p&gt;
+&lt;p&gt;For Slack you need to &lt;a href="https://julbob.slack.com/apps/new/A0F7YS25R-bots"&gt;create a bot first&lt;/a&gt; and add the bot to your designated channel.&lt;/p&gt;
+&lt;h2&gt;The code&lt;/h2&gt;
+&lt;p&gt;You can get the full project &lt;a href="https://github.com/pybites/100DaysOfCode/tree/master/020"&gt;here&lt;/a&gt; (as said it's part of &lt;a href="https://github.com/pybites/100DaysOfCode"&gt;our 100DaysOfCode repo&lt;/a&gt;). Here I go over the script bit by bit:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Imports and read config, setting the required tokens. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;configparser&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;logging&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;slacker&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Slacker&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;twython&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TwythonStreamer&lt;/span&gt;
+
+&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;configparser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ConfigParser&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;config.ini&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;CONSUMER_KEY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Twitter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cs_key&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;CONSUMER_SECRET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Twitter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cs_secret&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;ACCESS_TOKEN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Twitter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;acc_token&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;ACCESS_SECRET&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Twitter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;acc_secret&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;SLACK_TOKEN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Slack&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We define some other constants. Note that CHANNEL includes the pound sign (#) and the domain to monitor is defined as a tuple (explained further down). The message is constructed to make it easy to go to the tweet and know who is tweeting:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ss"&gt;CHANNEL =&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="c1"&gt;#pybites-mentions&amp;#39;&lt;/span&gt;
+&lt;span class="ss"&gt;DOMAIN =&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;pybit&amp;#39;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;es&amp;#39;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="ss"&gt;MSG =&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="s1"&gt;A new mention of {domain}:&lt;/span&gt;
+
+&lt;span class="s1"&gt;{user} (name: {name} / followers {followers}) tweeted:&lt;/span&gt;
+&lt;span class="s1"&gt;{tweet_text}&lt;/span&gt;
+
+&lt;span class="s1"&gt;Link to tweet: https://twitter.com/{user}/status/{tweet_id}&lt;/span&gt;
+&lt;span class="se"&gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="s1"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Instantiate a Slacker object:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;slack = Slacker(SLACK_TOKEN)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set up logging if we need to debug anything on the remote server one day:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;logging.basicConfig(level=logging.DEBUG,
+                    format=&amp;#39;%(asctime)s %(name)-12s %(levelname)-8s %(message)s&amp;#39;,
+                    datefmt=&amp;#39;%m-%d %H:%M&amp;#39;,
+                    filename=&amp;#39;bot.log&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A helper to create the message that shows up in our Slack channel: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def create_post(data):
+    tweet_text = data[&amp;#39;text&amp;#39;]
+    tweet_id = data[&amp;#39;id_str&amp;#39;]
+    user = data[&amp;#39;user&amp;#39;][&amp;#39;screen_name&amp;#39;]
+    name = data[&amp;#39;user&amp;#39;][&amp;#39;name&amp;#39;]
+    followers = data[&amp;#39;user&amp;#39;][&amp;#39;followers_count&amp;#39;]
+    return MSG.format(domain=&amp;#39;.&amp;#39;.join(DOMAIN),
+                    user=user,
+                    name=name,
+                    followers=followers,
+                    tweet_text=tweet_text,
+                    tweet_id=tweet_id)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;What really makes this solution cool is the &lt;a href="https://dev.twitter.com/streaming/overview"&gt;Streaming API&lt;/a&gt;. We also used it &lt;a href="http://pybit.es/codechallenge07.html"&gt;here&lt;/a&gt;. &lt;a href="https://twython.readthedocs.io/en/latest/usage/streaming_api.html"&gt;TwythonStreamer&lt;/a&gt; makes it quite easy to start to monitor Twitter: 6 LOC in the docs, 10 LOC here, because we added exception handling, logging and posting to Slack:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;MyStreamer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;TwythonStreamer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;&amp;#39;&amp;#39; https://twython.readthedocs.io/en/latest/usage/streaming_api.html &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+
+    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;on_success&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="nx"&gt;post&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;create_post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="nx"&gt;logging&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;post&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+            &lt;span class="nx"&gt;slack&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;chat&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;post_message&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;CHANNEL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;post&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;as_user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="nx"&gt;except&lt;/span&gt; &lt;span class="nx"&gt;Exception&lt;/span&gt; &lt;span class="kr"&gt;as&lt;/span&gt; &lt;span class="nx"&gt;exc&lt;/span&gt;:
+            &lt;span class="kt"&gt;logging.error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cannot post to channel: {}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;exc&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;on_error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;status_code&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="nx"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;An error occurred: {}, exiting&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;status_code&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;disconnect&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Invoke the Streamer. Important note: pybit.es (one term) did not work so well, so we had to feed stream.statuses.filter 'pybit es' which works as a logical AND, see &lt;a href="https://dev.twitter.com/streaming/overview/request-parameters#track"&gt;here&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;if __name__ == &amp;quot;__main__&amp;quot;:
+
+    stream = MyStreamer(CONSUMER_KEY, CONSUMER_SECRET,
+                        ACCESS_TOKEN, ACCESS_SECRET)
+
+    # https://dev.twitter.com/streaming/overview/request-parameters#track
+    stream.statuses.filter(track=&amp;#39; &amp;#39;.join(DOMAIN))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Quite amazed how these modules abstract away a lot of complex stuff keeping the script lean. As we &lt;a href="http://pybit.es/py-mistakes.html"&gt;wrote before&lt;/a&gt;: don't re-invent the wheel.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Deployment&lt;/h2&gt;
+&lt;p&gt;I run this script on my server. Of course it might die and we want it to work 7x24, so I &lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/020/bot.sh"&gt;included a small shell script&lt;/a&gt; to respawn the process if it dies, a technique I learned from &lt;a href="http://pybit.es/simple-chatbot.html"&gt;my previous Slack bot&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Result&lt;/h3&gt;
+&lt;p&gt;Whenever our domain is mentioned we get an instant notification on Slack:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pybites mentions channel" src="https://pybit.es/images/pybites-mentions.png"&gt;&lt;/p&gt;
+&lt;h2&gt;What would you Slackify?&lt;/h2&gt;
+&lt;p&gt;For us this is a great form of monitoring (automation). I hope you've enjoyed this tour of how to interact with 2 APIs. It's not that difficult, yet the options are endless and you can build some really cool stuff.&lt;/p&gt;
+&lt;h3&gt;Go wild with APIs&lt;/h3&gt;
+&lt;p&gt;On that note, 'Now is better than never' (Python Zen), because &lt;a href="http://pybit.es/codechallenge16.html"&gt;this week's challenge&lt;/a&gt; is all about fiddling with Web APIs! Comment below if this inspired you to build something yourself, or &lt;a href="https://github.com/pybites/challenges/blob/master/INSTALL.md"&gt;submit your code&lt;/a&gt; to our &lt;a href="https://github.com/pybites/challenges/tree/community"&gt;challenges community branch&lt;/a&gt; via a PR.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="Twitter"></category><category term="Slack"></category><category term="Automation"></category><category term="monitoring"></category><category term="twython"></category><category term="TwythonStreamer"></category><category term="slacker"></category><category term="configparser"></category><category term="logging"></category><category term="brand"></category><category term="triggers"></category></entry><entry><title>How we Automated our 100DaysOfCode Daily Tweet</title><link href="https://pybit.es/100days-autotweet.html" rel="alternate"></link><published>2017-04-05T23:00:00+02:00</published><updated>2017-04-05T23:00:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-04-05:/100days-autotweet.html</id><summary type="html">&lt;p&gt;In this article I show you a way to automatically tweet your #100DaysOfCode Challenge progress. This saves you some extra time to focus on the coding. Isn't that all what matters?&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I show you a way to automatically tweet your #100DaysOfCode Challenge progress. This saves you some extra time to focus on the coding. Isn't that all what matters?&lt;/p&gt;
+&lt;p&gt;This is day 007 of our &lt;a href="http://pybit.es/special-100days.html"&gt;100 Days of Code&lt;/a&gt; challenge. You can follow along by forking &lt;a href="https://github.com/pybites/100DaysOfCode"&gt;our repo&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Getting ready&lt;/h2&gt;
+&lt;p&gt;You need pytz, tweepy and requests. You can &lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/007/requirements.txt"&gt;pip install -r requirements.txt&lt;/a&gt; if you cloned our repo (after cd-ing in 007). We recommend using &lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;virtualenv&lt;/a&gt; to isolate environments.&lt;/p&gt;
+&lt;p&gt;As explained &lt;a href="http://pybit.es/automate-twitter.html"&gt;in a previous article&lt;/a&gt; you need to get a Consumer Key/Secret and Access Token (Secret) from Twitter. I added those to my .bashrc which I load in via os.environ in &lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/007/config.py"&gt;config.py&lt;/a&gt;. There I also started a logging handler I use to log outgoing tweets and any exceptions that may occur.&lt;/p&gt;
+&lt;h2&gt;The main script&lt;/h2&gt;
+&lt;p&gt;See &lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/007/100day_autotweet.py"&gt;here&lt;/a&gt; and below what I learned:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;As per PEP8 we import stdlib, followed by external modules and own project modules:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pytz&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;config&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;logging&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;api&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;My server (see deployment below) runs on MT tz and I wanted to talk EMEA times. &lt;a href="https://pypi.python.org/pypi/pytz"&gt;Pytz (World Timezone Definitions for Python)&lt;/a&gt; to the rescue: it made working with timezones very easy: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;tz = pytz.timezone(&amp;#39;Europe/Amsterdam&amp;#39;)
+now = datetime.datetime.now(tz)
+start = datetime.datetime(2017, 3, 29, tzinfo=tz)  # = PyBites 100 days :)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I define some constants in all capital letters with underscores separating words (PEP8). I start to like datetime: calculating dates is easy:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;CURRENT_CHALLENGE_DAY = str((now - start).days).zfill(3)
+LOG = &amp;#39;https://raw.githubusercontent.com/pybites/100DaysOfCode/master/LOG.md&amp;#39;
+LOG_ENTRY = re.compile(r&amp;#39;\[(?P&amp;lt;title&amp;gt;.*?)\]\((?P&amp;lt;day&amp;gt;\d+)\)&amp;#39;)
+REPO_URL = &amp;#39;https://github.com/pybites/100DaysOfCode/tree/master/&amp;#39;
+TWEET_LEN = 140
+TWEET_LINK_LEN = 23
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Where would we be without requests? Here I get the LOG.md file from &lt;a href="https://github.com/pybites/100DaysOfCode"&gt;our repo&lt;/a&gt;, just a single line of code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_log():
+    return requests.get(LOG).text.split(&amp;#39;\n&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I get the script title and day string from the line in LOG.md that matches the exact day string (today = '007'):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_day_progress(html):
+    lines = [line.strip()
+            for line in html
+            if line.strip()]
+
+    for line in lines:
+        day_entry = line.strip(&amp;#39;|&amp;#39;).split(&amp;#39;|&amp;#39;)[0].strip()
+        if day_entry == CURRENT_CHALLENGE_DAY:
+            return LOG_ENTRY.search(line).groupdict()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I create the tweet. I added some code to shorten the script title if the total tweet size is too long:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="s s-Atom"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;create_tweet&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s s-Atom"&gt;m&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="s s-Atom"&gt;:&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;ht1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s s-Atom"&gt;ht2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s s-Atom"&gt;&amp;#39;#100DaysOfCode&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s s-Atom"&gt;&amp;#39;#Python&amp;#39;&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s s-Atom"&gt;m&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s s-Atom"&gt;&amp;#39;title&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;day&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s s-Atom"&gt;m&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s s-Atom"&gt;&amp;#39;day&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;REPO_URL&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s s-Atom"&gt;day&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;allowed_len&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;TWEET_LEN&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nf"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s s-Atom"&gt;url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nv"&gt;TWEET_LINK_LEN&lt;/span&gt;
+
+    &lt;span class="s s-Atom"&gt;fmt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s s-Atom"&gt;&amp;#39;{} - Day {}: {} {} {}&amp;#39;&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;tweet&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s s-Atom"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s s-Atom"&gt;ht1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s s-Atom"&gt;day&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s s-Atom"&gt;title&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s s-Atom"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s s-Atom"&gt;ht2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;surplus&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s s-Atom"&gt;tweet&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="s s-Atom"&gt;allowed_len&lt;/span&gt;
+
+    &lt;span class="s s-Atom"&gt;if&lt;/span&gt; &lt;span class="s s-Atom"&gt;surplus&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="s s-Atom"&gt;:&lt;/span&gt;
+        &lt;span class="s s-Atom"&gt;new_title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s s-Atom"&gt;title&lt;/span&gt;&lt;span class="p"&gt;[:-(&lt;/span&gt;&lt;span class="s s-Atom"&gt;surplus&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s s-Atom"&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
+        &lt;span class="s s-Atom"&gt;tweet&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s s-Atom"&gt;tweet&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s s-Atom"&gt;title&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s s-Atom"&gt;new_title&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="s s-Atom"&gt;return&lt;/span&gt; &lt;span class="s s-Atom"&gt;tweet&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tweet_status() sends the tweet. We use the imported api object (from config.py) to send the tweet and we log an info if success, or error if any exception:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def tweet_status(tweet):
+    try:
+        api.update_status(tweet)
+        logging.info(&amp;#39;Posted to Twitter&amp;#39;)
+    except Exception as exc:
+        logging.error(&amp;#39;Error posting to Twitter: {}&amp;#39;.format(exc))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We drive the script under main (= if script is run directly/standalone, not imported by another module). I set up some variables to allow for testing / dry runs:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;socket&lt;/span&gt;
+    &lt;span class="n"&gt;local&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;MacBook&amp;#39;&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gethostname&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;local&lt;/span&gt; &lt;span class="ow"&gt;or&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;dry&amp;#39;&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If test I use my local LOG file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    if test:
+        log = os.path.basename(LOG)
+        with open(log) as f:
+            html = f.readlines()
+    else:
+        html = get_log()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If for some reason I don't get a valid return from get_day_progress() I abort the script, logging the error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    m = get_day_progress(html)
+    if not m:
+        logging.error(&amp;#39;Error getting day progress from log&amp;#39;)
+        sys.exit(1)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I create the tweet. If dry run, I just log it, else it tweets automatically:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    tweet = create_tweet(m)
+    if test:
+        logging.info(&amp;#39;Test: tweet to send: {}&amp;#39;.format(tweet))
+    else:
+        tweet_status(tweet)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Deployment&lt;/h2&gt;
+&lt;p&gt;On my server I had to do some magic to get it all working: source .bashrc to load in the ENV vars, export PYTHONPATH, and specify the full path to python3. &lt;a href="http://unix.stackexchange.com/a/27291"&gt;As explained here&lt;/a&gt;: "Cron knows nothing about your shell; it is started by the system, so it has a minimal environment."&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ crontab -l
+...
+&lt;span class="m"&gt;34&lt;/span&gt; &lt;span class="m"&gt;14&lt;/span&gt; * * * &lt;span class="nb"&gt;source&lt;/span&gt; &lt;span class="nv"&gt;$HOME&lt;/span&gt;/.bashrc &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PYTHONPATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;/bin/python3/lib/python3.5/site-packages &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="nv"&gt;$HOME&lt;/span&gt;/code/100days/007 &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nv"&gt;$HOME&lt;/span&gt;/bin/python3/bin/python3.5 100day_autotweet.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Result&lt;/h2&gt;
+&lt;p&gt;What a coincidence: as I write this our &lt;a href="https://twitter.com/pybites/status/849721815538712576"&gt;today's progress tweet just went out&lt;/a&gt; :)&lt;/p&gt;
+&lt;p&gt;&lt;img alt="my automated tweet" src="https://pybit.es/images/auto-tweet.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Logging&lt;/h2&gt;
+&lt;p&gt;The cool thing about the logging module is that you get the external packages' logging for free. When I look at the log I see a lot more than my script's logging:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vi 100day_autotweet.log
+...
+...
+&lt;span class="m"&gt;14&lt;/span&gt;:34:02 tweepy.binder INFO     PARAMS: &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;status&amp;#39;&lt;/span&gt;: b&lt;span class="s1"&gt;&amp;#39;#100DaysOfCode - Day 007: script to automatically tweet 100DayOfCode progress tweet https://github.com/pybites/100DaysOfCode/tree/master/007 #Python&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+...
+many more log entries ...
+...
+&lt;span class="m"&gt;14&lt;/span&gt;:34:02 requests.packages.urllib3.connectionpool DEBUG    https://api.twitter.com:443 &lt;span class="s2"&gt;&amp;quot;POST /1.1/statuses/update.json?status=%23100DaysOfCode+-+Day+007%3A+script+to+automatically+tweet+100DayOfCode+progress+tweet+https%3A%2F%2Fgithub.com%2Fpybites%2F100DaysOfCode%2Ftree%2Fmaster%2F007+%23Python HTTP/1.1&amp;quot;&lt;/span&gt; &lt;span class="m"&gt;200&lt;/span&gt; &lt;span class="m"&gt;2693&lt;/span&gt;
+&lt;span class="m"&gt;14&lt;/span&gt;:34:02 root         INFO     Posted to &lt;span class="nv"&gt;Twitter&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt;&amp;gt; my message
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Of course you can mute these by raising the log level (INFO or higher) in logging.basicConfig (&lt;a href="https://github.com/pybites/100DaysOfCode/blob/master/007/config.py"&gt;config.py&lt;/a&gt;). See &lt;a href="https://docs.python.org/3/library/logging.html"&gt;the docs&lt;/a&gt; for more info.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;I hope this taught you a bite of Python and it inspired you to automate your 100DaysOfCode and/or other tweets. Let us know how it goes ... Happy coding!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="twitter"></category><category term="automation"></category><category term="tools"></category><category term="100days"></category><category term="logging"></category><category term="tweepy"></category><category term="pytz"></category></entry><entry><title>How to Build a Simple Slack Bot</title><link href="https://pybit.es/simple-chatbot.html" rel="alternate"></link><published>2017-04-04T23:30:00+02:00</published><updated>2017-04-04T23:30:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-04-04:/simple-chatbot.html</id><summary type="html">&lt;p&gt;I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example.&lt;/p&gt;
+&lt;h2&gt;Bots are hot&lt;/h2&gt;
+&lt;p&gt;This was an interesting coding exercise, but also keep in mind its relevance. Bots are hot, &lt;a href="http://www.oreilly.com/data/free/what-are-conversational-bots.csp?imm_mid=0ef9cf&amp;amp;cmp=em-data-free-na-ainy17_nurture_em2_what_are_conversational_bots"&gt;people have become comfortable with conversational interfaces&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="some commands our bot listens to" src="https://pybit.es/images/slackbot.gif"&gt;&lt;/p&gt;
+&lt;p&gt;(GIF made with &lt;a href="https://github.com/pybites/100DaysOfCode/tree/master/003"&gt;100DaysOfCode day 003 script&lt;/a&gt;)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;Slack API&lt;/h2&gt;
+&lt;p&gt;About Slack's &lt;a href="https://api.slack.com/rtm"&gt;Real Time Messaging API&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Real Time Messaging API is a WebSocket-based API that allows you to receive events from Slack in real time and send messages as users. It's sometimes referred to as simply the "RTM API".  It is the basis for all Slack clients. It's also commonly used with the bot user integration to create helper bots for your team.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Getting ready&lt;/h2&gt;
+&lt;p&gt;Read &lt;a href="https://api.slack.com/bot-users"&gt;here&lt;/a&gt; about Bot Users, you need to &lt;a href="https://my.slack.com/services/new/bot"&gt;create a new bot user&lt;/a&gt; first. This will give you an API Token. Keep this private! I added mine to .bashrc to keep it out of version control. I retrieve it like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;slack_client = SlackClient(os.environ.get(&amp;#39;SLACK_BOT_TOKEN&amp;#39;))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Secondly you need to pip install slackclient, I also used &lt;a href="https://github.com/pybites/slackbot/blob/master/requirements.txt"&gt;some other modules&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I took the &lt;a href="https://github.com/pybites/slackbot/blob/master/starterbot.py"&gt;starterbot code&lt;/a&gt; I found in this excellent article: &lt;a href="https://www.fullstackpython.com/blog/build-first-slack-bot-python.html"&gt;How to Build Your First Slack Bot with Python&lt;/a&gt;. This made it a lot easier because it catered for all the initial setup, listening for mentions of the bot, intercepting targeted messages.&lt;/p&gt;
+&lt;p&gt;Only thing you have to do is to &lt;a href="https://github.com/pybites/slackbot/blob/master/get_botid.py"&gt;get the BOT ID&lt;/a&gt; and store it in your login script (in my case .bashrc):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python get_botid.py
+Bot ID &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pybitesbot&amp;#39;&lt;/span&gt; is XYZ
+
+&lt;span class="c1"&gt;# .bashrc&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;SLACK_BOT_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;ABC      &lt;span class="c1"&gt;# first step&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;BOT_ID&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;XYZ               &lt;span class="c1"&gt;# as retrieved from previous command&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;WEATHER_API&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;123&lt;/span&gt;          &lt;span class="c1"&gt;# used for one of the command scripts, see below&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Bot actions&lt;/h2&gt;
+&lt;p&gt;I wrote a bunch of scripts which respond to &lt;a href="https://github.com/pybites/slackbot/tree/master/commands"&gt;different commands&lt;/a&gt;, some also as part of our &lt;a href="http://pybit.es/special-100days.html"&gt;100DaysOfCode challenge&lt;/a&gt;. I put them in the commands subdirectory. This structure makes it easy to add more commands over time.&lt;/p&gt;
+&lt;p&gt;In the &lt;a href="https://github.com/pybites/slackbot/blob/master/pybitesbot.py"&gt;main bot script&lt;/a&gt; I import all the commands:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;commands.mood&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;get_mood&lt;/span&gt;  &lt;span class="c1"&gt;# just a silly one&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;commands.special&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;celebration&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;commands.articles&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;get_num_posts&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;commands.challenge&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;create_tweet&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;commands.weather&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;get_weather&lt;/span&gt;  &lt;span class="c1"&gt;# bot reports more sun and later sunset Spain vs Australia (sorry Julian haha)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# and put them in a COMMANDS dict&lt;/span&gt;
+&lt;span class="n"&gt;cmd_names&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mood&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;celebration&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;num_posts&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;100day_tweet&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;weather&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;cmd_functions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;get_mood&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;celebration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;get_num_posts&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;create_tweet&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;get_weather&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;COMMANDS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cmd_names&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cmd_functions&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I then overwrote the (provided) handle_command function to have the bot respond to various commands.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def handle_command(cmd, channel):
+
+    cmd = cmd.split()
+    cmd, args = cmd[0], cmd[1:]
+
+    if cmd in COMMANDS:
+        if args:
+            response = COMMANDS[cmd](*args)
+        else:
+            response = COMMANDS[cmd]()
+    else:
+        response = (&amp;#39;Not sure what you mean? &amp;#39;
+            &amp;#39;I can help you with these commands:\n&amp;#39;
+            &amp;#39;{}&amp;#39;.format(&amp;#39;\n&amp;#39;.join(cmd_names)))
+
+    slack_client.api_call(&amp;quot;chat.postMessage&amp;quot;, channel=channel,
+                        text=response, as_user=True)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Lastly under main this starts the loop:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;if slack_client.rtm_connect():
+    ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Deployment&lt;/h2&gt;
+&lt;p&gt;And that's it for the code. On my server I run the bot with nohup to keep it running:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nohup python3 pybitesbot.py &amp;amp;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Update: I found an issue where the bot stopped working, so I added &lt;a href=""&gt;a little script&lt;/a&gt; (based on this &lt;a href="http://stackoverflow.com/a/697064/1128469"&gt;SO answer&lt;/a&gt;) to respawn it:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cat slackbot.sh
+&lt;span class="nv"&gt;cmd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/bin/python3/bin/python3.5 pybitesbot.py&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;until&lt;/span&gt; &lt;span class="nv"&gt;$cmd&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Slack bot crashed with exit code &lt;/span&gt;&lt;span class="nv"&gt;$?&lt;/span&gt;&lt;span class="s2"&gt;.  Respawning..&amp;quot;&lt;/span&gt; &amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;
+    sleep &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+
+$ ./slackbot.sh
+StarterBot connected and running!
+
+... pressing ctrl + c
+
+^CTraceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+File &lt;span class="s2"&gt;&amp;quot;pybitesbot.py&amp;quot;&lt;/span&gt;, line &lt;span class="m"&gt;44&lt;/span&gt;, in &amp;lt;module&amp;gt;
+    time.sleep&lt;span class="o"&gt;(&lt;/span&gt;READ_WEBSOCKET_DELAY&lt;span class="o"&gt;)&lt;/span&gt;
+    KeyboardInterrupt
+
+    Slack bot crashed with &lt;span class="nb"&gt;exit&lt;/span&gt; code &lt;span class="m"&gt;1&lt;/span&gt;.  Respawning..   &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; thanks &lt;span class="k"&gt;for&lt;/span&gt; the shell script
+    StarterBot connected and running!
+
+&lt;span class="c1"&gt;# that was for demo, I still use nohup to leave the shell&lt;/span&gt;
+$ nohup slackbot.sh  &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Result&lt;/h2&gt;
+&lt;p&gt;And there you go ... as you can see we had some fun with it the other day :)&lt;/p&gt;
+&lt;p&gt;&lt;img alt="bot smart ass I" src="https://pybit.es/images/slack_response1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="bot smart ass II" src="https://pybit.es/images/slack_response2.png"&gt;&lt;/p&gt;
+&lt;h2&gt;What's next?&lt;/h2&gt;
+&lt;p&gt;Although this tutorial showed a simple deterministic bot, this really inspired me to think about ways we can make our pybitesbot smarter and help us automate tasks. Or what if we open up a Slack for our community and we have a bot helping people with common Python questions? That would be really cool!&lt;/p&gt;
+&lt;p&gt;I will do a part 2 when we have more progress in this space ...&lt;/p&gt;
+&lt;p&gt;The full code of the bot is &lt;a href="https://github.com/pybites/slackbot"&gt;here&lt;/a&gt;. We encourage you to fork it and start building your own cool bot (and tell us about it in the comments below).&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="slack"></category><category term="API"></category><category term="bot"></category><category term="chatbot"></category><category term="deployment"></category><category term="shell"></category><category term="nohup"></category><category term="automation"></category></entry><entry><title>5 Vim Tricks to Speed up Your Python Development</title><link href="https://pybit.es/vim-tricks.html" rel="alternate"></link><published>2017-03-28T09:00:00+02:00</published><updated>2017-03-28T09:00:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-03-28:/vim-tricks.html</id><summary type="html">&lt;p&gt;In this article 5 Vim shortcuts to speed up your Python development.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article 5 Vim shortcuts to speed up your Python development. These techniques are saving me tons of repeated cycles allowing me to better concentrate on the important: coding. &lt;/p&gt;
+&lt;p&gt;Vim's learning curve might be steep, but with practice you start to &lt;a href="http://www.amazon.com/dp/1680501275/?tag=pyb0f-20"&gt;'edit text at the speed of light'&lt;/a&gt; which makes you a better developer. This is not an article about what is the best editor, there are other awesome options: Emacs, PyCharm, Sublime ... I just love Vim and use it for almost all my editing. &lt;/p&gt;
+&lt;h2&gt;Getting ready&lt;/h2&gt;
+&lt;p&gt;Before diving in you need to know what a "Leader Key" is:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The "Leader key" is a way of extending the power of VIM's shortcuts by using sequences of keys to perform a command. The default leader key is backslash. Therefore, if you have a map of &lt;Leader&gt;Q, you can perform that action by typing \Q. - &lt;a href="http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file"&gt;StackOverflow answer&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I mapped mine to comma using this in my vimrc:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;let mapleader = &amp;quot;,&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So when I provide mappings like ,p ,f ,a and you use another mapleader, replace my comma with your key.&lt;/p&gt;
+&lt;p&gt;Regarding plugins: it's recommended to use &lt;a href="https://github.com/VundleVim/Vundle.vim"&gt;Vundle&lt;/a&gt;, a Vim plugin manager. See RealPython's &lt;a href="https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/"&gt;great introduction&lt;/a&gt; to this tool and a powerful Vim environment setup overall.&lt;/p&gt;
+&lt;h2&gt;1. Save and run Python&lt;/h2&gt;
+&lt;p&gt;Add this to your vimrc:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmap ,p :w&amp;lt;CR&amp;gt;:!python3 %&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It first saves the output (:w), then runs (!) the current script (%)&lt;/p&gt;
+&lt;p&gt;For Python 2 I got another shortcut:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmap ,2 :w&amp;lt;CR&amp;gt;:!python2.7 %&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I also have ,v to run the Python of my active &lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;virtual env&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmap ,v :w&amp;lt;CR&amp;gt;:!venv/bin/python %&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;2. Flake8 check&lt;/h2&gt;
+&lt;p&gt;As featured in our &lt;a href="http://pybit.es/pep8.html"&gt;pep8 article&lt;/a&gt; I find it very useful to flake8 my code before committing. If you have not heard of &lt;a href="https://pypi.python.org/pypi/flake8"&gt;flake8&lt;/a&gt;, it is "the modular source code checker", a wrapper around PyFlakes, pycodestyle and Ned Batchelder’s McCabe script. You need the &lt;a href="https://github.com/nvie/vim-flake8"&gt;vim-flake8&lt;/a&gt; plugin. I invoke it with ,f - having this in my vimrc:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;autocmd FileType python map &amp;lt;buffer&amp;gt; ,f :call Flake8()&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;3. Open Terminal / search StackOverflow in Vim&lt;/h2&gt;
+&lt;p&gt;You will need the &lt;a href="https://github.com/vim-scripts/Conque-Shell"&gt;Conque&lt;/a&gt; plugin. &lt;/p&gt;
+&lt;p&gt;To open a Python in vertical split I use the 'cp' shortcut, vimrc: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmap cp :ConqueTermVSplit python3&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Of course you can specify any script. The advantage is that any generated output becomes editable with Vim.&lt;/p&gt;
+&lt;p&gt;Some years ago &lt;a href="http://bobbelderbos.com/2013/01/search-copy-stackoverflow-data-in-vim-with-conque/"&gt;I made a script&lt;/a&gt; to query StackOverflow in a split window using Conque. I wanted to refactor that script but recently I discovered a better option: &lt;a href="https://github.com/gleitz/howdoi"&gt;howdoi&lt;/a&gt;. You can use &lt;a href="https://github.com/laurentgoudet/vim-howdoi"&gt;this plugin&lt;/a&gt; to run it inside Vim. Very cool.&lt;/p&gt;
+&lt;h3&gt;4. Toggle Vim and Shell / open multiple files in vertical split / q:&lt;/h3&gt;
+&lt;p&gt;I use Ctrl + Z / fg a lot to go back and forth between coding and version control. &lt;a href="http://stackoverflow.com/questions/1879219/how-to-temporarily-exit-vim-and-go-back"&gt;You can also type :sh / Ctrl + d&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;For testing I usually open script.py and test_script.py alongside each other with: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vi -O script.py test_script.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is why PEP8's "Limit all lines to a maximum of 79 characters" is important: no wrapping lines.&lt;/p&gt;
+&lt;p&gt;Then use Ctrl + w + w to toggle between the split windows. If you want to open another file in vertical split you can run this from Vim's Command Mode:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;:vsp file
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Another way to interact with the command line is via Vim's Command Mode. While writing this article I found &lt;a href="http://stackoverflow.com/questions/6920943/navigating-in-vims-command-mode"&gt;the useful q: shortcut&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Other options for shell integration are &lt;a href="http://www.vim.org/scripts/script.php?script_id=2711"&gt;screen&lt;/a&gt; and &lt;a href="https://tmux.github.io"&gt;tmux&lt;/a&gt;. I'll leave that for a follow-up article ...&lt;/p&gt;
+&lt;h2&gt;5. Navigate files&lt;/h2&gt;
+&lt;p&gt;I use &lt;a href="https://github.com/scrooloose/nerdtree"&gt;NERD tree&lt;/a&gt; which opens a nice file tree you can navigate with regular Vim strokes, I mapped it to Ctrl + x&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;map &amp;lt;C-x&amp;gt; :NERDTreeToggle&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Another option is &lt;a href="https://github.com/wincent/command-t"&gt;Command-T&lt;/a&gt;. I was blown away the first time I saw Gary Bernhardt use it in &lt;a href="https://www.destroyallsoftware.com/screencasts"&gt;Destroy All Software&lt;/a&gt;. I had some dependency / install issues last time, I need to try it again ... &lt;/p&gt;
+&lt;h2&gt;Bonus trick: run your own script, pasting its output back into Vim&lt;/h2&gt;
+&lt;p&gt;Similar to the howdoi intergration I managed to call an external script and paste its output into Vim. I used &lt;a href="http://pybit.es/pyperclip.html"&gt;pyperclip&lt;/a&gt; to manage the clipboard and switched to MacVim because of clipboard support:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ /usr/bin/vim --version &lt;span class="p"&gt;|&lt;/span&gt;grep clipboard
+-clipboard
+$ /Applications/MacVim.app/contents/MacOS/Vim --version&lt;span class="p"&gt;|&lt;/span&gt;grep clipboard
++clipboard
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;See the script &lt;a href="https://github.com/pybites/blog_code/blob/master/amazon/genlink.py"&gt;here&lt;/a&gt;. It takes a previously copied Amazon URL from the clipboard, converts it to an affiliation link and pastes it back to the clipboard. &lt;/p&gt;
+&lt;p&gt;To run it and paste its output back into Vim I made this mapping in my vimrc: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;nmap ,a :!genlink&amp;lt;CR&amp;gt;&amp;lt;ESC&amp;gt;&amp;quot;+p
+# having genlink in PATH and pyperclip installed
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;"+ is the clipboard buffer.&lt;/p&gt;
+&lt;p&gt;For example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;https://www.amazon.com/Practical-Vim-Edit-Speed-Thought/dp/1680501275/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1490353516&amp;amp;sr=1-1&amp;amp;keywords=practical+vim
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Vim keys when at the start of previous line:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;0       # go to begin line
+fh      # go to h
+&amp;quot;+d$    # cut URL to clipboard
+,a      # run the create link script and insert link where cursor is
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Result:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http://www.amazon.com/dp/1680501275/?tag=pyb0f-20
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;How cool is that? This saves time and made me think what other repeated tasks I can automate and integrate into Vim :) &lt;/p&gt;
+&lt;p&gt;If you have ideas or things you built let me know in the comments. &lt;/p&gt;
+&lt;h2&gt;More Vim + Python&lt;/h2&gt;
+&lt;p&gt;This only scratched the surface. Some great articles on Vim + Python: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Mentioned RealPython article: &lt;a href="https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/"&gt;VIM and Python - a Match Made in Heaven&lt;/a&gt; (we got our &lt;a href="http://pybit.es/indentation_tips.html"&gt;indentation settings&lt;/a&gt; from there).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://www.fullstackpython.com/vim.html"&gt;Full Stack Python - Vim&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://justin.abrah.ms/vim/vim_and_python.html"&gt;Vim &amp;amp; Python: Making yourself at home&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://liuchengxu.org/posts/use-vim-as-a-python-ide/"&gt;Use Vim as a Python IDE&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;What is a good Vim book?&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://www.amazon.com/dp/1680501275/?tag=pyb0f-20"&gt;Practical Vim: Edit Text at the Speed of Thought&lt;/a&gt; from the author of &lt;a href="http://vimcasts.org"&gt;vimcasts&lt;/a&gt;, is THE book that got my Vim skills to the next level.&lt;/p&gt;
+&lt;h2&gt;Two more useful shell aliases&lt;/h2&gt;
+&lt;p&gt;Not Vim related, but now that we are talking shortcuts, here are two Python related ones I got in my bashrc:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;As soon as I start a new project I run 'pvenv' to create and start a fresh new &lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;virtual env&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;alias pvenv=&amp;#39;python -m venv venv &amp;amp;&amp;amp; source venv/bin/activate&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Run all unittests in the current directory: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;alias utest=&amp;#39;python -m unittest discover&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(although at the time of this writing I discovered &lt;a href="http://nose.readthedocs.io/en/latest/"&gt;the nosetests script&lt;/a&gt;)&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="vim"></category><category term="tools"></category><category term="shortcuts"></category><category term="tricks"></category><category term="flake8"></category><category term="howdoi"></category><category term="conque"></category><category term="shell"></category><category term="virtualenv"></category><category term="nerdtree"></category><category term="pyperclip"></category></entry><entry><title>Best Practices for Compatible Python 2 and 3 Code</title><link href="https://pybit.es/python-porting.html" rel="alternate"></link><published>2017-03-22T12:42:00+01:00</published><updated>2017-03-22T12:42:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-03-22:/python-porting.html</id><summary type="html">&lt;p&gt;&lt;a href="http://py3readiness.org/"&gt;95% of most popular Python packages support Python 3&lt;/a&gt;. Maybe you are lucky and get to start fresh using Python 3. However as of last year &lt;a href="http://www.randalolson.com/2016/09/03/python-2-7-still-reigns-supreme-in-pip-installs/"&gt;Python 2.7 still reigns supreme in pip installs&lt;/a&gt; and at a lot of places 2.x is the only version you get to work in. I think writing Python 2 and 3 compatible code is an important skill, so lets check what it entails.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://py3readiness.org/"&gt;95% of most popular Python packages support Python 3&lt;/a&gt;. Maybe you are lucky and get to start fresh using Python 3. However as of last year &lt;a href="http://www.randalolson.com/2016/09/03/python-2-7-still-reigns-supreme-in-pip-installs/"&gt;Python 2.7 still reigns supreme in pip installs&lt;/a&gt; and a lot of places 2.x is the only version you get to work in. I think writing Python 2 and 3 compatible code is an important skill, so lets check what it entails.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Python 2.x is legacy, Python 3.x is the present and future of the language - &lt;a href="https://wiki.python.org/moin/Python2orPython3"&gt;Python2orPython3 wiki&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Summary Best Practices&lt;/h2&gt;
+&lt;p&gt;The best place to start is the HOWTO: &lt;a href="https://docs.python.org/3/howto/pyporting.html"&gt;Porting Python 2 Code to Python 3&lt;/a&gt; which nicely summarizes the important:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Only care about Python 2.7 ("Python 2.6 is no longer freely supported and thus is not receiving bugfixes."). If you have to care about older Python 2.x versions use &lt;a href="https://pypi.python.org/pypi/six"&gt;six&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Have good test coverage (pip install &lt;a href="https://pypi.python.org/pypi/coverage"&gt;coverage&lt;/a&gt;), You can use &lt;a href="https://pypi.python.org/pypi/tox"&gt;tox&lt;/a&gt; to test against multiple Python versions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Learn the differences between 2 and 3, see &lt;a href="http://python-future.org/compatible_idioms.html"&gt;this nice Cheat Sheet&lt;/a&gt;. Another nice article is: &lt;a href="http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html"&gt;The key differences between Python 2.7.x and Python 3.x with examples&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use existing tools: &lt;a href="http://python-future.org/automatic_conversion.html"&gt;Futurize&lt;/a&gt;, &lt;a href="https://python-modernize.readthedocs.io/en/latest/"&gt;Python-Modernize&lt;/a&gt;, &lt;a href="https://pypi.python.org/pypi/caniusepython3"&gt;caniusepython3&lt;/a&gt;. One word of caution about code translation tools: they might lead to less idiomatic or unnecessary code. In &lt;a href="http://www.oreilly.com/programming/free/from-future-import-python.csp"&gt;Picking a Python Version: A Manifesto&lt;/a&gt; we see &lt;a href="https://docs.python.org/2/library/2to3.html"&gt;2to3&lt;/a&gt; converting a range to list(range), you probably want a range to be 'lazy'. On the other hand, in the same example a map gets converted to a list comprehension which is more readable. The point is to always manually check any automatic conversions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To test text versus binary, handled differently between 2 and 3, you can use &lt;a href="http://mypy-lang.org"&gt;mypy&lt;/a&gt;, an optional static type checker. String handling differences in 2 vs 3 probably warrant another article ...&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;The future and syntax&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You can use &lt;a href="http://python-future.org/imports.html"&gt;__future__ imports&lt;/a&gt; in Python 2 to provide forward-compatibility, for example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;__future__&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;absolute_import&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;division&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                        &lt;span class="n"&gt;print_function&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;unicode_literals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Most well-known is the print statement in 2 becoming a function in 3. To use 3's input (instead of 2's raw_input), range (instead of 2's xrange), you can use builtins:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;builtins&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;super&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;round&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;input&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;pow&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;python-future is the missing compatibility layer between Python 2 and Python 3. It allows you to use a single, clean Python 3.x-compatible codebase to support both Python 2 and Python 3 with minimal overhead.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;See &lt;a href="http://python-future.org/overview.html"&gt;this overview&lt;/a&gt; for more info.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use try/except on your imports (the HOWTO prefers this over version detection code):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;configparser&lt;/span&gt;
+&lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;ImportError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;ConfigParser&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;configparser&lt;/span&gt;
+
+&lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;simplejson&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+&lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ne"&gt;ImportError&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ne"&gt;SyntaxError&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write exceptions in a compatible way:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# don&amp;#39;t:
+except Exception, e:
+# do:
+except Exception as e:
+# or just:
+except Exception:
+# don&amp;#39;t:
+raise ValueError, &amp;#39;Invalid value&amp;#39;
+# do:
+raise ValueError(&amp;#39;Invalid value&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Things like from __future__ and try/except imports can be wrapped in a compat.py module , see &lt;a href="https://github.com/kennethreitz/requests/blob/master/requests/compat.py"&gt;Requests&lt;/a&gt; or &lt;a href="https://github.com/pallets/werkzeug/blob/master/werkzeug/_compat.py"&gt;Werkzeug&lt;/a&gt; for example. I actually learned about this technique in the 'Reading Great Code' chapter of &lt;a href="http://docs.python-guide.org/en/latest/"&gt;The Hitchhiker’s Guide to Python&lt;/a&gt;. Armin Ronacher's &lt;a href="http://lucumr.pocoo.org/2013/5/21/porting-to-python-3-redux/"&gt;Porting to Python 3 Redux&lt;/a&gt; provides some more examples of what you can add to your compat module, including decorators for differences in string handling, dictionaries and iterators.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The mentioned &lt;a href="http://python-future.org/compatible_idioms.html"&gt;Cheat Sheet&lt;/a&gt; sums up all compatible idioms nicely.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Why it matters&lt;/h2&gt;
+&lt;p&gt;It might take extra lines of code and be less idiomatic, but if on 2.x you probably have to migrate at some point. Python 2.7 &lt;a href="https://pythonclock.org/"&gt;will not be maintained past 2020&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Also if you release a package, doing a bit of extra effort might increase the amount of users of your software. &lt;a href="http://www.randalolson.com/2016/09/03/python-2-7-still-reigns-supreme-in-pip-installs/"&gt;Randy Olson's pip install analysis&lt;/a&gt; made me think.&lt;/p&gt;
+&lt;p&gt;This article only scratched the surface. Now is a good time to become familiar with Python porting. I learned some tricks writing this article, hopefully it gets you started too. The amount of resources available is impressive. One final site / book: &lt;a href="http://python3porting.com"&gt;Supporting Python3&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Good luck and let us know in the comments what imcompatible code you had to deal with, we like to hear your story ...&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="2vs3"></category><category term="tox"></category><category term="six"></category><category term="python-modernize"></category><category term="porting"></category><category term="future"></category><category term="2to3"></category><category term="coverage"></category><category term="futurize"></category><category term="caniusepython3"></category><category term="pip"></category><category term="Requests"></category><category term="Werkzeug"></category></entry><entry><title>Send Advanced Emails with Python MIME Submodules</title><link href="https://pybit.es/python-MIME.html" rel="alternate"></link><published>2017-02-01T11:30:00+01:00</published><updated>2017-02-01T11:30:00+01:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-02-01:/python-MIME.html</id><summary type="html">&lt;p&gt;Learn how to send richer emails with Python and the MIME Submodules&lt;/p&gt;</summary><content type="html">&lt;p&gt;In my earlier post on &lt;a href="http://pybit.es/python-smtplib.html"&gt;sending basic emails with Python smtplib&lt;/a&gt; I outlined the bare minimum required to send an email with Python.&lt;/p&gt;
+&lt;p&gt;While functional, it does however lack more advanced features which I'll touch on in this post. We'll be using the MIME email submodules to create a richer email.&lt;/p&gt;
+&lt;h2&gt;What is MIME?&lt;/h2&gt;
+&lt;p&gt;For those who are unaware, MIME (Multipurpose Internet Mail Extensions) is a standard that essentially makes emails more functional. As per the &lt;a href="https://en.wikipedia.org/wiki/MIME"&gt;Wikipedia Article&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Multipurpose Internet Mail Extensions (MIME) is an Internet standard that extends the format of email to support:
+- Text in character sets other than ASCII
+- Non-text attachments: audio, video, images, application programs etc.
+- Message bodies with multiple parts
+- Header information in non-ASCII character sets&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;The Setup&lt;/h2&gt;
+&lt;p&gt;You'll need to import &lt;em&gt;smtplib&lt;/em&gt; as expected but also the MIME submodules "MIMEMultipart" and "MIMEText":&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;smtplib&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;email.mime.multipart&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;MIMEMultipart&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;email.mime.text&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;MIMEText&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Data Entry&lt;/h2&gt;
+&lt;p&gt;Next we'll add the missing header detail to the email. I aimed to make this as Pythonic as possible:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;from_addr = &amp;#39;pybitesblog@gmail.com&amp;#39;
+to_addr = [&amp;#39;bob@rocks.com&amp;#39;, &amp;#39;julian_is@awesome.com&amp;#39;]
+msg = MIMEMultipart()
+msg[&amp;#39;From&amp;#39;] = from_addr
+msg[&amp;#39;To&amp;#39;] = &amp;quot;, &amp;quot;.join(to_addr)
+msg[&amp;#39;Subject&amp;#39;] = &amp;#39;Test Automation Email&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Breaking that down line by line:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Assign your from/sender email address to a variable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assin your recipient address or addresses to a variable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assign the MIMEMultipart function to variable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assign your sender email address variable to the 'From' value in MIME.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assign your recipient addresses to the 'To' value in MIME. Note the .join function is used here to concatenate the email addresses with a comma.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Specify your Subject Line and add it to MIME.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now for the meat. Add the text for the body of your email and again add it to MIME:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;body = &amp;quot;Hello Everyone!&amp;quot;
+
+msg.attach(MIMEText(body, &amp;#39;plain&amp;#39;))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I've added the data in the body variable to MIMEText in plain text format. You can specify HTML if you wish.&lt;/p&gt;
+&lt;h2&gt;Send the Email&lt;/h2&gt;
+&lt;p&gt;I'll be reusing the code from the simple email article here with a small addition. First the standard code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;smtp_server = smtplib.SMTP(&amp;#39;smtp.gmail.com&amp;#39;, 587) #Specify Gmail Mail server
+
+smtp_server.ehlo() #Send mandatory &amp;#39;hello&amp;#39; message to SMTP server
+
+smtp_server.starttls() #Start TLS Encryption as we&amp;#39;re not using SSL.
+
+#Login to gmail: Account | Password
+smtp_server.login(&amp;#39; pybitesblog@gmail.com &amp;#39;, &amp;#39; GMAIL APPLICATION PASSWORD &amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The additional code is in the sendmail function. We now need to specify the text that we're sending. That is, we take all of the data that was added to the MIMEMultipart function (&lt;em&gt;msg&lt;/em&gt; variable) and we use it to populate the email:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;text = msg.as_string()
+
+#Compile email: From, To, Email body
+smtp_server.sendmail(from_addr, to_addr, text)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And finally, best practice, we close off the SMTP connection and in this case, print a message to indicate the email was sent:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;smtp_server.quit()
+print(&amp;#39;Email sent successfully&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Using this framework you can start to send more and more detailed emails. MIME allows you to send attachments which opens all sorts of doors.&lt;/p&gt;
+&lt;p&gt;Check out the &lt;a href="https://docs.python.org/3/library/email-examples.html"&gt;Python 3 Docs on Email&lt;/a&gt; to see some other detailed examples. I like the idea of the HTML message with an alternative plain text version. Very cool!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="python"></category><category term="tips"></category><category term="tricks"></category><category term="code"></category><category term="pybites"></category><category term="email"></category><category term="automation"></category><category term="MIME"></category></entry><entry><title>Send Emails with Python smtplib</title><link href="https://pybit.es/python-smtplib.html" rel="alternate"></link><published>2017-01-26T19:25:00+01:00</published><updated>2017-01-26T19:25:00+01:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-01-26:/python-smtplib.html</id><summary type="html">&lt;p&gt;Learn how to send emails using Python&lt;/p&gt;</summary><content type="html">&lt;p&gt;I was recently given a &lt;a href="https://www.raspberrypi.org"&gt;Raspberry Pi&lt;/a&gt; as a gift and figured it'd make a cool host for cron jobs. I've always wanted to set up an email notification service for myself so I started playing around with &lt;em&gt;smtplib&lt;/em&gt; in Python.&lt;/p&gt;
+&lt;h2&gt;Set up an Application Password with Gmail&lt;/h2&gt;
+&lt;p&gt;It was surprisingly simple to send a basic email using my Gmail account. The complexity came from Google's 2-step Verification security settings. If using Gmail, you'll need to &lt;a href="https://support.google.com/accounts/answer/185833?hl=en"&gt;set up an Application Password&lt;/a&gt; for the machine you're running your Py script from.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Once generated, the App Password will be your Gmail Password for this script.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Sending a Basic Email&lt;/h2&gt;
+&lt;p&gt;The first thing you should try is sending the simplest of emails. Just plain text.&lt;/p&gt;
+&lt;p&gt;There are a few steps, which I'll detail one by one:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Import the smtplib module.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using smtplib, specify the SMTP server and port you'll be accessing. In this example I'm using Gmail's servers.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;smtplib&lt;/span&gt;
+
+&lt;span class="n"&gt;smtp_server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;smtplib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SMTP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;smtp.gmail.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;587&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The SMTP server you're connecting to requires a sort of 'handshake' for the service to work properly. This is done using the .ehlo() function of smtplib.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;smtp_server.ehlo()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;As Google doesn't use SSL, we need to kick off TLS Encryption manually.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;smtp_server.starttls()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now for the login. Keep in mind at this point, you'll use the App Password you obtained earlier instead of your usual Gmail password.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;smtp_server.login(&amp;#39;pybitesblog@gmail.com&amp;#39;, &amp;#39;&amp;lt;App Password&amp;gt;&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Next we send the actual email message. The first email address is the address you're emailing from, the second is the recipient.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;smtp_server.sendmail(&amp;#39;pybitesblog@gmail.com&amp;#39;, &amp;#39;recipient@gmail.com&amp;#39;, &amp;#39;Subject: Happy Australia Day!\nHi Everyone! Happy Australia Day! Cheers, Julian&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Things to note in the above. The \n is mandatory. It's what separates your Subject line from the body of the email. Note: if you're running this in IDLE, when the email is sent successfully, you'll see '{}' characters appear as the return message. If part of a script, you can always add a print statement or other to show this instead.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally, disconnect from the SMTP server when complete.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;smtp_server.quit()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And we're done! Here's the/my final code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;smtplib&lt;/span&gt;
+
+&lt;span class="n"&gt;smtp_server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;smtplib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SMTP&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;smtp.gmail.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;587&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;smtp_server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ehlo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;smtp_server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;starttls&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;smtp_server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pybitesblog@gmail.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;lt;App Password&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;smtp_server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sendmail&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pybitesblog@gmail.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;recipient@gmail.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Subject: Happy Australia Day!&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s1"&gt;Hi Everyone! Happy Australia Day! Cheers, Julian&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;smtp_server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;quit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Email sent successfully&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Next Steps&lt;/h2&gt;
+&lt;p&gt;Clearly this is as basic as it gets. Moving forward you'll want the ability to send more detailed emails with some essence of formatting.&lt;/p&gt;
+&lt;p&gt;To do this you'll need to import the MIME (Multipurpose Internet Mail Extensions) modules into your script.&lt;/p&gt;
+&lt;p&gt;I want to expand on this current email example and will do so my next post. It also allows us to make the code a little more Pythonic!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="python"></category><category term="tips"></category><category term="tricks"></category><category term="code"></category><category term="pybites"></category><category term="email"></category><category term="automation"></category></entry><entry><title>List of Awesome Python Resources</title><link href="https://pybit.es/awesome_python_resources.html" rel="alternate"></link><published>2017-01-17T00:01:00+01:00</published><updated>2017-01-17T00:01:00+01:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-01-17:/awesome_python_resources.html</id><summary type="html">&lt;p&gt;A great list of Python Resources that should  keep you busy for a while!&lt;/p&gt;</summary><content type="html">&lt;p&gt;One of the best feelings is when you stumble across content that is so helpful and exciting you just want to dance.&lt;/p&gt;
+&lt;p&gt;Our latest discovery: &lt;a href="https://github.com/vinta/awesome-python"&gt;An incredibly well populated list of Python resources&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Awesome Python&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Awesome Python&lt;/em&gt; is a detailed list of Python frameworks, libraries, software and other resources, ranging from Cryptography and Command-line Tools to Machine Learning (Bob!) and alternative Package Repos!&lt;/p&gt;
+&lt;p&gt;If you haven't by now, I suggest you Star this github repo or Fork it yourself. The repo is the backend for the website: &lt;a href="http://awesome-python.com"&gt;http://awesome-python.com&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;My Picks&lt;/h2&gt;
+&lt;p&gt;I've only just scratched the surface of the content here but I already have a few favourites:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/nvbn/thefuck"&gt;&lt;strong&gt;thefuck&lt;/strong&gt;&lt;/a&gt;: Don't mind the name! This is a super handy CLI tool that will intelligently correct your previous cli command if you get it wrong. All you do is type the F bomb and it'll automatically correct your command. Check out the readme to see a demo.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://flask.pocoo.org/"&gt;&lt;strong&gt;Flask&lt;/strong&gt;&lt;/a&gt;: I've been wanting to get into Python web frameworks for a while. Flask is going to be my... route (pun intended!) in. Adding this to my "to-learn" list!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/vinta/awesome-python#job-scheduler"&gt;&lt;strong&gt;Job Scheduler Options&lt;/strong&gt;&lt;/a&gt;: Cron was all I had regarding scheduling. Seeing this category on &lt;em&gt;awesome-python&lt;/em&gt; made me smile. I'm looking forward to checking each of these options out to see which one works best for me. Python everything!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Your Picks?&lt;/h2&gt;
+&lt;p&gt;Just these three alone will keep me busy for a while. The GUI entries also intrigue me as I'd love to see how you can use Python to make a nice GUI.&lt;/p&gt;
+&lt;p&gt;So much to learn! Check the list out and let us know what interests you the most. Feel free to share if you have any other cool tools that aren't listed on the site!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python.&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="python"></category><category term="tips"></category><category term="tricks"></category><category term="resources"></category><category term="flask"></category><category term="cron"></category><category term="tools"></category></entry><entry><title>Create a Simple Web Scraper with BeautifulSoup4</title><link href="https://pybit.es/simplewebscraper.html" rel="alternate"></link><published>2017-01-11T13:00:00+01:00</published><updated>2017-01-11T13:00:00+01:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-01-11:/simplewebscraper.html</id><summary type="html">&lt;p&gt;Learn to create a simple web scraper in Python using BeautifulSoup4&lt;/p&gt;</summary><content type="html">&lt;p&gt;I absolutely loved the idea of web scraping when Bob explained what it was (it sounded so spy-like and hackery!). It did however sound like something that, coding-wise, was completely out of my grasp. Once I dove in and tried to create one though I realised it was actually quite simple!&lt;/p&gt;
+&lt;h2&gt;Concept&lt;/h2&gt;
+&lt;p&gt;Create a web scraper that probes a site for the latest headlines.&lt;/p&gt;
+&lt;p&gt;For my example, I'm going to scrape &lt;a href="http://wowhead.com"&gt;wowhead.com&lt;/a&gt;, a World of Warcraft database site, for their latest news headlines.&lt;/p&gt;
+&lt;p&gt;Head to the &lt;em&gt;Wowhead&lt;/em&gt; page and you'll see their home page is just a series of news/blog posts. What we want to do is pull the title of each blog post and output it to text.&lt;/p&gt;
+&lt;p&gt;(You can follow along with this or, of course, you can use your own site).&lt;/p&gt;
+&lt;h2&gt;The Setup&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Decide on the site to scrape.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;Create a venv&lt;/a&gt; to run all of this up in. I created a directory called "wowhead" for this and created the venv in that:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# pwd
+wowhead
+# ls
+venv    wowhead_scraper.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;pip install bs4 requests (Install the BeautifulSoup4 (bs4) and Requests modules)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;The Code&lt;/h2&gt;
+&lt;p&gt;The final code for this simple scraper can be found in the &lt;a href="https://github.com/pybites/blog_code"&gt;PyBites Code Repo&lt;/a&gt;, subdirectory &lt;a href="https://github.com/pybites/blog_code/tree/master/BeautifulSoup"&gt;BeautifulSoup&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Disclaimer: I've lumped everything under the main() function. This is a really simple program and I wanted to keep it as readable as possible, thus it's not all split into different functions.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;After the initial code setup of importing modules and defining main, the first task is to grab a copy of the site's html file:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;URL = &amp;quot;http://www.wowhead.com&amp;quot;
+header_list = []
+
+def main():
+    raw_site_page = requests.get(URL)
+    raw_site_page.raise_for_status()  #Confirm site was pulled. Error if not
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;em&gt;get&lt;/em&gt; function of the requests module allows us to pull the HTML data from the site. We assign this data to the variable &lt;em&gt;raw_site_page&lt;/em&gt;. (This is known as the &lt;strong&gt;response&lt;/strong&gt; object).&lt;/p&gt;
+&lt;p&gt;As the comment implies, the &lt;em&gt;.raise_for_status()&lt;/em&gt; function checks to see if the data was pulled successfully. If, for example, your URL is incorrect, this will error your program out and tell you about it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Next, Beautiful Soup fun:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;soup = bs4.BeautifulSoup(raw_site_page.text, &amp;#39;html.parser&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This code takes the Response object and reads it as plain text. BS4 parses it with the html parser and creates a &lt;strong&gt;Soup Object&lt;/strong&gt; which we're assigning to the variable &lt;em&gt;soup&lt;/em&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Now the tricky part:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;html_header_list = soup.select(&amp;#39;.heading-size-1&amp;#39;)
+    for headers in html_header_list:
+        print(headers)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We need to use the &lt;em&gt;.select()&lt;/em&gt; function within BS4 to find what we want in the site HTML code. This is where you'll need to view the page source of the site (&lt;a href="http://testingfreak.com/inspect-element-in-firefox-chrome-or-ie-browsers/"&gt;or use Inspect&lt;/a&gt;!) to find something unique about the data you want to pull.&lt;/p&gt;
+&lt;p&gt;You can see that I've specified the CSS Element ".heading-size-1". On the &lt;em&gt;Wowhead&lt;/em&gt; page I found that each post heading contained this element and that it was unique to them as well.&lt;/p&gt;
+&lt;p&gt;We then take this selected data and create &lt;em&gt;html_header_list&lt;/em&gt; with it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I've added a for loop to print the contents of the list. This is where I got caught the first time. Run the program and you'll see something similar to this (showing first line only):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python3 wowhead_scraper.py 
+&lt;span class="nt"&gt;&amp;lt;h1&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;heading-size-1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/patch-7-1-5-survival-guide&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;Patch 7.1.5 Survival Guide: Class Guides, New Legendaries, Brawler&amp;#39;s Guild, Artifact Knowledge Catch Up and More!&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;What's happening here is that I'm not only just getting the header of the post but also the URL assigned to by the "a href" HTML tag. We don't need this data for this exercise.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We could use regex to strop the URLs out but BS4 makes it easier. We can grab just the plain text used within the CSS element using .getText():&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;html_header_list = soup.select(&amp;#39;.heading-size-1&amp;#39;)
+    for headers in html_header_list:
+        header_list.append(headers.getText())
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Using .getText() we can then pull the plain text and append it to the &lt;em&gt;header_list&lt;/em&gt; list.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Now if we iterate over &lt;em&gt;header_list&lt;/em&gt; we see just the data we want!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;for headers in header_list:
+        print(headers)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python3 wowhead_scraper.py 
+Patch 7.1.5 Survival Guide: Class Guides, New Legendaries, Brawler&amp;#39;s Guild, Artifact Knowledge Catch Up and More!
+Official Patch Notes for World of Warcraft 7.1.5
+Kirin Tor Quest Fix, World Quest Reset in 7.1.5, Live Developer Q&lt;span class="err"&gt;&amp;amp;&lt;/span&gt;A Thursday
+The Story of Aviana - Lore Collaboration with Nobbel87
+All The Demon Hunter Class and Legendary Changes in Patch 7.1.5
+Wowhead Weekly #106 and Blizzard Gear Shop Diablo Sale
+$ 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;More examples (Bob)&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://github.com/pybites/blog_code/blob/master/BeautifulSoup/scrabble_distribution.py"&gt;Here&lt;/a&gt; is another example how to scrape &lt;a href="http://scrabblewizard.com/scrabble-tile-distribution/"&gt;scrabblewizard.com&lt;/a&gt; to parse the html table that has the Scrabble tile distribution and load it into a data structure (list of named tuples).&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://bobbelderbos.com/2016/12/code-kata/"&gt;Titans books kata&lt;/a&gt; also used BeautifulSoup to scrape the page, see code &lt;a href="https://github.com/pybites/blog_code/blob/master/BeautifulSoup/titans_books.py"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Areas for Expansion&lt;/h2&gt;
+&lt;p&gt;Again, this is web scraping at its simplest. There are heaps of improvements and additions that can be made with these coming to mind right away:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pull the URL for each header and output that alongside the title.&lt;/li&gt;
+&lt;li&gt;Automate the script to run (daily?) and store the output.&lt;/li&gt;
+&lt;li&gt;Have the output emailed to you along with links to each post.&lt;/li&gt;
+&lt;li&gt;Store the Request object in a local file so we don't have to keep making an HTML request every time we run the program.&lt;/li&gt;
+&lt;li&gt;Store post headings in an external file to allow us to only send notifications when there's a &lt;em&gt;new&lt;/em&gt; post.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This was a pretty satisfying project for me. Web scraping has endless possibilities - you just need to figure out what you want and from where!&lt;/p&gt;
+&lt;p&gt;This example is as simple as they come but hopefully now you can see just how easy it really is.&lt;/p&gt;
+&lt;p&gt;Oh and if anyone tries to say, "Isn't that what the RSS feed or Subscribe button is for?", ignore them. This is &lt;em&gt;way&lt;/em&gt; more satisfying!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="python"></category><category term="tips"></category><category term="tricks"></category><category term="code"></category><category term="pybites"></category><category term="beautifulsoup"></category><category term="bs4"></category><category term="webscraping"></category><category term="namedtuples"></category></entry><entry><title>Copy and Paste with Pyperclip</title><link href="https://pybit.es/pyperclip.html" rel="alternate"></link><published>2017-01-06T12:00:00+01:00</published><updated>2017-01-06T12:00:00+01:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-01-06:/pyperclip.html</id><summary type="html">&lt;p&gt;Use the Pyperclip module to copy and paste with the clipboard!&lt;/p&gt;</summary><content type="html">&lt;p&gt;A quick and easy one for you today.&lt;/p&gt;
+&lt;p&gt;While I was working through &lt;em&gt;Automate the Boring Stuff&lt;/em&gt; (review &lt;a href="http://pybit.es/automate_the_boring_stuff_review.html"&gt;here&lt;/a&gt;) I experienced a few "this is AMAZING!" moments. One of which was when I discovered the Pyperclip module.&lt;/p&gt;
+&lt;h2&gt;What is Pyperclip?&lt;/h2&gt;
+&lt;p&gt;Pyperclip is a module you can import that allows you to copy and paste to and from the clipboard on your computer. It does this through the use of two functions: copy() and paste()... go figure!&lt;/p&gt;
+&lt;p&gt;It's simple but man did it blow my mind!&lt;/p&gt;
+&lt;h2&gt;Why so Awesome?!&lt;/h2&gt;
+&lt;p&gt;Well...&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;I was still super new to Python so the idea that I could interact with the user to that level was insane to me. It was a new way of inputting data without actually asking for traditional "type this and hit enter" input.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It was exactly what I was looking for at the time! I wanted to automate the pasting of lists I had copied to the clipboard for a small tool I was writing.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The exercise in &lt;em&gt;Automate the Boring Stuff&lt;/em&gt; had you paste() text from the clipboard into the program (ie, read in), manipulate said text, then copy() it back to the clipboard. In a split second you could insert a '*' in front of every line in a list! This opened my mind to a whole new way of thinking.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Example&lt;/h2&gt;
+&lt;p&gt;Okay enough talk. Let's get to it. Installation first:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#pip install pyperclip
+#pip list
+pip (9.0.1)
+pyperclip (1.5.27)
+setuptools (28.8.0)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we import it into our code and run it:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyperclip&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; 
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pyperclip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;This is copied to the clipboard.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; 
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pyperclip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;paste&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;#39;This is copied to the clipboard.&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Be warned though. Pyperclip copies and pastes just like anything else. That is, it doesn't get exclusive rights to the clipboard. The text you copy to the clipboard has every chance of being overwritten by anything else that happens to copy after your command has run.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In the above example we copied to the clipboard and then instantly pasted. In most situations you'll want to paste what the &lt;em&gt;user&lt;/em&gt; has on their clipboard then manipulate that.&lt;/p&gt;
+&lt;h2&gt;Another example&lt;/h2&gt;
+&lt;p&gt;The author of the tool (Al Sweigart) shows some more use cases in &lt;a href="https://automatetheboringstuff.com/chapter6/"&gt;chapter 6&lt;/a&gt; of &lt;a href="http://pybit.es/automate_the_boring_stuff_review.html"&gt;Automate the Boring Stuff&lt;/a&gt;, for example how to add bullets to wiki markup:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The bulletPointAdder.py script will get the text from the clipboard, add a star and space to the beginning of each line, and then paste this new text to the clipboard. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Of course the possibilities are endless. You could for example make a script that retrieves a link from the clipboard (I mean one you copied previously), retrieve the metadata for that link scraping it, and copying an enriched string (link + metadata) back to the clipboard. You could use this for example to (semi)auto-create posts to social media. You would use pyperclip for the get/put from/to clipboard.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Pyperclip really opened my eyes to the power of Python. Direct interaction with the user is awesome. &lt;/p&gt;
+&lt;p&gt;However, it is scary to think just how easy it is to write to and from the users clipboard without their knowledge. These functions (as per anything) can be called without any user knowledge whatsoever. In a fraction of a second we can paste the output of their clipboard to a file of our choosing! It's creepy to think of how easily this can be used maliciously!&lt;/p&gt;
+&lt;p&gt;That's coding though I guess! &lt;a href="https://youtu.be/b23wrRfy7SM?t=12"&gt;With great power...&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="python"></category><category term="tips"></category><category term="tricks"></category><category term="code"></category><category term="pybites"></category></entry><entry><title>Automate Tweeting: how to build a Twitterbot</title><link href="https://pybit.es/automate-twitter.html" rel="alternate"></link><published>2016-12-29T01:28:00+01:00</published><updated>2016-12-29T01:28:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2016-12-29:/automate-twitter.html</id><summary type="html">&lt;p&gt;In this post I will show you how we automate part of our Twitter posting using feedparser and tweepy.&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;I re-used my Twitter bot script of &lt;a href="http://bobbelderbos.com/2016/06/twitter-bot/"&gt;How to create a simple Twitter bot with Python&lt;/a&gt;. The main goal was to auto-tweet each new post of our blog, but while I was at it I decided to 'watch' a couple of feeds more. Follow &lt;a href="https://twitter.com/pybites"&gt;@pybites&lt;/a&gt; to get our updates and other good Python news / content ...&lt;/p&gt;
+&lt;h1&gt;Getting ready&lt;/h1&gt;
+&lt;p&gt;To auto-post to Twitter you need to get a Consumer Key/Secret and Access Token (Secret) from &lt;a href="https://apps.twitter.com"&gt;https://apps.twitter.com&lt;/a&gt;, my &lt;a href="http://bobbelderbos.com/2016/06/twitter-bot/"&gt;previous post&lt;/a&gt; explains this in more detail (it's pretty easy).&lt;/p&gt;
+&lt;h2&gt;Feeds&lt;/h2&gt;
+&lt;p&gt;Probably the best site to follow Python news feeds is &lt;a href="http://planetpython.org/"&gt;Planet Python&lt;/a&gt;, yet for this exercise I found reposting &lt;a href="http://planetpython.org/titles_only.html"&gt;20+ new links&lt;/a&gt; a day too much (not another spam bot please!), so I decided to watch these 7:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# more feeds 
+http://pybit.es/feeds/all.rss.xml
+https://talkpython.fm/episodes/rss
+https://pythonbytes.fm/episodes/rss
+https://dbader.org/rss
+https://www.codementor.io/python/tutorial/feed
+http://feeds.feedburner.com/PythonInsider
+http://www.weeklypython.chat/feed/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;I wanted to include &lt;a href="http://www.pythonweekly.com"&gt;Python Weekly&lt;/a&gt;, but could not find an RSS feed, probably because it's an email service. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Need to say it: &lt;a href="https://talkpython.fm/"&gt;Talk Python To Me&lt;/a&gt; is awesome, a podcast every Python developer should listen to!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;Code and install instructions (if you want to re-use this) are &lt;a href="https://github.com/pybites/blog_code/tree/master/twitter_bot"&gt;on Github&lt;/a&gt;. Basically I parse the feeds file above, use &lt;a href="https://pypi.python.org/pypi/feedparser"&gt;feedparser&lt;/a&gt; to get the articles for each feed that were published less than 24 hours ago, and use &lt;a href="http://www.tweepy.org"&gt;tweepy&lt;/a&gt; to post these to Twitter. &lt;/p&gt;
+&lt;p&gt;I hide config.py in .gitignore and provide a blank config.py-example under version control. This is to hide the Twitter key/token stuff. As I run this in a daily cronjob, I turned on &lt;a href="https://docs.python.org/3.6/library/logging.html"&gt;logging&lt;/a&gt; for debugging.&lt;/p&gt;
+&lt;p&gt;All together pretty impressive that you can do all this in just 67 LOC, mainly because we use &lt;a href="https://pypi.python.org"&gt;PyPI&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Env / dependencies&lt;/h2&gt;
+&lt;p&gt;I developed this in a &lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;virtual environment&lt;/a&gt;, so a good practice I adopted is to ship the code with &lt;a href="https://github.com/pybites/blog_code/blob/master/twitter_bot/requirements.txt"&gt;a requirements file&lt;/a&gt; which I obtained with: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) $ pip freeze &amp;gt; requirements.txt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now you can get this script running simply by cloning my env:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ virtualenv venv &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+$ &lt;span class="nb"&gt;source&lt;/span&gt; venv/bin/activate
+&lt;span class="o"&gt;(&lt;/span&gt;venv&lt;span class="o"&gt;)&lt;/span&gt; $ pip install -r requirements.txt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;[1] I was going to say: use pyvenv instead of virtualenv, but &lt;a href="https://docs.python.org/dev/whatsnew/3.6.html"&gt;since 3.6&lt;/a&gt; the recommended way is &lt;a href="https://docs.python.org/dev/whatsnew/3.6.html#id7"&gt;python3 -m venv&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Result&lt;/h2&gt;
+&lt;p&gt;Here is a filter of this morning's run where we caught our last post, a new Talk Python podcast episode and a nice new post from Dan Bader:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# grep posted pybites_twitter.log 
+04:55:54 root         DEBUG    posted status Learning from Python mistakes http://pybit.es/py-mistakes.html #python to twitter
+04:55:57 root         DEBUG    posted status #91 Top 10 Data Science Stories of 2016 https://talkpython.fm/episodes/show/91/top-10-data-science-stories-of-2016 #python to twitter
+04:56:00 root         DEBUG    posted status The Difference Between “is” and “==” in Python https://dbader.org/blog/difference-between-is-and-equals-in-python #python to twitter
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Automating Twitter :)&lt;/p&gt;
+&lt;p&gt;&lt;img alt="auto-tweets" src="https://pybit.es/images/auto-tweets.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Logging all-in&lt;/h2&gt;
+&lt;p&gt;Another cool thing about the &lt;a href="https://docs.python.org/3.6/library/logging.html"&gt;logging module&lt;/a&gt; is that you get the imported packages logging for free. The following entries in my log files were not added by the code I wrote, they came from tweepy and/or feedparser and/or their dependencies!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# more pybites_twitter.log |cut -d&amp;#39; &amp;#39; -f2|sort|uniq -c |sort -nr
+...
+     15 requests_oauthlib.oauth1_auth  
+     15 oauthlib.oauth1.rfc5849
+      6 requests.packages.urllib3.connectionpool
+      3 tweepy.binder
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Deployment&lt;/h2&gt;
+&lt;p&gt;Daily cronjob on server. I needed to export the site-packages path defined in PYTHONPATH:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;0 2 * * * export PYTHONPATH=/path/to/python3.5/site-packages &amp;amp;&amp;amp; cd /path/to/twitter_bot &amp;amp;&amp;amp; /path/to/python3.5 tweetbot.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;TODO: checkout if &lt;a href="https://docs.python.org/3.6/library/sched.html"&gt;Python's sched&lt;/a&gt; is a better alternative?&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Again, &lt;a href="https://pypi.python.org"&gt;using PyPI&lt;/a&gt; you save yourself a lot of coding (= time).&lt;/p&gt;
+&lt;p&gt;In just 67 LOC I could built a complete Twitterbot that will auto-post our new blog posts as well as some other good Python blogs and podcasts. We might add a few more feeds but this will do for starters.&lt;/p&gt;
+&lt;p&gt;Tests?! Yeah I know ... as I am writing this I am adding some tests using (learning) &lt;a href="http://doc.pytest.org/en/latest/"&gt;pytest&lt;/a&gt; (I used unittest so far). I will blog about this framework in an upcoming post ...&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Any suggestion of feedback use the comments below. Thanks for reading.&lt;/p&gt;
+&lt;p&gt;And to get our latest posts and other good Python content follow &lt;a href="https://twitter.com/pybites"&gt;@pybites&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="twitterapi"></category><category term="tweepy"></category><category term="feedparser"></category><category term="rss"></category><category term="logging"></category><category term="podcasts"></category><category term="virtualenv"></category><category term="pyvenv"></category><category term="venv"></category><category term="news"></category><category term="3.6"></category></entry><entry><title>How to create a nice-looking HTML page of your Kindle book highlights (notes)</title><link href="https://pybit.es/kindle-json-to-html.html" rel="alternate"></link><published>2016-12-27T00:10:00+01:00</published><updated>2016-12-27T00:10:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2016-12-27:/kindle-json-to-html.html</id><summary type="html">&lt;p&gt;In this post I share a simple script to convert Bookcision JSON into a HTML page for your blog.&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Kindle notes&lt;/h2&gt;
+&lt;p&gt;I was looking at an effective way to organize my Kindle highlights. I started looking at parsing the Kindle's My Clippings.txt file. However I had not much luck with existing PyPi modules and it is a bit cumbersome to always have to manually copy it via USB cable.&lt;/p&gt;
+&lt;h2&gt;Starting point: Cloud + Bookcision&lt;/h2&gt;
+&lt;p&gt;Then I found a much better starting point: &lt;a href="https://kindle.amazon.com"&gt;https://kindle.amazon.com&lt;/a&gt; = cloud. OK, this only works for Kindle purchased books, but using Amazon's &lt;a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=200911660"&gt;Whispersync&lt;/a&gt; really makes this convenient. Also, the Kindle site lets you filter / adjust your highlights and notes before exporting. &lt;/p&gt;
+&lt;p&gt;For export I use the nice &lt;a href="http://www.norbauer.com/bookcision/"&gt;Bookcision JS bookmarklet&lt;/a&gt; which - when used in Chrome - gives you the ability to dowload the highlights JSON format.&lt;/p&gt;
+&lt;h2&gt;JSON =&amp;gt; HTML&lt;/h2&gt;
+&lt;p&gt;I wrote a script to convert the Bookcision JSON download into a static HTML page (for blog use, inspired by &lt;a href="https://sivers.org/book"&gt;Sivers&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Code is &lt;a href="https://github.com/pybites/blog_code/tree/master/kindle_notes"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Some things to note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use json.loads(fh) to convert JSON into dict: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def load_json(json_file):
+    with open(json_file) as f:
+        return json.loads(f.read())
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://docs.python.org/2/library/string.html#template-strings"&gt;Template strings&lt;/a&gt;: in &lt;a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/templates.py"&gt;templates.py&lt;/a&gt; PAGE defines the whole page, I use embedded CSS to make this a standalone solution. QUOTE defines a list item (highlight). Variables are defined with $ so: $title, $author, etc. In the &lt;a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/kindle_json2html.py"&gt;main script&lt;/a&gt; I can substitute these variable placeholders with a dict: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_highlights(highlights):
+    for hl in highlights:
+        yield QUOTE.safe_substitute({
+            &amp;#39;text&amp;#39; : hl[&amp;#39;text&amp;#39;],
+            &amp;#39;note&amp;#39; : &amp;#39; / note: &amp;#39; + hl[&amp;#39;note&amp;#39;] if hl[&amp;#39;note&amp;#39;] else &amp;#39;&amp;#39;,
+            &amp;#39;url&amp;#39; : hl[&amp;#39;location&amp;#39;][&amp;#39;url&amp;#39;],
+            &amp;#39;location&amp;#39;: hl[&amp;#39;location&amp;#39;][&amp;#39;value&amp;#39;],
+        })
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note the 'yield' makes get_highlights() a generator. If this is new, check out &lt;a href="http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do"&gt;this SO thread&lt;/a&gt; about Iterables -&amp;gt; Generators -&amp;gt; Yield [1]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use list() to consume all generator's values in one go: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;highlights = get_highlights(content[&amp;#39;highlights&amp;#39;])
+...
+...
+    &amp;#39;content&amp;#39;: &amp;#39;\n&amp;#39;.join(list(highlights)),
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can give the script one or more JSON files simply by using a slice on sys.argv:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;for json_file in sys.argv[1:]:
+    ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;So you can batch process JSON downloads:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ls *json
+anything-you-want.json  arnold.json     choose-yourself.json    the-circle.json
+
+$ python kindle_json2html.py *json
+anything-you-want.html created
+arnold.html created
+choose-yourself.html created
+the-circle.html created
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Example&lt;/h2&gt;
+&lt;p&gt;Here is what an output looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="resulting html page" src="https://pybit.es/images/example-book-html.png"&gt;&lt;/p&gt;
+&lt;p&gt;As the HTML contains everything you can just copy it to your blog, &lt;a href="http://bobbelderbos.com/books/ego-is-the-enemy.html"&gt;example&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;
+&lt;p&gt;[1] Generators save memory by not materializing the values of an iterable in memory = better performance. Here we don't really need that, yet I stil find the yield syntax more elegant (it's shorter) than building and returning a local collection (list).&lt;/p&gt;</content><category term="kindle"></category><category term="Template strings"></category><category term="json"></category><category term="html"></category><category term="books"></category><category term="bookcision"></category><category term="generators"></category></entry><entry><title>Get a weekly digest from a Pelican blog</title><link href="https://pybit.es/blog-digest.html" rel="alternate"></link><published>2016-12-24T15:40:00+01:00</published><updated>2016-12-24T15:40:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2016-12-24:/blog-digest.html</id><summary type="html">&lt;p&gt;In this post a script we use to get a weekly digest of our posts.&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Prep work&lt;/h2&gt;
+&lt;p&gt;We built this blog in Pelican, adding this in pelicanconf.py adds an RSS feed:&lt;/p&gt;
+&lt;p&gt;FEED_RSS = 'feeds/all.rss.xml'&lt;/p&gt;
+&lt;p&gt;And voila, after pushing this change we have &lt;a href="http://pybit.es/feeds/all.rss.xml"&gt;our RSS feed&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Script (use PyPi!)&lt;/h2&gt;
+&lt;p&gt;The script is &lt;a href="https://github.com/pybites/blog_code/tree/master/pybites_digest"&gt;on github&lt;/a&gt; in our &lt;a href="https://github.com/pybites/blog_code"&gt;new blog repo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;No need to re-invent the wheel, PyPI (Python Package Index) has so much good stuff, feedparser is just what we need. It can take both a remote as well as local xml file, so you don't even need requests. &lt;/p&gt;
+&lt;p&gt;This single line parses the feed into a comprehensive data structure:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;feed = feedparser.parse(xml)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Which you can then easily consume: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;for article in feed[&amp;#39;entries&amp;#39;]:
+    # ... filtering
+    yield article
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The only thing I had to add was some timestamp conversations/calculations to go x days back (the returned feed data has a convenient &lt;a href="https://docs.python.org/3.5/library/time.html#time.struct_time"&gt;time.struct_time field&lt;/a&gt;).&lt;/p&gt;
+&lt;h2&gt;Mail digest as txt/html in a cronjob&lt;/h2&gt;
+&lt;p&gt;I left this for sendmail which accepts a mailheader, see &lt;a href="http://stackoverflow.com/questions/24010230/mailx-send-html-message"&gt;here&lt;/a&gt;. So this is my weekly cronjob:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# html email 
+0 7 * * 6 cat pybites_header &amp;lt;(python3 /path/to/pybites_digest/digest.py 7 1) | sendmail -t
+
+# text version for copy+paste into social media (no need to cat header file)
+10 7 * * 6 python3 /path/to/pybites_digest/digest.py 7 | mailx -s &amp;quot;Weekly PyBites digest (txt ed)&amp;quot; &amp;lt;email&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;First arg is "days back" = 7 = one week / 2nd arg = html True&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You might need to do a export PYTHONPATH=/path/to/python3.x/site-packages if you installed Python3 in your $HOME on a shared hosting provider. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The '&amp;lt;()' syntax is a nice way in Unix to join in output from a subprocess.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Don't miss any post&lt;/h2&gt;
+&lt;p&gt;If you want to receive these weekly digests please subscribe to our blog or join our &lt;a href="https://www.facebook.com/groups/1305028816183522/"&gt;FB group&lt;/a&gt;.&lt;/p&gt;</content><category term="pelican"></category><category term="feedparser"></category><category term="rss"></category></entry><entry><title>The Beauty of Python Virtualenvs</title><link href="https://pybit.es/the-beauty-of-virtualenv.html" rel="alternate"></link><published>2016-12-22T22:11:00+01:00</published><updated>2016-12-22T22:11:00+01:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2016-12-22:/the-beauty-of-virtualenv.html</id><summary type="html">&lt;p&gt;Python Virtualenvs are incredible yet sadly under utilised!&lt;/p&gt;</summary><content type="html">&lt;p&gt;Ever heard of a Python virtualenv? No? Neither had I, until I discovered them while following a video course on Python Flask.&lt;/p&gt;
+&lt;p&gt;A virtualenv (AKA venv) is essentially a Virtual Machine (VM) or sandbox environment that runs an independent and untouched Python environment.
+When you create and activate the venv you no longer have access to the main Python environment running on your system.&lt;/p&gt;
+&lt;p&gt;The problem programmers have is that it can be hard to isolate problems in code when their primary environment is cluttered with imported modules and the like.
+Best practice would be to create a venv within your project and use it to run your project.&lt;/p&gt;
+&lt;h2&gt;Step by Step&lt;/h2&gt;
+&lt;p&gt;Let's create a venv called "awesome-test". You'd preferably run the following commands in your project root dir:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# python3 -m venv awesome-test
+# ls
+awesome-test
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;In Python 3, virtualenvs come installed by default. In Python 2.7 you install them with pip install virtualenv.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The next step is to activate the venv.
+Activating the venv puts you into a standalone Python instance that has pretty much nothing installed by default:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# cd awesome-test
+# ls
+bin     include     lib     pyvenv.cfg
+#
+# source bin/activate
+(awesome-test) #
+(awesome-test) # echo YAY!
+YAY!
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;em&gt;(awesome-test)&lt;/em&gt; tag preceding your shell prompt indicates you're now in the venv.
+Now list out the modules installed in this python instance:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# pip list
+pip (9.0.1)
+setuptools (28.8.0)
+#
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you've been using Python already, you'll know that your main env would have a boat load of modules installed. It's nice to be able to run from a clean slate when desiging new code!&lt;/p&gt;
+&lt;p&gt;You can now play around and install whatever the heck you want without having to worry about corrupting or screwing up your primary environment. All modules installed in this venv will remain local to the venv.&lt;/p&gt;
+&lt;p&gt;When you're done using the venv you then exit (deactivate) it using the deactivate command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(awesome-test) # deactivate
+# 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Note: All of changes you made in the venv will NOT be lost. It's all stored safely within the venv.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;The seasoned veteran out there will surely read this and call me a noob... and they'd be right! It's exactly why I'm so stoked to have discovered venvs!&lt;/p&gt;
+&lt;p&gt;If you're not using virtualenvs yet, install the package and give it a whirl.&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="python"></category><category term="pip"></category><category term="virtualenv"></category><category term="venv"></category></entry><entry><title>How to get PyBites up and running on your machine</title><link href="https://pybit.es/install-me.html" rel="alternate"></link><published>2016-12-20T10:40:00+01:00</published><updated>2016-12-20T10:40:00+01:00</updated><author><name>Pybites</name></author><id>tag:pybit.es,2016-12-20:/install-me.html</id><summary type="html">&lt;p&gt;This is a short post for Julian to get this Pelican blog up and running on his system.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is also a useful ref for future collaborators ...&lt;/p&gt;
+&lt;p&gt;We're open source right? ;)&lt;/p&gt;
+&lt;h2&gt;Pybites install guide&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# we have a src, output and theme (Flex) repo, use --recursive to get all
+$ git clone --recursive git@github.com:pybites/pybites.github.io-src pybites
+$ cd pybites
+
+# set up env and install dependencies
+$ virtualenv venv (might need: virtualenv -p python3 venv)
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+
+# add some content
+$ cd content
+$ vi new-blog-post.md ; wq!
+
+# check changes on localhost
+$ cd ..
+$ make html &amp;amp;&amp;amp; make serve
+
+# push this new content to the parent -src repo
+$ git add . 
+$ git commit -m &amp;quot;my new blog post&amp;quot;
+$ git push
+
+# push the static blog change to the child -io repo
+# wait: this is a duplicate step, I don&amp;#39;t like duplication!
+# ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As we have 2 repos: -src for code, -io for generated static content, ideally we want to automate the publishing to -io, so we can just focus on the main repo (-src). &lt;/p&gt;
+&lt;p&gt;Here is where &lt;a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks"&gt;git hooks&lt;/a&gt; come into play. cd into .git/hooks and add below script, name it "pre-push", update your WORKING_DIR and chmod 755 it ...&lt;/p&gt;
+&lt;p&gt;UPDATE: we abondonded this hook, because it led to some conflicts / unnecessary work, not worth automating this step. We push manually to -src / -io these days. &lt;/p&gt;</content><category term="pelican"></category><category term="publishing"></category><category term="github"></category><category term="pip"></category><category term="virtualenv"></category><category term="git"></category></entry></feed>

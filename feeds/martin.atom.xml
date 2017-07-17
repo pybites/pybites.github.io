@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites - Martin</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/martin.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2017-07-07T08:45:00+02:00</updated><entry><title>From Challenge to Project - How I Made PyTrack, Learning Modules and Packaging</title><link href="https://pybit.es/guest-pytrack-app.html" rel="alternate"></link><published>2017-07-07T08:45:00+02:00</published><updated>2017-07-07T08:45:00+02:00</updated><author><name>Martin</name></author><id>tag:pybit.es,2017-07-07:/guest-pytrack-app.html</id><summary type="html">&lt;p&gt;This is a guest post by Martin, a passionate Pythonista who turns our code challenges into cool projects. In this article he describes his process of building &lt;a href="https://github.com/clamytoe/pyTrack/"&gt;pyTrack&lt;/a&gt;, a simple task time tracker. Not only did he learn various Python modules - PeeWee, Maya and Click - he also stunned us delivering a project with great documentation and properly packaged code.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;Lessons learned during the making of pyTrack&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This is a guest post by Martin, a passionate Pythonista who turns our code challenges into cool projects. In this article he describes his process of building &lt;a href="https://github.com/clamytoe/pyTrack/"&gt;pyTrack&lt;/a&gt;, a simple task time tracker. Quoting the Readme:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pyTrack helps you keep track of how much time you spend on your projects and tasks. A sqlite database is used to track your time logs, and it is kept simple by only implementing as few commands as needed to get a full featured application. You can add/remove multiple projects, start/stop tracking any of them, or completely reset the database to start with a clean slate.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Not only did he learn various Python modules - PeeWee, Maya and Click - he also stunned us delivering a project with great documentation (check out &lt;a href="https://github.com/clamytoe/pyTrack/blob/master/README.md"&gt;the README&lt;/a&gt;!) and properly packaged code. &lt;/p&gt;
+&lt;p&gt;Enter Martin:&lt;/p&gt;
+&lt;h2&gt;PyBites Challenge #23&lt;/h2&gt;
+&lt;p&gt;When I first heard about &lt;a href="https://pybit.es/codechallenge23.html"&gt;this challenge&lt;/a&gt;, my interest was immediately peaked. It sounded like something that I could use myself on a regular basis. I knew from the get go that I wanted to use &lt;a href="https://github.com/kennethreitz/maya"&gt;Maya&lt;/a&gt; for keeping track of the timestamps so I installed it and got to work. Things were going great: I wrote up my classes and was able to create objects and save timestamps, pull them back out and get time intervals and such.&lt;/p&gt;
+&lt;p&gt;It seemed like a relatively simple challenge. I knew that I needed a database back-end and didn't want to use &lt;a href="https://www.sqlalchemy.org/"&gt;SQLAlchemy&lt;/a&gt; again, so I decided to up the stakes a bit by using &lt;a href="https://github.com/coleifer/peewee"&gt;PeeWee&lt;/a&gt; ORM. &lt;/p&gt;
+&lt;p&gt;I'm usually able to figure things out by checking the docs and playing around with the code. Time was not on my side this time though so I could only work on this sporadically over a couple of weeks. It was hard going at first. I mostly struggled with getting to know how to use PeeWee. Maya on the other hand was relatively easy to pick up.&lt;/p&gt;
+&lt;h2&gt;PeeWee and Maya&lt;/h2&gt;
+&lt;p&gt;One thing was certain: all of the work that I had already put into creating the classes and tests for this would have to be tossed and replaced with the class models for &lt;em&gt;PeeWee&lt;/em&gt;...&lt;/p&gt;
+&lt;p&gt;Figuring out a one-to-many relationship was one of my first hurdles. I read the docs a bit and looked at some quick tutorials. They were very basic, so my implementation ended up basic. I recently came across &lt;a href="http://blog.adnansiddiqi.me/develop-database-driven-applications-in-python-with-peewee/"&gt;Adnan's Random bytes&lt;/a&gt; blog, that would have came in really handy when I was first developing this. The way he sets his relationships is how I should have done it.&lt;/p&gt;
+&lt;p&gt;Another thing that threw me off was not being able to save &lt;em&gt;MayaDT&lt;/em&gt; objects into the database. Only I didn't realize that it was the problem that I was having! The error messages from PeeWee were really cryptic and hard to follow.&lt;/p&gt;
+&lt;p&gt;After a few days of cursing and messing around with it, it finally hit me! &lt;em&gt;PeeWee&lt;/em&gt; was expecting me to store &lt;em&gt;datetime&lt;/em&gt; objects because that's what I had declared them as in the models! As soon as I converted the &lt;em&gt;Maya&lt;/em&gt; objects into the correct format, I was able to get the ball rolling.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;timestamp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; now&lt;span class="o"&gt;()&lt;/span&gt;.datetime&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The next issue was when I would pull those timestamps back out to get my time intervals, &lt;em&gt;Maya&lt;/em&gt; was not having it. Fortunate for me, the author of &lt;em&gt;Maya&lt;/em&gt;, had already solved that problem. Instead of using the normal &lt;em&gt;MayaInterval()&lt;/em&gt; I had to do it this way:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;interval&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; MayaInterval.from_datetime&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now you would think that would be it, but no, that introduced another issue. See, with the normal &lt;em&gt;MayaInterval&lt;/em&gt; method, your local timezone is automatically determined and taken care of. Not so with the &lt;em&gt;.from_datetime()&lt;/em&gt; one. It took me a while to figure out why it was failing when it had all been working before the addition of &lt;em&gt;PeeWee&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;It turns out that I couldn't simply just use the &lt;em&gt;datetime&lt;/em&gt; entries that I had placed into the database. I had to first get the timezone and then feed that into &lt;em&gt;.from_datetime()&lt;/em&gt;. The timezone object has many properties, the one that I was interested in was &lt;strong&gt;zone&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# set local timezone&lt;/span&gt;
+&lt;span class="nv"&gt;timezone&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; get_localzone&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="nv"&gt;local_tz&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; timezone.zone
+
+&lt;span class="c1"&gt;# import datetime objects from database&lt;/span&gt;
+...
+
+&lt;span class="c1"&gt;# parse them into the proper formats&lt;/span&gt;
+&lt;span class="nv"&gt;start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; parse&lt;span class="o"&gt;(&lt;/span&gt;log.start_time&lt;span class="o"&gt;)&lt;/span&gt;.datetime&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;to_timezone&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;local_tz, &lt;span class="nv"&gt;naive&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;stop&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; parse&lt;span class="o"&gt;(&lt;/span&gt;log.stop_time&lt;span class="o"&gt;)&lt;/span&gt;.datetime&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;to_timezone&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;local_tz, &lt;span class="nv"&gt;naive&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# get the interval&lt;/span&gt;
+&lt;span class="nv"&gt;duration&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; MayaInterval.from_datetime&lt;span class="o"&gt;(&lt;/span&gt;start, stop&lt;span class="o"&gt;)&lt;/span&gt;.timedelta
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;em&gt;timedelta&lt;/em&gt; converts the interval object into &lt;em&gt;0:00:00&lt;/em&gt; format, which is exactly what I wanted.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note from PyBites: we definitely recognize this kind of struggle using new modules and technologies. This is why we encourage learning by code challenges. Reading a book about technology only gets you so far. It's when you start &lt;em&gt;using&lt;/em&gt; the technology that you run in many (context) specific issues. This can be frustrating, but practice enough and you will be on your way to mastery. We think Martin's &lt;em&gt;pyTrack&lt;/em&gt; is a great example of this.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;User interface - plan ahead!&lt;/h2&gt;
+&lt;p&gt;Once everything was working smoothly, I remembered that I wanted to make this into a command-line utility. &lt;/p&gt;
+&lt;p&gt;A common mistake is to just start coding which often leads to having to rewrite a lot of your code. In that regard I think next time I’ll build out the command-line interface first and then add the code for it. &lt;/p&gt;
+&lt;p&gt;I started to add &lt;a href="https://github.com/pallets/click"&gt;Click&lt;/a&gt; to get the CLI functionality. I had already used Click before so I thought that it would be pretty easy to add it as an afterthought. Boy was I wrong!&lt;/p&gt;
+&lt;p&gt;Let's just say that I patched it onto my existing code but then had to refactor the whole thing out once again so that the command-line portion of the code would be its own separate file. This will make it easier to add a GUI later on, if I get the motivation to do it.&lt;/p&gt;
+&lt;p&gt;My biggest roadblock here was in trying to get the project listing to show whenever no arguments were passed. None of the documentation or tutorials that I found showed how to do this. Took me a while to figure out that you have to call the method that starts off &lt;em&gt;Click&lt;/em&gt; and since every example that I ran into in the wild started out that way, I thought it was a requirement.&lt;/p&gt;
+&lt;p&gt;I modified my main function so that it would look for command-line arguments and take action appropriately.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;...
+        &lt;span class="k"&gt;if&lt;/span&gt; len&lt;span class="o"&gt;(&lt;/span&gt;argv&lt;span class="o"&gt;)&lt;/span&gt; &amp;gt; &lt;span class="m"&gt;1&lt;/span&gt;:
+            cli&lt;span class="o"&gt;()&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;:
+            &lt;span class="nv"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; get_projects&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;display&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True&lt;span class="o"&gt;)&lt;/span&gt;
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I have that portion of the code wrapped in other code that opens and closes the connection to the database. I found it easier to do it this way instead of using function decorators.&lt;/p&gt;
+&lt;h2&gt;Packaging&lt;/h2&gt;
+&lt;p&gt;Last but not least came time to package the whole thing. PyBites wrote up &lt;a href="https://pybit.es/python-packaging.html"&gt;an excellent tutorial&lt;/a&gt; on how to do it, so I won't repeat it here. I actually learned from it myself and implemented some of it on this project, so go and have a read.&lt;/p&gt;
+&lt;p&gt;I should also give a shout out to &lt;a href="https://twitter.com/dbader_org"&gt;Dan Bader&lt;/a&gt; and thank him for his excellent &lt;a href="https://dbader.org/blog/write-a-great-readme-for-your-github-project"&gt;README-Template for your GitHub project&lt;/a&gt;, which I use on every single project that I write. It takes your documentation from being so so, up to pro level!&lt;/p&gt;
+&lt;p&gt;I haven’t covered a lot about actually using my project. I think I did a pretty good job of explaining how it works in the &lt;a href="https://github.com/clamytoe/pyTrack"&gt;README&lt;/a&gt;, so check it out for yourself and feel free to contact me with any suggestions on how to improve it.&lt;/p&gt;
+&lt;p&gt;One more bit of advice when starting your own projects. Do a quick &lt;strong&gt;pip&lt;/strong&gt; search for your potential project name.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip search pyTrack
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I wasn't planning on pushing this out to &lt;a href="https://pypi.python.org/pypi"&gt;pypi&lt;/a&gt;, but now that I'm considering it I'm running into the problem that &lt;strong&gt;pyTrack&lt;/strong&gt; is already taken! Not only will I have to come up with a new name, but I'm also going to have to rename my GitHub repo to reflect the change.&lt;/p&gt;
+&lt;p&gt;Conclusion: put in a little bit of leg work at the beginning and save yourself the hassle. &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;As always, Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Martin Uribe&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Martin is a ten year Army Veteran, turned Field Support Technician in the IT and Services Industry, who likes to code on the side to make his daily tasks easier. You can follow him on &lt;a href="https://twitter.com/mohhinder"&gt;Twitter&lt;/a&gt; and &lt;a href="https://github.com/clamytoe"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="challenges"></category><category term="guest"></category><category term="PyTrack"></category><category term="packaging"></category><category term="peewee"></category><category term="click"></category><category term="maya"></category><category term="learning"></category></entry><entry><title>The making of my Task Manager App for the PyBites Code Challenge</title><link href="https://pybit.es/guest-making-of-task-manager.html" rel="alternate"></link><published>2017-05-02T13:00:00+02:00</published><updated>2017-05-02T13:00:00+02:00</updated><author><name>Martin</name></author><id>tag:pybit.es,2017-05-02:/guest-making-of-task-manager.html</id><summary type="html">&lt;p&gt;As a relatively newcomer to the Python scene I've come to realize that the best way to learn is to actually participate in coding challenges. This has helped to push me out of my comfort zone.&lt;/p&gt;</summary><content type="html">&lt;p&gt;As a relatively newcomer to the Python scene I've come to realize that the best way to learn is to actually participate in coding challenges. This has helped to push me out of my comfort zone. If you're in the same boat as me, I hope that this writeup will motivate you to do the same.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Clamytoe's Task Manager" src="https://pybit.es/images/ctm.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Backstory&lt;/h2&gt;
+&lt;p&gt;To be honest, I was already working on a command line version of a task manger. I basically wanted a way to track my achievements throughout the year so that I could readily have them available when it came time for my "self review". I forget what I did this morning, so having this would be a tremendous asset. I figured I could just convert my code to work with Flask, easy right? Boy was I wrong!&lt;/p&gt;
+&lt;p&gt;If you're interested in learning how I approached this challenge, read on.&lt;/p&gt;
+&lt;h2&gt;Flask&lt;/h2&gt;
+&lt;p&gt;The first thing I did was to head on over to &lt;a href="http://flask.pocoo.org/"&gt;Flask&lt;/a&gt;'s website and check out their &lt;a href="http://flask.pocoo.org/docs/0.12/"&gt;documentation&lt;/a&gt;. I specifically found their &lt;a href="http://flask.pocoo.org/docs/0.12/quickstart/"&gt;Quickstart&lt;/a&gt; guide to be an invaluable resource and I went back to it many times. I've been trying to keep up with developments with HTML5, CSS3, and JavaScript, so I knew that the easiest route would be to build this app on top of &lt;a href="http://getbootstrap.com/"&gt;Bootstrap&lt;/a&gt;, so that's where I headed to next.&lt;/p&gt;
+&lt;h2&gt;Bootstrap&lt;/h2&gt;
+&lt;p&gt;The first thing I did was to make my way to their &lt;a href="http://getbootstrap.com/getting-started/"&gt;Getting Started&lt;/a&gt; page. Out of all their choices on implementing their framework, I opted to go with the CDN option to avoid having to upload too many files to &lt;a href="https://github.com/"&gt;GitHub&lt;/a&gt;. Unfortunately, my Internet connection at home is very limited, so going this route would mean having to deal with slow response times, but it would be worth it for everyone else.&lt;/p&gt;
+&lt;p&gt;I headed straight for their &lt;a href="http://getbootstrap.com/getting-started/#examples"&gt;Examples&lt;/a&gt; page to find me a template that was close enough to what I was looking for. Modifying a template would definitely speedup the development of this app. If you're new to Bootstrap, like I was, their &lt;a href="http://getbootstrap.com/components/"&gt;Components&lt;/a&gt; page was another one of those resources that made this a whole lot easier. I chose to go with their &lt;a href="http://getbootstrap.com/examples/navbar-static-top/"&gt;Static top navbar&lt;/a&gt; template.&lt;/p&gt;
+&lt;h2&gt;HTML &amp;amp; CSS&lt;/h2&gt;
+&lt;p&gt;The next thing I did was to get the template up and running locally. I copied the code to my template and replaced the Bootstrap calls with the ones for the CDN. Where other files were being called, I just downloaded those and stuck them in the static folder of my project. I started with a simple "Hello World!" page just to have something loaded.&lt;/p&gt;
+&lt;p&gt;From there I started to customize the form that I would need and to add the table to display the results. Being a bit rusty, I headed over to &lt;a href="https://www.w3schools.com/"&gt;W3Schools&lt;/a&gt; and went over their tutorials on &lt;a href="https://www.w3schools.com/html/html_forms.asp"&gt;Forms&lt;/a&gt;, &lt;a href="https://www.w3schools.com/html/html_tables.asp"&gt;Tables&lt;/a&gt;, and &lt;a href="https://www.w3schools.com/css/default.asp"&gt;CSS&lt;/a&gt; formating. To my surprise, they also had a section on &lt;a href="https://www.w3schools.com/bootstrap/default.asp"&gt;Bootstrap&lt;/a&gt;, but I found the examples on Bootstrap's page more useful.&lt;/p&gt;
+&lt;h2&gt;Template&lt;/h2&gt;
+&lt;p&gt;Now that I had my page up and running, it was time to get things rolling! I should have headed over to &lt;a href="http://jinja.pocoo.org/"&gt;Jinja&lt;/a&gt;'s page and checked out their
+&lt;a href="http://jinja.pocoo.org/docs/2.9/"&gt;documentation&lt;/a&gt;, but all I went off of was the basic examples on Flask's site. My goal was to make this a one page application, so the examples there were all I needed.&lt;/p&gt;
+&lt;p&gt;Creating the template was pretty straight forward. I had it mocked up and coded without much trouble. The hardest part was working within the confines of Bootstrap and trying to get it to do what I wanted. Once I was happy with that, it was time to actually start writing some Python code!&lt;/p&gt;
+&lt;h2&gt;Flask-SQLAlchemy&lt;/h2&gt;
+&lt;p&gt;With my CLI task list, I had used &lt;a href="https://docs.python.org/2/library/sqlite3.html"&gt;slqlite3&lt;/a&gt;, but I wasn't too happy with all of the calls that I had to make each time that I wanted to modify or pull data from the database. On top of that, I had to actually write out the &lt;a href="https://www.w3schools.com/sql/default.asp"&gt;SQL&lt;/a&gt; commands as well. I had heard that &lt;a href="https://www.sqlalchemy.org/"&gt;SQLAlchemy&lt;/a&gt; was the tool to use, so I figured that this would be the perfect time to get acquainted with it.&lt;/p&gt;
+&lt;p&gt;Unfortunately, their docs were pretty daunting. &lt;a href="http://flask-sqlalchemy.pocoo.org/2.1/"&gt;Flask-SQLAlchemy&lt;/a&gt; to the rescue! Like all of the other great tools that I've talked about thus far, their &lt;a href="http://flask-sqlalchemy.pocoo.org/2.1/quickstart/"&gt;documentation&lt;/a&gt; made this a breeze. I spent a lot of time going over those pages. When I couldn't find what I was looking for, &lt;a href="http://stackoverflow.com/"&gt;Stack Overflow&lt;/a&gt; and &lt;a href="http://stackexchange.com/"&gt;Stack Exchange&lt;/a&gt; via &lt;a href="https://www.startpage.com/eng/?"&gt;StartPage&lt;/a&gt; searches came through for me. I found a lot of differing "opinions" on the proper way of doing things, but none would actually work for me. A bit of trial and error and actually dropping into the Python interpreter were key.&lt;/p&gt;
+&lt;p&gt;I recently discovered &lt;a href="https://pypi.python.org/pypi/pdir2"&gt;pdir2&lt;/a&gt;, which has been great for helping with discovering what actual commands I can use with the modules. Python's default &lt;code&gt;dir()&lt;/code&gt; works as well, but I find the formatting and coloring of &lt;code&gt;pdir()&lt;/code&gt; a lot easier to consume. I didn't add it to the &lt;em&gt;requirements.txt&lt;/em&gt; because it's not needed for running the application. Another great tool that needs to be mentioned is the &lt;a href="https://www.jetbrains.com/pycharm/"&gt;PyCharm IDE&lt;/a&gt;. Its code completion came in really handy while working with SQLAlchemy.&lt;/p&gt;
+&lt;h2&gt;Setbacks&lt;/h2&gt;
+&lt;p&gt;I did run into some trouble trying to get Python &lt;code&gt;datetime&lt;/code&gt; objects through SQLAlchemy, so I ended up discarding my accomplishment task tracking app idea and just going with a simple Todo Task Manager: &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Original UI" src="https://pybit.es/images/old-ui.png"&gt;&lt;/p&gt;
+&lt;p&gt;Even though I had to "dumb it down" a bit, I still tried to make it as easy as possible to use. With it you can do the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create separate Projects&lt;/li&gt;
+&lt;li&gt;Add tasks to each Project&lt;/li&gt;
+&lt;li&gt;Easily navigate between Projects&lt;/li&gt;
+&lt;li&gt;Remembers which Project you used last&lt;/li&gt;
+&lt;li&gt;One button click task status changes&lt;/li&gt;
+&lt;li&gt;from Open to Close&lt;/li&gt;
+&lt;li&gt;from Close to Open&lt;/li&gt;
+&lt;li&gt;Remove all tasks from a Project&lt;/li&gt;
+&lt;li&gt;Remove a single task at a time&lt;/li&gt;
+&lt;li&gt;Remove Projects along with any tasks assigned to it&lt;/li&gt;
+&lt;li&gt;Able to add tasks that are initially marked as Close&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Later on, if I have the motivation and time, I'd like to add the ability to select all tasks and perform operations on them with a single button click.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Overall it was a great experience and I learned a lot from it. I'd recommend anyone looking to learn more about Python to take the time and participate &lt;a href="http://pybit.es/pages/challenges.html"&gt;in PyBites code challenges&lt;/a&gt;. It's one thing to read about how to do something and another one altogether having to actually implement it.&lt;/p&gt;
+&lt;h2&gt;PyBites addition&lt;/h2&gt;
+&lt;p&gt;Martin submitted this cool project for our &lt;a href="http://pybit.es/codechallenge15.html"&gt;Code Challenge 15 - Create a Simple Flask App&lt;/a&gt; which we reviewed &lt;a href="http://pybit.es/codechallenge15_review.html"&gt;here&lt;/a&gt;. &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Martin Uribe&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Martin is a ten year Army Veteran, turned Field Support Technician in the IT and Services Industry, who likes to code on the side to make his daily tasks easier. You can follow him on &lt;a href="https://twitter.com/mohhinder"&gt;Twitter&lt;/a&gt; and &lt;a href="https://github.com/clamytoe"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="blog"></category><category term="challenges"></category><category term="Flask"></category><category term="Bootstrap"></category><category term="HTML"></category><category term="CSS"></category><category term="Jinja2"></category><category term="Flask-SQLAlchemy"></category><category term="sql"></category><category term="guest"></category><category term="learning"></category></entry></feed>

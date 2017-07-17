@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites - Modules</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/modules.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2017-06-24T09:00:00+02:00</updated><entry><title>Module of the Week - Pendulum</title><link href="https://pybit.es/pendulum.html" rel="alternate"></link><published>2017-06-24T09:00:00+02:00</published><updated>2017-06-24T09:00:00+02:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-06-24:/pendulum.html</id><summary type="html">&lt;p&gt;A brief overview of the Pendulum datetime module.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I’ll come clean. When it comes to Python datetime, I’m a shocker! I always struggle with the whole formatting side of things.&lt;/p&gt;
+&lt;p&gt;This week, I discovered the Pendulum Package and I swear I heard angels sing.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;What is Pendulum?&lt;/h2&gt;
+&lt;p&gt;Let’s be clear, we’re not talking about one of my &lt;a href="https://en.wikipedia.org/wiki/Pendulum_(drum_and_bass_band)"&gt;favourite bands&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Pendulum is a Python Package designed to make the manipulation of Python datetimes easier.  In some cases, you can even totally replace every instance of &lt;code&gt;datetime&lt;/code&gt; in your code with &lt;code&gt;pendulum&lt;/code&gt; and the code should still work.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;p&gt;There are so many cool functions and use cases which (unfortunately for this article) are explained clearly and thoroughly in the &lt;a href="https://pendulum.eustace.io/docs/"&gt;Pendulum Documentation&lt;/a&gt;. I’m not going to bother copying and pasting so I strongly urge you to check it out.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;My Favourite Uses&lt;/h2&gt;
+&lt;p&gt;The first thing I’ll point out is that Pendulum has a wonderfully simplistic way of describing what each function does. Take the following for example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;now = pendulum.now()
+print(now)
+&amp;#39;2016-06-28T16:51:45.978473-05:00&amp;#39;
+
+today = pendulum.today()
+print(today)
+&amp;#39;2016-06-28T00:00:00-05:00&amp;#39;
+
+tomorrow = pendulum.tomorrow(&amp;#39;Europe/London&amp;#39;)
+print(tomorrow)
+&amp;#39;2016-06-29T00:00:00+01:00&amp;#39;
+
+yesterday = pendulum.yesterday()
+print(yesterday)
+&amp;#39;2016-06-27T00:00:00-05:00&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is taken straight from the docs. I’m just making a point. How simple is that to read? &lt;code&gt;.tomorrow()&lt;/code&gt; and &lt;code&gt;.yesterday()&lt;/code&gt; are super useful!&lt;/p&gt;
+&lt;p&gt;On top of that, you can even specify the timezone of the place you want to know the time of, thus the &lt;code&gt;.tomorrow(‘Europe/London’)&lt;/code&gt; line.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;My absolute favourite Pendulum feature is this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; pendulum.now().to_datetime_string()
+&amp;#39;2017-06-24 09:35:38&amp;#39;
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; pendulum.now().to_day_datetime_string()
+&amp;#39;Sat, Jun 24, 2017 09:36 AM’
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pendulum has a brilliant set of formatting options for datetime results. No longer do I need to use the convoluted and hard to remember &lt;code&gt;strftime&lt;/code&gt; type formatting method (%D %M %Y). Pendulum will do it all for me! Mmmm.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+On top of all of this, I feel like date comparisons, calculations and timezone manipulation has also been made easier. For example, you can create a Pendulum instance with a specified timezone and time, then change the timezone for it on the fly with ease:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;in_paris = pendulum.create(2016, 8, 7, 22, 24, 30, tz=&amp;#39;Europe/Paris&amp;#39;)
+&amp;#39;2016-08-07T22:24:30+02:00&amp;#39;
+in_paris.in_timezone(&amp;#39;America/New_York&amp;#39;)
+&amp;#39;2016-08-07T16:24:30-04:00&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;
+There are even more advanced functions when it comes to calculations (addition and subtraction). You can easily add/subtract days, months, years, hours, minutes and seconds. Totally awesome!&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;I’m now using Pendulum for all of my datetime needs. I’m sure the datetime module is capable of doing many of the jobs I’ve mentioned but again, I’ve always found it confusing and tedious.&lt;/p&gt;
+&lt;p&gt;Pendulum makes things even more &lt;a href="https://pendulum.eustace.io/docs/#difference-for-humans"&gt;human readable&lt;/a&gt; and approachable (for me anyway!).&lt;/p&gt;
+&lt;p&gt;Thanks to &lt;a href="https://github.com/sdispater"&gt;Sébastien Eustace&lt;/a&gt; for this wonderful package!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="python"></category><category term="tips"></category><category term="code"></category><category term="pybites"></category><category term="pendulum"></category><category term="datetime"></category><category term="pytz"></category><category term="timezones"></category></entry><entry><title>Using Python Requests on a Page Behind a Login</title><link href="https://pybit.es/requests-session.html" rel="alternate"></link><published>2017-06-09T21:48:00+02:00</published><updated>2017-06-09T21:48:00+02:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-06-09:/requests-session.html</id><summary type="html">&lt;p&gt;In this post I discuss using the requests module on web pages behind a login&lt;/p&gt;</summary><content type="html">&lt;p&gt;A great frustration in my web scraping journey has been finding a page tucked away behind a login. I didn’t actually think it was possible to scrape a page locked away like this so I didn’t bother Googling it. Bad Julian, bad!&lt;/p&gt;
+&lt;p&gt;Using the &lt;code&gt;requests&lt;/code&gt; module to pull data from a page behind a login is relatively simple. It does however require a little bit of HTML know how.&lt;/p&gt;
+&lt;p&gt;For this article I’m going to demonstrate logging into &lt;a href="https://www.freecycle.org"&gt;freecycle.org&lt;/a&gt; (totally check it out if you don’t know what it is!).&lt;/p&gt;
+&lt;p&gt;Full code is &lt;a href="https://github.com/pybites/100DaysOfCode/tree/master/051"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;POSTing data&lt;/h2&gt;
+&lt;p&gt;First you need to understand how data is handled at the HTML page level. &lt;/p&gt;
+&lt;p&gt;The login prompt on a web page is an HTML form. As such, when you enter your credentials and click submit, you’re sending your data to the authentication application behind the page. This is called a &lt;strong&gt;POST&lt;/strong&gt;. You’re pushing, or &lt;em&gt;POSTing&lt;/em&gt; your data.&lt;/p&gt;
+&lt;p&gt;What you’re doing with the requests module is automating this. Instead of you typing the data in yourself, your script will do it for you.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GET&lt;/strong&gt; on the other hand is precisely the opposite. GET, as the name implies, &lt;em&gt;pulls&lt;/em&gt; data. Very useful for requests right?&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;Get Dirty, Start Digging&lt;/h2&gt;
+&lt;p&gt;The next step is to start digging around the HTML code for the login page of the site. What we’re looking for is the HTML &lt;code&gt;form&lt;/code&gt; code that our script will look for so it knows where to plug in your credentials.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The login page for freecycle.org is &lt;a href="https://my.freecycle.org"&gt;https://my.freecycle.org&lt;/a&gt;. Inspect the HTML page using your browser of choice (I use Google Chrome).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Next, start working your way through the HTML until you find the &lt;code&gt;form&lt;/code&gt; HTML tag.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Within the form tag look for the &lt;code&gt;method&lt;/code&gt; argument and you’ll see it says “post”. This means we’re in the right place!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Again, within the tag, you’ll see the &lt;code&gt;action&lt;/code&gt; argument. The URL specified is what you want to note down. In this case it’s: https://my.freecycle.org/login. This URL is where the credentials are used once you enter them in.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, drill down further into the &lt;code&gt;form&lt;/code&gt; tag and look for the &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt; tags. There should be at least two (username and password). The username input tag is generally of &lt;code&gt;type=text&lt;/code&gt; and the password, &lt;code&gt;type=password&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Look within these &lt;code&gt;input&lt;/code&gt; tags for a &lt;code&gt;name&lt;/code&gt; argument. This is the &lt;em&gt;name&lt;/em&gt; of this input field. This is also how &lt;code&gt;requests&lt;/code&gt; is going to know &lt;em&gt;where&lt;/em&gt; to “enter” your credentials.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On the freecyle.org login page the username input field has &lt;code&gt;name&lt;/code&gt; &lt;code&gt;username&lt;/code&gt;. The password input field has &lt;code&gt;name&lt;/code&gt; &lt;code&gt;pass&lt;/code&gt;. Note these two names down.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;What are you Scraping?&lt;/h2&gt;
+&lt;p&gt;At this point you’ll want to actually login to the website and figure out what you’re scraping.&lt;/p&gt;
+&lt;p&gt;Consider the following for your own situation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;When you login to freecycle.org in a browser, the page you’re redirected to has the URL: https://my.freecycle.org/home/groups. This is &lt;strong&gt;not&lt;/strong&gt; a limiting factor. That is, this is not the only page &lt;code&gt;requests&lt;/code&gt; has access to for scraping goodness.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I want to scrape a list of my active posts, the URL for the “My Posts” page is: https://my.freecycle.org/home/posts. This is precisely the URL I’ll be pointing &lt;code&gt;requests&lt;/code&gt; at.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Continue on as you normally would with &lt;code&gt;requests&lt;/code&gt; to grab your data. Look for the relevant HTML tags and IDs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;Talk is Cheap, Show me the Code!&lt;/h2&gt;
+&lt;p&gt;Finally! Code time! With all of the data on hand, we can piece this baby together.&lt;/p&gt;
+&lt;p&gt;Assign your two URLs to variables:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#This URL will be the URL that your login form points to with the &amp;quot;action&amp;quot; tag.
+POST-LOGIN-URL = &amp;#39;https://my.freecycle.org/login&amp;#39;
+
+#This URL is the page you actually want to pull down with requests.
+REQUEST-URL = &amp;#39;https://my.freecycle.org/home/posts&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pythonic and self-explanatory. Let’s move on.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+Now we want to set up a dict that contains our login information.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;payload = {
+    ‘username’: ‘your_username’,
+    &amp;#39;pass’: ‘your_password&amp;#39;
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The keys in the dict are the &lt;code&gt;name&lt;/code&gt;s of the input fields collected earlier. Eg: &lt;code&gt;username&lt;/code&gt; and &lt;code&gt;pass&lt;/code&gt;. The values associated with each are (you guessed it!) your username and password details. It’d be a good idea to at the very least, store your password in an environment variable and call it in for use in the script.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+Finally, we want to open our &lt;code&gt;requests&lt;/code&gt; &lt;code&gt;session&lt;/code&gt;. Yep! Requests will create its own session instance (useful for multiple requests to the same site):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;with requests.Session() as session:
+    post = session.post(POST-LOGIN-URL, data=payload)
+    r = session.get(REQUEST-URL)
+    print(r.text)   #or whatever else you want to do with the request data!
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;We’ll use a &lt;code&gt;with&lt;/code&gt; statement to open the request Pythonically.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Line 2 &lt;strong&gt;POSTS&lt;/strong&gt; the data to the login URL we noted down earlier. It requires &lt;code&gt;data&lt;/code&gt; to be specified, in which case we pass it the &lt;code&gt;payload&lt;/code&gt; dict we created. This is the part that enters our username and password!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Line 3 is our traditional requests call using &lt;code&gt;session.get&lt;/code&gt; to the URL we want to scrape.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Line 4 is where you’ll continue on with your requests work. To keep it simple I’ll leave it at a &lt;code&gt;print&lt;/code&gt; statement that will print the entire page.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;And we’re done! That’s it! You can now carry on requesting data from the site behind the login.&lt;/p&gt;
+&lt;p&gt;The next challenge is to get past those pesky CAPTCHA boxes. Don’t get us started on those!&lt;/p&gt;
+&lt;p&gt;For simple sites that just use a text login system though, this process works. The code is actually quite simple. Rather, it’s the preparation and digging that’s time consuming!&lt;/p&gt;
+&lt;p&gt;I haven’t attempted this with Scrapy or other modules yet so if you can do this another way I’d love to hear how!&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="requests"></category><category term="code"></category><category term="web scraping"></category><category term="python"></category></entry><entry><title>Module of the Week - ipaddress</title><link href="https://pybit.es/ipaddress.html" rel="alternate"></link><published>2017-03-23T11:30:00+01:00</published><updated>2017-03-23T11:30:00+01:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2017-03-23:/ipaddress.html</id><summary type="html">&lt;p&gt;While playing around with code for our &lt;a href="http://pybit.es/generators.html"&gt;post on generators&lt;/a&gt; we discovered the &lt;a href="https://docs.python.org/3/library/ipaddress.html"&gt;ipaddress module&lt;/a&gt;, part of the Standard Library. Such a handy little module!&lt;/p&gt;</summary><content type="html">&lt;p&gt;While playing around with code for our &lt;a href="http://pybit.es/generators.html"&gt;post on generators&lt;/a&gt; we discovered the &lt;a href="https://docs.python.org/3/library/ipaddress.html"&gt;ipaddress module&lt;/a&gt;, part of the Standard Library. Such a handy little module!&lt;/p&gt;
+&lt;h2&gt;What does it do?&lt;/h2&gt;
+&lt;p&gt;The ipaddress module simplifies various IP address related tasks. I’m going to outline some of the handier abilities below.&lt;/p&gt;
+&lt;p&gt;It may seem a little redundant to have a module dedicated solely to IP address related tasks but believe me when I say it can save you a heap of time as an admin and programmer.&lt;/p&gt;
+&lt;h2&gt;Create an IPv4 or IPv6 address&lt;/h2&gt;
+&lt;p&gt;The ipaddress module allows you to automatically create an IPv4 or IPv6 address without having to specify the type of address.&lt;/p&gt;
+&lt;p&gt;Just call .ip_address on ipaddress to let the modules figure it out for you:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; ipaddress.ip_address(&amp;#39;192.168.0.1&amp;#39;)
+IPv4Address(&amp;#39;192.168.0.1’)
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; ipaddress.ip_address(&amp;#39;fe80:0:0:0:200:f8ff:fe21:67cf&amp;#39;)
+IPv6Address(&amp;#39;fe80::200:f8ff:fe21:67cf&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Super simple!&lt;/p&gt;
+&lt;h2&gt;Defining your host interface&lt;/h2&gt;
+&lt;p&gt;To describe your particular host interface on a network, you call .ip_interface. Note that this uses the now normal notation: ‘192.168.0.1/24’.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; ipaddress.ip_interface(&amp;#39;192.168.0.1/24&amp;#39;)
+IPv4Interface(&amp;#39;192.168.0.1/24&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Checking your ipaddress object&lt;/h2&gt;
+&lt;p&gt;Now, as Python rocks, we can then assign these values to an object/variable and play with them:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; #Is it IPv4 or IPv6?
+&amp;gt;&amp;gt;&amp;gt; ip = ipaddress.ip_address(‘192.168.0.1’)
+&amp;gt;&amp;gt;&amp;gt; ip.version
+4
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;What’s the netmask?&lt;/h2&gt;
+&lt;p&gt;I hate trying to remember netmasks and how the differing notations match up. I tend to stick with the loveable IP format of 255.255.255.0 whereas others I know love to use the hate-filled 192.168.0.1/24 method. (There, I said it!).&lt;/p&gt;
+&lt;p&gt;Now I never have to plug my netmasks into a shady online calculator again:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; net0
+IPv4Network(&amp;#39;192.168.0.0/24&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt; net0.netmask
+IPv4Address(&amp;#39;255.255.255.0&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Kaloo Kalay!&lt;/p&gt;
+&lt;h2&gt;Defining and checking a network&lt;/h2&gt;
+&lt;p&gt;You can also define an entire network as per the following. I’ll show you why this is awesome in a second:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; #Define the network first
+&amp;gt;&amp;gt;&amp;gt; net0 = ipaddress.ip_network(&amp;#39;192.168.0.0/24&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; #Now check to see how many addresses are valid for this network
+&amp;gt;&amp;gt;&amp;gt; net0.num_addresses
+&amp;gt;&amp;gt;&amp;gt; 256
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;List out the IP addresses for any given network&lt;/h2&gt;
+&lt;p&gt;This is hands down my favourite feature of the ipaddress module for two reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;If it hasn’t been a standard Class C (/24) network, I’ve struggled to figure out the valid IP addresses for the network.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Creating a list of IP addresses for a given subnet has been a tedious process of iteration.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here’s how the ipaddress module shows me some love:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; net0 = ipaddress.ip_network(&amp;#39;192.168.0.0/24&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt; 
+&amp;gt;&amp;gt;&amp;gt; for i in net0.hosts():
+...     print(i)
+... 
+192.168.0.1
+192.168.0.2
+192.168.0.3
+192.168.0.4
+192.168.0.5
+192.168.0.6
+192.168.0.7
+192.168.0.8
+192.168.0.9
+&amp;lt;snip&amp;gt;
+192.168.0.253
+192.168.0.254
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;Drool&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Or we can pop net0.hosts() (a generator) into a list and manipulate it as we see fit:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; iplist = list(net0.hosts())
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; f&amp;#39;Bob can take IP {iplist[57]}&amp;#39;
+&amp;#39;Bob can take IP 192.168.0.58&amp;#39;
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Playing nice with other modules&lt;/h2&gt;
+&lt;p&gt;As you play around with the ipaddress module you’ll find that the objects won’t play nice with other modules until converted to strings or integers. As per &lt;a href="https://docs.python.org/3/library/ipaddress.html#conversion-to-strings-and-integers"&gt;Section 21.28.2.2&lt;/a&gt; on the official Python documentation.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; ip = ipaddress.ip_address(&amp;#39;192.168.0.1&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt; str(ip)
+&amp;#39;192.168.0.1&amp;#39;
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; int(ip)
+3232235521
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;It may not be the most exciting module out there but as someone who deals with many servers on a daily basis and loves to script these interactions, the ipaddress module is invaluable to me.&lt;/p&gt;
+&lt;p&gt;Even if it’s just to convert netmask notation…&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;— Julian&lt;/p&gt;</content><category term="python"></category><category term="tips"></category><category term="code"></category><category term="pybites"></category><category term="ipaddress"></category><category term="sysadmin"></category><category term="stdlib"></category></entry><entry><title>Module of the Week - Requests-cache for Repeated API Calls</title><link href="https://pybit.es/requests-cache.html" rel="alternate"></link><published>2017-03-14T08:00:00+01:00</published><updated>2017-03-14T08:00:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-03-14:/requests-cache.html</id><summary type="html">&lt;p&gt;Today a quick article on a nice caching module when working with APIs: &lt;a href="https://pypi.python.org/pypi/requests-cache"&gt;Requests-cache&lt;/a&gt;.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Today a quick article on a nice caching module when working with APIs: &lt;a href="https://pypi.python.org/pypi/requests-cache"&gt;Requests-cache&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I stumbled upon this &lt;a href="https://realpython.com/blog/python/caching-external-api-requests/"&gt;excellent article by RealPython&lt;/a&gt; when looking for a solution to limit API requests. I needed this when I was playing with the Github API to check &lt;a href="https://github.com/pybites/blog_code/blob/master/forks/commits.py"&gt;changes to forks of our Challenges repo&lt;/a&gt; (you can also see this in the repo, under Graphs &amp;gt; Network, but I was just playing around).&lt;/p&gt;
+&lt;p&gt;This is not a script that would typically need caching, because I probably would run it once a week and then it would make just a couple of requests (at this time: ~100 forks / 30 results per call). However when I was coding this up, I did not want to call the API over and over again:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For unauthenticated requests, the rate limit allows you to make up to 60 requests per hour. 
+&lt;a href="https://developer.github.com/v3/#rate-limiting"&gt;Github API documentation&lt;/a&gt; &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It was also a good exercise to test this module out for a future use case where this does matter.&lt;/p&gt;
+&lt;h2&gt;Using requests_cache&lt;/h2&gt;
+&lt;p&gt;First I thought: lets write the output to a file. However that adds more code. Maybe use a decorator to sleep between requests? However that slows down my coding/testing. As usual somebody already invented the wheel. &lt;/p&gt;
+&lt;p&gt;Enter Requests-cache. It has an easy / friendly interface:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests_cache&lt;/span&gt;
+
+&lt;span class="n"&gt;requests_cache&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;install_cache&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cache_filename&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;backend&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;backend&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;expire_after&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;expiration_in_seconds&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;where backend has &lt;a href="http://requests-cache.readthedocs.io/en/latest/user_guide.html#persistence"&gt;these options&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Verify with curl&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Start API rate limit (already did some calls):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ curl -i https://api.github.com/users/whatever &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null &lt;span class="p"&gt;|&lt;/span&gt;grep &lt;span class="s1"&gt;&amp;#39;X-RateLimit-Remaining:&amp;#39;&lt;/span&gt;
+X-RateLimit-Remaining: &lt;span class="m"&gt;42&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;First time around: cache result. DB got created. Cost = 6 calls (1x curl, 5x by script)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python commits.py &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &amp;gt; /dev/null
+$ lt cache.sqlite
+-rw-r--r--  &lt;span class="m"&gt;1&lt;/span&gt; bbelderb  staff   516K Mar &lt;span class="m"&gt;14&lt;/span&gt; &lt;span class="m"&gt;08&lt;/span&gt;:03 cache.sqlite
+$ curl -i https://api.github.com/users/whatever &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null &lt;span class="p"&gt;|&lt;/span&gt;grep &lt;span class="s1"&gt;&amp;#39;X-RateLimit-Remaining:&amp;#39;&lt;/span&gt;
+X-RateLimit-Remaining: &lt;span class="m"&gt;36&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Second call = cached, cost down to 1 (= curl)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python commits.py &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &amp;gt; /dev/null
+$ curl -i https://api.github.com/users/whatever &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null &lt;span class="p"&gt;|&lt;/span&gt;grep &lt;span class="s1"&gt;&amp;#39;X-RateLimit-Remaining:&amp;#39;&lt;/span&gt;
+X-RateLimit-Remaining: &lt;span class="m"&gt;35&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Keep in mind&lt;/h2&gt;
+&lt;p&gt;Two noteworthy things that were commented on mentioned article:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Check the documentation of the API you are working with. Maybe they already provide a way to use caching. In case of the GH API this would be &lt;a href="https://developer.github.com/v3/#conditional-requests"&gt;Conditional requests&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Making a conditional request and receiving a 304 response does not count against your Rate Limit, so we encourage you to use it whenever possible.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Something to try on the next iteration ...&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You might want to define an output directory for the cache file instead of the default current directory to not end up with multiple files if working from a different folder. &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;More info&lt;/h2&gt;
+&lt;p&gt;See the module's &lt;a href="http://requests-cache.readthedocs.io/en/latest/index.html"&gt;documentation&lt;/a&gt; for more info. &lt;/p&gt;
+&lt;p&gt;Have you used this module? And/or what do you use for caching API requests? &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="requests"></category><category term="cache"></category><category term="APIs"></category><category term="package"></category></entry><entry><title>5 cool things you can do with itertools</title><link href="https://pybit.es/itertools-examples.html" rel="alternate"></link><published>2017-01-12T23:55:00+01:00</published><updated>2017-01-12T23:55:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2017-01-12:/itertools-examples.html</id><summary type="html">&lt;p&gt;Itertools is a very useful module. In this short post I show some 5 examples how you can use it. Some of this stuff might be useful in next week's challenge ...&lt;/p&gt;</summary><content type="html">&lt;h2&gt;What is itertools?&lt;/h2&gt;
+&lt;p&gt;Itertools is a stdlib module that provides functions that create &lt;a href="http://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols"&gt;iterators&lt;/a&gt; "inspired by constructs from APL, Haskell, and SML". See &lt;a href="https://docs.python.org/3/library/itertools.html"&gt;the docs page&lt;/a&gt;, &lt;a href="https://pymotw.com/2/itertools/"&gt;pymotw&lt;/a&gt;, as well as &lt;a href="https://github.com/vterron/EuroPython-2016/blob/master/kung-fu-itertools.ipynb"&gt;this great EuroPython preso&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;5 cool things you can do with itertools&lt;/h2&gt;
+&lt;p&gt;I created &lt;a href="https://github.com/pybites/blog_code/blob/master/notebooks/itertools.ipynb"&gt;this notebook&lt;/a&gt; so you can follow along. Below a summary:&lt;/p&gt;
+&lt;h3&gt;1. Use product to get all combinations between two iterators&lt;/h3&gt;
+&lt;p&gt;Common game techniques: build a card deck or roll two dices:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;itertools&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
+
+&lt;span class="c1"&gt;# from Fluent Python&lt;/span&gt;
+&lt;span class="n"&gt;ranks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;JQKA&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;suits&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;S D C H&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;# spades diamonds clubs hearts&lt;/span&gt;
+&lt;span class="c1"&gt;# but instead of double list comprehension, using product&lt;/span&gt;
+&lt;span class="n"&gt;cards&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;{}{}&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;itertools&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;product&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;suits&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ranks&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Another use case: roll 2 dices (&lt;a href="http://stackoverflow.com/questions/3099987/generating-permutations-with-repetitions-in-python"&gt;SO is your friend&lt;/a&gt;): &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;dice = range(2, 7)
+random.choice([p for p in itertools.product(dice, repeat=2)])
+
+# output: 
+(5, 2)
+(2, 5)
+(2, 5)
+(6, 5)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;2. Show a progress spinner for a console app&lt;/h3&gt;
+&lt;p&gt;From &lt;a href="https://github.com/vterron/EuroPython-2016/blob/master/kung-fu-itertools.ipynb"&gt;before-mentioned EuroPython preso&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;itertools&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;spinner&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Show an animated spinner while we sleep.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;symbols&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;itertools&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cycle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;-\|/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;tend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;tend&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="c1"&gt;# &amp;#39;\r&amp;#39; is carriage return: return cursor to the start of the line.&lt;/span&gt;
+        &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\r&lt;/span&gt;&lt;span class="s1"&gt;Please wait... &amp;#39;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;next&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;symbols&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;# no newline&lt;/span&gt;
+        &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flush&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;# newline&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;spinner&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;3. Use dropwhile to get counts of &amp;gt;= n in a Counter dict&lt;/h3&gt;
+&lt;p&gt;Given a books Counter object, get me books with &amp;gt;= 2 occurences. &lt;/p&gt;
+&lt;p&gt;I needed this for my &lt;a href="http://bobbelderbos.com/2016/12/code-kata/"&gt;tools of titans kata&lt;/a&gt; to see which books got recommended more than once by Tim Ferriss' podcast guests. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_multiple_mentions(books, keep=2):
+    for key, count in itertools.dropwhile(lambda key_count: key_count[1] &amp;gt;= keep, books.most_common()):
+        del books[key]
+    return books
+
+# filters all books with count (occurence = 1) out:
+Counter({&amp;#39;4-hour-workweek-escape-live-anywhere&amp;#39;: 2,
+        &amp;#39;alchemist-paulo-coelho&amp;#39;: 2,
+        &amp;#39;atlas-shrugged-ayn-rand&amp;#39;: 3,
+        &amp;#39;black-swan-improbable-robustness-fragility&amp;#39;: 2,
+        &amp;#39;checklist-manifesto-how-things-right&amp;#39;: 2,
+        ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;4. Combinations and permutations&lt;/h3&gt;
+&lt;p&gt;For the difference read &lt;a href="https://betterexplained.com/articles/easy-permutations-and-combinations/"&gt;this great explanation&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Given a list of friends how many pairs can be formed?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;friends = &amp;#39;bob tim julian fred&amp;#39;.split()
+# as these are &amp;quot;Combinatoric generators&amp;quot; I consume them here for example purposes using list()
+list(itertools.combinations(friends, 2))
+
+# output:
+[(&amp;#39;bob&amp;#39;, &amp;#39;tim&amp;#39;),
+(&amp;#39;bob&amp;#39;, &amp;#39;julian&amp;#39;),
+(&amp;#39;bob&amp;#39;, &amp;#39;fred&amp;#39;),
+(&amp;#39;tim&amp;#39;, &amp;#39;julian&amp;#39;),
+(&amp;#39;tim&amp;#39;, &amp;#39;fred&amp;#39;),
+(&amp;#39;julian&amp;#39;, &amp;#39;fred&amp;#39;)]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;How many 4 letter strings can you from 7 letters? (hint: upcoming challenge)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;string&lt;/span&gt;
+&lt;span class="n"&gt;letters&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ascii_uppercase&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;itertools&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;permutations&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;letters&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="c1"&gt;# = 840 (7 * 6 * 5 * 4)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;5. Groupby to count amount of keys for specific value in dict&lt;/h3&gt;
+&lt;p&gt;Count the number of keys for a value, for example count the number of users (keys) that have email as pref (value) in a user_prefs dict.&lt;/p&gt;
+&lt;p&gt;This example is based on the one I found at &lt;a href="https://pymotw.com/2/itertools/"&gt;pymotw&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# set up dict
+users = &amp;#39;tim bob julian sue fred frank maria&amp;#39;.split()
+prefs = &amp;#39;email phone IM email F2F email phone&amp;#39;.split()
+user_prefs = dict(zip(users, prefs))
+user_prefs
+
+user_prefs_sorted = sorted(user_prefs.items(), key=itemgetter(1))
+for pref, users in itertools.groupby(user_prefs_sorted, key=itemgetter(1)):
+    print(pref, list(map(itemgetter(0), users)))
+
+# output: 
+F2F [&amp;#39;fred&amp;#39;]
+IM [&amp;#39;julian&amp;#39;]
+email [&amp;#39;frank&amp;#39;, &amp;#39;tim&amp;#39;, &amp;#39;sue&amp;#39;]
+phone [&amp;#39;bob&amp;#39;, &amp;#39;maria&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Other uses?&lt;/h2&gt;
+&lt;p&gt;Where do you use itertools mostly for? Share your experience in the comments below ...&lt;/p&gt;</content><category term="iterators"></category><category term="itertools"></category><category term="tricks"></category><category term="generators"></category><category term="game"></category><category term="notebooks"></category><category term="permutations"></category></entry></feed>
