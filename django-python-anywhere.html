@@ -25,15 +25,15 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="After Julian's great article on deploying a Flask app to Heroku, let's look at another provider: PythonAnywhere. And let's deploy a Django app." />
+<meta name="description" content="After Julian's great article on deploying a Flask app to Heroku, let's look at how we can deploy a Django app to PythonAnywhere (PA)." />
 <meta name="keywords" content="Django, 100DaysOfDjango, PythonAnywhere, Security, cloud, deployment">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Deploying a Django App to Python Anywhere"/>
-<meta property="og:description" content="After Julian's great article on deploying a Flask app to Heroku, let's look at another provider: PythonAnywhere. And let's deploy a Django app."/>
+<meta property="og:title" content="Deploying a Django App to PythonAnywhere"/>
+<meta property="og:description" content="After Julian's great article on deploying a Flask app to Heroku, let's look at how we can deploy a Django app to PythonAnywhere (PA)."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/django-python-anywhere.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-07-22 01:44:00+02:00"/>
+<meta property="article:published_time" content="2017-07-23 23:59:00+02:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="https://pybit.es/author/bob.html">
 <meta property="article:section" content="Django"/>
@@ -47,11 +47,11 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Deploying a Django App to Python Anywhere" />
-<meta name="twitter:description" content="After Julian's great article on deploying a Flask app to Heroku, let's look at another provider: PythonAnywhere. And let's deploy a Django app." />
+<meta name="twitter:title" content="Deploying a Django App to PythonAnywhere" />
+<meta name="twitter:description" content="After Julian's great article on deploying a Flask app to Heroku, let's look at how we can deploy a Django app to PythonAnywhere (PA)." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
-  <title>PyBites &ndash; Deploying a Django App to Python Anywhere</title>
+  <title>PyBites &ndash; Deploying a Django App to PythonAnywhere</title>
 
 
 </head>
@@ -96,32 +96,62 @@
 
 <article class="single">
   <header>
-    <h1 id="django-python-anywhere">Deploying a Django App to Python Anywhere</h1>
+    <h1 id="django-python-anywhere">Deploying a Django App to PythonAnywhere</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 22 July 2017 in <a href="https://pybit.es/category/django.html">Django</a>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sun 23 July 2017 in <a href="https://pybit.es/category/django.html">Django</a>
 
 
-        &#8226; 1 min read
+        &#8226; 3 min read
     </p>
   </header>
 
 
   <div>
-    <p>After Julian's great article on deploying a Flask app to Heroku, let's look at another provider: <a href="https://www.pythonanywhere.com">PythonAnywhere</a>. And let's deploy a Django app. </p>
-<p>In this article I will deploy our <a href="https://pybit.es/learning-django.html">PyPlanet Article Sharer App</a> to PythonAnywhere.</p>
-<h2>Pricing</h2>
-<p>Before getting starting check out <a href="https://www.pythonanywhere.com/pricing/">pricing</a>. I was going with the free version, but as we scrape Planet Python which is not on <a href="https://www.pythonanywhere.com/whitelist/">their whitelist</a> I had to go with the "Hacker tier". This also opens SSH access, custom domain name and an extra web worker. The real nice benefit of the first paid tier is 20 scheduled tasks hourly or daily vs just 1 daily task which is pretty limited. Adding a postgres DB will cost 7 dollar more so I might want to look at Heroku too.</p>
-<h2>Project setup</h2>
-<p>As the Hacker tier just gives me one app I made <a href="https://github.com/pybites/pybites-django">this container project / repo</a> to host multiple apps in. It is in lign with Django's elegant architectura: one master project with one or more apps which are easy to add or remove.</p>
-<p>Right of the bat creating the project I noticed that debug is set to True and the SECRET_KEY is stored in settings.py. I applied what I learned in <a href="https://medium.com/@ayarshabeer/django-best-practice-settings-file-for-multiple-environments-6d71c6966ee2">this great article</a> to hide this data. So as you can see <a href="">here</a> the main app "pybites" has a settings directory with a file per environment. We </p>
-<p>You also need to add pythonanywhere's domain to ALLOWED_HOSTS:</p>
-<div class="highlight"><pre><span></span>ALLOWED_HOSTS = [&#39;pybites.pythonanywhere.com&#39;]
+    <p>After Julian's great article <a href="https://pybit.es/deploy-flask-heroku.html">on deploying a Flask app to Heroku</a>, let's look at how we can deploy a Django app to <a href="https://www.pythonanywhere.com">PythonAnywhere</a> (PA).</p>
+<p>In this article a few things I learned deployed our <a href="https://pybit.es/learning-django.html">first Django app</a> to PA.</p>
+<h3>Good docs + nice interface</h3>
+<p>One of my first tries was the <a href="https://blog.pythonanywhere.com/155/">API / helper script</a>, but unfortunately it did not make it to the end. Yet the <a href="https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/">Deploying an existing Django project on PythonAnywhere</a> using the Manual option worked great for me:</p>
+<p><img alt="pa choose manual option" src="https://pybit.es/images/pa-maual-option.png"></p>
+<p>Our first Django app <a href="http://pybites.pythonanywhere.com/pyplanet/">is online</a>:</p>
+<p><img alt="pa site online" src="https://pybit.es/images/pa-online.png"></p>
+<p>I really like the infrastructure of browser consoles and intuitive GUIs. Also config files like <code>wsgi.py</code> were clearly commented so setting it up was quick and almost painless.</p>
+<h3>Git + venv</h3>
+<p>Import steps of the deployment steps are git pulling your code and creating a virtual env, this worked very well.</p>
+<p><img alt="pa supports git and venv" src="https://pybit.es/images/pa-git-venv.png"></p>
+<p>After this step I could just do a <code>pip install -r requirements.txt</code> to install Django and feedparser.</p>
+<p>Now when I make changes to my app I can just do a <code>git pull</code> in the repo dir and restart the app in the browser. It just takes seconds :)</p>
+<h3>Scheduled tasks ... OK time to upgrade</h3>
+<p>Our app pulls in new articles from Planet Python as explained <a href="https://pybit.es/learning-django.html">here</a>. Planet was not on <a href="https://www.pythonanywhere.com/whitelist/">PA's whitelist</a> and I wanted this task to be run every hour (instead of once a day). At this point I had to upgrade from Free to the <em>Hacker tier</em>. This has additional benefits, check out <a href="https://www.pythonanywhere.com/pricing/">pricing</a>. </p>
+<p>Similar to other providers, at PA you pay for what you need/ consume. You can add apps on the fly. I'd hoped to get a small PostgreSQL DB with Hacker's tier, but that requires further upgrading ...</p>
+<p>The interface to set up a scheduled task is really nice and easy:</p>
+<p><img alt="pa scheduled tasks" src="https://pybit.es/images/pa-scheduled-task.png"></p>
+<p>Notice that I activate the venv in the command because it needs to load env variables.</p>
+<h3>Less obvious</h3>
+<ul>
+<li>
+<p>I had to add our PA domain <em>pybites.pythonanywhere.com</em> to <code>ALLOWED_HOSTS</code> (Django settings).</p>
+</li>
+<li>
+<p>Django encapsulation. As detailed in <a href="https://medium.com/@ayarshabeer/django-best-practice-settings-file-for-multiple-environments-6d71c6966ee2">this excellent article</a> you want to hide your SECRET_KEY, DB credentials, etc from version control. I also followed the settings best practices described in the article. So make sure you do some work upfront. Make sure you check <a href="https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/">Django's checklist</a>. </p>
+</li>
+<li>
+<p>Env variables. You need to set them <a href="https://help.pythonanywhere.com/pages/environment-variables-for-web-apps/">in 2 places</a>. As the docs admit this is not ideal. At the virtual env level it only seemed to work adding them to the <em>activate</em> script, not <em>postactivate</em>.</p>
+</li>
+<li>
+<p><a href="https://help.pythonanywhere.com/pages/DjangoStaticFiles">Handling static files</a> was a bit of a pain. I ended up <a href="https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#collectstatic">using collectstatic</a> to get them all in one place:</p>
+<div class="highlight"><pre><span></span>(venv) 12:27 ~/pybites-django/pybites (master)$ python manage.py collectstatic
+62 static files copied to ...
 </pre></div>
 
 
-<h2>header 3</h2>
-<h2>header 4</h2>
-<h2>header 5</h2>
+<p>Not sure if this is the best solution because I need to rerun this when static files change ...</p>
+<p>Then I set it up like this at the web front-end:</p>
+<p><img alt="pa static files solution" src="https://pybit.es/images/pa-static-files.png"></p>
+<p>CSS magically came to live upon app restart + browser refresh.</p>
+</li>
+</ul>
+<h3>Multiple apps</h3>
+<p>As the Hacker tier gives me one app I made <a href="https://github.com/pybites/pybites-django">this container project / repo</a> to host multiple apps in. It's a nice exercise in Django's architecture of one project -&gt; multiple apps that can be moved around. As said, PA's pricing structure is pretty flexible, so we can always add apps if necessary.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
