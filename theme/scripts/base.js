@@ -1,3 +1,14 @@
+// if about page, calc pybites age and fill in div
+if(window.location.pathname.endsWith('about.html') === true){
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var founded = new Date(2016,11,19); // 11 for dec ?!
+    var today = new Date();
+    var diffDays = Math.round(Math.abs((founded.getTime() - today.getTime())/(oneDay)));
+    var div = document.getElementById('pbDaysOld'); 
+    div.innerHTML = '<strong>' + diffDays + '</strong>';
+	console.log('PyBites is ' + diffDays + ' old');
+}
+
 /* https://www.w3schools.com/howto/howto_js_filter_lists.asp */
 function filterList() {
     var input, filter, ul, li, a, i;

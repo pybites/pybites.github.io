@@ -129,8 +129,10 @@
 
 <script type="text/javascript">
     var author = window.location.hash.substr(1);
-    var element = document.getElementById(author);
-    element.style.backgroundColor = "#ffffcc";
+    if(author){
+        var element = document.getElementById(author);
+        element.style.backgroundColor = "#ffffcc";
+    }
 </script>
   </div>
 </article>
