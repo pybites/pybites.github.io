@@ -25,11 +25,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a good learning exercise and will kick-start our series on packaging your code." />
+<meta name="description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a great learning exercise and a fun tool we use on our Slack now." />
 <meta name="keywords" content="Slack, karma, bot, API, picle, packaging, logging, Counter">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="From Script to Project part 1. - Building a Karma Bot with Python and the Slack API"/>
-<meta property="og:description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a good learning exercise and will kick-start our series on packaging your code."/>
+<meta property="og:title" content="Building a Karma Bot with Python and the Slack API"/>
+<meta property="og:description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a great learning exercise and a fun tool we use on our Slack now."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/slack-karma-bot.html"/>
 <meta property="og:type" content="article"/>
@@ -49,11 +49,11 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="From Script to Project part 1. - Building a Karma Bot with Python and the Slack API" />
-<meta name="twitter:description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a good learning exercise and will kick-start our series on packaging your code." />
+<meta name="twitter:title" content="Building a Karma Bot with Python and the Slack API" />
+<meta name="twitter:description" content="We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter Karma Bot. This is nothing new but building one myself was a great learning exercise and a fun tool we use on our Slack now." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
-  <title>PyBites &ndash; From Script to Project part 1. - Building a Karma Bot with Python and the Slack API</title>
+  <title>PyBites &ndash; Building a Karma Bot with Python and the Slack API</title>
 
 
 </head>
@@ -98,7 +98,7 @@
 
 <article class="single">
   <header>
-    <h1 id="slack-karma-bot">From Script to Project part 1. - Building a Karma Bot with Python and the Slack API</h1>
+    <h1 id="slack-karma-bot">Building a Karma Bot with Python and the Slack API</h1>
     <p>
           Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sun 25 June 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
 
@@ -109,17 +109,8 @@
 
 
   <div>
-    <p>We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter <em>Karma Bot</em>. This is <a href="https://blog.hipchat.com/2016/05/02/meet-karma-bot/">nothing new</a> but building one myself was a good learning exercise and will kick-start our series on packaging your code. </p>
-<p>In this first article I will show you how I implemented our Karma Bot using Slack's <a href="https://api.slack.com/rtm">Real Time Messaging API</a>. This will be the groundwork to extend it into an open source package over the coming articles in this series. </p>
-<h2>From Script to Project Series</h2>
-<p>This is my idea for this article series, but this might change as we go:</p>
-<ol>
-<li>This article = <a href="https://github.com/pybites/karmabot">Karma Bot</a> = theme app to extend</li>
-<li>Packiging your code</li>
-<li>Writing tests</li>
-<li>Documentation</li>
-<li>Distribute your code</li>
-</ol>
+    <p>We love Slack! But what if we can make it even cooler? Imagine: you are geeking out with your fellow developers on Slack and you want to give them credit. Or you can write "stupidsubject--" and it automagically shows "stupidsubject's karma decreased to -2". Enter <em>Karma Bot</em>. This is <a href="https://blog.hipchat.com/2016/05/02/meet-karma-bot/">nothing new</a> but building one myself was a great learning exercise and a fun tool we use on our Slack now.</p>
+<p>I will show you how I implemented our Karma Bot using Slack's <a href="https://api.slack.com/rtm">Real Time Messaging API</a>. I hope to extend it into an open source package later on adding tests, docs, setup file, etc. I will document progress in future articles.</p>
 <h2>Setup</h2>
 <p>This exercise is similar to our <a href="https://pybit.es/simple-chatbot.html">How to Build a Simple Slack Bot</a> article. First you create a bot user and get an API_KEY from Slack. </p>
 <p>The bot user needs to be defined as ID so you need to retrieve it for which I made a helper script:</p>
@@ -204,8 +195,8 @@ export SLACK_KARMA_TOKEN=super-secret
 <p>Test session in private Karma Bot channel:</p>
 <p><img alt="karma example" src="https://pybit.es/images/karma_example.png"></p>
 <p>You need to invite the bot to any channel you want to use this in.</p>
-<h2>Next week</h2>
-<p>My first attempt at this was one big script. I then splitted it out into different modules (responsabilities). Unfortunately I did not commit the initial script to compare. No worries though. Next week I go back to basics on modules and packaging, explaining how they work. I will explain how we import from them which often leads to confusion. We now have an interesting app to work with.</p>
+<h2>More on packaging</h2>
+<p>My first attempt at this was one big script. I then splitted it out into different modules (responsabilities). Unfortunately I did not commit the initial script to compare. No worries though. Next week I go back to basics on modules and packaging, explaining how they work. I will explain how we import from them which often leads to confusion. </p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>

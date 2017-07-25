@@ -28,7 +28,7 @@
 <meta name="description" content="This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple." />
 <meta name="keywords" content="packaging, modules, init, imports, refactoring, karma, Twitter">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="From Script to Project part 2. - Packaging Your Code in Python"/>
+<meta property="og:title" content="From Script to Project - Packaging Your Code in Python"/>
 <meta property="og:description" content="This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/python-packaging.html"/>
@@ -48,11 +48,11 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="From Script to Project part 2. - Packaging Your Code in Python" />
+<meta name="twitter:title" content="From Script to Project - Packaging Your Code in Python" />
 <meta name="twitter:description" content="This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
-  <title>PyBites &ndash; From Script to Project part 2. - Packaging Your Code in Python</title>
+  <title>PyBites &ndash; From Script to Project - Packaging Your Code in Python</title>
 
 
 </head>
@@ -97,7 +97,7 @@
 
 <article class="single">
   <header>
-    <h1 id="python-packaging">From Script to Project part 2. - Packaging Your Code in Python</h1>
+    <h1 id="python-packaging">From Script to Project - Packaging Your Code in Python</h1>
     <p>
           Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 01 July 2017 in <a href="https://pybit.es/category/learning.html">Learning</a>
 
@@ -112,7 +112,7 @@
 <p>Namespaces are one honking great idea -- let's do more of those!</p>
 </blockquote>
 <p>This week's article is about packaging your Python code. Sounds daunting? Actually it is pretty simple.</p>
-<p>Last week we introduced <a href="https://github.com/pybites/karmabot">Karma Bot</a> in part 1 of this series. I will use it to show you how I ended up organizing the code. Then I will show a simpler script refactored into a package.</p>
+<p>Last week we introduced <a href="https://github.com/pybites/karmabot">Karma Bot</a>. I will use it to show you how I ended up organizing the code. Then I will show a simpler script refactored into a package.</p>
 <p>Packaging your code makes it easier for others to use. It also adds more structure to your code which leads to more maintainable code. Finally it namespaces your code, <em>one honking great idea</em>.</p>
 <p>At the very basic level you create a package by putting one or more modules (.py files) inside a folder together with a __init__.py file. This file turns the folder into a package. Your code should ideally not go in that file. It is used for imports and setup.</p>
 <h2>Example 1 - Karma bot</h2>
@@ -204,7 +204,7 @@ archive    main.py
 </li>
 </ul>
 <h2>Reference</h2>
-<p>Next thing you want to do is add a <code>setup.py</code> etc to make your code distributable. You could use a tool like <a href="(https://github.com/audreyr/cookiecutter)">cookiecutter</a> for this. We will explore this further in part 5. First we dive into testing and documentation in part 3 and 4.</p>
+<p>Next thing you want to do is add a <code>setup.py</code> etc to make your code distributable. You could use a tool like <a href="(https://github.com/audreyr/cookiecutter)">cookiecutter</a> for this. I will explore this further in a future article.</p>
 <p>In closing here are some links for further inspection:</p>
 <ul>
 <li><a href="https://python-packaging.readthedocs.io/en/latest/">How To Package Your Python Code</a></li>
