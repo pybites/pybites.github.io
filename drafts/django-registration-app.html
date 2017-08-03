@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this article I will guide you through setting up a registration system with Django. It ought to be easy using the django-registration plugin, yet I had some issues which can save you time. I will also show you how to deploy the app to Herokoku and configure gmail to send authentication links." />
+<meta name="keywords" content="Django, 100DaysOfDjango, Heroku, django-registration, gmail, postgres, tutorial, virtualenv">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to Build a Registration Backend with Django-Registration, Gmail and Heroku"/>
+<meta property="og:description" content="In this article I will guide you through setting up a registration system with Django. It ought to be easy using the django-registration plugin, yet I had some issues which can save you time. I will also show you how to deploy the app to Herokoku and configure gmail to send authentication links."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/drafts/django-registration-app.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-08-04 12:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Django"/>
+<meta property="article:tag" content="Django"/>
+<meta property="article:tag" content="100DaysOfDjango"/>
+<meta property="article:tag" content="Heroku"/>
+<meta property="article:tag" content="django-registration"/>
+<meta property="article:tag" content="gmail"/>
+<meta property="article:tag" content="postgres"/>
+<meta property="article:tag" content="tutorial"/>
+<meta property="article:tag" content="virtualenv"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How to Build a Registration Backend with Django-Registration, Gmail and Heroku" />
+<meta name="twitter:description" content="In this article I will guide you through setting up a registration system with Django. It ought to be easy using the django-registration plugin, yet I had some issues which can save you time. I will also show you how to deploy the app to Herokoku and configure gmail to send authentication links." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; How to Build a Registration Backend with Django-Registration, Gmail and Heroku</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="django-registration-app">How to Build a Registration Backend with Django-Registration, Gmail and Heroku</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Fri 04 August 2017 in <a href="https://pybit.es/category/django.html">Django</a>
+
+
+        &#8226; 8 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this article I will guide you through setting up a registration system with Django. It ought to be easy using the django-registration plugin, yet I had some issues which can save you time. I will also show you how to deploy the app to Herokoku and configure gmail to send authentication links.</p>
+<p>What's cool about this project is that it is easy to use to bootstrap another project. The other day I could just copy it and start building another app on top of it. We use it for code challenge notifications, if you want to receive a weekly email when we post a new code challenge, you can sign up <a href="http://pybites-notifier.herokuapp.com/">here</a>.</p>
+<h2>The plan</h2>
+<p><a href="https://github.com/pybites/django-registration">This</a> is the project I built, but I will make it again from scratch here so we can see the steps and Julian can test it out for himself as well (thanks buddy!)</p>
+<p>I actually recommend following the steps below as I ended up with a different dir structure the second time.</p>
+<h2>Setup</h2>
+<p>First we create a virtual env and install django (which pull pytz as well) and <a href="https://django-registration.readthedocs.io/en/2.2/index.html">django-registration</a>. We will use a postgres DB so we need psycopg2 as well.</p>
+<div class="highlight"><pre><span></span>$ mkdir registration <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$_</span>
+$ python3 -m venv venv <span class="o">&amp;&amp;</span> <span class="nb">source</span> venv/bin/activate
+<span class="o">(</span>venv<span class="o">)</span> $ pip install django django-registration psycopg2
+...
+</pre></div>
+
+
+<p>Let's also install the other plugins we will use: </p>
+<div class="highlight"><pre><span></span>(venv) $ pip install django-crispy-forms dj-database-url gunicorn
+...
+(venv) $ pip freeze
+dj-database-url==0.4.2
+Django==1.11.4
+django-crispy-forms==1.6.1
+django-registration==2.2
+gunicorn==19.7.1
+psycopg2==2.7.3
+pytz==2017.2
+</pre></div>
+
+
+<p>Now we make our app:</p>
+<div class="highlight"><pre><span></span># fair enough   
+(venv) $ django-admin.py startproject registration
+CommandError: &#39;registration&#39; conflicts with the name of an existing Python module and cannot be used as a project name. Please try another name.
+
+(venv) $ django-admin.py startproject register
+(venv) $ ls register/
+manage.py    register
+(venv) $ ls register/register/
+__init__.py    settings.py    urls.py        wsgi.py
+</pre></div>
+
+
+<p>Let's do a sanity check: </p>
+<div class="highlight"><pre><span></span>$ python manage.py runserver
+</pre></div>
+
+
+<p>Navigate to http://127.0.0.1:8000/ - you should see Django's welcome page.</p>
+<p>Next let's create the DB in postgres (if you want to use sqlite, skip this step):</p>
+<div class="highlight"><pre><span></span>(venv) $ psql
+bbelderb=# create database notifications;
+bbelderb=# \c notifications
+You are now connected to database &quot;notifications&quot; as user &quot;bbelderb&quot;.
+</pre></div>
+
+
+<p>Next migrate the DB:</p>
+<div class="highlight"><pre><span></span>$ python manage.py migrate
+Operations to perform:
+    Apply all migrations: admin, auth, contenttypes, sessions
+...
+</pre></div>
+
+
+<p>Finally let's create a superuser to be able to manage users that sign up:</p>
+<div class="highlight"><pre><span></span>$ python manage.py createsuperuser
+...
+</pre></div>
+
+
+<h2>Env variables</h2>
+<p>We need some env variables. I set those in this virtual env so they are bound to this app (namespaces are a honking great idea right?):</p>
+<p>At the end of venv/bin/activate:</p>
+<div class="highlight"><pre><span></span>export SECRET_KEY=some_large_random_string  -&gt; get it from register/register/settings.py or make one yourself
+export DJANGO_ENV=&#39;local&#39;
+export DB_NAME=&#39;notifications&#39;
+export DB_USER=&#39;pbcl&#39;
+export DB_PW=&#39;your_password&#39;
+export GMAIL_SMTP_USER=&#39;new_gmail_account&#39;
+export GMAIL_SMTP_PASSWORD=&#39;gmail_pw_of_this_account&#39;
+</pre></div>
+
+
+<p>Don't worry for now, I will come back to these variables throughout thoughout this tutorial.</p>
+<p>For Gmail I recommend you make a new account because you need to relinquish some security enabling <a href="https://www.google.com/settings/security/lesssecureapps">this setting</a> and going to <a href="http://www.google.com/accounts/DisplayUnlockCaptcha">DisplayUnlockCaptcha</a> when starting to send your first Django email. See <a href="https://stackoverflow.com/questions/18124878/netsmtpauthenticationerror-when-sending-email-from-rails-app-on-staging-envir">here</a>.</p>
+<p>Another option is Heroku's <a href="https://devcenter.heroku.com/articles/sendgrid">SendGrid</a>.</p>
+<p>Make sure you re-activate your venv so these variables are picked up: </p>
+<div class="highlight"><pre><span></span>(venv) $ deactivate
+$ source venv/bin/activate
+</pre></div>
+
+
+<p>I actually have this alias in my .bashrc: </p>
+<div class="highlight"><pre><span></span>alias ae=&#39;source venv/bin/activate&#39;
+</pre></div>
+
+
+<h2>Configuring Django</h2>
+<p>Let's set up Django's configuration that lives at <code>register/register/settings.py</code>. Some of this is early encapsulation and required/recommended config for later deployment to Heroku. Please bare with me.</p>
+<ol>
+<li>
+<p>Delete the secret key and add your own, also load in the env variable:</p>
+<div class="highlight"><pre><span></span>SECRET_KEY = os.getenv(&#39;SECRET_KEY&#39;)
+DJANGO_ENV = os.getenv(&#39;DJANGO_ENV&#39;, &#39;production&#39;).lower()
+</pre></div>
+
+
+</li>
+<li>
+<p>Now using the newly Django env variable let's set debug to false when not in local dev environment. We will use Heroku later to deploy the app so let's add that to ALLOWED_HOSTS (and not have '*' in production):</p>
+<div class="highlight"><pre><span></span>if DJANGO_ENV == &#39;local&#39;:
+        DEBUG = True
+        ALLOWED_HOSTS = [&#39;*&#39;]
+else:
+        DEBUG = False
+        ALLOWED_HOSTS = [&#39;.herokuapp.com&#39;]
+</pre></div>
+
+
+<p>Making these two clears both 'SECURITY WARNING' strings.</p>
+</li>
+<li>
+<p>Using the django-registration no additions are needed to INSTALLED_APPS and MIDDLEWARE, that part is setup under the hood after <code>pip install</code></p>
+<p>The only addition to INSTALLED_APPS is crispy_forms to make the form validation a bit nicer:</p>
+<p>INSTALLED_APPS = [
+        ...
+        ... 
+        # 3rd party
+        'crispy_forms',
+]</p>
+</li>
+<li>
+<p>Create the following directories for templates and static files cd-ing into the project root folder:</p>
+<div class="highlight"><pre><span></span>(venv) $ cd registar
+(venv) $ pwd
+/Users/bbelderb/code/registration/register
+(venv) $ mkdir templates
+(venv) $ mkdir register/templates
+(venv) $ mkdir register/static
+</pre></div>
+
+
+<p>I am making two templates directories to use template inheritance: the upper templates dir will host a base.html we will extend from and the templates associated with the django-registration plugin we will download later on.</p>
+<p>And update the DIRS list in TEMPLATES in settings.py so Django knows where to locate templates:</p>
+<div class="highlight"><pre><span></span>...
+TEMPLATES = [
+        ... 
+            &#39;DIRS&#39;: [
+                    os.path.join(BASE_DIR, &#39;templates&#39;),
+                    os.path.join(BASE_DIR, &#39;register&#39;, &#39;templates&#39;),
+            ],
+        ...
+</pre></div>
+
+
+</li>
+<li>
+<p>Database config: we load in the env variables for our local use. For production (Heroku we use <code>dj_database_url</code>):</p>
+<div class="highlight"><pre><span></span><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.postgresql_psycopg2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_NAME&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_USER&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PW&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_HOST&#39;</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PORT&#39;</span><span class="p">,</span> <span class="s1">&#39;5432&#39;</span><span class="p">),</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="n">DJANGO_ENV</span> <span class="o">==</span> <span class="s1">&#39;production&#39;</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">dj_database_url</span>
+        <span class="n">db_from_env</span> <span class="o">=</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+        <span class="n">DATABASES</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">db_from_env</span><span class="p">)</span>
+</pre></div>
+
+
+<p>If you want to use sqlite just leave the default setting and naming your DB:</p>
+<div class="highlight"><pre><span></span>DATABASES = {
+    &#39;default&#39;: {
+            &#39;ENGINE&#39;: &#39;django.db.backends.sqlite3&#39;,
+            &#39;NAME&#39;: &#39;notifications&#39;,
+    }
+}
+</pre></div>
+
+
+</li>
+<li>
+<p>Static files are still confusing at times for me but this is <a href="https://devcenter.heroku.com/articles/django-assets">the recommended setting for Heroku</a>:</p>
+<div class="highlight"><pre><span></span>PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, &#39;staticfiles&#39;)
+STATIC_URL = &#39;/static/&#39;
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+        os.path.join(PROJECT_ROOT, &#39;static&#39;),
+)
+</pre></div>
+
+
+</li>
+<li>
+<p>Add django-registration setting to limit activation of accounts from the validation email to 7 days:</p>
+<div class="highlight"><pre><span></span>ACCOUNT_ACTIVATION_DAYS = 7
+</pre></div>
+
+
+</li>
+<li>
+<p>Set the email config, again we load sensitive info from env variables, not putting that stuff under version control!</p>
+<div class="highlight"><pre><span></span>EMAIL_HOST = &#39;smtp.gmail.com&#39;
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv(&#39;GMAIL_SMTP_USER&#39;)
+EMAIL_HOST_PASSWORD = os.getenv(&#39;GMAIL_SMTP_PASSWORD&#39;)
+</pre></div>
+
+
+<p>Note we need port 587 for gmail, see <a href="https://stackoverflow.com/questions/2894802/send-activate-email-with-django-registration">here</a>.</p>
+</li>
+<li>
+<p>And lastly with debug == False on Heroku, if anything blows up we just see a 500 error. I <a href="https://chrxr.com/django-error-logging-configuration-heroku/">found this setting</a> which sends errors to heroku's log easily retrievable running <code>heroku log</code> when logged in via the Heroku CLI. We are still in settings.py:</p>
+<div class="highlight"><pre><span></span>LOGGING = {
+        &#39;version&#39;: 1,
+        &#39;disable_existing_loggers&#39;: False,
+        &#39;handlers&#39;: {
+                &#39;console&#39;: {
+                        &#39;class&#39;: &#39;logging.StreamHandler&#39;,
+                },
+        },
+        &#39;loggers&#39;: {
+                &#39;django&#39;: {
+                        &#39;handlers&#39;: [&#39;console&#39;],
+                        &#39;level&#39;: os.getenv(&#39;DJANGO_LOG_LEVEL&#39;, &#39;ERROR&#39;),
+                },
+        },
+}
+</pre></div>
+
+
+</li>
+</ol>
+<p>If you're lost at this point the complete settings file is <a href="https://github.com/pybites/django-registration/blob/master/register/settings.py">here</a>.</p>
+<h2>Base template and static files</h2>
+<p>Let's just grab these from the original project, from the project root folder:</p>
+<div class="highlight"><pre><span></span>(venv) $ pwd
+/Users/bbelderb/code/registration
+(venv) $ cd templates/
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/templates/base.html
+(venv) $ cd ..
+(venv) $ cd register/static/
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/register/static/uni-form.jquery.min.js
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/register/static/uni-form.css
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/register/static/uni-form-validation.jquery.min.js
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/register/static/style.uni-form.css
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/register/static/style.css
+(venv) $ cd -
+</pre></div>
+
+
+<p>You should end up with:</p>
+<div class="highlight"><pre><span></span>(venv) $ ls templates/
+base.html
+(venv) $ ls register/static/
+style.css                uni-form-validation.jquery.min.js    uni-form.jquery.min.js
+style.uni-form.css            uni-form.css
+</pre></div>
+
+
+<h2>django-registration templates</h2>
+<p>The bad news is that these are not included with the pip install. What I ended up doing is grab them from <a href="https://github.com/macdhuibh/django-registration-templates">this repo</a>. However I made some changes to them to use nice purecss styling, so better grab mine. Also because the original repo missed <code>password_reset_email.txt</code> as I found out testing:</p>
+<div class="highlight"><pre><span></span>(venv) $ git clone https://github.com/pybites/django-registration ~/Downloads/registration-templates
+
+...
+(from project root dir)
+
+(venv) $ cp -r  ~/Downloads/registration-templates/templates/registration register/templates/
+(venv) $ ls register/templates/
+base.html    registration
+</pre></div>
+
+
+<p>While testing I found one template / txt file missing, so add that one from my code repo:</p>
+<div class="highlight"><pre><span></span>(venv) $ cd templates/registration 
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/templates/registration/password_reset_email.txt
+</pre></div>
+
+
+<h2>Write some Django code</h2>
+<p>OK with all this setup in place (sorry) let's actually write some code. The good news is that django-registration requires very little of it.</p>
+<h2>URL routing</h2>
+<p>cd into the main app: </p>
+<div class="highlight"><pre><span></span>(venv) $ cd register/register/
+</pre></div>
+
+
+<p>And create an <code>urls.py</code> file with the following code:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">include</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.views.static</span> <span class="kn">import</span> <span class="n">serve</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">),</span>
+        <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+        <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^accounts/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;registration.backends.hmac.urls&#39;</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+        <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="p">[</span>
+                <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^static/(?P&lt;path&gt;.*)$&#39;</span><span class="p">,</span> <span class="n">serve</span><span class="p">,</span> <span class="p">{</span>
+                        <span class="s1">&#39;document_root&#39;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">STATIC_ROOT</span><span class="p">,</span>
+                <span class="p">}),</span>
+        <span class="p">]</span>
+</pre></div>
+
+
+<p>The accounts regex entry is required for the django-registration plugin (we're using the recommended <a href="https://django-registration.readthedocs.io/en/2.2/hmac.html#hmac-workflow">hmac-workflow</a>). I am leaving admin in because it could be useful to manage new users via the admin backend.</p>
+<p>This last if not block I needed to get static files to work on Heroku, see <a href="https://docs.djangoproject.com/en/1.11/ref/views/#django.views.static.serve">here</a> and <a href="https://matthewphiong.com/managing-django-static-files-on-heroku">here</a>. Next time I probably consider using <a href="https://devcenter.heroku.com/articles/django-assets#whitenoise">Whitenoise</a>.</p>
+<h3>Homepage</h3>
+<p>Let's add a simple index view to show if a user is logged in an provided the registration link. Still in register/register/ add the following code to views.py:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">loader</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">))</span>
+</pre></div>
+
+
+<p>It points to an index.html templates we need to create in register/register/templates/:</p>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;base.html&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">user.is_authenticated</span> <span class="cp">%}</span>
+                <span class="nt">&lt;p&gt;&lt;strong&gt;</span>Glad to have you here!<span class="nt">&lt;/strong&gt;&lt;/p&gt;</span>
+
+                <span class="nt">&lt;p&gt;</span>You will receive an email with each new challenge.<span class="nt">&lt;/p&gt;</span>
+
+    <span class="nt">&lt;p&gt;</span>We will tweak this page to include more notification settings ...<span class="nt">&lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+                <span class="nt">&lt;p&gt;</span>You can <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">url</span> <span class="s1">&#39;registration_register&#39;</span> <span class="cp">%}</span><span class="s">&quot;</span><span class="nt">&gt;</span>sign up here<span class="nt">&lt;/a&gt;</span> to get a notification email for each new challenge<span class="nt">&lt;/p&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+
+
+<p>Here we extend the base.html template in the root templates folder. The TEMPLATES - DIR config in settings.py should make this magically work.</p>
+<p>Let's collect static files into STATIC_ROOT using <a href="https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#collectstatic">collectstatic</a>:</p>
+<div class="highlight"><pre><span></span>(venv) $ python manage.py collectstatic
+</pre></div>
+
+
+<p>And try the app: </p>
+<div class="highlight"><pre><span></span>(venv) $ python manage.py runserver
+</pre></div>
+
+
+<p>You should see this:</p>
+<p>Try to sign up with an email, you should get an activation link that makes your registration final:</p>
+<h2>Commit to version control</h2>
+<p>Normally I would be make granular commits as we go but I wanted to focus on Django.</p>
+<p>First of all init a repo and copy in a .gitignore to make sure we don't commit irrelevant files:</p>
+<div class="highlight"><pre><span></span>(in project root folder)
+(venv) $ git init
+(venv) $ wget https://raw.githubusercontent.com/pybites/django-registration/master/.gitignore
+
+# vi .gitignore to add register/register/staticfiles - dir structure changed for this tutorial
+
+(venv) $ git add .
+(venv) $ git commit -m &quot;init commit&quot;
+</pre></div>
+
+
+<h2>Deploy to Heroku</h2>
+<p>Now let's get our shiny app to the cloud. After all we did a lot of config in advance so it should be pretty easy now:</p>
+<h3>Heroku login</h3>
+<p>Install <a href="https://devcenter.heroku.com/articles/heroku-cli">Heroku CLI</a> and login.</p>
+<p>cd into register, the main app. It is important to add the following required files into that dir, so Heroku can find the wsgi.py file (I ended up with dir/dir/wsgi.py, you really want dir/wsgi.py or in our case register/wsgi.py)</p>
+<div class="highlight"><pre><span></span>(venv) $ cd register
+</pre></div>
+
+
+<p>Nice: Heroku is very up2date!</p>
+<div class="highlight"><pre><span></span>(venv) $ echo &quot;python-3.6.2&quot; &gt; runtime.txt
+</pre></div>
+
+
+<p>The first line is not required but adds migrate as extra step during deployment, useful:</p>
+<div class="highlight"><pre><span></span>(venv) $ cat Procfile
+release: python manage.py migrate
+web: gunicorn register.wsgi:application --log-file -
+</pre></div>
+
+
+<p>Let Heroku know what dependencies we need:</p>
+<div class="highlight"><pre><span></span>(venv) $ pip freeze &gt; requirements.txt
+</pre></div>
+
+
+<p>Commit these 3 files:</p>
+<div class="highlight"><pre><span></span>(venv) $ git add .
+(venv) $ git commit -m &quot;added heroku config files&quot;
+</pre></div>
+
+
+<p>You can test the site locally. If doing so store your env variables in <code>.env</code>: </p>
+<div class="highlight"><pre><span></span>(venv) $ heroku local web
+</pre></div>
+
+
+<p>Crreate the app with a unique name:</p>
+<div class="highlight"><pre><span></span>(venv) $ heroku apps:create registration
+▸    Name is already taken
+(venv) $ heroku apps:create bobregistration
+Creating ⬢ bobregistration... done
+https://bobregistration.herokuapp.com/ | https://git.heroku.com/bobregistration.git
+</pre></div>
+
+
+<p>The git remote should be added automatically but it did not in my case, easy enough to do it manually though:</p>
+<div class="highlight"><pre><span></span>(venv) $ git remote add heroku https://git.heroku.com/bobregistration.git
+</pre></div>
+
+
+<p>Provision the postgres DB (likely can skip if sqlite) and set your env variables. You can do it via CLI but I am using the GUI:</p>
+<p>Then just push your app:</p>
+<div class="highlight"><pre><span></span>(venv) $ git push heroku master
+</pre></div>
+
+
+<p>TODO: getting an error -&gt; fix + show console output here.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/django.html">Django</a>
+      <a href="https://pybit.es/tag/100daysofdjango.html">100DaysOfDjango</a>
+      <a href="https://pybit.es/tag/heroku.html">Heroku</a>
+      <a href="https://pybit.es/tag/django-registration.html">django-registration</a>
+      <a href="https://pybit.es/tag/gmail.html">gmail</a>
+      <a href="https://pybit.es/tag/postgres.html">postgres</a>
+      <a href="https://pybit.es/tag/tutorial.html">tutorial</a>
+      <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
