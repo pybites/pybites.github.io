@@ -109,21 +109,21 @@
     <blockquote>
 <p>Life is about facing new challenges - Kostya Tszyu</p>
 </blockquote>
-<p>Hi Pythonistas, a new week, a new 'bite' of Python coding. Let's shift gears a little bit: this week we have you choose an image manipulation task using Pillow, "the friendly PIL (Python Imaging Library) fork". Have fun!</p>
+<p>Hi Pythonistas, a new week, a new 'bite' of Python coding. Let's shift gears a little bit: this week we have you choose an image manipulation task using <a href="https://python-pillow.org/">Pillow</a>, "the friendly PIL (Python Imaging Library) fork". Have fun!</p>
 <h2>The challenge</h2>
 <p><a href="https://pybit.es/the-beauty-of-virtualenv.html">Create a new virtual env</a>, <code>pip install Pillow</code> and use the module for one of the following tasks:</p>
 <ul>
 <li>
-<p>Create a tool to create thumbnails of a set of images</p>
+<p>Create a tool to create thumbnails of a set of images.</p>
 </li>
 <li>
-<p>Use Instagram like filters on a bunch of images</p>
+<p>Use Instagram like filters on a bunch of images.</p>
 </li>
 <li>
-<p>Make promo banners for your brand or cause using Pillow: basically put your logo, background and text on a canvas and save to file. </p>
+<p>Make promo banners for your brand or cause using Pillow: basically put your logo, a nice background and text on a canvas and save to file. <a href="https://twitter.com/pybites/status/853560501854515200">Example</a> made with Gimp, what about generating something similar with Pillow?</p>
 </li>
 <li>
-<p>Similar as last one: make a birthday card generator.</p>
+<p>Similar as last one: make a birthday ecard generator.</p>
 </li>
 <li>
 <p>Add a watermark to an image.</p>
@@ -135,7 +135,21 @@
 <h3>Bonus</h3>
 <ul>
 <li>
-<p>Wrap the utility up in a little Flask app with interactive input/select boxes. For example: <a href="http://projects.bobbelderbos.com/featured_image/">Featured Image Creator</a> was a PHP/JS/CSS project I (Bob) did some time ago. Maybe you can build something similar using Flask (JS) for user interaction and Pillow to generate the image upon form submit?</p>
+<p>Wrap the utility up in a little Flask app with interactive input/select boxes, for example: </p>
+<ul>
+<li>
+<p><a href="http://projects.bobbelderbos.com/featured_image/">Featured Image Creator</a> was a PHP/JS/CSS project I (Bob) did some time ago. Maybe you can build something similar using Flask (JS) for user interaction and Pillow to generate the image upon form submit?</p>
+</li>
+<li>
+<p>For a thumbnail generator you could have a (multi) image upload button which batch resizes them and shows them in the browser or generates a zipfile for download.</p>
+</li>
+<li>
+<p>What about the (birthday) ecard generator: let the user choose between a set of images, enter a text and show the generated card in the browser with download link.</p>
+</li>
+<li>
+<p>Etc ... combining user interaction (web app) and Pillow you can build some cool stuff. The possibilities are endless, surprise us ...</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Deploy your solution to Heroku to show it to the world (and mention the URL in your PR).</p>
