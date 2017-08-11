@@ -25,11 +25,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for advanced one-off stuff you probably need those programs. But what if you like to keep it simple? Just an image and text on canvas? Enter Pillow - The friendly PIL fork, which makes this pretty easy. Come explore some of its capabilities with me in this article." />
+<meta name="description" content="Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for anything beyond the basics you probably need those programs. But what if you like to keep it simple and want to semi-automate things? Just an image and text on canvas? Enter Pillow - The friendly PIL fork, which makes this pretty easy. Come explore some of its capabilities with me in this article." />
 <meta name="keywords" content="Pillow, images, utilities, pybites, banners, curl, refactoring">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Using Pillow to Create Nice Banners For Your Site"/>
-<meta property="og:description" content="Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for advanced one-off stuff you probably need those programs. But what if you like to keep it simple? Just an image and text on canvas? Enter Pillow - The friendly PIL fork, which makes this pretty easy. Come explore some of its capabilities with me in this article."/>
+<meta property="og:description" content="Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for anything beyond the basics you probably need those programs. But what if you like to keep it simple and want to semi-automate things? Just an image and text on canvas? Enter Pillow - The friendly PIL fork, which makes this pretty easy. Come explore some of its capabilities with me in this article."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/pillow-banner-image.html"/>
 <meta property="og:type" content="article"/>
@@ -49,7 +49,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Using Pillow to Create Nice Banners For Your Site" />
-<meta name="twitter:description" content="Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for advanced one-off stuff you probably need those programs. But what if you like to keep it simple? Just an image and text on canvas? Enter Pillow - The friendly PIL fork, which makes this pretty easy. Come explore some of its capabilities with me in this article." />
+<meta name="twitter:description" content="Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for anything beyond the basics you probably need those programs. But what if you like to keep it simple and want to semi-automate things? Just an image and text on canvas? Enter Pillow - The friendly PIL fork, which makes this pretty easy. Come explore some of its capabilities with me in this article." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Using Pillow to Create Nice Banners For Your Site</title>
@@ -108,12 +108,13 @@
 
 
   <div>
-    <p>Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for advanced one-off stuff you probably need those programs. But what if you like to keep it simple? Just an image and text on canvas? Enter <a href="https://python-pillow.org/">Pillow</a> - <em>The friendly PIL fork</em>, which makes this pretty easy. Come explore some of its capabilities with me in this article.</p>
+    <p>Running your site or business good chance you A. use promo material like banners and B. you make them manually with Photoshop, Gimp or what not. And yes for anything beyond the basics you probably need those programs. But what if you like to keep it simple and want to semi-automate things? Just an image and text on canvas? Enter <a href="https://python-pillow.org/">Pillow</a> - <em>The friendly PIL fork</em>, which makes this pretty easy. Come explore some of its capabilities with me in this article.</p>
 <blockquote>
 <p>The Python Imaging Library adds image processing capabilities to your Python interpreter. - <a href="http://pillow.readthedocs.io/en/4.2.x/handbook/overview.html">docs</a></p>
 </blockquote>
-<p>In this article we will use Pillow to create a simple promo banner for PyBites Code Challenges, starting with this week - how applicable! - <a href="https://pybit.es/codechallenge31.html">#31 - Image Manipulation With Pillow</a>. By the way if you like to practice this stuff yourself, you should really join this week's challenge :)</p>
-<p><em>Simple</em> being just 2 images on a canvas and a title using a nice font. In part 2 I will wrap a CLI and Flask app around it so you can use it providing your own inputs.</p>
+<p>In this article we will use Pillow to create a simple promo banner for PyBites Code Challenges, starting with this week - how applicable! - <a href="https://pybit.es/codechallenge31.html">#31 - Image Manipulation With Pillow</a>. </p>
+<p>By the way if you like to practice this stuff yourself, you should really join this week's challenge :)</p>
+<p>We will position 2 images on a canvas adding a title using a nice font. In part 2 I will wrap a Flask app around it so you can use it in the browser.</p>
 <p>The complete code for this article is <a href="https://github.com/pybites/blog_code/tree/master/pillow">here</a>.</p>
 <h2>Getting ready</h2>
 <p>First let's create a virtual env and install Pillow</p>
@@ -163,7 +164,7 @@
 
 
 <p>We do our imports and set up some constants. <code>os.path.join</code> is always best practice to join directories and filenames to make it compatible across different operating systems.</p>
-<p>We create a new canvas with <code>Image.new</code> stating the dimensions and background color. We put the Pybites challenges logo at an offset of left=0, top=15. And we store the image's width use height in variables for later use.</p>
+<p>We create a new canvas with <code>Image.new</code> stating the dimensions and background color. We put (<code>image.paste</code>) the Pybites challenges logo at an offset of left=0, top=15. And we store the image's width use height in variables for later use.</p>
 <p>We save the image to a file which confirms this worked:</p>
 <p><img alt="pillow-step1.png" class="border" src="https://pybit.es/images/pillow-step1.png"></p>
 <h2>Step 2. - add a second image</h2>
@@ -181,13 +182,14 @@ image.paste(second_img, offset_second_img)
 </pre></div>
 
 
-<p>Resulting in:</p>
+<p><code>Image.ANTIALIAS</code> is a a high-quality downsampling filter which is recommended unless speed is much more important than quality.</p>
+<p>Offsets in Pillow are (left, top). For top I use the same 15px. For width I want to align the second image to the right. To accomplish this I substract the image width (same as first image after resizing) from the total canvas width: 600px - 120px = 480px. This results in:</p>
 <p><img alt="pillow-step2.png" class="border" src="https://pybit.es/images/pillow-step2.png"></p>
 <p>Again we will clean this up later. At this stage I want to get something working, then make it reusable.</p>
 <h2>Step 3. - add some text</h2>
-<p>Here we need the already imported <code>ImageDraw</code> and <code>ImageFont</code>.</p>
+<p>Here we need <code>ImageDraw</code> and <code>ImageFont</code> we already imported.</p>
 <p><code>ImageFont.truetype</code> lets you work with nice fonts so let's get a <a href="https://en.wikipedia.org/wiki/TrueType">TrueType</a> file. </p>
-<p>I used <a href="https://www.fontsquirrel.com/">Font Squirrel</a> and downloaded <a href="https://www.fontsquirrel.com/fonts/list/find_fonts?q%5Bterm%5D=ubuntu&amp;q%5Bsearch_check%5D=Y">Ubuntu</a> and <a href="https://www.fontsquirrel.com/fonts/source-sans-pro?q%5Bterm%5D=source+sans+pro&amp;q%5Bsearch_check%5D=Y">Source Sans Pro</a> (latter used on PyBites). They are included in the <code>assets</code> folder.</p>
+<p>I used <a href="https://www.fontsquirrel.com/">Font Squirrel</a> and downloaded <a href="https://www.fontsquirrel.com/fonts/list/find_fonts?q%5Bterm%5D=ubuntu&amp;q%5Bsearch_check%5D=Y">Ubuntu</a> and <a href="https://www.fontsquirrel.com/fonts/source-sans-pro?q%5Bterm%5D=source+sans+pro&amp;q%5Bsearch_check%5D=Y">Source Sans Pro</a> (latter we use on our blog). I included both in the <code>assets</code> folder.</p>
 <p>Add this code:</p>
 <div class="highlight"><pre><span></span>...
 BLACK = (0, 0, 0)
@@ -207,120 +209,39 @@ draw.text(offset_text, IMG_TEXT, BLACK, font=font)
 </pre></div>
 
 
-<p>Again only little code needed. Final result for now:</p>
+<p>We insert the text 40px from the top and 140px left (120px PyBites logo = first image width + 20px right padding) resulting in:</p>
 <p><img alt="pillow-step3.png" class="border" src="https://pybit.es/images/pillow-step3.png"></p>
 <h2>Step 4. - make it reusable</h2>
-<p>Now is a good time to commit our changes:</p>
-<div class="highlight"><pre><span></span>(venv) $ vi .gitignore (add `out.png`)
-(venv) $ git init
-(venv) $ git add .
-(venv) $ git commit -m &quot;first commit&quot;
+<p>I did some refactorings to make it easier to maintain / extend. See <a href="https://github.com/pybites/blog_code/blob/master/pillow/banner/banner.py">on Github</a>. </p>
+<p>Few things to note:</p>
+<ol>
+<li>
+<p>I added a simple CLI interface (just <code>sys.argv</code>, use <code>argparse</code> or <code>click</code> if you need more inputs). You can now run it like: </p>
+<div class="highlight"><pre><span></span>(venv) $ python banner.py
+Usage: banner.py img1 img2 text
+(venv) $ python banner.py assets/pybites-challenges.png assets/pillow-logo.png $&#39;Code Challenge 31:\nImage Manipulation With Pillow&#39;
 </pre></div>
 
 
-<p>Now let's make it more reusable by turning it into a class and stuffing the constants away in <code>constants.py</code>. You can also use <a href="https://docs.python.org/3/library/configparser.html"><code>configparser</code></a> for this.</p>
-<p>This is the final version of the script:</p>
-<p><em>constants.py</em></p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-
-<span class="n">ASSET_DIR</span> <span class="o">=</span> <span class="s1">&#39;assets&#39;</span>
-<span class="n">FIRST_IMAGE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;pybites-challenges.png&#39;</span><span class="p">)</span>
-<span class="n">SECOND_IMAGE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;pillow-logo.png&#39;</span><span class="p">)</span>
-<span class="n">DEFAULT_WIDTH</span> <span class="o">=</span> <span class="mi">600</span>
-<span class="n">DEFAULT_HEIGHT</span> <span class="o">=</span> <span class="mi">150</span>
-<span class="n">DEFAULT_CANVAS_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_WIDTH</span><span class="p">,</span> <span class="n">DEFAULT_HEIGHT</span><span class="p">)</span>
-<span class="n">DEFAULT_TOP_MARGIN</span> <span class="o">=</span> <span class="mi">15</span>
-<span class="n">WHITE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
-<span class="n">BLACK</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">DEFAULT_TEXT_FONT_TYPE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;SourceSansPro-Regular.otf&#39;</span><span class="p">)</span>
-<span class="n">DEFAULT_TEXT_SIZE</span> <span class="o">=</span> <span class="mi">24</span>
-<span class="n">TEXT_PADDING_HOR</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">TEXT_PADDING_VERT</span> <span class="o">=</span> <span class="mi">40</span>
-<span class="n">IMG_TEXT</span> <span class="o">=</span> <span class="s1">&#39;Code Challenge 31:</span><span class="se">\n</span><span class="s1">Image Manipulation With Pillow&#39;</span>
-</pre></div>
-
-
-<p><em>banner.py</em></p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
-
-<span class="kn">import</span> <span class="nn">constants</span>
-
-<span class="n">Font</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Font&#39;</span><span class="p">,</span> <span class="s1">&#39;ttf text color size offset&#39;</span><span class="p">)</span>
-<span class="n">ImageDetails</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Image&#39;</span><span class="p">,</span> <span class="s1">&#39;left top size&#39;</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">Banner</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_CANVAS_SIZE</span><span class="p">,</span>
-                 <span class="n">bgcolor</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WHITE</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Creating a new canvas&#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span> <span class="o">=</span> <span class="n">bgcolor</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                  <span class="n">top</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TOP_MARGIN</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Adds (pastes) image on canvas</span>
-<span class="sd">        If right is given calculate left, else take left</span>
-<span class="sd">        Returns added img size&#39;&#39;&#39;</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">resize</span><span class="p">:</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_HEIGHT</span> <span class="o">*</span> <span class="mf">0.8</span>
-            <span class="n">img</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">right</span><span class="p">:</span>
-            <span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
-
-        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
-        <span class="n">img_details</span> <span class="o">=</span> <span class="n">ImageDetails</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_details</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">add_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Adds text on a given image object&#39;&#39;&#39;</span>
-        <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
-        <span class="n">pillow_font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">ttf</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">font</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">offset</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># if no offset given put text alongside first image</span>
-            <span class="n">left_image_px</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                                <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span><span class="p">)</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">left_image_px</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">TEXT_PADDING_HOR</span><span class="p">,</span>
-                    <span class="n">constants</span><span class="o">.</span><span class="n">TEXT_PADDING_VERT</span><span class="p">)</span>
-
-        <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">pillow_font</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="s1">&#39;out.png&#39;</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">banner</span> <span class="o">=</span> <span class="n">Banner</span><span class="p">()</span>
-    <span class="n">banner</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIRST_IMAGE</span><span class="p">)</span>
-    <span class="n">banner</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">SECOND_IMAGE</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-    <span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">ttf</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TEXT_FONT_TYPE</span><span class="p">,</span>
-                <span class="n">text</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">IMG_TEXT</span><span class="p">,</span>
-                <span class="n">color</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">BLACK</span><span class="p">,</span>
-                <span class="n">size</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TEXT_SIZE</span><span class="p">,</span>
-                <span class="n">offset</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-
-    <span class="n">banner</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
-    <span class="n">banner</span><span class="o">.</span><span class="n">save_image</span><span class="p">()</span>
-</pre></div>
-
-
+<p>Note the required bash <code>$''</code> syntax, otherwise the <code>\n</code> won't be interpreted as a newline.</p>
+</li>
+<li>
+<p>I use a class which makes this cleaner / easier to extend.</p>
+</li>
+<li>
+<p>I calculated the <code>DEFAULT_TOP_MARGIN</code> = 150px height, image1 = 120px = 30px / 2 = 15px for top margin.</p>
+</li>
+<li>
+<p>I use <em>named tuples</em> which you should <a href="https://docs.python.org/3/library/collections.html">lookup</a> if you're not familiar with them yet. One interesting use case is the reduction in function parameters for <code>add_text</code>: using a named tuple object it reduces the interface from 5 to 1 argument (see also the <a href="https://www.refactoring.com/catalog/introduceParameterObject.html">Introduce Parameter Object refactoring</a>).</p>
+</li>
+<li>
+<p>I added the <code>self.image_coords</code> list to keep track of images being added to calculate where the text should go (right edge of most left image).</p>
+</li>
+</ol>
 <h2>What's next?</h2>
-<p>With this interface done it's time to let the user specify inputs.</p>
-<p>I will be doing that as part of <a href="https://pybit.es/codechallenge31.html">this week's code challenge</a> and follow up with a part 2 article. Ideally I provide a CLI and web (Flask) interface. Stay tuned and feel free to join our challenge and try it out yourself ...</p>
-<p>I hope this inspires you to create your own customized banners, logos, etc. Pillow makes image manipulation easy and fun again.</p>
+<p>Now it's time to let the user interact with it via a simple (Flask) web app.</p>
+<p>I will be doing that as part of <a href="https://pybit.es/codechallenge31.html">this week's code challenge</a> and will follow up with a part 2 article. Stay tuned ...</p>
+<p>Pillow makes image manipulation easy and fun again. I hope this inspires you to try it out for yourself ...</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
