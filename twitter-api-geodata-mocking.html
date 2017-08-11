@@ -4,18 +4,18 @@
 <head>
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/ribbons.css">
-  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/custom.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
 
 
     <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
 
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,11 +31,11 @@
 <meta property="og:title" content="Parsing Twitter Geo Data and Mocking API Calls by Example"/>
 <meta property="og:description" content=""Is this Bob or Julian?!" ... yeah tweeting from our shared @pybites Twitter account can be confusing! So I made a little script to parse the location of our tweets. Then I extended it to make it testable. I wrote a decorator to cache a couple of API outputs to be used with the unittest.mock patch decorator I learned about. A simple script turned into a good learning exercise."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="./twitter-api-geodata-mocking.html"/>
+<meta property="og:url" content="https://pybit.es/twitter-api-geodata-mocking.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2017-06-17 23:55:00+02:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="./author/bob.html">
+<meta property="article:author" content="https://pybit.es/author/bob.html">
 <meta property="article:section" content="Learning"/>
 <meta property="article:tag" content="twitter"/>
 <meta property="article:tag" content="API"/>
@@ -47,13 +47,13 @@
 <meta property="article:tag" content="tweepy"/>
 <meta property="article:tag" content="testing"/>
 <meta property="article:tag" content="100days"/>
-<meta property="og:image" content="./images/featured/pb-article.png">
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Parsing Twitter Geo Data and Mocking API Calls by Example" />
 <meta name="twitter:description" content=""Is this Bob or Julian?!" ... yeah tweeting from our shared @pybites Twitter account can be confusing! So I made a little script to parse the location of our tweets. Then I extended it to make it testable. I wrote a decorator to cache a couple of API outputs to be used with the unittest.mock patch decorator I learned about. A simple script turned into a good learning exercise." />
-<meta name="twitter:image" content="./images/featured/pb-article.png">
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Parsing Twitter Geo Data and Mocking API Calls by Example</title>
 
@@ -65,22 +65,22 @@
     <aside class='blue'>
 
     <div>
-      <a href=".">
+      <a href="https://pybit.es">
 
-			<img src="./theme/img/article.png" alt="PyBites" title="PyBites">
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
 
       </a>
-      <h1><a href=".">PyBites</a></h1>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
 
 <p>Python Code Challenges, Articles and News - One Bite a Day</p>
       <nav>
         <ul class="list">
-          <li><a href="./pages/about.html">About</a></li>
-          <li><a href="./pages/articles.html">Articles</a></li>
-          <li><a href="./pages/challenges.html">Challenges</a></li>
-          <li><a href="./pages/news.html">News</a></li>
-          <li><a href="./pages/projects.html">Projects</a></li>
-          <li><a href="./pages/search.html">Search</a></li>
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
 
         </ul>
       </nav>
@@ -102,7 +102,7 @@
   <header>
     <h1 id="twitter-api-geodata-mocking">Parsing Twitter Geo Data and Mocking API Calls by Example</h1>
     <p>
-          Posted by <a href="./author/bob.html">Bob</a> on Sat 17 June 2017 in <a href="./category/learning.html">Learning</a>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 17 June 2017 in <a href="https://pybit.es/category/learning.html">Learning</a>
 
 
         &#8226; 2 min read
@@ -188,16 +188,16 @@ another test
 <!--End mc_embed_signup-->
   <div class="tag-cloud">
     <p>
-      <a href="./tag/twitter.html">twitter</a>
-      <a href="./tag/api.html">API</a>
-      <a href="./tag/mock.html">mock</a>
-      <a href="./tag/geo.html">geo</a>
-      <a href="./tag/data.html">data</a>
-      <a href="./tag/unittest.html">unittest</a>
-      <a href="./tag/pickle.html">pickle</a>
-      <a href="./tag/tweepy.html">tweepy</a>
-      <a href="./tag/testing.html">testing</a>
-      <a href="./tag/100days.html">100days</a>
+      <a href="https://pybit.es/tag/twitter.html">twitter</a>
+      <a href="https://pybit.es/tag/api.html">API</a>
+      <a href="https://pybit.es/tag/mock.html">mock</a>
+      <a href="https://pybit.es/tag/geo.html">geo</a>
+      <a href="https://pybit.es/tag/data.html">data</a>
+      <a href="https://pybit.es/tag/unittest.html">unittest</a>
+      <a href="https://pybit.es/tag/pickle.html">pickle</a>
+      <a href="https://pybit.es/tag/tweepy.html">tweepy</a>
+      <a href="https://pybit.es/tag/testing.html">testing</a>
+      <a href="https://pybit.es/tag/100days.html">100days</a>
     </p>
   </div>
 
@@ -268,7 +268,7 @@ another test
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " PyBites ",
-  "url" : ".",
+  "url" : "https://pybit.es",
   "image": "https://pybit.es/theme/img/profile.png",
   "description": "Python Code Challenges, Articles and News - One Bite a Day"
 }
