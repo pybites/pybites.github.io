@@ -102,7 +102,7 @@
           Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Fri 11 August 2017 in <a href="https://pybit.es/category/modules.html">Modules</a>
 
 
-        &#8226; 5 min read
+        &#8226; 4 min read
     </p>
   </header>
 
@@ -134,7 +134,7 @@
 </pre></div>
 
 
-<p>The <code>#1</code> tells curl to use the string I used in <code>{}</code> for output filename:</p>
+<p>The <code>#1</code> tells curl to use the string I wrapped in <code>{}</code> for output filename:</p>
 <h2>Step 1. - create a canvas and put our challenges logo on it:</h2>
 <p>Let's write some code.</p>
 <p><em>Disclaimer</em>: we just write it in a procedural way to get something working. We will refactor it in step 4.</p>
@@ -167,7 +167,7 @@
 <p>We save the image to a file which confirms this worked:</p>
 <p><img alt="pillow-step1.png" class="border" src="https://pybit.es/images/pillow-step1.png"></p>
 <h2>Step 2. - add a second image</h2>
-<p>The second image is the Pillow logo. But the original is 442 × 442. Let's resize it. One way is calculating it <a href="https://github.com/pybites/100DaysOfCode/blob/master/074/text_on_image.py">like I did last time</a>. Another way is using the <code>thumbnail</code> method as I found <a href="https://stackoverflow.com/questions/2232742/does-python-pil-resize-maintain-the-aspect-ratio">on this SO thread</a>.</p>
+<p>The second image is the Pillow logo. But the original is 442 × 442. Let's resize it. One way is to calculate it, <a href="https://github.com/pybites/100DaysOfCode/blob/master/074/text_on_image.py">like I did last time</a>. Another way is using the <code>thumbnail</code> method as I found <a href="https://stackoverflow.com/questions/2232742/does-python-pil-resize-maintain-the-aspect-ratio">on this SO thread</a>.</p>
 <p>The offset of this second image gets calculated so it should still work if one day I decide to change the canvas or Pybites logo image sizes.</p>
 <div class="highlight"><pre><span></span>...
 
@@ -181,16 +181,14 @@ image.paste(second_img, offset_second_img)
 </pre></div>
 
 
+<p>Resulting in:</p>
 <p><img alt="pillow-step2.png" class="border" src="https://pybit.es/images/pillow-step2.png"></p>
-<p>Again we will wrap all this in methods. At this stage I want to get it working, then make it reusable and clean up.</p>
+<p>Again we will clean this up later. At this stage I want to get something working, then make it reusable.</p>
 <h2>Step 3. - add some text</h2>
-<p>You can specify a <a href="https://en.wikipedia.org/wiki/TrueType">TrueType</a> (<code>.ttf</code>) file for font. Of course we want a nice font so I went to <a href="https://www.fontsquirrel.com/">Font Squirrel</a> and first looked at <a href="https://www.fontsquirrel.com/fonts/list/find_fonts?q%5Bterm%5D=ubuntu&amp;q%5Bsearch_check%5D=Y">Ubuntu</a>, but then decided to stick what we use for our blog: <a href="https://github.com/alexandrevicenzi/Flex/blob/master/static/stylesheet/variables.less">Source Sans Pro</a> which you can download <a href="https://www.fontsquirrel.com/fonts/source-sans-pro?q%5Bterm%5D=source+sans+pro&amp;q%5Bsearch_check%5D=Y">here</a> (use <code>SourceSansPro-Regular.otf</code>). I included both fonts in the <code>assets</code> folder.</p>
-<p>If you follow along, after download:</p>
-<div class="highlight"><pre><span></span>(venv) $ unzip ~/Downloads/source-sans-pro.zip SourceSansPro-Regular.otf -d assets/
-</pre></div>
-
-
-<p>And add this code:</p>
+<p>Here we need the already imported <code>ImageDraw</code> and <code>ImageFont</code>.</p>
+<p><code>ImageFont.truetype</code> lets you work with nice fonts so let's get a <a href="https://en.wikipedia.org/wiki/TrueType">TrueType</a> file. </p>
+<p>I used <a href="https://www.fontsquirrel.com/">Font Squirrel</a> and downloaded <a href="https://www.fontsquirrel.com/fonts/list/find_fonts?q%5Bterm%5D=ubuntu&amp;q%5Bsearch_check%5D=Y">Ubuntu</a> and <a href="https://www.fontsquirrel.com/fonts/source-sans-pro?q%5Bterm%5D=source+sans+pro&amp;q%5Bsearch_check%5D=Y">Source Sans Pro</a> (latter used on PyBites). They are included in the <code>assets</code> folder.</p>
+<p>Add this code:</p>
 <div class="highlight"><pre><span></span>...
 BLACK = (0, 0, 0)
 TEXT_FONT_TYPE = os.path.join(ASSET_DIR, &#39;SourceSansPro-Regular.otf&#39;)
@@ -209,7 +207,7 @@ draw.text(offset_text, IMG_TEXT, BLACK, font=font)
 </pre></div>
 
 
-<p>Again easy to accomplish with little code. Final result for now:</p>
+<p>Again only little code needed. Final result for now:</p>
 <p><img alt="pillow-step3.png" class="border" src="https://pybit.es/images/pillow-step3.png"></p>
 <h2>Step 4. - make it reusable</h2>
 <p>Now is a good time to commit our changes:</p>
@@ -254,74 +252,74 @@ draw.text(offset_text, IMG_TEXT, BLACK, font=font)
 
 
 <span class="k">class</span> <span class="nc">Banner</span><span class="p">:</span>
-        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_CANVAS_SIZE</span><span class="p">,</span>
-                                <span class="n">bgcolor</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WHITE</span><span class="p">):</span>
-                <span class="sd">&#39;&#39;&#39;Creating a new canvas&#39;&#39;&#39;</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span> <span class="o">=</span> <span class="n">bgcolor</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_CANVAS_SIZE</span><span class="p">,</span>
+                 <span class="n">bgcolor</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">WHITE</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Creating a new canvas&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span> <span class="o">=</span> <span class="n">bgcolor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">def</span> <span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                                    <span class="n">top</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TOP_MARGIN</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-                <span class="sd">&#39;&#39;&#39;Adds (pastes) image on canvas</span>
-<span class="sd">                    If right is given calculate left, else take left</span>
-<span class="sd">                    Returns added img size&#39;&#39;&#39;</span>
-                <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">top</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TOP_MARGIN</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Adds (pastes) image on canvas</span>
+<span class="sd">        If right is given calculate left, else take left</span>
+<span class="sd">        Returns added img size&#39;&#39;&#39;</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">resize</span><span class="p">:</span>
-                        <span class="n">size</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_HEIGHT</span> <span class="o">*</span> <span class="mf">0.8</span>
-                        <span class="n">img</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">resize</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_HEIGHT</span> <span class="o">*</span> <span class="mf">0.8</span>
+            <span class="n">img</span><span class="o">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">right</span><span class="p">:</span>
-                        <span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+        <span class="k">if</span> <span class="n">right</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
 
-                <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
-                <span class="n">img_details</span> <span class="o">=</span> <span class="n">ImageDetails</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_details</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="n">img_details</span> <span class="o">=</span> <span class="n">ImageDetails</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img_details</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">add_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
-                <span class="sd">&#39;&#39;&#39;Adds text on a given image object&#39;&#39;&#39;</span>
-                <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
-                <span class="n">pillow_font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">ttf</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">add_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Adds text on a given image object&#39;&#39;&#39;</span>
+        <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">pillow_font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">ttf</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">font</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
-                        <span class="n">offset</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">offset</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="c1"># if no offset given put text alongside first image</span>
-                        <span class="n">left_image_px</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                                                                <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span><span class="p">)</span>
-                        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">left_image_px</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">TEXT_PADDING_HOR</span><span class="p">,</span>
-                                            <span class="n">constants</span><span class="o">.</span><span class="n">TEXT_PADDING_VERT</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">font</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">font</span><span class="o">.</span><span class="n">offset</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># if no offset given put text alongside first image</span>
+            <span class="n">left_image_px</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                                <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_coords</span><span class="p">)</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">left_image_px</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">TEXT_PADDING_HOR</span><span class="p">,</span>
+                    <span class="n">constants</span><span class="o">.</span><span class="n">TEXT_PADDING_VERT</span><span class="p">)</span>
 
-                <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">pillow_font</span><span class="p">)</span>
+        <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">font</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">pillow_font</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="s1">&#39;out.png&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="s1">&#39;out.png&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-        <span class="n">banner</span> <span class="o">=</span> <span class="n">Banner</span><span class="p">()</span>
-        <span class="n">banner</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIRST_IMAGE</span><span class="p">)</span>
-        <span class="n">banner</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">SECOND_IMAGE</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">banner</span> <span class="o">=</span> <span class="n">Banner</span><span class="p">()</span>
+    <span class="n">banner</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIRST_IMAGE</span><span class="p">)</span>
+    <span class="n">banner</span><span class="o">.</span><span class="n">add_image</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">SECOND_IMAGE</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-        <span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">ttf</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TEXT_FONT_TYPE</span><span class="p">,</span>
-                                <span class="n">text</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">IMG_TEXT</span><span class="p">,</span>
-                                <span class="n">color</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">BLACK</span><span class="p">,</span>
-                                <span class="n">size</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TEXT_SIZE</span><span class="p">,</span>
-                                <span class="n">offset</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+    <span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="n">ttf</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TEXT_FONT_TYPE</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">IMG_TEXT</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">BLACK</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">DEFAULT_TEXT_SIZE</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 
-        <span class="n">banner</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
-        <span class="n">banner</span><span class="o">.</span><span class="n">save_image</span><span class="p">()</span>
+    <span class="n">banner</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+    <span class="n">banner</span><span class="o">.</span><span class="n">save_image</span><span class="p">()</span>
 </pre></div>
 
 
 <h2>What's next?</h2>
-<p>With this interface done it's time to let the user specify the inputs.</p>
-<p>I will be doing that as part of <a href="https://pybit.es/codechallenge31.html">this week's code challenge</a> and follow up with a part 2 article. Ideally I can provide a CLI and web (Flask) interface. Stay tuned and feel free to join our challenge and try it out yourself ...</p>
+<p>With this interface done it's time to let the user specify inputs.</p>
+<p>I will be doing that as part of <a href="https://pybit.es/codechallenge31.html">this week's code challenge</a> and follow up with a part 2 article. Ideally I provide a CLI and web (Flask) interface. Stay tuned and feel free to join our challenge and try it out yourself ...</p>
 <p>I hope this inspires you to create your own customized banners, logos, etc. Pillow makes image manipulation easy and fun again.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
