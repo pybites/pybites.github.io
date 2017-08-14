@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="Learn how to send richer emails with Python and the MIME Submodules" />
+<meta name="keywords" content="python, tips, tricks, code, pybites, email, automation, MIME">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Send Advanced Emails with Python MIME Submodules"/>
+<meta property="og:description" content="Learn how to send richer emails with Python and the MIME Submodules"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/python-MIME.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-02-01 11:30:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/julian.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="pybites"/>
+<meta property="article:tag" content="email"/>
+<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="MIME"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Send Advanced Emails with Python MIME Submodules" />
+<meta name="twitter:description" content="Learn how to send richer emails with Python and the MIME Submodules" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Send Advanced Emails with Python MIME Submodules</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="python-MIME">Send Advanced Emails with Python MIME Submodules</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Wed 01 February 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In my earlier post on <a href="http://pybit.es/python-smtplib.html">sending basic emails with Python smtplib</a> I outlined the bare minimum required to send an email with Python.</p>
+<p>While functional, it does however lack more advanced features which I'll touch on in this post. We'll be using the MIME email submodules to create a richer email.</p>
+<h2>What is MIME?</h2>
+<p>For those who are unaware, MIME (Multipurpose Internet Mail Extensions) is a standard that essentially makes emails more functional. As per the <a href="https://en.wikipedia.org/wiki/MIME">Wikipedia Article</a>:</p>
+<blockquote>
+<p>Multipurpose Internet Mail Extensions (MIME) is an Internet standard that extends the format of email to support:
+- Text in character sets other than ASCII
+- Non-text attachments: audio, video, images, application programs etc.
+- Message bodies with multiple parts
+- Header information in non-ASCII character sets</p>
+</blockquote>
+<h2>The Setup</h2>
+<p>You'll need to import <em>smtplib</em> as expected but also the MIME submodules "MIMEMultipart" and "MIMEText":</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">smtplib</span>
+<span class="kn">from</span> <span class="nn">email.mime.multipart</span> <span class="kn">import</span> <span class="n">MIMEMultipart</span>
+<span class="kn">from</span> <span class="nn">email.mime.text</span> <span class="kn">import</span> <span class="n">MIMEText</span>
+</pre></div>
+
+
+<h2>Data Entry</h2>
+<p>Next we'll add the missing header detail to the email. I aimed to make this as Pythonic as possible:</p>
+<div class="highlight"><pre><span></span>from_addr = &#39;pybitesblog@gmail.com&#39;
+to_addr = [&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;]
+msg = MIMEMultipart()
+msg[&#39;From&#39;] = from_addr
+msg[&#39;To&#39;] = &quot;, &quot;.join(to_addr)
+msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
+</pre></div>
+
+
+<p>Breaking that down line by line:</p>
+<ol>
+<li>
+<p>Assign your from/sender email address to a variable.</p>
+</li>
+<li>
+<p>Assin your recipient address or addresses to a variable.</p>
+</li>
+<li>
+<p>Assign the MIMEMultipart function to variable.</p>
+</li>
+<li>
+<p>Assign your sender email address variable to the 'From' value in MIME.</p>
+</li>
+<li>
+<p>Assign your recipient addresses to the 'To' value in MIME. Note the .join function is used here to concatenate the email addresses with a comma.</p>
+</li>
+<li>
+<p>Specify your Subject Line and add it to MIME.</p>
+</li>
+</ol>
+<p>Now for the meat. Add the text for the body of your email and again add it to MIME:</p>
+<div class="highlight"><pre><span></span>body = &quot;Hello Everyone!&quot;
+
+msg.attach(MIMEText(body, &#39;plain&#39;))
+</pre></div>
+
+
+<p>I've added the data in the body variable to MIMEText in plain text format. You can specify HTML if you wish.</p>
+<h2>Send the Email</h2>
+<p>I'll be reusing the code from the simple email article here with a small addition. First the standard code:</p>
+<div class="highlight"><pre><span></span>smtp_server = smtplib.SMTP(&#39;smtp.gmail.com&#39;, 587) #Specify Gmail Mail server
+
+smtp_server.ehlo() #Send mandatory &#39;hello&#39; message to SMTP server
+
+smtp_server.starttls() #Start TLS Encryption as we&#39;re not using SSL.
+
+#Login to gmail: Account | Password
+smtp_server.login(&#39; pybitesblog@gmail.com &#39;, &#39; GMAIL APPLICATION PASSWORD &#39;)
+</pre></div>
+
+
+<p>The additional code is in the sendmail function. We now need to specify the text that we're sending. That is, we take all of the data that was added to the MIMEMultipart function (<em>msg</em> variable) and we use it to populate the email:</p>
+<div class="highlight"><pre><span></span>text = msg.as_string()
+
+#Compile email: From, To, Email body
+smtp_server.sendmail(from_addr, to_addr, text)
+</pre></div>
+
+
+<p>And finally, best practice, we close off the SMTP connection and in this case, print a message to indicate the email was sent:</p>
+<div class="highlight"><pre><span></span>smtp_server.quit()
+print(&#39;Email sent successfully&#39;)
+</pre></div>
+
+
+<h2>Conclusion</h2>
+<p>Using this framework you can start to send more and more detailed emails. MIME allows you to send attachments which opens all sorts of doors.</p>
+<p>Check out the <a href="https://docs.python.org/3/library/email-examples.html">Python 3 Docs on Email</a> to see some other detailed examples. I like the idea of the HTML message with an alternative plain text version. Very cool!</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/python.html">python</a>
+      <a href="https://pybit.es/tag/tips.html">tips</a>
+      <a href="https://pybit.es/tag/tricks.html">tricks</a>
+      <a href="https://pybit.es/tag/code.html">code</a>
+      <a href="https://pybit.es/tag/pybites.html">pybites</a>
+      <a href="https://pybit.es/tag/email.html">email</a>
+      <a href="https://pybit.es/tag/automation.html">automation</a>
+      <a href="https://pybit.es/tag/mime.html">MIME</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

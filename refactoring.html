@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="In this quick post I discuss why refactoring code is one of the most important parts of the learning process." />
+<meta name="keywords" content="python, beginner, learning, examples, code, refactoring">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="The Importance of Refactoring Code"/>
+<meta property="og:description" content="In this quick post I discuss why refactoring code is one of the most important parts of the learning process."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/refactoring.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-07-13 19:02:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/julian.html">
+<meta property="article:section" content="Concepts"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="beginner"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="examples"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="refactoring"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="The Importance of Refactoring Code" />
+<meta name="twitter:description" content="In this quick post I discuss why refactoring code is one of the most important parts of the learning process." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; The Importance of Refactoring Code</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="refactoring">The Importance of Refactoring Code</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Thu 13 July 2017 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
+
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>With the completion of our <a href="https://pybit.es/special-100days-of-code.html">100 Days of Code Challenge</a>, this week I found myself with a bit more free time than usual. I decided to look back on some of my older code and… wow. Refactoring time!</p>
+<h2>Refactoring?!</h2>
+<p>I remember when Bob first used the term. It brought back bad memories of maths!</p>
+<p>Refactoring code is the process of making amendments, changes or improvements to your existing code. The end program or application will still operate in the same way, it’s just that the underlying code will be cleaner, leaner or faster.</p>
+<p><br></p>
+<h2>Why Bother?</h2>
+<p>There are many reasons why this is useful, some of which I’ve experienced myself lately:</p>
+<ol>
+<li>
+<p>Most importantly, it makes you feel good!! Seriously, how good does it feel to look back at code you wrote just 6 months ago and think to yourself, “What the heck was I thinking?!”. Seeing the improvement in your coding ability is so important to keeping you on the coding path. If you don’t see an improvement, you won’t be motivated to keep learning!</p>
+</li>
+<li>
+<p>Your code becomes more refined. Check out the examples below. Refactoring just one line of code can make your code more elegant and professional. Also, it doesn’t hurt to have a lower line count!</p>
+</li>
+<li>
+<p>Your projects will grow. I had an extremely simple CLI based app I wrote a year ago that I believed was “finished”. After revisiting and refactoring the code, I started to see how I could add further functionality to it.</p>
+</li>
+<li>
+<p>Refactoring code is an invaluable skill. If you critique and improve your own code enough then you’ll be comfortable and savvy enough to refactor code written by your peers and the wider community.</p>
+</li>
+<li>
+<p>You’ll tend to stop making the same “mistakes” in your current, new code. By going back and refactoring your older code you’ll catch on to any unPythonic tendencies you may have, like the ones below.</p>
+</li>
+<li>
+<p>Finally, I believe doing so can help to build relationships! Refactoring code is one of the ways Bob and I maintain our friendship. We share any non-proprietary code that we write with one another so the other can refactor and provide input. If you can get this sort of thing happening with your peers at work or in the community you’ll be better off for it!</p>
+</li>
+</ol>
+<p><br></p>
+<h2>Refactoring Examples</h2>
+<p>Okay finally, here we go! Here are some specific lines of the code I revisited and refactored this week. Don’t judge me!</p>
+<h3>Unnecessary Code in a for Loop</h3>
+<div class="highlight"><pre><span></span>for i in range(len(durations)):
+</pre></div>
+
+
+<p>I found code where I was using <code>range</code> and <code>len</code> to get the limit of my <code>for</code> loop. It’s a simple one but something I was used to doing with C type programming. Thanks to Python’s awesomeness, I changed it to:</p>
+<div class="highlight"><pre><span></span>for i in durations:
+</pre></div>
+
+
+<p><br></p>
+<h3>String Formatting Woes</h3>
+<div class="highlight"><pre><span></span>print(&#39;The course takes &#39; + str(total_hours) + &#39; hours to complete.&#39;)
+</pre></div>
+
+
+<p>Ouch! Again, a simple fix and most definitely a remnant from having learned other languages. Refactored!</p>
+<div class="highlight"><pre><span></span>print(‘The course takes {} hours to complete’.format(total_hours))
+</pre></div>
+
+
+<p><br></p>
+<h3>camelCasing</h3>
+<p>I found a heap of variables and functions written in camel case. <em>shudder</em>. They’ll no longer be a problem.</p>
+<div class="highlight"><pre><span></span>quotesListDoc
+userInput
+quotesList
+currentTime
+</pre></div>
+
+
+<p><br></p>
+<h3>Manually opening and closing</h3>
+<p>While not particularly terrible, I found it was much more Pythonic to use a <code>with</code> statement to handle the opening and closing of a text file.</p>
+<div class="highlight"><pre><span></span>quotesListDoc = open(“list.txt&quot;, &quot;a&quot;)
+quotesListDoc.write(&#39;\n&#39; + time.strftime(&quot;%c&quot;) + &#39;\n&#39;)
+    for i in range(len(KIDQUOTES)):
+        quotesListDoc.write(KIDQUOTES[i] + &#39;\n&#39;)
+quotesListDoc.close()
+</pre></div>
+
+
+<p>I’ll just refactor the whole damn thing.</p>
+<div class="highlight"><pre><span></span>with open(‘list.txt’, ‘a’) as quotes_doc:
+    quotes_doc.write(‘\n’ + time.strftime(“%c”) + ‘\n’)
+    for i in quotes:
+        quotes_doc.write(quotes[i] + ‘\n’)
+</pre></div>
+
+
+<p><br></p>
+<h3>Including print in input()</h3>
+<p>I had a nasty habit of using print() to write my question or statement when I was asking for input().</p>
+<div class="highlight"><pre><span></span>print(&#39;Hit Y to continue or N to add another issue. Y/N&#39;)
+userInput = input()
+</pre></div>
+
+
+<p>Refactor!</p>
+<div class="highlight"><pre><span></span>user_input = input(‘Hit Y to continue or N to add another issue. Y/N: ‘)
+</pre></div>
+
+
+<p><br></p>
+<h2>Conclusion</h2>
+<p>While most definitely simplistic, the examples above demonstrate how important refactoring is. When I first wrote these snippets, I was using the best way I thought possible.</p>
+<p>I just didn’t know any better.</p>
+<p>Having gone back and refactored it I’m absolutely stoked to see how far I’ve come! Not only does the code look better but I’m also able to see where I can make future improvements.</p>
+<p>The code for writing quotes to a text file. A text file? An sqlite db would be way cooler! Realisations like this make me happy and more motivated than ever to continue learning.</p>
+<p>Now go look at some of your earlier code and see what you can refactor!</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/python.html">python</a>
+      <a href="https://pybit.es/tag/beginner.html">beginner</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/examples.html">examples</a>
+      <a href="https://pybit.es/tag/code.html">code</a>
+      <a href="https://pybit.es/tag/refactoring.html">refactoring</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

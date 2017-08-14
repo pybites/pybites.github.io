@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="Discover some of the numerous Python Help functions." />
+<meta name="keywords" content="python, tips, tricks, code, pybites, help">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Discover Python Help Options"/>
+<meta property="og:description" content="Discover some of the numerous Python Help functions."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/python-help.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-02-02 21:45:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/julian.html">
+<meta property="article:section" content="Tips"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="pybites"/>
+<meta property="article:tag" content="help"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Discover Python Help Options" />
+<meta name="twitter:description" content="Discover some of the numerous Python Help functions." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Discover Python Help Options</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="python-help">Discover Python Help Options</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Thu 02 February 2017 in <a href="https://pybit.es/category/tips.html">Tips</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>When it comes to Python I'm pretty much self taught so it came as no surprise to me when I discovered that Python had help functions. I was blown away to say the least!</p>
+<p>There are 3 help related options I'm going to discuss: help(), dir() and pydoc.</p>
+<h2>help()</h2>
+<p>I face palmed over not finding out about help() sooner. Just like on any operating system, help exists to assist with commands. In Python you simply put whatever object you want within the help function and you'll be presented with a very "man page-esque" looking help page. For example, let's say we wanted to find out more about the <em>len</em> function: </p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; help(len)
+
+Help on built-in function len in module builtins:
+
+len(obj, /)
+    Return the number of items in a container.
+(END)
+</pre></div>
+
+
+<p>The help page will detail the syntax for running the object as well as an explanation as to what it does. Some objects return much more detail than others based on their complexity. Try running <strong>help(range)</strong> in IDLE to see an example of the detail help() can provide. It's pretty awesome!</p>
+<h2>dir()</h2>
+<p>It constantly baffled me as to how programmers like Bob seemed to just <em>know</em> the attributes to use with a specific object. I may never know the answer but I'm
+definitely one step closer thanks to dir().</p>
+<p>dir() is just as wonderful as help(). It allows you to query an object and return its attributes. That is to say, if you've ever wondered what to use with <em>len</em> (eg: len.<attribute/module>) then use dir(len) to get a list. Check out what happens if we use dir() on <em>range</em>:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; dir(range)
+[&#39;__class__&#39;, &#39;__contains__&#39;, &#39;__delattr__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__getitem__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__iter__&#39;, &#39;__le__&#39;, &#39;__len__&#39;, &#39;__lt__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__reversed__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;count&#39;, &#39;index&#39;, &#39;start&#39;, &#39;step&#39;, &#39;stop&#39;]
+&gt;&gt;&gt;
+</pre></div>
+
+
+<p>We now know we can use the <em>count</em> function with range: range.count.</p>
+<h2>help() and dir() Together</h2>
+<p>The best part is that both help() and dir() compliment each other perfectly.</p>
+<p>Using the previous example of <em>range</em> we found that we can use the <em>count</em> function with it. The question is how?</p>
+<p>Use help() of course!</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; help(range.count)
+Help on method_descriptor:
+
+count(...)
+    rangeobject.count(value) -&gt; integer -- return number of occurrences of value
+(END)
+</pre></div>
+
+
+<p>How awesome is that?!</p>
+<p>Modules that aren't in stdlib respond to help() and dir() as well:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">tweepy</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="n">tweepy</span><span class="p">)</span>
+<span class="n">Help</span> <span class="n">on</span> <span class="n">package</span> <span class="n">tweepy</span><span class="p">:</span>
+
+<span class="n">NAME</span>
+    <span class="n">tweepy</span> <span class="o">-</span> <span class="n">Tweepy</span> <span class="n">Twitter</span> <span class="n">API</span> <span class="n">library</span>
+
+<span class="n">PACKAGE</span> <span class="n">CONTENTS</span>
+    <span class="n">api</span>
+    <span class="n">auth</span>
+    <span class="n">binder</span>
+    <span class="n">cache</span>
+    <span class="n">cursor</span>
+    <span class="n">error</span>
+    <span class="n">models</span>
+    <span class="n">parsers</span>
+    <span class="n">streaming</span>
+    <span class="n">utils</span>
+
+<span class="n">FUNCTIONS</span>
+    <span class="n">debug</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">DATA</span>
+    <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;MIT&#39;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">tweepy</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">API</span> <span class="nb">object</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">snip</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">tweepy</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;API&#39;</span><span class="p">,</span> <span class="s1">&#39;AppAuthHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;Cache&#39;</span><span class="p">,</span> <span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="s1">&#39;Cursor&#39;</span><span class="p">,</span> <span class="s1">&#39;DirectMessage&#39;</span><span class="p">,</span> <span class="s1">&#39;FileCache&#39;</span><span class="p">,</span> <span class="s1">&#39;Friendship&#39;</span><span class="p">,</span> <span class="s1">&#39;MemoryCache&#39;</span><span class="p">,</span> <span class="s1">&#39;ModelFactory&#39;</span><span class="p">,</span> <span class="s1">&#39;OAuthHandler&#39;</span><span class="p">,</span> <span class="s1">&#39;RateLimitError&#39;</span><span class="p">,</span> <span class="s1">&#39;SavedSearch&#39;</span><span class="p">,</span> <span class="s1">&#39;SearchResults&#39;</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Stream&#39;</span><span class="p">,</span> <span class="s1">&#39;StreamListener&#39;</span><span class="p">,</span> <span class="s1">&#39;TweepError&#39;</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">,</span> <span class="s1">&#39;__author__&#39;</span><span class="p">,</span> <span class="s1">&#39;__builtins__&#39;</span><span class="p">,</span> <span class="s1">&#39;__cached__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">,</span> <span class="s1">&#39;__license__&#39;</span><span class="p">,</span> <span class="s1">&#39;__loader__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__package__&#39;</span><span class="p">,</span> <span class="s1">&#39;__path__&#39;</span><span class="p">,</span> <span class="s1">&#39;__spec__&#39;</span><span class="p">,</span> <span class="s1">&#39;__version__&#39;</span><span class="p">,</span> <span class="s1">&#39;api&#39;</span><span class="p">,</span> <span class="s1">&#39;auth&#39;</span><span class="p">,</span> <span class="s1">&#39;binder&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="s1">&#39;cursor&#39;</span><span class="p">,</span> <span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;parsers&#39;</span><span class="p">,</span> <span class="s1">&#39;streaming&#39;</span><span class="p">,</span> <span class="s1">&#39;utils&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h2>pydoc</h2>
+<p>Pydoc is different to help() and dir() in that you don't actually run it in IDLE or within a script. It's a command line tool that gets installed with Python.</p>
+<p>That said, Pydoc is actually quite similar to help(). It displays a help page (again, man page similarities!) of the Python object you want to query but does so on the command line. No need to start up IDLE.</p>
+<div class="highlight"><pre><span></span>(venv) juliansequeira$ pydoc datetime
+Help on module datetime:
+
+NAME
+    datetime - Fast implementation of the datetime type.
+
+FILE
+    /System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/datetime.so
+
+MODULE DOCS
+    http://docs.python.org/library/datetime
+&lt;snip&gt;
+</pre></div>
+
+
+<p>The text displayed is made up of the docstrings within the object which means you can create your own if you make your own module etc.</p>
+<p>In typical Python fashion though, Pydoc takes it up a notch. It actually has the ability to display documentation for your installed modules/packages using the built in Python web server!</p>
+<div class="highlight"><pre><span></span>pydoc -p 8000
+</pre></div>
+
+
+<p>When you point your browser to localhost:8000 you'll get a (relatively) nice web page with links to your Python package documentation.</p>
+<h2>Conclusion</h2>
+<p>Help is everywhere! I'm almost annoyed that it took me a year to discover this stuff. Better late than never I guess!</p>
+<p>It's so much nicer being able to get the syntax and attribute help that I need from within IDLE rather than having to Google it and sort through pages of stack overflow articles.</p>
+<p>Let me know if there are any other cool help modules or functions out there. I'd love to know!</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/python.html">python</a>
+      <a href="https://pybit.es/tag/tips.html">tips</a>
+      <a href="https://pybit.es/tag/tricks.html">tricks</a>
+      <a href="https://pybit.es/tag/code.html">code</a>
+      <a href="https://pybit.es/tag/pybites.html">pybites</a>
+      <a href="https://pybit.es/tag/help.html">help</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

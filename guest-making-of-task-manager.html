@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Martin" />
+<meta name="description" content="As a relatively newcomer to the Python scene I've come to realize that the best way to learn is to actually participate in coding challenges. This has helped to push me out of my comfort zone." />
+<meta name="keywords" content="blog, challenges, Flask, Bootstrap, HTML, CSS, Jinja2, Flask-SQLAlchemy, sql, guest, learning">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="The making of my Task Manager App for the PyBites Code Challenge"/>
+<meta property="og:description" content="As a relatively newcomer to the Python scene I've come to realize that the best way to learn is to actually participate in coding challenges. This has helped to push me out of my comfort zone."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/guest-making-of-task-manager.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-05-02 13:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/martin.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="blog"/>
+<meta property="article:tag" content="challenges"/>
+<meta property="article:tag" content="Flask"/>
+<meta property="article:tag" content="Bootstrap"/>
+<meta property="article:tag" content="HTML"/>
+<meta property="article:tag" content="CSS"/>
+<meta property="article:tag" content="Jinja2"/>
+<meta property="article:tag" content="Flask-SQLAlchemy"/>
+<meta property="article:tag" content="sql"/>
+<meta property="article:tag" content="guest"/>
+<meta property="article:tag" content="learning"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="The making of my Task Manager App for the PyBites Code Challenge" />
+<meta name="twitter:description" content="As a relatively newcomer to the Python scene I've come to realize that the best way to learn is to actually participate in coding challenges. This has helped to push me out of my comfort zone." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+  <title>PyBites &ndash; The making of my Task Manager App for the PyBites Code Challenge</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='brown'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/guest.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="guest-making-of-task-manager">The making of my Task Manager App for the PyBites Code Challenge</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/martin.html">Martin</a> on Tue 02 May 2017 in <a href="https://pybit.es/category/learning.html">Learning</a>
+
+
+        &#8226; 5 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>As a relatively newcomer to the Python scene I've come to realize that the best way to learn is to actually participate in coding challenges. This has helped to push me out of my comfort zone. If you're in the same boat as me, I hope that this writeup will motivate you to do the same.</p>
+<p><img alt="Clamytoe's Task Manager" src="https://pybit.es/images/ctm.png"></p>
+<h2>Backstory</h2>
+<p>To be honest, I was already working on a command line version of a task manger. I basically wanted a way to track my achievements throughout the year so that I could readily have them available when it came time for my "self review". I forget what I did this morning, so having this would be a tremendous asset. I figured I could just convert my code to work with Flask, easy right? Boy was I wrong!</p>
+<p>If you're interested in learning how I approached this challenge, read on.</p>
+<h2>Flask</h2>
+<p>The first thing I did was to head on over to <a href="http://flask.pocoo.org/">Flask</a>'s website and check out their <a href="http://flask.pocoo.org/docs/0.12/">documentation</a>. I specifically found their <a href="http://flask.pocoo.org/docs/0.12/quickstart/">Quickstart</a> guide to be an invaluable resource and I went back to it many times. I've been trying to keep up with developments with HTML5, CSS3, and JavaScript, so I knew that the easiest route would be to build this app on top of <a href="http://getbootstrap.com/">Bootstrap</a>, so that's where I headed to next.</p>
+<h2>Bootstrap</h2>
+<p>The first thing I did was to make my way to their <a href="http://getbootstrap.com/getting-started/">Getting Started</a> page. Out of all their choices on implementing their framework, I opted to go with the CDN option to avoid having to upload too many files to <a href="https://github.com/">GitHub</a>. Unfortunately, my Internet connection at home is very limited, so going this route would mean having to deal with slow response times, but it would be worth it for everyone else.</p>
+<p>I headed straight for their <a href="http://getbootstrap.com/getting-started/#examples">Examples</a> page to find me a template that was close enough to what I was looking for. Modifying a template would definitely speedup the development of this app. If you're new to Bootstrap, like I was, their <a href="http://getbootstrap.com/components/">Components</a> page was another one of those resources that made this a whole lot easier. I chose to go with their <a href="http://getbootstrap.com/examples/navbar-static-top/">Static top navbar</a> template.</p>
+<h2>HTML &amp; CSS</h2>
+<p>The next thing I did was to get the template up and running locally. I copied the code to my template and replaced the Bootstrap calls with the ones for the CDN. Where other files were being called, I just downloaded those and stuck them in the static folder of my project. I started with a simple "Hello World!" page just to have something loaded.</p>
+<p>From there I started to customize the form that I would need and to add the table to display the results. Being a bit rusty, I headed over to <a href="https://www.w3schools.com/">W3Schools</a> and went over their tutorials on <a href="https://www.w3schools.com/html/html_forms.asp">Forms</a>, <a href="https://www.w3schools.com/html/html_tables.asp">Tables</a>, and <a href="https://www.w3schools.com/css/default.asp">CSS</a> formating. To my surprise, they also had a section on <a href="https://www.w3schools.com/bootstrap/default.asp">Bootstrap</a>, but I found the examples on Bootstrap's page more useful.</p>
+<h2>Template</h2>
+<p>Now that I had my page up and running, it was time to get things rolling! I should have headed over to <a href="http://jinja.pocoo.org/">Jinja</a>'s page and checked out their
+<a href="http://jinja.pocoo.org/docs/2.9/">documentation</a>, but all I went off of was the basic examples on Flask's site. My goal was to make this a one page application, so the examples there were all I needed.</p>
+<p>Creating the template was pretty straight forward. I had it mocked up and coded without much trouble. The hardest part was working within the confines of Bootstrap and trying to get it to do what I wanted. Once I was happy with that, it was time to actually start writing some Python code!</p>
+<h2>Flask-SQLAlchemy</h2>
+<p>With my CLI task list, I had used <a href="https://docs.python.org/2/library/sqlite3.html">slqlite3</a>, but I wasn't too happy with all of the calls that I had to make each time that I wanted to modify or pull data from the database. On top of that, I had to actually write out the <a href="https://www.w3schools.com/sql/default.asp">SQL</a> commands as well. I had heard that <a href="https://www.sqlalchemy.org/">SQLAlchemy</a> was the tool to use, so I figured that this would be the perfect time to get acquainted with it.</p>
+<p>Unfortunately, their docs were pretty daunting. <a href="http://flask-sqlalchemy.pocoo.org/2.1/">Flask-SQLAlchemy</a> to the rescue! Like all of the other great tools that I've talked about thus far, their <a href="http://flask-sqlalchemy.pocoo.org/2.1/quickstart/">documentation</a> made this a breeze. I spent a lot of time going over those pages. When I couldn't find what I was looking for, <a href="http://stackoverflow.com/">Stack Overflow</a> and <a href="http://stackexchange.com/">Stack Exchange</a> via <a href="https://www.startpage.com/eng/?">StartPage</a> searches came through for me. I found a lot of differing "opinions" on the proper way of doing things, but none would actually work for me. A bit of trial and error and actually dropping into the Python interpreter were key.</p>
+<p>I recently discovered <a href="https://pypi.python.org/pypi/pdir2">pdir2</a>, which has been great for helping with discovering what actual commands I can use with the modules. Python's default <code>dir()</code> works as well, but I find the formatting and coloring of <code>pdir()</code> a lot easier to consume. I didn't add it to the <em>requirements.txt</em> because it's not needed for running the application. Another great tool that needs to be mentioned is the <a href="https://www.jetbrains.com/pycharm/">PyCharm IDE</a>. Its code completion came in really handy while working with SQLAlchemy.</p>
+<h2>Setbacks</h2>
+<p>I did run into some trouble trying to get Python <code>datetime</code> objects through SQLAlchemy, so I ended up discarding my accomplishment task tracking app idea and just going with a simple Todo Task Manager: </p>
+<p><img alt="Original UI" src="https://pybit.es/images/old-ui.png"></p>
+<p>Even though I had to "dumb it down" a bit, I still tried to make it as easy as possible to use. With it you can do the following:</p>
+<ul>
+<li>Create separate Projects</li>
+<li>Add tasks to each Project</li>
+<li>Easily navigate between Projects</li>
+<li>Remembers which Project you used last</li>
+<li>One button click task status changes</li>
+<li>from Open to Close</li>
+<li>from Close to Open</li>
+<li>Remove all tasks from a Project</li>
+<li>Remove a single task at a time</li>
+<li>Remove Projects along with any tasks assigned to it</li>
+<li>Able to add tasks that are initially marked as Close</li>
+</ul>
+<p>Later on, if I have the motivation and time, I'd like to add the ability to select all tasks and perform operations on them with a single button click.</p>
+<h2>Conclusion</h2>
+<p>Overall it was a great experience and I learned a lot from it. I'd recommend anyone looking to learn more about Python to take the time and participate <a href="http://pybit.es/pages/challenges.html">in PyBites code challenges</a>. It's one thing to read about how to do something and another one altogether having to actually implement it.</p>
+<h2>PyBites addition</h2>
+<p>Martin submitted this cool project for our <a href="http://pybit.es/codechallenge15.html">Code Challenge 15 - Create a Simple Flask App</a> which we reviewed <a href="http://pybit.es/codechallenge15_review.html">here</a>. </p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- <a href="pages/guests.html#martinuribe">Martin</a></p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/blog.html">blog</a>
+      <a href="https://pybit.es/tag/challenges.html">challenges</a>
+      <a href="https://pybit.es/tag/flask.html">Flask</a>
+      <a href="https://pybit.es/tag/bootstrap.html">Bootstrap</a>
+      <a href="https://pybit.es/tag/html.html">HTML</a>
+      <a href="https://pybit.es/tag/css.html">CSS</a>
+      <a href="https://pybit.es/tag/jinja2.html">Jinja2</a>
+      <a href="https://pybit.es/tag/flask-sqlalchemy.html">Flask-SQLAlchemy</a>
+      <a href="https://pybit.es/tag/sql.html">sql</a>
+      <a href="https://pybit.es/tag/guest.html">guest</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

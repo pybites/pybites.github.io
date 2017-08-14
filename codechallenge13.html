@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="PyBites" />
+<meta name="description" content="Hi Pythonistas, a new week, a new 'bite' of Python coding! After last week's (tictactoe game), we'd like to sharpen your data analysis skills this week by parsing a movie data set in search for highest rated directors. Enjoy and we review solutions end of this week." />
+<meta name="keywords" content="codechallenges, learning, data analysis, movies, rating">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Code Challenge 13 - Highest Rated Movie Directors"/>
+<meta property="og:description" content="Hi Pythonistas, a new week, a new 'bite' of Python coding! After last week's (tictactoe game), we'd like to sharpen your data analysis skills this week by parsing a movie data set in search for highest rated directors. Enjoy and we review solutions end of this week."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/codechallenge13.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-04-03 00:25:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/pybites.html">
+<meta property="article:section" content="Challenges"/>
+<meta property="article:tag" content="codechallenges"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="data analysis"/>
+<meta property="article:tag" content="movies"/>
+<meta property="article:tag" content="rating"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Code Challenge 13 - Highest Rated Movie Directors" />
+<meta name="twitter:description" content="Hi Pythonistas, a new week, a new 'bite' of Python coding! After last week's (tictactoe game), we'd like to sharpen your data analysis skills this week by parsing a movie data set in search for highest rated directors. Enjoy and we review solutions end of this week." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+  <title>PyBites &ndash; Code Challenge 13 - Highest Rated Movie Directors</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='red'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/challenges.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="codechallenge13">Code Challenge 13 - Highest Rated Movie Directors</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 03 April 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
+
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>There is nothing like a challenge to bring out the best in man. - Sean Connery</p>
+</blockquote>
+<p>Hi Pythonistas, a new week, a new 'bite' of Python coding! After last week's <a href="http://pybit.es/codechallenge12.html">tictactoe game</a>, we'd like to sharpen your data analysis skills this week by parsing a movie data set in search for highest rated directors. Enjoy and we review solutions end of this week.</p>
+<h3>Details</h3>
+<p>There is this great ML article <a href="https://blog.nycdatascience.com/student-works/machine-learning/movie-rating-prediction/">Predict Movie Rating</a>. In this week's code challenge we use its data set to get the 20 highest rated directors based on their average movie IMDB ratings.</p>
+<p>Steps:</p>
+<ul>
+<li>
+<p>As mentioned in the article the dataset is <a href="https://raw.githubusercontent.com/sundeepblue/movie_rating_prediction/master/movie_metadata.csv">here</a>, but we provided a copy in the repo's 13/ subfolder.</p>
+</li>
+<li>
+<p>Parse the movie_metadata.csv, using csv.DictReader you get a bunch of OrderedDicts from which you only need the following k,v pairs:</p>
+<div class="highlight"><pre><span></span>OrderedDict([...
+            (&#39;director_name&#39;, &#39;Lawrence Kasdan&#39;),   
+            ...
+            (&#39;movie_title&#39;, &#39;Mumford\xa0&#39;),
+            ...
+            (&#39;title_year&#39;, &#39;1999&#39;),
+            ...
+            (&#39;imdb_score&#39;, &#39;6.9&#39;),
+            ...
+</pre></div>
+
+
+</li>
+<li>
+<p>Only consider directors with a minimum of 4 movies, otherwise you get misrepresentative data. However going to min 5 movies we miss Sergio Leone :(</p>
+</li>
+<li>
+<p>Take movies of year &gt;= 1960.</p>
+</li>
+<li>
+<p>Print the top 20 highest rated directors with their movies ordered desc on rating.</p>
+</li>
+</ul>
+<p>It should look something like this (indeed some awesome movies here!):</p>
+<div class="highlight"><pre><span></span>$ python directors.py
+
+<span class="m">01</span>. Sergio Leone                                         <span class="m">8</span>.5
+------------------------------------------------------------
+<span class="m">1966</span><span class="o">]</span> The Good, the Bad and the Ugly                     <span class="m">8</span>.9
+<span class="m">1968</span><span class="o">]</span> Once Upon a Time in the West                       <span class="m">8</span>.6
+<span class="m">1984</span><span class="o">]</span> Once Upon a Time in America                        <span class="m">8</span>.4
+<span class="m">1964</span><span class="o">]</span> A Fistful of Dollars                               <span class="m">8</span>.0
+
+<span class="m">02</span>. Christopher Nolan                                    <span class="m">8</span>.4
+------------------------------------------------------------
+<span class="m">2008</span><span class="o">]</span> The Dark Knight                                    <span class="m">9</span>.0
+<span class="m">2010</span><span class="o">]</span> Inception                                          <span class="m">8</span>.8
+<span class="m">2014</span><span class="o">]</span> Interstellar                                       <span class="m">8</span>.6
+<span class="m">2012</span><span class="o">]</span> The Dark Knight Rises                              <span class="m">8</span>.5
+<span class="m">2006</span><span class="o">]</span> The Prestige                                       <span class="m">8</span>.5
+<span class="m">2000</span><span class="o">]</span> Memento                                            <span class="m">8</span>.5
+<span class="m">2005</span><span class="o">]</span> Batman Begins                                      <span class="m">8</span>.3
+<span class="m">2002</span><span class="o">]</span> Insomnia                                           <span class="m">7</span>.2
+
+<span class="m">03</span>. Hayao Miyazaki                                       <span class="m">8</span>.2
+------------------------------------------------------------
+<span class="m">2001</span><span class="o">]</span> Spirited Away                                      <span class="m">8</span>.6
+<span class="m">1997</span><span class="o">]</span> Princess Mononoke                                  <span class="m">8</span>.4
+<span class="m">2004</span><span class="o">]</span> Howl<span class="err">&#39;</span>s Moving Castle                               <span class="m">8</span>.2
+<span class="m">2008</span><span class="o">]</span> Ponyo                                              <span class="m">7</span>.7
+
+<span class="m">04</span>. Quentin Tarantino                                    <span class="m">8</span>.2
+------------------------------------------------------------
+<span class="m">1994</span><span class="o">]</span> Pulp Fiction                                       <span class="m">8</span>.9
+<span class="m">2012</span><span class="o">]</span> Django Unchained                                   <span class="m">8</span>.5
+<span class="m">1992</span><span class="o">]</span> Reservoir Dogs                                     <span class="m">8</span>.4
+<span class="m">2009</span><span class="o">]</span> Inglourious Basterds                               <span class="m">8</span>.3
+<span class="m">2003</span><span class="o">]</span> Kill Bill: Vol. <span class="m">1</span>                                  <span class="m">8</span>.1
+<span class="m">2004</span><span class="o">]</span> Kill Bill: Vol. <span class="m">2</span>                                  <span class="m">8</span>.0
+<span class="m">2015</span><span class="o">]</span> The Hateful Eight                                  <span class="m">7</span>.9
+<span class="m">1997</span><span class="o">]</span> Jackie Brown                                       <span class="m">7</span>.5
+
+...
+<span class="m">16</span> more
+...
+</pre></div>
+
+
+<p>We included <a href="https://github.com/pybites/challenges/tree/master/13/directors-template.py">a template</a> but maybe you want to code this up from scratch and/or use your favorite power tools (Pandas, SQL, etc.)</p>
+<p>We also included <a href="https://github.com/pybites/challenges/blob/master/13/test_directors.py">some tests</a>.</p>
+<h3>Getting ready</h3>
+<p>See <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">our INSTALL doc</a> how to fork <a href="https://github.com/pybites/challenges">our challenges repo</a> to get cracking. If you want to share your solution do <a href="https://github.com/pybites/challenges/compare">a PR</a> and we will add it to <a href="https://github.com/pybites/challenges/tree/community">our community branch</a> and link to it in our end-of-the-week review.</p>
+<h3>Archive</h3>
+<p>You can find all our code challenges so far <a href="http://pybit.es/pages/challenges.html">here</a>. If you have ideas for a future challenge or find any issues, please <a href="http://pybit.es/pages/about.html">contact us</a> or open a <a href="https://github.com/pybites/challenges/issues">GH Issue</a>.</p>
+<p>Last but not least: there is no best solution, only learning more and better Python. Good luck!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob and Julian</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/data-analysis.html">data analysis</a>
+      <a href="https://pybit.es/tag/movies.html">movies</a>
+      <a href="https://pybit.es/tag/rating.html">rating</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

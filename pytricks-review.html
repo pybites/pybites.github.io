@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="A review of Dan Bader's Python tricks book." />
+<meta name="keywords" content="review, tricks, tips, pythonic, oop, ABC, dicts, cleancode">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Python Tricks book review"/>
+<meta property="og:description" content="A review of Dan Bader's Python tricks book."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/pytricks-review.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-31 09:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Books"/>
+<meta property="article:tag" content="review"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="pythonic"/>
+<meta property="article:tag" content="oop"/>
+<meta property="article:tag" content="ABC"/>
+<meta property="article:tag" content="dicts"/>
+<meta property="article:tag" content="cleancode"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Python Tricks book review" />
+<meta name="twitter:description" content="A review of Dan Bader's Python tricks book." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Python Tricks book review</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="pytricks-review">Python Tricks book review</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 31 January 2017 in <a href="https://pybit.es/category/books.html">Books</a>
+
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>A review of Dan Bader's <a href="https://dbader.org/products/python-tricks-book/">Python tricks book</a>:</p>
+<blockquote>
+<p>Discover Python’s Best Practices with Simple Examples and Start Writing Beautiful &amp; Pythonic Code</p>
+</blockquote>
+<h3>Take your Python to the next level</h3>
+<p>I found out about this book through Dan's Python Tricks I get via email / Twitter. The book defines:</p>
+<blockquote>
+<p>Python Trick: A short Python code snippet meant as a teaching tool. A Python Trick either teaches an aspect of Python with a simple illustration, or serves as a motivating example to dig deeper and develop an intuitive understanding.</p>
+</blockquote>
+<p>I really enjoyed reading Dan's book. He explains important Python aspects with clear examples (using two twin cats to explain "is" vs "==" for example). It is not just code samples, it discusses relevant implementation details comprehensibly.</p>
+<p>Since <a href="https://www.youtube.com/watch?v=wf-BqAjZb8M">this talk by Raymond Hettinger</a> I am more conscious about writing Pythonic code. This book cares too. Most tricks show the "one-- and preferably only one --obvious way to do it" (import this), for example how to merge dicts, or for dict access use try/except (<a href="https://docs.python.org/3/glossary.html">EAFP style</a>) but prefer dict.get() as being even more precise. The beginner gets into Pythonic mode, the expert might still pick up new stuff. Another good book in this context is <a href="http://amzn.to/2lxsIba">Effective Python: 59 Specific Ways to Write Better Python</a>.</p>
+<h3>Few things I learned (refreshed)</h3>
+<ul>
+<li>
+<p>Language features section: the "is" vs "==" I mentioned, dictionary internals, deep vs shallow copy. The article on 4 ways of string formatting is awesome. I like Dan’s Python String Formatting Rule of Thumb:</p>
+<blockquote>
+<p>If your format strings are user-supplied, use Template Strings to avoid security issues. Otherwise, use Literal String Interpolation if you’re on Python 3.6+, and "New Style" String Formatting if you’re not.</p>
+</blockquote>
+</li>
+<li>
+<p>Cleaner Python section (my favorite part of the book): use your own exceptions (which we used <a href="http://pybit.es/error_handling.html">here</a>), ABC's (we used <a href="http://pybit.es/oop-primer.html">here</a>), the key func of sorted() (we used <a href="http://pybit.es/codechallenge01_review.html">here</a>), which is shown with both lambda and operator.getitem syntax, refactoring an ugly switch statement.</p>
+</li>
+<li>
+<p>Pythonic syntactic sugar section: * and ** (splat) function arg unpacking (very Pythonic), various (stdlib) ways to merge dicts. </p>
+</li>
+</ul>
+<h3>Now is better than never (import this)</h3>
+<p>And more so because you can still get it for a lower early-access price, eventually the final version of the book will cost more.</p>
+<p>Keep in mind this is a work in progress. I did find the initial version of 60 pages a bit short, but recently I got an update of 25+ pages so the final version will be longer. </p>
+<p>What really matters though is that this book makes you write better Python code! The book is actually responsible for recent new good py habits I picked up, for example: using custom exceptions and ABC's (I found Dan's blog searching for abstract classes). These new learnings alone are worth the price.</p>
+<p>Thanks Dan for sharing your great work.</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/review.html">review</a>
+      <a href="https://pybit.es/tag/tricks.html">tricks</a>
+      <a href="https://pybit.es/tag/tips.html">tips</a>
+      <a href="https://pybit.es/tag/pythonic.html">pythonic</a>
+      <a href="https://pybit.es/tag/oop.html">oop</a>
+      <a href="https://pybit.es/tag/abc.html">ABC</a>
+      <a href="https://pybit.es/tag/dicts.html">dicts</a>
+      <a href="https://pybit.es/tag/cleancode.html">cleancode</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

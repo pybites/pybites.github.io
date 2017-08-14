@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this article 5 Vim shortcuts to speed up your Python development." />
+<meta name="keywords" content="vim, tools, shortcuts, tricks, flake8, howdoi, conque, shell, virtualenv, nerdtree, pyperclip">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="5 Vim Tricks to Speed up Your Python Development"/>
+<meta property="og:description" content="In this article 5 Vim shortcuts to speed up your Python development."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/vim-tricks.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-03-28 09:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="vim"/>
+<meta property="article:tag" content="tools"/>
+<meta property="article:tag" content="shortcuts"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="flake8"/>
+<meta property="article:tag" content="howdoi"/>
+<meta property="article:tag" content="conque"/>
+<meta property="article:tag" content="shell"/>
+<meta property="article:tag" content="virtualenv"/>
+<meta property="article:tag" content="nerdtree"/>
+<meta property="article:tag" content="pyperclip"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="5 Vim Tricks to Speed up Your Python Development" />
+<meta name="twitter:description" content="In this article 5 Vim shortcuts to speed up your Python development." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; 5 Vim Tricks to Speed up Your Python Development</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="vim-tricks">5 Vim Tricks to Speed up Your Python Development</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 28 March 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this article 5 Vim shortcuts to speed up your Python development. These techniques are saving me tons of repeated cycles allowing me to better concentrate on the important: coding. </p>
+<p>Vim's learning curve might be steep, but with practice you start to <a href="http://www.amazon.com/dp/1680501275/?tag=pyb0f-20">'edit text at the speed of light'</a> which makes you a better developer. This is not an article about what is the best editor, there are other awesome options: Emacs, PyCharm, Sublime ... I just love Vim and use it for almost all my editing. </p>
+<h2>Getting ready</h2>
+<p>Before diving in you need to know what a "Leader Key" is:</p>
+<blockquote>
+<p>The "Leader key" is a way of extending the power of VIM's shortcuts by using sequences of keys to perform a command. The default leader key is backslash. Therefore, if you have a map of <Leader>Q, you can perform that action by typing \Q. - <a href="http://stackoverflow.com/questions/1764263/what-is-the-leader-in-a-vimrc-file">StackOverflow answer</a></p>
+</blockquote>
+<p>I mapped mine to comma using this in my vimrc:</p>
+<div class="highlight"><pre><span></span>let mapleader = &quot;,&quot;
+</pre></div>
+
+
+<p>So when I provide mappings like ,p ,f ,a and you use another mapleader, replace my comma with your key.</p>
+<p>Regarding plugins: it's recommended to use <a href="https://github.com/VundleVim/Vundle.vim">Vundle</a>, a Vim plugin manager. See RealPython's <a href="https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/">great introduction</a> to this tool and a powerful Vim environment setup overall.</p>
+<h2>1. Save and run Python</h2>
+<p>Add this to your vimrc:</p>
+<div class="highlight"><pre><span></span>nmap ,p :w&lt;CR&gt;:!python3 %&lt;CR&gt;
+</pre></div>
+
+
+<p>It first saves the output (:w), then runs (!) the current script (%)</p>
+<p>For Python 2 I got another shortcut:</p>
+<div class="highlight"><pre><span></span>nmap ,2 :w&lt;CR&gt;:!python2.7 %&lt;CR&gt;
+</pre></div>
+
+
+<p>I also have ,v to run the Python of my active <a href="http://pybit.es/the-beauty-of-virtualenv.html">virtual env</a>:</p>
+<div class="highlight"><pre><span></span>nmap ,v :w&lt;CR&gt;:!venv/bin/python %&lt;CR&gt;
+</pre></div>
+
+
+<h2>2. Flake8 check</h2>
+<p>As featured in our <a href="http://pybit.es/pep8.html">pep8 article</a> I find it very useful to flake8 my code before committing. If you have not heard of <a href="https://pypi.python.org/pypi/flake8">flake8</a>, it is "the modular source code checker", a wrapper around PyFlakes, pycodestyle and Ned Batchelder’s McCabe script. You need the <a href="https://github.com/nvie/vim-flake8">vim-flake8</a> plugin. I invoke it with ,f - having this in my vimrc:</p>
+<div class="highlight"><pre><span></span>autocmd FileType python map &lt;buffer&gt; ,f :call Flake8()&lt;CR&gt;
+</pre></div>
+
+
+<h2>3. Open Terminal / search StackOverflow in Vim</h2>
+<p>You will need the <a href="https://github.com/vim-scripts/Conque-Shell">Conque</a> plugin. </p>
+<p>To open a Python in vertical split I use the 'cp' shortcut, vimrc: </p>
+<div class="highlight"><pre><span></span>nmap cp :ConqueTermVSplit python3&lt;CR&gt;
+</pre></div>
+
+
+<p>Of course you can specify any script. The advantage is that any generated output becomes editable with Vim.</p>
+<p>Some years ago <a href="http://bobbelderbos.com/2013/01/search-copy-stackoverflow-data-in-vim-with-conque/">I made a script</a> to query StackOverflow in a split window using Conque. I wanted to refactor that script but recently I discovered a better option: <a href="https://github.com/gleitz/howdoi">howdoi</a>. You can use <a href="https://github.com/laurentgoudet/vim-howdoi">this plugin</a> to run it inside Vim. Very cool.</p>
+<h3>4. Toggle Vim and Shell / open multiple files in vertical split / q:</h3>
+<p>I use Ctrl + Z / fg a lot to go back and forth between coding and version control. <a href="http://stackoverflow.com/questions/1879219/how-to-temporarily-exit-vim-and-go-back">You can also type :sh / Ctrl + d</a>. </p>
+<p>For testing I usually open script.py and test_script.py alongside each other with: </p>
+<div class="highlight"><pre><span></span>$ vi -O script.py test_script.py
+</pre></div>
+
+
+<p>This is why PEP8's "Limit all lines to a maximum of 79 characters" is important: no wrapping lines.</p>
+<p>Then use Ctrl + w + w to toggle between the split windows. If you want to open another file in vertical split you can run this from Vim's Command Mode:</p>
+<div class="highlight"><pre><span></span>:vsp file
+</pre></div>
+
+
+<p>Another way to interact with the command line is via Vim's Command Mode. While writing this article I found <a href="http://stackoverflow.com/questions/6920943/navigating-in-vims-command-mode">the useful q: shortcut</a>.</p>
+<p>Other options for shell integration are <a href="http://www.vim.org/scripts/script.php?script_id=2711">screen</a> and <a href="https://tmux.github.io">tmux</a>. I'll leave that for a follow-up article ...</p>
+<h2>5. Navigate files</h2>
+<p>I use <a href="https://github.com/scrooloose/nerdtree">NERD tree</a> which opens a nice file tree you can navigate with regular Vim strokes, I mapped it to Ctrl + x</p>
+<div class="highlight"><pre><span></span>map &lt;C-x&gt; :NERDTreeToggle&lt;CR&gt;
+</pre></div>
+
+
+<p>Another option is <a href="https://github.com/wincent/command-t">Command-T</a>. I was blown away the first time I saw Gary Bernhardt use it in <a href="https://www.destroyallsoftware.com/screencasts">Destroy All Software</a>. I had some dependency / install issues last time, I need to try it again ... </p>
+<h2>Bonus trick: run your own script, pasting its output back into Vim</h2>
+<p>Similar to the howdoi intergration I managed to call an external script and paste its output into Vim. I used <a href="http://pybit.es/pyperclip.html">pyperclip</a> to manage the clipboard and switched to MacVim because of clipboard support:</p>
+<div class="highlight"><pre><span></span>$ /usr/bin/vim --version <span class="p">|</span>grep clipboard
+-clipboard
+$ /Applications/MacVim.app/contents/MacOS/Vim --version<span class="p">|</span>grep clipboard
++clipboard
+</pre></div>
+
+
+<p>See the script <a href="https://github.com/pybites/blog_code/blob/master/amazon/genlink.py">here</a>. It takes a previously copied Amazon URL from the clipboard, converts it to an affiliation link and pastes it back to the clipboard. </p>
+<p>To run it and paste its output back into Vim I made this mapping in my vimrc: </p>
+<div class="highlight"><pre><span></span>nmap ,a :!genlink&lt;CR&gt;&lt;ESC&gt;&quot;+p
+# having genlink in PATH and pyperclip installed
+</pre></div>
+
+
+<p>"+ is the clipboard buffer.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span>https://www.amazon.com/Practical-Vim-Edit-Speed-Thought/dp/1680501275/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1490353516&amp;sr=1-1&amp;keywords=practical+vim
+</pre></div>
+
+
+<p>Vim keys when at the start of previous line:</p>
+<div class="highlight"><pre><span></span>0       # go to begin line
+fh      # go to h
+&quot;+d$    # cut URL to clipboard
+,a      # run the create link script and insert link where cursor is
+</pre></div>
+
+
+<p>Result:</p>
+<div class="highlight"><pre><span></span>http://www.amazon.com/dp/1680501275/?tag=pyb0f-20
+</pre></div>
+
+
+<p>How cool is that? This saves time and made me think what other repeated tasks I can automate and integrate into Vim :) </p>
+<p>If you have ideas or things you built let me know in the comments. </p>
+<h2>More Vim + Python</h2>
+<p>This only scratched the surface. Some great articles on Vim + Python: </p>
+<ul>
+<li>
+<p>Mentioned RealPython article: <a href="https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/">VIM and Python - a Match Made in Heaven</a> (we got our <a href="http://pybit.es/indentation_tips.html">indentation settings</a> from there).</p>
+</li>
+<li>
+<p><a href="https://www.fullstackpython.com/vim.html">Full Stack Python - Vim</a></p>
+</li>
+<li>
+<p><a href="https://justin.abrah.ms/vim/vim_and_python.html">Vim &amp; Python: Making yourself at home</a></p>
+</li>
+<li>
+<p><a href="http://liuchengxu.org/posts/use-vim-as-a-python-ide/">Use Vim as a Python IDE</a></p>
+</li>
+</ul>
+<h2>What is a good Vim book?</h2>
+<p><a href="http://www.amazon.com/dp/1680501275/?tag=pyb0f-20">Practical Vim: Edit Text at the Speed of Thought</a> from the author of <a href="http://vimcasts.org">vimcasts</a>, is THE book that got my Vim skills to the next level.</p>
+<h2>Two more useful shell aliases</h2>
+<p>Not Vim related, but now that we are talking shortcuts, here are two Python related ones I got in my bashrc:</p>
+<ul>
+<li>
+<p>As soon as I start a new project I run 'pvenv' to create and start a fresh new <a href="http://pybit.es/the-beauty-of-virtualenv.html">virtual env</a>:</p>
+<div class="highlight"><pre><span></span>alias pvenv=&#39;python -m venv venv &amp;&amp; source venv/bin/activate&#39;
+</pre></div>
+
+
+</li>
+<li>
+<p>Run all unittests in the current directory: </p>
+<div class="highlight"><pre><span></span>alias utest=&#39;python -m unittest discover&#39;
+</pre></div>
+
+
+</li>
+</ul>
+<p>(although at the time of this writing I discovered <a href="http://nose.readthedocs.io/en/latest/">the nosetests script</a>)</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/vim.html">vim</a>
+      <a href="https://pybit.es/tag/tools.html">tools</a>
+      <a href="https://pybit.es/tag/shortcuts.html">shortcuts</a>
+      <a href="https://pybit.es/tag/tricks.html">tricks</a>
+      <a href="https://pybit.es/tag/flake8.html">flake8</a>
+      <a href="https://pybit.es/tag/howdoi.html">howdoi</a>
+      <a href="https://pybit.es/tag/conque.html">conque</a>
+      <a href="https://pybit.es/tag/shell.html">shell</a>
+      <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>
+      <a href="https://pybit.es/tag/nerdtree.html">nerdtree</a>
+      <a href="https://pybit.es/tag/pyperclip.html">pyperclip</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

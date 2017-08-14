@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this article I teach you how to get started with Flask-SQLAlchemy. I will set up a model, create the DB, retrieve birthdays from FB and import them into the DB. Lastly I will query the birthdays by date range." />
+<meta name="keywords" content="Flask-SQLAlchemy, SQLAlchemy, Flask, Facebook, birthday, calendar, icalendar, datetime">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Building a Simple Birthday App with Flask-SQLAlchemy"/>
+<meta property="og:description" content="In this article I teach you how to get started with Flask-SQLAlchemy. I will set up a model, create the DB, retrieve birthdays from FB and import them into the DB. Lastly I will query the birthdays by date range."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/flask-sqlalchemy-bday-app.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-05-11 11:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Flask"/>
+<meta property="article:tag" content="Flask-SQLAlchemy"/>
+<meta property="article:tag" content="SQLAlchemy"/>
+<meta property="article:tag" content="Flask"/>
+<meta property="article:tag" content="Facebook"/>
+<meta property="article:tag" content="birthday"/>
+<meta property="article:tag" content="calendar"/>
+<meta property="article:tag" content="icalendar"/>
+<meta property="article:tag" content="datetime"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Building a Simple Birthday App with Flask-SQLAlchemy" />
+<meta name="twitter:description" content="In this article I teach you how to get started with Flask-SQLAlchemy. I will set up a model, create the DB, retrieve birthdays from FB and import them into the DB. Lastly I will query the birthdays by date range." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Building a Simple Birthday App with Flask-SQLAlchemy</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="flask-sqlalchemy-bday-app">Building a Simple Birthday App with Flask-SQLAlchemy</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Thu 11 May 2017 in <a href="https://pybit.es/category/flask.html">Flask</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>One of my favorite Flask extensions is <a href="http://flask-sqlalchemy.pocoo.org/2.1/">Flask-SQLAlchemy</a>. It makes working with a database a breeze. For some time I wanted to detach my birthday management from Facebook. So I started a simple Flask app. Work so far <a href="https://github.com/pybites/bday-app">here</a>.</p>
+<h2>FB birthday data</h2>
+<p>I am almost sure you could use the FB API before to pull all your friends and birthdays. <a href="http://stackoverflow.com/questions/27924140/fetch-friends-birthday-using-facebook-graph-api-v2-0">Not anymore</a> :(</p>
+<p>Luckily <a href="https://github.com/pybites/bday-app/blob/master/README.md">I found a way</a> to export them and parse them into a useful format - see <a href="https://github.com/pybites/bday-app/blob/master/bdays.py">bdays.py</a>.</p>
+<h2>Starting Flask-SQLAlchemy</h2>
+<p>Back to the article subject: how do we get this data into a DB? Flask-SQLAlchemy to the rescue:</p>
+<ul>
+<li>
+<p>First I defined a simple model in <a href="https://github.com/pybites/bday-app/blob/master/model.py">model.py</a>: </p>
+<div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="kr">class</span> <span class="nx">Birthday</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Model</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">id</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Integer</span><span class="p">,</span> <span class="nx">primary_key</span><span class="o">=</span><span class="nx">True</span><span class="p">)</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nb">String</span><span class="p">(</span><span class="mi">120</span><span class="p">))</span>
+    <span class="nx">bday</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">DateTime</span><span class="p">)</span>
+    <span class="nx">notify</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nb">Boolean</span><span class="p">)</span>
+
+    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">bday</span><span class="p">,</span> <span class="nx">notify</span><span class="o">=</span><span class="nx">False</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">bday</span> <span class="o">=</span> <span class="nx">bday</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">notify</span> <span class="o">=</span> <span class="nx">notify</span>
+
+    <span class="nx">def</span> <span class="nx">__repr__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Birthday %r %r %r&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">bday</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">notify</span><span class="p">)</span>
+</pre></div>
+
+
+<p>It's best to store dates as db.DateTime objects so we can easily query them (see further down).</p>
+</li>
+<li>
+<p>If model.py is run as standalone script (not imported) it recreates the DB:</p>
+<div class="highlight"><pre><span></span>db.drop_all()
+db.create_all()
+</pre></div>
+
+
+<p>I use the bdays.py ics parsing code to populate the table with all birthdays. You can even strip out the names (which was useful to share printscreens here). I store all birthdays with the same year (calendar ics ranges May '17 - May '18), otherwise the date querying fails (next step):</p>
+<div class="highlight"><pre><span></span><span class="c1"># insert birthdays sorted</span>
+<span class="k">for</span> <span class="n">bd</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">get_birthdays</span><span class="p">(</span><span class="s1">&#39;cal.ics&#39;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">bday</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">bday</span><span class="o">.</span><span class="n">day</span><span class="p">)):</span>
+
+    <span class="c1"># no real names</span>
+    <span class="k">if</span> <span class="n">TEST_MODE</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">get_random_name</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="c1"># import all bdays with THIS_YEAR to make it easier to query later</span>
+    <span class="n">bday</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">bday</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">THIS_YEAR</span><span class="p">)</span>
+    <span class="n">bd_obj</span> <span class="o">=</span> <span class="n">Birthday</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bday</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bd_obj</span><span class="p">)</span>
+
+<span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>The app is still very bare-bones. It has an index/home route, to get the birthdays of the next 14 days, and a route to get birthdays for each month. See <a href="https://github.com/pybites/bday-app/blob/master/app.py">app.py</a>. Here's why you want to work with datetime objects, it makes querying dates easier:</p>
+<ul>
+<li>
+<p>Upcoming n days:</p>
+<div class="highlight"><pre><span></span>@app.route(&#39;/&#39;)
+...
+start = datetime.now()
+end = start + timedelta(days=UPCOMING_DAYS)
+bdays = Birthday.query.filter(Birthday.bday &lt;= end).filter(Birthday.bday &gt;= start)
+</pre></div>
+
+
+</li>
+<li>
+<p>How to get all birthdays of month n (<a href="http://stackoverflow.com/questions/36155332/how-to-get-the-first-day-and-last-day-of-current-month-in-python">see SO</a>). The SQLAlchemy query is the same:</p>
+<div class="highlight"><pre><span></span>@app.route(&#39;/&lt;int:month&gt;&#39;)
+...
+_, num_days = calendar.monthrange(THIS_YEAR, month)
+start = date(THIS_YEAR, month, 1)
+end = date(THIS_YEAR, month, num_days)
+bdays = Birthday.query.filter(Birthday.bday &lt;= end).filter(Birthday.bday &gt;= start)
+</pre></div>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2>Resulting App</h2>
+<p><img alt="bday app upcoming" src="https://pybit.es/images/bday-app1.png"></p>
+<p><img alt="bday app for a particular month" src="https://pybit.es/images/bday-app2.png"></p>
+<p>You can use the calendar module to get the month name for a month int:</p>
+<div class="highlight"><pre><span></span>month_name = calendar.month_name[month]
+</pre></div>
+
+
+<p>See <a href="https://github.com/pybites/bday-app/blob/master/app.py">app.py</a>.</p>
+<h2>TODO</h2>
+<p>This is it for starters. In part 2 I will make the app more functional: </p>
+<ul>
+<li>
+<p>Implement notifications: email me one day before a birthday.</p>
+</li>
+<li>
+<p>Allow setting of notify == True for individual friends so I only get the notifications I want.</p>
+</li>
+<li>
+<p>Full CRUD: add/update/delete friends and/or re-import new ics download.</p>
+</li>
+<li>
+<p>Second (relational) model for tracking: </p>
+<ul>
+<li>
+<p>add the notifications sent to this table </p>
+</li>
+<li>
+<p>have a "done" flag to update when I sent Happy Birthday wishes to a particular friend.</p>
+</li>
+</ul>
+<p>This is a nice extension to use Flask-SQLAlchemy's db.ForeignKey.</p>
+</li>
+</ul>
+<h2>Resources</h2>
+<ul>
+<li>
+<p>Flask-SQLAlchemy <a href="http://flask-sqlalchemy.pocoo.org/2.1/">docs</a> is a great start.</p>
+</li>
+<li>
+<p>See our <a href="http://pybit.es/codechallenge15_review.html">code challenge 15 review</a> for more example apps using Flask-SQLAlchemy.</p>
+</li>
+<li>
+<p>For examples of standard SQLAlchemy (outside Flask), our <a href="http://pybit.es/codechallenge17_review.html">code challenge 17 review</a> has some examples.</p>
+</li>
+<li>
+<p>To learn SQLAlchemy start with the <a href="http://sqlalchemy.readthedocs.io/en/latest/orm/tutorial.html">Object Relational Tutorial</a>.</p>
+</li>
+</ul>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/flask-sqlalchemy.html">Flask-SQLAlchemy</a>
+      <a href="https://pybit.es/tag/sqlalchemy.html">SQLAlchemy</a>
+      <a href="https://pybit.es/tag/flask.html">Flask</a>
+      <a href="https://pybit.es/tag/facebook.html">Facebook</a>
+      <a href="https://pybit.es/tag/birthday.html">birthday</a>
+      <a href="https://pybit.es/tag/calendar.html">calendar</a>
+      <a href="https://pybit.es/tag/icalendar.html">icalendar</a>
+      <a href="https://pybit.es/tag/datetime.html">datetime</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>

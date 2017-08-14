@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this post I will give you 5 tips to speed up your code." />
+<meta name="keywords" content="performance, data structures, pythonic, generators, map, builtin, algorithms, regex, patterns">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="5 tips to speed up your Python code"/>
+<meta property="og:description" content="In this post I will give you 5 tips to speed up your code."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/faster-python.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-02-21 09:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Best practices"/>
+<meta property="article:tag" content="performance"/>
+<meta property="article:tag" content="data structures"/>
+<meta property="article:tag" content="pythonic"/>
+<meta property="article:tag" content="generators"/>
+<meta property="article:tag" content="map"/>
+<meta property="article:tag" content="builtin"/>
+<meta property="article:tag" content="algorithms"/>
+<meta property="article:tag" content="regex"/>
+<meta property="article:tag" content="patterns"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="5 tips to speed up your Python code" />
+<meta name="twitter:description" content="In this post I will give you 5 tips to speed up your code." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; 5 tips to speed up your Python code</title>
+
+
+</head>
+<body>
+
+  <!-- change aside color based on article vs challenge vs news -->
+    <aside class='blue'>
+
+    <div>
+      <a href="https://pybit.es">
+
+			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="faster-python">5 tips to speed up your Python code</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 21 February 2017 in <a href="https://pybit.es/category/best-practices.html">Best practices</a>
+
+
+        &#8226; 5 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>This article is about native Python, not <a href="https://en.wikipedia.org/wiki/List_of_compilers#Python_compilers">compilers</a> nor <a href="https://docs.python.org/3/library/concurrency.html">concurrency</a>.</p>
+<p>First off: optimizing usually is not your primary concern, writing readable code is. </p>
+<blockquote>
+<p>Premature optimization is the root of all evil. (Donald Knuth)</p>
+</blockquote>
+<p>However a lot of the tips I investigated below go hand-in-hand with writing good, Pythonic code. </p>
+<p>Here are 5 important things to keep in mind in order to write efficient Python code.</p>
+<h2>1. Know the basic data structures</h2>
+<p>As already mentioned <a href="http://pybit.es/collections-deque.html">here</a> dicts and sets use hash tables so have O(1) lookup performance.  As the <a href="http://docs.python-guide.org/en/latest/writing/style/">The Hitchhiker's Guide</a> states:</p>
+<blockquote>
+<p>... it is often a good idea to use sets or dictionaries instead of lists in cases where:</p>
+<ul>
+<li>The collection will contain a large number of items</li>
+<li>You will be repeatedly searching for items in the collection</li>
+<li>You do not have duplicate items.</li>
+</ul>
+</blockquote>
+<p>For a performance cheat sheet for al the main data types refer to <a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity</a>. For a nice, accessible and visual book on algorithms see <a href="http://pybit.es/grokking_algorithms.html">here</a>.</p>
+<p>Update: in the first iteration of this article I did a 'value in set(list)' but this is actually expensive because you have to do the list-to-set cast. The suggested set(a) &amp; set(b) instead of double-for-loop has this same problem. Thanks for pointing this out <a href="https://redd.it/5vapzt">on Reddit</a>. There were some more comments there which I will update in this article for completeness and correctness.</p>
+<h2>2. Reduce memory footprint</h2>
+<div class="highlight"><pre><span></span>msg = &#39;line1\n&#39;
+msg += &#39;line2\n&#39;
+msg += &#39;line3\n&#39;
+</pre></div>
+
+
+<p>This is inefficient because a new string gets created upon each pass. Use a list and join it together:</p>
+<div class="highlight"><pre><span></span>msg = [&#39;line1&#39;, &#39;line2&#39;, &#39;line3&#39;]
+&#39;\n&#39;.join(msg)
+</pre></div>
+
+
+<p>Similarly avoid the + operator on strings:</p>
+<div class="highlight"><pre><span></span># slow
+msg = &#39;hello &#39; + my_var + &#39; world&#39;
+
+# faster
+msg = &#39;hello %s world&#39; % my_var
+
+# or better:
+msg = &#39;hello {} world&#39;.format(my_var)
+</pre></div>
+
+
+<p>Pythonic code is not only more readable but also faster, another example: 'if variable:' is faster than the un-idiomatic 'if variable == True:' </p>
+<p>Other memory saving techniques:</p>
+<ul>
+<li>
+<p>probably best known are generators which result in the lazy (on demand) generation of values, which translates to lower memory usage. Good news is that in Python 3 range, d.items() etc return generators (in Python 2 use xrange, d.iteritems() respectively). Another good reason to switch to Python 3 :)</p>
+</li>
+<li>
+<p>list.sort() is in place vs sorted() which makes a copy. Honestly I have mostly used latter, but it might matter if your data set grows.</p>
+</li>
+<li>
+<p><a href="https://docs.python.org/2/reference/datamodel.html">__slots__</a>: 'the __slots__ declaration takes a sequence of instance variables and reserves just enough space in each instance to hold a value for each variable. Space is saved because __dict__ is not created for each instance', so this is really useful if you have a lot of instances (here is a <a href="http://tech.oyster.com/save-ram-with-python-slots/">real-world example</a>).</p>
+</li>
+</ul>
+<h2>3. Use builtin functions and libraries</h2>
+<p>Builtin functions like sum, max, any, map, etc are implemented in C. They are very efficient and well tested. Use them!</p>
+<p>Example borrowed from this <a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips">great wiki</a>:</p>
+<div class="highlight"><pre><span></span>newlist = []
+for word in oldlist:
+    newlist.append(word.upper())
+</pre></div>
+
+
+<p>Better:</p>
+<div class="highlight"><pre><span></span>newlist = map(str.upper, oldlist)  # wiki cites map as a for loop moved into C code
+</pre></div>
+
+
+<p>For readability I much prefer a list comprehension though. And as another redditor commented a list comprehension is just as fast as list(map(x)) and a generator comprehension is just as fast as map(x).</p>
+<p>Guido's <a href="https://www.python.org/doc/essays/list2str/">Python Patterns - An Optimization Anecdote</a> is a great read:</p>
+<blockquote>
+<p>If you feel the need for speed, go for built-in functions - you can't beat a loop written in C. Check the library manual for a built-in function that does what you want.</p>
+</blockquote>
+<p>Another example of using builtins is the <a href="https://docs.python.org/2/library/collections.html">collections</a> module which offers Pythonic and efficient data structures (deque, defaultdict, Counter, etc):</p>
+<p>For example defaultdict ('list as the default_factory' example from documentation):</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = [(&#39;yellow&#39;, 1), (&#39;blue&#39;, 2), (&#39;yellow&#39;, 3), (&#39;blue&#39;, 4), (&#39;red&#39;, 1)]
+&gt;&gt;&gt; d = defaultdict(list)
+&gt;&gt;&gt; for k, v in s:
+...     d[k].append(v)
+</pre></div>
+
+
+<p>Or use Counter, just one line of code:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; Counter(&#39;mississippi&#39;)
+Counter({&#39;i&#39;: 4, &#39;s&#39;: 4, &#39;p&#39;: 2, &#39;m&#39;: 1})
+</pre></div>
+
+
+<p>As Jack Diederich says in <a href="https://www.youtube.com/watch?v=o9pEzgHorH0">this great talk</a> :)</p>
+<blockquote>
+<p>I hate code and I want as little of it as possible in our product.</p>
+</blockquote>
+<h2>4. Move calculations outside the loop</h2>
+<p>If you have a big iterator and you need to do some regex matching, for example match a date:</p>
+<div class="highlight"><pre><span></span>for i in big_it:
+    m = re.search(r&#39;\d{2}-\d{2}-\d{4}&#39;, i)
+    if m:
+        ...
+</pre></div>
+
+
+<p>Better to compile the regex once and use that 'cached' version in the loop:</p>
+<div class="highlight"><pre><span></span>date_regex = re.compile(r&#39;\d{2}-\d{2}-\d{4}&#39;)
+
+for i in big_it:
+    m = date_regex.search(i)
+    if m:
+        ...
+</pre></div>
+
+
+<p>Update: another redditor commented: "it's by the mercy of the interpreter's implementation, most (including the common CPython) have their own cache for a certain number of regexes, so it probably wouldn't cause any extra time.".</p>
+<p>More generically evaluate as much as possible outside the loop!</p>
+<p>Another trick is to asign a function (calculation) to a local variable:</p>
+<blockquote>
+<p>Python accesses local variables much more efficiently than global variables. (<a href="[PerformanceTips wiki](https://wiki.python.org/moin/PythonSpeed/PerformanceTips)">source</a>)</p>
+</blockquote>
+<div class="highlight"><pre><span></span>myfunc = myObj.func
+fcor i in range(n):
+    myfunc(i) # faster than myObj.func(i)
+</pre></div>
+
+
+<p>On the subject of caching, for memoization (an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again) you can use the <a href="https://docs.python.org/3/library/functools.html#functools.lru_cache">functools.lru_cache decorator</a>. LRU = <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_Recently_Used_.28LRU.29">Least Recently Used</a> and a good use case is fetching data from the web (<a href="https://docs.python.org/3/library/functools.html#functools.lru_cache">the docs page</a> has an example of LRU cache for static web content).</p>
+<h2>5. Keep your code base small</h2>
+<p>Common sense but still: be conscious what you put in the module vs main level (latter being below the __main__ statement). When you import a module potentially a lot of code runs and can slow down your program! </p>
+<p>Reduce the amounts of if/elif/and/or. An interesting example I learned from <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">this great talk</a>: the ask forgiveness code style might run faster because it eliminates the need for the if check.</p>
+<p>Update: on the mentioned Reddit thread we got some feedback on try/except vs 'if os.path.isfile', latter might actually be better. </p>
+<h2>How to spot performance issues?</h2>
+<p>Humans are pretty bad at guessing, I can tell ... once I wanted to optimize a Python script I built that did heavy text parsing but took a bit of time. Profiling the code it was caused by a different part than I had intuitively thought!</p>
+<p>You can use <a href="https://docs.python.org/3.6/library/profile.html">a profiler</a>, for example:</p>
+<div class="highlight"><pre><span></span>python -m cProfile [-o output_file] [-s sort_order] myscript.py
+</pre></div>
+
+
+<p>To time your code, see <a href="http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python">this SO thread</a>.</p>
+<hr>
+<h2>Resources</h2>
+<ul>
+<li>
+<p>Again Guido's <a href="https://www.python.org/doc/essays/list2str/">Python Patterns - An Optimization Anecdote</a> is a great read.</p>
+</li>
+<li>
+<p>Reference: <a href="https://wiki.python.org/moin/PythonSpeed/PerformanceTips">Performance tips wiki</a>.</p>
+</li>
+<li>
+<p><a href="https://wiki.python.org/moin/TimeComplexity">TimeComplexity reference</a>.</p>
+</li>
+<li>
+<p>Mentioned talk <a href="https://www.youtube.com/watch?v=YjHsOrOOSuI">Writing faster Python</a> by Sebastian Witowski.</p>
+</li>
+<li>
+<p>Book on the subject: <a href="http://amzn.to/2mKYrVZ">High Performance Python: Practical Performant Programming for Humans</a>.</p>
+</li>
+</ul>
+<hr>
+<p>What are your favorite tricks to speed up your Python code?</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <h3>&gt;&gt;&gt; next(PyBites)</h3>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+    <p>Get our 'Become a Better Python Developer' cheat sheet sent straight to your inbox by signing up for our <a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Newsletter</a>:</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/performance.html">performance</a>
+      <a href="https://pybit.es/tag/data-structures.html">data structures</a>
+      <a href="https://pybit.es/tag/pythonic.html">pythonic</a>
+      <a href="https://pybit.es/tag/generators.html">generators</a>
+      <a href="https://pybit.es/tag/map.html">map</a>
+      <a href="https://pybit.es/tag/builtin.html">builtin</a>
+      <a href="https://pybit.es/tag/algorithms.html">algorithms</a>
+      <a href="https://pybit.es/tag/regex.html">regex</a>
+      <a href="https://pybit.es/tag/patterns.html">patterns</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
