@@ -116,46 +116,47 @@
 <p>We ask you to help PyBites dev to deliver tests for this app using Selenium:</p>
 <ol>
 <li>
-<p>Go to the <a href="pybites.pythonanywhere.com">http://pybites.pythonanywhere.com/</a>. The header should say <em>PyBites 100 Days of Django</em>. The navbar has Login and Home links. The first link in main is <em>PyPlanet Article Sharer App</em>.</p>
+<p>Go to the <a href="http://pybites.pythonanywhere.com/">pybites.pythonanywhere.com</a>. The header should say <em>PyBites 100 Days of Django</em>. The navbar has Login and Home links. The first link in the <code>main</code> div is <em>PyPlanet Article Sharer App</em>:</p>
 <p><img alt="test the home page" src="https://pybit.es/images/selenium-challenge1.png"></p>
 </li>
 <li>
-<p>Click on <em>PyPlanet Article Sharer App</em> and test the page contains a <code>table</code> with a <code>th</code> (table header) containing the word <em>Title</em>. This app watches the PyPlanet feed so the titles change every day. What we can test though is if the table contains 100 entries (<code>tr</code>).</p>
+<p>Click on the <em>PyPlanet Article Sharer App</em> link and test the page contains a <code>table</code> with a <code>th</code> (table header) containing the word <em>Title</em>. This app watches the PyPlanet feed so the titles change every day so that is hard test. What we can test though is if the table contains 100 entries (<code>tr</code>).</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge2.png"></p>
 </li>
 <li>
-<p>Go to an article and check there is only a <em>Go back</em> button. Check if the header link at the top is the same as the link you clicked on, in this example: <em>Martin Fitzpatrick: KropBot: Multiplayer Internet-controlled robot</em>. The <em>Go back</em> should redirect back to <a href="the app's home">http://pybites.pythonanywhere.com/pyplanet/</a>.</p>
+<p>Go to an article and check there is only a <em>Go back</em> button (logged out view). Check if the header link at the top is the same as the link you clicked on, in this example: <em>Martin Fitzpatrick: KropBot: Multiplayer Internet-controlled robot</em>. The <em>Go back</em> should redirect back to <a href="http://pybites.pythonanywhere.com/pyplanet/">the app's home page</a>.</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge3.png"></p>
 </li>
 <li>
-<p>Using Selenium click the login link and login with user: guest / password: changeme - then click the <em>Login</em> button:</p>
+<p>Using Selenium click <em>Login</em> and login with user: guest / password: changeme - then click the blue <em>Login</em> button:</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge4.png"></p>
 </li>
 <li>
-<p>Check you are redirected back to <a href="http://pybites.pythonanywhere.com/">100Days home</a> and if navigation should say <em>Welcome back, guest!</em> and contains Logout and Home links:</p>
+<p>Check you are redirected back to <a href="http://pybites.pythonanywhere.com/">100Days home</a> and if navigation contains <em>Welcome back, guest!</em> and Logout and Home links:</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge5.png"></p>
 </li>
 <li>
-<p>Going back to the article link (3.), check that you now have a <em>Tweet this</em> as well alongside the <em>Go back</em> button. If you want to check the <em>Tweet this</em> button, it is basically a link and our articles should have <em>New PyBites Article</em> prepended.</p>
+<p>Going back to the article link (3.), check that you now have a <em>Tweet this</em> button alongside the <em>Go back</em> button. Optionally you can check the link of the <em>Tweet this</em> button (extra check: PyBites entries have <em>New PyBites Article</em> prepended).</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge6.png"></p>
 </li>
 <li>
-<p>Finally logout with Selenium and check for <em>See you!</em> and <em>You have been successfully logged out.</em>, <em>logout</em> in the URL, and navbar links are Login and Home again.</p>
+<p>Finally logout with Selenium and check for <em>See you!</em> and <em>You have been successfully logged out.</em>, <em>logout</em> in the URL, and navbar links are Login and Home again:</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge7.png"></p>
 </li>
 </ol>
-<p>By the way, if you don't like this app or want to test a Flask (or framework ...) app, be our guest. Just mention it in your submission.</p>
+<p>By the way, if you don't like this app or want to test a Flask app (or other web framework), be our guest. Just mention it in your PR submission.</p>
 <h3>Bonus</h3>
-<p>If you like to test even more you need superuser rights. Nobody stops you though from <a href="https://github.com/pybites/pyplanet-django">cloning the repo</a> and get it working locally. Apart from practicing getting a Django app running you could then additionally test:</p>
+<p>If you like to test even more you need superuser rights. As we use this app ourselves we only provide a guest login at this point. Nobody stops you though from <a href="https://github.com/pybites/pyplanet-django">cloning the repo</a> and get it working locally. </p>
+<p>Apart from extra Django setup practice, doing so can can additionally test:</p>
 <ol>
 <li>
-<p>Create a Django superuser and use it to login. Click the <em>Mark Skipped</em> button on an article and check if it marks the entry as orange back at the main app page/table view. Going back the button is deactivated and button text changed to <em>Already skipped</em></p>
+<p>Create a Django superuser and use it to login to the app. Click the <em>Mark Skipped</em> button on an article and check if it marks the entry as orange back at the main app page/table view. Going back to the same article, the button is deactivated and the button text changed to <em>Already skipped</em>.</p>
 </li>
 <li>
-<p>(still logged in) click the <em>Mark Shared</em> button on another article and check if it marks the entry green back at the main app page/table view. Going back the button is deactivated and button text changed to <em>Already shared</em></p>
+<p>(still logged in) click the <em>Mark Shared</em> button on another article and check if it marks the entry green back at the main app page/table view. Going back to the same article, the button is deactivated and the button text changed to <em>Already shared</em>.</p>
 </li>
 <li>
-<p>For both 1. and 2. the blue <em>Tweet this</em> button disappeared.</p>
+<p>For both 1. and 2. the blue <em>Tweet this</em> button should have disappeared.</p>
 </li>
 </ol>
 <p>Again <a href="https://pybit.es/learning-django.html">here</a> is how the app looks with superuser rights.</p>
