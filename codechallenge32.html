@@ -111,17 +111,16 @@
 </blockquote>
 <p>Hi Pythonistas, a new week, a new 'bite' of Python goodness. As <a href="https://github.com/pybites/challenges/issues/91">anticipated</a> this week we dedicate a challenge to Selenium testing. We think this is a cool skill to add to your web dev + testing repertoire.</p>
 <h2>The challenge</h2>
-<p>Our first intuition was to let you pull a Django app, but this might lead to config confusion. So let's test <a href="https://pybit.es/learning-django.html">our first Django app</a>.</p>
-<p>We made you a guest account and we ask you to help PyBites dev to deliver a functional test for this app. In the printscreens below we want you to confirm the following using this login and Selenium.</p>
-<p>The URL of the web app is: <a href="pybites.pythonanywhere.com">http://pybites.pythonanywhere.com/</a>.</p>
-<p>Using Selenium test the follow:</p>
+<p>Our first intuition was to let you pull a Django app, but this might lead to config confusion. So let's test <a href="https://pybit.es/learning-django.html">our first Django app</a>. </p>
+<p>The <a href="pybites.pythonanywhere.com">main page</a> is actually our <a href="https://pybit.es/tag/100daysofdjango.html">100DaysOfDjango home</a> where we want to add more apps over time.</p>
+<p>We ask you to help PyBites dev to deliver tests for this app using Selenium:</p>
 <ol>
 <li>
-<p>Go to the home page. The header says <em>PyBites 100 Days of Django</em>. The navbar has Login and Home links. The first links in main is <em>PyPlanet Article Sharer App</em>.</p>
+<p>Go to the <a href="pybites.pythonanywhere.com">http://pybites.pythonanywhere.com/</a>. The header should say <em>PyBites 100 Days of Django</em>. The navbar has Login and Home links. The first link in main is <em>PyPlanet Article Sharer App</em>.</p>
 <p><img alt="test the home page" src="https://pybit.es/images/selenium-challenge1.png"></p>
 </li>
 <li>
-<p>Click on <em>PyPlanet Article Sharer App</em> and test the page contains a <code>table</code> with a <code>th</code> (table header) containing the word <em>Title</em>. This app watches the PyPlanet feed so the titles change every day. What we can test though is if the table contains 100 </p>
+<p>Click on <em>PyPlanet Article Sharer App</em> and test the page contains a <code>table</code> with a <code>th</code> (table header) containing the word <em>Title</em>. This app watches the PyPlanet feed so the titles change every day. What we can test though is if the table contains 100 entries (<code>tr</code>).</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge2.png"></p>
 </li>
 <li>
@@ -133,7 +132,7 @@
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge4.png"></p>
 </li>
 <li>
-<p>Check the redirect back to <a href="http://pybites.pythonanywhere.com/">home</a> and if navigation says <em>Welcome back, guest!</em> and contains Logout and Home links:</p>
+<p>Check you are redirected back to <a href="http://pybites.pythonanywhere.com/">100Days home</a> and if navigation should say <em>Welcome back, guest!</em> and contains Logout and Home links:</p>
 <p><img alt="home page" src="https://pybit.es/images/selenium-challenge5.png"></p>
 </li>
 <li>
@@ -150,13 +149,13 @@
 <p>If you like to test even more you need superuser rights. Nobody stops you though from <a href="https://github.com/pybites/pyplanet-django">cloning the repo</a> and get it working locally. Apart from practicing getting a Django app running you could then additionally test:</p>
 <ol>
 <li>
-<p>Click the <em>Mark Skipped</em> button marks the entry as orange back at the main app page/table view. Going back the button is deactivated and button text changed to <em>Already skipped</em></p>
+<p>Create a Django superuser and use it to login. Click the <em>Mark Skipped</em> button on an article and check if it marks the entry as orange back at the main app page/table view. Going back the button is deactivated and button text changed to <em>Already skipped</em></p>
 </li>
 <li>
-<p>Click the <em>Mark Shared</em> button marks the entry green back at the main app page/table view. Going back the button is deactivated and button text changed to <em>Already shared</em></p>
+<p>(still logged in) click the <em>Mark Shared</em> button on another article and check if it marks the entry green back at the main app page/table view. Going back the button is deactivated and button text changed to <em>Already shared</em></p>
 </li>
 <li>
-<p>For both 8. and 9. the blue <em>Tweet this</em> button disappeared.</p>
+<p>For both 1. and 2. the blue <em>Tweet this</em> button disappeared.</p>
 </li>
 </ol>
 <p>Again <a href="https://pybit.es/learning-django.html">here</a> is how the app looks with superuser rights.</p>
