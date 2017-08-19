@@ -26,7 +26,7 @@
 
 <meta name="author" content="Bob" />
 <meta name="description" content="In this article I will take last week's banner.py Pillow script and integrate it into a Flask app." />
-<meta name="keywords" content="Pillow, Flask, banners, PyBites, promo, Heroku, codechallenges">
+<meta name="keywords" content="Pillow, Flask, Heroku, Flask-WTF, Flask-SQLAlchemy, challenges">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Making a Banner Generator With Pillow and Flask"/>
 <meta property="og:description" content="In this article I will take last week's banner.py Pillow script and integrate it into a Flask app."/>
@@ -39,11 +39,10 @@
 <meta property="article:section" content="Tools"/>
 <meta property="article:tag" content="Pillow"/>
 <meta property="article:tag" content="Flask"/>
-<meta property="article:tag" content="banners"/>
-<meta property="article:tag" content="PyBites"/>
-<meta property="article:tag" content="promo"/>
 <meta property="article:tag" content="Heroku"/>
-<meta property="article:tag" content="codechallenges"/>
+<meta property="article:tag" content="Flask-WTF"/>
+<meta property="article:tag" content="Flask-SQLAlchemy"/>
+<meta property="article:tag" content="challenges"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
@@ -117,7 +116,7 @@
 <p><img alt="logged out banner" src="https://pybit.es/images/pyb-banner-generator2.png"></p>
 <p>Upon login it also caches the form input parameters to easily recreate the banners:</p>
 <p><img alt="home logged in" src="https://pybit.es/images/pyb-banner-generator3.png"></p>
-<p>So the same banner would turn into a PyBites one:</p>
+<p>Logged it uses PyBites logos. Here is the same banner logged in:</p>
 <p><img alt="banner with pybites article logo" src="https://pybit.es/images/pyb-banner-generator4.png"></p>
 <p>And the banner's form data can be retrieved again by clicking its name in the right "Cached Banners" list.</p>
 <p>Let's make a Twitter digest banner. Ticking "Use Second Image as Background" turns it into background image:</p>
@@ -131,17 +130,17 @@
 <p>Since last time I added a <code>add_background</code> method which you saw in the 3rd example above. I also made <code>add_text</code> smarter about aligning text: if background is ticked it uses the extra free space to the right and if the text is less than 2 lines long (using Python's <a href="https://docs.python.org/3.6/library/textwrap.html">textwrap</a>), it adds more top padding to it.</p>
 <h3>Flask-WTF</h3>
 <p><a href="https://flask-wtf.readthedocs.io/en/stable/">Flask-WTF</a> integrates Flask and WTForms making working with forms a joy. </p>
-<p>In <a href="https://github.com/pybites/pillow-flask/blob/master/forms.py">forms.py</a> I subclass wtforms's Form, read in the logos for the dropdown and added some validations using wtform's <code>validators</code>.</p>
-<p>The form is diplayed in <code>imageform.html</code> and the <code>_formhelpers.html</code> helper in the <a href="https://github.com/pybites/pillow-flask/tree/master/templates">templates dir</a> which I used from <a href="http://flask.pocoo.org/docs/0.12/patterns/wtforms/">this wtforms pattern</a>.</p>
+<p>In <a href="https://github.com/pybites/pillow-flask/blob/master/forms.py">forms.py</a> I subclass wtforms's Form class, read in the logos for the dropdown and add some validations using wtform's <code>validators</code>.</p>
+<p>The form is diplayed in <code>imageform.html</code> and <code>_formhelpers.html</code> in the <a href="https://github.com/pybites/pillow-flask/tree/master/templates">templates dir</a> which I copied from <a href="http://flask.pocoo.org/docs/0.12/patterns/wtforms/">this wtforms pattern</a>.</p>
 <h3>Flask-SQLAlchemy</h3>
-<p>We have covered <a href="http://flask-sqlalchemy.pocoo.org/2.1/">Flask-SQLAlchemy</a> <a href="https://pybit.es/tag/flask-sqlalchemy.html">before</a>. I use it here to store the image parameters in an SQLite DB when logged in. Why not the images? Heroku has an <a href="https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem">ephemeral filesystem</a> so they would be lost after a dyno restart (which happens often because I am using the <em>hobby</em> version). For the same reason Heroku provides <a href="https://devcenter.heroku.com/articles/sqlite3">production grade PostgreSQL databases as a service</a>, nice.</p>
-<p>The SQLAlchemy model code is in <a href="https://github.com/pybites/pillow-flask/blob/master/model.py">model.py</a> including code under main to recreate the DB. Obviously I need to a tool like <a href="https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/">Alembic</a> to properly handle future migrations.</p>
+<p>We have covered <a href="http://flask-sqlalchemy.pocoo.org/2.1/">Flask-SQLAlchemy</a> <a href="https://pybit.es/tag/flask-sqlalchemy.html">before</a>. I use it here to store the image parameters in a DB when logged in. Why not the images? Heroku has an <a href="https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem">ephemeral filesystem</a> so they would be lost after a dyno restart (which happens often because I am using the <em>hobby</em> version now). For this same reason Heroku provides <a href="https://devcenter.heroku.com/articles/sqlite3">production grade PostgreSQL databases as a service</a>.</p>
+<p>The SQLAlchemy model code is in <a href="https://github.com/pybites/pillow-flask/blob/master/model.py">model.py</a> including code under main to recreate the DB. Obviously I need to look at a tool like <a href="https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/">Alembic</a> to properly handle future DB migrations.</p>
 <h3>Flask</h3>
 <p>The core logic is in <a href="https://github.com/pybites/pillow-flask/blob/master/app.py">app.py</a>. It started simple with <a href="https://github.com/pybites/pillow-flask/commit/be189a730488c5b7ce9e99ee2990c75fb274421b#diff-3f41e546893dc64b71aaacad12cad815">57 lOC</a>, growing to 139 LOC as of this writing. Not bad considering that it does form handling, image generation, caching and handling a simple login session.</p>
 <p>Some interesting things:</p>
 <ul>
 <li>
-<p><code>login_required</code> decorator (RealPython's Flask material). This login simply verifies against env variables. For multiple users make a User model / table. Logged in state is saved in the <a href="https://pybit.es/flask-sessions.html">session variable</a> and use <a href="https://flask-login.readthedocs.io/en/latest/">Flask-Login</a>.</p>
+<p><code>login_required</code> decorator (RealPython's Flask material). This login implementation simply verifies against env variables and keeps state in <a href="https://pybit.es/flask-sessions.html">Flask's session</a>. For multiple users you really would use a User model and a plugin like <a href="https://flask-login.readthedocs.io/en/latest/">Flask-Login</a>.</p>
 </li>
 <li>
 <p><code>_store_banner</code> shows how easy it is to interface with SQLAlchemy.</p>
@@ -150,7 +149,7 @@
 <p>The <code>_get_form</code> helper swaps out the default logos (currently just one Python logo) with PyBites logos when logged in. Flask-WTF made this effortless.</p>
 </li>
 <li>
-<p>The <code>index</code> route is still a bit too long = a good candidate for <a href="https://pybit.es/codechallenge30.html">refactoring</a>. It retrieves cached image objects (parameters) from the DB, generates a banner upon POST request and sends it to the browser. </p>
+<p>The <code>index</code> route is still a bit too long. This would be a good candidate for <a href="https://pybit.es/codechallenge30.html">refactoring</a>. It retrieves cached image objects (basically the corresponding form inputs) from the DB and generates the banner upon POST request, displaying it in the browser. </p>
 <p>The way to send a banner to the browser is via Flask's <code>send_file</code>. This was a bit tricky. Although I set <code>cache_timeout=1</code> the browser would stubbornly show previous banners, probably due to its own caching policy. I ended up giving the output file name a unique string with <code>str(time.time())</code>, so the browser sees it as a brand new file each time. Tricking the browser for fun and profit ;)</p>
 </li>
 <li>
@@ -160,12 +159,23 @@
 <p>Use of logging and namedtuples.</p>
 </li>
 </ul>
-<h2>Resources and Pillow/Flask Challenge</h2>
-<p>I hope this inspires you that you can do cool stuff with Pillow and Flask. Yeah I know what you ar thinking: "but it's 100 days of Django" and yes that's true. Yet for this case I think Flask was the right choice. Julian shared some more thoughts about when to use one or the other, you can check it out <a href="https://pybit.es/learning-flask-django.html">here</a>.</p>
-<p>You can read more about the Pillow code in Part 1 of this tutorial <a href="https://pybit.es/pillow-banner-image.html">here</a>.</p>
-<p>This project was part of <a href="https://pybit.es/codechallenge31.html">Code Challenge 31 - Image Manipulation With Pillow</a> - if you want to play with Pillow and potentially Flask and Heroku, follow the instructions there and start coding and PR your code to <a href="https://github.com/pybites/challenges">our challenges repo</a>.</p>
-<p>If you deploy your app to Heroku, checkout Julian's <a href="https://pybit.es/deploy-flask-heroku.html">nice tutorial on the subject</a>.</p>
-<p>Want to learn more Flask? We are starting to have some resources, check out <a href="https://pybit.es/category/flask.html">our Flask category</a>.</p>
+<h2>Resources</h2>
+<h3>Code Challenge</h3>
+<p>This project was part of <a href="https://pybit.es/codechallenge31.html">Code Challenge 31 - Image Manipulation With Pillow</a> - if you want to play with Pillow and potentially Flask and Heroku, follow the instructions there and start coding and PR your code to <a href="https://github.com/pybites/challenges">our challenges repo</a>. I hope this article inspired you to give it a try yourself.</p>
+<h3>Flask vs Django</h3>
+<p>Yeah I know what you are thinking: "But it's 100 days of Django, why not a Django app?" Glad you asked. For this case I think Flask was the right choice. Julian shared some more thoughts about when to use one or the other, you can check it out <a href="https://pybit.es/learning-flask-django.html">here</a>.</p>
+<h3>Further reading</h3>
+<ul>
+<li>
+<p>You can read more about the Pillow code <a href="https://pybit.es/pillow-banner-image.html">in Part 1 of this tutorial</a>.</p>
+</li>
+<li>
+<p>If you take the challenge and want to deploy your app to Heroku, check out Julian's <a href="https://pybit.es/deploy-flask-heroku.html">nice tutorial on the subject</a>.</p>
+</li>
+<li>
+<p>Want to learn more Flask? Check out our Flask <a href="https://pybit.es/category/flask.html">category</a> or <a href="https://pybit.es/tag/flask.html">tag</a>.</p>
+</li>
+</ul>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
@@ -195,11 +205,10 @@
     <p>
       <a href="https://pybit.es/tag/pillow.html">Pillow</a>
       <a href="https://pybit.es/tag/flask.html">Flask</a>
-      <a href="https://pybit.es/tag/banners.html">banners</a>
-      <a href="https://pybit.es/tag/pybites.html">PyBites</a>
-      <a href="https://pybit.es/tag/promo.html">promo</a>
       <a href="https://pybit.es/tag/heroku.html">Heroku</a>
-      <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>
+      <a href="https://pybit.es/tag/flask-wtf.html">Flask-WTF</a>
+      <a href="https://pybit.es/tag/flask-sqlalchemy.html">Flask-SQLAlchemy</a>
+      <a href="https://pybit.es/tag/challenges.html">challenges</a>
     </p>
   </div>
 
