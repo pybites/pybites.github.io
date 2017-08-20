@@ -25,11 +25,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="In part 3 of the PyBites Banner Generator series I show you how to automatically generate a banner with Requests and Selenium." />
+<meta name="description" content="In part 3 of the PyBites Banner Generator article series I show you how to automatically generate a banner with Requests and Selenium." />
 <meta name="keywords" content="Selenium, Requests, selenium-requests, Click, Pillow, automation, scraping, tools, PyBites Banner Generator, images">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Fully Automate Login and Banner Generation with Selenium, Requests and Click"/>
-<meta property="og:description" content="In part 3 of the PyBites Banner Generator series I show you how to automatically generate a banner with Requests and Selenium."/>
+<meta property="og:description" content="In part 3 of the PyBites Banner Generator article series I show you how to automatically generate a banner with Requests and Selenium."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/selenium-requests-automation.html"/>
 <meta property="og:type" content="article"/>
@@ -52,7 +52,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Fully Automate Login and Banner Generation with Selenium, Requests and Click" />
-<meta name="twitter:description" content="In part 3 of the PyBites Banner Generator series I show you how to automatically generate a banner with Requests and Selenium." />
+<meta name="twitter:description" content="In part 3 of the PyBites Banner Generator article series I show you how to automatically generate a banner with Requests and Selenium." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Fully Automate Login and Banner Generation with Selenium, Requests and Click</title>
@@ -111,7 +111,7 @@
 
 
   <div>
-    <p>In part 3 of the PyBites Banner Generator series I show you how to automatically generate a banner with <a href="http://docs.python-requests.org/en/master/">Requests</a> and <a href="http://selenium-python.readthedocs.io/index.html">Selenium</a>.</p>
+    <p>In part 3 of the <em>PyBites Banner Generator</em> article series I show you how to automatically generate a banner with <a href="http://docs.python-requests.org/en/master/">Requests</a> and <a href="http://selenium-python.readthedocs.io/index.html">Selenium</a>.</p>
 <p>For both scripts I used <a href="http://click.pocoo.org/5/">Click</a> to build the CLI interface.</p>
 <p>The code for this tutorial is <a href="https://github.com/pybites/form-automation-fun">on Github</a>.</p>
 <h2>Requests</h2>
@@ -226,7 +226,10 @@ Options:
 
 
 <p>Let's create a banner for this article: </p>
-<div class="highlight"><pre><span></span>$ python private_banner.py -n selenium-requests -l article -i https://pbs.twimg.com/media/C7bRQMoXUAEqTbI.jpg -t <span class="s1">&#39;Fully Automate Login and Banner Generation with Selenium, Requests and Click&#39;</span> -b -o selenium-requests-banner.png
+<div class="highlight"><pre><span></span>$ python private_banner.py -n selenium-requests <span class="se">\</span>
+-l article -i https://pbs.twimg.com/media/C7bRQMoXUAEqTbI.jpg <span class="se">\</span>
+-t <span class="s1">&#39;Fully Automate Login and Banner Generation with Selenium, Requests and Click&#39;</span> <span class="se">\</span>
+-b -o selenium-requests-banner.png
 </pre></div>
 
 
@@ -235,9 +238,8 @@ Options:
 <p>Going to the GUI we see that the image persisted in the DB:</p>
 <p><img alt="resulting banner from command line" src="https://pybit.es/images/pybites-banner-persisted-db.png"></p>
 <p>Now imagine using this script to automatically generate 100 banners from a csv file, wouldn't that be cool?</p>
-<p>And with that it's time for coffee :)</p>
 <h2>Further reading</h2>
-<h3>PyBites Banner Generator series</h3>
+<h3>PyBites Banner Generator</h3>
 <ul>
 <li>
 <p>You can read more about the Pillow code <a href="https://pybit.es/pillow-banner-image.html">in Part 1 of this tutorial</a>.</p>
@@ -246,13 +248,13 @@ Options:
 <p>You can read more about the Flask app <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a>.</p>
 </li>
 </ul>
-<h3>3 very nice modules</h3>
+<h3>Awesome Modules</h3>
 <ul>
 <li>
 <p>Check them out if not done already: </p>
 <ul>
-<li><a href="http://selenium-python.readthedocs.io/index.html">Selenium</a></li>
 <li><a href="http://docs.python-requests.org/en/master/">Requests</a></li>
+<li><a href="http://selenium-python.readthedocs.io/index.html">Selenium</a></li>
 <li><a href="http://click.pocoo.org/5/">Click</a></li>
 </ul>
 <p>They are excellent additions to your Python toolkit!</p>
