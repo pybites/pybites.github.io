@@ -126,7 +126,7 @@ request = session.post(BANNER_APP, headers=HEADERS, data=payload)
 
 </li>
 <li>
-<p>As detailed  <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a> the Flask app returns the generated png image upon form submission. With the POST request we are effectively submitting the form so the repsonse object holds the banner image. To retrieve it just write the <code>request.content</code> to a file. As the image is binary don't forgot to use <code>wb</code>:</p>
+<p>As detailed  <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a> the Flask app returns the generated png image upon form submission. With the POST request we are effectively submitting the form so the repsonse object holds the banner image. To retrieve it just write the <code>request.content</code> to a file. As the image is binary don't forget to use <code>wb</code>:</p>
 <div class="highlight"><pre><span></span>with open(outfile, &#39;wb&#39;) as f:
     f.write(request.content)
 </pre></div>
