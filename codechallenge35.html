@@ -25,11 +25,11 @@
 
 
 <meta name="author" content="PyBites" />
-<meta name="description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can choose one of your own or fork a repo of somebody else. Good luck." />
+<meta name="description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can even win awards thanks to SIG who is sponsoring this challenge!" />
 <meta name="keywords" content="bettercodehub, SIG, refactoring, code quality, clean code, software development, tools, platform">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Code Challenge 35 - Improve Your Python Code With BetterCodeHub"/>
-<meta property="og:description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can choose one of your own or fork a repo of somebody else. Good luck."/>
+<meta property="og:description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can even win awards thanks to SIG who is sponsoring this challenge!"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/codechallenge35.html"/>
 <meta property="og:type" content="article"/>
@@ -50,7 +50,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Code Challenge 35 - Improve Your Python Code With BetterCodeHub" />
-<meta name="twitter:description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can choose one of your own or fork a repo of somebody else. Good luck." />
+<meta name="twitter:description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can even win awards thanks to SIG who is sponsoring this challenge!" />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
 
   <title>PyBites &ndash; Code Challenge 35 - Improve Your Python Code With BetterCodeHub</title>
@@ -112,40 +112,55 @@
     <blockquote>
 <p>Life is about facing new challenges - Kostya Tszyu</p>
 </blockquote>
-<p>Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on <a href="https://pybit.es/bettercodehub.html">improving the quality of your code with Better Code Hub</a>. This week we let you refactor a Python project. You can choose one of your own or fork a repo of somebody else. Good luck.</p>
+<p>Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on <a href="https://pybit.es/bettercodehub.html">improving the quality of your code with Better Code Hub</a>. This week we let you refactor a Python project. </p>
+<p><strong>You can even win awards thanks to <a href="https://www.sig.eu">SIG</a> who is sponsoring this challenge!</strong></p>
 <h2>The Challenge</h2>
-<p>Here are the steps:</p>
+<p>Update: initially we had you pick and improve one of your repos or forks. <a href="https://www.sig.eu">SIG</a> provided us with a more interesting approach though: <a href="https://opensourcespringcleaning.github.io">SpringCleaning</a> which template we adopted for this challenge. Check out the instructions below. We will use label <em>PyBitesChallenge35</em> and only accept <strong>Python related projects</strong>.</p>
+<h3>As a maintainer</h3>
 <ul>
-<li>Login with Github to <a href="https://bettercodehub.com">Better Code Hub</a>.</li>
-<li>You should see you (public) repos.</li>
-<li>Choose a repo you like to work on or fork another project which after refresh should show up as USER/REPO</li>
-<li>Click the Analyze button. Note you <a href="https://bettercodehub.com/docs/configuration-manual">want to exclude files</a> that are not relevant for the analysis or might skew its results.</li>
-<li>If you want to PR (Pull Request) your work make a printscreen of the initial score</li>
-<li>Refactor the code to address any issues: <ul>
-<li>Although the tool checks code coverage, make sure you have enough tests to safely make changes. The code should still work after refactoring!</li>
-<li>Try to be granular in your commit history so it's easier to see what refactorings you made.</li>
-</ul>
+<li>(If not already done) Enable issues in the repository’s settings page on GitHub.</li>
+<li>Create a 'PyBitesChallenge35' - label <a href="https://help.github.com/articles/creating-and-editing-labels-for-issues-and-pull-requests/">Here’s how</a>.</li>
+<li>
+<p>Create issues based on the proposed prioritized refactoring candidates from <a href="https://bettercodehub.com">Better Code Hub</a> and attach the <em>PyBitesChallenge35</em> label to them. Here is an example:</p>
+<p><img alt="add the PyBitesChallenge35 label to your GitHub issue" src="https://pybit.es/images/pcc35-add-label.png"></p>
 </li>
-<li>Take a printscreen of the end result for inclusion in your PR.<ul>
-<li>If you are happy with the result do some bragging and include a Better Code Hub status badge which you can find in the settings of your repository (see also <a href="https://bettercodehub.com/docs/faq">the FAQ</a>).</li>
+<li>
+<p>To enable Better Code Hub to run on every Push and Pull Request, click the ⚙ &nbsp;&nbsp;icon and toggle the "Push &amp; Pull request analysis" switch. This will activate the webhook.</p>
+</li>
 </ul>
+<h3>As a contributor</h3>
+<ul>
+<li>Search on Github for <a href="https://github.com/issues?utf8=%E2%9C%93&amp;q=label%3APyBitesChallenge35+">issues with the <em>PyBitesChallenge35</em> label</a></li>
+<li>Fork, refactor and create a Pull Request.</li>
+</ul>
+<h3>Want to see a sample Better Code Hub report?</h3>
+<ul>
+<li>Head over to <a href="https://bettercodehub.com">bettercodehub.com</a> and login with your GitHub account. You'll then see your repos, and you can start an analysis clicking the ▶️ &nbsp;&nbsp;button. It will analyze the default branch. Or checkout <a href="https://pybit.es/bettercodehub.html">our article</a>.</li>
+</ul>
+<h2>What’s the reward for participation?</h2>
+<p>If you participate in this initiative you get rewarded with:</p>
+<ul>
+<li>
+<p>The first 25 contributors that get one Pybites Code Challenge Pull Request accepted will get a free month of Better Code Hub PRO.</p>
+</li>
+<li>
+<p>The first 10 contributors that get two Pybites Code Challenge Pull Requests accepted will get a hard copy of <a href="http://shop.oreilly.com/product/0636920049555.do"><em>Building Maintainable Software</em> (O’Reilly)</a>.</p>
+</li>
+<li>
+<p>If you’re a maintainer, you get a cleaner code base and new contributors to extend your repository. 😊 </p>
 </li>
 </ul>
 <h2>Resources</h2>
 <ul>
-<li>BetterCodeHub: <a href="https://bettercodehub.com">tool</a> | <a href="https://bettercodehub.com/docs/faq">faq</a> | <a href="(https://bettercodehub.com/docs/configuration-manual)">config manual</a></li>
-<li>Read what it is, how it works and a practical example: <a href="https://pybit.es/bettercodehub.html">Improve the Quality of Your Code with Better Code Hub</a></li>
+<li>BetterCodeHub: <a href="https://bettercodehub.com">tool</a> | <a href="https://bettercodehub.com/docs/faq">faq</a> | <a href="https://bettercodehub.com/docs/configuration-manual">config manual</a></li>
+<li>Read what it is, how it works and a Python refactoring example: <a href="https://pybit.es/bettercodehub.html">Improve the Quality of Your Code with Better Code Hub</a></li>
 </ul>
-<h2>Get credit!</h2>
-<p>See <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">our INSTALL doc</a> how to fork <a href="https://github.com/pybites/challenges">our challenges repo</a> to get cracking.</p>
-<p>This doc also provides you with instructions how you can submit your code to our community branch via a Pull Request (PR). We will feature your PRs in our start-of-the-week challenge review (<a href="http://pybit.es/pages/challenges.html">previous editions</a>).</p>
-<p><strong>But I worked on another repo?</strong> Indeed. So we suggest to just PR a <code>README.md</code> file in your local branch with the before and after screenshots and a short description what you refactored.</p>
 <h3>Feedback</h3>
 <p>If you have ideas for a future challenge or find any issues, open a <a href="https://github.com/pybites/challenges/issues">GH Issue</a> or <a href="http://pybit.es/pages/about.html">reach out</a> directly.</p>
-<p>Last but not least: there is no best solution, only learning more and better Python. Good luck!</p>
+<p>Our goal is to learn more Python which is way cooler as a community. Good luck and have fun!</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
-<p>-- Bob and Julian</p>
+<p>-- Bob, Julian and the folks @ SIG</p>
   </div>
 
   <h3>&gt;&gt;&gt; next(PyBites)</h3>
