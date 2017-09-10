@@ -4,18 +4,18 @@
 <head>
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/custom.css">
 
 
     <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
 
-    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,11 +31,11 @@
 <meta property="og:title" content="A Step by Step Guide to Implementing and Deploying Two-Phase Registration in Django"/>
 <meta property="og:description" content="Two-phase registration, consisting of initial signup followed by a confirmation/activation email is a common piece for any web app. In this article I will guide you through setting this up in Django using the Django-registration plugin and Gmail for messaging. Then I show you how to deploy the app to Heroku."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/django-registration-app.html"/>
+<meta property="og:url" content="./django-registration-app.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2017-08-05 01:00:00+02:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:author" content="./author/bob.html">
 <meta property="article:section" content="Django"/>
 <meta property="article:tag" content="Django"/>
 <meta property="article:tag" content="100DaysOfDjango"/>
@@ -48,13 +48,13 @@
 <meta property="article:tag" content="guide"/>
 <meta property="article:tag" content="virtualenv"/>
 <meta property="article:tag" content="learning"/>
-<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+<meta property="og:image" content="./images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="A Step by Step Guide to Implementing and Deploying Two-Phase Registration in Django" />
 <meta name="twitter:description" content="Two-phase registration, consisting of initial signup followed by a confirmation/activation email is a common piece for any web app. In this article I will guide you through setting this up in Django using the Django-registration plugin and Gmail for messaging. Then I show you how to deploy the app to Heroku." />
-<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+<meta name="twitter:image" content="./images/featured/pb-article.png">
 
   <title>PyBites &ndash; A Step by Step Guide to Implementing and Deploying Two-Phase Registration in Django</title>
 
@@ -66,22 +66,22 @@
     <aside class='blue'>
 
     <div>
-      <a href="https://pybit.es">
+      <a href=".">
 
-			<img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+			<img src="./theme/img/article.png" alt="PyBites" title="PyBites">
 
       </a>
-      <h1><a href="https://pybit.es">PyBites</a></h1>
+      <h1><a href=".">PyBites</a></h1>
 
 <p>Python Code Challenges, Articles and News - One Bite a Day</p>
       <nav>
         <ul class="list">
-          <li><a href="https://pybit.es/pages/about.html">About</a></li>
-          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
-          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
-          <li><a href="https://pybit.es/pages/news.html">News</a></li>
-          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
-          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+          <li><a href="./pages/about.html">About</a></li>
+          <li><a href="./pages/articles.html">Articles</a></li>
+          <li><a href="./pages/challenges.html">Challenges</a></li>
+          <li><a href="./pages/news.html">News</a></li>
+          <li><a href="./pages/projects.html">Projects</a></li>
+          <li><a href="./pages/search.html">Search</a></li>
 
         </ul>
       </nav>
@@ -103,7 +103,7 @@
   <header>
     <h1 id="django-registration-app">A Step by Step Guide to Implementing and Deploying Two-Phase Registration in Django</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 05 August 2017 in <a href="https://pybit.es/category/django.html">Django</a>
+          Posted by <a href="./author/bob.html">Bob</a> on Sat 05 August 2017 in <a href="./category/django.html">Django</a>
 
 
         &#8226; 11 min read
@@ -515,17 +515,17 @@ base.html    registration
 
 
 <p>You should see this:</p>
-<p><img alt="runserver app index template" src="https://pybit.es/images/django-reg-helloworld.png"></p>
+<p><img alt="runserver app index template" src="./images/django-reg-helloworld.png"></p>
 <p>Click on the <em>sign up here</em> link, you should see a sign up form. One thing that does not seem right is the validation messages being visible all the time. I will fix and post here ...</p>
-<p><img alt="sign up form" src="https://pybit.es/images/django-reg-reg-form.png"></p>
+<p><img alt="sign up form" src="./images/django-reg-reg-form.png"></p>
 <p>Enter your username, email and password and click Submit:</p>
-<p><img alt="register, email will be send" src="https://pybit.es/images/django-reg-reg-link-follow.png"></p>
+<p><img alt="register, email will be send" src="./images/django-reg-reg-link-follow.png"></p>
 <p>If all is setup correctly (env vars, gmail prep) You should get an email:</p>
-<p><img alt="confirmation link" src="https://pybit.es/images/django-reg-email.png"></p>
+<p><img alt="confirmation link" src="./images/django-reg-email.png"></p>
 <p>Click on the link and your account should be activated:</p>
-<p><img alt="runserver app index template" src="https://pybit.es/images/django-reg-reg-link-follow.png"></p>
+<p><img alt="runserver app index template" src="./images/django-reg-reg-link-follow.png"></p>
 <p>You can now login and you should see the logged in page:</p>
-<p><img alt="registed and activated account" src="https://pybit.es/images/django-reg-registered-and-activated.png"></p>
+<p><img alt="registed and activated account" src="./images/django-reg-registered-and-activated.png"></p>
 <p>TODO: have the user be logged automatically upon activation of account.</p>
 <h2>Commit to version control</h2>
 <p>Normally I would be make granular commits as we go but I wanted to focus on Django.</p>
@@ -703,17 +703,17 @@ heroku    https://git.heroku.com/bobregistration.git (push)
 <!--End mc_embed_signup-->
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/django.html">Django</a>
-      <a href="https://pybit.es/tag/100daysofdjango.html">100DaysOfDjango</a>
-      <a href="https://pybit.es/tag/django-registration.html">Django-registration</a>
-      <a href="https://pybit.es/tag/gmail.html">Gmail</a>
-      <a href="https://pybit.es/tag/postgres.html">Postgres</a>
-      <a href="https://pybit.es/tag/sqlite.html">SQLite</a>
-      <a href="https://pybit.es/tag/registration.html">registration</a>
-      <a href="https://pybit.es/tag/tutorial.html">tutorial</a>
-      <a href="https://pybit.es/tag/guide.html">guide</a>
-      <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>
-      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="./tag/django.html">Django</a>
+      <a href="./tag/100daysofdjango.html">100DaysOfDjango</a>
+      <a href="./tag/django-registration.html">Django-registration</a>
+      <a href="./tag/gmail.html">Gmail</a>
+      <a href="./tag/postgres.html">Postgres</a>
+      <a href="./tag/sqlite.html">SQLite</a>
+      <a href="./tag/registration.html">registration</a>
+      <a href="./tag/tutorial.html">tutorial</a>
+      <a href="./tag/guide.html">guide</a>
+      <a href="./tag/virtualenv.html">virtualenv</a>
+      <a href="./tag/learning.html">learning</a>
     </p>
   </div>
 
@@ -784,7 +784,7 @@ heroku    https://git.heroku.com/bobregistration.git (push)
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " PyBites ",
-  "url" : "https://pybit.es",
+  "url" : ".",
   "image": "https://pybit.es/theme/img/profile.png",
   "description": "Python Code Challenges, Articles and News - One Bite a Day"
 }
