@@ -33,7 +33,7 @@
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="../drafts/codechallenge35_review.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-09-10 19:30:00+02:00"/>
+<meta property="article:published_time" content="2017-09-11 14:00:00+02:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="../author/pybites.html">
 <meta property="article:section" content="Challenges"/>
@@ -100,10 +100,10 @@
   <header>
     <h1 id="codechallenge35_review">Code Challenge 35 - Improve Your Python Code With BetterCodeHub - Review</h1>
     <p>
-          Posted by <a href="../author/pybites.html">PyBites</a> on Sun 10 September 2017 in <a href="../category/challenges.html">Challenges</a>
+          Posted by <a href="../author/pybites.html">PyBites</a> on Mon 11 September 2017 in <a href="../category/challenges.html">Challenges</a>
 
 
-        &#8226; 1 min read
+        &#8226; 2 min read
     </p>
   </header>
 
@@ -111,19 +111,44 @@
   <div>
     <p>In this article we review last week's <a href="http://pybit.es/codechallenge35.html">Improve Your Python Code With BetterCodeHub</a> code challenge. </p>
 <h3>Submissions</h3>
-<p>Submissions are merged to our <a href="https://github.com/pybites/challenges/tree/community">Community branch</a> -&gt; <a href="https://github.com/pybites/challenges/tree/community/35">Challenge 35 subdir</a>:</p>
 <ul>
-<li><a href="https://github.com/hobojoe1848">hobojoe1848</a> submitted his <a href="https://github.com/hobojoe1848/generic-emailer">Generic Emailer Script</a>:</li>
-</ul>
+<li>
+<p><a href="https://github.com/hobojoe1848">hobojoe1848</a> submitted his <a href="https://github.com/hobojoe1848/generic-emailer">Generic Emailer Script</a>:</p>
 <p>This is a simple script I wrote to automate sending emails from my Gmail account. It’s generic such that I use it in various different programs. When I had BCH analyse the repo I received a score of 7, meaning it failed 3 points. The most obvious to me was the “Write Short Units of Code” test:</p>
 <p><img alt="Better Code Hub Score of 7" src="../images/emailer-bch-7.png"></p>
 <p>The original script that resulted in this score is <a href="https://github.com/hobojoe1848/generic-emailer/blob/master/generic_emailer.old">here</a></p>
 <p>Tackling this issue had me refactor the entire script after which, BCH gave me a pass and my score jumped to 8:</p>
 <p><img alt="Better Code Hub Score of 8" src="../images/emailer-bch-8.png"></p>
 <p>What a great tool! I’m a big fan of BCH after this!!</p>
-<p><br></p>
+</li>
+<li>
+<p><a href="https://github.com/bbelderbos">bbelderbos</a> ran BCH on his small <a href="https://github.com/pybites/codetips">codetips</a> Django REST Framework submission <a href="https://pybit.es/codechallenge34_review.html">of last week</a>: wow I was amazed to see it got a 9 right off the bat. DRF / Django lets you write quality code! </p>
+<p>I did have to ignore the settings file adding a <code>.bettercodehub.yml</code> file to get to a 10. I also opened another issue to add tests (as the project is &lt; 200 LOC BCH did not complain yet):</p>
+<p><img alt="codetips final score" src="../images/bch-codetips.png"></p>
+<p>I also refactored Julian's <a href="https://github.com/hobojoe1848/timezone-list/pull/4">timezone-list project</a> improving the already nice score of 8 to a 10</p>
 <ul>
-<li>If you did some work for this challenge, PR it or message us with the details and we'll include it here.</li>
+<li>
+<p>Before:
+    <img alt="tzlist begin score" src="../images/bch-tzlist-before.png"></p>
+</li>
+<li>
+<p>Seperating tz conversion into own module, separate from Flask app:
+    <img alt="tzlist comp balance" src="../images/bch-tzlist-change1.png"></p>
+</li>
+<li>
+<p>Added some unittests:
+    <img alt="tzlist tests" src="../images/bch-tzlist-change2.png"></p>
+</li>
+<li>
+<p>Final score:
+    <img alt="tzlist final score" src="../images/bch-tzlist-after.png"></p>
+</li>
+</ul>
+<p>I also like BCH: it makes you think about your code and improve it. The tool has a nice design and performs well. I also like the GitHub workflow we learned during this challenge.</p>
+</li>
+<li>
+<p>If you did some work for this challenge, PR it or message us with the details and we'll include it here.</p>
+</li>
 </ul>
 <hr>
 <p>As there is no deadline to these challenges, we will update here when we get more cool submissions for this challenge ... </p>
