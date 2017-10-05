@@ -25,34 +25,37 @@
 
 
 <meta name="author" content="PyBites" />
-<meta name="description" content="Hi Pythonistas, this week we got a really cool challenge for you. Our Never Forget A Friend’s Birthday with Python, Flask and Twilio article got released on Twilio's blog and we thought it would be awesome to have you code up the next Twilio app. Join our challenge and if you build something serious you could even pitch it to Twilio!" />
-<meta name="keywords" content="Twilio, API, apis, sms, notifications, birthdays, automation">
+<meta name="description" content="Hi Pythonistas, let's add some more challenges for October. Following our Python Testing With Pytest book review we let you write some tests with this awesome framework." />
+<meta name="keywords" content="Pytest, testing, unittest, fixtures, BetterCodeHub, pytest-cov, CI, opensource, Hacktoberfest, TalkPython">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Code Challenge 39 - Automate a Task With Twilio"/>
-<meta property="og:description" content="Hi Pythonistas, this week we got a really cool challenge for you. Our Never Forget A Friend’s Birthday with Python, Flask and Twilio article got released on Twilio's blog and we thought it would be awesome to have you code up the next Twilio app. Join our challenge and if you build something serious you could even pitch it to Twilio!"/>
+<meta property="og:title" content="Code Challenge 39 - Writing Tests With Pytest"/>
+<meta property="og:description" content="Hi Pythonistas, let's add some more challenges for October. Following our Python Testing With Pytest book review we let you write some tests with this awesome framework."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/codechallenge39.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-09-25 09:00:00+02:00"/>
+<meta property="article:published_time" content="2017-10-05 12:10:00+02:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="https://pybit.es/author/pybites.html">
 <meta property="article:section" content="Challenge"/>
-<meta property="article:tag" content="Twilio"/>
-<meta property="article:tag" content="API"/>
-<meta property="article:tag" content="apis"/>
-<meta property="article:tag" content="sms"/>
-<meta property="article:tag" content="notifications"/>
-<meta property="article:tag" content="birthdays"/>
-<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="Pytest"/>
+<meta property="article:tag" content="testing"/>
+<meta property="article:tag" content="unittest"/>
+<meta property="article:tag" content="fixtures"/>
+<meta property="article:tag" content="BetterCodeHub"/>
+<meta property="article:tag" content="pytest-cov"/>
+<meta property="article:tag" content="CI"/>
+<meta property="article:tag" content="opensource"/>
+<meta property="article:tag" content="Hacktoberfest"/>
+<meta property="article:tag" content="TalkPython"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Code Challenge 39 - Automate a Task With Twilio" />
-<meta name="twitter:description" content="Hi Pythonistas, this week we got a really cool challenge for you. Our Never Forget A Friend’s Birthday with Python, Flask and Twilio article got released on Twilio's blog and we thought it would be awesome to have you code up the next Twilio app. Join our challenge and if you build something serious you could even pitch it to Twilio!" />
+<meta name="twitter:title" content="Code Challenge 39 - Writing Tests With Pytest" />
+<meta name="twitter:description" content="Hi Pythonistas, let's add some more challenges for October. Following our Python Testing With Pytest book review we let you write some tests with this awesome framework." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
 
-  <title>PyBites &ndash; Code Challenge 39 - Automate a Task With Twilio</title>
+  <title>PyBites &ndash; Code Challenge 39 - Writing Tests With Pytest</title>
 
 
 </head>
@@ -97,12 +100,12 @@
 
 <article class="single">
   <header>
-    <h1 id="codechallenge39">Code Challenge 39 - Automate a Task With Twilio</h1>
+    <h1 id="codechallenge39">Code Challenge 39 - Writing Tests With Pytest</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 25 September 2017 in <a href="https://pybit.es/category/challenge.html">Challenge</a>
+          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Thu 05 October 2017 in <a href="https://pybit.es/category/challenge.html">Challenge</a>
 
 
-        &#8226; 1 min read
+        &#8226; 2 min read
     </p>
   </header>
 
@@ -111,33 +114,28 @@
     <blockquote>
 <p>Life is about facing new challenges - Kostya Tszyu</p>
 </blockquote>
-<p>Hi Pythonistas, this week we got a really cool challenge for you. Our <a href="https://www.twilio.com/blog/2017/09/never-forget-friends-birthday-python-flask-twilio.html">Never Forget A Friend’s Birthday with Python, Flask and Twilio article</a> got released on Twilio's blog and we thought it would be awesome to have you code up the next Twilio app. </p>
-<p>Join our challenge and if you build something serious you could even pitch it to Twilio! </p>
+<p>Hi Pythonistas, let's add some more challenges for October. Following <a href="https://pybit.es/pytest-book.html">our Python Testing With Pytest book review</a> we let you write some tests with this awesome framework.</p>
 <h2>The Challenge</h2>
-<p>Here is the deal:</p>
+<p>Here are some options:</p>
+<ol>
+<li>
+<p>Add tests for one of your repos that lacks tests. You can use <a href="https://pybit.es/codechallenge35.html">BetterCodeHub</a> to see how badly a project needs tests.</p>
+</li>
+<li>
+<p>Use Pytest to add tests for <a href="https://pybit.es/simple-flask-api.html">a simple Flask API</a>, code <a href="https://github.com/pybites/blog_code/blob/master/flaskapi/app.py">here</a>. </p>
+</li>
+<li>
+<p>As mentioned in <a href="https://talkpython.fm/episodes/show/132/contributing-to-open-source">Talk Python #132: Contributing to open source</a>, testing and documentation are great ways to contribute to open source. So like option 1. you could add tests to an open source project you like. Not only does this improve your understanding of the code, you also get to give something back, learning Pytest as you go. Besides, as stated in <a href="https://pybit.es/codechallenge38.html">challenge #38</a>: this  month any PR also counts towards <a href="https://hacktoberfest.digitalocean.com/">Hacktoberfest</a>.</p>
+</li>
+</ol>
+<p>Any tests will do, the purpose of this challenge is to get your feet wet with Pytest. However you probably get the most out of this challenge if you play a bit with <a href="https://docs.pytest.org/en/latest/fixture.html#fixture">fixtures</a> and other <a href="https://docs.pytest.org/en/latest/example/index.html">features/use cases</a>.</p>
+<h3>Bonus</h3>
 <ul>
-<li>
-<p>Sign up for <a href="https://www.twilio.com/try-twilio">a Twilio account</a> </p>
-</li>
-<li>
-<p>If not familiar with their APIs and to get a taste check out <a href="https://www.twilio.com/blog/2017/09/never-forget-friends-birthday-python-flask-twilio.html">our guest post</a> and Twilio's blog for more examples, special mention: <a href="https://www.twilio.com/blog/2017/04/wedding-at-scale-how-i-used-twilio-python-and-google-to-automate-my-wedding.html">Wedding at Scale</a>.</p>
-</li>
-<li>
-<p>Check out the <a href="https://www.twilio.com/docs/api/rest">Twilio REST API</a> documentation page.</p>
-</li>
-<li>
-<p>Now think of a boring task to automate / enhance.</p>
-</li>
-<li>
-<p>Code it and delight your friends and colleagues.</p>
-</li>
-<li>
-<p>To get credit PR your work to our Community branch of our <a href="https://github.com/pybites/challenges">Challenges repo</a>. See detailed instructions <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">here</a>. </p>
-</li>
+<li>check coverage with the <a href="https://pypi.python.org/pypi/pytest-cov">pytest-cov</a> plugin or use <a href="https://pybit.es/codechallenge35.html">BetterCodeHub</a>.</li>
+<li>automatically run your newly added tests using a CI service like <a href="https://travis-ci.org/">Travis</a> or <a href="https://semaphoreci.com/">Semaphore</a>.</li>
 </ul>
-<blockquote>
-<p>If you are willing to go the extra mile you can even get your work featured on Twilio's blog via their <em>Twilio voices</em> project, recently <a href="https://pythonbytes.fm/episodes/transcript/38/hacking-classic-nintendo-games-with-python">featured on Python Bytes podcast</a>!</p>
-</blockquote>
+<h3>Credit</h3>
+<p>To get credit PR your work to our Community branch of our <a href="https://github.com/pybites/challenges">Challenges repo</a>. See detailed instructions <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">here</a>. </p>
 <h3>About</h3>
 <p>Our goal is to learn and teach you Python through practical exercises. Learning a programming language is way more fun as a community!</p>
 <p>For any feedback, issues or ideas use <a href="https://github.com/pybites/challenges/issues">GH Issues</a>, <a href="https://twitter.com/pybites">tweet us</a> or <a href="mailto:pybitesblog@gmail.com">drop us an email</a>. </p>
@@ -171,13 +169,16 @@
 <!--End mc_embed_signup-->
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/twilio.html">Twilio</a>
-      <a href="https://pybit.es/tag/api.html">API</a>
-      <a href="https://pybit.es/tag/apis.html">apis</a>
-      <a href="https://pybit.es/tag/sms.html">sms</a>
-      <a href="https://pybit.es/tag/notifications.html">notifications</a>
-      <a href="https://pybit.es/tag/birthdays.html">birthdays</a>
-      <a href="https://pybit.es/tag/automation.html">automation</a>
+      <a href="https://pybit.es/tag/pytest.html">Pytest</a>
+      <a href="https://pybit.es/tag/testing.html">testing</a>
+      <a href="https://pybit.es/tag/unittest.html">unittest</a>
+      <a href="https://pybit.es/tag/fixtures.html">fixtures</a>
+      <a href="https://pybit.es/tag/bettercodehub.html">BetterCodeHub</a>
+      <a href="https://pybit.es/tag/pytest-cov.html">pytest-cov</a>
+      <a href="https://pybit.es/tag/ci.html">CI</a>
+      <a href="https://pybit.es/tag/opensource.html">opensource</a>
+      <a href="https://pybit.es/tag/hacktoberfest.html">Hacktoberfest</a>
+      <a href="https://pybit.es/tag/talkpython.html">TalkPython</a>
     </p>
   </div>
 
