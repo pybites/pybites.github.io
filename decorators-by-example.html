@@ -25,11 +25,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="Decorators are an sometimes overlooked feature and they might be hard to grap for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples." />
+<meta name="description" content="Decorators are a sometimes overlooked feature and they might be hard to grasp for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples." />
 <meta name="keywords" content="decorators, design patterns, logging, caching, memoization, Flask, Django, properties, classmethod, staticmethod, lru_cache, mock.patch, contextmanager">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Learning Python Decorators by Example"/>
-<meta property="og:description" content="Decorators are an sometimes overlooked feature and they might be hard to grap for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples."/>
+<meta property="og:description" content="Decorators are a sometimes overlooked feature and they might be hard to grasp for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/decorators-by-example.html"/>
 <meta property="og:type" content="article"/>
@@ -55,7 +55,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Learning Python Decorators by Example" />
-<meta name="twitter:description" content="Decorators are an sometimes overlooked feature and they might be hard to grap for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples." />
+<meta name="twitter:description" content="Decorators are a sometimes overlooked feature and they might be hard to grasp for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Learning Python Decorators by Example</title>
@@ -114,15 +114,15 @@
 
 
   <div>
-    <p>Decorators are an sometimes overlooked feature and they might be hard to grap for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples.</p>
+    <p>Decorators are a sometimes overlooked feature and they might be hard to grasp for beginning Pythonistas. I agree with Aaron Maxwell that mastering them "can massively magnify the positive impact of the code you write", so make sure you add them to your toolkit if not done so already. In this article I explain what they do, why you want to use them and give some practical examples.</p>
 <p><img alt="decorators are a bit like Russian dolls" src="https://pybit.es/images/banners/pb_decorators.png"></p>
 <h2>Definition</h2>
 <blockquote>
 <p>A decorator is any callable Python object that is used to modify a function, method or class definition. A decorator is passed the original object being defined and returns a modified object, which is then bound to the name in the definition. - <a href="https://wiki.python.org/moin/PythonDecorators">PythonDecorators wiki</a></p>
 </blockquote>
-<p>GoF's <a href="http://www.amazon.com/dp/0201633612/?tag=pyb0f-20">Design Patterns</a> defines a decorator's intent as: </p>
+<p>GoF's <a href="http://www.amazon.com/dp/0201633612/?tag=pyb0f-20">Design Patterns</a> defines a decorator's intent as:</p>
 <blockquote>
-<p>Attach additional responsabilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.</p>
+<p>Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.</p>
 </blockquote>
 <p>Two common use cases are caching and access checks in web frameworks which I will cover later.</p>
 <h2>When to use?</h2>
@@ -273,7 +273,7 @@ def index():
 <p>The <a href="http://click.pocoo.org/5/">Click</a> package (Flask author) shows another elegant use of decorators.</p>
 </li>
 <li>
-<p>Lastly take notice of <a href="https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch"><code>mock.patch</code></a> which I used <a href="https://github.com/pybites/100DaysOfCode/blob/master/081/test_whotweeted.py">here</a>. It wraps each test method faking (mocking) the <code>get_status</code> Tweepy API to not hit the API while testing.</p>
+<p>Lastly take notice of <a href="https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch"><code>mock.patch</code></a> which I used <a href="https://github.com/pybites/100DaysOfCode/blob/master/081/test_whotweeted.py">here</a>. It wraps each test method faking (mocking) the <code>get_status</code> <em>Tweepy</em> API to not hit the API while testing.</p>
 </li>
 </ul>
 <h2>Advanced concepts</h2>
