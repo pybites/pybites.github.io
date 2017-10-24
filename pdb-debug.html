@@ -107,7 +107,6 @@
 
   <div>
     <p>The larger part of our coding time is spent reading and debugging code already written. For this Python's <a href="https://docs.python.org/3.7/library/pdb.html">pdb</a> is an unmissable module in your Python toolbox. In this article I show you the most common options and some practical examples.</p>
-<p><img alt="learning to debug with pdb is an essential Python developer skill" src="https://pybit.es/images/banners/pb_pdb.png"></p>
 <h2>How to invoke the debugger?</h2>
 <p>You can invoke it as a script which puts you right at the start:</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pdb</span> <span class="n">buses</span><span class="o">.</span><span class="n">py</span>
@@ -348,6 +347,7 @@ Bus number: 1910
 
 <p>As explained in the SO thread it's because of the use of set instead of a tuple, former does not keep order.</p>
 <p>I realize this example does not show much pdb magic so maybe if we do A. a code challenge where you use it upon your next debugging exercise or B. record a video when we are hunting down a nasty bug ourselves. To be continued ...</p>
+<p><img alt="learning to debug with pdb is an essential Python developer skill" src="https://pybit.es/images/banners/pb_pdb.png"></p>
 <h2>Conclusion and resources</h2>
 <p>As you can see this is an essential skill for any developer. Print and unittest can get you far, but moment inevitably comes you have to catch bugs <em>in the act</em>.</p>
 <p>For more info check out <a href="https://docs.python.org/3.7/library/pdb.html">the docs</a> or Doug Hellmann's <a href="https://pymotw.com/2/pdb/">PyMOTW series</a> which has a very extensive coverage of pdb.</p>
