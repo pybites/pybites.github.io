@@ -115,7 +115,7 @@
 </pre></div>
 
 
-<p>On Ubuntu you would do:</p>
+<p>That's on Mac. On Ubuntu you would do:</p>
 <div class="highlight"><pre><span></span>sudo apt-get install cookiecutter
 </pre></div>
 
@@ -124,7 +124,7 @@
 <h2>How to start</h2>
 <p>The best place to check out is their latest documentation jumping straight to the <a href="https://cookiecutter.readthedocs.io/en/latest/usage.html">usage section</a>.</p>
 <p>At first I pulled the repo and filled out the <code>cookiecutter.json</code>, a convenient defaults file for hands off (<code>--no-input</code>) project creation. </p>
-<p>I went with the interactive option:</p>
+<p>The interactive option is convenient too:</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">cookiecutter</span> <span class="nl">gh</span><span class="p">:</span><span class="n">audreyr</span><span class="o">/</span><span class="n">cookiecutter</span><span class="o">-</span><span class="n">pypackage</span>
 <span class="n">full_name</span> <span class="p">[</span><span class="n">Audrey</span> <span class="n">Roy</span> <span class="n">Greenfeld</span><span class="p">]</span><span class="o">:</span> <span class="n">Bob</span> <span class="n">Belderbos</span>
 <span class="n">email</span> <span class="p">[</span><span class="n">aroy</span><span class="p">@</span><span class="n">alum</span><span class="p">.</span><span class="n">mit</span><span class="p">.</span><span class="n">edu</span><span class="p">]</span><span class="o">:</span> <span class="n">info</span><span class="p">@</span><span class="n">bobbelderbos</span><span class="p">.</span><span class="n">com</span>
@@ -152,8 +152,8 @@
 </pre></div>
 
 
-<p>I only then realized that there are project based cookiecutters so I picked <a href="https://github.com/avelino/cookiecutter-bottle">the bottle one</a>, the micro web-framework I want to try for our <a href="https://pybit.es/codechallenge38.html">code challenge 38</a>.</p>
-<p>Just point to the Github repo. It is more bare bones:</p>
+<p>I only then realized that there are project based cookiecutters so I picked <a href="https://github.com/avelino/cookiecutter-bottle">the bottle one</a>, the micro web-framework I want to use for our <a href="https://pybit.es/codechallenge38.html">code challenge 38</a>.</p>
+<p>It could not be easier: just point to the Github repo. It is more bare bones than cookiecutter-pypackage though:</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">cookiecutter</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/avelino/cookiecutter-bottle.git</span>
 <span class="n">full_name</span> <span class="p">[</span><span class="n">Thiago</span> <span class="n">Avelino</span><span class="p">]</span><span class="o">:</span> <span class="n">Bob</span> <span class="n">Belderbos</span>
 <span class="n">email</span> <span class="p">[</span><span class="n">thiago</span><span class="p">@</span><span class="n">avelino</span><span class="p">.</span><span class="n">xxx</span><span class="p">]</span><span class="o">:</span> <span class="n">info</span><span class="p">@</span><span class="n">bobbelderbos</span><span class="p">.</span><span class="n">com</span>
@@ -165,10 +165,11 @@
 
 
 <p>At this point you can cd into it, do a git init, make a virtual env and install the requirements:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;venv&quot;</span> &gt;&gt; .gitignore
-$ virtualenv -p /Users/bbelderb/anaconda/bin/python venv
+<div class="highlight"><pre><span></span>$ virtualenv -p /Users/bbelderb/anaconda/bin/python venv
+$ <span class="nb">echo</span> <span class="s2">&quot;venv&quot;</span> &gt;&gt; .gitignore
 $ <span class="nb">source</span> venv/bin/activate
 <span class="o">(</span>venv<span class="o">)</span> $ pip install -r requirements.txt
+...
 <span class="o">(</span>venv<span class="o">)</span> $ git init
 Initialized empty Git repository in /Users/bbelderb/code/hacktoberfestapp/.git/
 <span class="o">(</span>venv<span class="o">)</span> $ git status
@@ -193,8 +194,8 @@ Listening on http://0.0.0.0:8080/
 <p>And here is the directory structure with some bootstrap code:</p>
 <p><img alt="Bottle bootstrap folder structure and files" src="https://pybit.es/images/bottle_app_boilerplate.png"></p>
 <h2>Conclusion</h2>
-<p>I think the main take away is that Cookiecutter takes a lot of worries away ("How to define a setup.py?", "How to add a Licence?", "How to specify different requirement files for dev and prod?", "How to setup a package directory structure?", etc). It might be overkill for some projects, but it does add consistencies across your projects and endorses best practices.</p>
-<p>I only scratched the service so it would be nice to do a advanced usage follow-up article. For example to try other important project templates like <a href="https://github.com/pydanny/cookiecutter-django">cookiecutter-django</a> or <a href="https://github.com/sloria/cookiecutter-flask">cookiecutter-flask</a>. Or how to use its API, create Cookiecutter templates, and pre- and post-generate hooks (Python or shell scripts to run before or after generating a project).</p>
+<p>I think the main take away is that Cookiecutter takes a lot of worries away regarding setup, folder structure, required files, etc. It might be overkill for some projects, but it does add consistency  across your projects and endorses best practices.</p>
+<p>I only scratched the service. I really would like to try <a href="https://github.com/sloria/cookiecutter-flask">cookiecutter-flask</a>, <a href="https://github.com/pydanny/cookiecutter-django">cookiecutter-django</a> and <a href="https://github.com/agconti/cookiecutter-django-rest">cookiecutter-django-rest</a> for future projects. Or how to create our own PyBites Cookiecutter? And what about defining pre- and post-generate hooks (Python or shell scripts to run before or after generating a project)? Enough to explore for a follow-up article ...</p>
 <p>Feel free to share what you have used Cookiecutter for in the comments below. </p>
 <p><img alt="cookiecutter is a nice and clean way to bootstrap a Python project" src="https://pybit.es/images/banners/pb_cookiecutter.png"></p>
 <h2>Further resources</h2>

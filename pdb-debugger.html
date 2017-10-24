@@ -131,13 +131,13 @@
 <li>
 <p>Stepping through a program:</p>
 <ul>
-<li><em>n</em>(ext) -&gt; Continue execution until the next line in the current function is reached or it returns.</li>
-<li><em>s</em>(tep) -&gt; Execute the current line, stop at the first possible occasion (either in a function that is called or on the next line in the current function).</li>
-<li><em>r</em>(eturn) -&gt; Continue execution until the current function returns.</li>
-<li><em>u</em>(p) and <em>d</em>(own) -&gt; Move the current frame count (default one) levels up/down in the stack trace (to an older/newer frame).</li>
+<li><strong>n</strong>(ext) -&gt; Continue execution until the next line in the current function is reached or it returns.</li>
+<li><strong>s</strong>(tep) -&gt; Execute the current line, stop at the first possible occasion (either in a function that is called or on the next line in the current function).</li>
+<li><strong>r</strong>(eturn) -&gt; Continue execution until the current function returns.</li>
+<li><strong>u</strong>(p) and <strong>d</strong>(own) -&gt; Move the current frame count (default one) levels up/down in the stack trace (to an older/newer frame).</li>
 <li>c(ont(inue)) can be useful if you have multiple breakpoints, it continues execution until a next breakpoint is encountered.</li>
-<li><em>unt</em>(il) [lineno] -&gt; Without argument, continue execution until the line with a number greater than the current one is reached. -&gt; useful to get out of a for loop.</li>
-<li><em>b</em>(reak) [lineno] and <em>cl</em>(ear) to set / clear a break point in the current file (it even accepts a condition).</li>
+<li><strong>unt</strong>(il) [lineno] -&gt; Without argument, continue execution until the line with a number greater than the current one is reached. -&gt; useful to get out of a for loop.</li>
+<li><strong>b</strong>(reak) [lineno] and <strong>cl</strong>(ear) to set / clear a break point in the current file (it even accepts a condition).</li>
 </ul>
 </li>
 </ul>
@@ -149,17 +149,17 @@
 <p>Print context</p>
 <ul>
 <li>First of all at the pdb prompt you can type any variables of the program (including builtins like <code>locals()</code>), or set new variables.</li>
-<li><em>l</em>(ist) -&gt; List source code for the current file. Without arguments, list 11 lines around the current line or continue the previous listing.</li>
-<li><em>w</em>(here) -&gt; Print a stack trace, with the most recent frame at the bottom. An arrow indicates the current frame, which determines the context of most commands. -&gt; handy for web frameworks</li>
-<li>bt -&gt; Get a stack trace of the functions that have been called so far.</li>
-<li>pp expression -&gt; Like the p command, except the value of the expression is pretty-printed using the pprint module -&gt; very useful for nested data structures.</li>
+<li><strong>l</strong>(ist) -&gt; List source code for the current file. Without arguments, list 11 lines around the current line or continue the previous listing.</li>
+<li><strong>w</strong>(here) -&gt; Print a stack trace, with the most recent frame at the bottom. An arrow indicates the current frame, which determines the context of most commands. -&gt; handy for web frameworks</li>
+<li><strong>bt</strong> -&gt; Get a stack trace of the functions that have been called so far.</li>
+<li><strong>pp</strong> expression -&gt; Like the p command, except the value of the expression is pretty-printed using the pprint module -&gt; very useful for nested data structures.</li>
 </ul>
 </li>
 <li>
 <p>Other: </p>
 <ul>
-<li>Cntrl + d or <em>q</em>(uit) to leave the debugger and stop execution.</li>
-<li>Use <em>h</em>(elp) or ? to list all commands.</li>
+<li>Cntrl + d or <strong>q</strong>(uit) to leave the debugger and stop execution.</li>
+<li>Use <strong>h</strong>(elp) or ? to list all commands.</li>
 </ul>
 </li>
 </ul>
@@ -234,7 +234,7 @@ range(1, 11)
 </pre></div>
 
 
-<p>You can move the breakpoint to the function but as it is little code I just use <em>s</em>(tep):</p>
+<p>You can move the breakpoint to the function but as it is little code I just use <strong>s</strong>(tep):</p>
 <div class="highlight"><pre><span></span>&gt; /Users/bbelderb/code/sum.py(11)&lt;module&gt;()
 -&gt; for val in values:
 (Pdb) n
