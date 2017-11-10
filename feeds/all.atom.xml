@@ -1,5 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2017-11-09T09:35:00+01:00</updated><entry><title>Code Challenge 43 - Build a Chatbot Using Python</title><link href="https://pybit.es/codechallenge43.html" rel="alternate"></link><published>2017-11-09T09:35:00+01:00</published><updated>2017-11-09T09:35:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-11-09:/codechallenge43.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, it's incredible to think how quickly bots have grown in popularity. They're everywhere these days and will play an important role how we work and communicate in the near future! It's about time we go our bot on as well!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2017-11-10T08:15:00+01:00</updated><entry><title>Code Challenge 44 - Marvel Data Analysis (Alicante PyChallengeDay)</title><link href="https://pybit.es/codechallenge44.html" rel="alternate"></link><published>2017-11-10T08:15:00+01:00</published><updated>2017-11-10T08:15:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-11-10:/codechallenge44.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, this is a very special edition! Today, the 10th of November, we launch our first Live Code Challenge. We partnered up with &lt;a href="https://twitter.com/python_alc"&gt;Python Alicante&lt;/a&gt; and we will be hosting this code challenge with them at the University of Alicante. If you don't happen to live in Alicante but do want to code today 10am-13pm CET you are more than welcome to join &lt;a href="https://gitter.im/pybites/marvel"&gt;this Gitter channel&lt;/a&gt;.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hi Pythonistas, this is a very special edition! Today, the 10th of November, we launch our first Live Code Challenge. We partnered up with &lt;a href="https://twitter.com/python_alc"&gt;Python Alicante&lt;/a&gt; and we will be hosting this code challenge with them at the University of Alicante. If you don't happen to live in Alicante but do want to code today 10am-13pm CET you are more than welcome to join &lt;a href="https://gitter.im/pybites/marvel"&gt;this Gitter channel&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="marvel spiderman coffee mug" src="https://pybit.es/images/pcc44-coffee-mug.jpg"&gt;&lt;/p&gt;
+&lt;h2&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;We all love Marvel, don't you? So here's the deal: we found a CSV with Marvel data taken from &lt;a href="http://marvel.wikia.com/wiki/Marvel_Database"&gt;this database&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We are going to have you write some Python to get this data into a usable data structure to answer some questions about the data.&lt;/p&gt;
+&lt;h3&gt;Preparation&lt;/h3&gt;
+&lt;p&gt;(repo available shortly before start challenge 10/11/2017 10 am CET)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;If you don't have git installed, please &lt;a href="https://git-scm.com/downloads"&gt;install it now&lt;/a&gt;. Then fork &lt;a href="https://github.com/pybites/marvel_challenge"&gt;our repo&lt;/a&gt; and follow these steps&lt;/p&gt;
+&lt;p&gt;After forking the repo make sure you checkout the community branch:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# https
+$ git clone https://github.com/&amp;lt;your_user&amp;gt;/marvel_challenge -b community
+
+# or use SSH
+$ git clone git@github.com:&amp;lt;your_user&amp;gt;/marvel_challenge.git -b community
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Create your own branch:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; marvel_challenge
+$ git checkout -b PCC44
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open &lt;code&gt;marvel.py&lt;/code&gt; in your favorite editor.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code your solution (see next section)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify your solution:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python test_marvel.py
+.....
+----------------------------------------------------------------------
+Ran &lt;span class="m"&gt;5&lt;/span&gt; tests in &lt;span class="m"&gt;0&lt;/span&gt;.424s
+
+OK
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Submit your solution by pushing your branch to&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git push origin PCC44
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then browse to your fork and open a PR again &lt;a href="https://github.com/pybites/marvel_challenge"&gt;our repo&lt;/a&gt; -&amp;gt; community branch. No worries we are happy to help you if you get stuck.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Please answer ...&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;marvel.py&lt;/code&gt; has already some stubs, here is what we want you to try:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Parse the &lt;code&gt;marvel-wikia-data.csv&lt;/code&gt; CSV file and load it into a data structure. You probably want a list of dicts or namedtuples, one for each row. Store this in &lt;code&gt;data&lt;/code&gt; which will be in the module's namespace (&lt;code&gt;data = list(...&lt;/code&gt; line already there)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Get the most popular characters based on the number of appearances they made in comics over the years.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Get the year with most and least new Marvel characters introduced respectively, return a (max_year, min_year) tuple. Expect min/max to be pretty far apart.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;What percentage of the comics characters is female? Please give us the percentage rounded to 2 digits.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Good vs bad characters: return a dictionary of bad vs good vs neutral characters per sex. The keys are &lt;em&gt;Bad Characters&lt;/em&gt;, &lt;em&gt;Good Characters&lt;/em&gt;, &lt;em&gt;Neutral Characters&lt;/em&gt;, the values are integer percentages. Who plays the villain more often, a man or a woman?&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Data Viz Bonus&lt;/h3&gt;
+&lt;p&gt;OK you know Python inside out, and this was pretty easy. Sounds like you? Please surprise us with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use your favorite Python visualization library and make one or more plots for 2.-5.&lt;/li&gt;
+&lt;li&gt;Or try to answer some question you might have about this data set. &lt;/li&gt;
+&lt;li&gt;Feel free to use &lt;a href="nbviewer.jupyter.org"&gt;nbviewer&lt;/a&gt; and just PR the link to your notebook. &lt;/li&gt;
+&lt;li&gt;You could even write a quick Flask app to wrap your graph, like &lt;a href="https://pybit.es/codechallenge28_review.html"&gt;we did here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here for example we used &lt;a href="https://bokeh.pydata.org/en/latest/"&gt;Bokeh&lt;/a&gt; to plot newly introduced characters per year:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="example bokeh plot for bonus" src="https://pybit.es/images/pcc44-bokeh-plot.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Win a Python book!&lt;/h2&gt;
+&lt;p&gt;The best part, right? You can win a hardcopy of &lt;a href="https://automatetheboringstuff.com/"&gt;Automate the Boring Stuff&lt;/a&gt; (it's cool, it &lt;a href="https://pybit.es/automate_the_boring_stuff_review.html"&gt;surely helped us&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;There are 2 conditions though:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can only PR once, that's the PR that counts, so make sure you have a working solution before you hit that button.&lt;/li&gt;
+&lt;li&gt;Only PRs submitted before 13 CET (10th of Nov) are taken into account.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will determine the winner by a simple algorithm: solution&lt;em&gt;0.5 + speed&lt;/em&gt;0.3 + design*0.2 (does it work / how fast did you PR / PEP8 + code quality)&lt;/p&gt;
+&lt;p&gt;&lt;img alt="flyer announcement" src="https://pybit.es/images/pcc44-flyer.jpeg"&gt;&lt;/p&gt;
+&lt;h2&gt;Pybites Slack&lt;/h2&gt;
+&lt;p&gt;You like these challenges? We have published &lt;a href="https://github.com/pybites/challenges"&gt;quite a few&lt;/a&gt; and we're not planning to stop anytime soon.&lt;/p&gt;
+&lt;p&gt;You really like them and plan on PR'ing more in the future? Then consider joining our private Slack channel sending us &lt;a href="mailto:pybitesblog@gmail.com"&gt;an email&lt;/a&gt;. This way you get the unique opportunity to learn from other passionate Pythonistas and share some of your experience.&lt;/p&gt;
+&lt;h2&gt;About&lt;/h2&gt;
+&lt;p&gt;Our goal is to learn and teach you Python through practical exercises. Learning a programming language is way more fun as a community!&lt;/p&gt;
+&lt;p&gt;For any feedback, issues or ideas use &lt;a href="https://github.com/pybites/challenges/issues"&gt;GH Issues&lt;/a&gt;, &lt;a href="https://twitter.com/pybites"&gt;tweet us&lt;/a&gt; or &lt;a href="mailto:pybitesblog@gmail.com"&gt;drop us an email&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- PyBites&lt;/p&gt;</content><category term="marvel"></category><category term="data"></category><category term="data analysis"></category><category term="csv"></category><category term="collections"></category><category term="namedtuple"></category><category term="Counter"></category><category term="Live Challenge"></category><category term="Python Alicante"></category><category term="Bokeh"></category><category term="coffee"></category></entry><entry><title>Code Challenge 43 - Build a Chatbot Using Python</title><link href="https://pybit.es/codechallenge43.html" rel="alternate"></link><published>2017-11-09T09:35:00+01:00</published><updated>2017-11-09T09:35:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-11-09:/codechallenge43.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, it's incredible to think how quickly bots have grown in popularity. They're everywhere these days and will play an important role how we work and communicate in the near future! It's about time we go our bot on as well!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Hi Pythonistas, it's incredible to think how quickly bots have grown in popularity. They're everywhere these days and will play an important role how we work and communicate in the near future! It's about time we go our bot on as well!&lt;/p&gt;
@@ -56,6 +158,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Other&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/slackapi/Slack-Python-Onboarding-Tutorial"&gt;pythOnBoarding Bot - Building a simple bot using Slack's Events API in Python&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://blog.hartleybrody.com/fb-messenger-bot/"&gt;Facebook Messenger Bot Tutorial&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.fullstackpython.com/bots.html"&gt;Full Stack Python Bot Examples&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
