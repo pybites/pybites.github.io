@@ -41,7 +41,169 @@
 &lt;p&gt;Thanks for your support.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
-&lt;p&gt;-- PyBites&lt;/p&gt;</content><category term="CI"></category><category term="Jenkins"></category><category term="Heroku"></category><category term="Travis"></category><category term="Semaphore"></category><category term="automation"></category><category term="deployment"></category><category term="Docker"></category><category term="Better Code Hub"></category><category term="SIG"></category></entry><entry><title>Twitter Digest 2017 Week 49</title><link href="https://pybit.es/twitter_digest_201749.html" rel="alternate"></link><published>2017-12-10T22:47:00+01:00</published><updated>2017-12-10T22:47:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-10:/twitter_digest_201749.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;I just published “Overview of Python Data Visualization Tools” &lt;a href="https://t.co/iROcid8CfA" title="https://t.co/iROcid8CfA" target="_blank"&gt;https://t.co/iROcid8CfA&lt;/a&gt;&lt;/p&gt;— Elena Kirzhner (@ekirzhner) &lt;a href="https://twitter.com/ekirzhner/status/938540722910826496" data-datetime="2017-12-06T22:48:40+00:00"&gt;December 06, 2017&lt;/a&gt;&lt;/blockquote&gt;
+&lt;p&gt;-- PyBites&lt;/p&gt;</content><category term="CI"></category><category term="Jenkins"></category><category term="Heroku"></category><category term="Travis"></category><category term="Semaphore"></category><category term="automation"></category><category term="deployment"></category><category term="Docker"></category><category term="Better Code Hub"></category><category term="SIG"></category></entry><entry><title>DisAtBot - How I Built a Chatbot With Telegram And Python</title><link href="https://pybit.es/guest-telegram-python-chatbot.html" rel="alternate"></link><published>2017-12-10T23:30:00+01:00</published><updated>2017-12-10T23:30:00+01:00</updated><author><name>Rodolfo Ferro</name></author><id>tag:pybit.es,2017-12-10:/guest-telegram-python-chatbot.html</id><summary type="html">&lt;p&gt;Rodolfo recently joined our &lt;a href="https://pybit.es/pages/challenges.html"&gt;Code Challenges&lt;/a&gt; and built &lt;em&gt;Disaster Attention Bot (DisAtBot)&lt;/em&gt;, a chatbot that helps people affected by natural disasters. In this article he shows how he built this bot with Telegram and (of course) Python. Show him some love because who knows, this could be a life saver (pun intended)! We are delighted to have him show this interesting project he submitted for &lt;a href="https://pybit.es/codechallenge43.html"&gt;Code Challenge 43&lt;/a&gt; which earned him a book on chatbots. /Rod please share ...&lt;/p&gt;</summary><content type="html">&lt;p&gt;Rodolfo recently joined our &lt;a href="https://pybit.es/pages/challenges.html"&gt;Code Challenges&lt;/a&gt; and built &lt;em&gt;Disaster Attention Bot (DisAtBot)&lt;/em&gt;, a chatbot that helps people affected by natural disasters. In this article he shows how he built this bot with Telegram and (of course) Python. Show him some love because who knows, this could be a life saver (pun intended)! We are delighted to have him show this interesting project he submitted for &lt;a href="https://pybit.es/codechallenge43.html"&gt;Code Challenge 43&lt;/a&gt; which earned him a book on chatbots. /Rod please share ...&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;"¿Quién convocó a tanto muchacho, de dónde salió tanto voluntario, cómo fue que la sangre sobró en los hospitales, quién organizó las brigadas que dirigieron el tránsito de vehículos y de peatones por toda la zona afectada? No hubo ninguna convocatoria, no se hizo ningún llamado y todos acudieron"&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;"El jueves negro que cambió a México"&lt;/strong&gt;
+– Emilio Viale, 1985.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;A bit of context...&lt;/h2&gt;
+&lt;p&gt;Since September 19th, 2017 &lt;a href="https://en.wikipedia.org/wiki/2017_Central_Mexico_earthquake"&gt;Mexico has been hit by several earthquakes&lt;/a&gt; (&lt;a href="https://www.theguardian.com/world/live/2017/sep/20/mexico-city-earthquake-dozens-dead-powerful-quake-live-updates"&gt;The Guardian&lt;/a&gt;, &lt;a href="http://edition.cnn.com/2017/09/19/americas/mexico-earthquake/index.html"&gt;CNN&lt;/a&gt;). This made me wonder how we could better handle the reporting of damaged zones, people buried under the rubble of buildings, injured people in need of medical attention and other situations.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.verificado19s.org"&gt;Verificado 19s&lt;/a&gt; was an immediate solution to follow up reports from social media and visualize the info on an online map. This required a lot of real-time (24/7) monitoring of posts on social media from people that were located in the effected areas. And that data was updated every ~10 minutes.&lt;/p&gt;
+&lt;p&gt;So I started thinking about a way to optimize this process for future situations, not only for earthquakes, but for disaster situations in general. This incentivized me to work on this bot for Pybites &lt;a href="https://pybit.es/codechallenge43.html"&gt;Code Challenge 43 - Build a Chatbot Using Python&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;So DisAtBot was born&lt;/h2&gt;
+&lt;p&gt;DisAtBot automates the process of reporting incidents via messaging platforms, such as Telegram, Facebook Messenger, Twitter, etc. At this time it only supports Telegram, but I hope to expand it to other social media. If you'd like to contribute, see the Contribute section at the end.&lt;/p&gt;
+&lt;p&gt;You can find DisAtBot at:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Telegram: &lt;a href="https://t.me/DisAtBot"&gt;https://t.me/DisAtBot&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The official repo: &lt;a href="https://github.com/RodolfoFerro/DisAtBot"&gt;https://github.com/RodolfoFerro/DisAtBot&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The idea was to have a simple flow that allowed disaster reporting to be quick and easy. The general process of DisAtBot is as follows:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="disatbot flow" src="https://pybit.es/images/disatbot-flow.png"&gt;&lt;/p&gt;
+&lt;p&gt;The idea is that any user can interact with the bot by selecting options from button menus in the conversation. This greatly speeds up incidents reporting.&lt;/p&gt;
+&lt;p&gt;The next step would be opening a ticket which will be stored in a database, for the corresponding government instance/public organization/NGO/etc. to validate and send assistance. When no more help is needed, or the situation is under control, the ticket is closed.&lt;/p&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;p&gt;First clone &lt;a href="https://github.com/RodolfoFerro/DisAtBot"&gt;the repo&lt;/a&gt;. I used Python 3.6 and the following packages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://pandas.pydata.org/"&gt;pandas&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://geopandas.org/"&gt;geopandas&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://geocoder.readthedocs.io/"&gt;geocoder&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://developers.google.com/maps/documentation/"&gt;googlemaps&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://geojson.io/"&gt;geojsonio&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://shapely.readthedocs.io/en/latest/"&gt;Shapely&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://python-telegram-bot.org/"&gt;python-telegram-bot&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To install all dependencies create &lt;a href="http://pybit.es/the-beauty-of-virtualenv.html"&gt;a virtual env&lt;/a&gt; and run:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install -r requirements.txt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then cd into the scripts folder and run the bot as follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;python DisAtBot.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Design&lt;/h2&gt;
+&lt;p&gt;The focus of the initial version was the creation of menu buttons for an easy interaction with the user. The second –&lt;em&gt;and main&lt;/em&gt;– issue addressed was the conversation handler. A &lt;a href="https://en.wikipedia.org/wiki/Finite-state_machine"&gt;finite state machine&lt;/a&gt; was needed to preserve the desired flow and the responses for each state.&lt;/p&gt;
+&lt;p&gt;I won’t go too deep into the explanation, but the code below will show how I tackled this.&lt;/p&gt;
+&lt;p&gt;First of all, Telegram’s library has several methods to create button menus for user responses during the conversation flow. The idea is to create a Keyboard Markup to handle responses through buttons. This can either be Inline (buttons will appear in the conversation window) or as a Reply Keyboard (buttons will be displayed under the textbox to write messages).&lt;/p&gt;
+&lt;p&gt;An example can be seen in the menu function:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;menu&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bot&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    Main menu function.&lt;/span&gt;
+&lt;span class="sd"&gt;    This will display the options from the main menu.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="c1"&gt;# Create buttons to select language:&lt;/span&gt;
+    &lt;span class="n"&gt;keyboard&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;send_report&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;view_map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="p"&gt;]],&lt;/span&gt;
+                &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;view_faq&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;view_about&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="p"&gt;]]]&lt;/span&gt;
+
+    &lt;span class="n"&gt;reply_markup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ReplyKeyboardMarkup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;keyboard&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                       &lt;span class="n"&gt;one_time_keyboard&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                       &lt;span class="n"&gt;resize_keyboard&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_user&lt;/span&gt;
+    &lt;span class="n"&gt;logger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Menu command requested by {}.&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;first_name&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reply_text&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;main_menu&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;reply_markup&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;reply_markup&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;SET_STAT&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, the &lt;code&gt;keyboard&lt;/code&gt; variable is a list that contains the four buttons to be displayed. The layout can be set by nesting lists inside. In this case the &lt;strong&gt;Report&lt;/strong&gt; and &lt;strong&gt;Map&lt;/strong&gt; buttons are in the first row, while &lt;strong&gt;FAQ&lt;/strong&gt; and &lt;strong&gt;About&lt;/strong&gt; buttons are in the second row. This looks like:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="disatbot menu" src="https://pybit.es/images/disatbot-menu.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Continuing with the code, a &lt;code&gt;ReplyMarkup&lt;/code&gt; is needed to handle the button responses. It specifies the layout of the menu: if only one menu is displayed, if it needs to be resized, etc. &lt;/p&gt;
+&lt;p&gt;A logger is used for the bot, and the &lt;code&gt;update.message.reply(...)&lt;/code&gt; function is used to update the displayed text according to the response from the user. The &lt;code&gt;SET_STAT&lt;/code&gt; variable returned in this function is a (predefined) integer to return the state at that time, and to follow the flow.&lt;/p&gt;
+&lt;p&gt;We now understand the menu creation and handling. The reason of using buttons is that we want a quick interaction because the bot is used in an emergency situation.&lt;/p&gt;
+&lt;p&gt;The conversation handler - Telegram's &lt;code&gt;ConversationHandler&lt;/code&gt; - takes care of setting the state or step of the flow we're currently at, the finite state machine I mentioned earlier. Note that each state also needs to handle its respective information (button responses, etc.)&lt;/p&gt;
+&lt;p&gt;This code shows the conversation handler:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    Main function.&lt;/span&gt;
+&lt;span class="sd"&gt;    This function handles the conversation flow by setting&lt;/span&gt;
+&lt;span class="sd"&gt;    states on each step of the flow. Each state has its own&lt;/span&gt;
+&lt;span class="sd"&gt;    handler for the interaction with the user.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;global&lt;/span&gt; &lt;span class="n"&gt;LANG&lt;/span&gt;
+    &lt;span class="c1"&gt;# Create the EventHandler and pass it your bot&amp;#39;s token.&lt;/span&gt;
+    &lt;span class="n"&gt;updater&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Updater&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;telegram_token&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Get the dispatcher to register handlers:&lt;/span&gt;
+    &lt;span class="n"&gt;dp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;updater&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dispatcher&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Add conversation handler with predefined states:&lt;/span&gt;
+    &lt;span class="n"&gt;conv_handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ConversationHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="n"&gt;entry_points&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;CommandHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;start&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt;
+
+        &lt;span class="n"&gt;states&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;SET_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;RegexHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;^(ES|EN)$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;set_lang&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt;
+
+            &lt;span class="n"&gt;MENU&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;CommandHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;menu&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;menu&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt;
+
+            &lt;span class="n"&gt;SET_STAT&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;RegexHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                        &lt;span class="s1"&gt;&amp;#39;^({}|{}|{}|{})$&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                            &lt;span class="n"&gt;send_report&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ES&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;view_map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ES&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+                            &lt;span class="n"&gt;view_faq&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ES&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;view_about&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ES&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]),&lt;/span&gt;
+                        &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                       &lt;span class="n"&gt;RegexHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                        &lt;span class="s1"&gt;&amp;#39;^({}|{}|{}|{})$&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                            &lt;span class="n"&gt;send_report&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;view_map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+                            &lt;span class="n"&gt;view_faq&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;view_about&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]),&lt;/span&gt;
+                        &lt;span class="n"&gt;set_state&lt;/span&gt;&lt;span class="p"&gt;)],&lt;/span&gt;
+
+            &lt;span class="n"&gt;LOCATION&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;MessageHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Filters&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;location&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;location&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                       &lt;span class="n"&gt;CommandHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;menu&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;menu&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt;
+
+        &lt;span class="n"&gt;fallbacks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;CommandHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cancel&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cancel&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                   &lt;span class="n"&gt;CommandHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;help&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;dp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_handler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;conv_handler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Log all errors:&lt;/span&gt;
+    &lt;span class="n"&gt;dp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_error_handler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Start DisAtBot:&lt;/span&gt;
+    &lt;span class="n"&gt;updater&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start_polling&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Run the bot until the user presses Ctrl-C or the process&lt;/span&gt;
+    &lt;span class="c1"&gt;# receives SIGINT, SIGTERM or SIGABRT:&lt;/span&gt;
+    &lt;span class="n"&gt;updater&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;idle&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It might seem a bit confusing at first, but it boils down to:
+- The conversation handler has the states of the flow.
+- It also has entry points (such as the &lt;code&gt;start&lt;/code&gt; function), and fallbacks (such as the &lt;code&gt;cancel&lt;/code&gt; and &lt;code&gt;help&lt;/code&gt; functions).
+- It also contains some error handlers.
+- A global &lt;code&gt;LANG&lt;/code&gt; variable is used, since the implementation - I forgot to mention - support interacting in English or Spanish! To support this I created dictionaries for each interaction in both languages.&lt;/p&gt;
+&lt;p&gt;If you want to check the full code of this bot, check out &lt;a href="https://github.com/RodolfoFerro/DisAtBot/tree/master/scripts"&gt;the scripts directory&lt;/a&gt; where you'll find the main script and the language dictionaries.&lt;/p&gt;
+&lt;p&gt;Some other features implemented are geolocation handling and &lt;code&gt;About&lt;/code&gt; / &lt;code&gt;FAQ&lt;/code&gt; sections. But the best way to know about this project is by watching it in action (for a live demo go to 8.30):&lt;/p&gt;
+&lt;iframe src="https://drive.google.com/file/d/1dOvF17AYKiic85HmzMjnK5Qza2Tg0PNw/preview" width="800" height="480"&gt;&lt;/iframe&gt;
+
+&lt;h2&gt;Future work&lt;/h2&gt;
+&lt;p&gt;For future development I am thinking about adding a map. The system already creates a GeoJSON file from the locations acquired. &lt;/p&gt;
+&lt;p&gt;As mentioned I am considering expanding this to other platforms like Facebook Messenger and Twitter. Another good thing to add would be a website explaining the main use cases of the bot, maybe a wiki –&lt;em&gt;kinda&lt;/em&gt;– site? &lt;/p&gt;
+&lt;p&gt;If you have any other ideas or suggestions feel free to &lt;a href="https://twitter.com/FerroRodolfo"&gt;contact me&lt;/a&gt; or:&lt;/p&gt;
+&lt;h2&gt;Contribute&lt;/h2&gt;
+&lt;p&gt;If you're interested in contributing to this project, feel free to take a look at the repo's &lt;a href="https://github.com/RodolfoFerro/DisAtBot/blob/master/CONTRIBUTING.md"&gt;CONTRIBUTING&lt;/a&gt; file. I'd be very pleased if this project would grow out to something used in real life to alleviate the dramatic consequences of natural disaster, which always seem to hit when least expected.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;&lt;a href="pages/guests.html#rodolfoferro"&gt;Rodolfo&lt;/a&gt;&lt;/p&gt;</content><category term="bots"></category><category term="code challenge"></category><category term="guest"></category><category term="DisAtBot"></category><category term="chatbots"></category><category term="opensource"></category><category term="Telegram"></category><category term="Mexico"></category></entry><entry><title>Twitter Digest 2017 Week 49</title><link href="https://pybit.es/twitter_digest_201749.html" rel="alternate"></link><published>2017-12-10T22:47:00+01:00</published><updated>2017-12-10T22:47:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-10:/twitter_digest_201749.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;I just published “Overview of Python Data Visualization Tools” &lt;a href="https://t.co/iROcid8CfA" title="https://t.co/iROcid8CfA" target="_blank"&gt;https://t.co/iROcid8CfA&lt;/a&gt;&lt;/p&gt;— Elena Kirzhner (@ekirzhner) &lt;a href="https://twitter.com/ekirzhner/status/938540722910826496" data-datetime="2017-12-06T22:48:40+00:00"&gt;December 06, 2017&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;As you begin your holiday shopping, don't forget to shop with &lt;a href="https://t.co/MxS9uxLccT" title="https://t.co/MxS9uxLccT" target="_blank"&gt;https://t.co/MxS9uxLccT&lt;/a&gt; and set your charity to… &lt;a href="https://t.co/VI5TsRKJGf" title="https://t.co/VI5TsRKJGf" target="_blank"&gt;https://t.co/VI5TsRKJGf&lt;/a&gt;&lt;/p&gt;— Code.org (@codeorg) &lt;a href="https://twitter.com/codeorg/status/939509956138614786" data-datetime="2017-12-09T15:00:03+00:00"&gt;December 09, 2017&lt;/a&gt;&lt;/blockquote&gt;
 
@@ -3730,7 +3892,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -3747,6 +3909,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -20808,7 +20971,7 @@ QmCC
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -20825,6 +20988,7 @@ QmCC
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -23257,7 +23421,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -23274,6 +23438,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -24895,7 +25060,7 @@ A single underscore indicates to the user of a class that an attribute should be
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -24912,6 +25077,7 @@ A single underscore indicates to the user of a class that an attribute should be
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
