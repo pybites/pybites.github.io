@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2017-12-10T22:47:00+01:00</updated><entry><title>Twitter Digest 2017 Week 49</title><link href="https://pybit.es/twitter_digest_201749.html" rel="alternate"></link><published>2017-12-10T22:47:00+01:00</published><updated>2017-12-10T22:47:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-10:/twitter_digest_201749.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;I just published “Overview of Python Data Visualization Tools” &lt;a href="https://t.co/iROcid8CfA" title="https://t.co/iROcid8CfA" target="_blank"&gt;https://t.co/iROcid8CfA&lt;/a&gt;&lt;/p&gt;— Elena Kirzhner (@ekirzhner) &lt;a href="https://twitter.com/ekirzhner/status/938540722910826496" data-datetime="2017-12-06T22:48:40+00:00"&gt;December 06, 2017&lt;/a&gt;&lt;/blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2017-12-11T12:00:00+01:00</updated><entry><title>Code Challenge 46 - Add Continuous Integration (CI) to Your Project</title><link href="https://pybit.es/codechallenge46.html" rel="alternate"></link><published>2017-12-11T12:00:00+01:00</published><updated>2017-12-11T12:00:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-11:/codechallenge46.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, becoming a Python developer is partly about knowing your tools. Managing your environment, testing and continuous integration are unmissable skills when you start working on bigger projects with a team. So we decided to dedicate a code challenge to deployment. Take an existing projects or make a demo app from scratch, the goal is to build an automated pipeline. Will you be the next guy or girl at work receiving kudos for setting up a Jenkins server? Have fun!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hi Pythonistas, becoming a Python developer is partly about knowing your tools. Managing your environment, testing and continuous integration are unmissable skills when you start working on bigger projects with a team. So we decided to dedicate a code challenge to deployment. &lt;/p&gt;
+&lt;p&gt;Take an existing projects or make a demo app from scratch, the goal is to build an automated pipeline. Will you be the next guy or girl at work receiving kudos for setting up a Jenkins server? Have fun!&lt;/p&gt;
+&lt;h2&gt;CI Defined&lt;/h2&gt;
+&lt;p&gt;CI is great to streamline and automate deployment of your software, saving time and quickly finding regression bugs. It enforces quality of your software. For a broader definition check out Martin Fowler's &lt;a href="https://martinfowler.com/articles/continuousIntegration.html"&gt;Continuous Integration article&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible. Many teams find that this approach leads to significantly reduced integration problems and allows a team to develop cohesive software more rapidly. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;The Challenge&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Choose one of your existing projects or start a small demo project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you have tests, good move on to the next step, if not add them now - &lt;a href="http://docs.python-guide.org/en/latest/writing/tests/"&gt;overview testing&lt;/a&gt; / if you go with pytest consider taking &lt;a href="https://pybit.es/codechallenge39.html"&gt;Code Challenge 39 - Writing Tests With Pytest&lt;/a&gt; too.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Choose a tool to automate your build. We played a bit with &lt;a href="https://travis-ci.org"&gt;Travis CI&lt;/a&gt; and it's nice. Alternatively there is &lt;a href="https://semaphoreci.com/"&gt;Semaphore&lt;/a&gt; or what about &lt;a href="https://jenkins-ci.org/"&gt;Jenkins&lt;/a&gt;? We want you to be free. You can check out the &lt;a href="http://docs.python-guide.org/en/latest/scenarios/ci/"&gt;Hitchhiker's guide&lt;/a&gt; or Full Stack Python's &lt;a href="https://www.fullstackpython.com/continuous-integration.html"&gt;CI&lt;/a&gt; and &lt;a href="https://www.fullstackpython.com/jenkins.html"&gt;Jenkins&lt;/a&gt; reference pages and choose the tool you feel most comfortable with.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open a PR against our repo with a &lt;em&gt;username&lt;/em&gt;/README.md file detailing what you did, ideally with a screenshot of an automated build. We are happy to share it with our community &lt;a href="https://pybit.es/pages/challenges.html"&gt;in our monthly review post&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bonus: Rob van der Leek (SIG) wrote a great article: &lt;a href="https://medium.com/bettercode/how-to-build-a-modern-ci-cd-pipeline-5faa01891a5b"&gt;How to build a modern CI/CD pipeline&lt;/a&gt;. You get bonus karma if you additionally use Docker and Better Code Hub.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Good luck and if any issues or brainstorming, there is ...&lt;/p&gt;
+&lt;h2&gt;Pybites Slack&lt;/h2&gt;
+&lt;p&gt;You like these challenges? We have published &lt;a href="https://github.com/pybites/challenges"&gt;quite a few&lt;/a&gt; and we're not planning to stop anytime soon!&lt;/p&gt;
+&lt;p&gt;You really like them and plan on submitting (PR'ing) your work? Then consider joining our private Slack channel sending us &lt;a href="mailto:pybitesblog@gmail.com"&gt;an email&lt;/a&gt;. This way you get the unique opportunity to learn from other passionate Pythonistas and share your experience.&lt;/p&gt;
+&lt;h2&gt;Get Credit&lt;/h2&gt;
+&lt;p&gt;As always you can PR your work to our Community branch of our &lt;a href="https://github.com/pybites/challenges"&gt;Challenges repo&lt;/a&gt;. We will include it in our review post. Our PR template also lets you reflect a bit on your learning and provide some feedback how we can keep this interesting for you. See detailed instructions &lt;a href="https://github.com/pybites/challenges/blob/master/INSTALL.md"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We are working on a Code Challenge Platform to facilitate this process, stay tuned ...&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;About PyBites Code Challenges&lt;/h2&gt;
+&lt;p&gt;Our goal is to learn and teach you Python &lt;a href="https://pybit.es/learn-by-doing.html"&gt;through practical exercises&lt;/a&gt;. We are almost a year in now and the progress we've seen in our Python learning, as well as that of our growing community, is absolutely amazing! Besides, learning a programming language is way more fun as a community!&lt;/p&gt;
+&lt;p&gt;For any feedback &lt;a href="https://twitter.com/pybites"&gt;tweet us&lt;/a&gt; or &lt;a href="mailto:pybitesblog@gmail.com"&gt;drop us an email&lt;/a&gt;. If you have a cool idea for a challenge please open &lt;a href="https://github.com/pybites/challenges/issues"&gt;an issues against our Challenges repo&lt;/a&gt; and we can discuss it there. &lt;/p&gt;
+&lt;p&gt;Thanks for your support.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- PyBites&lt;/p&gt;</content><category term="CI"></category><category term="Jenkins"></category><category term="Heroku"></category><category term="Travis"></category><category term="Semaphore"></category><category term="automation"></category><category term="deployment"></category><category term="Docker"></category><category term="Better Code Hub"></category><category term="SIG"></category></entry><entry><title>Twitter Digest 2017 Week 49</title><link href="https://pybit.es/twitter_digest_201749.html" rel="alternate"></link><published>2017-12-10T22:47:00+01:00</published><updated>2017-12-10T22:47:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-10:/twitter_digest_201749.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;I just published “Overview of Python Data Visualization Tools” &lt;a href="https://t.co/iROcid8CfA" title="https://t.co/iROcid8CfA" target="_blank"&gt;https://t.co/iROcid8CfA&lt;/a&gt;&lt;/p&gt;— Elena Kirzhner (@ekirzhner) &lt;a href="https://twitter.com/ekirzhner/status/938540722910826496" data-datetime="2017-12-06T22:48:40+00:00"&gt;December 06, 2017&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;As you begin your holiday shopping, don't forget to shop with &lt;a href="https://t.co/MxS9uxLccT" title="https://t.co/MxS9uxLccT" target="_blank"&gt;https://t.co/MxS9uxLccT&lt;/a&gt; and set your charity to… &lt;a href="https://t.co/VI5TsRKJGf" title="https://t.co/VI5TsRKJGf" target="_blank"&gt;https://t.co/VI5TsRKJGf&lt;/a&gt;&lt;/p&gt;— Code.org (@codeorg) &lt;a href="https://twitter.com/codeorg/status/939509956138614786" data-datetime="2017-12-09T15:00:03+00:00"&gt;December 09, 2017&lt;/a&gt;&lt;/blockquote&gt;
 
@@ -27,10 +69,15 @@
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@hynek:" target="_blank"&gt;@hynek:&lt;/a&gt; Your friendly reminder that beside its verbosity, `"".format()` is quite a bit slower than `"" % ()` and there’s nothing virtuou…&lt;/p&gt;— matt harrison (@__mharrison__) &lt;a href="https://twitter.com/__mharrison__/status/939129994705494016" data-datetime="2017-12-08T13:50:13+00:00"&gt;December 08, 2017&lt;/a&gt;&lt;/blockquote&gt;
 
-&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;The joy of new iter-tools: Oddity &lt;a href="https://t.co/4xXigQ5wnp" title="https://t.co/4xXigQ5wnp" target="_blank"&gt;https://t.co/4xXigQ5wnp&lt;/a&gt; &lt;a href="https://twitter.com/search/#python" target="_blank"&gt;#python&lt;/a&gt;&lt;/p&gt;— Ned Batchelder (@nedbat) &lt;a href="https://twitter.com/nedbat/status/939181073975664640" data-datetime="2017-12-08T17:13:11+00:00"&gt;December 08, 2017&lt;/a&gt;&lt;/blockquote&gt;</content><category term="twitter"></category><category term="news"></category><category term="tips"></category><category term="python"></category><category term="data visualisation"></category><category term="code"></category><category term="Pandas"></category><category term="classes"></category><category term="PIL"></category><category term="date time"></category><category term="Bitcoin"></category><category term="data analysis"></category><category term="Jupyter"></category><category term="gitpython"></category><category term="Pytorch"></category><category term="data structures"></category><category term="strings"></category><category term="Itertools"></category></entry><entry><title>Code Challenge 41, 42, 43, 44 - Review</title><link href="https://pybit.es/codechallenge41-44_review.html" rel="alternate"></link><published>2017-12-10T22:41:00+01:00</published><updated>2017-12-10T22:41:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-10:/codechallenge41-44_review.html</id><summary type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge40.html"&gt;Daily Python Tip Part 1 - Make a Web App&lt;/a&gt; code challenge.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article we’re reviewing four of our recent challenges! Challenges &lt;a href="https://pybit.es/codechallenge41.html"&gt;41&lt;/a&gt;, &lt;a href="https://pybit.es/codechallenge42.html"&gt;42&lt;/a&gt;, &lt;a href="https://pybit.es/codechallenge43.html"&gt;43&lt;/a&gt;, and &lt;a href="https://pybit.es/codechallenge44.html"&gt;44&lt;/a&gt;. &lt;/p&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;The joy of new iter-tools: Oddity &lt;a href="https://t.co/4xXigQ5wnp" title="https://t.co/4xXigQ5wnp" target="_blank"&gt;https://t.co/4xXigQ5wnp&lt;/a&gt; &lt;a href="https://twitter.com/search/#python" target="_blank"&gt;#python&lt;/a&gt;&lt;/p&gt;— Ned Batchelder (@nedbat) &lt;a href="https://twitter.com/nedbat/status/939181073975664640" data-datetime="2017-12-08T17:13:11+00:00"&gt;December 08, 2017&lt;/a&gt;&lt;/blockquote&gt;</content><category term="twitter"></category><category term="news"></category><category term="tips"></category><category term="python"></category><category term="data visualisation"></category><category term="code"></category><category term="Pandas"></category><category term="classes"></category><category term="PIL"></category><category term="date time"></category><category term="Bitcoin"></category><category term="data analysis"></category><category term="Jupyter"></category><category term="gitpython"></category><category term="Pytorch"></category><category term="data structures"></category><category term="strings"></category><category term="Itertools"></category></entry><entry><title>Code Challenge 41-44 Review - APIs, Regex, Chatbots and Marvel Data Analysis</title><link href="https://pybit.es/codechallenge41-44_review.html" rel="alternate"></link><published>2017-12-10T22:41:00+01:00</published><updated>2017-12-10T22:41:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-10:/codechallenge41-44_review.html</id><summary type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge40.html"&gt;Daily Python Tip Part 1 - Make a Web App&lt;/a&gt; code challenge.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article we’re reviewing four of our recent challenges! Challenges &lt;a href="https://pybit.es/codechallenge41.html"&gt;41&lt;/a&gt;, &lt;a href="https://pybit.es/codechallenge42.html"&gt;42&lt;/a&gt;, &lt;a href="https://pybit.es/codechallenge43.html"&gt;43&lt;/a&gt;, and &lt;a href="https://pybit.es/codechallenge44.html"&gt;44&lt;/a&gt;. &lt;/p&gt;
 &lt;h3&gt;&lt;a href="https://pybit.es/codechallenge41.html"&gt;Challenge 41: Daily Python Tip Part 2 - Build an API&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;No submissions as of yet! Keep at it everyone!&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No submissions as of yet! Keep at it everyone!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We think we go with Flask, but GraphQL is on our TODO list too. We will post our PR here when done ...&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;a href="https://pybit.es/codechallenge42.html"&gt;Challenge 42: Mastering Regular Expressions&lt;/a&gt;&lt;/h3&gt;
@@ -66,6 +113,9 @@
 &lt;li&gt;
 &lt;p&gt;&lt;a href="https://github.com/RodolfoFerro"&gt;RodolfoFerro&lt;/a&gt; blew us away with is Disaster Attention Bot for Telegram! It automates the process of reporting incidents via messaging platforms (just Telegram at the moment). To learn more, check out &lt;a href="https://drive.google.com/file/d/1dOvF17AYKiic85HmzMjnK5Qza2Tg0PNw/view"&gt;this video&lt;/a&gt; he’s created detailing the bot. The code is &lt;a href="https://github.com/pybites/challenges/tree/community/43/RodolfoFerro"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We have some ideas for chatbots, but did not get around building another one yet. You can check our previous Slack bots &lt;a href="https://pybit.es/simple-chatbot.html"&gt;here&lt;/a&gt; and &lt;a href="https://pybit.es/slack-karma-bot.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;a href="https://pybit.es/codechallenge44.html"&gt;Challenge 44: Marvel Data Analysis (Alicante PyChallengeDay)&lt;/a&gt;&lt;/h3&gt;
@@ -77,12 +127,18 @@
 &lt;li&gt;
 &lt;p&gt;&lt;a href="https://github.com/clamytoe"&gt;clamytoe&lt;/a&gt; participated with his own submission after the event. Very cool!&lt;/p&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/westen30"&gt;westen30&lt;/a&gt; used Pandas and Seaborn to solve this challenge which he shared &lt;a href="https://pybit.es/guest-marvel-data-analysis.html"&gt;here&lt;/a&gt; - awesome!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We posted our solution &lt;a href="https://github.com/pybites/marvel_challenge/blob/solution/marvel.py"&gt;here&lt;/a&gt; including a simple &lt;a href="https://github.com/pybites/marvel_challenge/tree/solution/bonus"&gt;Bokeh viz&lt;/a&gt; we did for the bonus section.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;br&gt;
 Thanks to everyone for your participation in these challenges! Remember, you can participate at any time, even after we’ve completed the review.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
-&lt;p&gt;-- Bob and Julian&lt;/p&gt;</content><category term="Daily Python Tip"></category><category term="Regex"></category><category term="Chatbot"></category><category term="Marvel"></category></entry><entry><title>Code Challenge 45 - TDD: Code FizzBuzz Writing Tests First!</title><link href="https://pybit.es/codechallenge45.html" rel="alternate"></link><published>2017-12-08T02:00:00+01:00</published><updated>2017-12-08T02:00:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-08:/codechallenge45.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, it’s time to do things differently! Test-Driven Development has to be one of the hardest programming methodologies to adopt yet also one of the most satisfying. It forces a different mindset which is definitely not for everyone. Either way, put your thinking caps on and jump in!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;-- Bob and Julian&lt;/p&gt;</content><category term="Daily Python Tip"></category><category term="regex"></category><category term="bot"></category><category term="chatbot"></category><category term="Marvel"></category><category term="Pandas"></category><category term="Seaborn"></category><category term="data"></category><category term="Python Alicante"></category><category term="live coding"></category><category term="Bokeh"></category></entry><entry><title>Code Challenge 45 - TDD: Code FizzBuzz Writing Tests First!</title><link href="https://pybit.es/codechallenge45.html" rel="alternate"></link><published>2017-12-08T02:00:00+01:00</published><updated>2017-12-08T02:00:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2017-12-08:/codechallenge45.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, it’s time to do things differently! Test-Driven Development has to be one of the hardest programming methodologies to adopt yet also one of the most satisfying. It forces a different mindset which is definitely not for everyone. Either way, put your thinking caps on and jump in!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Hi Pythonistas, it’s time to do things differently! Test Driven Development has to be one of the hardest programming methodologies to adopt yet also one of the most satisfying. It forces a different mindset which is definitely not for everyone. Either way, put your thinking caps on and jump in!&lt;/p&gt;
@@ -3674,7 +3730,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -3691,7 +3747,6 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -4143,6 +4198,7 @@ test_regex.py ......
 &lt;p&gt;This was a really cool project where I learned more about various modules. I also got to refactor it pretty well, adding pytests and scoring a 10 on BetterCodeHub. I would probably not have done it without raising the challenge. &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;The repo is &lt;a href="https://github.com/pybites/pytip"&gt;here&lt;/a&gt; and the app is hosted &lt;a href="https://pytip.herokuapp.com/"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Update 11th of Dec 2017: this app led to a guest post on Real Python - &lt;a href="https://realpython.com/blog/python/building-a-simple-web-app-with-bottle-sqlalchemy-twitter-api/"&gt;check it out here&lt;/a&gt; for more details.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href="https://github.com/dseptem"&gt;dseptem&lt;/a&gt; made a cool app using Apscheduler, Elasticsearch, Flask, and AngularJS! &lt;/p&gt;
@@ -5268,7 +5324,7 @@ def index():
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Write Guest Posts. Related to previous point: higher standards. Writing for quality blogs you are held to their standards. I learned a lot writing posts for &lt;a href="https://pybonacci.es/2016/07/11/analizando-datos-sobre-el-brexit-con-pandas/"&gt;Pybonacci&lt;/a&gt;, &lt;a href="https://dbader.org/blog/python-dunder-methods"&gt;Dan Bader&lt;/a&gt; and &lt;a href="https://www.twilio.com/blog/2017/09/never-forget-friends-birthday-python-flask-twilio.html"&gt;Twilio&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Write Guest Posts. Related to previous point: higher standards. Writing for quality blogs you are held to their standards. I learned a lot writing posts for &lt;a href="https://pybonacci.es/2016/07/11/analizando-datos-sobre-el-brexit-con-pandas/"&gt;Pybonacci&lt;/a&gt;, &lt;a href="https://dbader.org/blog/python-dunder-methods"&gt;Dan Bader&lt;/a&gt;, &lt;a href="https://www.twilio.com/blog/2017/09/never-forget-friends-birthday-python-flask-twilio.html"&gt;Twilio&lt;/a&gt; and &lt;a href="https://realpython.com/blog/python/building-a-simple-web-app-with-bottle-sqlalchemy-twitter-api/"&gt;Real Python&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img alt="pybites is everywhere" src="https://pybit.es/images/coffee.jpg"&gt;&lt;/p&gt;
@@ -20752,7 +20808,7 @@ QmCC
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -20769,7 +20825,6 @@ QmCC
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -23202,7 +23257,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -23219,7 +23274,6 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -24841,7 +24895,7 @@ A single underscore indicates to the user of a class that an attribute should be
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -24858,7 +24912,6 @@ A single underscore indicates to the user of a class that an attribute should be
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
