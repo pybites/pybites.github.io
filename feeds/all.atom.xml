@@ -4299,7 +4299,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -4316,7 +4316,6 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -6890,11 +6889,11 @@ Django on the other hand… I had no idea what the heck was going on from the st
 &lt;p&gt;Hi Pythonistas, a new week, a new 'bite' of Python goodness. As &lt;a href="https://github.com/pybites/challenges/issues/91"&gt;anticipated&lt;/a&gt; this week we dedicate a challenge to Selenium testing. We think this is a cool skill to add to your web dev + testing repertoire.&lt;/p&gt;
 &lt;h2&gt;The challenge&lt;/h2&gt;
 &lt;p&gt;Our first intuition was to let you pull a Django app, but this might lead to config confusion. So let's test &lt;a href="https://pybit.es/learning-django.html"&gt;our first Django app&lt;/a&gt;. &lt;/p&gt;
-&lt;p&gt;The &lt;a href="pybites.pythonanywhere.com"&gt;main page&lt;/a&gt; is actually our &lt;a href="https://pybit.es/tag/100daysofdjango.html"&gt;100DaysOfDjango home&lt;/a&gt; where we want to add more apps over time.&lt;/p&gt;
+&lt;p&gt;The &lt;a href="http://pyplanet.herokuapp.com/"&gt;main page&lt;/a&gt; is actually our &lt;a href="https://pybit.es/tag/100daysofdjango.html"&gt;100DaysOfDjango home&lt;/a&gt; where we want to add more apps over time.&lt;/p&gt;
 &lt;p&gt;We ask you to help PyBites dev to deliver tests for this app using Selenium:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Go to the &lt;a href="http://pybites.pythonanywhere.com/"&gt;pybites.pythonanywhere.com&lt;/a&gt;. The header should say &lt;em&gt;PyBites 100 Days of Django&lt;/em&gt;. The navbar has Login and Home links. The first link in the &lt;code&gt;main&lt;/code&gt; div is &lt;em&gt;PyPlanet Article Sharer App&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;Go to the &lt;a href="http://pyplanet.herokuapp.com/"&gt;http://pyplanet.herokuapp.com/&lt;/a&gt;. The header should say &lt;em&gt;PyBites 100 Days of Django&lt;/em&gt;. The navbar has Login and Home links. The first link in the &lt;code&gt;main&lt;/code&gt; div is &lt;em&gt;PyPlanet Article Sharer App&lt;/em&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="test the home page" src="https://pybit.es/images/selenium-challenge1.png"&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -6902,7 +6901,7 @@ Django on the other hand… I had no idea what the heck was going on from the st
 &lt;p&gt;&lt;img alt="home page" src="https://pybit.es/images/selenium-challenge2.png"&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Go to an article and check there is only a &lt;em&gt;Go back&lt;/em&gt; button (logged out view). Check if the header link at the top is the same as the link you clicked on, in this example: &lt;em&gt;Martin Fitzpatrick: KropBot: Multiplayer Internet-controlled robot&lt;/em&gt;. The &lt;em&gt;Go back&lt;/em&gt; should redirect back to &lt;a href="http://pybites.pythonanywhere.com/pyplanet/"&gt;the app's home page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Go to an article and check there is only a &lt;em&gt;Go back&lt;/em&gt; button (logged out view). Check if the header link at the top is the same as the link you clicked on, in this example: &lt;em&gt;Martin Fitzpatrick: KropBot: Multiplayer Internet-controlled robot&lt;/em&gt;. The &lt;em&gt;Go back&lt;/em&gt; should redirect back to &lt;a href="http://pyplanet.herokuapp.com/pyplanet/"&gt;the app's home page&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="home page" src="https://pybit.es/images/selenium-challenge3.png"&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -6910,7 +6909,7 @@ Django on the other hand… I had no idea what the heck was going on from the st
 &lt;p&gt;&lt;img alt="home page" src="https://pybit.es/images/selenium-challenge4.png"&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Check you are redirected back to &lt;a href="http://pybites.pythonanywhere.com/"&gt;100Days home&lt;/a&gt; and if navigation contains &lt;em&gt;Welcome back, guest!&lt;/em&gt; and Logout and Home links:&lt;/p&gt;
+&lt;p&gt;Check you are redirected back to &lt;a href="http://pyplanet.herokuapp.com/"&gt;100Days home&lt;/a&gt; and if navigation contains &lt;em&gt;Welcome back, guest!&lt;/em&gt; and Logout and Home links:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="home page" src="https://pybit.es/images/selenium-challenge5.png"&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -8121,6 +8120,7 @@ We automate these by telling pexpect what to expect from the application and the
 &lt;p&gt;&lt;img alt="pa choose manual option" src="https://pybit.es/images/pa-maual-option.png"&gt;&lt;/p&gt;
 &lt;p&gt;Our first Django app &lt;a href="http://pybites.pythonanywhere.com/pyplanet/"&gt;is online&lt;/a&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="pa site online" src="https://pybit.es/images/pa-online.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;22nd of Jan 2018 update&lt;/strong&gt;: we ended up hosting this &lt;a href="http://pyplanet.herokuapp.com/pyplanet"&gt;on Heroku&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I really like the infrastructure of browser consoles and intuitive GUIs. Also config files like &lt;code&gt;wsgi.py&lt;/code&gt; were clearly commented so setting it up was quick and almost painless.&lt;/p&gt;
 &lt;h3&gt;Git + venv&lt;/h3&gt;
 &lt;p&gt;Important steps of the deployment steps are git pulling your code and creating a virtual env, this worked very well.&lt;/p&gt;
@@ -21378,7 +21378,7 @@ QmCC
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -21395,7 +21395,6 @@ QmCC
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -23828,7 +23827,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -23845,7 +23844,6 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -25467,7 +25465,7 @@ A single underscore indicates to the user of a class that an attribute should be
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -25484,7 +25482,6 @@ A single underscore indicates to the user of a class that an attribute should be
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
