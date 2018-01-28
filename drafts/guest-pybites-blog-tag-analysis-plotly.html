@@ -26,11 +26,11 @@
 
 
 <meta name="author" content="Mridu Bhatnagar" />
-<meta name="description" content="I came across PyBites through some random retweet by some other Pythonista and was intrigued by seeing the challenges Bob and Julian post. Learning cool things by building something always fascinated me and so I love, enjoy contributing to the PyBites community through solving random challenge that I find interesting to solve. Long story short I picked up PyBites Code Challenge 03 and share my solution here." />
+<meta name="description" content="I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting to solve. Long story short I picked up PyBites Code Challenge 03 and am sharing my solution here." />
 <meta name="keywords" content="bots, code challenge, guest, Plotly, learning">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Pybites Blog Tag Analysis Challenge Using Plotly"/>
-<meta property="og:description" content="I came across PyBites through some random retweet by some other Pythonista and was intrigued by seeing the challenges Bob and Julian post. Learning cool things by building something always fascinated me and so I love, enjoy contributing to the PyBites community through solving random challenge that I find interesting to solve. Long story short I picked up PyBites Code Challenge 03 and share my solution here."/>
+<meta property="og:description" content="I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting to solve. Long story short I picked up PyBites Code Challenge 03 and am sharing my solution here."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/drafts/guest-pybites-blog-tag-analysis-plotly.html"/>
 <meta property="og:type" content="article"/>
@@ -48,7 +48,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Pybites Blog Tag Analysis Challenge Using Plotly" />
-<meta name="twitter:description" content="I came across PyBites through some random retweet by some other Pythonista and was intrigued by seeing the challenges Bob and Julian post. Learning cool things by building something always fascinated me and so I love, enjoy contributing to the PyBites community through solving random challenge that I find interesting to solve. Long story short I picked up PyBites Code Challenge 03 and share my solution here." />
+<meta name="twitter:description" content="I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting to solve. Long story short I picked up PyBites Code Challenge 03 and am sharing my solution here." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Pybites Blog Tag Analysis Challenge Using Plotly</title>
@@ -107,30 +107,30 @@
           Posted by <a href="https://pybit.es/author/mridu-bhatnagar.html">Mridu Bhatnagar</a> on Thu 25 January 2018 in <a href="https://pybit.es/category/learning.html">Learning</a>
 
 
-        &#8226; 4 min read
+        &#8226; 3 min read
     </p>
   </header>
 
 
   <div>
-    <p>I came across PyBites through some random retweet by some other Pythonista and was intrigued by seeing the challenges Bob and Julian post. Learning cool things by building something always fascinated me and so I love, enjoy contributing to the PyBites community through solving random challenge that I find interesting to solve. Long story short I picked up <a href="https://pybit.es/codechallenge03.html">PyBites Code Challenge 03</a> and share my solution here.</p>
+    <p>I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting to solve.</p>
 <p>Long story short I picked up <a href="https://pybit.es/codechallenge03.html">PyBites Code Challenge 03</a> and share my solution here.</p>
 <h2>Background</h2>
-<p>The aim behind the challenge was to show the top 10 most frequently used tags by PyBites. And similar tags should be listed as well, for example <code>game</code> and <code>games</code>, <code>challenge</code> and i <code>challenges</code>, etc. Seemed fairly interesting and it ended up even.more interesting because I could use the live RSS feed of PyBites so I could write a script that could monitor commonly used tags over time. I even went one step further graphically showing the commonly used tags. </p>
+<p>The aim behind the challenge was to show the top 10 most frequently used tags by PyBites. And similar tags should be listed as well, for example <code>game</code> and <code>games</code>, <code>challenge</code> and  <code>challenges</code>, etc. It ended up being even more interesting because I could use the live RSS feed of PyBites which meant I could write a script that could monitor commonly used tags over time. I even went one step further by graphically showing the commonly used tags. </p>
 <h2>Modules Used</h2>
 <ul>
-<li><a href="https://plot.ly/python/">Plotly</a> - a free and Open Source Python graphing library. It has good documentation and is quite easy to use. I used itto come up with the Bar Graph for top 10 tags (see further down).</li>
+<li><a href="https://plot.ly/python/">Plotly</a> - a free and Open Source Python graphing library. It has good documentation and is quite easy to use. I used it to come up with the Bar Graph for top 10 tags (see further down).</li>
 <li><a href="https://pypi.python.org/pypi/feedparser">FeedParser</a> - a module that makes it easier to parse RSS feeds. Using this you can directly extract title, subtitle, link, entries etc.</li>
 </ul>
 <h2>Code</h2>
 <p>The full code is <a href="https://raw.githubusercontent.com/pybites/challenges/community/03/mridubhatnagar/tags.py">here</a></p>
-<p>The live RSS feed for Pybites returns XML. One possible approach  was to parse the XML response and list all the tags being used by PyBites. The other one was to lookout for a module that is used for parsing the RSS feeds. This is how I stumbled upon feedparser:</p>
+<p>The live RSS feed for Pybites returns XML. One possible approach  was to parse the XML response and list all the tags being used by PyBites. The other one was to lookout for a module that is used for parsing the RSS feeds. This is how I used feedparser:</p>
 <div class="highlight"><pre><span></span>blog_feed = feedparser.parse(&#39;https://pybit.es/feeds/all.rss.xml&#39;)
 </pre></div>
 
 
-<p>Now, blog_feed has feed of complete PyBites. But, at granular level what I am really interested in was to retrieve all the tags. To reach upto tags I had to do two levels of parsing. Going top-bottom. First looped around all the entries. In particular blog_feed.entries would list details related to all the blogs post by PyBites. Per Blog it would have details like title, title_details, content, tags and so on for all the blogs. Then looped across all the entries to get hold of tags
-Per blog. Appended all the tags used in a list.</p>
+<p>Now, blog_feed has feed of complete PyBites. But, at a granular level what I really wanted  was to retrieve all of the tags. To reach up to tags I had to do two levels of parsing. Going top-bottom. First I looped around all the entries. In particular blog_feed.entries would list details related to all the blog posts by PyBites. Per Blog it would have details like title, title_details, content, tags and so on for all the blogs. Then looped across all the entries to get hold of tags
+Per blog post I appended all the tags used in a list.</p>
 <div class="highlight"><pre><span></span>def get_tags():
 &quot;&quot;&quot;
 Find all tags in live feed.
@@ -146,14 +146,14 @@ return tags
 </pre></div>
 
 
-<p>Next step was to get the top 10 tags. That are being most commonly used. For this I created a dictionary having tag as the key and count per tag as the corresponding value. For computing top 10 tags based on the count. </p>
+<p>Next step was to get the top 10 tags that are being most commonly used. For this I created a dictionary having tag as the key and count per tag as the corresponding value. For computing top 10 tags based on the count. </p>
 <div class="highlight"><pre><span></span>def get_top_tags(tags):
     &quot;&quot;&quot;
     Get the TOP_NUMBER of most common tags.
     tags: List of all the tags used by the website.
     &quot;&quot;&quot;
     tag_list = []
-    D= {}
+    D = {}
     top_tags = {}
     for words in tags:
         tag_list.append(words.lower())
@@ -164,7 +164,7 @@ return tags
 </pre></div>
 
 
-<p>Though the top 10 tags were getting retrieved. But, similarity had to be calculated as well. For calculating the similarity. SequenceMatcher came in handy. Based on the input words it returns a value that shows how much are the two words similar. Given threshold was 0.85. So, anything above this value was considered as similar. </p>
+<p>The top 10 tags were getting retrieved but similarity had to be calculated as well. For calculating the similarity. SequenceMatcher came in handy. Based on the input words it returns a value that shows how similar the two words are. Given threshold was 0.85 so anything above this value was considered similar. </p>
 <div class="highlight"><pre><span></span>def get_similarities(tags):
     &quot;&quot;&quot;
     Find set of tags pairs with similarity ratio of &gt; SIMILAR.
@@ -183,7 +183,7 @@ return tags
 </pre></div>
 
 
-<p>Last but not the least, Visualization. All I aimed for was to come up with a bar graph that at any point in time shows me the most commonly used tags. To meet this requirement I used Plotly which crisp documentation helped me a lot. So, on the x-axis I mentioned the tags being used. And y-axis showed the counts of each tag.</p>
+<p>Last but not least, Visualization. All I aimed for was to come up with a bar graph that at any point in time shows me the most commonly used tags. To meet this requirement I used Plotly. The crisp documentation helped me a lot. On the x-axis I mentioned the tags being used. And y-axis showed the counts of each tag.</p>
 <div class="highlight"><pre><span></span>def visualizations(top_tags):
     &#39;&#39;&#39;
     Data visualization using Bar Graph.
@@ -207,14 +207,14 @@ return tags
 
 
 <p><img alt="result of visualizations" src="https://pybit.es/images/pybites-tags-plot.png"></p>
-<h2>Learnings</h2>
+<h2>Learning</h2>
 <ul>
 <li>Parsing of RSS Feeds, their utility and scope, and how you can use <code>feedparser</code> to parse them. </li>
 <li>Making a basic visualisation using Plotly.</li>
 <li>How you can calculate similarity between 2 words using the builtin <code>difflib</code> module.</li>
 </ul>
 <h2>Conclusion</h2>
-<p>In a nutshell Python is something I love to code in and talk about, at any given time. PyBites has given me a platform to code more, solve interesting problems, learning things by building things. It is definitely a stepping stone. Thanks PyBites.</p>
+<p>In a nutshell Python is something I love to code in and talk about at any given time. PyBites has given me a platform to code more, solve interesting problems and learn by building things. It is definitely a stepping stone. Thanks PyBites!</p>
   </div>
 
   <hr>
