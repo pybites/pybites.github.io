@@ -1,5 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-01-28T16:19:00+01:00</updated><entry><title>Twitter Digest 2018 Week 05</title><link href="https://pybit.es/twitter_digest_201805.html" rel="alternate"></link><published>2018-01-28T16:19:00+01:00</published><updated>2018-01-28T16:19:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-01-28:/twitter_digest_201805.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Comparing regular expressions in Perl, Python, and Emacs &lt;a href="https://t.co/4F48w8SlPA" title="https://t.co/4F48w8SlPA" target="_blank"&gt;https://t.co/4F48w8SlPA&lt;/a&gt; &lt;a href="https://t.co/HQCp5rpVMq" title="https://t.co/HQCp5rpVMq" target="_blank"&gt;https://t.co/HQCp5rpVMq&lt;/a&gt;&lt;/p&gt;— Regular Expression (@RegexTip) &lt;a href="https://twitter.com/RegexTip/status/956188363110932480" data-datetime="2018-01-24T15:34:05+00:00"&gt;January 24, 2018&lt;/a&gt;&lt;/blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-01-29T12:15:00+01:00</updated><entry><title>Using Feedparser, Difflib and Plotly to Analyze PyBites Blog Tags</title><link href="https://pybit.es/guest-pybites-blog-tag-analysis-plotly.html" rel="alternate"></link><published>2018-01-29T12:15:00+01:00</published><updated>2018-01-29T12:15:00+01:00</updated><author><name>Mridu Bhatnagar</name></author><id>tag:pybit.es,2018-01-29:/guest-pybites-blog-tag-analysis-plotly.html</id><summary type="html">&lt;p&gt;I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting. Long story short I picked up &lt;a href="https://pybit.es/codechallenge03.html"&gt;PyBites Code Challenge 03&lt;/a&gt; and am sharing my solution here.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting.&lt;/p&gt;
+&lt;p&gt;Long story short I picked up &lt;a href="https://pybit.es/codechallenge03.html"&gt;PyBites Code Challenge 03&lt;/a&gt; and share my solution here.&lt;/p&gt;
+&lt;h2&gt;Background&lt;/h2&gt;
+&lt;p&gt;The aim behind the challenge was to show the top 10 most frequently used tags by PyBites. And similar tags should be listed as well, for example &lt;code&gt;game&lt;/code&gt; and &lt;code&gt;games&lt;/code&gt;, &lt;code&gt;challenge&lt;/code&gt; and  &lt;code&gt;challenges&lt;/code&gt;, etc. It ended up being even more interesting because I could use the live RSS feed of PyBites which means I could write a script that could monitor commonly used tags over time. I even went one step further by graphically showing them.&lt;/p&gt;
+&lt;h2&gt;Modules Used&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://plot.ly/python/"&gt;Plotly&lt;/a&gt; - a free and Open Source Python graphing library. It has good documentation and is quite easy to use. I used it to come up with the Bar Graph for top 10 tags (see further down).&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://pypi.python.org/pypi/feedparser"&gt;FeedParser&lt;/a&gt; - a module that makes it easier to parse RSS feeds. Using this you can directly extract title, subtitle, link, entries etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;The full code for this challenge is &lt;a href="https://raw.githubusercontent.com/pybites/challenges/community/03/mridubhatnagar/tags.py"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The live RSS feed for Pybites returns XML. One possible approach  was to parse the XML response and list all the tags being used by PyBites. The other one was to lookout for a module that is used for parsing the RSS feeds. This is how I used feedparser:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;blog_feed = feedparser.parse(&amp;#39;https://pybit.es/feeds/all.rss.xml&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now, blog_feed has feed of complete PyBites. But, at a granular level what I really wanted  was to retrieve all of the tags. To reach up to tags I had to do two levels of parsing. Going top-bottom. First I looped around all the entries. In particular blog_feed.entries would list details related to all the blog posts by PyBites. Per Blog it would have details like title, title_details, content, tags and so on for all the blogs. Then I looped across all the entries to get the tags. Per blog post I appended all the tags to a list.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_tags():
+&amp;quot;&amp;quot;&amp;quot;
+Find all tags in live feed.
+Replace dash with whitespace.
+&amp;quot;&amp;quot;&amp;quot;
+tags = []
+blog_feed = feedparser.parse(&amp;#39;https://pybit.es/feeds/all.rss.xml&amp;#39;)
+for item in range(len(blog_feed.entries)):
+    for i in range(len(blog_feed.entries[item].tags)):
+        word = blog_feed.entries[item].tags[i][&amp;#39;term&amp;#39;]
+        tags.append(word)
+return tags
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Next step was to get the top 10 tags that are being most commonly used. For this I created a dictionary having tag as the key and count per tag as the corresponding value:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_top_tags(tags):
+    &amp;quot;&amp;quot;&amp;quot;
+    Get the TOP_NUMBER of most common tags.
+    tags: List of all the tags used by the website.
+    &amp;quot;&amp;quot;&amp;quot;
+    tag_list = []
+    D = {}
+    top_tags = {}
+    for words in tags:
+        tag_list.append(words.lower())
+        key = words.lower()
+        D[key] = tag_list.count(key)
+    top_tags = sorted(D.items(),key=operator.itemgetter(1), reverse=True)[:TOP_NUMBER]
+    return top_tags
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The top 10 tags were getting retrieved but similarity had to be calculated as well. SequenceMatcher came in handy for this. Based on the input words it returns a value that shows how similar the two words are. Given the threshold was 0.85, anything above this value was considered similar. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_similarities(tags):
+    &amp;quot;&amp;quot;&amp;quot;
+    Find set of tags pairs with similarity ratio of &amp;gt; SIMILAR.
+    Argument:
+    tags: List of all the tags used by the website.
+    &amp;quot;&amp;quot;&amp;quot;
+    D={}
+    for word in tags:
+        word=word.replace(&amp;#39; &amp;#39;,&amp;#39;&amp;#39;).lower()
+        for words in tags:
+            words=words.replace(&amp;#39; &amp;#39;,&amp;#39;&amp;#39;).lower()
+            value = SequenceMatcher(None, word, words).ratio()
+            if SIMILAR&amp;lt;value&amp;lt;1:
+                D[word]=words
+    return D
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Last but not least, visualization. All I aimed for was to come up with a bar graph that at any point in time shows me the most commonly used tags. To meet this requirement I used Plotly. The crisp documentation helped me a lot. On the x-axis I mentioned the tags being used. And y-axis showed the counts of each tag.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def visualizations(top_tags):
+    &amp;#39;&amp;#39;&amp;#39;
+    Data visualization using Bar Graph.
+    Argument:
+    top_tags: List containing tuples.
+    And tuple have tag and count respectively.
+
+    x axis - tags
+    y axis - counts
+    &amp;#39;&amp;#39;&amp;#39;
+    tags=[]
+    counts=[]
+    for tag,count in top_tags:
+        tags.append(tag)
+        counts.append(count)
+    data=[go.Bar(
+        x=tags,
+        y=counts)]
+    py.plot(data, filename=&amp;#39;basic-visualization&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The top 10 tags at the time I wrote my script:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="result of visualizations" src="https://pybit.es/images/pybites-tags-plot.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Learning&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Parsing of RSS Feeds, their utility and scope, and how you can use &lt;code&gt;feedparser&lt;/code&gt; to parse them. &lt;/li&gt;
+&lt;li&gt;Making a basic visualisation using &lt;code&gt;plotly&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Calculate similarity between 2 words using the builtin &lt;code&gt;difflib&lt;/code&gt; module.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In a nutshell Python is something I love to code in and talk about. PyBites has given me a platform to code more, solve interesting problems to learn by building things. It is definitely a stepping stone. Thanks PyBites!&lt;/p&gt;</content><category term="bots"></category><category term="code challenge"></category><category term="guest"></category><category term="Plotly"></category><category term="learning"></category></entry><entry><title>Twitter Digest 2018 Week 05</title><link href="https://pybit.es/twitter_digest_201805.html" rel="alternate"></link><published>2018-01-28T16:19:00+01:00</published><updated>2018-01-28T16:19:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-01-28:/twitter_digest_201805.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Comparing regular expressions in Perl, Python, and Emacs &lt;a href="https://t.co/4F48w8SlPA" title="https://t.co/4F48w8SlPA" target="_blank"&gt;https://t.co/4F48w8SlPA&lt;/a&gt; &lt;a href="https://t.co/HQCp5rpVMq" title="https://t.co/HQCp5rpVMq" target="_blank"&gt;https://t.co/HQCp5rpVMq&lt;/a&gt;&lt;/p&gt;— Regular Expression (@RegexTip) &lt;a href="https://twitter.com/RegexTip/status/956188363110932480" data-datetime="2018-01-24T15:34:05+00:00"&gt;January 24, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@biolojical:" target="_blank"&gt;@biolojical:&lt;/a&gt; Mass in grams 10^33🌞 . . . . 10^28🌎 . 10^26🌖 . . . . . . . . 10^17🗻 . . 10^14🌀 . . 10^11🌉 . 10^9🌲 10^8🐋 10^7🐘 10^6🦏 10^5…&lt;/p&gt;— Pybites (@pybites) &lt;a href="https://twitter.com/pybites/status/957138964061786112" data-datetime="2018-01-27T06:31:26+00:00"&gt;January 27, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
@@ -4333,7 +4434,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -4350,7 +4451,6 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -21413,7 +21513,7 @@ QmCC
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -21430,7 +21530,6 @@ QmCC
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -23863,7 +23962,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -23880,7 +23979,6 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -25502,7 +25600,7 @@ A single underscore indicates to the user of a class that an attribute should be
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -25519,7 +25617,6 @@ A single underscore indicates to the user of a class that an attribute should be
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";

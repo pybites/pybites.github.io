@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Mridu Bhatnagar" />
+<meta name="description" content="I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting. Long story short I picked up PyBites Code Challenge 03 and am sharing my solution here." />
+<meta name="keywords" content="bots, code challenge, guest, Plotly, learning">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Using Feedparser, Difflib and Plotly to Analyze PyBites Blog Tags"/>
+<meta property="og:description" content="I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting. Long story short I picked up PyBites Code Challenge 03 and am sharing my solution here."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/guest-pybites-blog-tag-analysis-plotly.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-01-29 12:15:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/mridu-bhatnagar.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="bots"/>
+<meta property="article:tag" content="code challenge"/>
+<meta property="article:tag" content="guest"/>
+<meta property="article:tag" content="Plotly"/>
+<meta property="article:tag" content="learning"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Using Feedparser, Difflib and Plotly to Analyze PyBites Blog Tags" />
+<meta name="twitter:description" content="I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting. Long story short I picked up PyBites Code Challenge 03 and am sharing my solution here." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+  <title>PyBites &ndash; Using Feedparser, Difflib and Plotly to Analyze PyBites Blog Tags</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      brown
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='brown'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/guest.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<p>Python Code Challenges, Articles and News - One Bite a Day</p>
+      <nav>
+        <ul class="list">
+          <li><a href="https://pybit.es/pages/about.html">About</a></li>
+          <li><a href="https://pybit.es/pages/articles.html">Articles</a></li>
+          <li><a href="https://pybit.es/pages/challenges.html">Challenges</a></li>
+          <li><a href="https://pybit.es/pages/courses.html">Courses</a></li>
+          <li><a href="https://pybit.es/pages/news.html">News</a></li>
+          <li><a href="https://pybit.es/pages/projects.html">Projects</a></li>
+          <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+
+        </ul>
+      </nav>
+
+
+	      <a class="twitter-follow-button" href="https://twitter.com/pybites" data-show-screen-name="false" data-size="large" data-show-count="false">Follow @pybites</a>
+
+		    <a class="github-button" href="https://github.com/pybites" data-size="large" aria-label="Follow @pybites on GitHub">Follow</a>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="guest-pybites-blog-tag-analysis-plotly">Using Feedparser, Difflib and Plotly to Analyze PyBites Blog Tags</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/mridu-bhatnagar.html">Mridu Bhatnagar</a> on Mon 29 January 2018 in <a href="https://pybit.es/category/learning.html">Learning</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>I came across PyBites through a random retweet by some other Pythonista and was intrigued by the challenges Bob and Julian post. Learning cool things by building something always fascinated me so I love and enjoy contributing to the PyBites community through solving random challenges that I find interesting.</p>
+<p>Long story short I picked up <a href="https://pybit.es/codechallenge03.html">PyBites Code Challenge 03</a> and share my solution here.</p>
+<h2>Background</h2>
+<p>The aim behind the challenge was to show the top 10 most frequently used tags by PyBites. And similar tags should be listed as well, for example <code>game</code> and <code>games</code>, <code>challenge</code> and  <code>challenges</code>, etc. It ended up being even more interesting because I could use the live RSS feed of PyBites which means I could write a script that could monitor commonly used tags over time. I even went one step further by graphically showing them.</p>
+<h2>Modules Used</h2>
+<ul>
+<li><a href="https://plot.ly/python/">Plotly</a> - a free and Open Source Python graphing library. It has good documentation and is quite easy to use. I used it to come up with the Bar Graph for top 10 tags (see further down).</li>
+<li><a href="https://pypi.python.org/pypi/feedparser">FeedParser</a> - a module that makes it easier to parse RSS feeds. Using this you can directly extract title, subtitle, link, entries etc.</li>
+</ul>
+<h2>Code</h2>
+<p>The full code for this challenge is <a href="https://raw.githubusercontent.com/pybites/challenges/community/03/mridubhatnagar/tags.py">here</a>.</p>
+<p>The live RSS feed for Pybites returns XML. One possible approach  was to parse the XML response and list all the tags being used by PyBites. The other one was to lookout for a module that is used for parsing the RSS feeds. This is how I used feedparser:</p>
+<div class="highlight"><pre><span></span>blog_feed = feedparser.parse(&#39;https://pybit.es/feeds/all.rss.xml&#39;)
+</pre></div>
+
+
+<p>Now, blog_feed has feed of complete PyBites. But, at a granular level what I really wanted  was to retrieve all of the tags. To reach up to tags I had to do two levels of parsing. Going top-bottom. First I looped around all the entries. In particular blog_feed.entries would list details related to all the blog posts by PyBites. Per Blog it would have details like title, title_details, content, tags and so on for all the blogs. Then I looped across all the entries to get the tags. Per blog post I appended all the tags to a list.</p>
+<div class="highlight"><pre><span></span>def get_tags():
+&quot;&quot;&quot;
+Find all tags in live feed.
+Replace dash with whitespace.
+&quot;&quot;&quot;
+tags = []
+blog_feed = feedparser.parse(&#39;https://pybit.es/feeds/all.rss.xml&#39;)
+for item in range(len(blog_feed.entries)):
+    for i in range(len(blog_feed.entries[item].tags)):
+        word = blog_feed.entries[item].tags[i][&#39;term&#39;]
+        tags.append(word)
+return tags
+</pre></div>
+
+
+<p>Next step was to get the top 10 tags that are being most commonly used. For this I created a dictionary having tag as the key and count per tag as the corresponding value:</p>
+<div class="highlight"><pre><span></span>def get_top_tags(tags):
+    &quot;&quot;&quot;
+    Get the TOP_NUMBER of most common tags.
+    tags: List of all the tags used by the website.
+    &quot;&quot;&quot;
+    tag_list = []
+    D = {}
+    top_tags = {}
+    for words in tags:
+        tag_list.append(words.lower())
+        key = words.lower()
+        D[key] = tag_list.count(key)
+    top_tags = sorted(D.items(),key=operator.itemgetter(1), reverse=True)[:TOP_NUMBER]
+    return top_tags
+</pre></div>
+
+
+<p>The top 10 tags were getting retrieved but similarity had to be calculated as well. SequenceMatcher came in handy for this. Based on the input words it returns a value that shows how similar the two words are. Given the threshold was 0.85, anything above this value was considered similar. </p>
+<div class="highlight"><pre><span></span>def get_similarities(tags):
+    &quot;&quot;&quot;
+    Find set of tags pairs with similarity ratio of &gt; SIMILAR.
+    Argument:
+    tags: List of all the tags used by the website.
+    &quot;&quot;&quot;
+    D={}
+    for word in tags:
+        word=word.replace(&#39; &#39;,&#39;&#39;).lower()
+        for words in tags:
+            words=words.replace(&#39; &#39;,&#39;&#39;).lower()
+            value = SequenceMatcher(None, word, words).ratio()
+            if SIMILAR&lt;value&lt;1:
+                D[word]=words
+    return D
+</pre></div>
+
+
+<p>Last but not least, visualization. All I aimed for was to come up with a bar graph that at any point in time shows me the most commonly used tags. To meet this requirement I used Plotly. The crisp documentation helped me a lot. On the x-axis I mentioned the tags being used. And y-axis showed the counts of each tag.</p>
+<div class="highlight"><pre><span></span>def visualizations(top_tags):
+    &#39;&#39;&#39;
+    Data visualization using Bar Graph.
+    Argument:
+    top_tags: List containing tuples.
+    And tuple have tag and count respectively.
+
+    x axis - tags
+    y axis - counts
+    &#39;&#39;&#39;
+    tags=[]
+    counts=[]
+    for tag,count in top_tags:
+        tags.append(tag)
+        counts.append(count)
+    data=[go.Bar(
+        x=tags,
+        y=counts)]
+    py.plot(data, filename=&#39;basic-visualization&#39;)
+</pre></div>
+
+
+<p>The top 10 tags at the time I wrote my script:</p>
+<p><img alt="result of visualizations" src="https://pybit.es/images/pybites-tags-plot.png"></p>
+<h2>Learning</h2>
+<ul>
+<li>Parsing of RSS Feeds, their utility and scope, and how you can use <code>feedparser</code> to parse them. </li>
+<li>Making a basic visualisation using <code>plotly</code>.</li>
+<li>Calculate similarity between 2 words using the builtin <code>difflib</code> module.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>In a nutshell Python is something I love to code in and talk about. PyBites has given me a platform to code more, solve interesting problems to learn by building things. It is definitely a stepping stone. Thanks PyBites!</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself!</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/bots.html">bots</a>
+      <a href="https://pybit.es/tag/code-challenge.html">code challenge</a>
+      <a href="https://pybit.es/tag/guest.html">guest</a>
+      <a href="https://pybit.es/tag/plotly.html">Plotly</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "Python Code Challenges, Articles and News - One Bite a Day"
+}
+</script>
+</body>
+</html>
