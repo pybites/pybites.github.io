@@ -112,7 +112,7 @@
           Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Thu 05 January 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
 
 
-        &#8226; 4 min read
+        &#8226; 5 min read
     </p>
   </header>
 
@@ -167,6 +167,7 @@ $ git show &lt;commit-hash&gt;
 </pre></div>
 
 
+<p>(not the ideal to show a time delta, <strong>see update</strong> towards the end ...)</p>
 </li>
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/5a34e5a7d4ff1bf2251851aabc18c736a62aeecc">5a34e5a add calling code in main</a></p>
@@ -295,6 +296,12 @@ sum_seconds += int(seconds)
 </blockquote>
 <p>We plan to do a code challenge here once a week. Stay tuned.</p>
 <p>If you like this subscribe below of follow us on <a href="https://twitter.com/pybites">Twitter</a>. Thanks for reading.</p>
+<h2>Update 4th of Feb 2018</h2>
+<p><code>6.841944444444445</code> is not the best way to show a timestamp. We updated the script to:
+- have the <code>assert</code> expect <em>6:50:31</em>,
+- use <code>divmod</code> in our <code>calc_duration</code> (OK, we also sneaked an <em>f-string</em>, sorry we could not resist the temptation),
+- added <code>calc_duration_improved</code> to use <code>datetime</code> and <code>timedelta</code> to calculate the total duration of the course.</p>
+<p>See the new revision <a href="https://github.com/pybites/blog_code/blob/master/katas/course_time/js_course_time_scraper.py">here</a>.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
