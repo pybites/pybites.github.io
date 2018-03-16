@@ -202,7 +202,7 @@ def test_add_hashtags(db_setup):
                 <span class="n">product</span> <span class="o">+=</span> <span class="s1">&#39; (craving)&#39;</span>
             <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{product:&lt;30} | {item.price:&gt;3}&#39;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">36</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{&quot;Total&quot;:&lt;30} | {self.total_price:&gt;3}&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{&quot;Total&quot;:&lt;30} | {self.due:&gt;3}&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add a new item to cart, raise exceptions if item already in</span>
@@ -231,8 +231,8 @@ def test_add_hashtags(db_setup):
                 <span class="k">yield</span> <span class="n">item</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">total_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculate total price of cart&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">due</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate total due value of cart&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">price</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -245,7 +245,7 @@ def test_add_hashtags(db_setup):
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Making the class iterable (cart = Cart() -&gt; cart[1] etc)</span>
+        <span class="sd">&quot;&quot;&quot;Making the class iterable (cart = Groceries() -&gt; cart[1] etc)</span>
 <span class="sd">        without this dunder I would get &#39;TypeError: &#39;Cart&#39; object does</span>
 <span class="sd">        not support indexing&#39; when trying to index it&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
@@ -286,7 +286,7 @@ def test_add_hashtags(db_setup):
     <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">()</span>
 
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">total_price</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">0</span>
 
 
 <span class="k">def</span> <span class="nf">test_initial_filled_cart</span><span class="p">():</span>
@@ -300,7 +300,7 @@ def test_add_hashtags(db_setup):
     <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">4</span>
 
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
-    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">total_price</span> <span class="o">==</span> <span class="mi">22</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">22</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
 
 
@@ -314,7 +314,7 @@ def test_add_hashtags(db_setup):
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
     <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;oranges&#39;</span>
     <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">3</span>
-    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">total_price</span> <span class="o">==</span> <span class="mi">25</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">25</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
 
 
@@ -493,7 +493,7 @@ def test_show_items<span class="o">(</span>cart, capfd<span class="o">)</span>:
 <p>In the tests that use other arguments like <code>@pytest.mark.parametrize</code> and <code>capfd</code> (in <code>test_search_item</code> and <code>test_show_items</code> respectively), the fixture argument comes first!</p>
 </li>
 </ul>
-<p>And now I can ditch these lines of code which where duplicated multiple times:</p>
+<p>And now I can ditch these lines of code which were duplicated multiple times:</p>
 <div class="highlight"><pre><span></span>items = list(_setup_items())
 cart = Groceries(items=items)
 </pre></div>
@@ -626,7 +626,7 @@ $ pytest
     <span class="sd">&quot;&quot;&quot;Note no fixture here to test an empty cart creation&quot;&quot;&quot;</span>
     <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">()</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">total_price</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">0</span>
 
 
 <span class="k">def</span> <span class="nf">test_initial_filled_cart</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
@@ -637,7 +637,7 @@ $ pytest
     <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">4</span>
 
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
-    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">total_price</span> <span class="o">==</span> <span class="mi">22</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">22</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
 
 
@@ -682,7 +682,7 @@ $ pytest
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
     <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;oranges&#39;</span>
     <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">3</span>
-    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">total_price</span> <span class="o">==</span> <span class="mi">25</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">25</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
 
 
