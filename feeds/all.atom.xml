@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-04-01T21:43:00+02:00</updated><entry><title>Twitter Digest 2018 Week 13</title><link href="https://pybit.es/twitter_digest_201813.html" rel="alternate"></link><published>2018-04-01T21:43:00+02:00</published><updated>2018-04-01T21:43:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-04-01:/twitter_digest_201813.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h2&gt;We're receiving very encouraging feedback on &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;the course&lt;/a&gt;!&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-04-02T00:35:00+02:00</updated><entry><title>Code Challenge 50 - Use Celery to Offload an Expensive Task</title><link href="https://pybit.es/codechallenge50.html" rel="alternate"></link><published>2018-04-02T00:35:00+02:00</published><updated>2018-04-02T00:35:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-04-02:/codechallenge50.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, back-to-back with our Planet Python challenge 49 here is our special Easter Challenge #50 where you will use Celery to offload a simplified Easter ecard mailer app.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hi Pythonistas, back-to-back with our Planet Python challenge 49 here is our special Easter Challenge #50 where you will use Celery to offload a simplified Easter ecard mailer app. &lt;/p&gt;
+&lt;h2&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;Go to &lt;a href="https://codechalleng.es/challenges/50/"&gt;Challenge 50 on our platform&lt;/a&gt; and pull/update the Community branch. cd into the 50 directories, &lt;a href="https://pybit.es/the-beauty-of-virtualenv.html"&gt;create your virtual env&lt;/a&gt; and &lt;code&gt;pip install&lt;/code&gt; the requirements (Flask and Celery).&lt;/p&gt;
+&lt;p&gt;The app let's your enter a banner URL, a comma separated list of emails and optional message:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple flask app for celery" src="https://pybit.es/images/celery-flask-app1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="simple flask app for celery" src="https://pybit.es/images/celery-flask-app2.png"&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;_emails_users&lt;/code&gt; simulates some processing time by sleeping 1 second, in real life this could also be a short pause to not hit a server or API too much. For the end users the page is just slow and worse what if they navigate away in the middle of the emailing? Time to add some asynchronous processing so the user can keep navigating the site!&lt;/p&gt;
+&lt;p&gt;Can you offload the emailing to a Celery task so the user does not have to wait for it to end or prevent an impatient user to navigate away? Change the Flask app as you want, it's just some bootstrap code to get started ... You could also add an option to the form to send the card at a later date ...&lt;/p&gt;
+&lt;p&gt;Set up a &lt;a href="http://docs.celeryproject.org/en/latest/getting-started/brokers/"&gt;message broker&lt;/a&gt; of your choice and &lt;a href="http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html"&gt;start playing with Celery&lt;/a&gt;. For a Flask + Celery basic example check &lt;a href="http://flask.pocoo.org/docs/0.12/patterns/celery/"&gt;here&lt;/a&gt;. &lt;/p&gt;
+&lt;h3&gt;Bonus&lt;/h3&gt;
+&lt;p&gt;Bonus points if you can display progress of the emailing on the page. Secondly try to deploy it to a cloud service provider and make the emailing work. You could try &lt;a href="https://devcenter.heroku.com/articles/sendgrid"&gt;Heroku + Sendgrid&lt;/a&gt; for example.&lt;/p&gt;
+&lt;h3&gt;Credit&lt;/h3&gt;
+&lt;p&gt;PR your work &lt;a href="https://codechalleng.es/challenges/50/"&gt;on our platform&lt;/a&gt; and get our special &lt;a href="https://codechalleng.es/badge/easter"&gt;PyBites Easter Badge&lt;/a&gt; added to your dashboard.&lt;/p&gt;
+&lt;p&gt;We are moving the review posts to a &lt;em&gt;featured view&lt;/em&gt; on our platform (audience &amp;gt; 1800 users and growing), PR and standby ... &lt;/p&gt;
+&lt;h2&gt;PyBites Community&lt;/h2&gt;
+&lt;p&gt;A few more things before we take off:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You want to discuss this challenge and share you Pythonic journey with other passionate Pythonistas? Confirm your email on our platform then request access to our Slack via &lt;a href="https://codechalleng.es/settings/"&gt;settings&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PyBites is here to challenge you because becoming a better Pythonista requires practice, a lot of it. For any feedback, issues or ideas use &lt;a href="https://github.com/pybites/challenges/issues"&gt;GH Issues&lt;/a&gt;, &lt;a href="https://twitter.com/pybites"&gt;tweet us&lt;/a&gt; or ping us on our Slack.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;And of course Happy Easter!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="Celery"></category><category term="Flask"></category><category term="broker"></category><category term="async"></category><category term="Easter"></category></entry><entry><title>Code Challenge 49 - Contribute to Open Source: Clean up Planet Python</title><link href="https://pybit.es/codechallenge49.html" rel="alternate"></link><published>2018-04-01T23:55:00+02:00</published><updated>2018-04-01T23:55:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-04-01:/codechallenge49.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, it has been silent on the Community Blog challenges front, but then again we completed the &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;100 Days of Code in Python course&lt;/a&gt; which was a great milestone. Although less frequent, we will keep doing blog challenges though, not to worry! Let's start with a long pending item: cleaning up Python planets feeds, an interesting and valuable open source contribution.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hi Pythonistas, it has been silent on the Community Blog challenges front, but then again we completed the &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;100 Days of Code in Python course&lt;/a&gt; which was a great milestone. Although less frequent, we will keep doing blog challenges though, not to worry! Let's start with a long pending item: cleaning up Python planets feeds, an interesting and valuable open source contribution.&lt;/p&gt;
+&lt;h2&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;See &lt;a href="https://github.com/python/planet/issues/233"&gt;issue 233&lt;/a&gt;: there are a lot of feeds that are invalid or outdated. For this Challenge you write a script that does the cleaning as per requirements stated in the issue:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Run weekly or monthly&lt;/li&gt;
+&lt;li&gt;Iterate all urls on config.ini and also python libraries and python planets list&lt;/li&gt;
+&lt;li&gt;Call each URL and assert (following redirects) -&lt;ul&gt;
+&lt;li&gt;Check return code is 200&lt;/li&gt;
+&lt;li&gt;Check data of last update is newer than one year&lt;/li&gt;
+&lt;li&gt;Check feed is valid using feedvalidator/podcastvalidator/othervalidator&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;If not valid, store the URL in a simple database (text file, sqlite or something)&lt;ul&gt;
+&lt;li&gt;ACTION: If link returns bad status\invalid 3 times, remove from planet&lt;/li&gt;
+&lt;li&gt;ACTION: If feed is outdated for more than one year, keep in planet but remove from sidebar&lt;/li&gt;
+&lt;li&gt;ACTION: If feed is updated and not in sidebar, put it there again&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Bonus&lt;/h3&gt;
+&lt;p&gt;Our and potentially a lot of other feeds are not showing up due what seems an SSL issue. Can you solve it and make a lot of Pythonistas happy? Check our inital debugging on &lt;a href="https://github.com/python/planet/issues/135"&gt;issue 135&lt;/a&gt; and feel free to chime in (be warned though: might require some very old Python 2.x ...)&lt;/p&gt;
+&lt;h3&gt;Credit&lt;/h3&gt;
+&lt;p&gt;Ready to contribute to this important Python news app? &lt;a href="https://codechalleng.es/challenges/49"&gt;PR your work via our platform&lt;/a&gt; - valid PRs will receive our cool &lt;a href="http://codechalleng.es/badge/contributor"&gt;PyBites Contributor Badge&lt;/a&gt; added to their dashboards. &lt;/p&gt;
+&lt;p&gt;We are moving the review posts to a &lt;em&gt;featured view&lt;/em&gt; on our platform (audience &amp;gt; 1800 users and growing), PR and standby ... &lt;/p&gt;
+&lt;h2&gt;PyBites Community&lt;/h2&gt;
+&lt;p&gt;A few more things before we take off:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You want to discuss this challenge and share you Pythonic journey with other passionate Pythonistas? Confirm your email on our platform then request access to our Slack via &lt;a href="https://codechalleng.es/settings/"&gt;settings&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PyBites is here to challenge you because becoming a better Pythonista requires practice, a lot of it. For any feedback, issues or ideas use &lt;a href="https://github.com/pybites/challenges/issues"&gt;GH Issues&lt;/a&gt;, &lt;a href="https://twitter.com/pybites"&gt;tweet us&lt;/a&gt; or ping us on our Slack.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="Planet"></category><category term="feedparser"></category><category term="RSS"></category><category term="parsing"></category><category term="hacking"></category><category term="scripting"></category><category term="community"></category><category term="debugging"></category></entry><entry><title>Twitter Digest 2018 Week 13</title><link href="https://pybit.es/twitter_digest_201813.html" rel="alternate"></link><published>2018-04-01T21:43:00+02:00</published><updated>2018-04-01T21:43:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-04-01:/twitter_digest_201813.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h2&gt;We're receiving very encouraging feedback on &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;the course&lt;/a&gt;!&lt;/h2&gt;
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;This &lt;a href="https://twitter.com/search/#100DaysOfCode" target="_blank"&gt;#100DaysOfCode&lt;/a&gt; video course by &lt;a href="https://twitter.com/@TalkPython" target="_blank"&gt;@TalkPython&lt;/a&gt; seems to be quite nicely made, there is even video appendix from ma… &lt;a href="https://t.co/KYFDt61rDf" title="https://t.co/KYFDt61rDf" target="_blank"&gt;https://t.co/KYFDt61rDf&lt;/a&gt;&lt;/p&gt;— Harri Väyrynen (@HarriVayrynen) &lt;a href="https://twitter.com/HarriVayrynen/status/979693904214790144" data-datetime="2018-03-30T12:16:43+00:00"&gt;March 30, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;p&gt;&lt;br&gt;
@@ -5416,7 +5491,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -5433,7 +5508,6 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -22496,7 +22570,7 @@ QmCC
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -22513,7 +22587,6 @@ QmCC
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -24946,7 +25019,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -24963,7 +25036,6 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -26585,7 +26657,7 @@ A single underscore indicates to the user of a class that an attribute should be
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -26602,7 +26674,6 @@ A single underscore indicates to the user of a class that an attribute should be
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
