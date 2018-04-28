@@ -123,20 +123,42 @@ When you create and activate the venv you no longer have access to the main Pyth
 Best practice would be to create a venv within your project and use it to run your project.</p>
 <h2>Step by Step</h2>
 <p>Let's create a venv called "awesome-test". You'd preferably run the following commands in your project root dir:</p>
+<h3>Unix Commands</h3>
 <div class="highlight"><pre><span></span># python3 -m venv awesome-test
 # ls
 awesome-test
 </pre></div>
 
 
-<p><strong><em>In Python 3, virtualenvs come installed by default. In Python 2.7 you install them with pip install virtualenv.</em></strong></p>
+<h3>Windows Commands</h3>
+<div class="highlight"><pre><span></span># python -m venv awesome-test
+# dir
+awesome-test
+</pre></div>
+
+
+<blockquote>
+<p>In Python 3, virtualenvs come installed by default. In Python 2.7 you install them with pip install virtualenv.</p>
+</blockquote>
 <p>The next step is to activate the venv.
 Activating the venv puts you into a standalone Python instance that has pretty much nothing installed by default:</p>
+<h3>Unix Commands</h3>
 <div class="highlight"><pre><span></span># cd awesome-test
 # ls
 bin     include     lib     pyvenv.cfg
 #
 # source bin/activate
+(awesome-test) #
+(awesome-test) # echo YAY!
+YAY!
+</pre></div>
+
+
+<h3>Windows Commands</h3>
+<div class="highlight"><pre><span></span># cd awesome-test
+# dir
+Include/    Lib/    pyvenv.cfg  Scripts/
+# Scripts/activate
 (awesome-test) #
 (awesome-test) # echo YAY!
 YAY!
@@ -155,12 +177,21 @@ setuptools (28.8.0)
 <p>If you've been using Python already, you'll know that your main env would have a boat load of modules installed. It's nice to be able to run from a clean slate when desiging new code!</p>
 <p>You can now play around and install whatever the heck you want without having to worry about corrupting or screwing up your primary environment. All modules installed in this venv will remain local to the venv.</p>
 <p>When you're done using the venv you then exit (deactivate) it using the deactivate command:</p>
+<h3>Unix Command</h3>
 <div class="highlight"><pre><span></span>(awesome-test) # deactivate
 # 
 </pre></div>
 
 
-<p><strong><em>Note: All of changes you made in the venv will NOT be lost. It's all stored safely within the venv.</em></strong></p>
+<h3>Windows Command</h3>
+<div class="highlight"><pre><span></span>(awesome-test) # Scripts/deactivate
+#
+</pre></div>
+
+
+<blockquote>
+<p>Note: All of changes you made in the venv will NOT be lost. It's all stored safely within the venv.</p>
+</blockquote>
 <h2>Conclusion</h2>
 <p>The seasoned veteran out there will surely read this and call me a noob... and they'd be right! It's exactly why I'm so stoked to have discovered venvs!</p>
 <p>If you're not using virtualenvs yet, install the package and give it a whirl.</p>

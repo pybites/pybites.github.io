@@ -1416,10 +1416,10 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-12-08fc7fe18fd0></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-12-08fc7fe18fd0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-red-fg"># however this does not work out of the box</span>
 <span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-fg">----> 4</span><span class="ansi-red-fg"> </span>bob <span class="ansi-blue-fg">+</span> julian
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>bob <span class="ansi-blue-fg">+</span> julian
 
 <span class="ansi-red-fg">TypeError</span>: unsupported operand type(s) for +: 'TwitterUser' and 'TwitterUser'</pre>
 </div>
@@ -1462,7 +1462,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     <span class="c1"># difference between the repr and str: </span>
     <span class="c1"># http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python</span>
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">{}</span><span class="s1"> => likes: </span><span class="si">{}</span><span class="s1"> for </span><span class="si">{}</span><span class="s1"> tweets = </span><span class="si">{:.1f}</span><span class="s1"> avg'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">return</span> <span class="s1">'</span><span class="si">{}</span><span class="s1"> =&gt; likes: </span><span class="si">{}</span><span class="s1"> for </span><span class="si">{}</span><span class="s1"> tweets = </span><span class="si">{:.1f}</span><span class="s1"> avg'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_likes</span><span class="p">(),</span> 
             <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg_likes</span><span class="p">()</span>
         <span class="p">)</span>
@@ -1564,15 +1564,15 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">IncompatibleHandle</span>                        Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-17-9ee66cd5c34d></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-17-9ee66cd5c34d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># but stranger is not part of pybites, so custom exception is raised (as implemented in __add__)</span>
 <span class="ansi-green-intense-fg ansi-bold">      2</span> 
-<span class="ansi-green-fg">----> 3</span><span class="ansi-red-fg"> </span>bob <span class="ansi-blue-fg">+</span> stranger
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>bob <span class="ansi-blue-fg">+</span> stranger
 
-<span class="ansi-green-fg"><ipython-input-13-d86635054781></span> in <span class="ansi-cyan-fg">__add__</span><span class="ansi-blue-fg">(self, other)</span>
+<span class="ansi-green-fg">&lt;ipython-input-13-d86635054781&gt;</span> in <span class="ansi-cyan-fg">__add__</span><span class="ansi-blue-fg">(self, other)</span>
 <span class="ansi-green-intense-fg ansi-bold">     18</span>     <span class="ansi-green-fg">def</span> __add__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> other<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
 <span class="ansi-green-intense-fg ansi-bold">     19</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>handle<span class="ansi-blue-fg">.</span>shared_handle <span class="ansi-blue-fg">!=</span> other<span class="ansi-blue-fg">.</span>handle<span class="ansi-blue-fg">.</span>shared_handle<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---> 20</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> IncompatibleHandle<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'Not the same shared handle, cannot merge tweets'</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 20</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> IncompatibleHandle<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'Not the same shared handle, cannot merge tweets'</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     21</span>         all_tweets <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>tweets <span class="ansi-blue-fg">+</span> other<span class="ansi-blue-fg">.</span>tweets
 <span class="ansi-green-intense-fg ansi-bold">     22</span>         <span class="ansi-green-fg">return</span> TwitterUser<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>handle<span class="ansi-blue-fg">.</span>shared_handle<span class="ansi-blue-fg">,</span> all_tweets<span class="ansi-blue-fg">)</span>
 
@@ -1600,7 +1600,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>bbelderbos (shared handle: pybites) => likes: 21 for 5 tweets = 4.2 avg
+<pre>bbelderbos (shared handle: pybites) =&gt; likes: 21 for 5 tweets = 4.2 avg
 </pre>
 </div>
 </div>
@@ -1624,7 +1624,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>techmoneykids (shared handle: pybites) => likes: 20 for 2 tweets = 10.0 avg
+<pre>techmoneykids (shared handle: pybites) =&gt; likes: 20 for 2 tweets = 10.0 avg
 </pre>
 </div>
 </div>
@@ -1648,7 +1648,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>pybites => likes: 41 for 7 tweets = 5.9 avg
+<pre>pybites =&gt; likes: 41 for 7 tweets = 5.9 avg
 </pre>
 </div>
 </div>
