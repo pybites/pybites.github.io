@@ -1,5 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-05-27T13:10:00+02:00</updated><entry><title>PyBites Twitter Digest - Issue 17, 2018</title><link href="https://pybit.es/twitter_digest_201817.html" rel="alternate"></link><published>2018-05-27T13:10:00+02:00</published><updated>2018-05-27T13:10:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-05-27:/twitter_digest_201817.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;The Panda’s Dozen: Top PyCon 2018&amp;nbsp;Talks &lt;a href="https://t.co/enzLjDdZMa" title="https://t.co/enzLjDdZMa" target="_blank"&gt;https://t.co/enzLjDdZMa&lt;/a&gt; &lt;a href="https://t.co/SmRfqC0wF6" title="https://t.co/SmRfqC0wF6" target="_blank"&gt;https://t.co/SmRfqC0wF6&lt;/a&gt;&lt;/p&gt;— Automation Panda (@AutomationPanda) &lt;a href="https://twitter.com/AutomationPanda/status/998765144292421632" data-datetime="2018-05-22T03:19:01+00:00"&gt;May 22, 2018&lt;/a&gt;&lt;/blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-05-31T20:32:00+02:00</updated><entry><title>Pushing the Packt "free book of the day" to the world with Scrapy and Alexa</title><link href="https://pybit.es/guest-scrapy-packt-alexa.html" rel="alternate"></link><published>2018-05-31T20:32:00+02:00</published><updated>2018-05-31T20:32:00+02:00</updated><author><name>Rhys Powell</name></author><id>tag:pybit.es,2018-05-31:/guest-scrapy-packt-alexa.html</id><summary type="html">&lt;p&gt;I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book. What I always forget to do is look at what today’s book is and what I didn’t have was a lot of time to meet this month's deadline for app submission. Why not combine them both?&lt;/p&gt;</summary><content type="html">&lt;p&gt;I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book. What I always forget to do is look at what today’s book is and what I didn’t have was a lot of time to meet this month's deadline for app submission. Why not combine them both?&lt;/p&gt;
+&lt;p&gt;All of the code can be &lt;a href="https://gitlab.com/rhyspowell/packt_free_daily_book"&gt;found on Gitlab&lt;/a&gt;.
+This post covers the build of the core code. To see the alexa and deployment sections, check out &lt;a href="www.rhyspowell.com"&gt;www.rhyspowell.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Still to do: tests, logging in and adding the book to my collection.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;First steps&lt;/h2&gt;
+&lt;p&gt;Looking at ways of scraping data from websites the option that comes up first is the use of requests and beautifulsoup. Having a little bit of experience with requests it looked as though this would be a fairly easy task, sadly I was wrong. Packt has a level of protection in place that just blocked a simple requests call, despite trying lots of options I just couldn’t get the data. &lt;/p&gt;
+&lt;p&gt;The next option was to look at using Selenium, something I had done for site testing previously, despite the fact that it was running chrome headless I still kept getting blocked. &lt;/p&gt;
+&lt;p&gt;A little more searching around and I came across &lt;a href="https://scrapy.org/"&gt;Scrapy&lt;/a&gt;. I had previously heard of Scrapy through a &lt;a href="https://talkpython.fm/episodes/show/50/web-scraping-at-scale-with-scrapy-and-scrapinghub"&gt;talkpython&lt;/a&gt; podcast so I thought I would give it a go.&lt;/p&gt;
+&lt;h2&gt;Scrapy&lt;/h2&gt;
+&lt;p&gt;A first look at the &lt;a href="https://doc.scrapy.org/en/latest/intro/overview.html"&gt;documentation&lt;/a&gt; is pretty daunting, there’s so much that Scrapy can do for you but the team behind it has put a huge amount of effort into both the docs and getting you up and running very quickly. The tutorial can give you a fully working scraper in less than five minutes and gives a great explanation on how things work, the perfect starting point to butcher the code to my needs.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;scrapy&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;PacktSpider&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;scrapy&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Spider&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+   &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;packt&amp;#39;&lt;/span&gt;
+
+   &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;start_requests&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+       &lt;span class="n"&gt;urls&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://www.packtpub.com/packt/offers/free-learning&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+       &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;urls&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+           &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;scrapy&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;callback&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parse&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+   &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;parse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;name&lt;/code&gt; has to be set as the name of the spider, the &lt;code&gt;url&lt;/code&gt; was updated to point to the free learning page and set the response to print out:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="scrapy code" src="https://pybit.es/images/scrapy-code.png"&gt;&lt;/p&gt;
+&lt;p&gt;The response was exactly what I was looking for:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;2018-05-24 07:59:26 [scrapy.core.engine] DEBUG: Crawled (200) &amp;lt;GET https://www.packtpub.com/packt/offers/free-learning&amp;gt; (referer: None)
+&amp;lt;200 https://www.packtpub.com/packt/offers/free-learning&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Scraping the Page&lt;/h2&gt;
+&lt;p&gt;With the ability to finally grab the page data, the next step is to open the page in a browser. I use Chrome, opening the developer tools I can inspect the page html.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="chrome inspection" src="https://pybit.es/images/scrapy-chromeconsole.png"&gt;&lt;/p&gt;
+&lt;p&gt;From this it’s easy to see that the piece of information that we are after, the book title, is wrapped with in the class &lt;code&gt;dotd-title&lt;/code&gt;. Now the work begins to get the information out of the response data. &lt;/p&gt;
+&lt;p&gt;Scrapy gives you the choice of three methods of querying the data: css, xpath and re, with css or xpath being the standard methods. Once again the documentation is quite extensive and should be read through to give an idea of what can be done. An additional tool that Scrapy provides is a shell:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) ➜  packt_free_learning git:(master) ✗ scrapy shell &amp;#39;https://www.packtpub.com/packt/offers/free-learning&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Running the above, processes the spider as it would normally but opens you into a python shell and provides the following objects and information:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;2018-05-24 09:20:58 [scrapy.core.engine] DEBUG: Crawled (200) &amp;lt;GET https://www.packtpub.com/packt/offers/free-learning&amp;gt; (referer: None)
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    &amp;lt;scrapy.crawler.Crawler object at 0x10a3bad30&amp;gt;
+[s]   item       {}
+[s]   request    &amp;lt;GET https://www.packtpub.com/packt/offers/free-learning&amp;gt;
+[s]   response   &amp;lt;200 https://www.packtpub.com/packt/offers/free-learning&amp;gt;
+[s]   settings   &amp;lt;scrapy.settings.Settings object at 0x10b1c9710&amp;gt;
+[s]   spider     &amp;lt;DefaultSpider &amp;#39;default&amp;#39; at 0x10b5684e0&amp;gt;
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Word of warning, when playing in the shell the actual response will be trimmed to a fixed length, if you want to see the full text you need to add the &lt;code&gt;extract()&lt;/code&gt; method at the end of the query.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I will leave you, reader, to play with your own site and work out the selectors.&lt;/p&gt;
+&lt;p&gt;After much toiling and playing, the fog of how it worked cleared and there was a very simple xpath that gave me what I wanted&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;response.xpath(
+           &amp;#39;normalize-space(//div[@class=&amp;quot;dotd-title&amp;quot;])&amp;#39;
+           ).extract()[0]
+
+//div[@class=”dotd-title”].extract() 
+
+ returns 
+
+[&amp;#39;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;dotd-title&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;\n\t\t\t\t\t\t\t&lt;span class="nt"&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPython for Secret Agents\t\t\t\t\t\t\t\t\t\t\t\t\t\t&lt;span class="nt"&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;\n\t\t\t\t\t\t&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This shows scrapy returning an array of items that match. In this case, only one. It also pulls everything associated with that div, the css div identifier and all of the white space that is seen on the inspection shown above. The use of xpaths &lt;code&gt;normalize-space&lt;/code&gt;
+ clears the class and all of the whitespace away just leaving the text.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;#39;Python for Secret Agents&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Pushing the data&lt;/h2&gt;
+&lt;p&gt;As this was to be used by Alexa and for the Flash Briefing system it needs to be read as an rss feed in a specific format. As this is a simple feed, one item only, using a library was a bit overkill but as this was always going to run on python 3.6 I could pull f strings out of the bag.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;file_text = f&amp;#39;&amp;#39;&amp;#39; {{
+ &amp;quot;uid&amp;quot;: &amp;quot;urn:uuid:{uuid.uuid4()}&amp;quot;,
+ &amp;quot;updateDate&amp;quot;: &amp;quot;{time.strftime(&amp;quot;%Y-%m-%dT%H:%M:%SZ&amp;quot;)}&amp;quot;,
+ &amp;quot;titleText&amp;quot;: &amp;quot;Packt free learning ebook for today&amp;quot;,
+ &amp;quot;mainText&amp;quot;: &amp;quot;{title}.&amp;quot;,
+ &amp;quot;redirectionUrl&amp;quot;: &amp;quot;https://www.packtpub.com/packt/offers/free-learning&amp;quot;
+}}&amp;#39;&amp;#39;&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Using f strings allows you to evaluate code or even previously set variables. If you haven't yet played with them, I would recommend that you take a look as they can make things so much easier. With the file text set it is fairly simple using the Boto3 library to upload to S3.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;s3_client = boto3.client(
+           &amp;#39;s3&amp;#39;,
+           aws_access_key_id=AWS_ACCESS_KEY,
+           aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+           region_name=&amp;#39;us-east-1&amp;#39;
+       )
+       with open(&amp;#39;feed.json&amp;#39;, &amp;#39;w&amp;#39;) as f:
+           f.write(file_text)
+
+       # Upload the file to S3
+       response = s3_client.put_object(
+           ACL=&amp;#39;public-read&amp;#39;,
+           Bucket=&amp;#39;packt-free-learning&amp;#39;,
+           Key=&amp;#39;feed.json&amp;#39;,
+           Body=file_text,
+           ContentEncoding=&amp;#39;utf-8&amp;#39;,
+           ContentType=&amp;#39;application/json&amp;#39;,
+           StorageClass=&amp;#39;REDUCED_REDUNDANCY&amp;#39;
+           )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Error Handling&lt;/h2&gt;
+&lt;p&gt;Happy with the fact I could now grab the data and push it somewhere for Alexa to consume, as my devoted users wouldn’t want to miss their daily update, I needed to make sure that I would be alerted to any issues. At the time I had just listened to a &lt;a href="https://pythonbytes.fm/"&gt;Python Bytes podcast&lt;/a&gt; where they had mentioned a package named &lt;a href="https://github.com/notifiers/notifiers"&gt;notifiers&lt;/a&gt; and this seemed like a great time to test it out.&lt;/p&gt;
+&lt;p&gt;For me, doing ops, I live in Slack for most of the day, so that as a platform to send alerts to looked like the best option. The integration required the enabling of the webhooks, a simple app install on the Slack side, then using that app create a specific url to push the data to.&lt;/p&gt;
+&lt;p&gt;First steps were to define some errors I would likely get that I would be able to see if it was caused by a programming error, the script getting blocked or something on the AWS side.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;handle_httpstatus_list = [401, 403, 404, 408, 500, 502, 503, 504]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This sets scrapy to handle any of the http status errors listed allowing me the opportunity to do something with them later in the script. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;notifiers&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;get_notifier&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Sets up our ability to call one of the applications that notifiers supports. Not to tie them together.&lt;/p&gt;
+&lt;p&gt;404 would give an indication that they have moved the page:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;if response.status == 404:
+           slack.notify(webhook_url=hook, message=&amp;#39;404 URL is not good&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;402 and 403 might indicate that we were now getting blocked:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;elif response.status == 401 or response.status == 403:
+           slack.notify(
+               webhook_url=hook,
+               message=&amp;#39;We might have been blocked status &amp;#39;
+               + str(response.status)
+               )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;408 and any of the 500s that are being trapped are likely to be a transient error so wait and try again:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+               &lt;span class="n"&gt;slack&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;notify&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+                   &lt;span class="n"&gt;webhook_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;hook&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+                   &lt;span class="n"&gt;message&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Warning connection type errors. Error number &amp;#39;&lt;/span&gt;
+                   &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;status&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                   &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39; count &amp;#39;&lt;/span&gt;
+                   &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                   &lt;span class="o"&gt;)&lt;/span&gt;
+               &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;sleep&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+               &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+               &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+                   &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+               &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+                   &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;start_requests&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It was then a simple case of deploying the app where I wanted it to run. More on that can be found in a post on my blog.&lt;/p&gt;
+&lt;h2&gt;Bonus&lt;/h2&gt;
+&lt;p&gt;A couple of months after the app had been running, a conversation started on &lt;a href="https://pybit.es"&gt;PyBites&lt;/a&gt; Slack about posting the free book, each day, to the #books channel. I jumped at the chance to offer the app, thinking it would be fun to extend it a bit more.&lt;/p&gt;
+&lt;p&gt;At the time of offering to help, it had been quite a while since I had looked at the code. I had in mind to use the notifiers module that I had heard of months before, remembering how useful it was. &lt;/p&gt;
+&lt;p&gt;It was a delight seeing it post to the PyBites Slack channel! Even better, the whole process of adding another notifier took less than 5 minutes!&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;&lt;a href="pages/guests.html#rhyspowell"&gt;Rhys&lt;/a&gt;&lt;/p&gt;</content><category term="guest"></category><category term="Alexa"></category><category term="Scrapy"></category><category term="web scraping"></category><category term="Packt"></category><category term="books"></category></entry><entry><title>PyBites Twitter Digest - Issue 17, 2018</title><link href="https://pybit.es/twitter_digest_201817.html" rel="alternate"></link><published>2018-05-27T13:10:00+02:00</published><updated>2018-05-27T13:10:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-05-27:/twitter_digest_201817.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;The Panda’s Dozen: Top PyCon 2018&amp;nbsp;Talks &lt;a href="https://t.co/enzLjDdZMa" title="https://t.co/enzLjDdZMa" target="_blank"&gt;https://t.co/enzLjDdZMa&lt;/a&gt; &lt;a href="https://t.co/SmRfqC0wF6" title="https://t.co/SmRfqC0wF6" target="_blank"&gt;https://t.co/SmRfqC0wF6&lt;/a&gt;&lt;/p&gt;— Automation Panda (@AutomationPanda) &lt;a href="https://twitter.com/AutomationPanda/status/998765144292421632" data-datetime="2018-05-22T03:19:01+00:00"&gt;May 22, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@ThePSF:" target="_blank"&gt;@ThePSF:&lt;/a&gt; Did you miss &lt;a href="https://twitter.com/search/#pycon2018?" target="_blank"&gt;#pycon2018?&lt;/a&gt; Not to worry - videos are posted here: &lt;a href="https://t.co/MT25kHT1ar" title="https://t.co/MT25kHT1ar" target="_blank"&gt;https://t.co/MT25kHT1ar&lt;/a&gt; &lt;a href="https://t.co/3PxDxSUDVA" title="https://t.co/3PxDxSUDVA" target="_blank"&gt;https://t.co/3PxDxSUDVA&lt;/a&gt;&lt;/p&gt;— Jason Wattier (@jmwatt3) &lt;a href="https://twitter.com/jmwatt3/status/1000155133458763777" data-datetime="2018-05-25T23:22:20+00:00"&gt;May 25, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
