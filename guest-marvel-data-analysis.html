@@ -113,7 +113,7 @@
           Posted by <a href="https://pybit.es/author/martin-smith.html">Martin Smith</a> on Thu 07 December 2017 in <a href="https://pybit.es/category/data.html">Data</a>
 
 
-        &#8226; 18 min read
+        &#8226; 17 min read
     </p>
   </header>
 
@@ -1186,7 +1186,7 @@ Untitled.ipynb
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+<pre><class &#x27;pandas.core.frame.dataframe&#x27;>
 RangeIndex: 16376 entries, 0 to 16375
 Data columns (total 13 columns):
 page_id             16376 non-null int64
@@ -1566,7 +1566,7 @@ memory usage: 1.6+ MB
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+<pre><class &#x27;pandas.core.frame.dataframe&#x27;>
 RangeIndex: 16376 entries, 0 to 16375
 Data columns (total 7 columns):
 name                16376 non-null object
@@ -1703,7 +1703,7 @@ memory usage: 895.6+ KB
 <div class="output_area">
 <div class="prompt output_prompt">Out[9]:</div>
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff329a5d4e0&gt;</pre>
+<pre><matplotlib.axes._subplots.axessubplot at 0x7ff329a5d4e0></pre>
 </div>
 </div>
 <div class="output_area">
@@ -2145,7 +2145,7 @@ STLkpKNPkiQZctLRJ0mSDDnp6JMkSYac/weSsFaSjMhwRwAAAABJRU5ErkJggg==
 <div class="output_area">
 <div class="prompt output_prompt">Out[11]:</div>
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff3580256d8&gt;</pre>
+<pre><matplotlib.axes._subplots.axessubplot at 0x7ff3580256d8></pre>
 </div>
 </div>
 <div class="output_area">
@@ -2388,7 +2388,7 @@ AElFTkSuQmCC
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Let's look at the number of female villians in the data set</span>
-<span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'align == "Bad" &amp; sex == "Female"'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'align == "Bad" & sex == "Female"'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2825,7 +2825,7 @@ AElFTkSuQmCC
 </tr>
 <tr>
 <th>15856</th>
-<td>Pepper (Salt &amp; Pepper) (Earth-616)</td>
+<td>Pepper (Salt & Pepper) (Earth-616)</td>
 <td>Bad</td>
 <td>Female</td>
 <td>Living</td>
@@ -2875,7 +2875,7 @@ AElFTkSuQmCC
 </tr>
 <tr>
 <th>15938</th>
-<td>Grace &amp; Mary Mercy (Earth-616)</td>
+<td>Grace & Mary Mercy (Earth-616)</td>
 <td>Bad</td>
 <td>Female</td>
 <td>Deceased</td>
@@ -2945,7 +2945,7 @@ AElFTkSuQmCC
 </tr>
 <tr>
 <th>16173</th>
-<td>Katy &amp; Timothy Bashir (Earth-616)</td>
+<td>Katy & Timothy Bashir (Earth-616)</td>
 <td>Bad</td>
 <td>Female</td>
 <td>Deceased</td>
@@ -3245,7 +3245,7 @@ AElFTkSuQmCC
 <div class="output_area">
 <div class="prompt output_prompt">Out[15]:</div>
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff328d2df98&gt;</pre>
+<pre><matplotlib.axes._subplots.axessubplot at 0x7ff328d2df98></pre>
 </div>
 </div>
 <div class="output_area">
@@ -3485,7 +3485,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
 <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Show the percentage of bad males</span>
 <span class="n">males</span> <span class="o">=</span> <span class="n">goodvbad</span><span class="p">[[</span><span class="s1">'sex'</span><span class="p">,</span> <span class="s1">'align'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">males</span> <span class="o">=</span> <span class="n">males</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'sex == "Male" &amp; align != "Unknown"'</span><span class="p">)</span>
+<span class="n">males</span> <span class="o">=</span> <span class="n">males</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'sex == "Male" & align != "Unknown"'</span><span class="p">)</span>
 <span class="n">males</span><span class="p">[</span><span class="s1">'percent'</span><span class="p">]</span> <span class="o">=</span> <span class="n">males</span><span class="p">[</span><span class="s1">'count'</span><span class="p">]</span> <span class="o">/</span> <span class="n">males</span><span class="p">[</span><span class="s1">'count'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="n">males</span><span class="p">[</span><span class="s1">'percent'</span><span class="p">]</span> <span class="o">=</span> <span class="n">males</span><span class="p">[</span><span class="s1">'percent'</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
 <span class="n">males</span>
@@ -3575,7 +3575,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">females</span> <span class="o">=</span> <span class="n">goodvbad</span><span class="p">[[</span><span class="s1">'sex'</span><span class="p">,</span> <span class="s1">'align'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">females</span> <span class="o">=</span> <span class="n">females</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'sex == "Female" &amp; align != "Unknown"'</span><span class="p">)</span>
+<span class="n">females</span> <span class="o">=</span> <span class="n">females</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'sex == "Female" & align != "Unknown"'</span><span class="p">)</span>
 <span class="n">females</span><span class="p">[</span><span class="s1">'percent'</span><span class="p">]</span> <span class="o">=</span> <span class="n">females</span><span class="p">[</span><span class="s1">'count'</span><span class="p">]</span> <span class="o">/</span> <span class="n">females</span><span class="p">[</span><span class="s1">'count'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="n">females</span><span class="p">[</span><span class="s1">'percent'</span><span class="p">]</span> <span class="o">=</span> <span class="n">females</span><span class="p">[</span><span class="s1">'percent'</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
 <span class="n">females</span>
@@ -3683,7 +3683,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -3700,7 +3700,6 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
