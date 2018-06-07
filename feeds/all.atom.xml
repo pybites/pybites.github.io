@@ -1,5 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-06-03T20:56:00+02:00</updated><entry><title>PyBites Twitter Digest - Issue 18, 2018</title><link href="https://pybit.es/twitter_digest_201818.html" rel="alternate"></link><published>2018-06-03T20:56:00+02:00</published><updated>2018-06-03T20:56:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-06-03:/twitter_digest_201818.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;We love the idea of teaching kids code! This makes our day!&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-06-07T16:30:00+02:00</updated><entry><title>Enough pytest to be Dangerous, 10 Things I Learned Writing Tests for 100 Python (Bites of Py) Exercises</title><link href="https://pybit.es/pytest-coding-100-tests.html" rel="alternate"></link><published>2018-06-07T16:30:00+02:00</published><updated>2018-06-07T16:30:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-06-07:/pytest-coding-100-tests.html</id><summary type="html">&lt;p&gt;We hit 100 Bite exercises on &lt;a href="https://codechalleng.es/"&gt;our Code Platform&lt;/a&gt; and that means we have written tests for 100 exercises. In this article I share 10 things I learned about writing test code and pytest.&lt;/p&gt;</summary><content type="html">&lt;p&gt;We hit 100 Bite exercises on &lt;a href="https://codechalleng.es/"&gt;our Code Platform&lt;/a&gt; and that means we have written tests for 100 exercises. In this article I share 10 things I learned about writing test code and pytest.&lt;/p&gt;
+&lt;h2&gt;1. One thing, one test&lt;/h2&gt;
+&lt;p&gt;When you write test code it is important to stick to general code best practices and that means: one function ideally does one thing. Shorter test functions means more focus and you can adequately name each test function which leads to better outputs, compare:
+&lt;img alt="too much in one function" src="https://pybit.es/images/pytest-too-much-in-one-function.png"&gt;&lt;/p&gt;
+&lt;p&gt;to:
+&lt;img alt="one functon one thing to test, much better" src="https://pybit.es/images/pytest-one-function-one-thing-better.png"&gt;&lt;/p&gt;
+&lt;p&gt;I rather see the latter.&lt;/p&gt;
+&lt;h2&gt;2. Tests should be independent&lt;/h2&gt;
+&lt;p&gt;A test should never depend on another test. This goes back to good design and decoupling functionality. Read up on &lt;a href="https://en.wikipedia.org/wiki/Orthogonality_(programming)"&gt;orthogonality&lt;/a&gt;, greatly explained in the &lt;a href="https://bobbelderbos.com/2011/02/great-book-about-software-engineering/"&gt;Pragmatic Programmer book&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;3. Test for edge cases&lt;/h2&gt;
+&lt;p&gt;In case you are looping through a sequence what are the boundaries? If my function throws an exception for bad input what are all scenarios that exception should be thrown and not. For example throwing a &lt;code&gt;ValueError&lt;/code&gt; for a non numeric value, are we testing more than &lt;code&gt;str&lt;/code&gt; and &lt;code&gt;int&lt;/code&gt; types?&lt;/p&gt;
+&lt;p&gt;This is also a good way to document what your code is supposed to do. A good example of an edge case and added documentation was our addition of None checking in &lt;a href="https://codechalleng.es/bites/1/"&gt;Bite 1. Sum n numbers&lt;/a&gt;, look at the last line of &lt;code&gt;test_sum_numbers_various_inputs&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;numbers&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;sum_numbers&lt;/span&gt;
+
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;test_sum_numbers_default_args&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+        &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;sum_numbers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;5050&lt;/span&gt;
+        &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;sum_numbers&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numbers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;5050&lt;/span&gt;
+
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;test_sum_numbers_various_inputs&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+        &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;sum_numbers&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;55&lt;/span&gt;
+        &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;sum_numbers&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;
+        &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;sum_numbers&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;
+        &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;sum_numbers&lt;/span&gt;&lt;span class="p"&gt;([])&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;  &lt;span class="c1"&gt;# !! [] not the same as None&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This was one of our first tests, &lt;code&gt;assert sum_numbers([])&lt;/code&gt; could actually go into its own test function, because it handles a separate test case!&lt;/p&gt;
+&lt;h2&gt;4. Mocking and performance&lt;/h2&gt;
+&lt;p&gt;If you call an external service you probably want to &lt;a href="https://pybit.es/tag/mock.html"&gt;mock it out&lt;/a&gt;. But use mocking with caution, it might drive you away from testing the real thing (anti-pattern). Also in our case beginner Pythonistas need to understand the test code and this can make things more confusing.&lt;/p&gt;
+&lt;p&gt;But for some code it's inevitable, for example random outputs, you can use the patch decorator to mock out random behavior:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;unittest.mock&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;patch&lt;/span&gt;
+
+    &lt;span class="nd"&gt;@patch.object&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;randint&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;test_get_random_number&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;return_value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;17&lt;/span&gt;
+        &lt;span class="k"&gt;assert&lt;/span&gt; &lt;span class="n"&gt;get_random_number&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;17&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Apart from controlling external resources we want tests to be fast and mocking out an external API call speeds up tests.&lt;/p&gt;
+&lt;p&gt;You will run your test suite over and over again so non performant tests slow down your development.&lt;/p&gt;
+&lt;p&gt;On our platform we run the tests via AWS lambda which performs a bunch of additional tasks like picking up the submitted code and test file. And we have a user waiting for a pass/fail response. More reasons for the test code to be performant.&lt;/p&gt;
+&lt;p&gt;In this context you also want to abstract common code into setup/teardown code, which pytest offers via &lt;em&gt;fixtures&lt;/em&gt;  (see more under 6). For some Bites we needed to pull in an input text file (AWS Lambda runs in its own sandbox). This is an example of something you'd make sure you do once for a set of tests. &lt;/p&gt;
+&lt;h2&gt;5. Test coverage&lt;/h2&gt;
+&lt;p&gt;Since teaching a lesson on pytest in our &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;100 Days of Code course&lt;/a&gt; I discovered &lt;a href="https://pypi.org/project/pytest-cov/"&gt;&lt;em&gt;coverage&lt;/em&gt;&lt;/a&gt; and made this alias in my &lt;em&gt;.vimrc&lt;/em&gt; to simply check it with one keystroke:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    nmap ,t :w&amp;lt;CR&amp;gt;:!pytest -s --cov-report term-missing --cov=&amp;#39;.&amp;#39;&amp;lt;CR&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You have to install this plugin for it to work:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    # enable venv (TODO: switch to pipenv)
+    $ pip install pytest-cov
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Our Bites are small so it might be overkill but it's good practice to use this tool:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="check coverage with one keystroke" src="https://pybit.es/images/pytest-test-coverage.png"&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;OK next the pytest specific things I learned:&lt;/p&gt;
+&lt;h2&gt;6. Why pytest is our framework of choice&lt;/h2&gt;
+&lt;p&gt;To recap what we wrote in our review of &lt;a href="https://twitter.com/brianokken"&gt;Brian Okken&lt;/a&gt;'s &lt;a href="https://pybit.es/pytest-book.html"&gt;awesome book on pytest&lt;/a&gt;, what are wins of pytest over the builtin unittest framework?&lt;/p&gt;
+&lt;p&gt;Answer: it's less verbose (assert vs. self.assertEqual etc.) / classes are not required, it as a rich cli interface, informative test failures, a more convenient way to write setup/teardown functions with fixtures, parameterized tests, and a better test runner (marker- and name-based test selection).&lt;/p&gt;
+&lt;h2&gt;7. Reading pytest output (and &lt;em&gt;Bites of Py&lt;/em&gt; validation at its core)&lt;/h2&gt;
+&lt;p&gt;Our &lt;a href="https://codechalleng.es/bites/"&gt;&lt;em&gt;Bites of Py&lt;/em&gt;&lt;/a&gt; endorses reading test code output.&lt;/p&gt;
+&lt;p&gt;It's our way to lead programmers to get their code to work. It might mean some extra effort for newer coders but the pay off is huge, as somebody said:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The gold of your solution is in the tests&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;... and we concur:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;- as a developer you are going to read way more code than write!
+
+- as a developer you will write vast amounts of test code to verify your code and maybe even drive its design (TDD),
+
+- running tests makes you better understand what your code does and is supposed to do,
+
+- test failure output might require some debugging what/where it went wrong and debugging is another crucial programmer skill.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Hence why coding on our platform requires becoming friends with reading test outputs.&lt;/p&gt;
+&lt;p&gt;Luckily that's also an area where pytest really shines: it's output is very intuitive!&lt;/p&gt;
+&lt;p&gt;Let's look at a practical example: &lt;a href="https://codechalleng.es/bites/5"&gt;Bite 5. Parse a list of names&lt;/a&gt;, and let me only focus on the first function (the Bite has 3). Note you would probably write more code between each step, but just to show how the tests may guide you:&lt;/p&gt;
+&lt;p&gt;Running the template code without adding any code it shows:&lt;/p&gt;
+&lt;p&gt;Code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    NAMES = [&amp;#39;arnold schwarzenegger&amp;#39;, &amp;#39;alec baldwin&amp;#39;, &amp;#39;bob belderbos&amp;#39;,
+            &amp;#39;julian sequeira&amp;#39;, &amp;#39;sandra bullock&amp;#39;, &amp;#39;keanu reeves&amp;#39;,
+            &amp;#39;julbob pybites&amp;#39;, &amp;#39;bob belderbos&amp;#39;, &amp;#39;julian sequeira&amp;#39;,
+            &amp;#39;al pacino&amp;#39;, &amp;#39;brad pitt&amp;#39;, &amp;#39;matt damon&amp;#39;, &amp;#39;brad pitt&amp;#39;]
+
+    def dedup_and_title_case_names(names):
+        &amp;quot;&amp;quot;&amp;quot;Should return a list of names, each name appears only once&amp;quot;&amp;quot;&amp;quot;
+        pass
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Test output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
+
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &amp;gt;       assert names.count(&amp;#39;Bob Belderbos&amp;#39;) == 1
+    E       AttributeError: &amp;#39;NoneType&amp;#39; object has no attribute &amp;#39;count&amp;#39;
+
+    /tmp/test_names.py:7: AttributeError
+    ...
+    ...
+    output for other tests - note how a test per function makes it easier to focus on one thing at a time!
+    ...
+    ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;dedup_and_title_case_names&lt;/code&gt; does not return anything, let's return the &lt;code&gt;NAMES&lt;/code&gt; list (as passed in as argument):&lt;/p&gt;
+&lt;p&gt;Code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    def dedup_and_title_case_names(names):
+        &amp;quot;&amp;quot;&amp;quot;Should return a list of names, each name appears only once&amp;quot;&amp;quot;&amp;quot;
+        return names
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Test output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
+
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &amp;gt;       assert names.count(&amp;#39;Bob Belderbos&amp;#39;) == 1
+    E       AssertionError: assert 0 == 1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;OK now I don't assert the amount of names and that is because the original &lt;code&gt;NAMES&lt;/code&gt; list passed in is still lowercase:&lt;/p&gt;
+&lt;p&gt;So let's address that next in &lt;code&gt;dedup_and_title_case_names&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    def dedup_and_title_case_names(names):
+        &amp;quot;&amp;quot;&amp;quot;Should return a list of names, each name appears only once&amp;quot;&amp;quot;&amp;quot;
+        return [name.title() for name in NAMES]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Test output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
+
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &amp;gt;       assert names.count(&amp;#39;Bob Belderbos&amp;#39;) == 1
+    E       AssertionError: assert 2 == 1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;OK so I have my name in there twice, should be once, let's make have the list only contain unique values using a set:&lt;/p&gt;
+&lt;p&gt;Code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    def dedup_and_title_case_names(names):
+        &amp;quot;&amp;quot;&amp;quot;Should return a list of names, each name appears only once&amp;quot;&amp;quot;&amp;quot;
+        return {name.title() for name in NAMES}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Test output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
+
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &amp;gt;       assert names.count(&amp;#39;Bob Belderbos&amp;#39;) == 1
+    E       AttributeError: &amp;#39;set&amp;#39; object has no attribute &amp;#39;count&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Oops! That's right, the docstring already said it should return a list, fair enough:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    def dedup_and_title_case_names(names):
+        &amp;quot;&amp;quot;&amp;quot;Should return a list of names, each name appears only once&amp;quot;&amp;quot;&amp;quot;
+        return list({name.title() for name in NAMES})
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That works, I have a pass (dot) and the test is not under &lt;code&gt;FAILURES&lt;/code&gt; anymore:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    ../../tmp/test_names.py .FF
+
+    ... other 2 tests still to pass for the other 2 functions for this Bite ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We think teaching people how to read test code is win/win, but for that it's important to write isolated tests (see 1. and 2.) and have intuitive failure outputs, which pytest nails.&lt;/p&gt;
+&lt;h2&gt;8. Fixtures are your friend!&lt;/h2&gt;
+&lt;p&gt;To quote from Brian's book:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pytest fixtures ... are the reason why many people switch to and stay with pytest. ... one of the great reasons to use fixtures: to focus the test on what you’re actually testing, not on what you had to do to get ready for the test.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Teaching pytest in our &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;100 Days of Code course&lt;/a&gt;, I got to the end of +/- 40 min dense video section without addressing them (WTF?). So I wrote &lt;a href="https://pybit.es/pytest-fixtures.html"&gt;this article about fixtures&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Fixtures are awesome, basically any time you want to do some (repetitive) setup/teardown for a (set of) tests you want to use them.&lt;/p&gt;
+&lt;p&gt;In &lt;a href="https://codechalleng.es/bites/99/"&gt;Bite 99. Write an infinite sequence generator&lt;/a&gt; for example we test a sequence generator and we want a fresh instance before each test ... easy:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@pytest.fixture
+def gen():
+    &amp;quot;&amp;quot;&amp;quot;Return a fresh new generator object for each test&amp;quot;&amp;quot;&amp;quot;
+    return sequence_generator()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can then access this fixture by passing it as argument to the test functions:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    def test_first_ten_first_round(gen):
+        ...
+    def test_first_ten_second_round(gen):
+        ...
+    def test_last_ten_third_round(gen):
+        ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you want to share the generator between tests, you can just give it a scope argument:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@pytest.fixture
+def gen(scope=&amp;quot;module&amp;quot;):
+    &amp;quot;&amp;quot;&amp;quot;Return a fresh new generator object for each test&amp;quot;&amp;quot;&amp;quot;
+    return sequence_generator()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You probably don't want to do that for this code (remember: make tests independent), but you could have database setup code that persists across a bunch of tests for example.&lt;/p&gt;
+&lt;h2&gt;9. Handle repetitive tests with parametrize&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;pytest.mark.parametrize&lt;/code&gt; decorator elegantly handles repetitive tests, for example to test an Uno card deck (&lt;a href="https://codechalleng.es/bites/60/"&gt;Bite 60. Create a deck of Uno cards&lt;/a&gt;):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    @pytest.mark.parametrize(&amp;quot;suit, count&amp;quot;, [
+        (&amp;#39;Red&amp;#39;, 25),
+        (&amp;#39;Green&amp;#39;, 25),
+        (&amp;#39;Yellow&amp;#39;, 25),
+        (&amp;#39;Blue&amp;#39;, 25),
+        (None, 8),  # wild cards don&amp;#39;t have an associated suit
+    ])
+    def test_create_uno_deck_suit_distribution(deck, suit, count):
+        assert _count_suits(deck, suit) == count
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Not only is this readable, it splits every tuple into a test, showing a dot in the output:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    [bbelderb@macbook 60 (master)]$ pytest test_uno.py::test_create_uno_deck_suit_distribution
+    ==================================== test session starts ====================================
+    platform darwin -- Python 3.6.1, pytest-3.0.7, py-1.4.33, pluggy-0.4.0
+    rootdir: /Users/bbelderb/code/bites_of_py/60, inifile:
+    collected 25 items
+
+    test_uno.py .....
+
+    ================================= 5 passed in 0.03 seconds ==================================
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You will find it more in later Bites because, as the other pytest features, once we knew about them we made them part of our daily pytest vocabulary :)&lt;/p&gt;
+&lt;h2&gt;10. Capturing stdout&lt;/h2&gt;
+&lt;p&gt;This was an important technique to know about because, although most Bites have functions returning values, some exercises lend themselves better to have the user print to the console, so you need to capture the script's standard output:&lt;/p&gt;
+&lt;p&gt;Here is the diff that shows the code we initially wrote to do this, before knowing about the &lt;code&gt;capfd&lt;/code&gt; (&lt;code&gt;capsys&lt;/code&gt;) fixture (thanks Brian):&lt;/p&gt;
+&lt;p&gt;&lt;img alt="knowing about capfd saved a lot of unnecessary code" src="https://pybit.es/images/pytest-if-we-did-not-have-capfd.png"&gt;&lt;/p&gt;
+&lt;p&gt;Yep, all you need is: &lt;code&gt;output = capfd.readouterr()[0]&lt;/code&gt; - sweet!&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;I hope you learned a few things about testing and pytest, at least enough to &lt;em&gt;become dangerous&lt;/em&gt;. Let us know if you have any feedback, some valuable improvements to our tests so far has come from user feedback, we really appreciate it.&lt;/p&gt;
+&lt;p&gt;And the learning never stops. Yes, writing test code is a big part of the learning, but some formal reading is useful too. So I loaded &lt;a href="http://www.amazon.com/dp/0321503627/?tag=pyb0f-20"&gt;this book on my Kindle&lt;/a&gt; and am planning to listen to Brian's &lt;a href="http://testandcode.com/"&gt;Test and Code podcast&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;Featured in this article: our Bites of Py service - &lt;em&gt;Do you want to grow as a programmer solving interesting Python challenges?&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;Our Bites of Py have helped many programmers learn and practice more Python. We've seen them strengthen their skills and even start new careers - all while challenging themselves with our Bites.&lt;/p&gt;
+&lt;p&gt;You not only get to solve interesting and relatable problems, but you also get to see how to do it in idiomatic Python.&lt;/p&gt;
+&lt;p&gt;We challenge you! Click &lt;a href="http://codechalleng.es/"&gt;here&lt;/a&gt; and see if you can crack some Free Bites.&lt;/p&gt;
+&lt;p&gt;Like what you see?&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://gumroad.com/l/ZFrD"&gt;Subscribe here&lt;/a&gt; and become a Premium member instantly unlocking our (at the time of this writing) 100 Bites of Py exercises.&lt;/p&gt;
+&lt;p&gt;The key to improving your Python skills is continuous practice and PyBites makes it easy to get you into the coding habit and/or retain your existing coding muscles.&lt;/p&gt;
+&lt;p&gt;Additionally, coding with PyBites gives you access to an incredible (Slack) community of passionate Pythonistas happy to share their knowledge and learn from your experience.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="pytest"></category><category term="learning"></category><category term="mock"></category><category term="parametrize"></category><category term="capfd"></category><category term="fixtures"></category></entry><entry><title>PyBites Twitter Digest - Issue 18, 2018</title><link href="https://pybit.es/twitter_digest_201818.html" rel="alternate"></link><published>2018-06-03T20:56:00+02:00</published><updated>2018-06-03T20:56:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-06-03:/twitter_digest_201818.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;We love the idea of teaching kids code! This makes our day!&lt;/h3&gt;
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Sat down wth my 2 daughters to code the &lt;a href="https://twitter.com/@adafruit" target="_blank"&gt;@adafruit&lt;/a&gt; Gemma from &lt;a href="https://twitter.com/search/#pycon2018" target="_blank"&gt;#pycon2018&lt;/a&gt; to go red when it’s warm and lilac when it’… &lt;a href="https://t.co/x6i19zaK1k" title="https://t.co/x6i19zaK1k" target="_blank"&gt;https://t.co/x6i19zaK1k&lt;/a&gt;&lt;/p&gt;— Anthony Shaw (@anthonypjshaw) &lt;a href="https://twitter.com/anthonypjshaw/status/1003145394576953344" data-datetime="2018-06-03T05:24:34+00:00"&gt;June 03, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;h3&gt;Very cool if you use Python for video editing:&lt;/h3&gt;
