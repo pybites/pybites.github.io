@@ -29,7 +29,7 @@
 
 &lt;p&gt;This was one of our first tests, &lt;code&gt;assert sum_numbers([])&lt;/code&gt; could actually go into its own test function, because it handles a separate test case!&lt;/p&gt;
 &lt;h2&gt;4. Mocking and performance&lt;/h2&gt;
-&lt;p&gt;If you call an external service you probably want to &lt;a href="https://pybit.es/tag/mock.html"&gt;mock it out&lt;/a&gt;. But use mocking with caution, it might drive you away from testing the real thing (anti-pattern). Also in our case beginner Pythonistas need to understand the test code and this can make things more confusing.&lt;/p&gt;
+&lt;p&gt;If you call an external service you probably want to mock it out (see an example &lt;a href="https://pybit.es/twitter-api-geodata-mocking.html"&gt;here&lt;/a&gt;). But use mocking with caution, it might drive you away from testing the real thing (anti-pattern). Also in our case beginner Pythonistas need to understand the test code and this can make things more confusing.&lt;/p&gt;
 &lt;p&gt;But for some code it's inevitable, for example random outputs, you can use the patch decorator to mock out random behavior:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;unittest.mock&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;patch&lt;/span&gt;
 
@@ -43,7 +43,7 @@
 &lt;p&gt;Apart from controlling external resources we want tests to be fast and mocking out an external API call speeds up tests.&lt;/p&gt;
 &lt;p&gt;You will run your test suite over and over again so non performant tests slow down your development.&lt;/p&gt;
 &lt;p&gt;On our platform we run the tests via AWS lambda which performs a bunch of additional tasks like picking up the submitted code and test file. And we have a user waiting for a pass/fail response. More reasons for the test code to be performant.&lt;/p&gt;
-&lt;p&gt;In this context you also want to abstract common code into setup/teardown code, which pytest offers via &lt;em&gt;fixtures&lt;/em&gt;  (see more under 6). For some Bites we needed to pull in an input text file (AWS Lambda runs in its own sandbox). This is an example of something you'd make sure you do once for a set of tests. &lt;/p&gt;
+&lt;p&gt;In this context you also want to abstract common code into setup/teardown code, which pytest offers via &lt;em&gt;fixtures&lt;/em&gt;  (see more under 8). For some Bites we needed to pull in an input text file (AWS Lambda runs in its own sandbox). This is an example of something you'd make sure you do once for a set of tests. &lt;/p&gt;
 &lt;h2&gt;5. Test coverage&lt;/h2&gt;
 &lt;p&gt;Since teaching a lesson on pytest in our &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;100 Days of Code course&lt;/a&gt; I discovered &lt;a href="https://pypi.org/project/pytest-cov/"&gt;&lt;em&gt;coverage&lt;/em&gt;&lt;/a&gt; and made this alias in my &lt;em&gt;.vimrc&lt;/em&gt; to simply check it with one keystroke:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    nmap ,t :w&amp;lt;CR&amp;gt;:!pytest -s --cov-report term-missing --cov=&amp;#39;.&amp;#39;&amp;lt;CR&amp;gt;
@@ -70,17 +70,21 @@
 &lt;p&gt;The gold of your solution is in the tests&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;... and we concur:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;- as a developer you are going to read way more code than write!
-
-- as a developer you will write vast amounts of test code to verify your code and maybe even drive its design (TDD),
-
-- running tests makes you better understand what your code does and is supposed to do,
-
-- test failure output might require some debugging what/where it went wrong and debugging is another crucial programmer skill.
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Hence why coding on our platform requires becoming friends with reading test outputs.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;as a developer you are going to read way more code than write!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;as a developer you will write vast amounts of test code to verify your code and maybe even drive its design (TDD),&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;running tests makes you better understand what your code does and is supposed to do,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;test failure output might require some debugging what/where it went wrong and debugging is another crucial programmer skill.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Hence why coding on our platform requires you to become friends with the tests and their outputs.&lt;/p&gt;
 &lt;p&gt;Luckily that's also an area where pytest really shines: it's output is very intuitive!&lt;/p&gt;
 &lt;p&gt;Let's look at a practical example: &lt;a href="https://codechalleng.es/bites/5"&gt;Bite 5. Parse a list of names&lt;/a&gt;, and let me only focus on the first function (the Bite has 3). Note you would probably write more code between each step, but just to show how the tests may guide you:&lt;/p&gt;
 &lt;p&gt;Running the template code without adding any code it shows:&lt;/p&gt;
@@ -153,7 +157,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;OK so I have my name in there twice, should be once, let's make have the list only contain unique values using a set:&lt;/p&gt;
+&lt;p&gt;OK so I have my name in there twice now, it should be once. Let's have the list only contain unique names using a set:&lt;/p&gt;
 &lt;p&gt;Code:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    def dedup_and_title_case_names(names):
         &amp;quot;&amp;quot;&amp;quot;Should return a list of names, each name appears only once&amp;quot;&amp;quot;&amp;quot;
@@ -172,7 +176,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Oops! That's right, the docstring already said it should return a list, fair enough:&lt;/p&gt;
+&lt;p&gt;Oops! That's right, the &lt;em&gt;docstring&lt;/em&gt; already said it should return a list, fair enough:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    def dedup_and_title_case_names(names):
         &amp;quot;&amp;quot;&amp;quot;Should return a list of names, each name appears only once&amp;quot;&amp;quot;&amp;quot;
         return list({name.title() for name in NAMES})
