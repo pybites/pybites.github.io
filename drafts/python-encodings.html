@@ -25,37 +25,30 @@
   <meta name="robots" content="" />
 
 
-<meta name="author" content="Bob" />
-<meta name="description" content="I created a notebook on OOP (object oriented programming) in Python." />
-<meta name="keywords" content="tutorial, oop, objectoriented, programming, inheritance, polymorphism, ABC, encapsulation, property">
+<meta name="author" content="Aviral Verma" />
+<meta name="description" content="We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings (the only thing a computer can understand). One such known mapping is ASCII. If you're not sure about ASCII and Unicode, let Aviral give you an introduction ..." />
+<meta name="keywords" content="ascii, unicode">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Everything is an Object, Python OOP primer"/>
-<meta property="og:description" content="I created a notebook on OOP (object oriented programming) in Python."/>
+<meta property="og:title" content="How Encodings Work in Python"/>
+<meta property="og:description" content="We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings (the only thing a computer can understand). One such known mapping is ASCII. If you're not sure about ASCII and Unicode, let Aviral give you an introduction ..."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/oop-primer.html"/>
+<meta property="og:url" content="https://pybit.es/drafts/python-encodings.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-01-24 23:59:00+01:00"/>
+<meta property="article:published_time" content="2018-06-20 13:35:00+02:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:author" content="https://pybit.es/author/aviral-verma.html">
 <meta property="article:section" content="Concepts"/>
-<meta property="article:tag" content="tutorial"/>
-<meta property="article:tag" content="oop"/>
-<meta property="article:tag" content="objectoriented"/>
-<meta property="article:tag" content="programming"/>
-<meta property="article:tag" content="inheritance"/>
-<meta property="article:tag" content="polymorphism"/>
-<meta property="article:tag" content="ABC"/>
-<meta property="article:tag" content="encapsulation"/>
-<meta property="article:tag" content="property"/>
-<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+<meta property="article:tag" content="ascii"/>
+<meta property="article:tag" content="unicode"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Everything is an Object, Python OOP primer" />
-<meta name="twitter:description" content="I created a notebook on OOP (object oriented programming) in Python." />
-<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+<meta name="twitter:title" content="How Encodings Work in Python" />
+<meta name="twitter:description" content="We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings (the only thing a computer can understand). One such known mapping is ASCII. If you're not sure about ASCII and Unicode, let Aviral give you an introduction ..." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
 
-  <title>PyBites &ndash; Everything is an Object, Python OOP primer</title>
+  <title>PyBites &ndash; How Encodings Work in Python</title>
 
 
 </head>
@@ -108,12 +101,12 @@
 
 <article class="single">
   <header>
-    <h1 id="oop-primer">Everything is an Object, Python OOP primer</h1>
+    <h1 id="python-encodings">How Encodings Work in Python</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 24 January 2017 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
+          Posted by <a href="https://pybit.es/author/aviral-verma.html">Aviral Verma</a> on Wed 20 June 2018 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
 
 
-        &#8226; 13 min read
+        &#8226; 12 min read
     </p>
   </header>
 
@@ -1096,7 +1089,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I created <a href="https://github.com/pybites/pybites.github.io-src/blob/master/content/oop_fun.ipynb">this notebook</a> on OOP (object oriented programming) in Python.</p>
+<h2 id="Encodings">Encodings<a class="anchor-link" href="#Encodings">¶</a></h2><p>We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings(the only thing a computer can understand).One such known mapping is <code>ASCII</code>.If you're not sure about <code>ASCII</code> and <code>Unicode</code>,read ahead otherwise you can skip to <a href="">Encodings in Python-2</a>.</p>
 </div>
 </div>
 </div>
@@ -1105,118 +1098,94 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Basics:-classes,-instances,-class-vs-instance-variables">Basics: classes, instances, class vs instance variables<a class="anchor-link" href="#Basics:-classes,-instances,-class-vs-instance-variables">¶</a></h2>
+<h3 id="ASCII">ASCII<a class="anchor-link" href="#ASCII">¶</a></h3><p>There are 95 human readable characters specified in the ASCII table, including the letters A through Z both in upper and lower case, the numbers 0 through 9, a handful of punctuation marks and characters like the dollar symbol, the ampersand and a few other.</p>
+<table>
+<thead><tr>
+<th>Bits</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>01000001</code></td>
+<td>A</td>
+</tr>
+<tr>
+<td><code>01000010</code></td>
+<td>B</td>
+</tr>
+<tr>
+<td><code>01000101</code></td>
+<td>E</td>
+</tr>
+<tr>
+<td><code>01000110</code></td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+<p>Shown above is just a small part of the 128 characters that ASCII has.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Blog</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">"""Good practice (py3) is to explicitly inherit from object"""</span>
-
-    <span class="c1"># class variable = shared among instances</span>
-    <span class="n">num_blogs</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bio</span><span class="p">):</span>
-        <span class="sd">"""The constructor, gets called implicitly when instantiating a new object (next cell)"""</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bio</span> <span class="o">=</span> <span class="n">bio</span>
-        <span class="n">Blog</span><span class="o">.</span><span class="n">num_blogs</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># we access a class variable like this (or use a class method)</span>
-    
-    <span class="k">def</span> <span class="nf">get_articles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rss</span><span class="p">):</span>
-        <span class="sd">"""Get all articles from RSS"""</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">'Articles </span><span class="si">{}</span><span class="s1">: ...'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rss</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">post_article</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
-        <span class="sd">"""Add a new article"""</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">'Posted new article: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">title</span><span class="p">))</span>
-    
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Informal or nicely printable string representation of an object"""</span>
-        <span class="k">return</span> <span class="s1">'</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bio</span><span class="p">)</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="éh?">éh?<a class="anchor-link" href="#éh?">¶</a></h3><p>How can you write the <code>é</code> in ASCII.You simply cannot because there is no encoding from some <code>é</code> to a bit string in ASCII.Thus world needed more encoding schemes.
+<br>
+Suppose someone wanted to write a document in Klingon,found that they were no encoding scheme,so they just went ahead and invented one. And so we ended with <a href="">boat-load of schemes</a></br></p>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s1">'PyBites'</span>
-<span class="n">bio</span> <span class="o">=</span> <span class="s1">'Python code challenges, tutorials and news, one bite a day'</span>
-<span class="n">blog</span> <span class="o">=</span> <span class="n">Blog</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bio</span><span class="p">)</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Unicode-to-the-rescue">Unicode to the rescue<a class="anchor-link" href="#Unicode-to-the-rescue">¶</a></h3><p>Someone finally had enough and decided to combine all these encoding schemes into one,they called it <em>Unicode</em>.Unicode contains a repertoire of 137,439 characters covering 146 modern and historic scripts, as well as multiple symbol sets and emoji.It evens has a section for Klingon :smile:. If you want to have a look at just how big Unicode actually is,try googling <em>Ian Albert's Unicode chart</em>.This guy printed the entire unicode chart and ended up with 6 feet X 12 feet of chart.
+<br><br>
+If it has so many characters then you must be wondering how many bytes does it actually use.<strong>None</strong> becuase it is not a encoding scheme
+<br>
+Confused? Well you are supposed to be.Unicode is just a table which contains character points,by character points I mean a character point just says <code>65 for A,66 for B..</code>.It was left to us how we want to denote this <code>65</code> into computer bits.And so we did.
+<br><br>
+These many character points need atleast three bytes but since three is akward,we actually use four bytes.Now if you have just an english file(A file with only english characters) that is encoded using the above unicode scheme,We will actually four times the space the file is.That is not so nice.To optimize this, there are several ways to encode Unicode code points into bits like UTF-8,UTF-16,UTF-32.I have discussed UTF-8 below.</br></br></br></br></br></p>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blog</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="UTF-8">UTF-8<a class="anchor-link" href="#UTF-8">¶</a></h3><p>UTF-8 is a variable length encoding.If a character can be represented using a single byte,then it will be encoded using a single byte only.It has elaborate ways to use the highest bits in a byte to signal how many bytes a character consists of</p>
+<table>
+<thead><tr>
+<th>character</th>
+<th>bits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>01000001</code></td>
+</tr>
+<tr>
+<td>あ</td>
+<td><code>11100011 10000001 10000010</code></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[3]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre><__main__.Blog at 0x104400cf8></pre>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">blog</span><span class="p">)</span>  <span class="c1"># invokes __str__</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>PyBites: Python code challenges, tutorials and news, one bite a day
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [5]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blog</span><span class="o">.</span><span class="n">get_articles</span><span class="p">(</span><span class="s1">'http://pybit.es/feeds/all.rss.xml'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Articles http://pybit.es/feeds/all.rss.xml: ...
-</pre>
-</div>
-</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Strings-and-Encodings-in-Python-2">Strings and Encodings in Python-2<a class="anchor-link" href="#Strings-and-Encodings-in-Python-2">¶</a></h3><p>We have two types of strings in python <code><type &#x27;str&#x27;></code> and <code><type &#x27;unicode&#x27;></code>. Python has deafult encoding set to <code>ASCII</code> (check it using <code>sys.getdefaultencoding()</code>).So if we try to write a unicode string to a file,we get an error:</p>
 </div>
 </div>
 </div>
@@ -1225,161 +1194,9 @@ h6:hover .anchor-link {
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blog</span><span class="o">.</span><span class="n">post_article</span><span class="p">(</span><span class="s1">'OOP fun with PyBites'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Posted new article: OOP fun with PyBites
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [7]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">blog</span><span class="o">.</span><span class="n">num_blogs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [8]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blog2</span> <span class="o">=</span> <span class="n">Blog</span><span class="p">(</span><span class="s1">'bobcodesit'</span><span class="p">,</span> <span class="s1">'my personal blog'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [9]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blog2</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[9]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre><__main__.Blog at 0x10441b400></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [10]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">blog</span> <span class="o">==</span> <span class="n">blog2</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[10]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [11]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">blog</span><span class="o">.</span><span class="n">num_blogs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Abstract-base-classes-(ABC's)">Abstract base classes (ABC's)<a class="anchor-link" href="#Abstract-base-classes-(ABC's)">¶</a></h2><p>Let's create some developers to add to a blog.</p>
-<p>ABC's lets you force derived classes to implement certain behaviors / methods (tip from Dan Bader)</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [12]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
-
-<span class="k">class</span> <span class="nc">Developer</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
-    
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">get_post_days</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Classes that inherit from Developer need to implement this method"""</span>
-        <span class="k">pass</span>
-    
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [14]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Julian</span><span class="p">(</span><span class="n">Developer</span><span class="p">):</span>
-    <span class="k">pass</span>
-
-<span class="c1"># oops, did not implement get_post_days()</span>
-<span class="n">jul</span> <span class="o">=</span> <span class="n">Julian</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"test.txt"</span><span class="p">,</span><span class="s1">'w'</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">'test</span><span class="se">\u0107</span><span class="s1">'</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1391,181 +1208,13 @@ h6:hover .anchor-link {
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-14-c75777ac51e6></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># oops, did not implement get_post_days()</span>
-<span class="ansi-green-fg">----> 5</span><span class="ansi-red-fg"> </span>jul <span class="ansi-blue-fg">=</span> Julian<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">UnicodeEncodeError</span>                        Traceback (most recent call last)
+<span class="ansi-green-fg"><ipython-input-6-6c2a70c7683b></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> f <span class="ansi-blue-fg">=</span> open<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"test.txt"</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">'w'</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> s <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">u'test\u0107'</span>
+<span class="ansi-green-fg">----> 3</span><span class="ansi-red-fg"> </span>f<span class="ansi-blue-fg">.</span>write<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">TypeError</span>: Can't instantiate abstract class Julian with abstract methods get_post_days</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [15]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Julian</span><span class="p">(</span><span class="n">Developer</span><span class="p">):</span>
-    
-    <span class="k">def</span> <span class="nf">get_post_days</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'Tue Wed'</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-
-<span class="c1"># ok</span>
-<span class="n">julian</span> <span class="o">=</span> <span class="n">Julian</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [16]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Bob</span><span class="p">(</span><span class="n">Developer</span><span class="p">):</span>
-    
-    <span class="k">def</span> <span class="nf">get_post_days</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'Wed Thurs'</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-    
-<span class="n">bob</span> <span class="o">=</span> <span class="n">Bob</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [17]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">PyBites</span><span class="p">(</span><span class="n">Developer</span><span class="p">):</span>
-    
-    <span class="k">def</span> <span class="nf">get_post_days</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">'Mon Fri Sat'</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-
-<span class="n">pybites</span> <span class="o">=</span> <span class="n">PyBites</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Inheritance-and-using-objects-inside-objects">Inheritance and using objects inside objects<a class="anchor-link" href="#Inheritance-and-using-objects-inside-objects">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [18]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">PyBitesBlog</span><span class="p">(</span><span class="n">Blog</span><span class="p">):</span>
-    <span class="sd">"""PyBitesBlog inherits from parent class Blog"""</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="sd">"""We get a variable-length argument list of developers"""</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>  <span class="c1"># how to get name of class 'PyBitesBlog' as string</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bio</span> <span class="o">=</span> <span class="s1">'Python code challenges, tutorials and news, one bite a day'</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">developers</span> <span class="o">=</span> <span class="n">args</span>
-        <span class="c1"># pass name and bio to the parent class</span>
-        <span class="c1"># py2 requires longer syntax: super(PyBitesBlog, self).__init__</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bio</span><span class="p">)</span>
-        
-    <span class="k">def</span> <span class="nf">schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Loop over all developer objects calling their get_post_days method"""</span>
-        <span class="k">for</span> <span class="n">dev</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">developers</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dev</span><span class="o">.</span><span class="n">get_post_days</span><span class="p">())))</span>
-            
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Use the parent __str__ adding something extra"""</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">Authors: '</span> <span class="o">+</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span> <span class="k">for</span> <span class="n">dev</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">developers</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [19]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pyblog</span> <span class="o">=</span> <span class="n">PyBitesBlog</span><span class="p">(</span><span class="n">julian</span><span class="p">,</span> <span class="n">bob</span><span class="p">,</span> <span class="n">pybites</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [20]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pyblog</span><span class="p">)</span>  <span class="c1"># again call object's __str__</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>PyBitesBlog: Python code challenges, tutorials and news, one bite a day
-Authors: Julian, Bob, PyBites
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [21]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pyblog</span><span class="o">.</span><span class="n">get_articles</span><span class="p">(</span><span class="s1">'http://pybit.es/feeds/all.rss.xml'</span><span class="p">)</span>  <span class="c1"># inherited method from parent</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Articles http://pybit.es/feeds/all.rss.xml: ...
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [22]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pyblog</span><span class="o">.</span><span class="n">schedule</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Julian: Tue, Wed
-Bob: Wed, Thurs
-PyBites: Mon, Fri, Sat
-</pre>
+<span class="ansi-red-fg">UnicodeEncodeError</span>: 'ascii' codec can't encode character u'\u0107' in position 4: ordinal not in range(128)</pre>
 </div>
 </div>
 </div>
@@ -1576,156 +1225,32 @@ PyBites: Mon, Fri, Sat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>and  this is ...</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Polymorphism">Polymorphism<a class="anchor-link" href="#Polymorphism">¶</a></h2><p>We call get_post_days() on every developer (instance), each one giving a different result.</p>
-<p>Good examples from stdlib are len (= __len__()) and + (= __add__()): they just do what you expect them to do for each type (as long as compatible):</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [23]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">'a string'</span>
-<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span><span class="s1">'b'</span><span class="p">,</span><span class="s1">'c'</span><span class="p">]))</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [24]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span> 
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'len of </span><span class="si">{}</span><span class="s1"> (type </span><span class="si">{}</span><span class="s1">) = </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">var</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>len of a string (type <class &#x27;str&#x27;>) = 8
-len of (0, 1) (type <class &#x27;tuple&#x27;>) = 2
-len of {1: 'a', 2: 'b', 3: 'c'} (type <class &#x27;dict&#x27;>) = 3
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [25]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'python'</span><span class="p">,</span> <span class="s1">'123'</span><span class="p">)</span>
-<span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-
-<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">lst</span><span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'calling + on </span><span class="si">{}</span><span class="s1"> yields </span><span class="si">{}</span><span class="s1"> (type </span><span class="si">{}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">res</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>calling + on ('python', '123') yields python123 (type <class &#x27;str&#x27;>)
-calling + on (3, 6) yields 9 (type <class &#x27;int&#x27;>)
-calling + on ([1, 2, 3], [4, 5]) yields [1, 2, 3, 4, 5] (type <class &#x27;list&#x27;>)
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [26]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ok cannot add str + int</span>
-<span class="s1">'a'</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-26-008487ad9885></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># ok cannot add str + int</span>
-<span class="ansi-green-fg">----> 2</span><span class="ansi-red-fg"> </span><span class="ansi-blue-fg">'a'</span> <span class="ansi-blue-fg">+</span> <span class="ansi-cyan-fg">1</span>
-
-<span class="ansi-red-fg">TypeError</span>: Can't convert 'int' object to str implicitly</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [27]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># but this works</span>
-<span class="s1">'a'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[27]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>'a1'</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Encapsulation">Encapsulation<a class="anchor-link" href="#Encapsulation">¶</a></h2><p><a href="http://stackoverflow.com/questions/26216563/how-to-do-encapsulation-in-python">http://stackoverflow.com/questions/26216563/how-to-do-encapsulation-in-python</a></p>
-<blockquote><p>Python has encapsulation - you are using it in your class.</p>
-<p>What it doesn't have is access control such as private and protected attributes. However, in Python, there is an attribute naming convention to denote private attributes by prefixing the attribute with one or two underscores, e.g:</p>
-<p>self._a
-self.__a 
-A single underscore indicates to the user of a class that an attribute should be considered private to the class, and should not be accessed directly.</p>
-<p>A double underscore indicates the same, however, Python will mangle the attribute name somewhat to attempt to hide it.</p>
+<p>Because we can't actually store the unicode character,thus the error. So how do we solve this? We follow the strategy: <code>Decode early,Use Unicode Everywhere,Encode late</code>.
+<br /></p>
+<blockquote><p>Note 1: From the codes module,we have a open function where we can specify the required encoding.
+<br>
+Note 2:The csv module doesn't support unicode,so we gotta encode,do our stuff and decode to unicode again.</br></p>
 </blockquote>
-<p>If you want getter / setter behavior look at the @property decorator:</p>
-<p><a href="http://stackabuse.com/python-properties/">http://stackabuse.com/python-properties/</a></p>
-<blockquote><p>It is often considered best practice to create getters and setters for a class's public properties. Many languages allow you to implement this in different ways, either by using a function (like person.getName()), or by using a language-specific get or set construct. In Python, it is done using @property.</p>
-</blockquote>
+<h5 id="Summary-of-problems-in-Python-2:">Summary of problems in Python-2:<a class="anchor-link" href="#Summary-of-problems-in-Python-2:">¶</a></h5><ul>
+<li>default Python 2 encoding is 'ascii'</li>
+<li>not all Python 2 internals support Unicode</li>
+<li>You can't reliably guess an encoding</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Unicode-in-Python-3">Unicode in Python-3<a class="anchor-link" href="#Unicode-in-Python-3">¶</a></h3><p>They fixed it!</p>
+<ul>
+<li><code><type &#x27;str&#x27;></code> is now a <code><type &#x27;unicode&#x27;></code> Object.So every string is now unicode.So no more <code>u''</code> strings.</li>
+<li>And we have new string types <code><type &#x27;bytes></code>. So encode to bytes and decode to unicode.</li>
+<li>All built-in modules now support unicode.Now no more encoding and decoding in between of code.</li>
+<li>open() in python 3 works like codecs.open().Ah! yes <strong>Default Encoding is now UTF-8</strong>.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1785,15 +1310,8 @@ A single underscore indicates to the user of a class that an attribute should be
 <!--End mc_embed_signup-->
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/tutorial.html">tutorial</a>
-      <a href="https://pybit.es/tag/oop.html">oop</a>
-      <a href="https://pybit.es/tag/objectoriented.html">objectoriented</a>
-      <a href="https://pybit.es/tag/programming.html">programming</a>
-      <a href="https://pybit.es/tag/inheritance.html">inheritance</a>
-      <a href="https://pybit.es/tag/polymorphism.html">polymorphism</a>
-      <a href="https://pybit.es/tag/abc.html">ABC</a>
-      <a href="https://pybit.es/tag/encapsulation.html">encapsulation</a>
-      <a href="https://pybit.es/tag/property.html">property</a>
+      <a href="https://pybit.es/tag/ascii.html">ascii</a>
+      <a href="https://pybit.es/tag/unicode.html">unicode</a>
     </p>
   </div>
 
