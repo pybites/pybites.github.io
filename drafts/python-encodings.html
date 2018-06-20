@@ -29,7 +29,7 @@
 <meta name="description" content="We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings (the only thing a computer can understand). One such known mapping is ASCII. If you're not sure about ASCII and Unicode, let Aviral give you an introduction ..." />
 <meta name="keywords" content="ascii, unicode">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="How Encodings Work in Python"/>
+<meta property="og:title" content="How Encoding Works in Python"/>
 <meta property="og:description" content="We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings (the only thing a computer can understand). One such known mapping is ASCII. If you're not sure about ASCII and Unicode, let Aviral give you an introduction ..."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/drafts/python-encodings.html"/>
@@ -44,11 +44,11 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="How Encodings Work in Python" />
+<meta name="twitter:title" content="How Encoding Works in Python" />
 <meta name="twitter:description" content="We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings (the only thing a computer can understand). One such known mapping is ASCII. If you're not sure about ASCII and Unicode, let Aviral give you an introduction ..." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
 
-  <title>PyBites &ndash; How Encodings Work in Python</title>
+  <title>PyBites &ndash; How Encoding Works in Python</title>
 
 
 </head>
@@ -101,12 +101,12 @@
 
 <article class="single">
   <header>
-    <h1 id="python-encodings">How Encodings Work in Python</h1>
+    <h1 id="python-encodings">How Encoding Works in Python</h1>
     <p>
           Posted by <a href="https://pybit.es/author/aviral-verma.html">Aviral Verma</a> on Wed 20 June 2018 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
 
 
-        &#8226; 12 min read
+        &#8226; 13 min read
     </p>
   </header>
 
@@ -1089,7 +1089,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Encodings">Encodings<a class="anchor-link" href="#Encodings">¶</a></h2><p>We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings(the only thing a computer can understand).One such known mapping is <code>ASCII</code>.If you're not sure about <code>ASCII</code> and <code>Unicode</code>,read ahead otherwise you can skip to <a href="">Encodings in Python-2</a>.</p>
+<h2 id="Encoding">Encoding<a class="anchor-link" href="#Encoding">¶</a></h2><p>We all know that the computer cannot store letters or numbers so we need some kind of mapping from these letters/numbers to bit strings (the only thing a computer can understand). One such known mapping is <code>ASCII</code>. If you're not sure about <code>ASCII</code> and <code>Unicode</code>, read ahead otherwise you can skip to <a href="">Encoding in Python-2</a>.</p>
 </div>
 </div>
 </div>
@@ -1098,7 +1098,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ASCII">ASCII<a class="anchor-link" href="#ASCII">¶</a></h3><p>There are 95 human readable characters specified in the ASCII table, including the letters A through Z both in upper and lower case, the numbers 0 through 9, a handful of punctuation marks and characters like the dollar symbol, the ampersand and a few other.</p>
+<h3 id="ASCII">ASCII<a class="anchor-link" href="#ASCII">¶</a></h3><p>There are 95 human readable characters specified in the ASCII table, including the letters A through Z both in upper and lower case, the numbers 0 through 9, a handful of punctuation marks and characters like the dollar symbol, the ampersand and a few others.</p>
 <table>
 <thead><tr>
 <th>Bits</th>
@@ -1133,9 +1133,9 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="éh?">éh?<a class="anchor-link" href="#éh?">¶</a></h3><p>How can you write the <code>é</code> in ASCII.You simply cannot because there is no encoding from some <code>é</code> to a bit string in ASCII.Thus world needed more encoding schemes.
+<h3 id="éh?">éh?<a class="anchor-link" href="#éh?">¶</a></h3><p>How do you write the <code>é</code> in ASCII? You simply cannot because there is no encoding from some <code>é</code> to a bit string in ASCII. Thus the world needed more encoding schemes.
 <br>
-Suppose someone wanted to write a document in Klingon,found that they were no encoding scheme,so they just went ahead and invented one. And so we ended with <a href="">boat-load of schemes</a></br></p>
+Suppose someone wanted to write a document in Klingon, found that there was no encoding scheme, so just went ahead and invented one. This is how we've ended with a <a href="">boat-load of schemes</a></br></p>
 </div>
 </div>
 </div>
@@ -1144,13 +1144,15 @@ Suppose someone wanted to write a document in Klingon,found that they were no en
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Unicode-to-the-rescue">Unicode to the rescue<a class="anchor-link" href="#Unicode-to-the-rescue">¶</a></h3><p>Someone finally had enough and decided to combine all these encoding schemes into one,they called it <em>Unicode</em>.Unicode contains a repertoire of 137,439 characters covering 146 modern and historic scripts, as well as multiple symbol sets and emoji.It evens has a section for Klingon :smile:. If you want to have a look at just how big Unicode actually is,try googling <em>Ian Albert's Unicode chart</em>.This guy printed the entire unicode chart and ended up with 6 feet X 12 feet of chart.
-<br><br>
-If it has so many characters then you must be wondering how many bytes does it actually use.<strong>None</strong> becuase it is not a encoding scheme
+<h3 id="Unicode-to-the-rescue">Unicode to the rescue<a class="anchor-link" href="#Unicode-to-the-rescue">¶</a></h3><p>Someone finally had enough and decided to combine all of these encoding schemes into one, which they called <em>Unicode</em>. Unicode contains a repertoire of 137,439 characters covering 146 modern and historic scripts, as well as multiple symbol sets and emoji. It even has a section for Klingon :smile:.
 <br>
-Confused? Well you are supposed to be.Unicode is just a table which contains character points,by character points I mean a character point just says <code>65 for A,66 for B..</code>.It was left to us how we want to denote this <code>65</code> into computer bits.And so we did.
+If you want to have a look at just how big Unicode actually is, try googling <em>Ian Albert's Unicode chart</em>. This guy printed the entire unicode chart and ended up with 6 feet X 12 feet of chart.
 <br><br>
-These many character points need atleast three bytes but since three is akward,we actually use four bytes.Now if you have just an english file(A file with only english characters) that is encoded using the above unicode scheme,We will actually four times the space the file is.That is not so nice.To optimize this, there are several ways to encode Unicode code points into bits like UTF-8,UTF-16,UTF-32.I have discussed UTF-8 below.</br></br></br></br></br></p>
+If it has so many characters then you must be wondering how many bytes does it actually use? <strong>None</strong> because it is not an encoding scheme
+<br>
+Confused? Well you are supposed to be. Unicode is just a table which contains character points. By this I mean a character point just says <code>65 for A, 66 for B..</code>. It was left to us how we wanted to denote this <code>65</code> into computer bits. And so we did.
+<br><br>
+These many character points need at least three bytes but since three is awkward, we actually use four bytes. Now if you have just an English file (a file with only English characters) that is encoded using the above unicode scheme, we will actually use four times the space the file is. That is not so nice. To optimize this, there are several ways to encode Unicode code points into bits like UTF-8, UTF-16, UTF-32.I have discussed UTF-8 below.</br></br></br></br></br></br></p>
 </div>
 </div>
 </div>
@@ -1159,7 +1161,7 @@ These many character points need atleast three bytes but since three is akward,w
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="UTF-8">UTF-8<a class="anchor-link" href="#UTF-8">¶</a></h3><p>UTF-8 is a variable length encoding.If a character can be represented using a single byte,then it will be encoded using a single byte only.It has elaborate ways to use the highest bits in a byte to signal how many bytes a character consists of</p>
+<h3 id="UTF-8">UTF-8<a class="anchor-link" href="#UTF-8">¶</a></h3><p>UTF-8 is a variable length encoding. If a character can be represented using a single byte, then it will be encoded using a single byte only. It has elaborate ways to use the highest bits in a byte to signal how many bytes a character consists of.</p>
 <table>
 <thead><tr>
 <th>character</th>
@@ -1185,7 +1187,7 @@ These many character points need atleast three bytes but since three is akward,w
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Strings-and-Encodings-in-Python-2">Strings and Encodings in Python-2<a class="anchor-link" href="#Strings-and-Encodings-in-Python-2">¶</a></h3><p>We have two types of strings in python <code><type &#x27;str&#x27;></code> and <code><type &#x27;unicode&#x27;></code>. Python has deafult encoding set to <code>ASCII</code> (check it using <code>sys.getdefaultencoding()</code>).So if we try to write a unicode string to a file,we get an error:</p>
+<h3 id="Strings-and-Encoding-in-Python-2">Strings and Encoding in Python-2<a class="anchor-link" href="#Strings-and-Encoding-in-Python-2">¶</a></h3><p>We have two types of strings in python <code>type 'str'</code> and <code>type 'unicode'</code>. Python has default encoding set to <code>ASCII</code> (check it using <code>sys.getdefaultencoding()</code>). So if we try to write a unicode string to a file, we get an error:</p>
 </div>
 </div>
 </div>
@@ -1209,10 +1211,10 @@ These many character points need atleast three bytes but since three is akward,w
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">UnicodeEncodeError</span>                        Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-6-6c2a70c7683b></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-6-6c2a70c7683b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-intense-fg ansi-bold">      1</span> f <span class="ansi-blue-fg">=</span> open<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"test.txt"</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">'w'</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      2</span> s <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">u'test\u0107'</span>
-<span class="ansi-green-fg">----> 3</span><span class="ansi-red-fg"> </span>f<span class="ansi-blue-fg">.</span>write<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>f<span class="ansi-blue-fg">.</span>write<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
 
 <span class="ansi-red-fg">UnicodeEncodeError</span>: 'ascii' codec can't encode character u'\u0107' in position 4: ordinal not in range(128)</pre>
 </div>
@@ -1225,11 +1227,11 @@ These many character points need atleast three bytes but since three is akward,w
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Because we can't actually store the unicode character,thus the error. So how do we solve this? We follow the strategy: <code>Decode early,Use Unicode Everywhere,Encode late</code>.
-<br /></p>
-<blockquote><p>Note 1: From the codes module,we have a open function where we can specify the required encoding.
+<p>This is because we can't actually store the unicode character. So how do we solve this? We follow the strategy: <code>Decode early, Use Unicode Everywhere, Encode late</code>.
+<br/></p>
+<blockquote><p>Note 1: From the codes module, we have an open function where we can specify the required encoding.
 <br>
-Note 2:The csv module doesn't support unicode,so we gotta encode,do our stuff and decode to unicode again.</br></p>
+Note 2: The CSV module doesn't support unicode, so we have to encode, do our stuff then decode to unicode again.</br></p>
 </blockquote>
 <h5 id="Summary-of-problems-in-Python-2:">Summary of problems in Python-2:<a class="anchor-link" href="#Summary-of-problems-in-Python-2:">¶</a></h5><ul>
 <li>default Python 2 encoding is 'ascii'</li>
@@ -1246,10 +1248,10 @@ Note 2:The csv module doesn't support unicode,so we gotta encode,do our stuff an
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Unicode-in-Python-3">Unicode in Python-3<a class="anchor-link" href="#Unicode-in-Python-3">¶</a></h3><p>They fixed it!</p>
 <ul>
-<li><code><type &#x27;str&#x27;></code> is now a <code><type &#x27;unicode&#x27;></code> Object.So every string is now unicode.So no more <code>u''</code> strings.</li>
-<li>And we have new string types <code><type &#x27;bytes></code>. So encode to bytes and decode to unicode.</li>
-<li>All built-in modules now support unicode.Now no more encoding and decoding in between of code.</li>
-<li>open() in python 3 works like codecs.open().Ah! yes <strong>Default Encoding is now UTF-8</strong>.</li>
+<li><code>type 'str'</code> is now a <code>type 'unicode'</code> object. Every string is now unicode so no more <code>u''</code> strings.</li>
+<li>We have new string types <code>type 'bytes</code>. So encode to bytes and decode to unicode.</li>
+<li>All built-in modules now support unicode. Now no more encoding and decoding in between of code.</li>
+<li>open() in python 3 works like codecs.open(). Ah! yes <strong>Default Encoding is now UTF-8</strong>.</li>
 </ul>
 </div>
 </div>
@@ -1259,7 +1261,7 @@ Note 2:The csv module doesn't support unicode,so we gotta encode,do our stuff an
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -1276,6 +1278,7 @@ Note 2:The csv module doesn't support unicode,so we gotta encode,do our stuff an
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
