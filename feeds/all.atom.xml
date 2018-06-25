@@ -1098,10 +1098,10 @@ These many character points need at least three bytes but since three is awkward
 &lt;pre&gt;
 &lt;span class="ansi-red-fg"&gt;---------------------------------------------------------------------------&lt;/span&gt;
 &lt;span class="ansi-red-fg"&gt;UnicodeEncodeError&lt;/span&gt;                        Traceback (most recent call last)
-&lt;span class="ansi-green-fg"&gt;&lt;ipython-input-6-6c2a70c7683b&gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&lt;module&gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-6-6c2a70c7683b&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&amp;lt;module&amp;gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      1&lt;/span&gt; f &lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt; open&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;"test.txt"&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;,&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;'w'&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      2&lt;/span&gt; s &lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt; &lt;span class="ansi-blue-fg"&gt;u'test\u0107'&lt;/span&gt;
-&lt;span class="ansi-green-fg"&gt;----&gt; 3&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;f&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;write&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;s&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 3&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;f&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;write&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;s&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
 
 &lt;span class="ansi-red-fg"&gt;UnicodeEncodeError&lt;/span&gt;: 'ascii' codec can't encode character u'\u0107' in position 4: ordinal not in range(128)&lt;/pre&gt;
 &lt;/div&gt;
@@ -1115,7 +1115,7 @@ These many character points need at least three bytes but since three is awkward
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;This is because we can't actually store the unicode character. So how do we solve this? We follow the strategy: &lt;code&gt;Decode early, Use Unicode Everywhere, Encode late&lt;/code&gt;.
-&lt;br /&gt;&lt;/p&gt;
+&lt;br/&gt;&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;Note 1: From the codes module, we have an open function where we can specify the required encoding.
 &lt;br&gt;
 Note 2: The CSV module doesn't support unicode, so we have to encode, do our stuff then decode to unicode again.&lt;/br&gt;&lt;/p&gt;
@@ -1183,7 +1183,7 @@ Note 2: The CSV module doesn't support unicode, so we have to encode, do our stu
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -1200,6 +1200,7 @@ Note 2: The CSV module doesn't support unicode, so we have to encode, do our stu
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -5004,7 +5005,7 @@ Untitled.ipynb
 &lt;div class="output_area"&gt;
 &lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;&lt;class &amp;#x27;pandas.core.frame.dataframe&amp;#x27;&gt;
+&lt;pre&gt;&amp;lt;class 'pandas.core.frame.DataFrame'&amp;gt;
 RangeIndex: 16376 entries, 0 to 16375
 Data columns (total 13 columns):
 page_id             16376 non-null int64
@@ -5384,7 +5385,7 @@ memory usage: 1.6+ MB
 &lt;div class="output_area"&gt;
 &lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;&lt;class &amp;#x27;pandas.core.frame.dataframe&amp;#x27;&gt;
+&lt;pre&gt;&amp;lt;class 'pandas.core.frame.DataFrame'&amp;gt;
 RangeIndex: 16376 entries, 0 to 16375
 Data columns (total 7 columns):
 name                16376 non-null object
@@ -5521,7 +5522,7 @@ memory usage: 895.6+ KB
 &lt;div class="output_area"&gt;
 &lt;div class="prompt output_prompt"&gt;Out[9]:&lt;/div&gt;
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&lt;matplotlib.axes._subplots.axessubplot at 0x7ff329a5d4e0&gt;&lt;/pre&gt;
+&lt;pre&gt;&amp;lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff329a5d4e0&amp;gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="output_area"&gt;
@@ -5963,7 +5964,7 @@ STLkpKNPkiQZctLRJ0mSDDnp6JMkSYac/weSsFaSjMhwRwAAAABJRU5ErkJggg==
 &lt;div class="output_area"&gt;
 &lt;div class="prompt output_prompt"&gt;Out[11]:&lt;/div&gt;
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&lt;matplotlib.axes._subplots.axessubplot at 0x7ff3580256d8&gt;&lt;/pre&gt;
+&lt;pre&gt;&amp;lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff3580256d8&amp;gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="output_area"&gt;
@@ -6206,7 +6207,7 @@ AElFTkSuQmCC
 &lt;div class="inner_cell"&gt;
 &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#Let's look at the number of female villians in the data set&lt;/span&gt;
-&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'align == "Bad" &amp; sex == "Female"'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'align == "Bad" &amp;amp; sex == "Female"'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6643,7 +6644,7 @@ AElFTkSuQmCC
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;th&gt;15856&lt;/th&gt;
-&lt;td&gt;Pepper (Salt &amp; Pepper) (Earth-616)&lt;/td&gt;
+&lt;td&gt;Pepper (Salt &amp;amp; Pepper) (Earth-616)&lt;/td&gt;
 &lt;td&gt;Bad&lt;/td&gt;
 &lt;td&gt;Female&lt;/td&gt;
 &lt;td&gt;Living&lt;/td&gt;
@@ -6693,7 +6694,7 @@ AElFTkSuQmCC
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;th&gt;15938&lt;/th&gt;
-&lt;td&gt;Grace &amp; Mary Mercy (Earth-616)&lt;/td&gt;
+&lt;td&gt;Grace &amp;amp; Mary Mercy (Earth-616)&lt;/td&gt;
 &lt;td&gt;Bad&lt;/td&gt;
 &lt;td&gt;Female&lt;/td&gt;
 &lt;td&gt;Deceased&lt;/td&gt;
@@ -6763,7 +6764,7 @@ AElFTkSuQmCC
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;th&gt;16173&lt;/th&gt;
-&lt;td&gt;Katy &amp; Timothy Bashir (Earth-616)&lt;/td&gt;
+&lt;td&gt;Katy &amp;amp; Timothy Bashir (Earth-616)&lt;/td&gt;
 &lt;td&gt;Bad&lt;/td&gt;
 &lt;td&gt;Female&lt;/td&gt;
 &lt;td&gt;Deceased&lt;/td&gt;
@@ -7063,7 +7064,7 @@ AElFTkSuQmCC
 &lt;div class="output_area"&gt;
 &lt;div class="prompt output_prompt"&gt;Out[15]:&lt;/div&gt;
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&lt;matplotlib.axes._subplots.axessubplot at 0x7ff328d2df98&gt;&lt;/pre&gt;
+&lt;pre&gt;&amp;lt;matplotlib.axes._subplots.AxesSubplot at 0x7ff328d2df98&amp;gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="output_area"&gt;
@@ -7303,7 +7304,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
 &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#Show the percentage of bad males&lt;/span&gt;
 &lt;span class="n"&gt;males&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;goodvbad&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="s1"&gt;'sex'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'align'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'count'&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;males&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;males&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'sex == "Male" &amp; align != "Unknown"'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;males&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;males&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'sex == "Male" &amp;amp; align != "Unknown"'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;males&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'percent'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;males&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'count'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;males&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'count'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
 &lt;span class="n"&gt;males&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'percent'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;males&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'percent'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;round&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;males&lt;/span&gt;
@@ -7393,7 +7394,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
 &lt;div class="inner_cell"&gt;
 &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;females&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;goodvbad&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="s1"&gt;'sex'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'align'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'count'&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;females&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;females&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'sex == "Female" &amp; align != "Unknown"'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;females&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;females&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'sex == "Female" &amp;amp; align != "Unknown"'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;females&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'percent'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;females&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'count'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;females&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'count'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
 &lt;span class="n"&gt;females&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'percent'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;females&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'percent'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;round&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;females&lt;/span&gt;
@@ -7501,7 +7502,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -7518,6 +7519,7 @@ MzOzAhdGMzOzAhdGMzOzAhdGMzOzgv8Pj/oIPyHm5h8AAAAASUVORK5CYII=
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -21830,7 +21832,7 @@ JAn4/9YDCkgwcKEHAAAAAElFTkSuQmCC
 &lt;div class="inner_cell"&gt;
 &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# take articles with at least one share&lt;/span&gt;
-&lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;shares&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;top_shares_csv&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;&gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;shares&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;zip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;top_shares_csv&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;span class="n"&gt;visits&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;visits&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
@@ -22711,7 +22713,7 @@ JEmSpAH7L1CAbJijTFj6AAAAAElFTkSuQmCC
     &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'&lt;/span&gt;&lt;span class="si"&gt;{}{}&lt;/span&gt;&lt;span class="s1"&gt;.csv'&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BASE_URL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;soc_media&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;get_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;:])&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;days&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;itertools&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]):&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&lt;&lt;/span&gt; &lt;span class="n"&gt;THIS_YEAR&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;THIS_YEAR&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
             &lt;span class="n"&gt;days&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;days&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
             &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;days&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;days&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
@@ -24580,7 +24582,7 @@ QmCC
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -24597,6 +24599,7 @@ QmCC
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -26785,10 +26788,10 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 &lt;pre&gt;
 &lt;span class="ansi-red-fg"&gt;---------------------------------------------------------------------------&lt;/span&gt;
 &lt;span class="ansi-red-fg"&gt;TypeError&lt;/span&gt;                                 Traceback (most recent call last)
-&lt;span class="ansi-green-fg"&gt;&lt;ipython-input-12-08fc7fe18fd0&gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&lt;module&gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-12-08fc7fe18fd0&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&amp;lt;module&amp;gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      2&lt;/span&gt; &lt;span class="ansi-red-fg"&gt;# however this does not work out of the box&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      3&lt;/span&gt; 
-&lt;span class="ansi-green-fg"&gt;----&gt; 4&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;bob &lt;span class="ansi-blue-fg"&gt;+&lt;/span&gt; julian
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 4&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;bob &lt;span class="ansi-blue-fg"&gt;+&lt;/span&gt; julian
 
 &lt;span class="ansi-red-fg"&gt;TypeError&lt;/span&gt;: unsupported operand type(s) for +: 'TwitterUser' and 'TwitterUser'&lt;/pre&gt;
 &lt;/div&gt;
@@ -26831,7 +26834,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     &lt;span class="c1"&gt;# difference between the repr and str: &lt;/span&gt;
     &lt;span class="c1"&gt;# http://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python&lt;/span&gt;
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__str__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;'&lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s1"&gt; =&gt; likes: &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s1"&gt; for &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s1"&gt; tweets = &lt;/span&gt;&lt;span class="si"&gt;{:.1f}&lt;/span&gt;&lt;span class="s1"&gt; avg'&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;'&lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s1"&gt; =&amp;gt; likes: &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s1"&gt; for &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s1"&gt; tweets = &lt;/span&gt;&lt;span class="si"&gt;{:.1f}&lt;/span&gt;&lt;span class="s1"&gt; avg'&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
             &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;total_likes&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; 
             &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;avg_likes&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
         &lt;span class="p"&gt;)&lt;/span&gt;
@@ -26933,15 +26936,15 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 &lt;pre&gt;
 &lt;span class="ansi-red-fg"&gt;---------------------------------------------------------------------------&lt;/span&gt;
 &lt;span class="ansi-red-fg"&gt;IncompatibleHandle&lt;/span&gt;                        Traceback (most recent call last)
-&lt;span class="ansi-green-fg"&gt;&lt;ipython-input-17-9ee66cd5c34d&gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&lt;module&gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-17-9ee66cd5c34d&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&amp;lt;module&amp;gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      1&lt;/span&gt; &lt;span class="ansi-red-fg"&gt;# but stranger is not part of pybites, so custom exception is raised (as implemented in __add__)&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      2&lt;/span&gt; 
-&lt;span class="ansi-green-fg"&gt;----&gt; 3&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;bob &lt;span class="ansi-blue-fg"&gt;+&lt;/span&gt; stranger
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 3&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;bob &lt;span class="ansi-blue-fg"&gt;+&lt;/span&gt; stranger
 
-&lt;span class="ansi-green-fg"&gt;&lt;ipython-input-13-d86635054781&gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;__add__&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;(self, other)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-13-d86635054781&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;__add__&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;(self, other)&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;     18&lt;/span&gt;     &lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; __add__&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;self&lt;span class="ansi-blue-fg"&gt;,&lt;/span&gt; other&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;     19&lt;/span&gt;         &lt;span class="ansi-green-fg"&gt;if&lt;/span&gt; self&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;handle&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;shared_handle &lt;span class="ansi-blue-fg"&gt;!=&lt;/span&gt; other&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;handle&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;shared_handle&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
-&lt;span class="ansi-green-fg"&gt;---&gt; 20&lt;/span&gt;&lt;span class="ansi-red-fg"&gt;             &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;raise&lt;/span&gt; IncompatibleHandle&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;'Not the same shared handle, cannot merge tweets'&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;---&amp;gt; 20&lt;/span&gt;&lt;span class="ansi-red-fg"&gt;             &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;raise&lt;/span&gt; IncompatibleHandle&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;'Not the same shared handle, cannot merge tweets'&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;     21&lt;/span&gt;         all_tweets &lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt; self&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;tweets &lt;span class="ansi-blue-fg"&gt;+&lt;/span&gt; other&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;tweets
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;     22&lt;/span&gt;         &lt;span class="ansi-green-fg"&gt;return&lt;/span&gt; TwitterUser&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;self&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;handle&lt;span class="ansi-blue-fg"&gt;.&lt;/span&gt;shared_handle&lt;span class="ansi-blue-fg"&gt;,&lt;/span&gt; all_tweets&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
 
@@ -26969,7 +26972,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 &lt;div class="output_area"&gt;
 &lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;bbelderbos (shared handle: pybites) =&gt; likes: 21 for 5 tweets = 4.2 avg
+&lt;pre&gt;bbelderbos (shared handle: pybites) =&amp;gt; likes: 21 for 5 tweets = 4.2 avg
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -26993,7 +26996,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 &lt;div class="output_area"&gt;
 &lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;techmoneykids (shared handle: pybites) =&gt; likes: 20 for 2 tweets = 10.0 avg
+&lt;pre&gt;techmoneykids (shared handle: pybites) =&amp;gt; likes: 20 for 2 tweets = 10.0 avg
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -27017,7 +27020,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
 &lt;div class="output_area"&gt;
 &lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;pybites =&gt; likes: 41 for 7 tweets = 5.9 avg
+&lt;pre&gt;pybites =&amp;gt; likes: 41 for 7 tweets = 5.9 avg
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -27029,7 +27032,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -27046,6 +27049,7 @@ Tweet(time='2017-01-25 12:45:00', text='Done with code challenge 03', likes=1)
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
@@ -28103,7 +28107,7 @@ h6:hover .anchor-link {
 &lt;div class="output_area"&gt;
 &lt;div class="prompt output_prompt"&gt;Out[3]:&lt;/div&gt;
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&lt;__main__.Blog at 0x104400cf8&gt;&lt;/pre&gt;
+&lt;pre&gt;&amp;lt;__main__.Blog at 0x104400cf8&amp;gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -28223,7 +28227,7 @@ h6:hover .anchor-link {
 &lt;div class="output_area"&gt;
 &lt;div class="prompt output_prompt"&gt;Out[9]:&lt;/div&gt;
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&lt;__main__.Blog at 0x10441b400&gt;&lt;/pre&gt;
+&lt;pre&gt;&amp;lt;__main__.Blog at 0x10441b400&amp;gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -28325,10 +28329,10 @@ h6:hover .anchor-link {
 &lt;pre&gt;
 &lt;span class="ansi-red-fg"&gt;---------------------------------------------------------------------------&lt;/span&gt;
 &lt;span class="ansi-red-fg"&gt;TypeError&lt;/span&gt;                                 Traceback (most recent call last)
-&lt;span class="ansi-green-fg"&gt;&lt;ipython-input-14-c75777ac51e6&gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&lt;module&gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-14-c75777ac51e6&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&amp;lt;module&amp;gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      3&lt;/span&gt; 
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      4&lt;/span&gt; &lt;span class="ansi-red-fg"&gt;# oops, did not implement get_post_days()&lt;/span&gt;
-&lt;span class="ansi-green-fg"&gt;----&gt; 5&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;jul &lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt; Julian&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 5&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;jul &lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt; Julian&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
 
 &lt;span class="ansi-red-fg"&gt;TypeError&lt;/span&gt;: Can't instantiate abstract class Julian with abstract methods get_post_days&lt;/pre&gt;
 &lt;/div&gt;
@@ -28552,9 +28556,9 @@ PyBites: Mon, Fri, Sat
 &lt;div class="output_area"&gt;
 &lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;len of a string (type &lt;class &amp;#x27;str&amp;#x27;&gt;) = 8
-len of (0, 1) (type &lt;class &amp;#x27;tuple&amp;#x27;&gt;) = 2
-len of {1: 'a', 2: 'b', 3: 'c'} (type &lt;class &amp;#x27;dict&amp;#x27;&gt;) = 3
+&lt;pre&gt;len of a string (type &amp;lt;class 'str'&amp;gt;) = 8
+len of (0, 1) (type &amp;lt;class 'tuple'&amp;gt;) = 2
+len of {1: 'a', 2: 'b', 3: 'c'} (type &amp;lt;class 'dict'&amp;gt;) = 3
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -28582,9 +28586,9 @@ len of {1: 'a', 2: 'b', 3: 'c'} (type &lt;class &amp;#x27;dict&amp;#x27;&gt;) = 
 &lt;div class="output_area"&gt;
 &lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;calling + on ('python', '123') yields python123 (type &lt;class &amp;#x27;str&amp;#x27;&gt;)
-calling + on (3, 6) yields 9 (type &lt;class &amp;#x27;int&amp;#x27;&gt;)
-calling + on ([1, 2, 3], [4, 5]) yields [1, 2, 3, 4, 5] (type &lt;class &amp;#x27;list&amp;#x27;&gt;)
+&lt;pre&gt;calling + on ('python', '123') yields python123 (type &amp;lt;class 'str'&amp;gt;)
+calling + on (3, 6) yields 9 (type &amp;lt;class 'int'&amp;gt;)
+calling + on ([1, 2, 3], [4, 5]) yields [1, 2, 3, 4, 5] (type &amp;lt;class 'list'&amp;gt;)
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -28610,9 +28614,9 @@ calling + on ([1, 2, 3], [4, 5]) yields [1, 2, 3, 4, 5] (type &lt;class &amp;#x2
 &lt;pre&gt;
 &lt;span class="ansi-red-fg"&gt;---------------------------------------------------------------------------&lt;/span&gt;
 &lt;span class="ansi-red-fg"&gt;TypeError&lt;/span&gt;                                 Traceback (most recent call last)
-&lt;span class="ansi-green-fg"&gt;&lt;ipython-input-26-008487ad9885&gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&lt;module&gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-26-008487ad9885&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&amp;lt;module&amp;gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
 &lt;span class="ansi-green-intense-fg ansi-bold"&gt;      1&lt;/span&gt; &lt;span class="ansi-red-fg"&gt;# ok cannot add str + int&lt;/span&gt;
-&lt;span class="ansi-green-fg"&gt;----&gt; 2&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;'a'&lt;/span&gt; &lt;span class="ansi-blue-fg"&gt;+&lt;/span&gt; &lt;span class="ansi-cyan-fg"&gt;1&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 2&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;'a'&lt;/span&gt; &lt;span class="ansi-blue-fg"&gt;+&lt;/span&gt; &lt;span class="ansi-cyan-fg"&gt;1&lt;/span&gt;
 
 &lt;span class="ansi-red-fg"&gt;TypeError&lt;/span&gt;: Can't convert 'int' object to str implicitly&lt;/pre&gt;
 &lt;/div&gt;
@@ -28667,7 +28671,7 @@ A single underscore indicates to the user of a class that an attribute should be
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -28684,6 +28688,7 @@ A single underscore indicates to the user of a class that an attribute should be
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
