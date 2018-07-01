@@ -1211,10 +1211,10 @@ These many character points need at least three bytes but since three is awkward
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">UnicodeEncodeError</span>                        Traceback (most recent call last)
-<span class="ansi-green-fg"><ipython-input-6-6c2a70c7683b></span> in <span class="ansi-cyan-fg"><module></span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-6-6c2a70c7683b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-intense-fg ansi-bold">      1</span> f <span class="ansi-blue-fg">=</span> open<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"test.txt"</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">'w'</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      2</span> s <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">u'test\u0107'</span>
-<span class="ansi-green-fg">----> 3</span><span class="ansi-red-fg"> </span>f<span class="ansi-blue-fg">.</span>write<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>f<span class="ansi-blue-fg">.</span>write<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
 
 <span class="ansi-red-fg">UnicodeEncodeError</span>: 'ascii' codec can't encode character u'\u0107' in position 4: ordinal not in range(128)</pre>
 </div>
@@ -1228,7 +1228,7 @@ These many character points need at least three bytes but since three is awkward
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is because we can't actually store the unicode character. So how do we solve this? We follow the strategy: <code>Decode early, Use Unicode Everywhere, Encode late</code>.
-<br /></p>
+<br/></p>
 <blockquote><p>Note 1: From the codes module, we have an open function where we can specify the required encoding.
 <br>
 Note 2: The CSV module doesn't support unicode, so we have to encode, do our stuff then decode to unicode again.</br></p>
@@ -1296,7 +1296,7 @@ Note 2: The CSV module doesn't support unicode, so we have to encode, do our stu
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
@@ -1313,6 +1313,7 @@ Note 2: The CSV module doesn't support unicode, so we have to encode, do our stu
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
         "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
         "    } " +
         "}); ";
