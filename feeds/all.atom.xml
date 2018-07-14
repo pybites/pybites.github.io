@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-07-08T18:29:00+02:00</updated><entry><title>PyBites Twitter Digest - Issue 22, 2018</title><link href="https://pybit.es/twitter_digest_201822.html" rel="alternate"></link><published>2018-07-08T18:29:00+02:00</published><updated>2018-07-08T18:29:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-07-08:/twitter_digest_201822.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Some of our amazing PyBites Pythonistas completed their &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;#100DaysofCode in Python&lt;/a&gt; Challenge!&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-07-14T16:00:00+02:00</updated><entry><title>Watch Me Code - Solving Bite 21. Query a Nested Data Structure</title><link href="https://pybit.es/nested-data-structure-exercise.html" rel="alternate"></link><published>2018-07-14T16:00:00+02:00</published><updated>2018-07-14T16:00:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-07-14:/nested-data-structure-exercise.html</id><summary type="html">&lt;p&gt;I recorded a video solving &lt;a href="https://codechalleng.es/bites/21/"&gt;Bite 21. Query a nested data structure&lt;/a&gt;. The exercise presents us with a dictionary of car manufacturers and their corresponding car models. We will extract various bits and pieces from it as well as sort the nested model lists. This is a common type of data structure so specially for a beginner it is important to have this become second nature. Prepare to learn more about looping, some string operations, and list / dict comprehensions.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I recorded a video solving &lt;a href="https://codechalleng.es/bites/21/"&gt;Bite 21. Query a nested data structure&lt;/a&gt;. The exercise presents us with a dictionary of car manufacturers and their corresponding car models. We will extract various bits and pieces from it as well as sort the nested model lists. This is a common type of data structure so specially for a beginner it is important to have this become second nature. Prepare to learn more about looping, some string operations, and list / dict comprehensions.&lt;/p&gt;
+&lt;h2&gt;Warning&lt;/h2&gt;
+&lt;p&gt;Before watching the solution video, we highly encourage you to follow &lt;a href="https://codechalleng.es/bites/promo/datastructures"&gt;this promo link&lt;/a&gt; and try it yourself. Seriously, you learn n times more by having tried it yourself and comparing your solution to ours or via the Bite Forum feature (see at the end of the video). Enjoy!&lt;/p&gt;
+&lt;h3&gt;Ready for the solution?&lt;/h3&gt;
+&lt;div class="container"&gt;
+&lt;iframe src="https://www.youtube.com/embed/Yk13k-_QZ-U" frameborder="0" allowfullscreen class="video"&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Takeaways&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;When you don't need &lt;code&gt;(key, value)&lt;/code&gt; pairs, instead of &lt;code&gt;items&lt;/code&gt; you can use &lt;code&gt;keys()&lt;/code&gt; or &lt;code&gt;values()&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;join&lt;/code&gt; is a super handy string method to know about: &lt;code&gt;return ', '.join(cars['Jeep'])&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List comprehensions are one of our favorite features, I write them from the inside out and would probably not use more than one for loop: &lt;code&gt;return [models[0] for models in cars.values()]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can flatten a list of lists like this: &lt;code&gt;models = sum(cars.values(), [])&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can use a dictionary comprehension to modify an existing dict and returning a new dict, all in one go:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;return {manufacturer: sorted(models) for
+        manufacturer, models in cars.items()}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It doesn't really matter here but just to note: &lt;code&gt;sorted&lt;/code&gt; returns a new list object, while &lt;code&gt;list.sort()&lt;/code&gt; would sort in-place.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We defined this Bite some time ago, and I forgot about some parts of the solution. This served two purposes: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Making mistakes and/or not coming to the best solution at first is actually a good thing. This is part of the learning: going through the struggle and contrasting an earlier iteration with a later one.&lt;/li&gt;
+&lt;li&gt;It is good to know that once solved you can go back after some time and use a Bite to refresh your knowledge!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;As you saw towards the end we have a forum for each Bite now where you can share / discuss your solution with other community members. This will only add to the learning. Note this is only accessible if you have resolved the Bite to avoid any spoilers. &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Help&lt;/h3&gt;
+&lt;p&gt;If you are stuck and don't want to use the &lt;em&gt;solution button&lt;/em&gt; - after all this would deduct points (unless it's an Intro Bite) - you can ask for help using our #codechallenges Slack channel. To join our Slack &lt;a href="http://codechalleng.es"&gt;confirm your email on our platform&lt;/a&gt;, then opt-in to Slack under &lt;em&gt;Settings&lt;/em&gt;.&lt;/p&gt;
+&lt;h2&gt;What did you learn?&lt;/h2&gt;
+&lt;p&gt;Where there other insights you got while doing this Bite exercise? We hope to salute you on the platform and Slack. And remember ...&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="dict"></category><category term="list"></category><category term="beginner"></category><category term="data structures"></category><category term="bites of py"></category><category term="video"></category><category term="sum"></category><category term="list comprehension"></category><category term="dictionary comprehension"></category></entry><entry><title>PyBites Twitter Digest - Issue 22, 2018</title><link href="https://pybit.es/twitter_digest_201822.html" rel="alternate"></link><published>2018-07-08T18:29:00+02:00</published><updated>2018-07-08T18:29:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-07-08:/twitter_digest_201822.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Some of our amazing PyBites Pythonistas completed their &lt;a href="https://talkpython.fm/100days?s=pybites"&gt;#100DaysofCode in Python&lt;/a&gt; Challenge!&lt;/h3&gt;
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Day 100: I completed the 100 Days of Code in Python course by &lt;a href="https://twitter.com/@pybites" target="_blank"&gt;@pybites&lt;/a&gt; &lt;a href="https://twitter.com/@talkpython!" target="_blank"&gt;@talkpython!&lt;/a&gt; &lt;a href="https://t.co/XARY1x1H8k…" title="https://t.co/XARY1x1H8k…" target="_blank"&gt;https://t.co/XARY1x1H8k…&lt;/a&gt; &lt;a href="https://t.co/GTJ58bxfca" title="https://t.co/GTJ58bxfca" target="_blank"&gt;https://t.co/GTJ58bxfca&lt;/a&gt;&lt;/p&gt;— Steven H (@secdevthing) &lt;a href="https://twitter.com/secdevthing/status/1012431239519744000" data-datetime="2018-06-28T20:23:12+00:00"&gt;June 28, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Day 100: I completed the 100 Days of Code in Python course by &lt;a href="https://twitter.com/@pybites" target="_blank"&gt;@pybites&lt;/a&gt; &lt;a href="https://twitter.com/@talkpython!" target="_blank"&gt;@talkpython!&lt;/a&gt; Made a Web version of the HiLo… &lt;a href="https://t.co/IxXH1vHcZC" title="https://t.co/IxXH1vHcZC" target="_blank"&gt;https://t.co/IxXH1vHcZC&lt;/a&gt;&lt;/p&gt;— Darren Jones (@djaychela) &lt;a href="https://twitter.com/djaychela/status/1014774998647607298" data-datetime="2018-07-05T07:36:27+00:00"&gt;July 05, 2018&lt;/a&gt;&lt;/blockquote&gt;
