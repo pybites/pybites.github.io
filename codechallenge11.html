@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="PyBites" />
+<meta name="description" content="A new week, a new 'bite' of Python coding! After last week's article on generators we will get you to practice a bit more with them in our new challenge. Good luck and have fun." />
+<meta name="keywords" content="codechallenges, learning, generators, unix, newquote">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Code Challenge 11 - Generators for Fun and Profit"/>
+<meta property="og:description" content="A new week, a new 'bite' of Python coding! After last week's article on generators we will get you to practice a bit more with them in our new challenge. Good luck and have fun."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/codechallenge11.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-03-20 09:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/pybites.html">
+<meta property="article:section" content="Challenges"/>
+<meta property="article:tag" content="codechallenges"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="generators"/>
+<meta property="article:tag" content="unix"/>
+<meta property="article:tag" content="newquote"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Code Challenge 11 - Generators for Fun and Profit" />
+<meta name="twitter:description" content="A new week, a new 'bite' of Python coding! After last week's article on generators we will get you to practice a bit more with them in our new challenge. Good luck and have fun." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+  <title>PyBites &ndash; Code Challenge 11 - Generators for Fun and Profit</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      red
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='red'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/challenges.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="codechallenge11">Code Challenge 11 - Generators for Fun and Profit</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 20 March 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
+
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>There is nothing like a challenge to bring out the best in man. - Sean Connery</p>
+</blockquote>
+<p>Hi Pythonistas, a new week, a new 'bite' of Python coding! </p>
+<p>After <a href="http://pybit.es/generators.html">last week's article on generators</a> we will get you to practice a bit more with them.</p>
+<p>Inspired by David Beazley's <a href="http://www.dabeaz.com/generators/">Generator Tricks for Systems Programmers</a> we ask you to turn the following unix pipeline into Python code using generators. To get a bunch of .py files you can use our challenges repo you cloned. Or use a project of your own. </p>
+<p>Note that in our experience one subprocess is not necessarily one generator, for example 'sort|uniq|sort' can be easily combined into one, as well as 'grep|sed'. See <a href="https://github.com/pybites/challenges/blob/master/11/generators-template.py">our template</a> if you need guidance.</p>
+<div class="highlight"><pre><span></span><span class="c1"># assuming you pulled our challenges master and are in our 11/ subdirectory </span>
+<span class="c1"># code this unix pipeline into Python using generators </span>
+<span class="c1">#</span>
+<span class="err">$</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="o">../*/*</span><span class="n">py</span><span class="p">;</span> <span class="n">do</span> <span class="n">grep</span> <span class="o">^</span><span class="kn">import</span> <span class="err">$</span><span class="n">i</span><span class="o">|</span><span class="n">sed</span> <span class="s1">&#39;s/import //g&#39;</span> <span class="p">;</span> <span class="n">done</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">|</span> <span class="n">uniq</span> <span class="o">-</span><span class="n">c</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">nr</span>
+<span class="mi">4</span> <span class="n">unittest</span>
+<span class="mi">4</span> <span class="n">sys</span>
+<span class="mi">3</span> <span class="n">re</span>
+<span class="mi">3</span> <span class="n">csv</span>
+<span class="mi">2</span> <span class="n">tweepy</span>
+<span class="mi">2</span> <span class="n">random</span>
+<span class="mi">2</span> <span class="n">os</span>
+<span class="mi">2</span> <span class="n">json</span>
+<span class="mi">2</span> <span class="n">itertools</span>
+<span class="mi">1</span> <span class="n">time</span>
+<span class="mi">1</span> <span class="n">datetime</span>
+</pre></div>
+
+
+<p>Not familiar yet with Unix pipeline? It's pretty well explained <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)">here</a>.</p>
+<h3>To follow along with our challenges (UPDATES)</h3>
+<p>See <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">our INSTALL doc</a> which should contain everything you need to get up and running (any issue, please open a <a href="https://github.com/pybites/challenges/issues">GH Issue</a>).</p>
+<h4>Update I) Forking</h4>
+<p>We got some feedback that Forks don't lead to activity on your Github profile. One of our followers was so nice to update <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">our INSTALL</a> (via PR (Pull Request)). Maybe you want to use the workaround under III. if the credit thing is an issue for you. See <a href="https://github.com/pybites/challenges/issues/2">issue #2</a> for more details.</p>
+<h4>Update II) Submit your Solution</h4>
+<p>We made <a href="https://github.com/pybites/challenges/tree/community">a new 'community' branch</a>. Another way to get credit is to submit your code via <a href="https://github.com/pybites/challenges/compare">a new PR</a>. We do not merge anything on our master or solutions branches, but if you ping us this way we add your solution to our new community branch (as filename 'topic-GHuser.py') and feature it in <a href="http://pybit.es/pages/challenges.html">our review</a> if it taught us something cool.</p>
+<h3>Code Challenges Archive</h3>
+<p>See <a href="http://pybit.es/pages/challenges.html">this page</a> for all code challenges so far, if you have an interesting one you'd like to see featured <a href="http://pybit.es/pages/about.html">contact us</a>, open a <a href="https://github.com/pybites/challenges/issues">GH Issue</a>.</p>
+<p>And last but not least: there is no best solution, only learning more/ better Python. We're looking forward reviewing our and your solutions end of this week. Good luck and have fun!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob and Julian</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/generators.html">generators</a>
+      <a href="https://pybit.es/tag/unix.html">unix</a>
+      <a href="https://pybit.es/tag/newquote.html">newquote</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

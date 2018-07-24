@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this article I show you how to monitor Twitter and post alerts to a Slack channel. We built a nice tool to monitor whenever our domain gets mentioned on Twitter. The slacker and twython modules made this pretty easy. We also use configparser and logging." />
+<meta name="keywords" content="Twitter, Slack, Automation, monitoring, twython, TwythonStreamer, slacker, configparser, logging, brand, triggers">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to Write a Simple Slack Bot to Monitor Your Brand on Twitter"/>
+<meta property="og:description" content="In this article I show you how to monitor Twitter and post alerts to a Slack channel. We built a nice tool to monitor whenever our domain gets mentioned on Twitter. The slacker and twython modules made this pretty easy. We also use configparser and logging."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/twitter-monitor-slack-notify.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-04-25 11:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="Twitter"/>
+<meta property="article:tag" content="Slack"/>
+<meta property="article:tag" content="Automation"/>
+<meta property="article:tag" content="monitoring"/>
+<meta property="article:tag" content="twython"/>
+<meta property="article:tag" content="TwythonStreamer"/>
+<meta property="article:tag" content="slacker"/>
+<meta property="article:tag" content="configparser"/>
+<meta property="article:tag" content="logging"/>
+<meta property="article:tag" content="brand"/>
+<meta property="article:tag" content="triggers"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How to Write a Simple Slack Bot to Monitor Your Brand on Twitter" />
+<meta name="twitter:description" content="In this article I show you how to monitor Twitter and post alerts to a Slack channel. We built a nice tool to monitor whenever our domain gets mentioned on Twitter. The slacker and twython modules made this pretty easy. We also use configparser and logging." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; How to Write a Simple Slack Bot to Monitor Your Brand on Twitter</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="twitter-monitor-slack-notify">How to Write a Simple Slack Bot to Monitor Your Brand on Twitter</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 25 April 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this article I show you how to monitor Twitter and post alerts to a Slack channel. We built a nice tool to monitor whenever our domain gets mentioned on Twitter. The slacker and twython modules made this pretty easy. We also use configparser and logging.</p>
+<p>This was <a href="https://twitter.com/pybites/status/854432856386420736">another script</a> that came out of our <a href="http://pybit.es/special-100days.html">100DaysOfCode challenge</a>. </p>
+<p>The funny thing is that we started out using <a href="https://www.mediatrigger.io/">mediatrigger.io</a> using a free trial, but soon we thought: </p>
+<blockquote>
+<p>How difficult would it be to build this ourselves?</p>
+</blockquote>
+<p>Not that much, in this article we show you how. </p>
+<p>By the way, if at some point you lack inspiration what to build next, apart from <a href="http://pybit.es/pages/challenges.html">joining our code challenges</a>, think about how you can scratch your own itch. When we do this we tend to stumble upon <a href="http://pybit.es/flask-api-part2.html">interesting projects</a>. We think it's the best way to learn.</p>
+<p>With that said let's get coding!</p>
+<h2>Requirements and Setup</h2>
+<p>We use <a href="https://pypi.python.org/pypi/slacker/">slacker</a> and <a href="https://pypi.python.org/pypi/twython">twython</a> so pip install them or pip install -r <a href="https://github.com/pybites/100DaysOfCode/blob/master/020/requirements.txt">requirements.txt</a> (after creating <a href="http://pybit.es/the-beauty-of-virtualenv.html">a virtual env</a>).</p>
+<p>You will need Twitter API tokens and a Slack token. We wrote about the <a href="http://pybit.es/tag/twitterapi.html">Twitter API</a> and <a href="http://pybit.es/tag/slack.html">Slack</a> before. </p>
+<p>We use configparser to read these tokens in from a <a href="https://github.com/pybites/100DaysOfCode/blob/master/020/config.ini-example">config file</a>. Note we only store the template config file on GH, the real one <a href="https://github.com/pybites/100DaysOfCode/blob/master/020/.gitignore">is ignored</a> to not reveal any secret info.</p>
+<p>For Slack you need to <a href="https://julbob.slack.com/apps/new/A0F7YS25R-bots">create a bot first</a> and add the bot to your designated channel.</p>
+<h2>The code</h2>
+<p>You can get the full project <a href="https://github.com/pybites/100DaysOfCode/tree/master/020">here</a> (as said it's part of <a href="https://github.com/pybites/100DaysOfCode">our 100DaysOfCode repo</a>). Here I go over the script bit by bit:</p>
+<ul>
+<li>
+<p>Imports and read config, setting the required tokens. </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">configparser</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">slacker</span> <span class="kn">import</span> <span class="n">Slacker</span>
+<span class="kn">from</span> <span class="nn">twython</span> <span class="kn">import</span> <span class="n">TwythonStreamer</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+<span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;config.ini&#39;</span><span class="p">)</span>
+
+<span class="n">CONSUMER_KEY</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Twitter&#39;</span><span class="p">][</span><span class="s1">&#39;cs_key&#39;</span><span class="p">]</span>
+<span class="n">CONSUMER_SECRET</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Twitter&#39;</span><span class="p">][</span><span class="s1">&#39;cs_secret&#39;</span><span class="p">]</span>
+<span class="n">ACCESS_TOKEN</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Twitter&#39;</span><span class="p">][</span><span class="s1">&#39;acc_token&#39;</span><span class="p">]</span>
+<span class="n">ACCESS_SECRET</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Twitter&#39;</span><span class="p">][</span><span class="s1">&#39;acc_secret&#39;</span><span class="p">]</span>
+<span class="n">SLACK_TOKEN</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;Slack&#39;</span><span class="p">][</span><span class="s2">&quot;token&quot;</span><span class="p">]</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>We define some other constants. Note that CHANNEL includes the pound sign (#) and the domain to monitor is defined as a tuple (explained further down). The message is constructed to make it easy to go to the tweet and know who is tweeting:</p>
+<div class="highlight"><pre><span></span><span class="ss">CHANNEL =</span> <span class="err">&#39;</span><span class="c1">#pybites-mentions&#39;</span>
+<span class="ss">DOMAIN =</span> <span class="p">(</span><span class="err">&#39;</span>pybit&#39;<span class="p">,</span> <span class="err">&#39;</span>es&#39;<span class="p">)</span>
+<span class="ss">MSG =</span> <span class="s1">&#39;&#39;</span><span class="err">&#39;</span><span class="s1">A new mention of {domain}:</span>
+
+<span class="s1">{user} (name: {name} / followers {followers}) tweeted:</span>
+<span class="s1">{tweet_text}</span>
+
+<span class="s1">Link to tweet: https://twitter.com/{user}/status/{tweet_id}</span>
+<span class="se">&#39;&#39;&#39;</span><span class="s1"></span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Instantiate a Slacker object:</p>
+<div class="highlight"><pre><span></span>slack = Slacker(SLACK_TOKEN)
+</pre></div>
+
+
+</li>
+<li>
+<p>Set up logging if we need to debug anything on the remote server one day:</p>
+<div class="highlight"><pre><span></span>logging.basicConfig(level=logging.DEBUG,
+                    format=&#39;%(asctime)s %(name)-12s %(levelname)-8s %(message)s&#39;,
+                    datefmt=&#39;%m-%d %H:%M&#39;,
+                    filename=&#39;bot.log&#39;)
+</pre></div>
+
+
+</li>
+<li>
+<p>A helper to create the message that shows up in our Slack channel: </p>
+<div class="highlight"><pre><span></span>def create_post(data):
+    tweet_text = data[&#39;text&#39;]
+    tweet_id = data[&#39;id_str&#39;]
+    user = data[&#39;user&#39;][&#39;screen_name&#39;]
+    name = data[&#39;user&#39;][&#39;name&#39;]
+    followers = data[&#39;user&#39;][&#39;followers_count&#39;]
+    return MSG.format(domain=&#39;.&#39;.join(DOMAIN),
+                    user=user,
+                    name=name,
+                    followers=followers,
+                    tweet_text=tweet_text,
+                    tweet_id=tweet_id)
+</pre></div>
+
+
+</li>
+<li>
+<p>What really makes this solution cool is the <a href="https://dev.twitter.com/streaming/overview">Streaming API</a>. We also used it <a href="http://pybit.es/codechallenge07.html">here</a>. <a href="https://twython.readthedocs.io/en/latest/usage/streaming_api.html">TwythonStreamer</a> makes it quite easy to start to monitor Twitter: 6 LOC in the docs, 10 LOC here, because we added exception handling, logging and posting to Slack:</p>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">MyStreamer</span><span class="p">(</span><span class="nx">TwythonStreamer</span><span class="p">)</span><span class="o">:</span>
+    <span class="s1">&#39;&#39;&#39; https://twython.readthedocs.io/en/latest/usage/streaming_api.html &#39;&#39;&#39;</span>
+
+    <span class="nx">def</span> <span class="nx">on_success</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">post</span> <span class="o">=</span> <span class="nx">create_post</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+        <span class="nx">logging</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">post</span><span class="p">)</span>
+        <span class="k">try</span><span class="o">:</span>
+            <span class="nx">slack</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">post_message</span><span class="p">(</span><span class="nx">CHANNEL</span><span class="p">,</span> <span class="nx">post</span><span class="p">,</span> <span class="nx">as_user</span><span class="o">=</span><span class="nx">True</span><span class="p">)</span>
+        <span class="nx">except</span> <span class="nx">Exception</span> <span class="kr">as</span> <span class="nx">exc</span>:
+            <span class="kt">logging.error</span><span class="p">(</span><span class="s1">&#39;cannot post to channel: {}&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">exc</span><span class="p">))</span>
+
+    <span class="nx">def</span> <span class="nx">on_error</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">status_code</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;An error occurred: {}, exiting&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">status_code</span><span class="p">))</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">()</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Invoke the Streamer. Important note: pybit.es (one term) did not work so well, so we had to feed stream.statuses.filter 'pybit es' which works as a logical AND, see <a href="https://dev.twitter.com/streaming/overview/request-parameters#track">here</a>:</p>
+<div class="highlight"><pre><span></span>if __name__ == &quot;__main__&quot;:
+
+    stream = MyStreamer(CONSUMER_KEY, CONSUMER_SECRET,
+                        ACCESS_TOKEN, ACCESS_SECRET)
+
+    # https://dev.twitter.com/streaming/overview/request-parameters#track
+    stream.statuses.filter(track=&#39; &#39;.join(DOMAIN))
+</pre></div>
+
+
+</li>
+<li>
+<p>Quite amazed how these modules abstract away a lot of complex stuff keeping the script lean. As we <a href="http://pybit.es/py-mistakes.html">wrote before</a>: don't re-invent the wheel.</p>
+</li>
+</ul>
+<h2>Deployment</h2>
+<p>I run this script on my server. Of course it might die and we want it to work 7x24, so I <a href="https://github.com/pybites/100DaysOfCode/blob/master/020/bot.sh">included a small shell script</a> to respawn the process if it dies, a technique I learned from <a href="http://pybit.es/simple-chatbot.html">my previous Slack bot</a>.</p>
+<h3>Result</h3>
+<p>Whenever our domain is mentioned we get an instant notification on Slack:</p>
+<p><img alt="pybites mentions channel" src="https://pybit.es/images/pybites-mentions.png"></p>
+<h2>What would you Slackify?</h2>
+<p>For us this is a great form of monitoring (automation). I hope you've enjoyed this tour of how to interact with 2 APIs. It's not that difficult, yet the options are endless and you can build some really cool stuff.</p>
+<h3>Go wild with APIs</h3>
+<p>On that note, 'Now is better than never' (Python Zen), because <a href="http://pybit.es/codechallenge16.html">this week's challenge</a> is all about fiddling with Web APIs! Comment below if this inspired you to build something yourself, or <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">submit your code</a> to our <a href="https://github.com/pybites/challenges/tree/community">challenges community branch</a> via a PR.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/twitter.html">Twitter</a>
+      <a href="https://pybit.es/tag/slack.html">Slack</a>
+      <a href="https://pybit.es/tag/automation.html">Automation</a>
+      <a href="https://pybit.es/tag/monitoring.html">monitoring</a>
+      <a href="https://pybit.es/tag/twython.html">twython</a>
+      <a href="https://pybit.es/tag/twythonstreamer.html">TwythonStreamer</a>
+      <a href="https://pybit.es/tag/slacker.html">slacker</a>
+      <a href="https://pybit.es/tag/configparser.html">configparser</a>
+      <a href="https://pybit.es/tag/logging.html">logging</a>
+      <a href="https://pybit.es/tag/brand.html">brand</a>
+      <a href="https://pybit.es/tag/triggers.html">triggers</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

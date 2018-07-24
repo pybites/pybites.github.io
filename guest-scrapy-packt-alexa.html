@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Rhys Powell" />
+<meta name="description" content="I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book. What I always forget to do is look at what today’s book is and what I didn’t have was a lot of time to meet this month's deadline for app submission. Why not combine them both?" />
+<meta name="keywords" content="guest, Alexa, Scrapy, web scraping, Packt, books">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Pushing the Packt "free book of the day" to the world with Scrapy and Alexa"/>
+<meta property="og:description" content="I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book. What I always forget to do is look at what today’s book is and what I didn’t have was a lot of time to meet this month's deadline for app submission. Why not combine them both?"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/guest-scrapy-packt-alexa.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-05-31 20:32:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/rhys-powell.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="guest"/>
+<meta property="article:tag" content="Alexa"/>
+<meta property="article:tag" content="Scrapy"/>
+<meta property="article:tag" content="web scraping"/>
+<meta property="article:tag" content="Packt"/>
+<meta property="article:tag" content="books"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Pushing the Packt "free book of the day" to the world with Scrapy and Alexa" />
+<meta name="twitter:description" content="I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book. What I always forget to do is look at what today’s book is and what I didn’t have was a lot of time to meet this month's deadline for app submission. Why not combine them both?" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Pushing the Packt "free book of the day" to the world with Scrapy and Alexa</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      brown
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='brown'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/guest.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="guest-scrapy-packt-alexa">Pushing the Packt "free book of the day" to the world with Scrapy and Alexa</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/rhys-powell.html">Rhys Powell</a> on Thu 31 May 2018 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 6 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book. What I always forget to do is look at what today’s book is and what I didn’t have was a lot of time to meet this month's deadline for app submission. Why not combine them both?</p>
+<p>All of the code can be <a href="https://gitlab.com/rhyspowell/packt_free_daily_book">found on Gitlab</a>.
+This post covers the build of the core code. To see the alexa and deployment sections, check out <a href="www.rhyspowell.com">www.rhyspowell.com</a>.</p>
+<p><em>Still to do: tests, logging in and adding the book to my collection.</em></p>
+<h2>First steps</h2>
+<p>Looking at ways of scraping data from websites the option that comes up first is the use of requests and beautifulsoup. Having a little bit of experience with requests it looked as though this would be a fairly easy task, sadly I was wrong. Packt has a level of protection in place that just blocked a simple requests call, despite trying lots of options I just couldn’t get the data. </p>
+<p>The next option was to look at using Selenium, something I had done for site testing previously, despite the fact that it was running chrome headless I still kept getting blocked. </p>
+<p>A little more searching around and I came across <a href="https://scrapy.org/">Scrapy</a>. I had previously heard of Scrapy through a <a href="https://talkpython.fm/episodes/show/50/web-scraping-at-scale-with-scrapy-and-scrapinghub">talkpython</a> podcast so I thought I would give it a go.</p>
+<h2>Scrapy</h2>
+<p>A first look at the <a href="https://doc.scrapy.org/en/latest/intro/overview.html">documentation</a> is pretty daunting, there’s so much that Scrapy can do for you but the team behind it has put a huge amount of effort into both the docs and getting you up and running very quickly. The tutorial can give you a fully working scraper in less than five minutes and gives a great explanation on how things work, the perfect starting point to butcher the code to my needs.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">PacktSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+   <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;packt&#39;</span>
+
+   <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.packtpub.com/packt/offers/free-learning&#39;</span><span class="p">]</span>
+       <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+           <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
+
+   <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>name</code> has to be set as the name of the spider, the <code>url</code> was updated to point to the free learning page and set the response to print out:</p>
+<p><img alt="scrapy code" src="https://pybit.es/images/scrapy-code.png"></p>
+<p>The response was exactly what I was looking for:</p>
+<div class="highlight"><pre><span></span>2018-05-24 07:59:26 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://www.packtpub.com/packt/offers/free-learning&gt; (referer: None)
+&lt;200 https://www.packtpub.com/packt/offers/free-learning&gt;
+</pre></div>
+
+
+<h2>Scraping the Page</h2>
+<p>With the ability to finally grab the page data, the next step is to open the page in a browser. I use Chrome, opening the developer tools I can inspect the page html.</p>
+<p><img alt="chrome inspection" src="https://pybit.es/images/scrapy-chromeconsole.png"></p>
+<p>From this it’s easy to see that the piece of information that we are after, the book title, is wrapped with in the class <code>dotd-title</code>. Now the work begins to get the information out of the response data. </p>
+<p>Scrapy gives you the choice of three methods of querying the data: css, xpath and re, with css or xpath being the standard methods. Once again the documentation is quite extensive and should be read through to give an idea of what can be done. An additional tool that Scrapy provides is a shell:</p>
+<div class="highlight"><pre><span></span>(venv) ➜  packt_free_learning git:(master) ✗ scrapy shell &#39;https://www.packtpub.com/packt/offers/free-learning&#39;
+</pre></div>
+
+
+<p>Running the above, processes the spider as it would normally but opens you into a python shell and provides the following objects and information:</p>
+<div class="highlight"><pre><span></span>2018-05-24 09:20:58 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://www.packtpub.com/packt/offers/free-learning&gt; (referer: None)
+[s] Available Scrapy objects:
+[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+[s]   crawler    &lt;scrapy.crawler.Crawler object at 0x10a3bad30&gt;
+[s]   item       {}
+[s]   request    &lt;GET https://www.packtpub.com/packt/offers/free-learning&gt;
+[s]   response   &lt;200 https://www.packtpub.com/packt/offers/free-learning&gt;
+[s]   settings   &lt;scrapy.settings.Settings object at 0x10b1c9710&gt;
+[s]   spider     &lt;DefaultSpider &#39;default&#39; at 0x10b5684e0&gt;
+[s] Useful shortcuts:
+[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
+[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
+[s]   shelp()           Shell help (print this help)
+[s]   view(response)    View response in a browser
+</pre></div>
+
+
+<blockquote>
+<p>Word of warning, when playing in the shell the actual response will be trimmed to a fixed length, if you want to see the full text you need to add the <code>extract()</code> method at the end of the query.</p>
+</blockquote>
+<p>I will leave you, reader, to play with your own site and work out the selectors.</p>
+<p>After much toiling and playing, the fog of how it worked cleared and there was a very simple xpath that gave me what I wanted</p>
+<div class="highlight"><pre><span></span>response.xpath(
+           &#39;normalize-space(//div[@class=&quot;dotd-title&quot;])&#39;
+           ).extract()[0]
+
+//div[@class=”dotd-title”].extract() 
+
+ returns 
+
+[&#39;<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;dotd-title&quot;</span><span class="nt">&gt;</span>\n\t\t\t\t\t\t\t<span class="nt">&lt;h2&gt;</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPython for Secret Agents\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class="nt">&lt;/h2&gt;</span>\n\t\t\t\t\t\t<span class="nt">&lt;/div&gt;</span>&#39;]
+</pre></div>
+
+
+<p>This shows scrapy returning an array of items that match. In this case, only one. It also pulls everything associated with that div, the css div identifier and all of the white space that is seen on the inspection shown above. The use of xpaths <code>normalize-space</code>
+ clears the class and all of the whitespace away just leaving the text.</p>
+<div class="highlight"><pre><span></span>&#39;Python for Secret Agents&#39;
+</pre></div>
+
+
+<h2>Pushing the data</h2>
+<p>As this was to be used by Alexa and for the Flash Briefing system it needs to be read as an rss feed in a specific format. As this is a simple feed, one item only, using a library was a bit overkill but as this was always going to run on python 3.6 I could pull f strings out of the bag.</p>
+<div class="highlight"><pre><span></span>file_text = f&#39;&#39;&#39; {{
+ &quot;uid&quot;: &quot;urn:uuid:{uuid.uuid4()}&quot;,
+ &quot;updateDate&quot;: &quot;{time.strftime(&quot;%Y-%m-%dT%H:%M:%SZ&quot;)}&quot;,
+ &quot;titleText&quot;: &quot;Packt free learning ebook for today&quot;,
+ &quot;mainText&quot;: &quot;{title}.&quot;,
+ &quot;redirectionUrl&quot;: &quot;https://www.packtpub.com/packt/offers/free-learning&quot;
+}}&#39;&#39;&#39;
+</pre></div>
+
+
+<p>Using f strings allows you to evaluate code or even previously set variables. If you haven't yet played with them, I would recommend that you take a look as they can make things so much easier. With the file text set it is fairly simple using the Boto3 library to upload to S3.</p>
+<div class="highlight"><pre><span></span>s3_client = boto3.client(
+           &#39;s3&#39;,
+           aws_access_key_id=AWS_ACCESS_KEY,
+           aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+           region_name=&#39;us-east-1&#39;
+       )
+       with open(&#39;feed.json&#39;, &#39;w&#39;) as f:
+           f.write(file_text)
+
+       # Upload the file to S3
+       response = s3_client.put_object(
+           ACL=&#39;public-read&#39;,
+           Bucket=&#39;packt-free-learning&#39;,
+           Key=&#39;feed.json&#39;,
+           Body=file_text,
+           ContentEncoding=&#39;utf-8&#39;,
+           ContentType=&#39;application/json&#39;,
+           StorageClass=&#39;REDUCED_REDUNDANCY&#39;
+           )
+</pre></div>
+
+
+<h2>Error Handling</h2>
+<p>Happy with the fact I could now grab the data and push it somewhere for Alexa to consume, as my devoted users wouldn’t want to miss their daily update, I needed to make sure that I would be alerted to any issues. At the time I had just listened to a <a href="https://pythonbytes.fm/">Python Bytes podcast</a> where they had mentioned a package named <a href="https://github.com/notifiers/notifiers">notifiers</a> and this seemed like a great time to test it out.</p>
+<p>For me, doing ops, I live in Slack for most of the day, so that as a platform to send alerts to looked like the best option. The integration required the enabling of the webhooks, a simple app install on the Slack side, then using that app create a specific url to push the data to.</p>
+<p>First steps were to define some errors I would likely get that I would be able to see if it was caused by a programming error, the script getting blocked or something on the AWS side.</p>
+<div class="highlight"><pre><span></span>handle_httpstatus_list = [401, 403, 404, 408, 500, 502, 503, 504]
+</pre></div>
+
+
+<p>This sets scrapy to handle any of the http status errors listed allowing me the opportunity to do something with them later in the script. </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">notifiers</span> <span class="kn">import</span> <span class="n">get_notifier</span>
+</pre></div>
+
+
+<p>Sets up our ability to call one of the applications that notifiers supports. Not to tie them together.</p>
+<p>404 would give an indication that they have moved the page:</p>
+<div class="highlight"><pre><span></span>if response.status == 404:
+           slack.notify(webhook_url=hook, message=&#39;404 URL is not good&#39;)
+</pre></div>
+
+
+<p>402 and 403 might indicate that we were now getting blocked:</p>
+<div class="highlight"><pre><span></span>elif response.status == 401 or response.status == 403:
+           slack.notify(
+               webhook_url=hook,
+               message=&#39;We might have been blocked status &#39;
+               + str(response.status)
+               )
+</pre></div>
+
+
+<p>408 and any of the 500s that are being trapped are likely to be a transient error so wait and try again:</p>
+<div class="highlight"><pre><span></span><span class="k">else</span><span class="o">:</span>
+               <span class="n">slack</span><span class="o">.</span><span class="na">notify</span><span class="o">(</span>
+                   <span class="n">webhook_url</span><span class="o">=</span><span class="n">hook</span><span class="o">,</span>
+                   <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Warning connection type errors. Error number &#39;</span>
+                   <span class="o">+</span> <span class="n">str</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">status</span><span class="o">)</span>
+                   <span class="o">+</span> <span class="s1">&#39; count &#39;</span>
+                   <span class="o">+</span> <span class="n">str</span><span class="o">(</span><span class="n">count</span><span class="o">)</span>
+                   <span class="o">)</span>
+               <span class="n">time</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">300</span><span class="o">)</span>
+               <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+               <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">4</span><span class="o">:</span>
+                   <span class="n">exit</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+               <span class="k">else</span><span class="o">:</span>
+                   <span class="n">self</span><span class="o">.</span><span class="na">start_requests</span><span class="o">()</span>
+</pre></div>
+
+
+<p>It was then a simple case of deploying the app where I wanted it to run. More on that can be found in a post on my blog.</p>
+<h2>Bonus</h2>
+<p>A couple of months after the app had been running, a conversation started on <a href="https://pybit.es">PyBites</a> Slack about posting the free book, each day, to the #books channel. I jumped at the chance to offer the app, thinking it would be fun to extend it a bit more.</p>
+<p>At the time of offering to help, it had been quite a while since I had looked at the code. I had in mind to use the notifiers module that I had heard of months before, remembering how useful it was. </p>
+<p>It was a delight seeing it post to the PyBites Slack channel! Even better, the whole process of adding another notifier took less than 5 minutes!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p><a href="pages/guests.html#rhyspowell">Rhys</a></p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/guest.html">guest</a>
+      <a href="https://pybit.es/tag/alexa.html">Alexa</a>
+      <a href="https://pybit.es/tag/scrapy.html">Scrapy</a>
+      <a href="https://pybit.es/tag/web-scraping.html">web scraping</a>
+      <a href="https://pybit.es/tag/packt.html">Packt</a>
+      <a href="https://pybit.es/tag/books.html">books</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

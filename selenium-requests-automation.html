@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In part 3 of the PyBites Banner Generator article series I show you how to automatically generate a banner with Requests and Selenium." />
+<meta name="keywords" content="Selenium, Requests, selenium-requests, Click, Pillow, automation, scraping, tools, PyBites Banner Generator, images">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Fully Automate Login and Banner Generation with Selenium, Requests and Click"/>
+<meta property="og:description" content="In part 3 of the PyBites Banner Generator article series I show you how to automatically generate a banner with Requests and Selenium."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/selenium-requests-automation.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-08-20 17:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Modules"/>
+<meta property="article:tag" content="Selenium"/>
+<meta property="article:tag" content="Requests"/>
+<meta property="article:tag" content="selenium-requests"/>
+<meta property="article:tag" content="Click"/>
+<meta property="article:tag" content="Pillow"/>
+<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="scraping"/>
+<meta property="article:tag" content="tools"/>
+<meta property="article:tag" content="PyBites Banner Generator"/>
+<meta property="article:tag" content="images"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Fully Automate Login and Banner Generation with Selenium, Requests and Click" />
+<meta name="twitter:description" content="In part 3 of the PyBites Banner Generator article series I show you how to automatically generate a banner with Requests and Selenium." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Fully Automate Login and Banner Generation with Selenium, Requests and Click</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="selenium-requests-automation">Fully Automate Login and Banner Generation with Selenium, Requests and Click</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sun 20 August 2017 in <a href="https://pybit.es/category/modules.html">Modules</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In part 3 of the <em>PyBites Banner Generator</em> article series I show you how to automatically generate a banner with <a href="http://docs.python-requests.org/en/master/">Requests</a> and <a href="http://selenium-python.readthedocs.io/index.html">Selenium</a>.</p>
+<p>For both scripts I used <a href="http://click.pocoo.org/5/">Click</a> to build the CLI interface.</p>
+<p>The code for this tutorial is <a href="https://github.com/pybites/form-automation-fun">on Github</a>.</p>
+<h2>Requests</h2>
+<p>Julian showed us some time ago <a href="https://pybit.es/requests-session.html">How to Use Python Requests on a Page Behind a Login</a>. It showed how we could POST to a webpage, pretty cool. I took this concept and wrote <a href="https://pybites-banners.herokuapp.com">a quick interactive script</a> to POST to the <a href="https://pybites-banners.herokuapp.com/">PyBites Banner Generator form</a> and retrieve the generated banner: </p>
+<ul>
+<li>
+<p>Posting to a page is easy, use requests' <code>Session</code> object passing it headers and a payload dict with user data (POST parameters):</p>
+<div class="highlight"><pre><span></span>session = requests.Session()
+request = session.post(BANNER_APP, headers=HEADERS, data=payload)
+</pre></div>
+
+
+</li>
+<li>
+<p>As detailed  <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a> the Flask app returns the generated png image upon form submission. With the POST request we are effectively submitting the form so the repsonse object holds the banner image. To retrieve it just write the <code>request.content</code> to a file. As the image is binary don't forget to use <code>wb</code>:</p>
+<div class="highlight"><pre><span></span>with open(outfile, &#39;wb&#39;) as f:
+    f.write(request.content)
+</pre></div>
+
+
+<p>And that's all there is to it.</p>
+</li>
+</ul>
+<h2>Requests + Selenium == selenium-requests</h2>
+<p>Having achieved that I wanted to get a private PyBites banner. As detailed <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a> to use PyBites logos we need to login (this is one of our 'live' tools).</p>
+<p>Although you can perfectly use requests to login to your site as well, I wanted to try Selenium for this version. After all we use this module for <a href="https://pybit.es/codechallenge32.html">this week's code challenge</a>. To use requests in Selenium there is a nice package called <a href="https://pypi.python.org/pypi/selenium-requests/">selenium-requests</a> that:</p>
+<blockquote>
+<p>Extends Selenium WebDriver classes to include the request function from the Requests library, while doing all the needed cookie and request headers handling.</p>
+</blockquote>
+<p>Awesome!</p>
+<p>It was friendly to use, see the code <a href="https://github.com/pybites/form-automation-fun/blob/master/private_banner.py">here</a>. </p>
+<p>Some notes, also on how I used <code>click</code>:</p>
+<ul>
+<li>
+<p><code>click</code> is your friend to build robust CLI interfaces. For example the username and password can be retrieved from ENV variables with: </p>
+<div class="highlight"><pre><span></span>@click.option(&#39;-u&#39;, &#39;--username&#39;, envvar=&#39;USERNAME&#39;)
+@click.option(&#39;-p&#39;, &#39;--password&#39;, envvar=&#39;PASSWORD&#39;)
+</pre></div>
+
+
+<p>Want a choice list? No problem:</p>
+<div class="highlight"><pre><span></span>@click.option(&#39;-l&#39;, &#39;--logo&#39;, type=click.Choice(PYBITES_PILLARS))
+</pre></div>
+
+
+<p>Or a boolean field? Add this:</p>
+<div class="highlight"><pre><span></span>@click.option(&#39;-b/-nb&#39;, &#39;--background/--no-background&#39;,
+            default=False, prompt=True)
+</pre></div>
+
+
+</li>
+<li>
+<p>We wrap these user inputs (payload) in a data dict and we login to the site with a helper method:</p>
+<div class="highlight"><pre><span></span>driver = login(username, password)
+</pre></div>
+
+
+<p>To enter data and submit just find the element for which Selenium <a href="http://selenium-python.readthedocs.io/locating-elements.html">has quite a few helper methods</a> and use <code>send_keys</code>, then click the Login button (xpath only needed because the lack of HTML id/name attributes):</p>
+<div class="highlight"><pre><span></span>username_field = driver.find_element_by_name(&#39;username&#39;)
+username_field.send_keys(username)
+password_field = driver.find_element_by_name(&#39;password&#39;)
+password_field.send_keys(password)
+# TODO: need html id/name on button
+btn_xpath = &quot;//button[contains(@class, &#39;pure-button-primary&#39;)]&quot;
+login_btn = driver.find_element_by_xpath(btn_xpath)
+login_btn.click()
+</pre></div>
+
+
+<p>After this login click the driver keeps this logged in state in its session.</p>
+</li>
+<li>
+<p>As selenium-requests uses Requests under the hood, the POST request and response handling is identical to the first script:</p>
+<div class="highlight"><pre><span></span>request = driver.request(&#39;POST&#39;, BANNER_APP, data=data)
+
+...
+
+with open(outfile, &#39;wb&#39;) as f:
+    f.write(request.content)
+</pre></div>
+
+
+</li>
+<li>
+<p>Finally note that I am using the headless (no browser) <a href="http://phantomjs.org/">PhantomJS</a>. If you use <a href="https://github.com/pybites/form-automation-fun">the code</a> for your own site behind login you might need to install it separately.</p>
+</li>
+</ul>
+<h2>Let's try it</h2>
+<p>This is Click's out-of-the-box niceness:</p>
+<div class="highlight"><pre><span></span>$ python private_banner.py  --help
+Usage: private_banner.py <span class="o">[</span>OPTIONS<span class="o">]</span>
+
+Options:
+-n, --name TEXT
+-l, --logo <span class="o">[</span>news<span class="p">|</span>challenge<span class="p">|</span>special<span class="p">|</span>article<span class="o">]</span>
+-i, --image TEXT
+-t, --text TEXT
+-b, --background / -nb, --no-background
+-o, --outfile TEXT
+-u, --username TEXT
+-p, --password TEXT
+--help                          Show this message and exit.
+</pre></div>
+
+
+<p>Note that I set username and password in my env: </p>
+<div class="highlight"><pre><span></span>$ env <span class="p">|</span>egrep <span class="s1">&#39;USERNAME|PASSWORD&#39;</span>
+<span class="nv">PASSWORD</span><span class="o">=</span>...
+<span class="nv">USERNAME</span><span class="o">=</span>...
+</pre></div>
+
+
+<p>Let's create a banner for this article: </p>
+<div class="highlight"><pre><span></span>$ python private_banner.py -n selenium-requests <span class="se">\</span>
+-l article -i https://pbs.twimg.com/media/C7bRQMoXUAEqTbI.jpg <span class="se">\</span>
+-t <span class="s1">&#39;Fully Automate Login and Banner Generation with Selenium, Requests and Click&#39;</span> <span class="se">\</span>
+-b -o selenium-requests-banner.png
+</pre></div>
+
+
+<p>And voilà:</p>
+<p><img alt="resulting banner from command line" src="https://pybit.es/images/selenium-requests-banner.png"></p>
+<p>Going to the GUI we see that the image persisted in the DB:</p>
+<p><img alt="resulting banner from command line" src="https://pybit.es/images/pybites-banner-persisted-db.png"></p>
+<p>Now imagine using this script to automatically generate 100 banners from a csv file, wouldn't that be cool?</p>
+<h2>Further reading</h2>
+<h3>PyBites Banner Generator</h3>
+<ul>
+<li>
+<p>You can read more about the Pillow code <a href="https://pybit.es/pillow-banner-image.html">in Part 1 of this tutorial</a>.</p>
+</li>
+<li>
+<p>You can read more about the Flask app <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a>.</p>
+</li>
+</ul>
+<h3>Awesome Modules</h3>
+<ul>
+<li>
+<p>Check them out if not done already: </p>
+<ul>
+<li><a href="http://docs.python-requests.org/en/master/">Requests</a></li>
+<li><a href="http://selenium-python.readthedocs.io/index.html">Selenium</a></li>
+<li><a href="http://click.pocoo.org/5/">Click</a></li>
+</ul>
+<p>They are excellent additions to your Python toolkit!</p>
+</li>
+</ul>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/selenium.html">Selenium</a>
+      <a href="https://pybit.es/tag/requests.html">Requests</a>
+      <a href="https://pybit.es/tag/selenium-requests.html">selenium-requests</a>
+      <a href="https://pybit.es/tag/click.html">Click</a>
+      <a href="https://pybit.es/tag/pillow.html">Pillow</a>
+      <a href="https://pybit.es/tag/automation.html">automation</a>
+      <a href="https://pybit.es/tag/scraping.html">scraping</a>
+      <a href="https://pybit.es/tag/tools.html">tools</a>
+      <a href="https://pybit.es/tag/pybites-banner-generator.html">PyBites Banner Generator</a>
+      <a href="https://pybit.es/tag/images.html">images</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

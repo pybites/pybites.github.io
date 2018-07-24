@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Last week I did some html table parsing with BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas." />
+<meta name="keywords" content="BeautifulSoup, regex, Pandas, parsing, data, data cleaning, energy, json, csv, html">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Next Time I Will Use Pandas to Parse Html Tables"/>
+<meta property="og:description" content="Last week I did some html table parsing with BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/pandas-parse-html-table.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-06-08 12:46:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Concepts"/>
+<meta property="article:tag" content="BeautifulSoup"/>
+<meta property="article:tag" content="regex"/>
+<meta property="article:tag" content="Pandas"/>
+<meta property="article:tag" content="parsing"/>
+<meta property="article:tag" content="data"/>
+<meta property="article:tag" content="data cleaning"/>
+<meta property="article:tag" content="energy"/>
+<meta property="article:tag" content="json"/>
+<meta property="article:tag" content="csv"/>
+<meta property="article:tag" content="html"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Next Time I Will Use Pandas to Parse Html Tables" />
+<meta name="twitter:description" content="Last week I did some html table parsing with BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Next Time I Will Use Pandas to Parse Html Tables</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="pandas-parse-html-table">Next Time I Will Use Pandas to Parse Html Tables</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Thu 08 June 2017 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
+
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Last week I did some html table parsing for our <a href="https://pybit.es/codechallenge21_review.html">Electricity Cost Calculation App challenge</a>. I used BeautifulSoup and regex. It turns out there is an easier way to do this: Pandas.</p>
+<h2>Parsing html tables</h2>
+<h3>Take 1: BeautifulSoup and regex</h3>
+<p>For our challenge I wanted to include a table of wattage uses of standard devices. I did not find any API so ended up with <a href="https://www.wholesalesolar.com/solar-information/how-to-save-energy/power-table">Wholesale Solar's power table</a>. </p>
+<p>However even having a great library like <a href="https://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a> available it was still a pain parsing the html (see <code>get_appliance_wattages()</code> <a href="https://github.com/pybites/challenges/blob/community/21/bbelderbos/data.py">here</a>)</p>
+<h3>Take 2: Pandas</h3>
+<p>Luckily I stumbled upon <a href="https://medium.com/@ageitgey/quick-tip-the-easiest-way-to-grab-data-out-of-a-web-page-in-python-7153cecfca58">this article</a> which shows you how to use Pandas' <code>read_html()</code> to grab tabular data from html pages. Very useful! Here is <a href="https://github.com/pybites/100DaysOfCode/blob/master/070/pandas-html-tables.ipynb">a Jupyter notebook</a> applying it to the power table problem.</p>
+<p>Although easy to use, I still had to do some data conversion in Pandas, because the table came with duplicated column names: 3 columns of Appliances and 3 columns of Watts.</p>
+<p>So I did end up spending time on both methods, but the Pandas way is more extensible, because once you have the data in a <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">DataFrame</a> you have a rich API to your disposal to do all kinds of data manipulations, like grouping, filtering and format conversion (to csv/json).</p>
+<h2>The manual part: Data cleaning</h2>
+<p>The take away is to use specialized libraries as much as possible. They have most of the common use cases figured out. </p>
+<p>However be it BeautifulSoup, regex or Pandas, there is always some data (manual) manipulation and cleaning involved. </p>
+<p>As you can see in the notebook, although Pandas took care of stripping the thousand separators, I still needed to manually manipulate/clean values like: <code>80-150</code> (average), <code>400-1000+</code> (strip), or <code>1080 watt-hours /day*</code> (normalize).</p>
+<p>If you have a magic method for that let me know or if you want to share your data parsing story do so in the comments below, specially if it involved a lot of nasty manipulation and cleaning :)</p>
+<p>I realize this would be an ideal code challenge too, if you agree, feel free to suggest one <a href="https://github.com/pybites/challenges/issues">here</a>.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>
+      <a href="https://pybit.es/tag/regex.html">regex</a>
+      <a href="https://pybit.es/tag/pandas.html">Pandas</a>
+      <a href="https://pybit.es/tag/parsing.html">parsing</a>
+      <a href="https://pybit.es/tag/data.html">data</a>
+      <a href="https://pybit.es/tag/data-cleaning.html">data cleaning</a>
+      <a href="https://pybit.es/tag/energy.html">energy</a>
+      <a href="https://pybit.es/tag/json.html">json</a>
+      <a href="https://pybit.es/tag/csv.html">csv</a>
+      <a href="https://pybit.es/tag/html.html">html</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

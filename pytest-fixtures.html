@@ -1,0 +1,907 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Setting up test cases for code that manage data can be challenging but it's an important skill to reliably test your code. You might have heard of the setup and teardown methods in unittest. In pytest you use fixtures and as you will discover in this article they are actually not that hard to set up. Fixtures have been labelled pytest's killer feature so let's explore them in this article using a practical example." />
+<meta name="keywords" content="pytest, fixtures, testing, refactoring, pytest-cov, coverage">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="All You Need to Know to Start Using Fixtures in Your pytest Code"/>
+<meta property="og:description" content="Setting up test cases for code that manage data can be challenging but it's an important skill to reliably test your code. You might have heard of the setup and teardown methods in unittest. In pytest you use fixtures and as you will discover in this article they are actually not that hard to set up. Fixtures have been labelled pytest's killer feature so let's explore them in this article using a practical example."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/pytest-fixtures.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-03-15 13:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Testing"/>
+<meta property="article:tag" content="pytest"/>
+<meta property="article:tag" content="fixtures"/>
+<meta property="article:tag" content="testing"/>
+<meta property="article:tag" content="refactoring"/>
+<meta property="article:tag" content="pytest-cov"/>
+<meta property="article:tag" content="coverage"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="All You Need to Know to Start Using Fixtures in Your pytest Code" />
+<meta name="twitter:description" content="Setting up test cases for code that manage data can be challenging but it's an important skill to reliably test your code. You might have heard of the setup and teardown methods in unittest. In pytest you use fixtures and as you will discover in this article they are actually not that hard to set up. Fixtures have been labelled pytest's killer feature so let's explore them in this article using a practical example." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; All You Need to Know to Start Using Fixtures in Your pytest Code</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="pytest-fixtures">All You Need to Know to Start Using Fixtures in Your pytest Code</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Thu 15 March 2018 in <a href="https://pybit.es/category/testing.html">Testing</a>
+
+
+        &#8226; 11 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Setting up test cases for code that manage data can be challenging but it's an important skill to reliably test your code. You might have heard of the setup and teardown methods in <code>unittest</code>. In <code>pytest</code> you use <em>fixtures</em> and as you will discover in this article they are actually not that hard to set up. Fixtures have been labelled <em>pytest's killer feature</em> so let's explore them in this article using a practical example.</p>
+<blockquote>
+<p>pytest fixtures ... are the reason why many people switch to and stay with pytest. ... one of the great reasons to use fixtures: to focus the test on what you’re actually testing, not on what you had to do to get ready for the test. - Brian Okken's <a href="https://pybit.es/pytest-book.html">Python testing with pytest</a></p>
+</blockquote>
+<h2>Why do you want fixtures?</h2>
+<p>If your tests need to work on data you typically need to set them up. This is often a process that has to be repeated and independent for each test. This often leads to duplicate code which is "number one in the stink parade" (<a href="https://www.safaribooksonline.com/library/view/building-maintainable-software/9781491955987/ch04.html">Kent Beck and Martin Fowler</a>).</p>
+<p>The <code>@pytest.fixture</code> decorator provides an easy yet powerful way to setup and teardown resources. You can then pass these defined fixture objects into your test functions as input arguments.</p>
+<p>You want each test to be independent, something that you can enforce by <a href="https://twitter.com/tarek_ziade/status/973848758227173376">running your tests in random order</a>.</p>
+<p>Fixtures are also referred to as dependency injections which you can read more about <a href="https://en.wikipedia.org/wiki/Dependency_injection">here</a>. Let's look at some actual code next.</p>
+<h2>An example - working with databases</h2>
+<p>This is a common scenario. In my guest article <a href="https://realpython.com/blog/python/building-a-simple-web-app-with-bottle-sqlalchemy-twitter-api/">Building a Simple Web App With Bottle, SQLAlchemy, and the Twitter API</a> I used a small DB app and pytest for testing. I defined a fixture to make a fresh DB with some test tweets for every test:</p>
+<div class="highlight"><pre><span></span>@pytest.fixture()
+def db_setup(request):
+
+    tweets = list(_gen_tweets())
+    import_tweets(tweets)
+    import_hashtags()
+
+    def fin():
+        truncate_tables()
+
+    request.addfinalizer(fin)
+</pre></div>
+
+
+<p>A couple of things to notice here:</p>
+<ul>
+<li>
+<p>You define a fixture with a function wrapping it into the <code>@pytest.fixture()</code> decorator</p>
+</li>
+<li>
+<p>You probably want some static data to work with, here <code>_gen_tweets</code> loaded in a <em>tweets.json</em> file</p>
+</li>
+<li>
+<p>To define a teardown use the <code>def fin(): ...</code> + <code>request.addfinalizer(fin)</code> construct to do the required cleanup after each test. You can also use <code>yield</code> (see <a href="https://docs.pytest.org/en/latest/fixture.html#fixture-finalization-executing-teardown-code">pytest docs</a>).</p>
+</li>
+</ul>
+<p>Then to use this fixture on the test methods we can just pass it in as function argument:</p>
+<div class="highlight"><pre><span></span>def test_get_tips(db_setup):
+    ...
+
+
+def test_add_tips(db_setup):
+    ...
+
+
+def test_get_hashtags(db_setup):
+    ...
+
+
+def test_add_hashtags(db_setup):
+    ...
+</pre></div>
+
+
+<p>You can access this code <a href="https://github.com/pybites/pytip/blob/master/tests/test_tips.py">here</a>.</p>
+<h2>Second example - a groceries cart</h2>
+<p>I prepared a second example for this article. Here is a <code>Groceries</code> class (final code examples are <a href="https://github.com/pybites/blog_code/tree/master/pytest/fixtures">here</a>). It lets you manage a list of items. Each <code>Item</code> is a <code>namedtuple</code> of product (name), price and a craving <code>bool</code>. The <code>DuplicateProduct</code> and <code>MaxCravingsReached</code> exceptions are used to control the data added and the amount of sugary foods I try to buy 😂</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="n">MAX_CRAVINGS</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">Item</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span> <span class="s1">&#39;product price craving&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">DuplicateProduct</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">MaxCravingsReached</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">Groceries</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This cart can be instantiated with a list of namedtuple</span>
+<span class="sd">        items, if not provided use an empty list&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="n">items</span> <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print a simple table of cart items with total at the end&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">:</span>
+            <span class="n">product</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;{item.product}&#39;</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">craving</span><span class="p">:</span>
+                <span class="n">product</span> <span class="o">+=</span> <span class="s1">&#39; (craving)&#39;</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{product:&lt;30} | {item.price:&gt;3}&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">36</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{&quot;Total&quot;:&lt;30} | {self.due:&gt;3}&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a new item to cart, raise exceptions if item already in</span>
+<span class="sd">        cart, or when we exceed MAX_CRAVINGS&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="n">new_item</span><span class="o">.</span><span class="n">product</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">DuplicateProduct</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{new_item.product} already in items&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_item</span><span class="o">.</span><span class="n">craving</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_cravings_reached</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MaxCravingsReached</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{MAX_CRAVINGS} allowed&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">product</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete item matching &#39;product&#39;, raises IndexError</span>
+<span class="sd">        if no item matches&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="n">product</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;{product} not in cart&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Case insensitive &#39;contains&#39; search, this is a</span>
+<span class="sd">        generator returning matching Item namedtuples&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">search</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">product</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">item</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">due</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate total due value of cart&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">price</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_cravings_reached</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks if I have too many cravings in my cart &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">craving</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">MAX_CRAVINGS</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The len of cart&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Making the class iterable (cart = Groceries() -&gt; cart[1] etc)</span>
+<span class="sd">        without this dunder I would get &#39;TypeError: &#39;Cart&#39; object does</span>
+<span class="sd">        not support indexing&#39; when trying to index it&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Some non-pytest related things to notice here:</p>
+<ul>
+<li>
+<p>It supports <em>show</em>/<em>add</em>/<em>delete</em>, I left the <em>update</em> method out for now. I did leave the <em>search</em> method in though (to show <code>@pytest.mark.parametrize</code> later)</p>
+</li>
+<li>
+<p>The convenient use of <a href="https://pybit.es/property-decorator.html">properties</a></p>
+</li>
+<li>
+<p>Using __len__ and __getitem__ to make the class <em>iterable</em> (we discussed <em>dunder methods</em> in depth in <a href="https://dbader.org/blog/python-dunder-methods">this guest article</a>). Thanks to this Groceries now supports <em>indexing</em> for example (<em>slicing</em> would work too). So when I later instantiate a <code>cart</code> object from it, I can do <code>cart[0].product</code> instead of <code>cart._items[0].product</code>, etc.</p>
+</li>
+</ul>
+<h2>Initial tests for Groceries</h2>
+<p>And here is the initial set of tests I wrote for this class:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="kn">from</span> <span class="nn">groceries</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Groceries</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">DuplicateProduct</span><span class="p">,</span>
+                    <span class="n">MaxCravingsReached</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_setup_items</span><span class="p">():</span>
+    <span class="n">products</span> <span class="o">=</span> <span class="s1">&#39;celery apples water coffee chicken pizza&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">prices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="n">cravings</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">products</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="n">cravings</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">Item</span><span class="p">(</span><span class="o">*</span><span class="n">item</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_initial_empty_cart</span><span class="p">():</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">test_initial_filled_cart</span><span class="p">():</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_setup_items</span><span class="p">())</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="c1"># thanks to __getitem__ can index the cart</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;celery&#39;</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;pizza&#39;</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">4</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">22</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
+
+
+<span class="k">def</span> <span class="nf">test_add_item</span><span class="p">():</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_setup_items</span><span class="p">())</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="n">oranges</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;oranges&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">oranges</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;oranges&#39;</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">25</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
+
+
+<span class="k">def</span> <span class="nf">test_add_item_duplicate</span><span class="p">():</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_setup_items</span><span class="p">())</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="n">apples</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;apples&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">DuplicateProduct</span><span class="p">):</span>
+        <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">apples</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_add_item_max_cravings</span><span class="p">():</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_setup_items</span><span class="p">())</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="n">chocolate</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chocolate</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
+
+    <span class="n">croissants</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;croissants&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">MaxCravingsReached</span><span class="p">):</span>
+        <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">croissants</span><span class="p">)</span>  <span class="c1"># wait till next week!</span>
+
+
+<span class="k">def</span> <span class="nf">test_delete_item</span><span class="p">():</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_setup_items</span><span class="p">())</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="c1"># not in collection</span>
+    <span class="n">croissant</span> <span class="o">=</span> <span class="s1">&#39;croissant&#39;</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
+        <span class="n">cart</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">croissant</span><span class="p">)</span>
+
+    <span class="c1"># in collection</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+    <span class="n">apples</span> <span class="o">=</span> <span class="s1">&#39;apples&#39;</span>
+    <span class="n">cart</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">apples</span><span class="p">)</span>
+    <span class="c1"># new product at this index</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;water&#39;</span>
+
+
+<span class="nd">@pytest.mark.parametrize</span><span class="p">(</span><span class="s2">&quot;test_input,expected&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Apples&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;le&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;zZ&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_search_item</span><span class="p">(</span><span class="n">test_input</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_setup_items</span><span class="p">())</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cart</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_input</span><span class="p">)))</span> <span class="o">==</span> <span class="n">expected</span>
+
+
+<span class="k">def</span> <span class="nf">test_show_items</span><span class="p">(</span><span class="n">capfd</span><span class="p">):</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_setup_items</span><span class="p">())</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="n">cart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+    <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^celery.*1$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^pizza \(craving\).*4$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^Total.*22$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Things to notice:</p>
+<ul>
+<li>
+<p>Right off the bat you see that annoying setup repetition in each test: <code>cart = Groceries</code>! We will tackle this shortly.</p>
+</li>
+<li>
+<p>Here are some other nice pytest features I am using a lot lately:</p>
+<ul>
+<li>
+<p>To test an exception (<code>DuplicateProduct</code> and <code>MaxCravingsReached</code> here) you can use this construct:</p>
+<div class="highlight"><pre><span></span>with pytest.raises(Exception):
+    run code that triggers the Exception
+</pre></div>
+
+
+</li>
+<li>
+<p><code>@pytest.mark.parametrize</code> to run a test with a different set of <em>input</em> and <em>expected</em> values. This addresses the same need to keep your code slim avoiding duplication.</p>
+</li>
+<li>
+<p>to consume the <em>stdout</em> of your program you can pass in the <em>capfd</em> input parameter to your test function and accessing its <code>readouterr</code> method. I use it in <code>test_show_ output</code> to test the groceries report output. Actually as I was writing this article I discovered that <code>capfd</code> is actually a <em>fixture</em> itself, you can see this when you run <code>pytest --fixtures</code>:</p>
+<div class="highlight"><pre><span></span>...
+...
+capfd
+Enable capturing of writes to file descriptors 1 and 2 and make
+captured output available via ``capfd.readouterr()`` method calls
+which return a ``(out, err)`` tuple.  ``out`` and ``err`` will be ``text``
+objects.
+</pre></div>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2>Coverage</h2>
+<p>I am making a habit of using <a href="https://pypi.python.org/pypi/pytest-cov">pytest-cov</a> to see my test coverage:</p>
+<div class="highlight"><pre><span></span>(pytest) [bbelderb@macbook fixtures (master)]$ pytest --cov-report term-missing --cov=&#39;.&#39;
+============================================= test session starts ==============================================
+platform darwin -- Python 3.6.1, pytest-3.4.2, py-1.5.2, pluggy-0.6.0
+rootdir: /Users/bbelderb/code/pybites_code/pytest/fixtures, inifile:
+plugins: cov-2.5.1
+collected 14 items
+
+test_groceries.py ..............                                                                         [100%]
+
+---------- coverage: platform darwin, python 3.6.1-final-0 -----------
+Name                Stmts   Miss  Cover   Missing
+-------------------------------------------------
+groceries.py           42      0   100%
+test_groceries.py      71      0   100%
+-------------------------------------------------
+TOTAL                 113      0   100%
+
+
+========================================== 14 passed in 0.34 seconds ===========================================
+</pre></div>
+
+
+<p>As I run this over and over again I added this alias to my <code>.vimrc</code> so I can run this from my test file pressing <code>,t</code>:</p>
+<div class="highlight"><pre><span></span>nmap ,t :w&lt;CR&gt;:!pytest -s --cov-report term-missing --cov=&#39;.&#39;&lt;CR&gt;
+</pre></div>
+
+
+<p>(if you don't want to see stdout from your tests drop the <em>-s</em>)</p>
+<h2>Let's refactor this using a fixture</h2>
+<p>As we saw the setup code of the Groceries gets repeated over and over again. Let's wrap it in a fixture:</p>
+<div class="highlight"><pre><span></span>@pytest.fixture
+def cart():
+    &quot;&quot;&quot;Setup code to create a groceries cart object with 6 items in it&quot;&quot;&quot;
+    products = &#39;celery apples water coffee chicken pizza&#39;.split()
+    prices = [1, 4, 2, 5, 6, 4]
+    cravings = False, False, False, False, False, True
+
+    items = []
+    for item in zip(products, prices, cravings):
+        items.append(Item(*item))
+
+    return Groceries(items)
+</pre></div>
+
+
+<p>To use it I need to add it as input argument to each test function that uses it:</p>
+<div class="highlight"><pre><span></span>$ grep ^def test_groceries.py
+def cart<span class="o">()</span>:
+def test_initial_empty_cart<span class="o">()</span>:
+def test_initial_filled_cart<span class="o">(</span>cart<span class="o">)</span>:
+def test_add_item<span class="o">(</span>cart<span class="o">)</span>:
+def test_add_item_duplicate<span class="o">(</span>cart<span class="o">)</span>:
+def test_add_item_max_cravings<span class="o">(</span>cart<span class="o">)</span>:
+def test_delete_item<span class="o">(</span>cart<span class="o">)</span>:
+def test_search_item<span class="o">(</span>cart, test_input, expected<span class="o">)</span>:
+def test_show_items<span class="o">(</span>cart, capfd<span class="o">)</span>:
+</pre></div>
+
+
+<p>Note that:</p>
+<ul>
+<li>
+<p>In the first test I left the <code>Groceries</code> instantiation in because I wanted to create it with an empty <code>items</code> list (you can probably parametrize the fixture but this will do for now).</p>
+</li>
+<li>
+<p>In the tests that use other arguments like <code>@pytest.mark.parametrize</code> and <code>capfd</code> (in <code>test_search_item</code> and <code>test_show_items</code> respectively), the fixture argument comes first!</p>
+</li>
+</ul>
+<p>And now I can ditch these lines of code which were duplicated multiple times:</p>
+<div class="highlight"><pre><span></span>items = list(_setup_items())
+cart = Groceries(items=items)
+</pre></div>
+
+
+<p>Let's run the tests again:</p>
+<div class="highlight"><pre><span></span>(pytest) [bbelderb@macbook fixtures (master)]$ pytest --cov-report term-missing --cov=&#39;.&#39;
+============================================= test session starts ==============================================
+platform darwin -- Python 3.6.1, pytest-3.4.2, py-1.5.2, pluggy-0.6.0
+Using --random-order-bucket=module
+Using --random-order-seed=270491
+
+rootdir: /Users/bbelderb/code/pybites_code/pytest/fixtures, inifile:
+plugins: random-order-0.5.4, cov-2.5.1
+collected 14 items
+
+test_groceries.py ..............                                                                         [100%]
+
+---------- coverage: platform darwin, python 3.6.1-final-0 -----------
+Name                Stmts   Miss  Cover   Missing
+-------------------------------------------------
+groceries.py           42      0   100%
+test_groceries.py      59      0   100%
+-------------------------------------------------
+TOTAL                 101      0   100%
+
+
+========================================== 14 passed in 0.14 seconds ===========================================
+</pre></div>
+
+
+<p>Nice: 12 lines of test code less!</p>
+<p>I only covered the basics so far. However this should get you started using fixtures in your tests. Next I will highlight 2 more features of fixtures.</p>
+<h2>Define a scope of a fixture</h2>
+<p>How to share your fixture across tests in a class, module or session?</p>
+<p>In our example the setup is super fast so it is not really needed. But what if your setup code deals with a lot of data or has a costly network connection dependency? To simulate this let's add a <code>sleep(1)</code> to our <code>cart</code> fixture to see what happens:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="o">...</span>
+
+<span class="nd">@pytest.fixture</span>
+<span class="k">def</span> <span class="nf">cart</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Setup code to create a groceries cart object with 6 items in it&quot;&quot;&quot;</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">...</span>
+
+<span class="err">$</span> <span class="n">pytest</span>
+<span class="o">...</span>
+<span class="mi">14</span> <span class="n">passed</span> <span class="ow">in</span> <span class="mf">13.15</span> <span class="n">seconds</span>
+</pre></div>
+
+
+<p>Oops ... it slept upon each test function! That is because a fixture's scope is set to <em>function</em> by default. To run the fixture once per module add <code>scope="module"</code> to the <code>@pytest.fixture</code> decorator (or <code>scope="session"</code> as we will see later on). Let's compare:</p>
+<div class="highlight"><pre><span></span>@pytest.fixture(scope=&quot;module&quot;)
+def cart():
+    &quot;&quot;&quot;Setup code to create a groceries cart object with 6 items in it&quot;&quot;&quot;
+    sleep(1)
+    ...
+
+$ pytest
+...
+6 failed, 8 passed in 1.21 seconds
+$ pytest
+...
+3 failed, 11 passed in 1.17 seconds
+</pre></div>
+
+
+<p>What happened?! The timing is right, there is a sleep of 1 second, but I introduced random test failures! The tests became tainted because it changed the same mutable <code>cart</code> object in various tests, not resetting it back to its initial state (like it did when scope was <em>function</em>).</p>
+<p>So use this with caution. In this case we should just use the default <em>function</em> scope because the setup is very fast (<code>14 passed in 0.14 seconds</code> remember?). But to further demo the <em>scope</em> feature let's make this example work.</p>
+<p>In this case I just make a copy of the <code>cart</code> object where I am going to  manipulate it. I am using <code>deepcopy</code> because this is a nested data structure (learn more why you want this <a href="https://pybit.es/mutability.html">here</a>). It was only in 3 places:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">grep</span> <span class="o">-</span><span class="n">B1</span> <span class="n">deepcopy</span> <span class="n">test_groceries</span><span class="o">.</span><span class="n">py</span>
+<span class="o">...</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="o">--</span>
+<span class="k">def</span> <span class="nf">test_add_item</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>  <span class="c1"># not needed if scope &gt; function (module/session)</span>
+<span class="o">--</span>
+<span class="k">def</span> <span class="nf">test_add_item_max_cravings</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>
+<span class="o">--</span>
+<span class="k">def</span> <span class="nf">test_delete_item</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And it works again:</p>
+<div class="highlight"><pre><span></span>$ pytest
+...
+<span class="m">14</span> passed in <span class="m">1</span>.10 seconds
+</pre></div>
+
+
+<h2>Re-use fixtures in various test files</h2>
+<p>The second and last feature I want to highlight. You can add fixtures to a predefined file called <code>conftest.py</code>. Fixtures in this file will be automatically discovered upon running pytest, no import needed.</p>
+<p>Let's do an experiment: let's move the tests that make changes to the <code>cart</code> object into <code>test_edit_cart.py</code> and the ones that don't into <code>test_view_cart.py</code>. We will need the fixture for both test files so I am moving it into <code>conftest.py</code>. The code looks more modular now:</p>
+<p><a href="https://github.com/pybites/blog_code/blob/master/pytest/fixtures/conftest.py">conftest.py</a></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="kn">from</span> <span class="nn">groceries</span> <span class="kn">import</span> <span class="n">Groceries</span><span class="p">,</span> <span class="n">Item</span>
+
+
+<span class="nd">@pytest.fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cart</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Setup code to create a groceries cart object with 6 items in it&quot;&quot;&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;sleeping a bit at session level&#39;</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># for scope=module/session demo purposes</span>
+    <span class="n">products</span> <span class="o">=</span> <span class="s1">&#39;celery apples water coffee chicken pizza&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">prices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="n">cravings</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">True</span>
+
+    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">products</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="n">cravings</span><span class="p">):</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="o">*</span><span class="n">item</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">Groceries</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+</pre></div>
+
+
+<p><a href="https://github.com/pybites/blog_code/blob/master/pytest/fixtures/test_view_cart.py">test_view_cart.py</a></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="kn">from</span> <span class="nn">groceries</span> <span class="kn">import</span> <span class="n">Groceries</span>
+
+
+<span class="k">def</span> <span class="nf">test_initial_empty_cart</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Note no fixture here to test an empty cart creation&quot;&quot;&quot;</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">Groceries</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">test_initial_filled_cart</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="c1"># thanks to __getitem__ can index the cart</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;celery&#39;</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;pizza&#39;</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">4</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">22</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
+
+
+<span class="nd">@pytest.mark.parametrize</span><span class="p">(</span><span class="s2">&quot;test_input,expected&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Apples&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;le&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;zZ&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_search_item</span><span class="p">(</span><span class="n">cart</span><span class="p">,</span> <span class="n">test_input</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cart</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_input</span><span class="p">)))</span> <span class="o">==</span> <span class="n">expected</span>
+
+
+<span class="k">def</span> <span class="nf">test_show_items</span><span class="p">(</span><span class="n">cart</span><span class="p">,</span> <span class="n">capfd</span><span class="p">):</span>
+    <span class="n">cart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+              <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+    <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^celery.*1$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^pizza \(craving\).*4$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^Total.*22$&#39;</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+
+<p><a href="https://github.com/pybites/blog_code/blob/master/pytest/fixtures/test_edit_cart.py">test_edit_cart.py</a></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="kn">from</span> <span class="nn">groceries</span> <span class="kn">import</span> <span class="n">Item</span><span class="p">,</span> <span class="n">DuplicateProduct</span><span class="p">,</span> <span class="n">MaxCravingsReached</span>
+
+
+<span class="k">def</span> <span class="nf">test_add_item</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>  <span class="c1"># not needed if scope=function</span>
+
+    <span class="n">oranges</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;oranges&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">oranges</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;oranges&#39;</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">price</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">due</span> <span class="o">==</span> <span class="mi">25</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
+
+
+<span class="k">def</span> <span class="nf">test_add_item_max_cravings</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>
+    <span class="n">chocolate</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chocolate</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="o">.</span><span class="n">num_cravings_reached</span>
+
+    <span class="n">croissants</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;croissants&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">MaxCravingsReached</span><span class="p">):</span>
+        <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">croissants</span><span class="p">)</span>  <span class="c1"># wait till next week!</span>
+
+
+<span class="k">def</span> <span class="nf">test_add_item_duplicate</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="n">apples</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="s1">&#39;apples&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">craving</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">DuplicateProduct</span><span class="p">):</span>
+        <span class="n">cart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">apples</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_delete_item</span><span class="p">(</span><span class="n">cart</span><span class="p">):</span>
+    <span class="n">cart</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>
+    <span class="c1"># not in collection</span>
+    <span class="n">croissant</span> <span class="o">=</span> <span class="s1">&#39;croissant&#39;</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
+        <span class="n">cart</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">croissant</span><span class="p">)</span>
+
+    <span class="c1"># in collection</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span>
+    <span class="n">apples</span> <span class="o">=</span> <span class="s1">&#39;apples&#39;</span>
+    <span class="n">cart</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">apples</span><span class="p">)</span>
+    <span class="c1"># new product at this index</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+    <span class="k">assert</span> <span class="n">cart</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">product</span> <span class="o">==</span> <span class="s1">&#39;water&#39;</span>
+</pre></div>
+
+
+<p>And let's run the tests again:</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">pytest</span>
+<span class="o">================================================</span> <span class="nb">test</span> session <span class="nv">starts</span> <span class="o">================================================</span>
+platform darwin -- Python <span class="m">3</span>.6.1, pytest-3.4.2, py-1.5.2, pluggy-0.6.0
+Using --random-order-bucket<span class="o">=</span>module
+Using --random-order-seed<span class="o">=</span><span class="m">885306</span>
+
+rootdir: /Users/bbelderb/code/pybites_code/pytest/fixtures, inifile:
+plugins: random-order-0.5.4, cov-2.5.1
+collected <span class="m">14</span> items
+
+test_edit_cart.py ...                                                                                         <span class="o">[</span> <span class="m">21</span>%<span class="o">]</span>
+test_view_cart.py ...........                                                                                 <span class="o">[</span><span class="m">100</span>%<span class="o">]</span>
+
+<span class="o">=============================================</span> <span class="m">14</span> passed in <span class="m">2</span>.12 <span class="nv">seconds</span> <span class="o">=============================================</span>
+</pre></div>
+
+
+<p>Again note that I did not have to import <code>conftest.py</code>, nice!</p>
+<p>But wait, the <code>sleep</code> ran twice this time, because the scope was still defined as <em>module</em> (meaning <em>file</em>). Let's change it to <em>session</em> and check again:</p>
+<div class="highlight"><pre><span></span>@pytest.fixture(scope=&quot;session&quot;)
+def cart():
+    &quot;&quot;&quot;Setup code to create a groceries cart object with 6 items in it&quot;&quot;&quot;
+    print(&#39;sleeping a bit at session level&#39;)
+    sleep(1)  # for scope=module/session demo purposes
+</pre></div>
+
+
+<p>Running the tests now gives:</p>
+<div class="highlight"><pre><span></span>(pytest) [bbelderb@macbook fixtures (master)]$ pytest
+================================================ test session starts ================================================
+platform darwin -- Python 3.6.1, pytest-3.4.2, py-1.5.2, pluggy-0.6.0
+Using --random-order-bucket=module
+Using --random-order-seed=578283
+
+rootdir: /Users/bbelderb/code/pybites_code/pytest/fixtures, inifile:
+plugins: random-order-0.5.4, cov-2.5.1
+collected 14 items
+
+test_view_cart.py ...........                                                                                 [ 78%]
+test_edit_cart.py ...                                                                                         [100%]
+
+============================================= 14 passed in 1.13 seconds =============================================
+</pre></div>
+
+
+<p>Awesome!</p>
+<h2>List all fixtures</h2>
+<p>Lastly I recommend adding docstrings to your fixtures so that they show up when somebody probes for them with the <code>--fixtures</code> flag:</p>
+<div class="highlight"><pre><span></span>$ pytest --fixtures test_groceries.py
+...
+pytest<span class="s1">&#39;s fixtures</span>
+<span class="s1">...</span>
+<span class="s1">...</span>
+<span class="s1">pytest_cov&#39;</span>s fixtures
+...
+--------------------------------------- fixtures defined from test_groceries ----------------------------------------
+cart
+    Setup code to create a groceries cart object with <span class="m">6</span> items in it
+</pre></div>
+
+
+<h2>Resources</h2>
+<p>This should give you all you need to start using fixtures in your pytest code. You will save time, be more content and most importantly produce more robust test code!</p>
+<p>There is more to fixtures though, checkout the well written <a href="https://docs.pytest.org/en/latest/fixture.html">pytest docs</a>. Also <a href="https://pybit.es/pytest-book.html">Brian Okken's book</a> covers them extensively.</p>
+<p>Let us know in the comments below if you came up with interesting use cases or you hit a wall?</p>
+<p>You will see fixtures increasingly used in our <a href="http://codechalleng.es">Bites of Py</a> test code and I am happy we covered it here now, because it is one of the things that makes pytest great!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/pytest.html">pytest</a>
+      <a href="https://pybit.es/tag/fixtures.html">fixtures</a>
+      <a href="https://pybit.es/tag/testing.html">testing</a>
+      <a href="https://pybit.es/tag/refactoring.html">refactoring</a>
+      <a href="https://pybit.es/tag/pytest-cov.html">pytest-cov</a>
+      <a href="https://pybit.es/tag/coverage.html">coverage</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

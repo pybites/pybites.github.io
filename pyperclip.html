@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="Use the Pyperclip module to copy and paste with the clipboard!" />
+<meta name="keywords" content="python, tips, tricks, code, pybites">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Copy and Paste with Pyperclip"/>
+<meta property="og:description" content="Use the Pyperclip module to copy and paste with the clipboard!"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/pyperclip.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-01-06 12:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/julian.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="tips"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="pybites"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Copy and Paste with Pyperclip" />
+<meta name="twitter:description" content="Use the Pyperclip module to copy and paste with the clipboard!" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Copy and Paste with Pyperclip</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="pyperclip">Copy and Paste with Pyperclip</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Fri 06 January 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>A quick and easy one for you today.</p>
+<p>While I was working through <em>Automate the Boring Stuff</em> (review <a href="http://pybit.es/automate_the_boring_stuff_review.html">here</a>) I experienced a few "this is AMAZING!" moments. One of which was when I discovered the Pyperclip module.</p>
+<h2>What is Pyperclip?</h2>
+<p>Pyperclip is a module you can import that allows you to copy and paste to and from the clipboard on your computer. It does this through the use of two functions: copy() and paste()... go figure!</p>
+<p>It's simple but man did it blow my mind!</p>
+<h2>Why so Awesome?!</h2>
+<p>Well...</p>
+<ol>
+<li>
+<p>I was still super new to Python so the idea that I could interact with the user to that level was insane to me. It was a new way of inputting data without actually asking for traditional "type this and hit enter" input.</p>
+</li>
+<li>
+<p>It was exactly what I was looking for at the time! I wanted to automate the pasting of lists I had copied to the clipboard for a small tool I was writing.</p>
+</li>
+<li>
+<p>The exercise in <em>Automate the Boring Stuff</em> had you paste() text from the clipboard into the program (ie, read in), manipulate said text, then copy() it back to the clipboard. In a split second you could insert a '*' in front of every line in a list! This opened my mind to a whole new way of thinking.</p>
+</li>
+</ol>
+<h2>Example</h2>
+<p>Okay enough talk. Let's get to it. Installation first:</p>
+<div class="highlight"><pre><span></span>#pip install pyperclip
+#pip list
+pip (9.0.1)
+pyperclip (1.5.27)
+setuptools (28.8.0)
+</pre></div>
+
+
+<p>Now we import it into our code and run it:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pyperclip</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pyperclip</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;This is copied to the clipboard.&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pyperclip</span><span class="o">.</span><span class="n">paste</span><span class="p">()</span>
+<span class="s1">&#39;This is copied to the clipboard.&#39;</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
+
+
+<blockquote>
+<p>Be warned though. Pyperclip copies and pastes just like anything else. That is, it doesn't get exclusive rights to the clipboard. The text you copy to the clipboard has every chance of being overwritten by anything else that happens to copy after your command has run.</p>
+</blockquote>
+<p>In the above example we copied to the clipboard and then instantly pasted. In most situations you'll want to paste what the <em>user</em> has on their clipboard then manipulate that.</p>
+<h2>Another example</h2>
+<p>The author of the tool (Al Sweigart) shows some more use cases in <a href="https://automatetheboringstuff.com/chapter6/">chapter 6</a> of <a href="http://pybit.es/automate_the_boring_stuff_review.html">Automate the Boring Stuff</a>, for example how to add bullets to wiki markup:</p>
+<blockquote>
+<p>The bulletPointAdder.py script will get the text from the clipboard, add a star and space to the beginning of each line, and then paste this new text to the clipboard. </p>
+</blockquote>
+<p>Of course the possibilities are endless. You could for example make a script that retrieves a link from the clipboard (I mean one you copied previously), retrieve the metadata for that link scraping it, and copying an enriched string (link + metadata) back to the clipboard. You could use this for example to (semi)auto-create posts to social media. You would use pyperclip for the get/put from/to clipboard.</p>
+<h2>Conclusion</h2>
+<p>Pyperclip really opened my eyes to the power of Python. Direct interaction with the user is awesome. </p>
+<p>However, it is scary to think just how easy it is to write to and from the users clipboard without their knowledge. These functions (as per anything) can be called without any user knowledge whatsoever. In a fraction of a second we can paste the output of their clipboard to a file of our choosing! It's creepy to think of how easily this can be used maliciously!</p>
+<p>That's coding though I guess! <a href="https://youtu.be/b23wrRfy7SM?t=12">With great power...</a></p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/python.html">python</a>
+      <a href="https://pybit.es/tag/tips.html">tips</a>
+      <a href="https://pybit.es/tag/tricks.html">tricks</a>
+      <a href="https://pybit.es/tag/code.html">code</a>
+      <a href="https://pybit.es/tag/pybites.html">pybites</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this article I will take last week's banner.py Pillow script and integrate it into a Flask app." />
+<meta name="keywords" content="Pillow, Flask, Heroku, Flask-WTF, Flask-SQLAlchemy, challenges, PyBites Banner Generator, images">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Making a Banner Generator With Pillow and Flask"/>
+<meta property="og:description" content="In this article I will take last week's banner.py Pillow script and integrate it into a Flask app."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/pillow-banner-flask.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-08-19 13:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="Pillow"/>
+<meta property="article:tag" content="Flask"/>
+<meta property="article:tag" content="Heroku"/>
+<meta property="article:tag" content="Flask-WTF"/>
+<meta property="article:tag" content="Flask-SQLAlchemy"/>
+<meta property="article:tag" content="challenges"/>
+<meta property="article:tag" content="PyBites Banner Generator"/>
+<meta property="article:tag" content="images"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Making a Banner Generator With Pillow and Flask" />
+<meta name="twitter:description" content="In this article I will take last week's banner.py Pillow script and integrate it into a Flask app." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Making a Banner Generator With Pillow and Flask</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="pillow-banner-flask">Making a Banner Generator With Pillow and Flask</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 19 August 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this article I will take <a href="https://pybit.es/pillow-banner-image.html">last week's banner.py Pillow script</a> and integrate it into a Flask app.</p>
+<p>I ended up creating our <em>PyBites Banner Generator</em>. Want to try it? The app is <a href="https://pybites-banners.herokuapp.com/">on Heroku</a>. Want to fork it? For example to use it with your own brand logos? The code is on <a href="https://github.com/pybites/pillow-flask">Github</a>.</p>
+<h2>How it works</h2>
+<p>Give your banner a name, a background URL and text. We use PyBites logos upon login. Logged out state has a Python logo but I probably make this a free field so you can input any URL. Leaving "Use Second Image as Background" unchecked aligns the second image to the right:</p>
+<p><img alt="home logged out" src="https://pybit.es/images/pyb-banner-generator1.png"></p>
+<p>This results in:</p>
+<p><img alt="logged out banner" src="https://pybit.es/images/pyb-banner-generator2.png"></p>
+<p>Upon login it also caches the form input parameters to easily recreate the banners:</p>
+<p><img alt="home logged in" src="https://pybit.es/images/pyb-banner-generator3.png"></p>
+<p>Logged it uses PyBites logos. Here is the same banner logged in:</p>
+<p><img alt="banner with pybites article logo" src="https://pybit.es/images/pyb-banner-generator4.png"></p>
+<p>And the banner's form data can be retrieved again by clicking its name in the right "Cached Banners" list.</p>
+<p>Let's make a Twitter digest banner. Ticking "Use Second Image as Background" turns it into background image:</p>
+<p><img alt="another banner with background" src="https://pybit.es/images/pyb-banner-generator5.png"></p>
+<p>Result:</p>
+<p><img alt="banner of pybites twitter digest" src="https://pybit.es/images/pyb-banner-generator6.png"></p>
+<h2>What's under the hood?</h2>
+<p>Here are the pieces that make up this app:</p>
+<h3>Pillow</h3>
+<p><a href="https://pybit.es/pillow-banner-image.html">Last week's article</a> detailed the Pillow script <code>banner.py</code> which is in <a href="https://github.com/pybites/pillow-flask/tree/master/banner">the banner package</a>. The <code>generate_banner</code> takes a <code>img_banner</code> named tuple, instantiates a <code>Banner</code> object, and creates and saves the image. </p>
+<p>Since last time I added a <code>add_background</code> method which you saw in the 3rd example above. I also made <code>add_text</code> smarter about aligning text: if background is ticked it uses the extra free space to the right and if the text is less than 2 lines long (using Python's <a href="https://docs.python.org/3.6/library/textwrap.html">textwrap</a>), it adds more top padding to it.</p>
+<h3>Flask-WTF</h3>
+<p><a href="https://flask-wtf.readthedocs.io/en/stable/">Flask-WTF</a> integrates Flask and WTForms making working with forms a joy. </p>
+<p>In <a href="https://github.com/pybites/pillow-flask/blob/master/forms.py">forms.py</a> I subclass wtforms's Form class, read in the logos for the dropdown and add some validations using wtform's <code>validators</code>.</p>
+<p>The form is diplayed in <code>imageform.html</code> and <code>_formhelpers.html</code> in the <a href="https://github.com/pybites/pillow-flask/tree/master/templates">templates dir</a> which I copied from <a href="http://flask.pocoo.org/docs/0.12/patterns/wtforms/">this wtforms pattern</a>.</p>
+<h3>Flask-SQLAlchemy</h3>
+<p>We have covered <a href="http://flask-sqlalchemy.pocoo.org/2.1/">Flask-SQLAlchemy</a> <a href="https://pybit.es/tag/flask-sqlalchemy.html">before</a>. I use it here to store the image parameters in a DB when logged in. Why not the images? Heroku has an <a href="https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem">ephemeral filesystem</a> so they would be lost after a dyno restart (which happens often because I am using the <em>hobby</em> version now). For this same reason Heroku provides <a href="https://devcenter.heroku.com/articles/sqlite3">production grade PostgreSQL databases as a service</a>.</p>
+<p>The SQLAlchemy model code is in <a href="https://github.com/pybites/pillow-flask/blob/master/model.py">model.py</a> including code under main to recreate the DB. Obviously I need to look at a tool like <a href="https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/">Alembic</a> to properly handle future DB migrations.</p>
+<h3>Flask</h3>
+<p>The core logic is in <a href="https://github.com/pybites/pillow-flask/blob/master/app.py">app.py</a>. It started simple with <a href="https://github.com/pybites/pillow-flask/commit/be189a730488c5b7ce9e99ee2990c75fb274421b#diff-3f41e546893dc64b71aaacad12cad815">57 lOC</a>, growing to 139 LOC as of this writing. Not bad considering that it does form handling, image generation, caching and handling a simple login session.</p>
+<p>Some interesting things:</p>
+<ul>
+<li>
+<p><code>login_required</code> decorator (RealPython's Flask material). This login implementation simply verifies against env variables and keeps state in <a href="https://pybit.es/flask-sessions.html">Flask's session</a>. For multiple users you really would use a User model and a plugin like <a href="https://flask-login.readthedocs.io/en/latest/">Flask-Login</a>.</p>
+</li>
+<li>
+<p><code>_store_banner</code> shows how easy it is to interface with SQLAlchemy.</p>
+</li>
+<li>
+<p>The <code>_get_form</code> helper swaps out the default logos (currently just one Python logo) with PyBites logos when logged in. Flask-WTF made this effortless.</p>
+</li>
+<li>
+<p>The <code>index</code> route is still a bit too long. This would be a good candidate for <a href="https://pybit.es/codechallenge30.html">refactoring</a>. It retrieves cached image objects (basically the corresponding form inputs) from the DB and generates the banner upon POST request, displaying it in the browser. </p>
+<p>The way to send a banner to the browser is via Flask's <code>send_file</code>. This was a bit tricky. Although I set <code>cache_timeout=1</code> the browser would stubbornly show previous banners, probably due to its own caching policy. I ended up giving the output file name a unique string with <code>str(time.time())</code>, so the browser sees it as a brand new file each time. Tricking the browser for fun and profit ;)</p>
+</li>
+<li>
+<p>Form and cached banners are passed to the <code>imageform.html</code> template for rendering. </p>
+</li>
+<li>
+<p>Use of logging and namedtuples.</p>
+</li>
+</ul>
+<h2>Resources</h2>
+<h3>Code Challenge</h3>
+<p>This project was part of <a href="https://pybit.es/codechallenge31.html">Code Challenge 31 - Image Manipulation With Pillow</a> - if you want to play with Pillow and potentially Flask and Heroku, follow the instructions there and start coding and PR your code to <a href="https://github.com/pybites/challenges">our challenges repo</a>. I hope this article inspired you to give it a try yourself.</p>
+<h3>Flask vs Django</h3>
+<p>Yeah I know what you are thinking: "But it's 100 days of Django, why not a Django app?" Glad you asked. For this case I think Flask was the right choice. Julian shared some more thoughts about when to use one or the other, you can check it out <a href="https://pybit.es/learning-flask-django.html">here</a>.</p>
+<h3>Further reading</h3>
+<ul>
+<li>
+<p>You can read more about the Pillow code <a href="https://pybit.es/pillow-banner-image.html">in Part 1 of this tutorial</a>.</p>
+</li>
+<li>
+<p>You can read more how to automatically generate banners with Requests and Selenium <a href="https://pybit.es/selenium-requests-automation.html">in part 3</a>.</p>
+</li>
+<li>
+<p>If you take the challenge and want to deploy your app to Heroku, check out Julian's <a href="https://pybit.es/deploy-flask-heroku.html">nice tutorial on the subject</a>.</p>
+</li>
+<li>
+<p>Want to learn more Flask? Check out our Flask <a href="https://pybit.es/category/flask.html">category</a> or <a href="https://pybit.es/tag/flask.html">tag</a>.</p>
+</li>
+</ul>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/pillow.html">Pillow</a>
+      <a href="https://pybit.es/tag/flask.html">Flask</a>
+      <a href="https://pybit.es/tag/heroku.html">Heroku</a>
+      <a href="https://pybit.es/tag/flask-wtf.html">Flask-WTF</a>
+      <a href="https://pybit.es/tag/flask-sqlalchemy.html">Flask-SQLAlchemy</a>
+      <a href="https://pybit.es/tag/challenges.html">challenges</a>
+      <a href="https://pybit.es/tag/pybites-banner-generator.html">PyBites Banner Generator</a>
+      <a href="https://pybit.es/tag/images.html">images</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="In this post I demo how to create an extremely simple Flask app that prints the contents of a Dict to a web page." />
+<meta name="keywords" content="Flask, loops, python, decorators, tutorial, learning">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Flask for Loops - Printing Dict Data"/>
+<meta property="og:description" content="In this post I demo how to create an extremely simple Flask app that prints the contents of a Dict to a web page."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/flask-for-loop.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-04-06 20:38:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/julian.html">
+<meta property="article:section" content="Flask"/>
+<meta property="article:tag" content="Flask"/>
+<meta property="article:tag" content="loops"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="decorators"/>
+<meta property="article:tag" content="tutorial"/>
+<meta property="article:tag" content="learning"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Flask for Loops - Printing Dict Data" />
+<meta name="twitter:description" content="In this post I demo how to create an extremely simple Flask app that prints the contents of a Dict to a web page." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Flask for Loops - Printing Dict Data</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="flask-for-loop">Flask for Loops - Printing Dict Data</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Thu 06 April 2017 in <a href="https://pybit.es/category/flask.html">Flask</a>
+
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Thanks to the <a href="http://pybit.es/special-100days.html">100 Days of Code Challenge</a>, this week I took the plunge and dove into Python Flask.</p>
+<p>It’s not the easiest beast to tame but once you wrap your head around it, it’s not so bad!</p>
+<p>One of the concepts I struggled with early on was how to return more than “just” a single string to the Flask app web page.</p>
+<h2>Python Setup</h2>
+<p>Check out the full code for this <a href="https://github.com/pybites/blog_code/tree/master/flask_for_loop">here</a>.</p>
+<ul>
+<li>I decided I wanted to print out a dict of birthdays. You can see I’ve created a route to a page called ‘birthdays’. The function associated with this decorator contains the dict we want to display.</li>
+</ul>
+<div class="highlight"><pre><span></span>@app.route(&quot;/birthdays&quot;)
+def birthdays():
+    dates = {&quot;Julian&quot;: 25, &quot;Bob&quot;: 26, &quot;Dan&quot;: 47, &quot;Cornelius&quot;: 3}
+    return render_template(&quot;birthdays.html&quot;, dates=dates)
+</pre></div>
+
+
+<ul>
+<li>
+<p>Being Flask, we need to have a templates folder in the same directory that the main.py script is being run from.</p>
+</li>
+<li>
+<p>In the templates folder we’ll need to have a birthdays.html file for the above route to work with.</p>
+</li>
+</ul>
+<h2>HTML Setup</h2>
+<p>With the main.py file all set up, we can focus on birthdays.html. (Again, all of this is in the <a href="https://github.com/pybites/blog_code/tree/master/flask_for_loop">code Repo</a>!).</p>
+<ul>
+<li>
+<p>The simplest and most pleasing way to display this data would be in a table. </p>
+</li>
+<li>
+<p>The stylesheet (style.css) we’ll be using lives in another folder called ‘static’. This folder lives at the same hierarchical level as the templates folder - go ahead and create it.</p>
+</li>
+<li>
+<p>As an example, in style.css we have a CSS class just to give the table a slightly thicker border.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="na">.thick-border</span> <span class="err">{</span>
+        <span class="nl">border:</span> <span class="err">3</span><span class="nf">px</span> <span class="no">solid</span> <span class="no">black</span><span class="c">;</span>
+        <span class="no">border-collapse</span><span class="p">:</span> <span class="no">collapse</span><span class="c">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<ul>
+<li>We can then create the table. The first row will be the table headers.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;centered thick-border&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;th&gt;</span>First name<span class="nt">&lt;/th&gt;</span>
+                <span class="nt">&lt;th&gt;</span>Age<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</pre></div>
+
+
+<h2>Flask in Action</h2>
+<ul>
+<li>
+<p>With the table set up we can now start populating it with the contents of the <em>dates</em> dict from main.py.</p>
+</li>
+<li>
+<p>When inserting Python code into the HTML file, we wrap it in {% %} so Flask knows to differentiate it from normal HTML code.</p>
+</li>
+<li>
+<p>To print out the contents of the dict, we can use a for loop. The idea of the for loop stays the same, it’s just spread out across multiple lines and wrapped in HTML. First we start with the opening of the for loop.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span>{% for k, v in dates.items() %}
+</pre></div>
+
+
+<ul>
+<li>We don’t need to explicitly call <em>print</em> to read out the values of <em>k</em> and <em>v</em>. We just need to choose how they’ll be displayed on the page in HTML.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nt">&lt;tr&gt;</span>
+    <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">k</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">v</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
+<span class="nt">&lt;/tr&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>You’ll notice the {{ }} around the variables. This is another flag to Flask that these are Python variables and not a bit of HTML code.</p>
+</li>
+<li>
+<p>We then have to close off the for loop with one last bit of special Flask code.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span>{% endfor %}
+</pre></div>
+
+
+<h2>Final Result</h2>
+<ul>
+<li>This is what the code for the table should look like.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;centered thick-border&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;th&gt;</span>First name<span class="nt">&lt;/th&gt;</span>
+                <span class="nt">&lt;th&gt;</span>Age<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">k</span><span class="o">,</span> <span class="nv">v</span> <span class="k">in</span> <span class="nv">dates.items</span><span class="o">()</span> <span class="cp">%}</span>
+                <span class="nt">&lt;tr&gt;</span>
+                        <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">k</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
+                        <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">v</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;/tr&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="nt">&lt;/table&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>Here’s what the web page will look like.</li>
+</ul>
+<p><img alt="Table populated by Python dict code" src="https://pybit.es/images/flask-bday-table.png"></p>
+<ul>
+<li>The beauty is that you can add as much data (keys, values) to the dict as you want and the table will always be drawn to match the content. Give it a try!</li>
+</ul>
+<h2>Learning Points</h2>
+<ul>
+<li>
+<p>Flask requires that the decorator function you’re using <strong>returns</strong> something. It could be something as simple as: <em>return ‘This is a string’</em>. The point is, data needs to be returned. I struggled to understand how I could return each for loop pass over the dict! After continued research and reading, I learned about the HTML templates and how you write put the Python code there instead.</p>
+</li>
+<li>
+<p>Unsurprisingly, making something that’s pleasing to the eye requires some knowledge or experience with HTML and CSS. I was pretty dusty!</p>
+</li>
+<li>
+<p>In the full example you’ll see how it all meshes together - the static and templates folder and the main.py file living above them. Having experience with web dev makes this environment a lot easier to understand.</p>
+</li>
+<li>
+<p>It’s tough but extremely rewarding to move on from static return lines of just “hello world” to displaying data. That is, moving forward, the data printed by the loop could be generated on the fly. That’s exciting!</p>
+</li>
+</ul>
+<h2>Next Steps</h2>
+<ul>
+<li>
+<p>Next up I’d like to make this interactive. Perhaps have the user enter birthdays via a web form themselves and once completed, have the birthdays print to screen in a table.</p>
+</li>
+<li>
+<p>The data really should be stored in a database or shelf too, not in a static dict.</p>
+</li>
+<li>
+<p>Get my CSS game on and make this baby pretty!</p>
+</li>
+</ul>
+<p>You’ll be seeing more Flask in the coming weeks (I hope!). I’d actually like to wrap this for loop around the data set for <a href="http://pybit.es/codechallenge13.html">this week’s code challenge</a>… hmm…</p>
+<p>Keep Calm and Code in Python!</p>
+<p>— Julian</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/flask.html">Flask</a>
+      <a href="https://pybit.es/tag/loops.html">loops</a>
+      <a href="https://pybit.es/tag/python.html">python</a>
+      <a href="https://pybit.es/tag/decorators.html">decorators</a>
+      <a href="https://pybit.es/tag/tutorial.html">tutorial</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example." />
+<meta name="keywords" content="slack, API, bot, chatbot, deployment, shell, nohup, automation">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to Build a Simple Slack Bot"/>
+<meta property="og:description" content="I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/simple-chatbot.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-04-04 23:30:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="slack"/>
+<meta property="article:tag" content="API"/>
+<meta property="article:tag" content="bot"/>
+<meta property="article:tag" content="chatbot"/>
+<meta property="article:tag" content="deployment"/>
+<meta property="article:tag" content="shell"/>
+<meta property="article:tag" content="nohup"/>
+<meta property="article:tag" content="automation"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How to Build a Simple Slack Bot" />
+<meta name="twitter:description" content="I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; How to Build a Simple Slack Bot</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="simple-chatbot">How to Build a Simple Slack Bot</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 04 April 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>I was playing with Slack's Real Time Messaging API the other day. Building a bot is pretty easy. In this article a simple example.</p>
+<h2>Bots are hot</h2>
+<p>This was an interesting coding exercise, but also keep in mind its relevance. Bots are hot, <a href="http://www.oreilly.com/data/free/what-are-conversational-bots.csp?imm_mid=0ef9cf&amp;cmp=em-data-free-na-ainy17_nurture_em2_what_are_conversational_bots">people have become comfortable with conversational interfaces</a>.</p>
+<p><img alt="some commands our bot listens to" src="https://pybit.es/images/slackbot.gif"></p>
+<p>(GIF made with <a href="https://github.com/pybites/100DaysOfCode/tree/master/003">100DaysOfCode day 003 script</a>)</p>
+<hr>
+<h2>Slack API</h2>
+<p>About Slack's <a href="https://api.slack.com/rtm">Real Time Messaging API</a>:</p>
+<blockquote>
+<p>The Real Time Messaging API is a WebSocket-based API that allows you to receive events from Slack in real time and send messages as users. It's sometimes referred to as simply the "RTM API".  It is the basis for all Slack clients. It's also commonly used with the bot user integration to create helper bots for your team.</p>
+</blockquote>
+<h2>Getting ready</h2>
+<p>Read <a href="https://api.slack.com/bot-users">here</a> about Bot Users, you need to <a href="https://my.slack.com/services/new/bot">create a new bot user</a> first. This will give you an API Token. Keep this private! I added mine to .bashrc to keep it out of version control. I retrieve it like this:</p>
+<div class="highlight"><pre><span></span>slack_client = SlackClient(os.environ.get(&#39;SLACK_BOT_TOKEN&#39;))
+</pre></div>
+
+
+<p>Secondly you need to pip install slackclient, I also used <a href="https://github.com/pybites/slackbot/blob/master/requirements.txt">some other modules</a>.</p>
+<p>I took the <a href="https://github.com/pybites/slackbot/blob/master/starterbot.py">starterbot code</a> I found in this excellent article: <a href="https://www.fullstackpython.com/blog/build-first-slack-bot-python.html">How to Build Your First Slack Bot with Python</a>. This made it a lot easier because it catered for all the initial setup, listening for mentions of the bot, intercepting targeted messages.</p>
+<p>Only thing you have to do is to <a href="https://github.com/pybites/slackbot/blob/master/get_botid.py">get the BOT ID</a> and store it in your login script (in my case .bashrc):</p>
+<div class="highlight"><pre><span></span>$ python get_botid.py
+Bot ID <span class="k">for</span> <span class="s1">&#39;pybitesbot&#39;</span> is XYZ
+
+<span class="c1"># .bashrc</span>
+<span class="nb">export</span> <span class="nv">SLACK_BOT_TOKEN</span><span class="o">=</span>ABC      <span class="c1"># first step</span>
+<span class="nb">export</span> <span class="nv">BOT_ID</span><span class="o">=</span>XYZ               <span class="c1"># as retrieved from previous command</span>
+<span class="nb">export</span> <span class="nv">WEATHER_API</span><span class="o">=</span><span class="m">123</span>          <span class="c1"># used for one of the command scripts, see below</span>
+</pre></div>
+
+
+<h2>Bot actions</h2>
+<p>I wrote a bunch of scripts which respond to <a href="https://github.com/pybites/slackbot/tree/master/commands">different commands</a>, some also as part of our <a href="http://pybit.es/special-100days.html">100DaysOfCode challenge</a>. I put them in the commands subdirectory. This structure makes it easy to add more commands over time.</p>
+<p>In the <a href="https://github.com/pybites/slackbot/blob/master/pybitesbot.py">main bot script</a> I import all the commands:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">commands.mood</span> <span class="kn">import</span> <span class="n">get_mood</span>  <span class="c1"># just a silly one</span>
+<span class="kn">from</span> <span class="nn">commands.special</span> <span class="kn">import</span> <span class="n">celebration</span>
+<span class="kn">from</span> <span class="nn">commands.articles</span> <span class="kn">import</span> <span class="n">get_num_posts</span>
+<span class="kn">from</span> <span class="nn">commands.challenge</span> <span class="kn">import</span> <span class="n">create_tweet</span>
+<span class="kn">from</span> <span class="nn">commands.weather</span> <span class="kn">import</span> <span class="n">get_weather</span>  <span class="c1"># bot reports more sun and later sunset Spain vs Australia (sorry Julian haha)</span>
+
+<span class="c1"># and put them in a COMMANDS dict</span>
+<span class="n">cmd_names</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;mood&#39;</span><span class="p">,</span> <span class="s1">&#39;celebration&#39;</span><span class="p">,</span> <span class="s1">&#39;num_posts&#39;</span><span class="p">,</span> <span class="s1">&#39;100day_tweet&#39;</span><span class="p">,</span> <span class="s1">&#39;weather&#39;</span><span class="p">)</span>
+<span class="n">cmd_functions</span> <span class="o">=</span> <span class="p">(</span><span class="n">get_mood</span><span class="p">,</span> <span class="n">celebration</span><span class="p">,</span> <span class="n">get_num_posts</span><span class="p">,</span> <span class="n">create_tweet</span><span class="p">,</span> <span class="n">get_weather</span><span class="p">)</span>
+<span class="n">COMMANDS</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cmd_names</span><span class="p">,</span> <span class="n">cmd_functions</span><span class="p">))</span>
+</pre></div>
+
+
+<p>I then overwrote the (provided) handle_command function to have the bot respond to various commands.</p>
+<div class="highlight"><pre><span></span>def handle_command(cmd, channel):
+
+    cmd = cmd.split()
+    cmd, args = cmd[0], cmd[1:]
+
+    if cmd in COMMANDS:
+        if args:
+            response = COMMANDS[cmd](*args)
+        else:
+            response = COMMANDS[cmd]()
+    else:
+        response = (&#39;Not sure what you mean? &#39;
+            &#39;I can help you with these commands:\n&#39;
+            &#39;{}&#39;.format(&#39;\n&#39;.join(cmd_names)))
+
+    slack_client.api_call(&quot;chat.postMessage&quot;, channel=channel,
+                        text=response, as_user=True)
+</pre></div>
+
+
+<p>Lastly under main this starts the loop:</p>
+<div class="highlight"><pre><span></span>if slack_client.rtm_connect():
+    ...
+</pre></div>
+
+
+<h2>Deployment</h2>
+<p>And that's it for the code. On my server I run the bot with nohup to keep it running:</p>
+<div class="highlight"><pre><span></span>nohup python3 pybitesbot.py &amp;
+</pre></div>
+
+
+<p>Update: I found an issue where the bot stopped working, so I added <a href="">a little script</a> (based on this <a href="http://stackoverflow.com/a/697064/1128469">SO answer</a>) to respawn it:</p>
+<div class="highlight"><pre><span></span>$ cat slackbot.sh
+<span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/bin/python3/bin/python3.5 pybitesbot.py&quot;</span>
+<span class="k">until</span> <span class="nv">$cmd</span><span class="p">;</span> <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Slack bot crashed with exit code </span><span class="nv">$?</span><span class="s2">.  Respawning..&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+    sleep <span class="m">1</span>
+<span class="k">done</span>
+
+$ ./slackbot.sh
+StarterBot connected and running!
+
+... pressing ctrl + c
+
+^CTraceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+File <span class="s2">&quot;pybitesbot.py&quot;</span>, line <span class="m">44</span>, in &lt;module&gt;
+    time.sleep<span class="o">(</span>READ_WEBSOCKET_DELAY<span class="o">)</span>
+    KeyboardInterrupt
+
+    Slack bot crashed with <span class="nb">exit</span> code <span class="m">1</span>.  Respawning..   <span class="o">=</span>&gt; thanks <span class="k">for</span> the shell script
+    StarterBot connected and running!
+
+<span class="c1"># that was for demo, I still use nohup to leave the shell</span>
+$ nohup slackbot.sh  <span class="p">&amp;</span>
+</pre></div>
+
+
+<h2>Result</h2>
+<p>And there you go ... as you can see we had some fun with it the other day :)</p>
+<p><img alt="bot smart ass I" src="https://pybit.es/images/slack_response1.png"></p>
+<p><img alt="bot smart ass II" src="https://pybit.es/images/slack_response2.png"></p>
+<h2>What's next?</h2>
+<p>Although this tutorial showed a simple deterministic bot, this really inspired me to think about ways we can make our pybitesbot smarter and help us automate tasks. Or what if we open up a Slack for our community and we have a bot helping people with common Python questions? That would be really cool!</p>
+<p>I will do a part 2 when we have more progress in this space ...</p>
+<p>The full code of the bot is <a href="https://github.com/pybites/slackbot">here</a>. We encourage you to fork it and start building your own cool bot (and tell us about it in the comments below).</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/slack.html">slack</a>
+      <a href="https://pybit.es/tag/api.html">API</a>
+      <a href="https://pybit.es/tag/bot.html">bot</a>
+      <a href="https://pybit.es/tag/chatbot.html">chatbot</a>
+      <a href="https://pybit.es/tag/deployment.html">deployment</a>
+      <a href="https://pybit.es/tag/shell.html">shell</a>
+      <a href="https://pybit.es/tag/nohup.html">nohup</a>
+      <a href="https://pybit.es/tag/automation.html">automation</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="PyBites" />
+<meta name="description" content="Hi Pythonistas, a new week, a new 'bite' of Python goodness. As anticipated this week we dedicate a challenge to Selenium testing. We think this is a cool skill to add to your web dev + testing repertoire." />
+<meta name="keywords" content="codechallenges, Django, 100DaysOfDjango, Selenium, Testing">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Code Challenge 32 - Test a Simple Django App With Selenium"/>
+<meta property="og:description" content="Hi Pythonistas, a new week, a new 'bite' of Python goodness. As anticipated this week we dedicate a challenge to Selenium testing. We think this is a cool skill to add to your web dev + testing repertoire."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/codechallenge32.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-08-15 13:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/pybites.html">
+<meta property="article:section" content="Challenge"/>
+<meta property="article:tag" content="codechallenges"/>
+<meta property="article:tag" content="Django"/>
+<meta property="article:tag" content="100DaysOfDjango"/>
+<meta property="article:tag" content="Selenium"/>
+<meta property="article:tag" content="Testing"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Code Challenge 32 - Test a Simple Django App With Selenium" />
+<meta name="twitter:description" content="Hi Pythonistas, a new week, a new 'bite' of Python goodness. As anticipated this week we dedicate a challenge to Selenium testing. We think this is a cool skill to add to your web dev + testing repertoire." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+  <title>PyBites &ndash; Code Challenge 32 - Test a Simple Django App With Selenium</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      red
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='red'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/challenges.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="codechallenge32">Code Challenge 32 - Test a Simple Django App With Selenium</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Tue 15 August 2017 in <a href="https://pybit.es/category/challenge.html">Challenge</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>Life is about facing new challenges - Kostya Tszyu</p>
+</blockquote>
+<p>Hi Pythonistas, a new week, a new 'bite' of Python goodness. As <a href="https://github.com/pybites/challenges/issues/91">anticipated</a> this week we dedicate a challenge to Selenium testing. We think this is a cool skill to add to your web dev + testing repertoire.</p>
+<h2>The challenge</h2>
+<p>Our first intuition was to let you pull a Django app, but this might lead to config confusion. So let's test <a href="https://pybit.es/learning-django.html">our first Django app</a>. </p>
+<p>The <a href="http://pyplanet.herokuapp.com/">main page</a> is actually our <a href="https://pybit.es/tag/100daysofdjango.html">100DaysOfDjango home</a> where we want to add more apps over time.</p>
+<p>We ask you to help PyBites dev to deliver tests for this app using Selenium:</p>
+<ol>
+<li>
+<p>Go to the <a href="http://pyplanet.herokuapp.com/">http://pyplanet.herokuapp.com/</a>. The header should say <em>PyBites 100 Days of Django</em>. The navbar has Login and Home links. The first link in the <code>main</code> div is <em>PyPlanet Article Sharer App</em>:</p>
+<p><img alt="test the home page" src="https://pybit.es/images/selenium-challenge1.png"></p>
+</li>
+<li>
+<p>Click on the <em>PyPlanet Article Sharer App</em> link and test the page contains a <code>table</code> with a <code>th</code> (table header) containing the word <em>Title</em>. This app watches the PyPlanet feed so the titles change every day so that is hard test. What we can test though is if the table contains 100 entries (<code>tr</code>).</p>
+<p><img alt="home page" src="https://pybit.es/images/selenium-challenge2.png"></p>
+</li>
+<li>
+<p>Go to an article and check there is only a <em>Go back</em> button (logged out view). Check if the header link at the top is the same as the link you clicked on, in this example: <em>Martin Fitzpatrick: KropBot: Multiplayer Internet-controlled robot</em>. The <em>Go back</em> should redirect back to <a href="http://pyplanet.herokuapp.com/pyplanet/">the app's home page</a>.</p>
+<p><img alt="home page" src="https://pybit.es/images/selenium-challenge3.png"></p>
+</li>
+<li>
+<p>Using Selenium click <em>Login</em> and login with user: guest / password: changeme - then click the blue <em>Login</em> button:</p>
+<p><img alt="home page" src="https://pybit.es/images/selenium-challenge4.png"></p>
+</li>
+<li>
+<p>Check you are redirected back to <a href="http://pyplanet.herokuapp.com/">100Days home</a> and if navigation contains <em>Welcome back, guest!</em> and Logout and Home links:</p>
+<p><img alt="home page" src="https://pybit.es/images/selenium-challenge5.png"></p>
+</li>
+<li>
+<p>Going back to the article link (3.), check that you now have a <em>Tweet this</em> button alongside the <em>Go back</em> button. Optionally you can check the link of the <em>Tweet this</em> button (extra check: PyBites entries have <em>New PyBites Article</em> prepended).</p>
+<p><img alt="home page" src="https://pybit.es/images/selenium-challenge6.png"></p>
+</li>
+<li>
+<p>Finally logout with Selenium and check for <em>See you!</em> and <em>You have been successfully logged out.</em>, <em>logout</em> in the URL, and navbar links are Login and Home again:</p>
+<p><img alt="home page" src="https://pybit.es/images/selenium-challenge7.png"></p>
+</li>
+</ol>
+<p>By the way, if you don't like this app or want to test a Flask app (or other web framework), be our guest. Just mention it in your PR submission.</p>
+<h3>Bonus</h3>
+<p>If you like to test even more you need superuser rights. As we use this app ourselves we only provide a guest login at this point. Nobody stops you though from <a href="https://github.com/pybites/pyplanet-django">cloning the repo</a> and get it working locally. </p>
+<p>Apart from extra Django setup practice, doing so can can additionally test:</p>
+<ol>
+<li>
+<p>Create a Django superuser and use it to login to the app. Click the <em>Mark Skipped</em> button on an article and check if it marks the entry as orange back at the main app page/table view. Going back to the same article, the button is deactivated and the button text changed to <em>Already skipped</em>.</p>
+</li>
+<li>
+<p>(still logged in) click the <em>Mark Shared</em> button on another article and check if it marks the entry green back at the main app page/table view. Going back to the same article, the button is deactivated and the button text changed to <em>Already shared</em>.</p>
+</li>
+<li>
+<p>For both 1. and 2. the blue <em>Tweet this</em> button should have disappeared.</p>
+</li>
+</ol>
+<p>Again <a href="https://pybit.es/learning-django.html">here</a> is how the app looks with superuser rights.</p>
+<h3>Resources</h3>
+<ul>
+<li>
+<p><a href="http://selenium-python.readthedocs.io/">Selenium with Python</a></p>
+</li>
+<li>
+<p><a href="https://realpython.com/blog/python/headless-selenium-testing-with-python-and-phantomjs/">Headless Selenium Testing With Python and PhantomJS</a></p>
+</li>
+<li>
+<p><a href="http://www.obeythetestinggoat.com/">Test-Driven Development With Python aka Obey the Testing Goat!</a> - <a href="http://www.obeythetestinggoat.com/book/chapter_01.html">chapter 1</a> kicks off with a Selenium functional test.</p>
+</li>
+<li>
+<p><a href="https://blog.miguelgrinberg.com/post/using-headless-chrome-with-selenium">Using Headless Chrome with Selenium</a></p>
+</li>
+</ul>
+<h2>Get credit!</h2>
+<p>See <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">our INSTALL doc</a> how to fork <a href="https://github.com/pybites/challenges">our challenges repo</a> to get cracking.</p>
+<p>This doc also provides you with instructions how you can submit your code to our community branch via a Pull Request (PR). We will feature your PRs in our end-of-the-week challenge review (<a href="http://pybit.es/pages/challenges.html">previous editions</a>).</p>
+<h3>Feedback</h3>
+<p>If you have ideas for a future challenge or find any issues, open a <a href="https://github.com/pybites/challenges/issues">GH Issue</a> or <a href="http://pybit.es/pages/about.html">reach out</a> directly.</p>
+<p>Last but not least: there is no best solution, only learning more and better Python. Good luck!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob and Julian</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>
+      <a href="https://pybit.es/tag/django.html">Django</a>
+      <a href="https://pybit.es/tag/100daysofdjango.html">100DaysOfDjango</a>
+      <a href="https://pybit.es/tag/selenium.html">Selenium</a>
+      <a href="https://pybit.es/tag/testing.html">Testing</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Yesterday we hosted PyChallengeDay together with Python Alicante. I am sure the folks that joined us stretched their coding skills. And we learned a couple of things too which we will share in this article. Hopefullly it inspires you to host a workshop yourself to grow the awesome Python community." />
+<meta name="keywords" content="code challenges, community, Python Alicante, live coding, learning, retrospective, talks, Marvel, fun">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="5 Things we Learned Co-hosting a Live Code Challenge Workshop"/>
+<meta property="og:description" content="Yesterday we hosted PyChallengeDay together with Python Alicante. I am sure the folks that joined us stretched their coding skills. And we learned a couple of things too which we will share in this article. Hopefullly it inspires you to host a workshop yourself to grow the awesome Python community."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/alicante-pychallengeday.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-11-11 18:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Reviews"/>
+<meta property="article:tag" content="code challenges"/>
+<meta property="article:tag" content="community"/>
+<meta property="article:tag" content="Python Alicante"/>
+<meta property="article:tag" content="live coding"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="retrospective"/>
+<meta property="article:tag" content="talks"/>
+<meta property="article:tag" content="Marvel"/>
+<meta property="article:tag" content="fun"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="5 Things we Learned Co-hosting a Live Code Challenge Workshop" />
+<meta name="twitter:description" content="Yesterday we hosted PyChallengeDay together with Python Alicante. I am sure the folks that joined us stretched their coding skills. And we learned a couple of things too which we will share in this article. Hopefullly it inspires you to host a workshop yourself to grow the awesome Python community." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; 5 Things we Learned Co-hosting a Live Code Challenge Workshop</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="alicante-pychallengeday">5 Things we Learned Co-hosting a Live Code Challenge Workshop</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 11 November 2017 in <a href="https://pybit.es/category/reviews.html">Reviews</a>
+
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Yesterday we hosted <a href="https://pybit.es/codechallenge44.html">PyChallengeDay</a> together with <a href="https://twitter.com/python_alc?lang=en">Python Alicante</a>. I am sure the folks that joined us stretched their coding skills. And we learned a couple of things too which we will share in this article. Hopefullly it inspires you to host a workshop yourself to grow the awesome Python community.</p>
+<h2>1. There's nothing like live coding</h2>
+<blockquote>
+<p>Python teachers take notice: a live coding workshop offers a unique opportunity to gain valuable insight.</p>
+</blockquote>
+<p>So far we have been doing code challenges online. We are getting an increasing amount of PRs and the overall feedback is that people learn more Python. Great!</p>
+<p>However seeing people doing a challenge for the first time - the struggles, the wins, env setups (Python 2!), and applied problem solving - it added a totally different angle. </p>
+<blockquote class="twitter-tweet"><p>Seguímos con el reto de programación que han preparado los chicos de <a href="https://twitter.com/@python_alc" target="_blank">@python_alc</a> junto a <a href="https://twitter.com/@pybites" target="_blank">@pybites</a> <a href="https://twitter.com/search/#Python…" target="_blank">#Python…</a> <a href="https://t.co/I43Aoh2X1V" title="https://t.co/I43Aoh2X1V" target="_blank">https://t.co/I43Aoh2X1V</a></p>— SecUA (@sec_ua) <a href="https://twitter.com/sec_ua/status/928944274049204224" data-datetime="2017-11-10T11:15:48+00:00">November 10, 2017</a></blockquote>
+
+<p>We gained some valuable insights which we will use to make our code challenges better. </p>
+<h2>2. Make public speaking less intimidating</h2>
+<blockquote>
+<p>A local workshop offers a more intimate setting to start learning the ropes of sharing your work in public!</p>
+</blockquote>
+<p>Although it's a coding workshop, you typically start with a quick intro chat. I had not spoken much in public and here, right off the bat, I was introduced to the group and shared how I got into Python and PyBites. It felt great to share our passion and work and it invigorated me to do this more often. </p>
+<blockquote class="twitter-tweet"><p><a href="https://twitter.com/@bbelderbos" target="_blank">@bbelderbos</a> Nos cuenta cómo pasó de trabajar con Perl a utilizar principalmente <a href="https://twitter.com/search/#Python" target="_blank">#Python</a> y cómo empezó su proyecto p… <a href="https://t.co/KbjddM0H4R" title="https://t.co/KbjddM0H4R" target="_blank">https://t.co/KbjddM0H4R</a></p>— Python Alicante (@python_alc) <a href="https://twitter.com/python_alc/status/928918145322057729" data-datetime="2017-11-10T09:31:58+00:00">November 10, 2017</a></blockquote>
+
+<blockquote class="twitter-tweet"><p>¡Hemos empezado con el pychallenge day! Es un reto de programación en Python junto con <a href="https://twitter.com/@pybites" target="_blank">@pybites</a> y <a href="https://twitter.com/@python_alc" target="_blank">@python_alc</a> en el… <a href="https://t.co/SdIEs4drqJ" title="https://t.co/SdIEs4drqJ" target="_blank">https://t.co/SdIEs4drqJ</a></p>— DEEPSUA (@DEEPSUA) <a href="https://twitter.com/DEEPSUA/status/928933283102064640" data-datetime="2017-11-10T10:32:08+00:00">November 10, 2017</a></blockquote>
+
+<h2>3. Help building the awesome Python community</h2>
+<blockquote>
+<p>Great relations are built face-to-face over coffee or beers. </p>
+</blockquote>
+<p>Building a community takes a lot of practical work, part of which happens online. In this highly interruptive and online society we loose this aspect from time to time. That's why <a href="https://pybit.es/pycon-2017.html">I attend PyCons whenever I can</a>. Live workshops and meetups help building the exemplary Python community.</p>
+<blockquote class="twitter-tweet"><p>What time is it? It's coffee time! ☕️🍵😌 <a href="https://twitter.com/search/#PyCodeChallenge" target="_blank">#PyCodeChallenge</a> <a href="https://twitter.com/search/#Python" target="_blank">#Python</a> <a href="https://t.co/q49eged059" title="https://t.co/q49eged059" target="_blank">https://t.co/q49eged059</a></p>— Python Alicante (@python_alc) <a href="https://twitter.com/python_alc/status/928941082175528961" data-datetime="2017-11-10T11:03:07+00:00">November 10, 2017</a></blockquote>
+
+<h2>4. An event requires organizing skills</h2>
+<blockquote>
+<p>Organization is sometimes taken for granted but it's the oil on which these kind of events run. </p>
+</blockquote>
+<p>I think we learned as much as the participants. </p>
+<p>First the coding: people solved the problem in different ways, fascinating to see. </p>
+<p>The setting: as much as you prepare, some unexpected things always happen (GH account/access, difference csv parsing Python 2 vs 3). A good prep should prevent showstoppers but expect some instant hacking and creativity regardless :)</p>
+<p>The event, although small, required some organization (thanks <a href="https://twitter.com/python_alc?lang=en">Python Alicante</a>!): signup form, promo (flyer, Twitter, university), code challenge prep and release timing, GH PR submission process, coffee, classroom, winner price (book), Gitter chatroom. Organization skills are valuable to have and the community will thank you for it.</p>
+<h2>5. Learning from each other in a fun way</h2>
+<blockquote>
+<p>It's amazing to see how motivated people get if you challenge them! </p>
+</blockquote>
+<p>Remember: PRs do count! The winner is <a href="https://pybit.es/automate_the_boring_stuff_review.html">a Python book</a> richer, I think he will remember how he acquired it by coding :) </p>
+<p>Funny things happen: somebody discovered the csv had Marvel characters already ordered ("huh the tests pass with a unsorted slice?!" ... lol). </p>
+<p>We discussed sorted+lambda vs heapq, new opportunities to write about on our blog.</p>
+<blockquote class="twitter-tweet"><p>PRs do count: David solved our Marvel <a href="https://twitter.com/search/#pychallenge" target="_blank">#pychallenge</a> earning a copy of <a href="https://twitter.com/@AlSweigart’s" target="_blank">@AlSweigart’s</a> Automate the boring stuff. I thi… <a href="https://t.co/0HlF3jYvKS" title="https://t.co/0HlF3jYvKS" target="_blank">https://t.co/0HlF3jYvKS</a></p>— Pybites (@pybites) <a href="https://twitter.com/pybites/status/929007513076461568" data-datetime="2017-11-10T15:27:05+00:00">November 10, 2017</a></blockquote>
+
+<p>There was some heroic hard work done, <em>Marvelic</em> respect was earned. Even folks that could not complete the challenge got a huge incentive from it to go back and brush up some modules, sharpening the coding saw.</p>
+<h2>Conclusion: hungry for more</h2>
+<blockquote>
+<p>Live workshops offer an effective and fun way to build out our passionate Python community. </p>
+</blockquote>
+<blockquote class="twitter-tweet"><p>¡ Empieza el reto ! Estamos en <a href="https://twitter.com/@EPSAlicante" target="_blank">@EPSAlicante</a> <a href="https://twitter.com/search/#PyCodeChallenge" target="_blank">#PyCodeChallenge</a> <a href="https://twitter.com/search/#Python" target="_blank">#Python</a> <a href="https://t.co/Jg1ELuQKbu" title="https://t.co/Jg1ELuQKbu" target="_blank">https://t.co/Jg1ELuQKbu</a></p>— Python Alicante (@python_alc) <a href="https://twitter.com/python_alc/status/928919098754584577" data-datetime="2017-11-10T09:35:46+00:00">November 10, 2017</a></blockquote>
+
+<p>We will follow up with more workshops, we've broken the ice and we only got started.</p>
+<p>Stay tuned and don't worry if you're not in Alicante because you're more than welcome to join us via Gitter. The more the merrier :)</p>
+<p>And again a big THANKS to <a href="https://twitter.com/python_alc?lang=en">Python Alicante</a> for the nice collaboration making this event a success. And for the cool flyer:</p>
+<blockquote class="twitter-tweet"><p>Tomorrow 10 am CET University of Alicante: <a href="https://twitter.com/search/#PyChallengeDay" target="_blank">#PyChallengeDay</a> workshop Join us and <a href="https://twitter.com/@python_alc" target="_blank">@python_alc</a> to flex your coding mu… <a href="https://t.co/M3hdQFHs50" title="https://t.co/M3hdQFHs50" target="_blank">https://t.co/M3hdQFHs50</a></p>— Pybites (@pybites) <a href="https://twitter.com/pybites/status/928565131881172992" data-datetime="2017-11-09T10:09:14+00:00">November 09, 2017</a></blockquote>
+
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/code-challenges.html">code challenges</a>
+      <a href="https://pybit.es/tag/community.html">community</a>
+      <a href="https://pybit.es/tag/python-alicante.html">Python Alicante</a>
+      <a href="https://pybit.es/tag/live-coding.html">live coding</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/retrospective.html">retrospective</a>
+      <a href="https://pybit.es/tag/talks.html">talks</a>
+      <a href="https://pybit.es/tag/marvel.html">Marvel</a>
+      <a href="https://pybit.es/tag/fun.html">fun</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

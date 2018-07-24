@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="PyBites" />
+<meta name="description" content="Hi Pythonistas, it's beginning of the month so we're busy selecting some cool code challenges for you to work on to hone your Python skills. Regular Expressions was a long time coming so let's get it out there. We hope we hit a decent intermediate level with this challenge. If you have questions ask us in the comments or join our Slack." />
+<meta name="keywords" content="regex, regular expressions, findall, parsing, pytest">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Code Challenge 42 - Mastering Regular Expressions"/>
+<meta property="og:description" content="Hi Pythonistas, it's beginning of the month so we're busy selecting some cool code challenges for you to work on to hone your Python skills. Regular Expressions was a long time coming so let's get it out there. We hope we hit a decent intermediate level with this challenge. If you have questions ask us in the comments or join our Slack."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/codechallenge42.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-11-03 09:30:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/pybites.html">
+<meta property="article:section" content="Challenge"/>
+<meta property="article:tag" content="regex"/>
+<meta property="article:tag" content="regular expressions"/>
+<meta property="article:tag" content="findall"/>
+<meta property="article:tag" content="parsing"/>
+<meta property="article:tag" content="pytest"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Code Challenge 42 - Mastering Regular Expressions" />
+<meta name="twitter:description" content="Hi Pythonistas, it's beginning of the month so we're busy selecting some cool code challenges for you to work on to hone your Python skills. Regular Expressions was a long time coming so let's get it out there. We hope we hit a decent intermediate level with this challenge. If you have questions ask us in the comments or join our Slack." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+  <title>PyBites &ndash; Code Challenge 42 - Mastering Regular Expressions</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      red
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='red'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/challenges.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="codechallenge42">Code Challenge 42 - Mastering Regular Expressions</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Fri 03 November 2017 in <a href="https://pybit.es/category/challenge.html">Challenge</a>
+
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein</p>
+</blockquote>
+<p>Hi Pythonistas, it's beginning of the month so we're busy selecting some cool code challenges for you to work on to hone your Python skills. Regular Expressions was a long time coming so let's get it out there. We hope we hit a decent intermediate level with this challenge. If you have questions ask us in the comments or join our Slack (see further below).</p>
+<h2>The Challenge</h2>
+<p>Like the <a href="https://pybit.es/pages/challenges.html">initial challenges</a> we worked on <a href="https://pybit.es/pytest-book.html">some pytests</a> so you can verify your regexes, so the steps would be:</p>
+<ol>
+<li>
+<p>If you don't have pytest installed <a href="https://pybit.es/the-beauty-of-virtualenv.html">make a virtual env</a> and pip install pytest</p>
+</li>
+<li>
+<p>Open <code>test_regex.py</code> and read the tests.</p>
+</li>
+<li>
+<p>Open <code>regex.py</code> and check the docstrings. </p>
+</li>
+<li>
+<p>Now it's time to get those regexes in! Start adding them to the functions in <code>regex.py</code>. </p>
+</li>
+<li>
+<p>You can run the tests at any time, when all done and good, they should pass:</p>
+<div class="highlight"><pre><span></span>$ pytest test_regex.py
+...
+collected <span class="m">6</span> items
+
+test_regex.py ......
+
+<span class="o">===</span> <span class="m">6</span> passed in <span class="m">0</span>.04 <span class="nv">seconds</span> <span class="o">===</span>
+</pre></div>
+
+
+</li>
+</ol>
+<p>We might give away too much linking to our regex article, but sure: if you're stuck checkout <a href="https://pybit.es/mastering-regex.html">10 Tips to Get More out of Your Regexes</a>: we found inspiration there putting this challenge together.</p>
+<p>However you learn the most if you really try it yourself first!</p>
+<h2>Bonus</h2>
+<p>Ideally we reach 10 regexes for this challenge so if you want to  contribute 4 more regex exercises, just edit <code>regex.py</code> and <code>test_regex.py</code> (yes please do provide tests) and <a href="https://github.com/pybites/challenges">open a PR</a>, the challenge folder is <a href="https://github.com/pybites/challenges/tree/master/42">here</a> (email or comment the code is fine too).</p>
+<p>By the way, on our <a href="https://pybit.es/tag/regex.html">regex tag</a> I saw we featured <a href="https://twitter.com/RegexTip">RegexTip</a> quite a bit in our <a href="https://pybit.es/pages/news.html">weekly Twitter digests</a>, so maybe that's an interesting account to follow if you want to learn more about Regexes.</p>
+<h2>Slack Channel</h2>
+<p>For a beginner some of our challenges might be overwhelming. Another observation is that the process of doing these challenges is as interesting as the final result.</p>
+<p>We are eager to expand our awesome PyBites community. For this reason we are opening up our private Slack for you to discuss our code challenges and let us know how you're progressing your Python skills. Send us <a href="mailto:pybitesblog@gmail.com">an email</a> if you want to join. </p>
+<p>This way you get the unique opportunity to learn from other Pythonistas and share some of your own learning.</p>
+<h2>Credit</h2>
+<p>You can PR your work to our Community branch of our <a href="https://github.com/pybites/challenges">Challenges repo</a>. We will include it in our review post. Our PR template also lets you reflect a bit on your learning and provide some feedback how we can keep our challenges interesting. See detailed instructions <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">here</a>.</p>
+<h2>About</h2>
+<p>Our goal is to learn and teach you Python through practical exercises. Learning a programming language is way more fun as a community!</p>
+<p>For any feedback, issues or ideas use <a href="https://github.com/pybites/challenges/issues">GH Issues</a>, <a href="https://twitter.com/pybites">tweet us</a> or <a href="mailto:pybitesblog@gmail.com">drop us an email</a>.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- PyBites</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/regex.html">regex</a>
+      <a href="https://pybit.es/tag/regular-expressions.html">regular expressions</a>
+      <a href="https://pybit.es/tag/findall.html">findall</a>
+      <a href="https://pybit.es/tag/parsing.html">parsing</a>
+      <a href="https://pybit.es/tag/pytest.html">pytest</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

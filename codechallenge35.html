@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="PyBites" />
+<meta name="description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can even win awards thanks to SIG who is sponsoring this challenge!" />
+<meta name="keywords" content="bettercodehub, SIG, refactoring, code quality, clean code, software development, tools, platform">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Code Challenge 35 - Improve Your Python Code With BetterCodeHub"/>
+<meta property="og:description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can even win awards thanks to SIG who is sponsoring this challenge!"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/codechallenge35.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-09-05 09:15:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/pybites.html">
+<meta property="article:section" content="Challenge"/>
+<meta property="article:tag" content="bettercodehub"/>
+<meta property="article:tag" content="SIG"/>
+<meta property="article:tag" content="refactoring"/>
+<meta property="article:tag" content="code quality"/>
+<meta property="article:tag" content="clean code"/>
+<meta property="article:tag" content="software development"/>
+<meta property="article:tag" content="tools"/>
+<meta property="article:tag" content="platform"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Code Challenge 35 - Improve Your Python Code With BetterCodeHub" />
+<meta name="twitter:description" content="Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on improving the quality of your code with Better Code Hub. This week we let you refactor a Python project. You can even win awards thanks to SIG who is sponsoring this challenge!" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
+
+  <title>PyBites &ndash; Code Challenge 35 - Improve Your Python Code With BetterCodeHub</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      red
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='red'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/challenges.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="codechallenge35">Code Challenge 35 - Improve Your Python Code With BetterCodeHub</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Tue 05 September 2017 in <a href="https://pybit.es/category/challenge.html">Challenge</a>
+
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>Life is about facing new challenges - Kostya Tszyu</p>
+</blockquote>
+<p>Hi Pythonistas, a new week, a new 'bite' of Python programming! Last week we wrote an article on <a href="https://pybit.es/bettercodehub.html">improving the quality of your code with Better Code Hub</a>. This week we let you refactor a Python project. </p>
+<p><strong>You can even win awards thanks to <a href="https://www.sig.eu">SIG</a> who is sponsoring this challenge!</strong></p>
+<h2>The Challenge</h2>
+<p>Update: initially we had you pick and improve one of your repos or forks. <a href="https://www.sig.eu">SIG</a> provided us with a more interesting approach though: <a href="https://opensourcespringcleaning.github.io">SpringCleaning</a> which template we adopted for this challenge. Check out the instructions below. We will use label <em>PyBitesChallenge35</em> and only accept <strong>Python related projects</strong>.</p>
+<h3>As a maintainer</h3>
+<ul>
+<li>(If not already done) Enable issues in the repository’s settings page on GitHub.</li>
+<li>Create a 'PyBitesChallenge35' - label <a href="https://help.github.com/articles/creating-and-editing-labels-for-issues-and-pull-requests/">Here’s how</a>.</li>
+<li>
+<p>Create issues based on the proposed prioritized refactoring candidates from <a href="https://bettercodehub.com">Better Code Hub</a> and attach the <em>PyBitesChallenge35</em> label to them. Here is an example:</p>
+<p><img alt="add the PyBitesChallenge35 label to your GitHub issue" src="https://pybit.es/images/pcc35-add-label.png"></p>
+</li>
+<li>
+<p>To enable Better Code Hub to run on every Push and Pull Request, click the ⚙ &nbsp;&nbsp;icon and toggle the "Push &amp; Pull request analysis" switch. This will activate the webhook.</p>
+</li>
+</ul>
+<h3>As a contributor</h3>
+<ul>
+<li>Search on Github for <a href="https://github.com/issues?utf8=%E2%9C%93&amp;q=label%3APyBitesChallenge35+">issues with the <em>PyBitesChallenge35</em> label</a></li>
+<li>Fork, refactor and create a Pull Request.</li>
+</ul>
+<h3>Want to see a sample Better Code Hub report?</h3>
+<ul>
+<li>Head over to <a href="https://bettercodehub.com">bettercodehub.com</a> and login with your GitHub account. You'll then see your repos, and you can start an analysis clicking the ▶️ &nbsp;&nbsp;button. It will analyze the default branch. Or checkout <a href="https://pybit.es/bettercodehub.html">our article</a>.</li>
+</ul>
+<h2>What’s the reward for participation?</h2>
+<p>If you participate in this initiative you get rewarded with:</p>
+<ul>
+<li>
+<p>The first 25 contributors that get one Pybites Code Challenge Pull Request accepted will get a free month of Better Code Hub PRO.</p>
+</li>
+<li>
+<p>The first 10 contributors that get two Pybites Code Challenge Pull Requests accepted will get a hard copy of <a href="http://shop.oreilly.com/product/0636920049555.do"><em>Building Maintainable Software</em> (O’Reilly)</a>.</p>
+</li>
+<li>
+<p>If you’re a maintainer, you get a cleaner code base and new contributors to extend your repository. 😊 </p>
+</li>
+</ul>
+<h2>Resources</h2>
+<ul>
+<li>BetterCodeHub: <a href="https://bettercodehub.com">tool</a> | <a href="https://bettercodehub.com/docs/faq">faq</a> | <a href="https://bettercodehub.com/docs/configuration-manual">config manual</a></li>
+<li>Read what it is, how it works and a Python refactoring example: <a href="https://pybit.es/bettercodehub.html">Improve the Quality of Your Code with Better Code Hub</a></li>
+</ul>
+<h3>Feedback</h3>
+<p>If you have ideas for a future challenge or find any issues, open a <a href="https://github.com/pybites/challenges/issues">GH Issue</a> or <a href="http://pybit.es/pages/about.html">reach out</a> directly.</p>
+<p>Our goal is to learn more Python which is way cooler as a community. Good luck and have fun!</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob, Julian and the folks @ SIG</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/bettercodehub.html">bettercodehub</a>
+      <a href="https://pybit.es/tag/sig.html">SIG</a>
+      <a href="https://pybit.es/tag/refactoring.html">refactoring</a>
+      <a href="https://pybit.es/tag/code-quality.html">code quality</a>
+      <a href="https://pybit.es/tag/clean-code.html">clean code</a>
+      <a href="https://pybit.es/tag/software-development.html">software development</a>
+      <a href="https://pybit.es/tag/tools.html">tools</a>
+      <a href="https://pybit.es/tag/platform.html">platform</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>
