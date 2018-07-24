@@ -1,5 +1,767 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-07-15T20:35:00+02:00</updated><entry><title>PyBites Twitter Digest - Issue 23, 2018</title><link href="https://pybit.es/twitter_digest_201823.html" rel="alternate"></link><published>2018-07-15T20:35:00+02:00</published><updated>2018-07-15T20:35:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-07-15:/twitter_digest_201823.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;A sad day indeed! Thanks for everything Guido!&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-07-24T20:00:00+02:00</updated><entry><title>My Anaconda Workflow: Python environment and package management made easy</title><link href="https://pybit.es/guest-anaconda-workflow.html" rel="alternate"></link><published>2018-07-24T20:00:00+02:00</published><updated>2018-07-24T20:00:00+02:00</updated><author><name>Martin Uribe</name></author><id>tag:pybit.es,2018-07-24:/guest-anaconda-workflow.html</id><summary type="html">&lt;p&gt;In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference. Enter Martin:&lt;/p&gt;
+&lt;h1&gt;My Anaconda Workflow&lt;/h1&gt;
+&lt;p&gt;I've been working with &lt;a href="https://anaconda.org/"&gt;Anaconda&lt;/a&gt; for a while now and I've been relatively pleased with it. I'll admit, there was a bit of a learning curve at first, but hopefully I can get you past that initial hump with this write-up. There are lots of commands and covering them all is better done in the official &lt;a href="https://docs.anaconda.com/anaconda-cloud/user-guide/"&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What I've covered here is just what I use most often and should get you comfortable with using Anaconda.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Index&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#create-virtual-environment"&gt;Create Virtual Environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#list_virtual_environments"&gt;List Virtual Environments&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#remove_virtual_environment"&gt;Remove Virtual Environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#search_for_packages"&gt;Search for Packages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#install_packages"&gt;Install Packages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#current_environment"&gt;Current Environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#other_environment"&gt;Other Environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#install_packages_not_found"&gt;Install Packages Not Found&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#search_alternate_channels"&gt;Search Alternate Channels&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="#install_package_from_a_channel"&gt;Install Package From A Channel&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#add_additional_channels"&gt;Add Additional Channels&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#install_packages_with_pip"&gt;Install Packages With Pip&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#remove_packages"&gt;Remove Packages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#install_packages_while_creating_environment"&gt;Install Packages While Creating Environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#export_environment_configuration"&gt;Export Environment Configuration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#create_environment_from_yaml_file"&gt;Create Environment From File&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#prepare_environment_yaml_for_distribution"&gt;Prepare Environment YAML For Distribution&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#list_packages"&gt;List Packages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#clone_an_environment"&gt;Clone An Environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#updates"&gt;Updates&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#tl;dr"&gt;TL;DR&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name="create-virtual-environment"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Create Virtual Environment&lt;/h2&gt;
+&lt;p&gt;Creating a virtual environment with Anaconda is pretty simple. If you do not specify a Python version, whatever your current default one is will be used. Don't know your default version? Simple run &lt;code&gt;python --version&lt;/code&gt; to find out.&lt;/p&gt;
+&lt;p&gt;Let's create one that uses Python 3.7 and is called pybites:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create --name pybites python=3.7
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/mohh/anaconda3/envs/pybites
+
+  added / updated specs:
+    - python=3.7
+
+
+The following NEW packages will be INSTALLED:
+
+    ca-certificates: 2018.03.07-0           
+    certifi:         2018.4.16-py37_0       
+    libedit:         3.1.20170329-h6b74fdf_2
+    libffi:          3.2.1-hd88cf55_4       
+    libgcc-ng:       7.2.0-hdf63c60_3       
+    libstdcxx-ng:    7.2.0-hdf63c60_3       
+    ncurses:         6.1-hf484d3e_0         
+    openssl:         1.0.2o-h20670df_0      
+    pip:             10.0.1-py37_0          
+    python:          3.7.0-hc3d631a_0       
+    readline:        7.0-ha6073c6_4         
+    setuptools:      39.2.0-py37_0          
+    sqlite:          3.24.0-h84994c4_0      
+    tk:              8.6.7-hc745277_3       
+    wheel:           0.31.1-py37_0          
+    xz:              5.2.4-h14c3975_4       
+    zlib:            1.2.11-ha838bed_2      
+
+Proceed ([y]/n)?
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+#
+# To activate this environment, use:
+# &amp;gt; source activate pybites
+#
+# To deactivate an active environment, use:
+# &amp;gt; source deactivate
+#
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The comments at the end show you how to activate/deactivate your new environment. I have an alias set in my shell's rc file that maps &lt;code&gt;activate&lt;/code&gt; to &lt;code&gt;source activate&lt;/code&gt; so that I don't have to type &lt;code&gt;source&lt;/code&gt; all of the time.&lt;/p&gt;
+&lt;p&gt;&lt;a name="list_virtual_environments"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;List Virtual Environments&lt;/h2&gt;
+&lt;p&gt;Don't remember what you named your environment? Just what to see which ones you have created? You can view them all with &lt;code&gt;conda env list&lt;/code&gt;. The name of the environment will be shown as well as its location:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda env list
+# conda environments:
+#
+base                  *  /home/mohh/anaconda3
+animpy                   /home/mohh/anaconda3/envs/animpy
+comic_snagger            /home/mohh/anaconda3/envs/comic_snagger
+cv                       /home/mohh/anaconda3/envs/cv
+ml                       /home/mohh/anaconda3/envs/ml
+pybites                  /home/mohh/anaconda3/envs/pybites
+toepack                  /home/mohh/anaconda3/envs/toepack
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="remove_virtual_environment"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Remove Virtual Environment&lt;/h2&gt;
+&lt;p&gt;If you ever have the need to remove an environment, &lt;code&gt;conda env remove --name ENVNAME&lt;/code&gt; will remove it and every package installed in it:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda env remove --name pybites
+
+Remove all packages in environment /home/mohh/anaconda3/envs/pybites:
+
+
+## Package Plan ##
+
+  environment location: /home/mohh/anaconda3/envs/pybites
+
+
+The following packages will be REMOVED:
+
+    ca-certificates: 2018.03.07-0           
+    certifi:         2018.4.16-py37_0       
+    libedit:         3.1.20170329-h6b74fdf_2
+    libffi:          3.2.1-hd88cf55_4       
+    libgcc-ng:       7.2.0-hdf63c60_3       
+    libstdcxx-ng:    7.2.0-hdf63c60_3       
+    ncurses:         6.1-hf484d3e_0         
+    openssl:         1.0.2o-h20670df_0      
+    pip:             10.0.1-py37_0          
+    python:          3.7.0-hc3d631a_0       
+    readline:        7.0-ha6073c6_4         
+    setuptools:      39.2.0-py37_0          
+    sqlite:          3.24.0-h84994c4_0      
+    tk:              8.6.7-hc745277_3       
+    wheel:           0.31.1-py37_0          
+    xz:              5.2.4-h14c3975_4       
+    zlib:            1.2.11-ha838bed_2      
+
+Proceed ([y]/n)?
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="search_for_packages"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Search for Packages&lt;/h2&gt;
+&lt;p&gt;Normally, before attempting to install a new package, I search for it to see if Anaconda supports it. I already know that &lt;em&gt;beautifulsoup4&lt;/em&gt; is supported, but I'll go ahead and show you what that would look like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda search beautifulsoup4
+Loading channels: done
+# Name                  Version           Build  Channel             
+beautifulsoup4            4.4.0          py27_0  pkgs/free           
+beautifulsoup4            4.4.0          py34_0  pkgs/free           
+beautifulsoup4            4.4.0          py35_0  pkgs/free           
+beautifulsoup4            4.4.1          py27_0  pkgs/free           
+beautifulsoup4            4.4.1          py34_0  pkgs/free           
+beautifulsoup4            4.4.1          py35_0  pkgs/free           
+beautifulsoup4            4.5.1          py27_0  pkgs/free           
+beautifulsoup4            4.5.1          py34_0  pkgs/free           
+beautifulsoup4            4.5.1          py35_0  pkgs/free           
+beautifulsoup4            4.5.1          py36_0  pkgs/free           
+beautifulsoup4            4.5.3          py27_0  pkgs/free           
+beautifulsoup4            4.5.3          py34_0  pkgs/free           
+beautifulsoup4            4.5.3          py35_0  pkgs/free           
+beautifulsoup4            4.5.3          py36_0  pkgs/free           
+beautifulsoup4            4.6.0          py27_0  pkgs/free           
+beautifulsoup4            4.6.0          py27_1  pkgs/main           
+beautifulsoup4            4.6.0  py27h3f86ba9_1  pkgs/main           
+beautifulsoup4            4.6.0          py34_0  pkgs/free           
+beautifulsoup4            4.6.0          py35_0  pkgs/free           
+beautifulsoup4            4.6.0  py35h442a8c9_1  pkgs/main           
+beautifulsoup4            4.6.0          py36_0  pkgs/free           
+beautifulsoup4            4.6.0          py36_1  pkgs/main           
+beautifulsoup4            4.6.0  py36h49b8c8c_1  pkgs/main           
+beautifulsoup4            4.6.0          py37_1  pkgs/main
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="install_packages"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Install Packages&lt;/h2&gt;
+&lt;p&gt;Installing packages is simple. You can either install them into your current environment or you can specify the environment to install them into. If you are not currently in an "active"  environment, Anaconda will assume that you want to install to the &lt;em&gt;root&lt;/em&gt;/&lt;strong&gt;base&lt;/strong&gt; environment.&lt;/p&gt;
+&lt;p&gt;&lt;a name="current_environment"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Current Environment&lt;/h3&gt;
+&lt;p&gt;Installing to the current environment is as simple as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda install beautifulsoup4
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="other_environment"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Other Environment&lt;/h3&gt;
+&lt;p&gt;If you are not currently in the active environment that you want to install to, you can still install into that environment by specifying its name:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda install --name pybites beautifulsoup4
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="install_packages_not_found"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Installing Packages Not Found&lt;/h2&gt;
+&lt;p&gt;A list of all available packages can be found at  &lt;a href="https://docs.anaconda.com/anaconda/packages/pkg-docs"&gt;Anaconda&lt;/a&gt;. Now, what do you do if the package that you want isn't available?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda search black
+Loading channels: done
+
+PackagesNotFoundError: The following packages are not available from current channels:
+
+  - black
+
+Current channels:
+
+  - https://repo.anaconda.com/pkgs/main/linux-64
+  - https://repo.anaconda.com/pkgs/main/noarch
+  - https://repo.anaconda.com/pkgs/free/linux-64
+  - https://repo.anaconda.com/pkgs/free/noarch
+  - https://repo.anaconda.com/pkgs/r/linux-64
+  - https://repo.anaconda.com/pkgs/r/noarch
+  - https://repo.anaconda.com/pkgs/pro/linux-64
+  - https://repo.anaconda.com/pkgs/pro/noarch
+
+To search for alternate channels that may provide the conda package you&amp;#39;re
+looking for, navigate to
+
+    https://anaconda.org
+
+and use the search bar at the top of the page.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="search_alternate_channels"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Search Alternate Channels&lt;/h3&gt;
+&lt;p&gt;As you can see &lt;code&gt;black&lt;/code&gt; is not in Anaconda's default "channels". A channel is like a repository of packages. Anaconda allows you to specify different channels as well, with the use of the &lt;strong&gt;-c&lt;/strong&gt; flag. For example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda search -c conda-forge black
+Loading channels: done
+# Name                  Version           Build  Channel             
+black                    18.4a4            py_0  conda-forge         
+black                    18.5b0            py_0  conda-forge         
+black                    18.5b1            py_0  conda-forge         
+black                    18.6b2            py_0  conda-forge
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="install_package_from_a_channel"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Install Package From A Channel&lt;/h4&gt;
+&lt;p&gt;You already know what the &lt;strong&gt;Channel&lt;/strong&gt; column is showing you, so I won't cover that again. The &lt;strong&gt;Version&lt;/strong&gt; column shows the version of the package and the &lt;strong&gt;Build&lt;/strong&gt; column shows you what version of Python it's for. The cool thing about Anaconda is that if you need a certain version of a package, you just specify it and it will select the one that will work with the version of Python that you are currently using.&lt;/p&gt;
+&lt;p&gt;Installing packages from a channel is relatively similar to searching for packages. I'll demonstrate by installing &lt;code&gt;black&lt;/code&gt; from the &lt;em&gt;condo-forge&lt;/em&gt; channel:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda install -c conda-forge black
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/mohh/anaconda3/envs/pybites
+
+  added / updated specs:
+    - black
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    appdirs-1.4.3              |             py_1          11 KB  conda-forge
+    black-18.6b2               |             py_0          67 KB  conda-forge
+    attrs-18.1.0               |             py_1          25 KB  conda-forge
+    click-6.7                  |             py_1          54 KB  conda-forge
+    toml-0.9.4                 |             py_0          14 KB  conda-forge
+    ca-certificates-2018.4.16  |                0         139 KB  conda-forge
+    openssl-1.0.2o             |                0         3.5 MB  conda-forge
+    ------------------------------------------------------------
+                                           Total:         3.8 MB
+
+The following NEW packages will be INSTALLED:
+
+    appdirs:         1.4.3-py_1        conda-forge
+    attrs:           18.1.0-py_1       conda-forge
+    black:           18.6b2-py_0       conda-forge
+    click:           6.7-py_1          conda-forge
+    toml:            0.9.4-py_0        conda-forge
+
+The following packages will be UPDATED:
+
+    ca-certificates: 2018.03.07-0                  --&amp;gt; 2018.4.16-0 conda-forge
+    openssl:         1.0.2o-h20670df_0             --&amp;gt; 1.0.2o-0    conda-forge
+
+Proceed ([y]/n)?
+
+
+Downloading and Extracting Packages
+appdirs-1.4.3        |   11 KB | ####################################### | 100%
+black-18.6b2         |   67 KB | ####################################### | 100%
+attrs-18.1.0         |   25 KB | ####################################### | 100%
+click-6.7            |   54 KB | ####################################### | 100%
+toml-0.9.4           |   14 KB | ####################################### | 100%
+ca-certificates-2018 |  139 KB | ####################################### | 100%
+openssl-1.0.2o       |  3.5 MB | ####################################### | 100%
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="add_additional_channels"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Add Additional Channels&lt;/h3&gt;
+&lt;p&gt;If you would like to add a certain channel to the ones that are search by default, the following command will do:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda config --add channels conda-forge
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="install_packages_with_pip"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Install Packages With Pip&lt;/h3&gt;
+&lt;p&gt;I haven't added any channels to my setup. I'm only covering it here because it was mentioned on Slack. It's been my experience that the Anaconda packages usually lag behind a bit from what's bleeding edge. So If you still are not able to find a channel that has your package, or you just want to use a more up to date package, you can just install it with &lt;code&gt;pip&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I searched for &lt;strong&gt;black&lt;/strong&gt; with &lt;code&gt;pip search black&lt;/code&gt; and discovered that the latest version of black available was &lt;em&gt;18.6b4&lt;/em&gt;. The latest one in &lt;em&gt;conda-forge&lt;/em&gt; at the time of this writing was &lt;em&gt;18.6b2&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install black
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="remove_packages"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Remove Packages&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I forgot to mention it earlier when installing a package, but multiple packages can be installed at the same time, just like one or more can be removed at the same time.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Didn't use a package that you added and now want to remove it? Simple enough:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda remove beautifulsoup4 black
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/mohh/anaconda3/envs/pybites
+
+  removed specs:
+    - beautifulsoup4
+    - black
+
+
+The following packages will be REMOVED:
+
+    black:           18.6b2-py_0 conda-forge
+
+The following packages will be UPDATED:
+
+    openssl:         1.0.2o-0    conda-forge --&amp;gt; 1.0.2o-h20670df_0
+
+The following packages will be DOWNGRADED:
+
+    ca-certificates: 2018.4.16-0 conda-forge --&amp;gt; 2018.03.07-0     
+
+Proceed ([y]/n)?
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="install_packages_while_creating_environment"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Install Packages While Creating Environment&lt;/h2&gt;
+&lt;p&gt;If you've been following along, I'm sure you've noticed that installing packages takes a bit of time. You could streamline your process by combining the commands and running them all at once!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create --name pybites python=3.7 beautifulsoup4 requests pytest        
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/mohh/anaconda3/envs/pybites
+
+  added / updated specs:
+    - beautifulsoup4
+    - pytest
+    - python=3.7
+    - requests
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    pytest-3.6.3               |           py37_0         300 KB
+
+The following NEW packages will be INSTALLED:
+
+    asn1crypto:      0.24.0-py37_0          
+    atomicwrites:    1.1.5-py37_0           
+    attrs:           18.1.0-py37_0          
+    beautifulsoup4:  4.6.0-py37_1           
+    ca-certificates: 2018.03.07-0           
+    certifi:         2018.4.16-py37_0       
+    cffi:            1.11.5-py37h9745a5d_0  
+    chardet:         3.0.4-py37_1           
+    cryptography:    2.2.2-py37h14c3975_0   
+    idna:            2.7-py37_0             
+    libedit:         3.1.20170329-h6b74fdf_2
+    libffi:          3.2.1-hd88cf55_4       
+    libgcc-ng:       7.2.0-hdf63c60_3       
+    libstdcxx-ng:    7.2.0-hdf63c60_3       
+    more-itertools:  4.2.0-py37_0           
+    ncurses:         6.1-hf484d3e_0         
+    openssl:         1.0.2o-h20670df_0      
+    pip:             10.0.1-py37_0          
+    pluggy:          0.6.0-py37_0           
+    py:              1.5.4-py37_0           
+    pycparser:       2.18-py37_1            
+    pyopenssl:       18.0.0-py37_0          
+    pysocks:         1.6.8-py37_0           
+    pytest:          3.6.3-py37_0           
+    python:          3.7.0-hc3d631a_0       
+    readline:        7.0-ha6073c6_4         
+    requests:        2.19.1-py37_0          
+    setuptools:      39.2.0-py37_0          
+    six:             1.11.0-py37_1          
+    sqlite:          3.24.0-h84994c4_0      
+    tk:              8.6.7-hc745277_3       
+    urllib3:         1.23-py37_0            
+    wheel:           0.31.1-py37_0          
+    xz:              5.2.4-h14c3975_4       
+    zlib:            1.2.11-ha838bed_2      
+
+Proceed ([y]/n)?
+
+
+Downloading and Extracting Packages
+pytest-3.6.3         |  300 KB | ####################################### | 100%
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+#
+# To activate this environment, use
+#
+#     $ conda activate pybites
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you had previously added the &lt;em&gt;conda-forge&lt;/em&gt; channel, &lt;code&gt;black&lt;/code&gt; could have been specified as well. In this case, I would have to install it separately with &lt;code&gt;pip&lt;/code&gt; so that I would be running the most recent one.&lt;/p&gt;
+&lt;p&gt;&lt;a name="export_environment_configuration"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Export Environment Configuration&lt;/h2&gt;
+&lt;p&gt;You've put a lot of work into creating the perfect environment. Wouldn't it be nice to be able to recreate the environment from a file, like &lt;code&gt;pip&lt;/code&gt; does with requirements.txt? Anaconda has you covered! With &lt;code&gt;pip&lt;/code&gt; you use &lt;code&gt;pip freeze&lt;/code&gt; to create the file; with Anaconda its done with &lt;code&gt;conda env export&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda env export
+name: pybites
+channels:
+  - defaults
+dependencies:
+  - asn1crypto=0.24.0=py37_0
+  - atomicwrites=1.1.5=py37_0
+  - attrs=18.1.0=py37_0
+  - beautifulsoup4=4.6.0=py37_1
+  - ca-certificates=2018.03.07=0
+  - certifi=2018.4.16=py37_0
+  - cffi=1.11.5=py37h9745a5d_0
+  - chardet=3.0.4=py37_1
+  - cryptography=2.2.2=py37h14c3975_0
+  - idna=2.7=py37_0
+  - libedit=3.1.20170329=h6b74fdf_2
+  - libffi=3.2.1=hd88cf55_4
+  - libgcc-ng=7.2.0=hdf63c60_3
+  - libstdcxx-ng=7.2.0=hdf63c60_3
+  - more-itertools=4.2.0=py37_0
+  - ncurses=6.1=hf484d3e_0
+  - openssl=1.0.2o=h20670df_0
+  - pip=10.0.1=py37_0
+  - pluggy=0.6.0=py37_0
+  - py=1.5.4=py37_0
+  - pycparser=2.18=py37_1
+  - pyopenssl=18.0.0=py37_0
+  - pysocks=1.6.8=py37_0
+  - pytest=3.6.3=py37_0
+  - python=3.7.0=hc3d631a_0
+  - readline=7.0=ha6073c6_4
+  - requests=2.19.1=py37_0
+  - setuptools=39.2.0=py37_0
+  - six=1.11.0=py37_1
+  - sqlite=3.24.0=h84994c4_0
+  - tk=8.6.7=hc745277_3
+  - urllib3=1.23=py37_0
+  - wheel=0.31.1=py37_0
+  - xz=5.2.4=h14c3975_4
+  - zlib=1.2.11=ha838bed_2
+  - pip:
+    - appdirs==1.4.3
+    - black==18.6b4
+    - click==6.7
+    - toml==0.9.4
+prefix: /home/mohh/anaconda3/envs/pybites
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Notice how packages that are installed with &lt;em&gt;pip&lt;/em&gt; are shown. Those all happen to be dependencies of black.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Just like the &lt;code&gt;pip&lt;/code&gt; command, this must be &lt;em&gt;piped&lt;/em&gt; into a text file. Anaconda uses the YAML format, so the command would be &lt;code&gt;conda env export &amp;gt; environment.yml&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name="create_environment_from_yaml_file"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Create Environment From File&lt;/h2&gt;
+&lt;p&gt;As it is, the &lt;em&gt;environemnt.yml&lt;/em&gt; file can be used to recreate your environment on your platform and on your machine only. If you are in the directory with the YAML file, simply use &lt;code&gt;conda env create&lt;/code&gt;. Anaconda will automatically detect the file and create it.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda env create
+Solving environment: done
+
+Downloading and Extracting Packages
+py-1.5.4             |   63 KB | ####################################### | 100%
+ncurses-6.1          |  1.2 MB | ####################################### | 100%
+idna-2.7             |   50 KB | ####################################### | 100%
+python-3.7.0         | 22.1 MB | ####################################### | 100%
+chardet-3.0.4        |   96 KB | ####################################### | 100%
+more-itertools-4.2.0 |   38 KB | ####################################### | 100%
+zlib-1.2.11          |   93 KB | ####################################### | 100%
+tk-8.6.8             |  3.1 MB | ####################################### | 100%
+libffi-3.2.1         |   47 KB | ####################################### | 100%
+sqlite-3.24.0        |  1.5 MB | ####################################### | 100%
+xz-5.2.3             |  854 KB | ####################################### | 100%
+pycparser-2.18       |   84 KB | ####################################### | 100%
+pluggy-0.6.0         |   13 KB | ####################################### | 100%
+asn1crypto-0.24.0    |   72 KB | ####################################### | 100%
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+#
+# To activate this environment, use
+#
+#     $ conda activate pybites
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="prepare_environment_yaml_for_distribution"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Prepare Environment YAML For Distribution&lt;/h2&gt;
+&lt;p&gt;As stated above, it's only good for your current machine. What if you want to share it with others or recreate it on another machine? You'll first have to edit the file:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Remove the &lt;em&gt;prefix&lt;/em&gt; line at the end of the file, since it's specific to your user name and file structure.&lt;/li&gt;
+&lt;li&gt;Remove everything after the last &lt;code&gt;=&lt;/code&gt; sign, to include the &lt;code&gt;=&lt;/code&gt;, from the last parts of the package names.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since a lot of the packages listed are dependencies of the packages that you've added, I normally remove them all and only leave the ones that I specifically installed myself. Not sure if that's best practice, but it's worked fine for me so far.&lt;/p&gt;
+&lt;p&gt;Once done, your file should look like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pybites&lt;/span&gt;
+&lt;span class="n"&gt;channels&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;defaults&lt;/span&gt;
+&lt;span class="n"&gt;dependencies&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;beautifulsoup4&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;4.6&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;pytest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;3.6&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;3.7&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;2.19&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+  &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;black&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mf"&gt;18.6&lt;/span&gt;&lt;span class="n"&gt;b4&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="list_packages"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;List Packages&lt;/h2&gt;
+&lt;p&gt;To view what packages are installed in your environment &lt;code&gt;conda list&lt;/code&gt; will get the job done:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note that you can also tell which were installed with pip.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda list
+# packages in environment at /home/mohh/anaconda3/envs/pybites:
+#
+# Name                    Version                   Build  Channel
+appdirs                   1.4.3                     &amp;lt;pip&amp;gt;
+asn1crypto                0.24.0                   py37_0  
+atomicwrites              1.1.5                    py37_0  
+attrs                     18.1.0                   py37_0  
+beautifulsoup4            4.6.0                    py37_1  
+black                     18.6b4                    &amp;lt;pip&amp;gt;
+ca-certificates           2018.03.07                    0  
+certifi                   2018.4.16                py37_0  
+cffi                      1.11.5           py37h9745a5d_0  
+chardet                   3.0.4                    py37_1  
+click                     6.7                       &amp;lt;pip&amp;gt;
+cryptography              2.2.2            py37h14c3975_0  
+idna                      2.7                      py37_0  
+libedit                   3.1.20170329         h6b74fdf_2  
+libffi                    3.2.1                hd88cf55_4  
+libgcc-ng                 7.2.0                hdf63c60_3  
+libstdcxx-ng              7.2.0                hdf63c60_3  
+more-itertools            4.2.0                    py37_0  
+ncurses                   6.1                  hf484d3e_0  
+openssl                   1.0.2o               h20670df_0  
+pip                       10.0.1                   py37_0  
+pluggy                    0.6.0                    py37_0  
+py                        1.5.4                    py37_0  
+pycparser                 2.18                     py37_1  
+pyopenssl                 18.0.0                   py37_0  
+pysocks                   1.6.8                    py37_0  
+pytest                    3.6.3                    py37_0  
+python                    3.7.0                hc3d631a_0  
+readline                  7.0                  ha6073c6_4  
+requests                  2.19.1                   py37_0  
+setuptools                39.2.0                   py37_0  
+six                       1.11.0                   py37_1  
+sqlite                    3.24.0               h84994c4_0  
+tk                        8.6.7                hc745277_3  
+toml                      0.9.4                     &amp;lt;pip&amp;gt;
+urllib3                   1.23                     py37_0  
+wheel                     0.31.1                   py37_0  
+xz                        5.2.4                h14c3975_4  
+zlib                      1.2.11               ha838bed_2
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a name="clone_an_environment"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Clone An Environment&lt;/h2&gt;
+&lt;p&gt;There might come a time when you have a need to clone an existing environment. I like to have an environment with all packages installed to play around with, so I clone the &lt;em&gt;base&lt;/em&gt; environment. That way I can keep &lt;em&gt;base&lt;/em&gt; vanilla, yet still be able to install any package that I want into the clone without messing anything up in &lt;em&gt;base&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda create --clone base --name ml
+Source:      /home/mohh/anaconda3
+Destination: /home/mohh/anaconda3/envs/ml
+The following packages cannot be cloned out of the root environment:
+ - conda-4.5.8-py36_0
+ - conda-build-3.10.9-py36_0
+ - conda-env-2.6.0-1
+Packages: 259
+Files: 68
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+#
+# To activate this environment, use
+#
+#     $ conda activate ml
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you do clone the &lt;em&gt;base&lt;/em&gt; environment, you will get the above message about certain packages not being copied. It's completely normal and should not be displayed when cloning any other environment.&lt;/p&gt;
+&lt;p&gt;&lt;a name="updates"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Updates&lt;/h2&gt;
+&lt;p&gt;Updating Anaconda can be a confusing mess. You would think that using the GUI Navigator (&lt;code&gt;anaconda-navigator&lt;/code&gt;) would be easier to use, but I haven't had much luck with it. It's clunky and slow.&lt;/p&gt;
+&lt;p&gt;Looking for instructions online is also a big fat mess. Everyone contradicts each other with their own opinions. I've tried several of them and this is what has worked for me.&lt;/p&gt;
+&lt;p&gt;Use the following commands in the order shown instead:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;conda update conda&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;conda update anaconda&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;conda update --all&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NOTE: Make sure to read the messages that you get while updating anaconda. The last time I did it, I skipped it because it wanted to downgrade my version of Python from 3.6.6 to 3.6.5. It must have been to satisfy the dependency of one of the updated packages, so I skipped it and only ran steps &lt;code&gt;1&lt;/code&gt; &amp;amp; &lt;code&gt;2&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a name="tl;dr"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;T&lt;/strong&gt;oo &lt;strong&gt;L&lt;/strong&gt;ong&lt;strong&gt;;&lt;/strong&gt; &lt;strong&gt;D&lt;/strong&gt;int't &lt;strong&gt;R&lt;/strong&gt;ead? I've got you covered!&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Task&lt;/th&gt;
+&lt;th align="right"&gt;Command&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Create virtual environment&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda create --name ENVNAME&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;List virtual environemnts&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda env list&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Remove virtual environment&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda env remove --name ENVNAME&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Search for packages&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda search PACKAGENAME&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Install packages&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda install PACKAGE1 PACKAGE2...&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Install package in other env&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda install --name ENVNAME PACKAGENAME&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Search alternate channel&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda search -c CHANNELNAME PACKAGENAME&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Install from channel&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda install -c CHANNELNAME PACKAGENAME&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Add additional channel&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda config --add channels CHANNELNAME&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Remove packages&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda remove PACKAGE1 PACKAGE2...&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Create env and install packages&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda create --name ENVNAME PACKAGE1 PACKAGE2...&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Export env config&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda env export &amp;gt; environment.yml&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Create env from environment.yml&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda env create&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;List packages&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda list&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Clone environment&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda create --clone ORIGINALENV --name NEWENV&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Update conda&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda update conda&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Update Anaconda&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda update anaconda&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Update all packages&lt;/td&gt;
+&lt;td align="right"&gt;&lt;code&gt;conda update --all&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- &lt;a href="pages/guests.html#martinuribe"&gt;Martin&lt;/a&gt;&lt;/p&gt;</content><category term="Anaconda"></category><category term="Anaconda workflow"></category><category term="conda"></category><category term="pip"></category><category term="virtual environment"></category><category term="packages"></category><category term="packaging"></category><category term="distribution"></category><category term="configuration"></category><category term="YAML"></category><category term="python3.7"></category></entry><entry><title>PyBites Twitter Digest - Issue 24, 2018</title><link href="https://pybit.es/twitter_digest_201824.html" rel="alternate"></link><published>2018-07-22T20:31:00+02:00</published><updated>2018-07-22T20:31:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-07-22:/twitter_digest_201824.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Starting this week off with some great feedback from our 100DaysOfCode participants!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Day 19: Made a random object generator! A coin flip, card draw, and 6- and 20-sided die are all supported, and I ho… &lt;a href="https://t.co/PCjWSWiA51" title="https://t.co/PCjWSWiA51" target="_blank"&gt;https://t.co/PCjWSWiA51&lt;/a&gt;&lt;/p&gt;— Yashas Lokesh (@yashaslokesh_) &lt;a href="https://twitter.com/yashaslokesh_/status/1019410240272502784" data-datetime="2018-07-18T02:35:15+00:00"&gt;July 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Day 36 &lt;a href="https://twitter.com/search/#100DaysOfCode" target="_blank"&gt;#100DaysOfCode&lt;/a&gt; progress : &lt;a href="https://twitter.com/@pybites" target="_blank"&gt;@pybites&lt;/a&gt; Code Challenges |11 - Generators for Fun and Profit Finally manged to o… &lt;a href="https://t.co/tlQeAQkKs5" title="https://t.co/tlQeAQkKs5" target="_blank"&gt;https://t.co/tlQeAQkKs5&lt;/a&gt;&lt;/p&gt;— NaryD (@NaryD1) &lt;a href="https://twitter.com/NaryD1/status/1020311948582256640" data-datetime="2018-07-20T14:18:19+00:00"&gt;July 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Great resource for beginner Python errors. Raised by our very own Bob on the Python Bytes podcast!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;29 common beginner Python errors on one page by &lt;a href="https://twitter.com/@pythonforbiolog" target="_blank"&gt;@pythonforbiolog&lt;/a&gt; &lt;a href="https://t.co/JyG9PN3G9b" title="https://t.co/JyG9PN3G9b" target="_blank"&gt;https://t.co/JyG9PN3G9b&lt;/a&gt; &lt;a href="https://t.co/411UYSpyeF" title="https://t.co/411UYSpyeF" target="_blank"&gt;https://t.co/411UYSpyeF&lt;/a&gt;&lt;/p&gt;— Real Python (@realpython) &lt;a href="https://twitter.com/realpython/status/1020674021380247554" data-datetime="2018-07-21T14:17:04+00:00"&gt;July 21, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Love this method of noting down everything you learn. Thanks Rob!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;How I make the most of what I learn from &lt;a href="https://twitter.com/@pybites" target="_blank"&gt;@pybites&lt;/a&gt; and other online code challenges: &lt;a href="https://t.co/SDXBS0xbze" title="https://t.co/SDXBS0xbze" target="_blank"&gt;https://t.co/SDXBS0xbze&lt;/a&gt;&lt;/p&gt;— Rob Fowler (@BlueGator4) &lt;a href="https://twitter.com/BlueGator4/status/1020846920644857856" data-datetime="2018-07-22T01:44:06+00:00"&gt;July 22, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Why is Python so slow? Another quality article from Anthony Shaw&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Phew! Just published what turned into a bit-of-a-beast "Why is Python so slow?" &lt;a href="https://t.co/SSajY4FWAj" title="https://t.co/SSajY4FWAj" target="_blank"&gt;https://t.co/SSajY4FWAj&lt;/a&gt; This build… &lt;a href="https://t.co/Y5CFBf8sul" title="https://t.co/Y5CFBf8sul" target="_blank"&gt;https://t.co/Y5CFBf8sul&lt;/a&gt;&lt;/p&gt;— Anthony Shaw (@anthonypjshaw) &lt;a href="https://twitter.com/anthonypjshaw/status/1018712745351368704" data-datetime="2018-07-16T04:23:39+00:00"&gt;July 16, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;A nice overview of Python and Guido&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Python has brought computer programming to a vast new audience &lt;a href="https://t.co/K68ikshgkb" title="https://t.co/K68ikshgkb" target="_blank"&gt;https://t.co/K68ikshgkb&lt;/a&gt; by &lt;a href="https://twitter.com/@TheEconomist" target="_blank"&gt;@TheEconomist&lt;/a&gt;&lt;/p&gt;— Python LibHunt (@PythonLibHunt) &lt;a href="https://twitter.com/PythonLibHunt/status/1020248790584909824" data-datetime="2018-07-20T10:07:21+00:00"&gt;July 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Bring on the next 100 Bites Ninja! Nice certificate too!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Today I earned this &lt;a href="https://twitter.com/@pybites" target="_blank"&gt;@pybites&lt;/a&gt; certificate after coding a ton of &lt;a href="https://twitter.com/search/#Python" target="_blank"&gt;#Python&lt;/a&gt; - join PyBites Code Platform and start codin… &lt;a href="https://t.co/4Pb44KU7pF" title="https://t.co/4Pb44KU7pF" target="_blank"&gt;https://t.co/4Pb44KU7pF&lt;/a&gt;&lt;/p&gt;— Mohhinder Suresh (@mohhinder) &lt;a href="https://twitter.com/mohhinder/status/1019659828334120967" data-datetime="2018-07-18T19:07:02+00:00"&gt;July 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Monitoring Python 3.6 Functions on AWS Lambda&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@_Zephyros_:" target="_blank"&gt;@_Zephyros_:&lt;/a&gt; &lt;a href="https://t.co/VyU89isW1R" title="https://t.co/VyU89isW1R" target="_blank"&gt;https://t.co/VyU89isW1R&lt;/a&gt;&lt;/p&gt;— TestDriven.io (@testdrivenio) &lt;a href="https://twitter.com/testdrivenio/status/1020712504626958338" data-datetime="2018-07-21T16:49:59+00:00"&gt;July 21, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;A Complete Guide to Learning OpenCV! Brilliant!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Surprise! New blog post published🚀A Complete Guide to Learning OpenCV: &lt;a href="https://t.co/gIBXT4kdKc" title="https://t.co/gIBXT4kdKc" target="_blank"&gt;https://t.co/gIBXT4kdKc&lt;/a&gt; 👍🦖🦕(with Jurassic Pa… &lt;a href="https://t.co/tlwwhAZkPS" title="https://t.co/tlwwhAZkPS" target="_blank"&gt;https://t.co/tlwwhAZkPS&lt;/a&gt;&lt;/p&gt;— Adrian Rosebrock (@PyImageSearch) &lt;a href="https://twitter.com/PyImageSearch/status/1019952652501778433" data-datetime="2018-07-19T14:30:36+00:00"&gt;July 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Keep it simple&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;"So much complexity in software comes from trying to make one thing do two things." – Ryan Singer&lt;/p&gt;— Programming Wisdom (@CodeWisdom) &lt;a href="https://twitter.com/CodeWisdom/status/1019576023812276226" data-datetime="2018-07-18T13:34:01+00:00"&gt;July 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Weekly Regex&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;To group without capturing, use (?: ... ).&lt;/p&gt;— Regular Expression (@RegexTip) &lt;a href="https://twitter.com/RegexTip/status/1019235617585205248" data-datetime="2018-07-17T15:01:22+00:00"&gt;July 17, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;New release of pyjanitor&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@ericmjl:" target="_blank"&gt;@ericmjl:&lt;/a&gt; New release of &lt;a href="https://twitter.com/search/#pyjanitor!" target="_blank"&gt;#pyjanitor!&lt;/a&gt; Data cleaning functions now register natively onto pandas DataFrames. Released to PyPI (&lt;a href="https://t.c…" title="https://t.c…" target="_blank"&gt;https://t.c…&lt;/a&gt;&lt;/p&gt;— matt harrison (@__mharrison__) &lt;a href="https://twitter.com/__mharrison__/status/1020239676924481536" data-datetime="2018-07-20T09:31:08+00:00"&gt;July 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;SciPy 2018 videos are up!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;&lt;a href="https://twitter.com/search/#SciPy2018" target="_blank"&gt;#SciPy2018&lt;/a&gt; (Scientific Computing with Python) videos are now available on YouTube: &lt;a href="https://t.co/MmpHUhwY5A" title="https://t.co/MmpHUhwY5A" target="_blank"&gt;https://t.co/MmpHUhwY5A&lt;/a&gt;&lt;/p&gt;— Daily Python Tip (@python_tip) &lt;a href="https://twitter.com/python_tip/status/1019825126865424384" data-datetime="2018-07-19T06:03:52+00:00"&gt;July 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Best practices for building containers&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;7 best practices for build containers &lt;a href="https://t.co/hscbmxAVne" title="https://t.co/hscbmxAVne" target="_blank"&gt;https://t.co/hscbmxAVne&lt;/a&gt; &lt;a href="https://t.co/V5BMQVyp7O" title="https://t.co/V5BMQVyp7O" target="_blank"&gt;https://t.co/V5BMQVyp7O&lt;/a&gt;&lt;/p&gt;— Full Stack Python (@fullstackpython) &lt;a href="https://twitter.com/fullstackpython/status/1019709911197011973" data-datetime="2018-07-18T22:26:02+00:00"&gt;July 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;HAHA!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;😂😂😂 &lt;a href="https://t.co/rpIAIG7s3s" title="https://t.co/rpIAIG7s3s" target="_blank"&gt;https://t.co/rpIAIG7s3s&lt;/a&gt;&lt;/p&gt;— Kode With Klossy (@kodewithklossy) &lt;a href="https://twitter.com/kodewithklossy/status/1018935620616556546" data-datetime="2018-07-16T19:09:17+00:00"&gt;July 16, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="twitter"></category><category term="news"></category><category term="pybites"></category><category term="100daysofcode"></category><category term="AWS"></category><category term="Lambda"></category><category term="errors"></category><category term="learning"></category><category term="speed"></category><category term="OpenCV"></category><category term="regex"></category><category term="pyjanitor"></category><category term="SciPy"></category><category term="videos"></category><category term="containers"></category></entry><entry><title>PyBites Twitter Digest - Issue 23, 2018</title><link href="https://pybit.es/twitter_digest_201823.html" rel="alternate"></link><published>2018-07-15T20:35:00+02:00</published><updated>2018-07-15T20:35:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-07-15:/twitter_digest_201823.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;A sad day indeed! Thanks for everything Guido!&lt;/h3&gt;
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Thanks for all the support (email and Twitter). I'm overwhelmed by the responses and won't be replying to most emai… &lt;a href="https://t.co/zUK6Ss746a" title="https://t.co/zUK6Ss746a" target="_blank"&gt;https://t.co/zUK6Ss746a&lt;/a&gt;&lt;/p&gt;— Guido van Rossum (@gvanrossum) &lt;a href="https://twitter.com/gvanrossum/status/1017546023227424768" data-datetime="2018-07-12T23:07:31+00:00"&gt;July 12, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;.&lt;a href="https://twitter.com/@gvanrossum" target="_blank"&gt;@gvanrossum&lt;/a&gt; is stepping down as BDFL for &lt;a href="https://twitter.com/search/#Python." target="_blank"&gt;#Python.&lt;/a&gt;  Thank you for all the work you've done for the community Guido… &lt;a href="https://t.co/LE9JinNSSI" title="https://t.co/LE9JinNSSI" target="_blank"&gt;https://t.co/LE9JinNSSI&lt;/a&gt;&lt;/p&gt;— ✨ Trey Hunner 🐍 (@treyhunner) &lt;a href="https://twitter.com/treyhunner/status/1017453618851508224" data-datetime="2018-07-12T17:00:20+00:00"&gt;July 12, 2018&lt;/a&gt;&lt;/blockquote&gt;
