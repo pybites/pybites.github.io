@@ -26,11 +26,11 @@
 
 
 <meta name="author" content="Martin Uribe" />
-<meta name="description" content="In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference." />
+<meta name="description" content="In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, updating Anaconda, and setting environment variables. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference." />
 <meta name="keywords" content="Anaconda, Anaconda workflow, conda, pip, virtual environment, packages, packaging, distribution, configuration, YAML, python3.7">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="My Anaconda Workflow: Python environment and package management made easy"/>
-<meta property="og:description" content="In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference."/>
+<meta property="og:description" content="In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, updating Anaconda, and setting environment variables. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/guest-anaconda-workflow.html"/>
 <meta property="og:type" content="article"/>
@@ -54,7 +54,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="My Anaconda Workflow: Python environment and package management made easy" />
-<meta name="twitter:description" content="In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference." />
+<meta name="twitter:description" content="In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, updating Anaconda, and setting environment variables. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; My Anaconda Workflow: Python environment and package management made easy</title>
@@ -138,7 +138,7 @@
           Posted by <a href="https://pybit.es/author/martin-uribe.html">Martin Uribe</a> on Tue 24 July 2018 in <a href="https://pybit.es/category/tools.html">Tools</a>
 
 
-        &#8226; 11 min read
+        &#8226; 12 min read
     </p>
   </header>
 
@@ -174,6 +174,7 @@
 <li><a href="#list_packages">List Packages</a></li>
 <li><a href="#clone_an_environment">Clone An Environment</a></li>
 <li><a href="#updates">Updates</a></li>
+<li><a href="#environment_variables">Environment Variables</a></li>
 <li><a href="#tl;dr">TL;DR</a></li>
 </ul>
 <p><a name="create-virtual-environment"></a></p>
@@ -376,7 +377,7 @@ black                    18.6b2            py_0  conda-forge
 <p><a name="install_package_from_a_channel"></a></p>
 <h4>Install Package From A Channel</h4>
 <p>You already know what the <strong>Channel</strong> column is showing you, so I won't cover that again. The <strong>Version</strong> column shows the version of the package and the <strong>Build</strong> column shows you what version of Python it's for. The cool thing about Anaconda is that if you need a certain version of a package, you just specify it and it will select the one that will work with the version of Python that you are currently using.</p>
-<p>Installing packages from a channel is relatively similar to searching for packages. I'll demonstrate by installing <code>black</code> from the <em>condo-forge</em> channel:</p>
+<p>Installing packages from a channel is relatively similar to searching for packages. I'll demonstrate by installing <code>black</code> from the <em>conda-forge</em> channel:</p>
 <div class="highlight"><pre><span></span>conda install -c conda-forge black
 Solving environment: done
 
@@ -771,6 +772,36 @@ Executing transaction: done
 <blockquote>
 <p>NOTE: Make sure to read the messages that you get while updating anaconda. The last time I did it, I skipped it because it wanted to downgrade my version of Python from 3.6.6 to 3.6.5. It must have been to satisfy the dependency of one of the updated packages, so I skipped it and only ran steps <code>1</code> &amp; <code>2</code>.</p>
 </blockquote>
+<p><a name="environment_variables"></a></p>
+<h2>Environment Variables</h2>
+<p>There will come a time when you will need to pass a password or an API key to your programs. The easiest way is to just put it into your code and remove it before committing your code, but that is a very good way to publish your secrets by accident. A much better way is to use environment variables. With Anaconda, you can add environment variables that are specific to each environment. This takes a bit of work on your part, but it works great and I've used it with great success in the past.</p>
+<p>You will need to know where your virtual environment resides. If you remember from above, you can find that out with <code>conda env list</code>. You will need to navigate to that directory and create the following structure and files:</p>
+<div class="highlight"><pre><span></span>etc/
+└── conda
+    ├── activate.d
+    │   └── env_vars.sh
+    └── deactivate.d
+        └── env_vars.sh
+</pre></div>
+
+
+<p>The <em>etc</em> directory may or may not exist. It sometimes gets created by certain packages. For Windows users, instead of <strong>env_vars.sh</strong> name the files <strong>env_vars.bat</strong>.</p>
+<p>The file in <em>activate.d</em> will look something like this on Linux and perhaps on Mac's as well. I don't own a Mac, so can't confirm:</p>
+<h6>activate.d/env_vars.sh:</h6>
+<div class="highlight"><pre><span></span>export API_KEY=&quot;cc2a491aee9e40f32b1a184cc62902b11cae33da9f6620ffc47077da179aa800&quot;
+</pre></div>
+
+
+<p>The one under <em>deactivate.d</em> clears the assignment:</p>
+<h6>deactivate.d/env_vars.sh:</h6>
+<div class="highlight"><pre><span></span>export API_KEY=&quot;&quot;
+</pre></div>
+
+
+<blockquote>
+<p>For Windows, I think that you do not need the export command. If someone could verify for me, that would be great!</p>
+</blockquote>
+<p>The next time that you activate your environment, the script in <em>activate.d</em> runs and sets your variables. Similarly, when you deactivate the environment the script in <em>deactivate.d</em> clears it.</p>
 <p><a name="tl;dr"></a></p>
 <h2>TL;DR</h2>
 <p><strong>T</strong>oo <strong>L</strong>ong<strong>;</strong> <strong>D</strong>int't <strong>R</strong>ead? I've got you covered!</p>

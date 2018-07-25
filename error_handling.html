@@ -148,7 +148,7 @@
 
 
 <h3>Anti-Patterns</h3>
-<p>This is a great read: <a href="http://docs.quantifiedcode.com/python-code-patterns/">The Little Book of Python Anti-Patterns</a>. For the more experienced Pythonistas most is well known, yet it is a good refresher and you probably still find something new.</p>
+<p>This is a great read: <a href="https://docs.quantifiedcode.com/python-anti-patterns/">The Little Book of Python Anti-Patterns</a>. For the more experienced Pythonistas most is well known, yet it is a good refresher and you probably still find something new.</p>
 <p>Today a bit about error handling. In our <a href="http://pybit.es/py-mistakes.html">Learning from Python mistakes article</a> we already mentioned not to use pass in except. It is actually the worst anti-pattern (as stated by Andreas Dewes, the author of the book, you can listen to the interview <a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes">here</a>).</p>
 <h3>The problem with except: pass</h3>
 <p>Why is it so bad? See <a href="http://stackoverflow.com/questions/21553327/why-is-except-pass-a-bad-programming-practice">SO</a> for a detailed explanation:</p>
@@ -200,7 +200,7 @@ this always runs
 </pre></div>
 
 
-<p>One thing to watch out for is <a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/bad_except_clauses_order.html">except clause order</a> if you have more than one: always go from more specific to more generic (bottom to top in the inheritance chain), for example:</p>
+<p>One thing to watch out for is <a href="http://docs.quantifiedcode.com/python-anti-patterns/correctness/bad_except_clauses_order.html">except clause order</a> if you have more than one: always go from more specific to more generic (bottom to top in the inheritance chain), for example:</p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; ZeroDivisionError.__mro__
 (&lt;class &#39;ZeroDivisionError&#39;&gt;, &lt;class &#39;ArithmeticError&#39;&gt;, &lt;class &#39;Exception&#39;&gt;, &lt;class &#39;BaseException&#39;&gt;, &lt;class &#39;object&#39;&gt;)
 </pre></div>
@@ -208,7 +208,7 @@ this always runs
 
 <p>(about <a href="http://stackoverflow.com/questions/2010692/what-does-mro-do-in-python">mro</a>)</p>
 <h3>Asking for permission instead of forgiveness</h3>
-<p>It becomes even more important because <a href="http://docs.quantifiedcode.com/python-code-patterns/readability/asking_for_permission_instead_of_forgiveness_when_working_with_files.html">the Python community uses an EAFP (easier to ask for forgiveness than permission) coding style</a>.</p>
+<p>It becomes even more important because <a href="http://docs.quantifiedcode.com/python-anti-patterns/readability/asking_for_permission_instead_of_forgiveness_when_working_with_files.html">the Python community uses an EAFP (easier to ask for forgiveness than permission) coding style</a>.</p>
 <p>I have done this a lot:</p>
 <div class="highlight"><pre><span></span>if os.path.exists(&quot;file.txt&quot;):
 </pre></div>
@@ -267,11 +267,11 @@ except OSError:
 <p><a href="https://www.python.org/dev/peps/pep-0020/">Zen of Python</a> (not only reading, printing and hanging on the wall actually!)</p>
 </li>
 <li>
-<p><a href="http://docs.quantifiedcode.com/python-code-patterns/">The Little Book of Python Anti-Patterns</a> and <a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes">chat with the author</a>.</p>
+<p><a href="https://docs.quantifiedcode.com/python-anti-patterns/">The Little Book of Python Anti-Patterns</a> and <a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes">chat with the author</a>.</p>
 <p>Exception sections:</p>
 <ul>
-<li><a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/no_exception_type_specified.html">No exception type(s) specified</a></li>
-<li><a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/bad_except_clauses_order.html">Bad except clauses order</a></li>
+<li><a href="http://docs.quantifiedcode.com/python-anti-patterns/correctness/no_exception_type_specified.html">No exception type(s) specified</a></li>
+<li><a href="http://docs.quantifiedcode.com/python-anti-patterns/correctness/bad_except_clauses_order.html">Bad except clauses order</a></li>
 </ul>
 </li>
 <li>

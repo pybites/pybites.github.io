@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-07-24T20:00:00+02:00</updated><entry><title>My Anaconda Workflow: Python environment and package management made easy</title><link href="https://pybit.es/guest-anaconda-workflow.html" rel="alternate"></link><published>2018-07-24T20:00:00+02:00</published><updated>2018-07-24T20:00:00+02:00</updated><author><name>Martin Uribe</name></author><id>tag:pybit.es,2018-07-24:/guest-anaconda-workflow.html</id><summary type="html">&lt;p&gt;In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference. Enter Martin:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-07-24T20:00:00+02:00</updated><entry><title>My Anaconda Workflow: Python environment and package management made easy</title><link href="https://pybit.es/guest-anaconda-workflow.html" rel="alternate"></link><published>2018-07-24T20:00:00+02:00</published><updated>2018-07-24T20:00:00+02:00</updated><author><name>Martin Uribe</name></author><id>tag:pybit.es,2018-07-24:/guest-anaconda-workflow.html</id><summary type="html">&lt;p&gt;In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, updating Anaconda, and setting environment variables. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, and updating Anaconda. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference. Enter Martin:&lt;/p&gt;
 &lt;h1&gt;My Anaconda Workflow&lt;/h1&gt;
 &lt;p&gt;I've been working with &lt;a href="https://anaconda.org/"&gt;Anaconda&lt;/a&gt; for a while now and I've been relatively pleased with it. I'll admit, there was a bit of a learning curve at first, but hopefully I can get you past that initial hump with this write-up. There are lots of commands and covering them all is better done in the official &lt;a href="https://docs.anaconda.com/anaconda-cloud/user-guide/"&gt;documentation&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -29,6 +29,7 @@
 &lt;li&gt;&lt;a href="#list_packages"&gt;List Packages&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#clone_an_environment"&gt;Clone An Environment&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#updates"&gt;Updates&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#environment_variables"&gt;Environment Variables&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#tl;dr"&gt;TL;DR&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a name="create-virtual-environment"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -231,7 +232,7 @@ black                    18.6b2            py_0  conda-forge
 &lt;p&gt;&lt;a name="install_package_from_a_channel"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;Install Package From A Channel&lt;/h4&gt;
 &lt;p&gt;You already know what the &lt;strong&gt;Channel&lt;/strong&gt; column is showing you, so I won't cover that again. The &lt;strong&gt;Version&lt;/strong&gt; column shows the version of the package and the &lt;strong&gt;Build&lt;/strong&gt; column shows you what version of Python it's for. The cool thing about Anaconda is that if you need a certain version of a package, you just specify it and it will select the one that will work with the version of Python that you are currently using.&lt;/p&gt;
-&lt;p&gt;Installing packages from a channel is relatively similar to searching for packages. I'll demonstrate by installing &lt;code&gt;black&lt;/code&gt; from the &lt;em&gt;condo-forge&lt;/em&gt; channel:&lt;/p&gt;
+&lt;p&gt;Installing packages from a channel is relatively similar to searching for packages. I'll demonstrate by installing &lt;code&gt;black&lt;/code&gt; from the &lt;em&gt;conda-forge&lt;/em&gt; channel:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;conda install -c conda-forge black
 Solving environment: done
 
@@ -626,6 +627,36 @@ Executing transaction: done
 &lt;blockquote&gt;
 &lt;p&gt;NOTE: Make sure to read the messages that you get while updating anaconda. The last time I did it, I skipped it because it wanted to downgrade my version of Python from 3.6.6 to 3.6.5. It must have been to satisfy the dependency of one of the updated packages, so I skipped it and only ran steps &lt;code&gt;1&lt;/code&gt; &amp;amp; &lt;code&gt;2&lt;/code&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;p&gt;&lt;a name="environment_variables"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Environment Variables&lt;/h2&gt;
+&lt;p&gt;There will come a time when you will need to pass a password or an API key to your programs. The easiest way is to just put it into your code and remove it before committing your code, but that is a very good way to publish your secrets by accident. A much better way is to use environment variables. With Anaconda, you can add environment variables that are specific to each environment. This takes a bit of work on your part, but it works great and I've used it with great success in the past.&lt;/p&gt;
+&lt;p&gt;You will need to know where your virtual environment resides. If you remember from above, you can find that out with &lt;code&gt;conda env list&lt;/code&gt;. You will need to navigate to that directory and create the following structure and files:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;etc/
+└── conda
+    ├── activate.d
+    │   └── env_vars.sh
+    └── deactivate.d
+        └── env_vars.sh
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;em&gt;etc&lt;/em&gt; directory may or may not exist. It sometimes gets created by certain packages. For Windows users, instead of &lt;strong&gt;env_vars.sh&lt;/strong&gt; name the files &lt;strong&gt;env_vars.bat&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The file in &lt;em&gt;activate.d&lt;/em&gt; will look something like this on Linux and perhaps on Mac's as well. I don't own a Mac, so can't confirm:&lt;/p&gt;
+&lt;h6&gt;activate.d/env_vars.sh:&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export API_KEY=&amp;quot;cc2a491aee9e40f32b1a184cc62902b11cae33da9f6620ffc47077da179aa800&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The one under &lt;em&gt;deactivate.d&lt;/em&gt; clears the assignment:&lt;/p&gt;
+&lt;h6&gt;deactivate.d/env_vars.sh:&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export API_KEY=&amp;quot;&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;For Windows, I think that you do not need the export command. If someone could verify for me, that would be great!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The next time that you activate your environment, the script in &lt;em&gt;activate.d&lt;/em&gt; runs and sets your variables. Similarly, when you deactivate the environment the script in &lt;em&gt;deactivate.d&lt;/em&gt; clears it.&lt;/p&gt;
 &lt;p&gt;&lt;a name="tl;dr"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;TL;DR&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;T&lt;/strong&gt;oo &lt;strong&gt;L&lt;/strong&gt;ong&lt;strong&gt;;&lt;/strong&gt; &lt;strong&gt;D&lt;/strong&gt;int't &lt;strong&gt;R&lt;/strong&gt;ead? I've got you covered!&lt;/p&gt;
@@ -30085,7 +30116,7 @@ PyBites: 3
 
 
 &lt;h3&gt;Anti-Patterns&lt;/h3&gt;
-&lt;p&gt;This is a great read: &lt;a href="http://docs.quantifiedcode.com/python-code-patterns/"&gt;The Little Book of Python Anti-Patterns&lt;/a&gt;. For the more experienced Pythonistas most is well known, yet it is a good refresher and you probably still find something new.&lt;/p&gt;
+&lt;p&gt;This is a great read: &lt;a href="https://docs.quantifiedcode.com/python-anti-patterns/"&gt;The Little Book of Python Anti-Patterns&lt;/a&gt;. For the more experienced Pythonistas most is well known, yet it is a good refresher and you probably still find something new.&lt;/p&gt;
 &lt;p&gt;Today a bit about error handling. In our &lt;a href="http://pybit.es/py-mistakes.html"&gt;Learning from Python mistakes article&lt;/a&gt; we already mentioned not to use pass in except. It is actually the worst anti-pattern (as stated by Andreas Dewes, the author of the book, you can listen to the interview &lt;a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes"&gt;here&lt;/a&gt;).&lt;/p&gt;
 &lt;h3&gt;The problem with except: pass&lt;/h3&gt;
 &lt;p&gt;Why is it so bad? See &lt;a href="http://stackoverflow.com/questions/21553327/why-is-except-pass-a-bad-programming-practice"&gt;SO&lt;/a&gt; for a detailed explanation:&lt;/p&gt;
@@ -30137,7 +30168,7 @@ this always runs
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;One thing to watch out for is &lt;a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/bad_except_clauses_order.html"&gt;except clause order&lt;/a&gt; if you have more than one: always go from more specific to more generic (bottom to top in the inheritance chain), for example:&lt;/p&gt;
+&lt;p&gt;One thing to watch out for is &lt;a href="http://docs.quantifiedcode.com/python-anti-patterns/correctness/bad_except_clauses_order.html"&gt;except clause order&lt;/a&gt; if you have more than one: always go from more specific to more generic (bottom to top in the inheritance chain), for example:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; ZeroDivisionError.__mro__
 (&amp;lt;class &amp;#39;ZeroDivisionError&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;ArithmeticError&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;Exception&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;BaseException&amp;#39;&amp;gt;, &amp;lt;class &amp;#39;object&amp;#39;&amp;gt;)
 &lt;/pre&gt;&lt;/div&gt;
@@ -30145,7 +30176,7 @@ this always runs
 
 &lt;p&gt;(about &lt;a href="http://stackoverflow.com/questions/2010692/what-does-mro-do-in-python"&gt;mro&lt;/a&gt;)&lt;/p&gt;
 &lt;h3&gt;Asking for permission instead of forgiveness&lt;/h3&gt;
-&lt;p&gt;It becomes even more important because &lt;a href="http://docs.quantifiedcode.com/python-code-patterns/readability/asking_for_permission_instead_of_forgiveness_when_working_with_files.html"&gt;the Python community uses an EAFP (easier to ask for forgiveness than permission) coding style&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It becomes even more important because &lt;a href="http://docs.quantifiedcode.com/python-anti-patterns/readability/asking_for_permission_instead_of_forgiveness_when_working_with_files.html"&gt;the Python community uses an EAFP (easier to ask for forgiveness than permission) coding style&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I have done this a lot:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;if os.path.exists(&amp;quot;file.txt&amp;quot;):
 &lt;/pre&gt;&lt;/div&gt;
@@ -30204,11 +30235,11 @@ except OSError:
 &lt;p&gt;&lt;a href="https://www.python.org/dev/peps/pep-0020/"&gt;Zen of Python&lt;/a&gt; (not only reading, printing and hanging on the wall actually!)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href="http://docs.quantifiedcode.com/python-code-patterns/"&gt;The Little Book of Python Anti-Patterns&lt;/a&gt; and &lt;a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes"&gt;chat with the author&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://docs.quantifiedcode.com/python-anti-patterns/"&gt;The Little Book of Python Anti-Patterns&lt;/a&gt; and &lt;a href="https://talkpython.fm/episodes/show/18/python-anti-patterns-and-other-mistakes"&gt;chat with the author&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Exception sections:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/no_exception_type_specified.html"&gt;No exception type(s) specified&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://docs.quantifiedcode.com/python-code-patterns/correctness/bad_except_clauses_order.html"&gt;Bad except clauses order&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.quantifiedcode.com/python-anti-patterns/correctness/no_exception_type_specified.html"&gt;No exception type(s) specified&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.quantifiedcode.com/python-anti-patterns/correctness/bad_except_clauses_order.html"&gt;Bad except clauses order&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -32052,7 +32083,7 @@ YAY!
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# cd awesome-test
 # dir
 Include/    Lib/    pyvenv.cfg  Scripts/
-# Scripts/activate
+# source Scripts/activate
 (awesome-test) #
 (awesome-test) # echo YAY!
 YAY!
