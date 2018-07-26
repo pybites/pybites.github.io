@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Andrew Knight" />
+<meta name="description" content="Testing in Python is consistently growing in popularity. In this article our friend Andrew Knight from Automation Panda walks through 10 reasons why Python is great for Test Automation." />
+<meta name="keywords" content="guest, test, testing, automation, tdd, selenium, pytest, IDE">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Why Python is Great for Test Automation"/>
+<meta property="og:description" content="Testing in Python is consistently growing in popularity. In this article our friend Andrew Knight from Automation Panda walks through 10 reasons why Python is great for Test Automation."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/drafts/python-test-automation.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-07-25 21:52:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/andrew-knight.html">
+<meta property="article:section" content="DevOps"/>
+<meta property="article:tag" content="guest"/>
+<meta property="article:tag" content="test"/>
+<meta property="article:tag" content="testing"/>
+<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="tdd"/>
+<meta property="article:tag" content="selenium"/>
+<meta property="article:tag" content="pytest"/>
+<meta property="article:tag" content="IDE"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Why Python is Great for Test Automation" />
+<meta name="twitter:description" content="Testing in Python is consistently growing in popularity. In this article our friend Andrew Knight from Automation Panda walks through 10 reasons why Python is great for Test Automation." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+  <title>PyBites &ndash; Why Python is Great for Test Automation</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="python-test-automation">Why Python is Great for Test Automation</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/andrew-knight.html">Andrew Knight</a> on Wed 25 July 2018 in <a href="https://pybit.es/category/devops.html">DevOps</a>
+
+
+        &#8226; 5 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Testing in Python is consistently growing in popularity. In this article our friend Andrew Knight from Automation Panda walks through 10 reasons why Python is great for Test Automation.</p>
+<hr>
+<p><a href="http://automationpanda.com/python/">Python</a> is an incredible programming language. As Dan Callahan said in <a href="https://youtu.be/ITksU31c1WY?t=409">his PyCon 2018 keynote</a>, "Python is the second best language for anything, and that's an amazing aspiration." For test automation, however, I believe it is one of <em>the</em> best choices. Here are ten reasons why:</p>
+<h2>1: The Zen of Python</h2>
+<p>The Zen of Python, as codified in <a href="https://www.python.org/dev/peps/pep-0020/">PEP 20</a>, is an <em>ideal</em> guideline for test automation. Test code should be a natural bridge between plain-language test steps and the programming calls to automate them. Tests should be readable and descriptive because they describe the features under test. They should be explicit in what they cover. Simple steps are better than complicated ones. Test code should add minimal extra verbiage to the tests themselves. Python, in its concise elegance, is a powerful bridge from test case to test code. (Want a shortcut to the Zen of Python? Run <code>import this</code> at the Python interpreter.)
+<br></p>
+<h2>2: pytest</h2>
+<p><a href="http://automationpanda.com/2017/03/14/python-testing-101-pytest/">pytest</a> is one of the best test frameworks currently available in <em>any</em> language, not just for Python. It can handle any functional tests: unit, integration, and end-to-end. Test cases are written simply as functions (meaning no side effects as long as globals are avoided) and can take parametrized inputs. Fixtures are a generic, reusable way to handle setup and cleanup operations. Basic "assert" statements have automatic introspection so failure messages print meaningful values. Tests can be filtered when executed. Plugins extent pytest to do code coverage, run tests in parallel, use Gherkin scenarios, and integrate with other frameworks like Django and Flask. Other Python test frameworks are great, but pytest is by far the best-in-show. (Pythonic frameworks always win in Python.)
+<br></p>
+<h2>3: Packages</h2>
+<p>For all the woes about the <a href="https://wiki.python.org/moin/CheeseShop">CheeseShop</a>, Python has a rich library of useful packages for testing: <a href="https://docs.pytest.org/en/latest/">pytest</a>, <a href="https://docs.python.org/3/library/unittest.html">unittest</a>, <a href="https://docs.python.org/3/library/doctest.html">doctest</a>, <a href="https://tox.readthedocs.io/en/latest/">tox</a>, <a href="https://docs.python.org/3/library/logging.html">logging</a>, <a href="http://www.paramiko.org/">paramiko</a>, <a href="http://docs.python-requests.org/en/master/">requests</a>, <a href="https://www.seleniumhq.org/projects/webdriver/">Selenium WebDriver</a>, <a href="https://splinter.readthedocs.io/en/latest/">Splinter</a>, <a href="https://hypothesis.readthedocs.io/en/latest/index.html">Hypothesis</a>, and others are available as off-the-shelf ingredients for custom automation recipes. They're just a "pip install" away. No reinventing wheels here!
+<br></p>
+<h2>4: Multi-Paradigm</h2>
+<p>Python is object-oriented <em>and</em> functional. It lets programmers decide if functions or classes are better for the needs at hand. This is a major boon for test automation because (a) stateless functions avoid side effects and (b) simple syntax for those functions make them readable. pytest itself uses functions for test cases instead of shoehorning them into classes (à la JUnit).
+<br></p>
+<h2>5: Typing Your Way</h2>
+<p>Python's out-of-the-box dynamic duck typing is great for test automation because most feature tests ("above unit") don't need to be picky about types. However, when static types are needed, projects like <a href="http://mypy-lang.org/">mypy</a>, <a href="https://pyre-check.org/">Pyre</a>, and <a href="https://github.com/Instagram/MonkeyType">MonkeyType</a> come to the rescue. Python provides typing both ways!
+<br></p>
+<h2>6: IDEs</h2>
+<p>Good IDE support goes a long way to make a language and its frameworks easy to use. For Python testing, <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm</a> supports <a href="https://www.youtube.com/watch?v=FjojZxDZscQ">visual testing</a> with pytest, unittest, and doctest out of the box, and its Professional Edition includes support for BDD frameworks (like pytest-bdd, behave, and lettuce) and Web development. For a lighter offering, <a href="https://code.visualstudio.com/docs/languages/python">Visual Studio Code</a> is taking the world by storm. Its Python extensions support all the good stuff: snippets, linting, environments, debugging, testing, and a command line terminal right in the window. <a href="https://atom.io/">Atom</a>, <a href="https://www.sublimetext.com/">Sublime</a>, <a href="http://www.pydev.org/">PyDev</a>, and <a href="https://notepad-plus-plus.org/">Notepad++</a> also get the job done.
+<br></p>
+<h2>7: Command Line Workflow</h2>
+<p>Python and the command line are like peanut butter and jelly - a match made in heaven. The entire test automation workflow can be driven from the command line. <a href="http://automationpanda.com/2018/04/16/pipenv-python-packagement-for-champions/">Pipenv</a> can manage packages and environments. Every test framework has a console runner to discover and launch tests. There's no need to "build" test code first because Python is an interpreted language, further simplifying execution. Rich command line support makes testing easy to manage manually, with tools, or as part of build scripts / CI pipelines. As a bonus, automation modules can be called from the Python REPL interpreter. What does this mean? Automation-assisted exploratory testing! Imagine using Python calls to automatically steer a Web app to a point that requires a manual check. Python makes it possible.
+<br></p>
+<h2>8: Ease of Entry</h2>
+<p>Python has always been friendly to beginners thanks to its Zen, whether those beginners are programming newbies or expert engineers. This gives Python a big advantage as an automation language choice because tests need to be done quickly and easily. Nobody wants to waste time when the features are in hand and just need to be verified. Plus, many manual software testers (often without programming experience) are now starting to do automation work (by choice or by force) and benefit from Python's low learning curve.
+<br></p>
+<h2>9: Strength for Scalability</h2>
+<p>Even though Python is great for beginners, it's also no toy language. Python has industrial-grade strength because its design always favors one right way to get a job done. Development can scale thanks to meaningful syntax, good structure, modularity, and a rich ecosystem of tools and packages. Command line versatility enables it to fit into any tool or workflow. The fact that Python may be <a href="https://medium.com/@anthonypjshaw/why-is-python-so-slow-e5074b6fe55b">slower than other languages</a> is not an issue for feature tests because system delays (such as response times for Web pages and REST calls) are orders of magnitude slower than language-level performance hits.
+<br></p>
+<h2>10: Popularity</h2>
+<p>Python is one of <em>the</em> most popular programming languages in the world today. It is consistently ranked near the top on <a href="https://www.tiobe.com/tiobe-index/">TIOBE</a>, <a href="https://insights.stackoverflow.com/survey/2018/">Stack Overflow</a>, and <a href="https://octoverse.github.com/">GitHub</a> (as well as <a href="http://githut.info/">GitHut</a>). It is a beloved choice for Web developers, infrastructure engineers, data scientists, and test automationeers alike. The Python community also powers it forward. There is no shortage of Python developers, nor is there any dearth of support online. Python is not going away anytime soon. (Python 3, that is.)
+<br></p>
+<h2>Other Languages?</h2>
+<p>The purpose of this article is to highlight what makes Python great for test automation based on its own merits. Although I strongly believe that Python is one of the best automation languages, other choices like Java, C#, and Ruby are also viable. Check out my article <a href="http://automationpanda.com/2017/01/21/the-best-programming-language-for-test-automation/">The Best Programming Language for Test Automation</a> for a comparison.  </p>
+<p><em>This article was posted with the author's permission on both <a href="https://automationpanda.com/">Automation Panda</a> and <a href="https://pybit.es/">PyBites</a>.</em></p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p><a href="pages/guests.html#andrewknight">Andy</a></p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/guest.html">guest</a>
+      <a href="https://pybit.es/tag/test.html">test</a>
+      <a href="https://pybit.es/tag/testing.html">testing</a>
+      <a href="https://pybit.es/tag/automation.html">automation</a>
+      <a href="https://pybit.es/tag/tdd.html">tdd</a>
+      <a href="https://pybit.es/tag/selenium.html">selenium</a>
+      <a href="https://pybit.es/tag/pytest.html">pytest</a>
+      <a href="https://pybit.es/tag/ide.html">IDE</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>
