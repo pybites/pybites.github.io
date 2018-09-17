@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-09-16T15:50:00+02:00</updated><entry><title>PyBites Twitter Digest - Issue 29, 2018</title><link href="https://pybit.es/twitter_digest_201829.html" rel="alternate"></link><published>2018-09-16T15:50:00+02:00</published><updated>2018-09-16T15:50:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-09-16:/twitter_digest_201829.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;A handy template to generate basic Python project structures.&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-09-17T23:13:00+02:00</updated><entry><title>Code Challenge 51 - Analyse NBA Data with SQL/sqlite3</title><link href="https://pybit.es/codechallenge51.html" rel="alternate"></link><published>2018-09-17T23:13:00+02:00</published><updated>2018-09-17T23:13:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-09-17:/codechallenge51.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, Welcome to Pybites Code Challenge 51! In this challenge we get you analysing NBA player data from a CSV file.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hey Pythonistas,&lt;/p&gt;
+&lt;p&gt;Blog Code Challenges is back! And with a vengeance ;)&lt;/p&gt;
+&lt;p&gt;Starting today we will publish a new code challenge every week on Monday. On Friday (or latest the weekend) we will post a review.&lt;/p&gt;
+&lt;p&gt;Welcome to Pybites Code Challenge 51! In this challenge we get you analysing NBA player data from a CSV file.&lt;/p&gt;
+&lt;h2&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;If you are reading this on our blog head over to &lt;a href="https://codechalleng.es/challenges/51"&gt;https://codechalleng.es/challenges/51&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you need help getting ready with Github, see our new &lt;a href="https://youtu.be/vJsyLSZxqVw"&gt;instruction video&lt;/a&gt;.
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Now for the challenge: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Make a virtual env and install &lt;code&gt;requests&lt;/code&gt;. No need to install &lt;code&gt;sqlite3&lt;/code&gt; as it's part of the stdlib.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copy the &lt;code&gt;nba.py&lt;/code&gt; file over to your subdirectory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;As you can see in the template &lt;code&gt;nba.py&lt;/code&gt; file, we've given you a headstart by importing the data and parsing the CSV into a list of named tuples.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Start coding under the "#CODE HERE" comment and complete the 7 functions we've laid out for you.&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Note that there are some assert statements under &lt;code&gt;main&lt;/code&gt; to help you validate your code.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This challenge is mainly focused on sqlite3, but if you want to use an ORM like sqlalchemy or Pandas that's fine too.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;PyBites Community&lt;/h2&gt;
+&lt;p&gt;A few more things before we take off:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Do you want to discuss this challenge and share your Pythonic journey with other passionate Pythonistas? Confirm your email on our platform then request access to our Slack via &lt;a href="https://codechalleng.es/settings/"&gt;settings&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PyBites is here to challenge you because becoming a better Pythonista requires practice, a lot of it. For any feedback, issues or ideas use &lt;a href="https://github.com/pybites/challenges/issues"&gt;GH Issues&lt;/a&gt;, &lt;a href="https://twitter.com/pybites"&gt;tweet us&lt;/a&gt; or ping us on our Slack.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="sqlite3"></category><category term="SQL"></category><category term="data analysis"></category><category term="data"></category><category term="NBA"></category></entry><entry><title>PyBites Twitter Digest - Issue 29, 2018</title><link href="https://pybit.es/twitter_digest_201829.html" rel="alternate"></link><published>2018-09-16T15:50:00+02:00</published><updated>2018-09-16T15:50:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-09-16:/twitter_digest_201829.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;A handy template to generate basic Python project structures.&lt;/h3&gt;
 &lt;p&gt;Submitted by @Erik.&lt;/p&gt;
 &lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Nice one! A great &lt;a href="https://twitter.com/search/#template" target="_blank"&gt;#template&lt;/a&gt; for generating a basic &lt;a href="https://twitter.com/search/#Python" target="_blank"&gt;#Python&lt;/a&gt; project structure! &lt;a href="https://twitter.com/@pybites" target="_blank"&gt;@pybites&lt;/a&gt; &lt;a href="https://t.co/zaxboOMGwN" title="https://t.co/zaxboOMGwN" target="_blank"&gt;https://t.co/zaxboOMGwN&lt;/a&gt;&lt;/p&gt;— Julian Sequeira (@_juliansequeira) &lt;a href="https://twitter.com/_juliansequeira/status/1041209285382877184" data-datetime="2018-09-16T06:16:53+00:00"&gt;September 16, 2018&lt;/a&gt;&lt;/blockquote&gt;
 
