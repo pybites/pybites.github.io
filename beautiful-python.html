@@ -161,7 +161,7 @@ Thanks Jeff Paine for this awesome <a href="https://gist.github.com/JeffPaine/62
 <p>Use enumerate to loop over collections and indices, use reversed(collections) to loop backwards.</p>
 </li>
 <li>
-<p>Use the zip built-in to loop over two collections: zip(collection1, collection2). To make a dict from two collections: dict(zip(names, colors)). Use izip if the collections are not of the same length. </p>
+<p>Use the zip built-in to loop over two collections: zip(collection1, collection2). To make a dict from two collections: dict(zip(names, colors)). Use <a href="https://docs.python.org/3.7/library/itertools.html#itertools.zip_longest">zip_longest</a> if the collections are not of the same length. </p>
 </li>
 <li>
 <p>Use the sorted key argument to customize sort order of a collection, so to sort by dict value you can use: sorted(d.items(), key=lambda a: a[1])</p>
