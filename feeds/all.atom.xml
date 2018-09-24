@@ -1,5 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-09-17T23:13:00+02:00</updated><entry><title>Code Challenge 51 - Analyse NBA Data with SQL/sqlite3</title><link href="https://pybit.es/codechallenge51.html" rel="alternate"></link><published>2018-09-17T23:13:00+02:00</published><updated>2018-09-17T23:13:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-09-17:/codechallenge51.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, Welcome to Pybites Code Challenge 51! In this challenge we get you analysing NBA player data from a CSV file.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-09-24T11:18:00+02:00</updated><entry><title>Code Challenge 51 - Analyse NBA Data with SQL/sqlite3 - Review</title><link href="https://pybit.es/codechallenge51_review.html" rel="alternate"></link><published>2018-09-24T11:18:00+02:00</published><updated>2018-09-24T11:18:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-09-24:/codechallenge51_review.html</id><summary type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge51.html"&gt;Analyse NBA Data with SQL/sqlite3&lt;/a&gt; code challenge.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge51.html"&gt;Analyse NBA Data with SQL/sqlite3&lt;/a&gt; code challenge. &lt;/p&gt;
+&lt;h2&gt;Our solution&lt;/h2&gt;
+&lt;p&gt;Check out &lt;a href="https://github.com/pybites/challenges/blob/solutions/51/nba.py"&gt;our solution for this challenge&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Some learnings:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use &lt;code&gt;cursor.executemany&lt;/code&gt; to bulk insert records.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We were using &lt;code&gt;cursor.fetchall&lt;/code&gt; but to get one record/row you can use &lt;code&gt;fetchone&lt;/code&gt; (thanks @clamytoe)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Practice &lt;code&gt;GROUP BY&lt;/code&gt; (&lt;code&gt;year_with_most_drafts&lt;/code&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Simple SQLite arithmetic (&lt;code&gt;games/active AS games_per_year&lt;/code&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Probably don't need &lt;code&gt;CAST&lt;/code&gt; if you add types to DB columns (looking at other PRs!)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Community solutions&lt;/h2&gt;
+&lt;p&gt;Check out &lt;a href="https://github.com/pybites/challenges/tree/community/51"&gt;solutions PR'd by our community&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Some learnings taken from these Pull Requests: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Refreshed SQL. Learned about sqlite command line. Learned PyCharm DataSource integration and querying. Refreshed git commands.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I used this challenge as a chance to experiment with Jupyter notebook to help visualize the data&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Read Code for Fun and Profit&lt;/h2&gt;
+&lt;p&gt;You can look at all submitted code &lt;a href="https://github.com/pybites/challenges/pulls?q=is%3Apr+is%3Aclosed"&gt;here&lt;/a&gt; and/or pulling &lt;a href="https://github.com/pybites/challenges/tree/community"&gt;our Community branch&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Other learnings we spotted in Pull Requests week: &lt;em&gt;itertools, difflib / similarity measures, collections, pytest and patch.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Thanks to everyone for your participation in our blog code challenges! &lt;/p&gt;
+&lt;h2&gt;Need more Python Practice?&lt;/h2&gt;
+&lt;p&gt;Subscribe to our blog (sidebar) to get a new PyBites Code Challenge (PCC) in your inbox each Monday. &lt;/p&gt;
+&lt;p&gt;And/or take any of our 50+ challenges &lt;a href="https://codechalleng.es/challenges/"&gt;on our platform&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Prefer coding self contained exercises in the comfort of your browser? Try our growing collection of &lt;a href="https://codechalleng.es/bites/"&gt;Bites of Py&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Want to do the &lt;a href="https://twitter.com/hashtag/100DaysOfCode?src=hash&amp;amp;lang=en"&gt;#100DaysOfCode&lt;/a&gt; but not sure what to work on? Take &lt;a href="https://talkpython.fm/100days?utm_source=pybites"&gt;our course&lt;/a&gt; and/or start logging your progress &lt;a href="https://codechalleng.es/100days/"&gt;on our platform&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob and Julian&lt;/p&gt;</content><category term="sqlite3"></category><category term="SQL"></category><category term="data analysis"></category><category term="data"></category><category term="NBA"></category></entry><entry><title>PyBites Twitter Digest - Issue 30, 2018</title><link href="https://pybit.es/twitter_digest_201830.html" rel="alternate"></link><published>2018-09-23T22:39:00+02:00</published><updated>2018-09-23T22:39:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-09-23:/twitter_digest_201830.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Python 3 is the way!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Out of the top 360 packages, 357 support Python 3 (99%) &lt;a href="https://t.co/x3w68GH5Jm" title="https://t.co/x3w68GH5Jm" target="_blank"&gt;https://t.co/x3w68GH5Jm&lt;/a&gt;&lt;/p&gt;— Brett Cannon (@brettsky) &lt;a href="https://twitter.com/brettsky/status/1040841072304218113" data-datetime="2018-09-15T05:53:44+00:00"&gt;September 15, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Must Watch PyCon Videos&lt;/h3&gt;
+&lt;p&gt;Submitted by @Erik&lt;/p&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;🐍📺 Top 10 Must-Watch PyCon Talks Get the inside scoop on the top 10 must-watch PyCon talks for both beginners and… &lt;a href="https://t.co/hzYMhoELcU" title="https://t.co/hzYMhoELcU" target="_blank"&gt;https://t.co/hzYMhoELcU&lt;/a&gt;&lt;/p&gt;— Real Python (@realpython) &lt;a href="https://twitter.com/realpython/status/1043216906638057474" data-datetime="2018-09-21T19:14:27+00:00"&gt;September 21, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Learn about the OSI Model! Something every tech head should know!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@freeCodeCamp:" target="_blank"&gt;@freeCodeCamp:&lt;/a&gt; Learn more about HTTP in this great introductory article &lt;a href="https://t.co/YiEq0XJTXm" title="https://t.co/YiEq0XJTXm" target="_blank"&gt;https://t.co/YiEq0XJTXm&lt;/a&gt;&lt;/p&gt;— TestDriven.io (@testdrivenio) &lt;a href="https://twitter.com/testdrivenio/status/1043542452240441344" data-datetime="2018-09-22T16:48:03+00:00"&gt;September 22, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Another quality TalkPy episode. Ned Batchelder this time round!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;It's all about &lt;a href="https://t.co/1ba1f96kAa" title="https://t.co/1ba1f96kAa" target="_blank"&gt;https://t.co/1ba1f96kAa&lt;/a&gt; with &lt;a href="https://twitter.com/@nedbat" target="_blank"&gt;@nedbat&lt;/a&gt; on episode 178 of &lt;a href="https://twitter.com/@talkpython." target="_blank"&gt;@talkpython.&lt;/a&gt; Check it out now at &lt;a href="https://t.co/UBvtnQwMQX" title="https://t.co/UBvtnQwMQX" target="_blank"&gt;https://t.co/UBvtnQwMQX&lt;/a&gt;&lt;/p&gt;— Talk Python Podcast (@TalkPython) &lt;a href="https://twitter.com/TalkPython/status/1043226884765573122" data-datetime="2018-09-21T19:54:06+00:00"&gt;September 21, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;AI that writes music, very interesting. Ha!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;This new project promises to out-Tay-Tay Tay Tay and out-Bon Bon Iver. 🎶 🤖 &lt;a href="https://t.co/0XUISn46e1" title="https://t.co/0XUISn46e1" target="_blank"&gt;https://t.co/0XUISn46e1&lt;/a&gt;&lt;/p&gt;— Code.org (@codeorg) &lt;a href="https://twitter.com/codeorg/status/1042849880190976000" data-datetime="2018-09-20T18:56:01+00:00"&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Speaking of music, this looks promising!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;(work in progress) PyTheory: Music Theory for Humans by Kenneth Reitz &lt;a href="https://t.co/1xuuzm8eyB" title="https://t.co/1xuuzm8eyB" target="_blank"&gt;https://t.co/1xuuzm8eyB&lt;/a&gt; by &lt;a href="https://twitter.com/@kennethreitz" target="_blank"&gt;@kennethreitz&lt;/a&gt;&lt;/p&gt;— Python LibHunt (@PythonLibHunt) &lt;a href="https://twitter.com/PythonLibHunt/status/1042112871646126080" data-datetime="2018-09-18T18:07:24+00:00"&gt;September 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Why we love the Python Community&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@pumpichank:" target="_blank"&gt;@pumpichank:&lt;/a&gt; I am so proud of the community that &lt;a href="https://twitter.com/@gvanrossum" target="_blank"&gt;@gvanrossum&lt;/a&gt; has built for Python. Lots of work to still do, but in general, we take cu…&lt;/p&gt;— Kenneth ☤ Reitz (@kennethreitz) &lt;a href="https://twitter.com/kennethreitz/status/1042891056298307585" data-datetime="2018-09-20T21:39:38+00:00"&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;A Python program that plays Super Mario Bros!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Python program plays Super Mario Bros: Explained! &lt;a href="https://t.co/J5MKlOQJ3I" title="https://t.co/J5MKlOQJ3I" target="_blank"&gt;https://t.co/J5MKlOQJ3I&lt;/a&gt;&lt;/p&gt;— Python LibHunt (@PythonLibHunt) &lt;a href="https://twitter.com/PythonLibHunt/status/1042928177423646720" data-datetime="2018-09-21T00:07:08+00:00"&gt;September 21, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;A walkthrough of unit testing in Python&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Unit Testing with Python unittest ... &lt;a href="https://t.co/8F0H6NuEDi" title="https://t.co/8F0H6NuEDi" target="_blank"&gt;https://t.co/8F0H6NuEDi&lt;/a&gt; &lt;a href="https://twitter.com/search/#testing" target="_blank"&gt;#testing&lt;/a&gt; &lt;a href="https://twitter.com/search/#python" target="_blank"&gt;#python&lt;/a&gt;&lt;/p&gt;— import python 🐍 (@importpython) &lt;a href="https://twitter.com/importpython/status/1042786359465828352" data-datetime="2018-09-20T14:43:36+00:00"&gt;September 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;It's all about the deliberate practice! Time for another Code Challenge right?&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@degreed:" target="_blank"&gt;@degreed:&lt;/a&gt; No matter how busy successful people are, they always “set aside at least an hour a day (or 5 hours a week) over their entire…&lt;/p&gt;— Anthony Shaw (@anthonypjshaw) &lt;a href="https://twitter.com/anthonypjshaw/status/1041433897706250240" data-datetime="2018-09-16T21:09:24+00:00"&gt;September 16, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;I always forget about this!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Run simple &lt;a href="https://twitter.com/search/#python" target="_blank"&gt;#python&lt;/a&gt; code directly from the command line with the -c switch: python -c "import datetime; print(&lt;a href="https://t.co/FXWDCB9dX6())" "="" title="https://t.co/FXWDCB9dX6())" target="_blank"&gt;https://t.co/FXWDCB9dX6())"&lt;/a&gt;&lt;/p&gt;— Daily Python Tip (@python_tip) &lt;a href="https://twitter.com/python_tip/status/1042088083091595265" data-datetime="2018-09-18T16:28:54+00:00"&gt;September 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Python 3 only Matplotlib. It's all happening!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@matplotlib:" target="_blank"&gt;@matplotlib:&lt;/a&gt; Happy to announce that Matplotlib 3.0 is up on pypi and ready for use! Matplotlib is Python 3 only The v2.2.x LTS branch…&lt;/p&gt;— matt harrison (@__mharrison__) &lt;a href="https://twitter.com/__mharrison__/status/1042274872972328960" data-datetime="2018-09-19T04:51:08+00:00"&gt;September 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Cryptocurrency Predicting Neural Network in Python&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Creating a Cryptocurrency-predicting finance recurrent neural network &lt;a href="https://twitter.com/search/#machinelearning" target="_blank"&gt;#machinelearning&lt;/a&gt; - &lt;a href="https://t.co/LXNH3kQx4F…" title="https://t.co/LXNH3kQx4F…" target="_blank"&gt;https://t.co/LXNH3kQx4F…&lt;/a&gt; &lt;a href="https://t.co/4gS5j13Wu8" title="https://t.co/4gS5j13Wu8" target="_blank"&gt;https://t.co/4gS5j13Wu8&lt;/a&gt;&lt;/p&gt;— Harrison Kinsley🐍 (@Sentdex) &lt;a href="https://twitter.com/Sentdex/status/1041309097692418048" data-datetime="2018-09-16T12:53:30+00:00"&gt;September 16, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;OpenCV, OCR and Text Recognition&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;New tutorial!🚀 Learn how to use OpenCV OCR and Text Recognition by combining the EAST text detector with Tesseract'… &lt;a href="https://t.co/YqJ3AnNVm4" title="https://t.co/YqJ3AnNVm4" target="_blank"&gt;https://t.co/YqJ3AnNVm4&lt;/a&gt;&lt;/p&gt;— Adrian Rosebrock (@PyImageSearch) &lt;a href="https://twitter.com/PyImageSearch/status/1041689297060024325" data-datetime="2018-09-17T14:04:16+00:00"&gt;September 17, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;We have the power!!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;“The trouble with programmers is that you can never tell what a programmer is doing until it’s too late.” - Seymour Cray&lt;/p&gt;— Programming Wisdom (@CodeWisdom) &lt;a href="https://twitter.com/CodeWisdom/status/1043116889382297601" data-datetime="2018-09-21T12:37:01+00:00"&gt;September 21, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="twitter"></category><category term="news"></category><category term="pybites"></category><category term="pycon"></category><category term="videos"></category><category term="HTTP"></category><category term="OSI Model"></category><category term="coverage"></category><category term="podcast"></category><category term="testing"></category><category term="AI"></category><category term="music"></category><category term="PyTheory"></category><category term="Super Mario Bros"></category><category term="games"></category><category term="unittest"></category><category term="tricks"></category><category term="tips"></category><category term="matplotlib"></category><category term="cryptocurrency"></category><category term="deep learning"></category><category term="Keras"></category><category term="TensorFlow"></category><category term="OpenCV"></category><category term="OCR"></category><category term="machine learning"></category></entry><entry><title>Career Development for Programmers</title><link href="https://pybit.es/career-development-programmers.html" rel="alternate"></link><published>2018-09-23T11:19:00+02:00</published><updated>2018-09-23T11:19:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-09-23:/career-development-programmers.html</id><summary type="html">&lt;p&gt;What makes you excel in your career? Become an expert in x, y, z. Sure, you need to learn technical skills, quite a lot of them. However there is a lot more to it. If you want to succeed in your job, business and life, you want to build a portfolio, share your learning, become a reader and a good writer, and last but not least stick to daily exercising. I published this article &lt;a href="https://bobbelderbos.com"&gt;on my blog&lt;/a&gt; 2 years ago and find a lot is still relevant today and will serve our community. I also added an updated towards the end.&lt;/p&gt;</summary><content type="html">&lt;p&gt;What makes you excel in your career? Become an expert in x, y, z. Sure, you need to learn technical skills, quite a lot of them. However there is a lot more to it. If you want to succeed in your job, business and life, you want to build a portfolio, share your learning, become a reader and a good writer, and last but not least stick to daily exercising. I published this article &lt;a href="https://bobbelderbos.com"&gt;on my blog&lt;/a&gt; 2 years ago and find a lot is still relevant today and will serve our community. I also added an updated towards the end.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Success is a matter of choice, not chance ~ Deepak Mehra&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;How to improve your programming career:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The first thing obviously is to code. A lot. I was reminded of this again reading this &lt;a href="https://medium.com/swlh/what-happened-after-i-left-the-best-job-in-the-world-to-become-an-engineer-ee06caca7db2#.l0jw2no7d"&gt;great post&lt;/a&gt; this morning:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;wakeUp();
+
+workOut();
+
+var currentHour = new Date().getHours();
+
+var bedtimeHour = 22;
+
+while(currentHour &amp;lt; bedtimeHour) {
+  code();
+  currentHour = new Date().getHours();
+};
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Source: &lt;a href="https://gist.githubusercontent.com/iam-peekay/cd695c6278536dd7180342bb97c937f3/raw/93629889af603b40a1125b488227dd356864a89e/myLife.js"&gt;myLife.js&lt;/a&gt;. I bought an &lt;a href="http://bobbelderbos.com/public/bob_whoami.png"&gt;ABC t-shirt&lt;/a&gt; to remind myself of this as well (OK also because I like &lt;a href="https://www.youtube.com/watch?v=v9XW6P0tiVc"&gt;Baldwin's sales speech&lt;/a&gt; in Glengarry Glen Ross lol ... Always Be Closing = Always Be Coding!). Wether the &lt;a href="https://en.wikipedia.org/wiki/Outliers_(book)"&gt;10,000-Hour Rule&lt;/a&gt; is true or not, with practice comes skill, and generally the more (challenged) practice the more skills.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Related: build side projects. For example I was learning &lt;a href="http://bobbelderbos.com/2016/06/python-tips/"&gt;some new Python tricks and idioms&lt;/a&gt; the other day, but it was not until using it that this stuff really sunk in. I needed nested defaultdicts, * unpacking to a named tuple, and I went to StackOverflow a few times more. Books are a good foundation, but skills come from getting your hands dirty. It's then that exceptions happen and need creativity to solve emerging problems. Yesterday &lt;a href="http://bobbelderbos.com/2016/06/twitter-bot/"&gt;I wrote a Twitter bot&lt;/a&gt;. I had done this before, yet I still learned new things: using the requests and logging modules, writing my own exceptions, hiding credentials in a github repo, to name a few. Deploying a solution to a remote server (different environment) causes challenges too. So practice, practice, practice! Aim everyday to improve yourself's yesterday version.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Read the passionate programmer. I made some notes &lt;a href="http://bobbelderbos.com/2011/04/advance-career-read-passionate-programmer/"&gt;here&lt;/a&gt;. &lt;a href="https://www.amazon.com/Developers-Code-Ka-Wai-Cheung/dp/1934356794/"&gt;The Developer's code&lt;/a&gt; is also a great read. Books to reread from time to time.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Share you learning. Start a blog. It has a myriad of advantages. &lt;a href="http://bobbelderbos.com/2012/06/great-book-on-technical-blogging/"&gt;Technical blogging&lt;/a&gt; is a great resource. I can also recommend &lt;a href="https://www.amazon.com/Show-Your-Work-Creativity-Discovered/dp/076117897X/"&gt;Show your work&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Become a time management freak. One thing &lt;a href="http://simpleprogrammer.com"&gt;John Sonmez&lt;/a&gt; recommends in &lt;a href="https://www.manning.com/books/soft-skills"&gt;Soft Skills&lt;/a&gt; is keeping a log of time spent. We loose a lot of time on trivia especially in this highly interruptive social media society. I probably will give this one a try ...&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Muscles need stimulation to grow, equally a software developer needs constant challenge to stretch to new levels. The mentioned 10,000-Hour Rule is only as good as you finding yourself new challenges!&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Your comfort zone is a place where you keep yourself in a self-illusion and nothing can grow there but your potentiality can grow only when you can think and grow out of that zone." - Rashedur Ryan Rahman.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use idle time for rest, but it never hurts to listen to podcasts or do some video courses. Any success starts with a thought, and feeding your mind with good ideas can have surprising effects. I devour podcasts on my walks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Collaborate with other developers (and do code reviews). It is not until you have to explain your code, or &lt;a href="http://bobbelderbos.com/2016/03/building-maintainable-software/"&gt;make it maintainable/ extensible&lt;/a&gt;, that you really start thinking about the underlying design. When you manage to explain your skill to another person you generally master it. Blogging is a great tool for this.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Become a better writer. Apart from an essential skill in many areas of life, clear writing has a lot in common with good coding. And read! Good reading is a precursor to good writing. Similarly, reading lot of source code makes you a better coder (I picked up this advice in the fascinating book &lt;a href="http://www.codersatwork.com"&gt;Coders at work&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Try new things. I have been using Python a lot which I love, but there are a lot of other good languages out there. I certified in Java which has very good parts. I'd like to learn more Ruby. In terms of concepts Machine Learning is a hot topic, worth checking out (as well as NLP). Or do you code solely in PHP? Try Django, or full stack JS. You get the point. Even within a language you already use you can always learn more, for example to learn more Python: collections, iterators, generators, data science modules like NumPy and Pandas, functional programming constructs, Unicode, advanced OOP features, etc. The important thing is to never become complacent.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Jump on things others don't like. You can gain specialization, persistence skills and relatively high reward. Take data analysis for instance: everybody loves the analytics part, however data is usually not delivered in a ready-to-use format. Data cleaning is not the sexiest job but it is what makes the fun stuff possible. You see this in Big Data as well: everybody talks about nice tools like Spark/ Hive/ Pig, but what about getting the a good copy of the data loaded in? ETL (Extract, Transform and Load) is a non-trivial part of the total effort. Same &lt;a href="http://www.hanselminutes.com/532/data-literacy-and-the-usefulness-of-excel-with-oz-du-soleil"&gt;story with Excel&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Don't ignore the marketing side. We all love the tech side, but sometimes we have to step out of this mindset and wonder who the customer is and what is the need, the problem we're trying to solve. Sometimes we build stuff before checking the audience. Understanding the market is a fundamental skill. And more generally becoming effective (solve the right problem) before focusing on more efficiency per se (become proficient at a skill).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Have a &lt;em&gt;liability partner&lt;/em&gt;. I note that when you are held accountable by a friend or colleague you perform much better. And the joined learning is fun and fruitful. &lt;strong&gt;Update&lt;/strong&gt;: read Darren Hardy's &lt;a href="https://www.amazon.com/dp/159315724X/?tag=pyb0f-20"&gt;The Compound Effect&lt;/a&gt; where he states:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To up your chances of success, get a success buddy, someone who’ll keep you accountable as you cement your new habit while you return the favor.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Last but not least: exercise! Daily exercise instantly pays for itself: you feel better, you have a good health (your most important asset), and sharpen your mind (= better code). It's like garbage collection: you can only hold that many things at once, and stress increases with time, so you need to clear your mind periodically. Besides, oftentimes it's when we leave our desk that we actually solve a problem we're stuck on. Getting in shape can be overwhelming, &lt;a href="https://www.amazon.com/Healthy-Programmer-Better-Pragmatic-Programmers/dp/1937785319/"&gt;this book&lt;/a&gt; is a good start.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Remember you are in charge of your career, it's not up to your boss or even family and close friends to tell you what to do. You have to seek opportunities, and when they present themselves, grab them with both hands.&lt;/p&gt;
+&lt;p&gt;Secondly, technical skills alone only get you so far. Often a decently skilled and personable guy outperforms a super expert who lacks people skills. In that regard I highly recommend &lt;a href="https://www.manning.com/books/soft-skills"&gt;Soft Skills&lt;/a&gt; which deals with a lot of this. I am also reading John Sonmez' second book - &lt;a href="https://simpleprogrammer.com/2016/07/04/complete-software-developers-career-guide-introduction/"&gt;The Complete Software Developer’s Career Guide&lt;/a&gt; - which he is publishing on his blog. &lt;strong&gt;Update&lt;/strong&gt;: this book &lt;a href="http://www.amazon.com/dp/B073X6GNJ1/?tag=pyb0f-20"&gt;went to press since&lt;/a&gt; and is on to-read list.&lt;/p&gt;
+&lt;p&gt;What are you consistently doing to get ahead in your career? Share your thoughts in the comments below ...&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Update 23rd of Sept 2018:&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Difficult roads often lead to beautiful destinations. The best is yet to come ~ Zig Ziglar&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;I missed the words &lt;em&gt;habit&lt;/em&gt; and &lt;em&gt;goals&lt;/em&gt; above. Both are paramount to achieve any form of success. Goals keep you focussed and you should regularly measure you performance and the necessary adjustments to your plan to stay on track. Secondly I think any success strongly depends on your habits. I highly recommend reading Charles Duhigg's &lt;a href="http://www.amazon.com/dp/081298160X/?tag=pyb0f-20"&gt;The Power of Habit&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Since this article appeared I made an internal job transfer and can confirm that getting familiar with a new large and complex code base can be daunting. It was uncomfortable at times but after biting through (I did not think &lt;em&gt;Bites of Py&lt;/em&gt; would help me verbally one day lol), I realized: 1. I have read more code than ever before, 2. by looking at more experienced developers, I significantly improved how I write code and think about design, and 3. getting into uncharted waters grows your confidence. So again: seek new opportunities, even if they seem scary at first. I like what Tim Ferriss says in this context: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A person's success in life can usually be measured by the number of uncomfortable conversations he or she is willing to have.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This article was written exactly 6 months before we founded PyBites (scary)! I feel that a lot of these points were central to getting where we are today. I am also proud and happy that we have been able to provide the tools to help developers write more code, share their progress and guest post to our blog.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Leaders are readers&lt;/em&gt;, and to become succesful you need a constant stream of inspiration, ideas and knowledge. We made a Django app to keep track of your reading: &lt;a href="http://pbreadinglist.herokuapp.com"&gt;PyBites My Reading List&lt;/a&gt;. Looking for titles? Check out &lt;a href="https://bobbelderbos.com/books/"&gt;my reading list&lt;/a&gt; which has some other pointers as well. Never stop learning!&lt;/p&gt;
+&lt;p&gt;&lt;img alt="screenshot PyBites Reading App" src="https://pybit.es/images/myreadinglist.png"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="career"></category><category term="books"></category><category term="blogging"></category><category term="big data"></category><category term="practice"></category><category term="exercise"></category><category term="inspiration"></category><category term="coding"></category><category term="writing"></category><category term="productivity"></category></entry><entry><title>Code Challenge 51 - Analyse NBA Data with SQL/sqlite3</title><link href="https://pybit.es/codechallenge51.html" rel="alternate"></link><published>2018-09-17T23:13:00+02:00</published><updated>2018-09-17T23:13:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-09-17:/codechallenge51.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, Welcome to Pybites Code Challenge 51! In this challenge we get you analysing NBA player data from a CSV file.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;It's not that I'm so smart, it's just that I stay with problems longer. - A. Einstein&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Hey Pythonistas,&lt;/p&gt;
