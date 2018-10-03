@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Erik Oshaughnessy" />
+<meta name="description" content="summary pending" />
+<meta name="keywords" content="interpreters, assembly, programming, C, high level languages, math">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="A Short Primer on Assembers, Compilers and Interpreters"/>
+<meta property="og:description" content="summary pending"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/drafts/python-interpreters.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-10-10 10:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/erik-oshaughnessy.html">
+<meta property="article:section" content="Concepts"/>
+<meta property="article:tag" content="interpreters"/>
+<meta property="article:tag" content="assembly"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="C"/>
+<meta property="article:tag" content="high level languages"/>
+<meta property="article:tag" content="math"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="A Short Primer on Assembers, Compilers and Interpreters" />
+<meta name="twitter:description" content="summary pending" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+  <title>PyBites &ndash; A Short Primer on Assembers, Compilers and Interpreters</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	    <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->		  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="python-interpreters">A Short Primer on Assembers, Compilers and Interpreters</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/erik-oshaughnessy.html">Erik Oshaughnessy</a> on Wed 10 October 2018 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
+
+
+        &#8226; 5 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In the dark early days of computers, hardware was expensive and
+programmers were cheap. In fact, programmers were so cheap they
+weren't even called "programmers" and were in fact usually
+mathematicans, often graduate students. Early computers were used to
+solve complex mathematical problems quickly, so student mathematicans
+were a natural fit for the job of "programming".</p>
+<p>First a little background on what a program is. If you've got a
+handle on that, skip ahead.</p>
+<p>Computers can't do anything by themselves, they require programs to
+drive their behavior. Programs can be thought of as very detailed
+recipes that take an input and produce an output. The steps in the
+recipe are composed of instructions that operate on data. While that
+sounds complicated, you probably know how this statement works:</p>
+<p>1 + 2 = 3</p>
+<p>The plus sign is the "instruction" while the numbers 1 and 2 are the
+data. Mathematically, the equal sign indicates that both sides of an
+equation are "equivalent", however most computer languages use some
+variant of equals to mean "assignment". If a computer were executing
+that statment, it would store the results of the addition, the "3",
+somewhere in memory.</p>
+<p>Computers know how to do math with numbers and move data around the
+machine's memory heirarchy. I won't say too much about memory except
+to say it generally comes in two different flavors: fast &amp; small, and
+slow &amp; big. CPU registers are very fast, very small and act as
+scratch pads while main memory is typically very big and not nearly as
+fast as register memory. CPUs shuffle the data they are working with
+from main memory to registers and back again while a program executes.</p>
+<p>So computers were very expensive and people were cheap. The
+programmers spent endless hours translating hand written math into
+computer instructions that the computer could execute. The very first
+computers had terrible user interfaces, some only consisting of toggle
+switches on the front panel where each computer instruction was
+entered a word at a time by flipping the switches between 1 and 0. It
+was time consuming and error prone. </p>
+<p>Eventually, a mathematician decided his time wasn't cheap and wrote a
+program that would take as it's input a recipe expressed in terms
+people could read and output a computer readable version. This was the
+first "assembler" and it was very controversial. The people that owned
+the expensive machines didn't want to "waste" compute time on a task
+that people were already doing; cheaply, slowly, and with errors. Over
+time, people came to appreciate the speed and accuracy of the
+assembler versus the a hand-written program and the amount of "real
+work" done with the computer increased.</p>
+<p>While assembler programs were a big step up from toggling bit patterns
+into the front panel of a machine, they were still pretty specialized.
+The addition example from above might have looked something like this:</p>
+<p>01  MOVE R0, 1
+ 02  MOVE R1, 2
+ 03  ADD R0, R1, R2
+ 04  MOVE 64, R0
+ 05  STORE R2, R0</p>
+<p>Each line is a computer instruction, beginning with a shorthand name
+of the instruction followed by the data the instruction works on. This
+little program will first "move" the value 1 into a register called R0,
+then 2 into R1. Line 03 adds the contents of R0 and R1 and stores the
+result value into register R2. Finally, lines 04 and 05 identify where
+in main memory the result should be stored. This is one of the most
+time consuming and error-prone parts of writing computer programs;
+managing where in memory data is stored.</p>
+<p>While better than writing computer instructions by hand, mathematicans
+yearned to write programs like they were accustomed to writing
+mathematical formulae. This drove the development of higher level
+compiled languages, some of which are historical footnotes and others
+are still in use today. Algo is one such footnote, while problems
+continue to be solved with languages like FORTRAN and C.</p>
+<p>These new "high level" langagues allowed programmers to write their
+programs in simpler terms. In the C language, our addition assembly
+program would be written as:</p>
+<div class="highlight"><pre><span></span>int x;
+x = 1 + 2;
+</pre></div>
+
+
+<p>The first statement describes a piece of memory that the program
+will use. In this case, the memory should be the size of an integer
+and it's name is "x". The second statement is the addition, although
+written "backwards". A C programmer would read that as "X is assigned
+the result of one plus two". </p>
+<p>A new program, called a "compiler", would turn the program written in
+a high level language into an assembly language version and then finally
+run it thru the assembler to produce a machine-readable version of the
+program. This composition of programs is often called a "tool chain",
+in that one program's output is sent directly to another program's
+input.</p>
+<p>The huge advantage of compiled language over assembly language
+programs was porting from one computer model or brand to another. In
+the early days of computing there was an explosion of different types
+of computing hardware from companies like IBM, Digital Equipment
+Corporation, Texas Instruments, UNIVAC, Hewlet Packard and others.
+None of these computers shared much in common besides needing to be
+plugged in. Memory and CPU architectures differed wildly and it often
+took man-years to translate programs from one computer to another.
+With high level languages, it was only necessary to port the compiler
+tool chain to the new platfrom. Once the compiler was available, the
+program could be re-compiled for the new program with little or no
+modification. It was truely revolutionary.</p>
+<p>Life was very good now for programmers. It was much easier to express
+the problems they wanted to solve using high level languages and the
+cost of computer hardware was falling dramatically due to advances in
+semiconductors and the invention of integrated chips. Computers were
+getting faster and more capable in addition to become much less
+expensive. At some point, in the late 80s possibly, there was an
+inversion and programmers became more expensive than the hardware they
+used.</p>
+<p>Over time, a new programming model arose where a special program
+called an "interpreter" would read a program and turn it into computer
+instructions to be executed immediately. The interpreter takes the
+program as input and interprets it into an intermediate form, much
+like a compiler. Unlike a compiler, the interpreter then executes the
+intermediate form of the program. This happens every time an interpreted
+program runs, whereas a compiled program is only compiled one time and
+the computer only has to execute the machine instructions "as written".</p>
+<p>As a sidenote, when people say that "interpreted programs are slow",
+that is the main source of the perceived lack of performance. Modern
+computers are so amazingly capable that most people aren't usually
+able to tell the difference between compiled and interpreted programs.</p>
+<p>One example of a very popular interpreted language is Python. A
+complete python expression of our addition problem would be:</p>
+<p>x = 1 + 2</p>
+<p>While it looks and acts much like the C version, it lacks the variable
+initialization statement. There are other differences which are beyond
+the scope of this article, but you can see that we are able to write a
+computer program that is very close to how a mathematician would write
+it by hand with pencil and paper.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- <a href="pages/guests.html#erikoshaughnessy">Erik</a></p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/interpreters.html">interpreters</a>
+      <a href="https://pybit.es/tag/assembly.html">assembly</a>
+      <a href="https://pybit.es/tag/programming.html">programming</a>
+      <a href="https://pybit.es/tag/c.html">C</a>
+      <a href="https://pybit.es/tag/high-level-languages.html">high level languages</a>
+      <a href="https://pybit.es/tag/math.html">math</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>
