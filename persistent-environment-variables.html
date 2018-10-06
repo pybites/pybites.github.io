@@ -33,7 +33,7 @@
 <meta property="og:title" content="Persistent Virtualenv Environment Variables with python-dotenv"/>
 <meta property="og:description" content="In this article I'm going to show you how to declare persistent environment variables in Python Virtual Environments with python-dotenv."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/drafts/persistent-environment-variables.html"/>
+<meta property="og:url" content="https://pybit.es/persistent-environment-variables.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2018-10-06 18:18:00+02:00"/>
 <meta property="article:modified_time" content=""/>
@@ -242,10 +242,19 @@ The secret id is: julianandsilentbobstrikeback.
 
 
 <p>Okay... I know. Anticlimactic. No! What am I saying?! Super handy and so time saver-y!</p>
+<h2>.env Example File</h2>
+<p>Pro-tip: if you're committing to a public repo, make sure .env files are listed in the .gitignore file. <strong>You don't want your environment variables being pushed to a public repo!</strong></p>
+<p>That said, you'll want to let people know what environment variables to configure for themselves if they're going to clone your repo or use your script.</p>
+<p>The nice way to do this is to create an "empty" .env.example file:</p>
+<div class="highlight"><pre><span></span>#vim .env.example
+CLIENT_ID=&quot;&quot;
+CLIENT_SECRET=&quot;&quot;
+</pre></div>
+
+
 <h2>Conclusion</h2>
-<p>This is one of those notes/tips I'll be taking with me to the grave. With the numerous apps and scripts I've created, managing these env variables has always been a pain point.</p>
-<p>No more! I'll be using <code>python-dotenv</code> to manage everything from now on.</p>
-<p>Oh and pro-tip. If you're committing to a public repo, make sure .env files are listed in the .gitignore file. <strong>You don't want your environment variables being pushed to a public repo!</strong></p>
+<p>This is one of those Python things I'll be taking with me to the grave. With the numerous apps and scripts I've created, managing these env variables has always been a pain.</p>
+<p>But no more I say! I'll be using <code>python-dotenv</code> to manage everything.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Julian</p>

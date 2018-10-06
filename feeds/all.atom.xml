@@ -1,5 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-10-04T10:00:00+02:00</updated><entry><title>You don't need to be a Pro @ Python to crack the code of Pycon</title><link href="https://pybit.es/howto-crack-pycon.html" rel="alternate"></link><published>2018-10-04T10:00:00+02:00</published><updated>2018-10-04T10:00:00+02:00</updated><author><name>Jason Wattier</name></author><id>tag:pybit.es,2018-10-04:/howto-crack-pycon.html</id><summary type="html">&lt;p&gt;I wanted to write this article to distill any preconceived notion that you have to be an "expert" or "non-newbie" in order to get a lot of value from going to PyCon, the largest of the annual Python conferences. Along the way I want to use my personal experience to highlight some tips for success.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I wanted to write this article to distill any preconceived notion that you have to be an "expert" or "non-newbie" in order to get a lot of value from going to PyCon, the largest of the annual Python conferences. Along the way I want to use my personal experience to highlight some tips for success.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-10-06T18:18:00+02:00</updated><entry><title>Persistent Virtualenv Environment Variables with python-dotenv</title><link href="https://pybit.es/persistent-environment-variables.html" rel="alternate"></link><published>2018-10-06T18:18:00+02:00</published><updated>2018-10-06T18:18:00+02:00</updated><author><name>Julian</name></author><id>tag:pybit.es,2018-10-06:/persistent-environment-variables.html</id><summary type="html">&lt;p&gt;In this article I'm going to show you how to declare persistent environment variables in Python Virtual Environments with python-dotenv.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I can't count the amount of times I've followed a tutorial or guide that's said something along the lines of "Store your API Keys in environment variables".&lt;/p&gt;
+&lt;p&gt;It's easy enough to do with &lt;code&gt;os.getenv&lt;/code&gt; but the thing that drives me crazy is having to, 1) hardcode the environment variables as global variables in my OS or 2) redeclare them every time I initiate the terminal session.&lt;/p&gt;
+&lt;p&gt;In this article I'm going to show you (and to document for myself!) how to declare persistent environment variables in Python Virtual Environments with python-dotenv.&lt;/p&gt;
+&lt;h2&gt;Environment Variables in a Virtual Environment&lt;/h2&gt;
+&lt;p&gt;With a UNIX based OS you'd traditionally declare your environment variables by explicitly defining them at the OS level. Take variables &lt;code&gt;CLIENT_ID&lt;/code&gt; and &lt;code&gt;CLIENT_SECRET&lt;/code&gt; as an example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#CLIENT_ID=&amp;quot;01234509876&amp;quot;
+#CLIENT_SECRET=&amp;quot;julianandsilentbobstrikeback&amp;quot;
+#
+#echo $CLIENT_ID
+0123450987
+#
+#echo $CLIENT_SECRET
+julianandsilentbobstrikeback
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To do this within your Python Virtual Environment (venv) you'd do the same declarations as above after you've activated your venv. Doing this means your environment variables are within the virtual environment, not the global OS environment.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Read more on &lt;a href="https://pybit.es/the-beauty-of-virtualenv.html"&gt;Python Virtual Environments here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This is all well and good except that when you deactivate and reactivate the venv, the environment variables are lost and you'll need to redeclare them.&lt;/p&gt;
+&lt;h2&gt;Enter python-dotenv&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;python-dotenv&lt;/code&gt; is a Python module that allows you to specify environment variables in traditional UNIX-like ".env" (dot-env) file within your Python project directory. This includes in venvs!&lt;/p&gt;
+&lt;p&gt;Here's the flow:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Populate the &lt;code&gt;.env&lt;/code&gt; file with your environment variables.&lt;/li&gt;
+&lt;li&gt;Import &lt;code&gt;python-dotenv&lt;/code&gt; and call it at the start of your script.&lt;/li&gt;
+&lt;li&gt;Use whatever "getenv" method you use to import the environment variables, eg: &lt;code&gt;os.getenv()&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;python-dotenv Example&lt;/h2&gt;
+&lt;h3&gt;1. Create your &lt;code&gt;.env&lt;/code&gt; file&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv)#vim .env
+(venv)#cat .env
+CLIENT_ID=&amp;quot;1234509876&amp;quot;
+CLIENT_SECRET=&amp;quot;julianandsilentbobstrikeback&amp;quot;
+(venv)#
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;2. Import and Call python-dotenv&lt;/h3&gt;
+&lt;p&gt;I'm using a file called &lt;code&gt;routes.py&lt;/code&gt; as my primary Python script here:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;venv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;#cat routes.py&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dotenv&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;load_dotenv&lt;/span&gt;
+
+&lt;span class="n"&gt;load_dotenv&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I begin by importing &lt;code&gt;load_dotenv&lt;/code&gt; from the &lt;code&gt;dotenv&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;It's then just as simple as running &lt;code&gt;load_dotenv()&lt;/code&gt; to make the &lt;code&gt;.env&lt;/code&gt; file accessible to your script as your source of environment variables.&lt;/p&gt;
+&lt;h3&gt;3. Access the Environment Variables&lt;/h3&gt;
+&lt;p&gt;I've continued with &lt;code&gt;routes.py&lt;/code&gt; by writing a function that uses &lt;code&gt;os.getenv&lt;/code&gt; to pull and print the environment variables I specified in my &lt;code&gt;.env&lt;/code&gt; file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dotenv&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;load_dotenv&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+
+&lt;span class="n"&gt;load_dotenv&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="n"&gt;client&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;CLIENT_ID&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;CLIENT_SECRET&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;printenvironment&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;The client id is: {client}.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;The secret id is: {secret}.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;printenvironment&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;
+Running this script returns the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#python routes.py 
+The client id is: 1234509876.
+The secret id is: julianandsilentbobstrikeback.
+#
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;PERSISTENCE AT LAST!&lt;/h2&gt;
+&lt;p&gt;The original problem was that when you'd deactivate and reactivate the venv you'd lose the environment variables.&lt;/p&gt;
+&lt;p&gt;Watch the persistence in action!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv)#deactivate
+#
+#
+#source venv/bin/activate
+(venv)#
+(venv)#python routes.py 
+The client id is: 1234509876.
+The secret id is: julianandsilentbobstrikeback.
+#
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Okay... I know. Anticlimactic. No! What am I saying?! Super handy and so time saver-y!&lt;/p&gt;
+&lt;h2&gt;.env Example File&lt;/h2&gt;
+&lt;p&gt;Pro-tip: if you're committing to a public repo, make sure .env files are listed in the .gitignore file. &lt;strong&gt;You don't want your environment variables being pushed to a public repo!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;That said, you'll want to let people know what environment variables to configure for themselves if they're going to clone your repo or use your script.&lt;/p&gt;
+&lt;p&gt;The nice way to do this is to create an "empty" .env.example file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#vim .env.example
+CLIENT_ID=&amp;quot;&amp;quot;
+CLIENT_SECRET=&amp;quot;&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This is one of those Python things I'll be taking with me to the grave. With the numerous apps and scripts I've created, managing these env variables has always been a pain.&lt;/p&gt;
+&lt;p&gt;But no more I say! I'll be using &lt;code&gt;python-dotenv&lt;/code&gt; to manage everything.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Julian&lt;/p&gt;</content><category term="Python"></category><category term="tips"></category><category term="virtualenv"></category><category term="virtual-environment"></category><category term="packages"></category><category term="env"></category><category term="learning"></category><category term="howto"></category></entry><entry><title>You don't need to be a Pro @ Python to crack the code of Pycon</title><link href="https://pybit.es/howto-crack-pycon.html" rel="alternate"></link><published>2018-10-04T10:00:00+02:00</published><updated>2018-10-04T10:00:00+02:00</updated><author><name>Jason Wattier</name></author><id>tag:pybit.es,2018-10-04:/howto-crack-pycon.html</id><summary type="html">&lt;p&gt;I wanted to write this article to distill any preconceived notion that you have to be an "expert" or "non-newbie" in order to get a lot of value from going to PyCon, the largest of the annual Python conferences. Along the way I want to use my personal experience to highlight some tips for success.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I wanted to write this article to distill any preconceived notion that you have to be an "expert" or "non-newbie" in order to get a lot of value from going to PyCon, the largest of the annual Python conferences. Along the way I want to use my personal experience to highlight some tips for success.&lt;/p&gt;
 &lt;h2&gt;My Story&lt;/h2&gt;
 &lt;p&gt;When I attended PyCon this past May, I had only been through about 20 pages of Matt Harrison's book &lt;a href="https://www.amazon.com/dp/B0773PZ6HQ/?tag=pyb0f-20"&gt;Illustrated Guide to Python 3&lt;/a&gt;, three sections of Talk Python's &lt;a href="https://training.talkpython.fm/courses/explore_python_jumpstart/python-language-jumpstart-building-10-apps"&gt;JumpStart course&lt;/a&gt;, probably some &lt;a href="https://www.pluralsight.com/"&gt;PluralSight videos&lt;/a&gt;, and been scared off by the Collections' section of the &lt;a href="https://talkpython.fm/100days?utm_source=pybites"&gt;#100DaysOfCode course on Talk Python&lt;/a&gt;. The phrase "bits and pieces" has never been a more appropriate descriptor.&lt;/p&gt;
 &lt;p&gt;I knew what a function was and about f-strings, but for all intents and purposes had a very basic level of knowledge with Python. I had yet to pip install anything or write my own class. Things like Github and virtual environments were like secret handshakes to a secret society that I knew nothing about.&lt;/p&gt;
