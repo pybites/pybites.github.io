@@ -26,34 +26,36 @@
   <meta name="robots" content="" />
 
 
-<meta name="author" content="Pybites" />
-<meta name="description" content="This is a short post for Julian to get this Pelican blog up and running on his system." />
-<meta name="keywords" content="pelican, publishing, github, pip, virtualenv, git">
+<meta name="author" content="Julian" />
+<meta name="description" content="In this article I'm going to show you how to declare persistent environment variables in Python Virtual Environments with python-dotenv." />
+<meta name="keywords" content="Python, tips, virtualenv, virtual-environment, packages, env, learning, howto">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="How to get PyBites up and running on your machine"/>
-<meta property="og:description" content="This is a short post for Julian to get this Pelican blog up and running on his system."/>
+<meta property="og:title" content="Persistent Virtualenv Environment Variables with python-dotenv"/>
+<meta property="og:description" content="In this article I'm going to show you how to declare persistent environment variables in Python Virtual Environments with python-dotenv."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/install-me.html"/>
+<meta property="og:url" content="https://pybit.es/drafts/persistent-environment-variables.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2016-12-20 10:40:00+01:00"/>
+<meta property="article:published_time" content="2018-10-06 18:18:00+02:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://pybit.es/author/pybites.html">
-<meta property="article:section" content="Tools"/>
-<meta property="article:tag" content="pelican"/>
-<meta property="article:tag" content="publishing"/>
-<meta property="article:tag" content="github"/>
-<meta property="article:tag" content="pip"/>
+<meta property="article:author" content="https://pybit.es/author/julian.html">
+<meta property="article:section" content="packages"/>
+<meta property="article:tag" content="Python"/>
+<meta property="article:tag" content="tips"/>
 <meta property="article:tag" content="virtualenv"/>
-<meta property="article:tag" content="git"/>
+<meta property="article:tag" content="virtual-environment"/>
+<meta property="article:tag" content="packages"/>
+<meta property="article:tag" content="env"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="howto"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="How to get PyBites up and running on your machine" />
-<meta name="twitter:description" content="This is a short post for Julian to get this Pelican blog up and running on his system." />
+<meta name="twitter:title" content="Persistent Virtualenv Environment Variables with python-dotenv" />
+<meta name="twitter:description" content="In this article I'm going to show you how to declare persistent environment variables in Python Virtual Environments with python-dotenv." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
-  <title>PyBites &ndash; How to get PyBites up and running on your machine</title>
+  <title>PyBites &ndash; Persistent Virtualenv Environment Variables with python-dotenv</title>
 
 
 </head>
@@ -135,51 +137,118 @@
 
 <article class="single">
   <header>
-    <h1 id="install-me">How to get PyBites up and running on your machine</h1>
+    <h1 id="persistent-environment-variables">Persistent Virtualenv Environment Variables with python-dotenv</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">Pybites</a> on Tue 20 December 2016 in <a href="https://pybit.es/category/tools.html">Tools</a>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Sat 06 October 2018 in <a href="https://pybit.es/category/packages.html">packages</a>
 
 
-        &#8226; 1 min read
+        &#8226; 3 min read
     </p>
   </header>
 
 
   <div>
-    <p>This is also a useful ref for future collaborators ...</p>
-<p>We're open source right? ;)</p>
-<h2>Pybites install guide</h2>
-<div class="highlight"><pre><span></span># we have a src, output and theme (Flex) repo, use --recursive to get all
-$ git clone --recursive https://github.com/pybites/pybites.github.io-src pybites
-$ cd pybites
-
-# set up env and install dependencies
-$ virtualenv venv (might need: virtualenv -p python3 venv)
-$ source venv/bin/activate
-$ pip install -r requirements.txt
-
-# add some content
-$ cd content
-$ vi new-blog-post.md ; wq!
-
-# check changes on localhost
-$ cd ..
-$ make html &amp;&amp; make serve
-
-# push this new content to the parent -src repo
-$ git add . 
-$ git commit -m &quot;my new blog post&quot;
-$ git push
-
-# push the static blog change to the child -io repo
-# wait: this is a duplicate step, I don&#39;t like duplication!
-# ...
+    <p>I can't count the amount of times I've followed a tutorial or guide that's said something along the lines of "Store your API Keys in environment variables".</p>
+<p>It's easy enough to do with <code>os.getenv</code> but the thing that drives me crazy is having to, 1) hardcode the environment variables as global variables in my OS or 2) redeclare them every time I initiate the terminal session.</p>
+<p>In this article I'm going to show you (and to document for myself!) how to declare persistent environment variables in Python Virtual Environments with python-dotenv.</p>
+<h2>Environment Variables in a Virtual Environment</h2>
+<p>With a UNIX based OS you'd traditionally declare your environment variables by explicitly defining them at the OS level. Take variables <code>CLIENT_ID</code> and <code>CLIENT_SECRET</code> as an example:</p>
+<div class="highlight"><pre><span></span>#CLIENT_ID=&quot;01234509876&quot;
+#CLIENT_SECRET=&quot;julianandsilentbobstrikeback&quot;
+#
+#echo $CLIENT_ID
+0123450987
+#
+#echo $CLIENT_SECRET
+julianandsilentbobstrikeback
 </pre></div>
 
 
-<p>As we have 2 repos: -src for code, -io for generated static content, ideally we want to automate the publishing to -io, so we can just focus on the main repo (-src). </p>
-<p>Here is where <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">git hooks</a> come into play. cd into .git/hooks and add below script, name it "pre-push", update your WORKING_DIR and chmod 755 it ...</p>
-<p>UPDATE: we abondonded this hook, because it led to some conflicts / unnecessary work, not worth automating this step. We push manually to -src / -io these days. </p>
+<p>To do this within your Python Virtual Environment (venv) you'd do the same declarations as above after you've activated your venv. Doing this means your environment variables are within the virtual environment, not the global OS environment.</p>
+<blockquote>
+<p>Read more on <a href="https://pybit.es/the-beauty-of-virtualenv.html">Python Virtual Environments here</a>.</p>
+</blockquote>
+<p>This is all well and good except that when you deactivate and reactivate the venv, the environment variables are lost and you'll need to redeclare them.</p>
+<h2>Enter python-dotenv</h2>
+<p><code>python-dotenv</code> is a Python module that allows you to specify environment variables in traditional UNIX-like ".env" (dot-env) file within your Python project directory. This includes in venvs!</p>
+<p>Here's the flow:</p>
+<ol>
+<li>Populate the <code>.env</code> file with your environment variables.</li>
+<li>Import <code>python-dotenv</code> and call it at the start of your script.</li>
+<li>Use whatever "getenv" method you use to import the environment variables, eg: <code>os.getenv()</code>.</li>
+</ol>
+<h2>python-dotenv Example</h2>
+<h3>1. Create your <code>.env</code> file</h3>
+<div class="highlight"><pre><span></span>(venv)#vim .env
+(venv)#cat .env
+CLIENT_ID=&quot;1234509876&quot;
+CLIENT_SECRET=&quot;julianandsilentbobstrikeback&quot;
+(venv)#
+</pre></div>
+
+
+<h3>2. Import and Call python-dotenv</h3>
+<p>I'm using a file called <code>routes.py</code> as my primary Python script here:</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="c1">#cat routes.py</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+
+
+<p>I begin by importing <code>load_dotenv</code> from the <code>dotenv</code>.</p>
+<p>It's then just as simple as running <code>load_dotenv()</code> to make the <code>.env</code> file accessible to your script as your source of environment variables.</p>
+<h3>3. Access the Environment Variables</h3>
+<p>I've continued with <code>routes.py</code> by writing a function that uses <code>os.getenv</code> to pull and print the environment variables I specified in my <code>.env</code> file:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CLIENT_ID&quot;</span><span class="p">)</span>
+<span class="n">secret</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CLIENT_SECRET&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">printenvironment</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;The client id is: {client}.&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;The secret id is: {secret}.&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">printenvironment</span><span class="p">()</span>
+</pre></div>
+
+
+<p><br>
+Running this script returns the following:</p>
+<div class="highlight"><pre><span></span>#python routes.py 
+The client id is: 1234509876.
+The secret id is: julianandsilentbobstrikeback.
+#
+</pre></div>
+
+
+<h2>PERSISTENCE AT LAST!</h2>
+<p>The original problem was that when you'd deactivate and reactivate the venv you'd lose the environment variables.</p>
+<p>Watch the persistence in action!</p>
+<div class="highlight"><pre><span></span>(venv)#deactivate
+#
+#
+#source venv/bin/activate
+(venv)#
+(venv)#python routes.py 
+The client id is: 1234509876.
+The secret id is: julianandsilentbobstrikeback.
+#
+</pre></div>
+
+
+<p>Okay... I know. Anticlimactic. No! What am I saying?! Super handy and so time saver-y!</p>
+<h2>Conclusion</h2>
+<p>This is one of those notes/tips I'll be taking with me to the grave. With the numerous apps and scripts I've created, managing these env variables has always been a pain point.</p>
+<p>No more! I'll be using <code>python-dotenv</code> to manage everything from now on.</p>
+<p>Oh and pro-tip. If you're committing to a public repo, make sure .env files are listed in the .gitignore file. <strong>You don't want your environment variables being pushed to a public repo!</strong></p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
   </div>
 
   <hr>
@@ -187,12 +256,14 @@ $ git push
 
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/pelican.html">pelican</a>
-      <a href="https://pybit.es/tag/publishing.html">publishing</a>
-      <a href="https://pybit.es/tag/github.html">github</a>
-      <a href="https://pybit.es/tag/pip.html">pip</a>
+      <a href="https://pybit.es/tag/python.html">Python</a>
+      <a href="https://pybit.es/tag/tips.html">tips</a>
       <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>
-      <a href="https://pybit.es/tag/git.html">git</a>
+      <a href="https://pybit.es/tag/virtual-environment.html">virtual-environment</a>
+      <a href="https://pybit.es/tag/packages.html">packages</a>
+      <a href="https://pybit.es/tag/env.html">env</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/howto.html">howto</a>
     </p>
   </div>
 
