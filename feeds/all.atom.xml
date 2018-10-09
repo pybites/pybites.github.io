@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-10-09T09:45:00+02:00</updated><entry><title>A Short Primer on Assembers, Compilers and Interpreters</title><link href="https://pybit.es/python-interpreters.html" rel="alternate"></link><published>2018-10-09T09:45:00+02:00</published><updated>2018-10-09T09:45:00+02:00</updated><author><name>Erik Oshaughnessy</name></author><id>tag:pybit.es,2018-10-09:/python-interpreters.html</id><summary type="html">&lt;p&gt;A gentle introduction to the historical evolution of programming practices.&lt;/p&gt;</summary><content type="html">&lt;p&gt;A gentle introduction to the historical evolution of programming practices.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-10-09T12:40:00+02:00</updated><entry><title>Code Challenge 53 - Query the Spotify API - Review</title><link href="https://pybit.es/codechallenge53_review.html" rel="alternate"></link><published>2018-10-09T12:40:00+02:00</published><updated>2018-10-09T12:40:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-10-09:/codechallenge53_review.html</id><summary type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge53.html"&gt;Query the Spotify API&lt;/a&gt; code challenge.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge53.html"&gt;Query the Spotify API&lt;/a&gt; code challenge. &lt;/p&gt;
+&lt;h2&gt;Reminder: new structure review post / Hacktoberfest is back!&lt;/h2&gt;
+&lt;p&gt;From now on we will merge our solution into our Community branch and include anything noteworthy here, because:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;we are learning just like you, we are all equals :)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;we &lt;em&gt;need&lt;/em&gt; the PRs too ;) ... as part of &lt;a href="https://hacktoberfest.digitalocean.com"&gt;Hacktoberfest No. 5&lt;/a&gt; that just kicked of (5 PRs and you get a cool t-shirt)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Don't be shy, share your work!&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Community Pull Requests&lt;/h2&gt;
+&lt;p&gt;20+ PRs this week, wow!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git pull origin community
+...
+&lt;span class="m"&gt;104&lt;/span&gt; files changed, &lt;span class="m"&gt;242507&lt;/span&gt; insertions&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Check out the &lt;a href="https://github.com/pybites/challenges/tree/community/53"&gt;awesome PRs by our community for PCC53&lt;/a&gt; (or from fork: &lt;code&gt;git checkout community &amp;amp;&amp;amp; git merge upstream/community&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;Some learnings for PCC53:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Spotify Web apis are not so straight forward. It takes a bit of time to understand the type of Authorization approach to call the APIs. I've started with Spotipy module and did a test run. Once all good, I've walked through the Spotipy code in github and coded my own Wrapper classes.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The Spotify API was more complex than I realised. Had to wrap my head around their authentication which was tough.  Parsing the returned super nested dict was also a bit of a challenge. Once I figured that out though it was a matter of presenting it. I wrapped it all in Flask so that was fun!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Always nice to keep practicing Flask and Web APIs. Funny to see that out of Git's 200 additions, 152 lines are html/css and the Python took no more than 30 lines, awesome when you can just plug these robust libraries in!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Read Code for Fun and Profit&lt;/h2&gt;
+&lt;p&gt;You can look at all submitted code &lt;a href="https://github.com/pybites/challenges/pulls?q=is%3Apr+is%3Aclosed"&gt;here&lt;/a&gt; and/or &lt;a href="https://github.com/pybites/challenges/tree/community"&gt;on our Community branch&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Other learnings we spotted in Pull Requests for other challenges this week: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;(PCC01) I learned a shortcut using .read().splitlines() instead of .readlines() and requiring me to .split() afterwords.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC02) Learned about itertools.permutations.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC03) I got introduced to difflib.SequenceMatcher and itertools.product. Which are both very nice and I learned about a method of the Counter object called most_common which I didn't know about yet.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC19) Interacted with any Google API for the first time. Learned about doing an HTTP POST. Learning about clean code. Explored .gitignore&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC22) Learned a lot on web scraping, selenium and email notifications.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC28) New package 'bokeh'!. So easy to plot the data!. Python ecosystem for visualization is awesome. It's a good challenge to get hands own on Flask and Bokeh.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC42) Find consecutive equal words, how to handle greedy regex&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC44) This was a good challenge to go back to the basics of Data analysis (cleaning, parsing and manipulate).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We are happy to include more detailed learning, just send us a &lt;em&gt;quotable blurb&lt;/em&gt; for this post when preparing your PR &lt;a href="https://codechalleng.es/challenges/"&gt;on our platform&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Thanks to everyone for your participation in our blog code challenges! &lt;/p&gt;
+&lt;p&gt;Keep the PRs coming, again this month it counts for &lt;strong&gt;&lt;a href="https://hacktoberfest.digitalocean.com"&gt;Hacktoberfest&lt;/a&gt;&lt;/strong&gt;!&lt;/p&gt;
+&lt;h2&gt;Need more Python Practice?&lt;/h2&gt;
+&lt;p&gt;Subscribe to our blog (sidebar) to get a new PyBites Code Challenge (PCC) in your inbox every start of the week.&lt;/p&gt;
+&lt;p&gt;And/or take any of our 50+ challenges &lt;a href="https://codechalleng.es/challenges/"&gt;on our platform&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Prefer coding self contained exercises in the comfort of your browser? Try our growing collection of &lt;a href="https://codechalleng.es/bites/"&gt;Bites of Py&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Want to do the &lt;a href="https://twitter.com/hashtag/100DaysOfCode?src=hash&amp;amp;lang=en"&gt;#100DaysOfCode&lt;/a&gt; but not sure what to work on? Take &lt;a href="https://talkpython.fm/100days?utm_source=pybites"&gt;our course&lt;/a&gt; and/or start logging your progress &lt;a href="https://codechalleng.es/100days/"&gt;on our platform&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob and Julian&lt;/p&gt;</content><category term="Spotify"></category><category term="music"></category><category term="API"></category><category term="Bokeh"></category><category term="Flask"></category><category term="readlines"></category><category term="itertools"></category><category term="Google"></category><category term="difflib"></category><category term="visualization"></category><category term="data analysis"></category><category term="regex"></category><category term="Counter"></category><category term="web scraping"></category><category term="Selenium"></category><category term="email"></category></entry><entry><title>A Short Primer on Assembers, Compilers and Interpreters</title><link href="https://pybit.es/python-interpreters.html" rel="alternate"></link><published>2018-10-09T09:45:00+02:00</published><updated>2018-10-09T09:45:00+02:00</updated><author><name>Erik O'Shaughnessy</name></author><id>tag:pybit.es,2018-10-09:/python-interpreters.html</id><summary type="html">&lt;p&gt;A gentle introduction to the historical evolution of programming practices.&lt;/p&gt;</summary><content type="html">&lt;p&gt;A gentle introduction to the historical evolution of programming practices.&lt;/p&gt;
 &lt;h2&gt;Beginnings&lt;/h2&gt;
 &lt;p&gt;In the early days of computing, hardware was expensive and programmers
 were cheap. In fact, programmers were so cheap they weren't even
