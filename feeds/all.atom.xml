@@ -10,12 +10,11 @@
 &lt;p&gt;So here is the deal: PyBites is expanding its &lt;em&gt;&lt;a href="https://codechalleng.es/100days"&gt;100 Days tracker ("grid") feature&lt;/a&gt;&lt;/em&gt;: we want folks to add their own curriculums or &lt;em&gt;learning paths&lt;/em&gt;.&lt;/p&gt;
 &lt;h3&gt;Only one requirement: return a valid JSON response&lt;/h3&gt;
 &lt;p&gt;You can make this as simple or sophisticated as you want, the only thing we request is a standard response JSON template so we can easily parse it on the platform:&lt;/p&gt;
-&lt;p&gt;Built with &lt;a href="http://www.objgen.com"&gt;ObjGen&lt;/a&gt; -&amp;gt; &lt;a href="http://www.objgen.com/json/models/q2S4Q"&gt;http://www.objgen.com/json/models/q2S4Q&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Built with &lt;a href="http://www.objgen.com"&gt;ObjGen&lt;/a&gt; -&amp;gt; [http://www.objgen.com/json/models/q2S4Q]
+(http://www.objgen.com/json/models/q2S4Q)&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    {
     &amp;quot;title&amp;quot;: &amp;quot;title of your 100 days&amp;quot;,
     &amp;quot;version&amp;quot;: 0.1,
-    &amp;quot;startDate&amp;quot;: &amp;quot;2018-10-14T00:00:00.000Z&amp;quot;,
-    &amp;quot;goals&amp;quot;: &amp;quot;what do you want to achieve?&amp;quot;,
     &amp;quot;github_repo&amp;quot;: &amp;quot;https://github.com/pybites/100DaysOfCode&amp;quot;,
     &amp;quot;tasks&amp;quot;: [
         {
@@ -45,6 +44,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;&lt;strong&gt;Update 17/10/2018:&lt;/strong&gt; we took startDate and goals out because these are not relevant for the learning path, more for the cosumers of it. &lt;code&gt;github_repo&lt;/code&gt; is optional.&lt;/p&gt;
 &lt;h3&gt;An example&lt;/h3&gt;
 &lt;p&gt;Here is what we plan to do, maybe it serves as an idea how you could code this challenge up:&lt;/p&gt;
 &lt;ul&gt;
@@ -55,6 +55,7 @@
 &lt;li&gt;I calculate the daily number of pages to read every day and define page ranges for each of the 100 days&lt;/li&gt;
 &lt;li&gt;I convert this to the required JSON output above&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;If you like this idea, we opened an API endpoint to more easily pull in book info based on (Google) book ID, for example: &lt;a href="http://pbreadinglist.herokuapp.com/api/books/bRpYDgAAQBAJ"&gt;http://pbreadinglist.herokuapp.com/api/books/bRpYDgAAQBAJ&lt;/a&gt;. Just replace the bookid in this endpoint.&lt;/p&gt;
 &lt;h3&gt;More ideas&lt;/h3&gt;
 &lt;p&gt;Of course it does not have to be centered around books, it can be any other way you like to plan your #100DaysOfCode. As long as you return the required JSON. &lt;/p&gt;
 &lt;p&gt;Other ideas that come to mind: &lt;/p&gt;
@@ -951,7 +952,7 @@ while(currentHour &amp;lt; bedtimeHour) {
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Source: &lt;a href="https://gist.githubusercontent.com/iam-peekay/cd695c6278536dd7180342bb97c937f3/raw/93629889af603b40a1125b488227dd356864a89e/myLife.js"&gt;myLife.js&lt;/a&gt;. I bought an &lt;a href="http://bobbelderbos.com/public/bob_whoami.png"&gt;ABC t-shirt&lt;/a&gt; to remind myself of this as well (OK also because I like &lt;a href="https://www.youtube.com/watch?v=v9XW6P0tiVc"&gt;Baldwin's sales speech&lt;/a&gt; in Glengarry Glen Ross lol ... Always Be Closing = Always Be Coding!). Wether the &lt;a href="https://en.wikipedia.org/wiki/Outliers_(book)"&gt;10,000-Hour Rule&lt;/a&gt; is true or not, with practice comes skill, and generally the more (challenged) practice the more skills.&lt;/p&gt;
+&lt;p&gt;Source: &lt;a href="https://gist.githubusercontent.com/iam-peekay/cd695c6278536dd7180342bb97c937f3/raw/93629889af603b40a1125b488227dd356864a89e/myLife.js"&gt;myLife.js&lt;/a&gt;. I bought an &lt;a href="http://bobbelderbos.com/public/bob_whoami.png"&gt;ABC t-shirt&lt;/a&gt; to remind myself of this as well (OK also because I like &lt;a href="https://www.youtube.com/watch?v=v9XW6P0tiVc"&gt;Baldwin's sales speech&lt;/a&gt; in Glengarry Glen Ross lol ... Always Be Closing = Always Be Coding!). Whether the &lt;a href="https://en.wikipedia.org/wiki/Outliers_(book)"&gt;10,000-Hour Rule&lt;/a&gt; is true or not, with practice comes skill, and generally the more (challenged) practice the more skills.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Related: build side projects. For example I was learning &lt;a href="http://bobbelderbos.com/2016/06/python-tips/"&gt;some new Python tricks and idioms&lt;/a&gt; the other day, but it was not until using it that this stuff really sunk in. I needed nested defaultdicts, * unpacking to a named tuple, and I went to StackOverflow a few times more. Books are a good foundation, but skills come from getting your hands dirty. It's then that exceptions happen and need creativity to solve emerging problems. Yesterday &lt;a href="http://bobbelderbos.com/2016/06/twitter-bot/"&gt;I wrote a Twitter bot&lt;/a&gt;. I had done this before, yet I still learned new things: using the requests and logging modules, writing my own exceptions, hiding credentials in a github repo, to name a few. Deploying a solution to a remote server (different environment) causes challenges too. So practice, practice, practice! Aim everyday to improve yourself's yesterday version.&lt;/p&gt;
@@ -32060,6 +32061,21 @@ Furthermore, working with the external data.py file also added a little complexi
 &lt;/ul&gt;
 &lt;p&gt;The max builtin calculates the max of an iterator, very convenient here. The cool thing is that it takes a key optional argument (like the sorted() builtin) which you can give a function to 'max on'. &lt;/p&gt;
 &lt;p&gt;In this case I don't want to max on for example len of word, but on the word value, so we re-use calc_word_value() here. For more details on this I recommend reading &lt;a href="https://dbader.org/blog/python-min-max-and-nested-lists"&gt;this great article&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Update 16th of Oct 2018:&lt;/strong&gt; this code got outdated, we later &lt;a href="https://github.com/pybites/challenges/blob/solutions/01/wordvalue.py"&gt;updated the solution&lt;/a&gt; to not use the lambda (thanks for the reminder comment =º.º=) because it is redundant here:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def max_word_value(words=None):
+    if words is None:
+            words = load_words()
+        return max(words, key=calc_word_value)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And even shorter is using this one-liner:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def max_word_value(words=None):
+    return max(words or load_words(), key=calc_word_value)
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;h2&gt;PyBites digest of comments on Monday's challenge post&lt;/h2&gt;
 &lt;p&gt;Thanks for &lt;a href="http://pybit.es/codechallenge01.html#disqus_thread"&gt;your comments&lt;/a&gt;. We are really stoked to learn about all these different approaches. Also you cannot read enough other developers' code, it's a great way to learn fast!&lt;/p&gt;
 &lt;ul&gt;

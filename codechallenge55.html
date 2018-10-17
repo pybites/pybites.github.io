@@ -159,12 +159,11 @@
 <p>So here is the deal: PyBites is expanding its <em><a href="https://codechalleng.es/100days">100 Days tracker ("grid") feature</a></em>: we want folks to add their own curriculums or <em>learning paths</em>.</p>
 <h3>Only one requirement: return a valid JSON response</h3>
 <p>You can make this as simple or sophisticated as you want, the only thing we request is a standard response JSON template so we can easily parse it on the platform:</p>
-<p>Built with <a href="http://www.objgen.com">ObjGen</a> -&gt; <a href="http://www.objgen.com/json/models/q2S4Q">http://www.objgen.com/json/models/q2S4Q</a></p>
+<p>Built with <a href="http://www.objgen.com">ObjGen</a> -&gt; [http://www.objgen.com/json/models/q2S4Q]
+(http://www.objgen.com/json/models/q2S4Q)</p>
 <div class="highlight"><pre><span></span>    {
     &quot;title&quot;: &quot;title of your 100 days&quot;,
     &quot;version&quot;: 0.1,
-    &quot;startDate&quot;: &quot;2018-10-14T00:00:00.000Z&quot;,
-    &quot;goals&quot;: &quot;what do you want to achieve?&quot;,
     &quot;github_repo&quot;: &quot;https://github.com/pybites/100DaysOfCode&quot;,
     &quot;tasks&quot;: [
         {
@@ -194,6 +193,7 @@
 </pre></div>
 
 
+<p><strong>Update 17/10/2018:</strong> we took startDate and goals out because these are not relevant for the learning path, more for the cosumers of it. <code>github_repo</code> is optional.</p>
 <h3>An example</h3>
 <p>Here is what we plan to do, maybe it serves as an idea how you could code this challenge up:</p>
 <ul>
@@ -204,6 +204,7 @@
 <li>I calculate the daily number of pages to read every day and define page ranges for each of the 100 days</li>
 <li>I convert this to the required JSON output above</li>
 </ul>
+<p>If you like this idea, we opened an API endpoint to more easily pull in book info based on (Google) book ID, for example: <a href="http://pbreadinglist.herokuapp.com/api/books/bRpYDgAAQBAJ">http://pbreadinglist.herokuapp.com/api/books/bRpYDgAAQBAJ</a>. Just replace the bookid in this endpoint.</p>
 <h3>More ideas</h3>
 <p>Of course it does not have to be centered around books, it can be any other way you like to plan your #100DaysOfCode. As long as you return the required JSON. </p>
 <p>Other ideas that come to mind: </p>
