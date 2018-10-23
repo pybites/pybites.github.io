@@ -1,5 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-10-18T13:10:00+02:00</updated><entry><title>Data Analysis of Pybites Community Branch Activity</title><link href="https://pybit.es/guest-challenge-repo-data-analysis.html" rel="alternate"></link><published>2018-10-18T13:10:00+02:00</published><updated>2018-10-18T13:10:00+02:00</updated><author><name>Martin Uribe</name></author><id>tag:pybit.es,2018-10-18:/guest-challenge-repo-data-analysis.html</id><summary type="html">&lt;p&gt;I wanted to play around with a dataset and see what I could find out about it. I decided on analyzing the little bit of data that I could collect from Github without having to use an OAuth key, which limits it to just 300 events. If you want to follow along with my notebook check out the instructions &lt;a href="https://github.com/pybites/challenges/tree/community/47/clamytoe"&gt;here&lt;/a&gt;. This notebook was my submission for &lt;a href="https://codechalleng.es/challenges/47/"&gt;Code Challenge 47 - PyBites First Year in Data (Special)&lt;/a&gt;.&lt;/p&gt;</summary><content type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-10-23T11:15:00+02:00</updated><entry><title>Code Challenge 56 - Calculate the Duration of a Directory of Audio Files</title><link href="https://pybit.es/codechallenge56.html" rel="alternate"></link><published>2018-10-23T11:15:00+02:00</published><updated>2018-10-23T11:15:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-10-23:/codechallenge56.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, Welcome to Pybites Code Challenge 56! In this challenge we're asking you to work with directory, files and audio meta data!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+&lt;p&gt;There is an immense amount to be learned simply by tinkering with things. - Henry Ford&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hey Pythonistas,&lt;/p&gt;
+&lt;p&gt;It's time for another code challenge! This week we're asking you to work with directory, files and audio meta data!&lt;/p&gt;
+&lt;h2&gt;The Challenge&lt;/h2&gt;
+&lt;p&gt;Write a script that receives a directory name and retrieves all mp3 (or mp4 or m4a) files. It then sums up the durations of each file and prints them in a nice table with a total duration.&lt;/p&gt;
+&lt;p&gt;This could look like the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    $ module_duration.py ~/Music/iTunes/iTunes\ Media/Music/Manu\ Chao/Manu\ Chao\ -\ Esperanza/
+    Manu Chao - Bixo.m4a                    : 112
+    Manu Chao - Denia.m4a                   : 279
+    Manu Chao - El Dorrado 1997.m4a         : 89
+    Manu Chao - Homens.m4a                  : 198
+    Manu Chao - Infinita Tristeza.m4a       : 236
+    Manu Chao - La Chinita.m4a              : 93
+    Manu Chao - La Marea.m4a                : 136
+    Manu Chao - La Primavera.m4a            : 112
+    Manu Chao - La Vacaloca.m4a             : 143
+    Manu Chao - Le Rendez Vous.m4a          : 116
+    Manu Chao - Me Gustas Tu.m4a            : 240
+    Manu Chao - Merry Blues.m4a             : 216
+    Manu Chao - Mi Vida.m4a                 : 152
+    Manu Chao - Mr Bobby.m4a                : 229
+    Manu Chao - Papito.m4a                  : 171
+    Manu Chao - Promiscuity.m4a             : 96
+    Manu Chao - Trapped by Love.m4a         : 114
+    --------------------------------------------------
+    Total                                   : 0:45:32
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;What will you learn?&lt;/h3&gt;
+&lt;p&gt;Why do we think this is cool? There are a couple of subtasks here:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;You learn how to do a common sysadmin task of listing files in a directory (check out the &lt;code&gt;os&lt;/code&gt;, &lt;code&gt;glob&lt;/code&gt; and &lt;code&gt;pathlib&lt;/code&gt; modules).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You learn how to convert and calculate mm:ss (minutes/seconds) timings, which will hone your &lt;code&gt;datetime&lt;/code&gt; skills.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;As far as we know Python cannot extract audio meta data natively (yet), so you probably want to try a tool like &lt;a href="https://www.ffmpeg.org"&gt;FFmpeg&lt;/a&gt; which is cool because then you need to know how to call an external command with Python and parse its output. You probably want to check out &lt;code&gt;subprocess&lt;/code&gt; for this:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;code&gt;subprocess&lt;/code&gt; module allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes. - &lt;a href="https://docs.python.org/3/library/subprocess.html"&gt;docs&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Good luck and have fun!&lt;/p&gt;
+&lt;h2&gt;PyBites Community&lt;/h2&gt;
+&lt;p&gt;A few more things before we take off:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Do you want to discuss this challenge and share your Pythonic journey with other passionate Pythonistas? Confirm your email on our platform then request access to our Slack via &lt;a href="https://codechalleng.es/settings/"&gt;settings&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PyBites is here to challenge you because becoming a better Pythonista requires practice, a lot of it. For any feedback, issues or ideas use &lt;a href="https://github.com/pybites/challenges/issues"&gt;GH Issues&lt;/a&gt;, &lt;a href="https://twitter.com/pybites"&gt;tweet us&lt;/a&gt; or ping us on our Slack.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="code challenge"></category><category term="challenges"></category><category term="audio"></category><category term="music"></category><category term="FFmpeg"></category><category term="subprocess"></category><category term="glob"></category><category term="os.path"></category><category term="pathlib"></category><category term="datetime"></category></entry><entry><title>Code Challenge 55 - #100DaysOfCode Curriculum Generator - Review</title><link href="https://pybit.es/codechallenge55_review.html" rel="alternate"></link><published>2018-10-23T11:10:00+02:00</published><updated>2018-10-23T11:10:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-10-23:/codechallenge55_review.html</id><summary type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge55.html"&gt;#100DaysOfCode Curriculum Generator&lt;/a&gt; code challenge.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article we review last week's &lt;a href="http://pybit.es/codechallenge55.html"&gt;#100DaysOfCode Curriculum Generator&lt;/a&gt; code challenge. &lt;/p&gt;
+&lt;h2&gt;Final reminder: Hacktoberfest&lt;/h2&gt;
+&lt;p&gt;8 days left to have your PRs to our challenges repo count towards &lt;a href="https://hacktoberfest.digitalocean.com"&gt;Hacktoberfest No. 5&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Community Pull Requests&lt;/h2&gt;
+&lt;p&gt;Another 10+ PRs this week, cool!&lt;/p&gt;
+&lt;p&gt;Check out the &lt;a href="https://github.com/pybites/challenges/tree/community/55"&gt;awesome PRs by our community for PCC55&lt;/a&gt; (or from fork: &lt;code&gt;git checkout community &amp;amp;&amp;amp; git merge upstream/community&lt;/code&gt;):&lt;/p&gt;
+&lt;h3&gt;Featured&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://github.com/pybites/challenges/tree/community/55/vipinreyo"&gt;vipinreyo&lt;/a&gt; wrote a script that requests and parses &lt;a href="https://codechalleng.es"&gt;our platform&lt;/a&gt; and collects meta data from our challenges and bites. From that list it will randomly create a task list for 100 days and return it as a JSON string.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/pybites/challenges/tree/community/55/danshorstein"&gt;danshorstein&lt;/a&gt; built &lt;em&gt;100 Days of Awesome Python&lt;/em&gt;. Using the &lt;a href="https://raw.githubusercontent.com/vinta/awesome-python/master/README.md"&gt;Awesome Python repo&lt;/a&gt; it creates a curriculum of 100 days of python awesomeness. Each day you get a new library to explore. It started as a random selection, but he then wrote a second version to sort the libraries on the lowest number of stars so the libraries selected are lesser known.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/pybites/challenges/tree/community/55/bbelderbos"&gt;bbelderbos&lt;/a&gt; made a &lt;em&gt;#100DaysOfCode Reading Planner&lt;/em&gt;, a script that takes one or more book IDs from &lt;a href="http://pbreadinglist.herokuapp.com/"&gt;our reading list app&lt;/a&gt; which allowed him to put his curriculum to test starting his long desired &lt;a href="https://codechalleng.es/100days/bbelderbos/1596"&gt;#100DaysOfData&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;PCC55 Lessons&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I had fun with list comprehensions and JSON&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Requests and Beautifulsoup are awesome.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The json part was easy, the complex part was how to evenly split 4 or 5 books over 100 days: some days you finish a book, but still have pages left (from "avg pages per day") you need to spend on the new book, going with generators / itertools.islice made this easier to accomplish, which was a great learning exercise.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Read Code for Fun and Profit&lt;/h2&gt;
+&lt;p&gt;You can look at all submitted code &lt;a href="https://github.com/pybites/challenges/pulls?q=is%3Apr+is%3Aclosed"&gt;here&lt;/a&gt; and/or &lt;a href="https://github.com/pybites/challenges/tree/community"&gt;on our Community branch&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Other learnings we spotted in Pull Requests for other challenges this week: &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;(PCC02) I had more practice with generators and itertools, learning how to use them effectively.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC04) &lt;code&gt;yield&lt;/code&gt;  and Tweepy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC14) More knowledge about decorators&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;(PCC42) I improved my regular expression skills, learning about &lt;em&gt;capturing groups&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;Thanks to everyone for your participation in our blog code challenges! &lt;a href="https://codechalleng.es/challenges/"&gt;Keep the PRs coming&lt;/a&gt; and &lt;strong&gt;include a README.md with one or more screenshots if you want to be featured in this weekly review post&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2&gt;Become a Python Ninja&lt;/h2&gt;
+&lt;p&gt;Master Python through Code Challenges:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Subscribe to our blog (sidebar) to get a new PyBites Code Challenge (PCC) in your inbox every week.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Take any of our 50+ challenges &lt;a href="https://codechalleng.es/challenges/"&gt;on our platform&lt;/a&gt;. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Prefer coding bite-sized Python exercises in the comfort of your browser? Try our growing collection of &lt;em&gt;&lt;a href="https://codechalleng.es/bites/"&gt;Bites of Py&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Want to do the &lt;a href="https://twitter.com/hashtag/100DaysOfCode?src=hash&amp;amp;lang=en"&gt;#100DaysOfCode&lt;/a&gt; but not sure what to work on? Take &lt;a href="https://talkpython.fm/100days?utm_source=pybites"&gt;our course&lt;/a&gt; and/or start logging your 100 Days progress using our &lt;em&gt;Progress Grid Feature&lt;/em&gt; &lt;a href="https://codechalleng.es/100days/"&gt;on our platform&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob and Julian&lt;/p&gt;</content><category term="code challenge"></category><category term="challenges"></category><category term="100DaysOfCode"></category><category term="json"></category><category term="books"></category><category term="learning"></category><category term="data science"></category></entry><entry><title>PyBites Twitter Digest - Issue 33, 2018</title><link href="https://pybit.es/twitter_digest_201833.html" rel="alternate"></link><published>2018-10-21T11:12:00+02:00</published><updated>2018-10-21T11:12:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-10-21:/twitter_digest_201833.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Python Bytes celebrate their 100th Podcast Episode! Congrats to Mike and Brian!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Just two short years in the making, &lt;a href="https://twitter.com/@brianokken" target="_blank"&gt;@brianokken&lt;/a&gt; and &lt;a href="https://twitter.com/@mkennedy" target="_blank"&gt;@mkennedy&lt;/a&gt; are thrilled to present &lt;a href="https://twitter.com/@pythonbytes" target="_blank"&gt;@pythonbytes&lt;/a&gt; episode 100!… &lt;a href="https://t.co/B2g2R291t7" title="https://t.co/B2g2R291t7" target="_blank"&gt;https://t.co/B2g2R291t7&lt;/a&gt;&lt;/p&gt;— Python Bytes Podcast (@pythonbytes) &lt;a href="https://twitter.com/pythonbytes/status/1053309680078991360" data-datetime="2018-10-19T15:39:31+00:00"&gt;October 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Automation Panda (Andy Knight!) at it again with an article on Python Colloquialisms&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Automation Panda - Speaking 'Pythonese' (colloquialisms for quick reference) 🤔👍🏼 &lt;a href="https://t.co/AvOhDT5BeV" title="https://t.co/AvOhDT5BeV" target="_blank"&gt;https://t.co/AvOhDT5BeV&lt;/a&gt;&lt;/p&gt;— Environment &amp;amp; Tech🎃🎃 (@enviro_dev) &lt;a href="https://twitter.com/enviro_dev/status/1051884748186906624" data-datetime="2018-10-15T17:17:21+00:00"&gt;October 15, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;A quick guide to squashing git commits&lt;/h3&gt;
+&lt;p&gt;Submitted by @clamytoe.&lt;/p&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@ThePracticalDev:" target="_blank"&gt;@ThePracticalDev:&lt;/a&gt; Method &lt;a href="https://twitter.com/search/#1:" target="_blank"&gt;#1:&lt;/a&gt; one commit to rule the master branch Method &lt;a href="https://twitter.com/search/#2:" target="_blank"&gt;#2:&lt;/a&gt; not that much! Method &lt;a href="https://twitter.com/search/#3:" target="_blank"&gt;#3:&lt;/a&gt; getting picky { author: &lt;a href="https://twitter.com/@hivickyl…" target="_blank"&gt;@hivickyl…&lt;/a&gt;&lt;/p&gt;— Martin Uribe (@clamytoe) &lt;a href="https://twitter.com/clamytoe/status/1053606769115742208" data-datetime="2018-10-20T11:20:03+00:00"&gt;October 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;sudo pip install is bad! (Just use Virtual Environments!)&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Stop using sudo pip install &lt;a href="https://t.co/q3UJrZWzYb" title="https://t.co/q3UJrZWzYb" target="_blank"&gt;https://t.co/q3UJrZWzYb&lt;/a&gt; by &lt;a href="https://twitter.com/@eLabFTW" target="_blank"&gt;@eLabFTW&lt;/a&gt;&lt;/p&gt;— Python LibHunt (@PythonLibHunt) &lt;a href="https://twitter.com/PythonLibHunt/status/1052742980350562305" data-datetime="2018-10-18T02:07:40+00:00"&gt;October 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;PyBites Data Analysis by Martin! Loved reading through this!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;"Pretty amazing that Pybites Blog Challenges had over 300 distinct github interactions in such a short time!" Chec… &lt;a href="https://t.co/hjgkmFVMrx" title="https://t.co/hjgkmFVMrx" target="_blank"&gt;https://t.co/hjgkmFVMrx&lt;/a&gt;&lt;/p&gt;— Pybites (@pybites) &lt;a href="https://twitter.com/pybites/status/1053412232489562112" data-datetime="2018-10-19T22:27:02+00:00"&gt;October 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Pretty cool data viz of where the Python Developers Survey respondents are&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@ewa_jodlowska:" target="_blank"&gt;@ewa_jodlowska:&lt;/a&gt; This is where we are with the Python Developers Survey: 7,455 responses from 139 countries! Let's keep the responses com…&lt;/p&gt;— Jason Wattier (@jmwatt3) &lt;a href="https://twitter.com/jmwatt3/status/1052970712435167233" data-datetime="2018-10-18T17:12:35+00:00"&gt;October 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Congratulations to the latest PSF Fellow Members (Q3 2018)!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@ThePSF:" target="_blank"&gt;@ThePSF:&lt;/a&gt; Python Software Foundation Fellow Members for Q3 2018 &lt;a href="https://t.co/7VlXNM5ezG" title="https://t.co/7VlXNM5ezG" target="_blank"&gt;https://t.co/7VlXNM5ezG&lt;/a&gt;&lt;/p&gt;— Naomi Ceder (@NaomiCeder) &lt;a href="https://twitter.com/NaomiCeder/status/1050230777609416706" data-datetime="2018-10-11T03:45:04+00:00"&gt;October 11, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;I'm pretty sure we've all seen this in action...&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;"There is nothing more unproductive than to build something efficiently that should not have been built at all." - Milt Bryce&lt;/p&gt;— Programming Wisdom (@CodeWisdom) &lt;a href="https://twitter.com/CodeWisdom/status/1053263748880887808" data-datetime="2018-10-19T12:37:01+00:00"&gt;October 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Dan Bader is taking over PyCodersWeekly!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;I've got some news to share—I'm the new owner and curator-in-chief at &lt;a href="https://twitter.com/@pycoders," target="_blank"&gt;@pycoders,&lt;/a&gt; and I'm super excited about it 😊 C… &lt;a href="https://t.co/EaFeya4Ynx" title="https://t.co/EaFeya4Ynx" target="_blank"&gt;https://t.co/EaFeya4Ynx&lt;/a&gt;&lt;/p&gt;— Dan Bader (@dbader_org) &lt;a href="https://twitter.com/dbader_org/status/1052289195614429184" data-datetime="2018-10-16T20:04:29+00:00"&gt;October 16, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Properties such as \p{Alphabetic} can be easier to read than [A-Za-z]. Works better with internationalization as well.&lt;/p&gt;— Regular Expression (@RegexTip) &lt;a href="https://twitter.com/RegexTip/status/1052575399916523521" data-datetime="2018-10-17T15:01:45+00:00"&gt;October 17, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;A site to share your .(dot)config files! How awesome is this!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;&lt;a href="https://t.co/9hy1c4tNFx" title="https://t.co/9hy1c4tNFx" target="_blank"&gt;https://t.co/9hy1c4tNFx&lt;/a&gt; # This site allows people to share their dot config files. For instance, they have a collec… &lt;a href="https://t.co/pob7uo9lZl" title="https://t.co/pob7uo9lZl" target="_blank"&gt;https://t.co/pob7uo9lZl&lt;/a&gt;&lt;/p&gt;— Command Line Magic (@climagic) &lt;a href="https://twitter.com/climagic/status/1053276105552076801" data-datetime="2018-10-19T13:26:07+00:00"&gt;October 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Flashback!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Do you remember this ? How does that make you feel ? &lt;a href="https://t.co/7AfjVBMxxs" title="https://t.co/7AfjVBMxxs" target="_blank"&gt;https://t.co/7AfjVBMxxs&lt;/a&gt;&lt;/p&gt;— Project Jupyter (@ProjectJupyter) &lt;a href="https://twitter.com/ProjectJupyter/status/1053489951428423680" data-datetime="2018-10-20T03:35:51+00:00"&gt;October 20, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Ten Simple Rules for Reproducible Research in Jupyter Notebook preprint&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@peterwrose:" target="_blank"&gt;@peterwrose:&lt;/a&gt; Ten Simple Rules for Reproducible Research in Jupyter Notebook preprint now available: &lt;a href="https://t.co/4KZmtvPQkm" title="https://t.co/4KZmtvPQkm" target="_blank"&gt;https://t.co/4KZmtvPQkm&lt;/a&gt; and example…&lt;/p&gt;— matt harrison (@__mharrison__) &lt;a href="https://twitter.com/__mharrison__/status/1053334832481214465" data-datetime="2018-10-19T17:19:28+00:00"&gt;October 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;User Authentication in Flask with Okta&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@siddhantgoel:" target="_blank"&gt;@siddhantgoel:&lt;/a&gt; How to Add User Authentication to Flask Apps with Okta /via &lt;a href="https://twitter.com/@fullstackpython" target="_blank"&gt;@fullstackpython&lt;/a&gt; &lt;a href="https://t.co/m2cAoBIECi" title="https://t.co/m2cAoBIECi" target="_blank"&gt;https://t.co/m2cAoBIECi&lt;/a&gt; &lt;a href="https://twitter.com/search/#python" target="_blank"&gt;#python&lt;/a&gt; &lt;a href="https://twitter.com/search/#flask" target="_blank"&gt;#flask&lt;/a&gt; &lt;a href="https://twitter.com/search/#aut…" target="_blank"&gt;#aut…&lt;/a&gt;&lt;/p&gt;— Full Stack Python (@fullstackpython) &lt;a href="https://twitter.com/fullstackpython/status/1053304044758810624" data-datetime="2018-10-19T15:17:08+00:00"&gt;October 19, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Build Graph Nets in Tensorflow&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;graph_nets - Build Graph Nets in Tensorflow &lt;a href="https://t.co/dN0AD91EPc" title="https://t.co/dN0AD91EPc" target="_blank"&gt;https://t.co/dN0AD91EPc&lt;/a&gt;&lt;/p&gt;— Python Trending (@pythontrending) &lt;a href="https://twitter.com/pythontrending/status/1052988331825516545" data-datetime="2018-10-18T18:22:36+00:00"&gt;October 18, 2018&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="twitter"></category><category term="news"></category><category term="pybites"></category><category term="podcast"></category><category term="testing"></category><category term="git"></category><category term="data visualisation"></category><category term="PSF"></category><category term="regex"></category><category term="CLI"></category><category term="Jupyter"></category><category term="Okta"></category><category term="Flask"></category><category term="Tensorflow"></category><category term="graph nets"></category></entry><entry><title>Data Analysis of Pybites Community Branch Activity</title><link href="https://pybit.es/guest-challenge-repo-data-analysis.html" rel="alternate"></link><published>2018-10-18T13:10:00+02:00</published><updated>2018-10-18T13:10:00+02:00</updated><author><name>Martin Uribe</name></author><id>tag:pybit.es,2018-10-18:/guest-challenge-repo-data-analysis.html</id><summary type="html">&lt;p&gt;I wanted to play around with a dataset and see what I could find out about it. I decided on analyzing the little bit of data that I could collect from Github without having to use an OAuth key, which limits it to just 300 events. If you want to follow along with my notebook check out the instructions &lt;a href="https://github.com/pybites/challenges/tree/community/47/clamytoe"&gt;here&lt;/a&gt;. This notebook was my submission for &lt;a href="https://codechalleng.es/challenges/47/"&gt;Code Challenge 47 - PyBites First Year in Data (Special)&lt;/a&gt;.&lt;/p&gt;</summary><content type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
