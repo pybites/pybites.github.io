@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="In this post I share a quick script I produced last week to automate a portion of our review post. There are some nice idioms that you might find useful." />
+<meta name="keywords" content="collections, defaultdict, re, regular expressions, requests, challenges, review post, parsing, string manipulation, github, API">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Automating PyBites Review Post Using Github API and collections.defaultdict"/>
+<meta property="og:description" content="In this post I share a quick script I produced last week to automate a portion of our review post. There are some nice idioms that you might find useful."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/github-api-collections-defaultdict.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-11-13 10:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Data"/>
+<meta property="article:tag" content="collections"/>
+<meta property="article:tag" content="defaultdict"/>
+<meta property="article:tag" content="re"/>
+<meta property="article:tag" content="regular expressions"/>
+<meta property="article:tag" content="requests"/>
+<meta property="article:tag" content="challenges"/>
+<meta property="article:tag" content="review post"/>
+<meta property="article:tag" content="parsing"/>
+<meta property="article:tag" content="string manipulation"/>
+<meta property="article:tag" content="github"/>
+<meta property="article:tag" content="API"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Automating PyBites Review Post Using Github API and collections.defaultdict" />
+<meta name="twitter:description" content="In this post I share a quick script I produced last week to automate a portion of our review post. There are some nice idioms that you might find useful." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Automating PyBites Review Post Using Github API and collections.defaultdict</title>
+
+
+</head>
+<body>
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="github-api-collections-defaultdict">Automating PyBites Review Post Using Github API and collections.defaultdict</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 13 November 2018 in <a href="https://pybit.es/category/data.html">Data</a>
+
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this post I share a quick script I produced last week to automate a portion of our review post. I used the Github API and the <code>collections.defaultdict</code>.</p>
+<p>The goal of this script and post is to show you how to convert <a href="https://github.com/pybites/challenges/pulls">open PRs</a> of <a href="https://github.com/pybites/challenges">our challenges repo</a> into markdown for <a href="https://pybit.es/pages/challenges.html">our weekly review post</a>.</p>
+<h2>Setting the stage</h2>
+<p>First I am importing the libraries to use and some constants:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">GH_API_PULLS_ENDPOINT</span> <span class="o">=</span> <span class="s1">&#39;https://api.github.com/repos/pybites/challenges/pulls&#39;</span>
+<span class="n">PR_LINK</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/pybites/challenges/pull/{id}&quot;</span>
+<span class="n">CHALLENGE_LINK</span> <span class="o">=</span> <span class="s2">&quot;http://codechalleng.es/challenges/{id}&quot;</span>
+<span class="n">EXTRACT_TEMPLATE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.*learn\?\):\s+\[(.*?)\]Other.*&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We will use the <code>EXTRACT_TEMPLATE</code> regex in a bit. I had to escape the <code>?</code>, <code>)</code>, <code>[</code> and <code>]</code>, because they have special meaning in regex land. Here I want to match the literal ones which are part of the PR template.</p>
+<h2>Parsing the review template</h2>
+<p>Each PR has a fixed template we use to have developers document their learning and provide us feedback. Here is my last submission for example:</p>
+<div class="highlight"><pre><span></span>Difficulty level (1-10): [3]
+Estimated time spent (hours): [1]
+Completed (yes/no): [No]
+I stretched my coding skills (if yes what did you learn?): [Nice one to get back into Pandas, blabla ...]
+Other feedback (what can we improve?): []
+</pre></div>
+
+
+<p>I defined a helper to parse the learning part ("what did you  learn") from this template. As it might span multiple lines, I cannot just index a list, hence I used the <code>EXTRACT_TEMPLATE</code> regex to parse the full string.</p>
+<p>The nice thing about <code>re.compile</code> is that you can define your regex once (here in a <em>constant</em>) and call regex methods like <code>sub</code> on it. The <code>\1</code> is the user's learning part I am interested in, which I captured using parenthesis in the regular expression.</p>
+<p>Before anything else I make sure we're dealing with a single-line string by taking the <code>\r\n</code>s out (you can probably also use <code>re.M</code> = multi-line matching, but that does not always work for me):</p>
+<div class="highlight"><pre><span></span>def get_learning(template):
+    &quot;&quot;&quot;Helper to extract learning from PR template&quot;&quot;&quot;
+    learning = &#39;&#39;.join(template.split(&#39;\r\n&#39;))
+    return EXTRACT_TEMPLATE.sub(r&#39;\1&#39;, learning).strip()
+</pre></div>
+
+
+<p>By the way, I am not sure why I got a Windows-like <code>\r</code> but it does give me the opportunity to highlight two things here:</p>
+<ol>
+<li>
+<p>The first iteration of this script I did in a Jupyter notebook which is a great tool to play around with Python and document your progress!</p>
+</li>
+<li>
+<p>Another great way to inspect a data structure when you are writing a script like this, is to pop a quick <code>import pdb;pdb.set_trace()</code> into your code (since Python 3.7 <a href="https://hackernoon.com/python-3-7s-new-builtin-breakpoint-a-quick-tour-4f1aebc444c">we can actually use <code>breakpoint()</code></a>).</p>
+</li>
+</ol>
+<h2>Github API and collections.defaultdict</h2>
+<p>To pull the open PRs from Github I don't need an API key. Secondly notice the nice way you can <em>chain</em> operations in Python and the fact <code>requests</code> has a convenient <code>json</code> method. This is as expressive as it can get no?</p>
+<div class="highlight"><pre><span></span>open_pulls = requests.get(GH_API_PULLS_ENDPOINT).json()
+</pre></div>
+
+
+<p>This is part of the <code>get_open_prs</code> function in which I loop through the pull requests and add each (PR number, learning) <code>tuple</code> into a <code>defaultdict</code> which I return. The nice thing about <code>defaultdict</code> is that it prevents having to write code to look for a key before inserting a value into the dictionary:</p>
+<div class="highlight"><pre><span></span>def get_open_prs():
+    &quot;&quot;&quot;Parse GH API pulls JSON into a dict of keys = code challenge ids
+    and values = lists of (pr_number, learning) tuples&quot;&quot;&quot;
+    open_pulls = requests.get(GH_API_PULLS_ENDPOINT).json()
+    prs = defaultdict(list)
+
+    for pull in open_pulls:
+        pr_number = pull[&#39;number&#39;]
+
+        pcc = pull[&#39;head&#39;][&#39;ref&#39;].upper()
+        learning = get_learning(pull[&#39;body&#39;])
+        if learning:
+            prs[pcc].append((pr_number, learning))
+
+    return prs
+</pre></div>
+
+
+<p>I used a dictionary here to sort the code challenge ids (or "PCCs") as we'll see next.</p>
+<h2>Print markdown compatible with our review post</h2>
+<p>Lastly I print the resulting <code>prs</code> dictionary sorting on key to show all PRs per challenge in ascending order (I needed the <code>&lt;!-- --&gt;</code> to visually separate blockquotes well):</p>
+<div class="highlight"><pre><span></span>def print_review_markdown(prs):
+    &quot;&quot;&quot;Return markdown for review post, e.g.
+    https://pybit.es/codechallenge57_review.html -&gt;
+    Read Code for Fun and Profit&quot;&quot;&quot;
+    for pcc, prs in sorted(prs.items()):
+        challenge_link = CHALLENGE_LINK.format(id=pcc.strip(&#39;PCC&#39;))
+        print(f&#39;\n#### [{pcc}]({challenge_link})&#39;)
+
+        for i, (pr_number, learning) in enumerate(prs):
+            if i &gt; 0:
+                print(&#39;\n&lt;!-- --&gt;&#39;)
+            pr_link = PR_LINK.format(id=pr_number)
+            print(f&#39;\n&gt; {learning} - [PR]({pr_link})&#39;)
+</pre></div>
+
+
+<p>And I have my <code>main</code> block to call the two functions:</p>
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
+    prs = get_open_prs()
+    print_review_markdown(prs)
+</pre></div>
+
+
+<h2>Running the script</h2>
+<p>You can check out the complete script in <a href="https://github.com/pybites/blog_code/blob/master/pybites_review/prs.py">our blog code repo</a>. Here is when I run it (output changes depending on the current open challenge PRs):</p>
+<div class="highlight"><pre><span></span>$  python prs.py
+
+<span class="c1">#### [PCC01](http://codechalleng.es/challenges/01)</span>
+
+&gt; Before this exercise I never came across dictionary comprehensions. A bit confusing at first! - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/428<span class="o">)</span>
+
+&lt;!-- --&gt;
+
+&gt; testing - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/427<span class="o">)</span>
+
+<span class="c1">#### [PCC03](http://codechalleng.es/challenges/03)</span>
+
+&gt; - Learned about SequenceMatcher. Great thing.- Started to think about how tests actually work, since I did get the results from the website but could not manage to pass the tests <span class="m">8</span><span class="o">()</span>- Heard about nltk <span class="o">(</span>looks interesting<span class="o">)</span>. - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/423<span class="o">)</span>
+
+<span class="c1">#### [PCC16](http://codechalleng.es/challenges/16)</span>
+
+&gt; I learn how to make request to remote database <span class="o">(</span>in this project used RIPE DB<span class="o">)</span> and how to parse JSON output from DB - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/426<span class="o">)</span>
+</pre></div>
+
+
+<hr>
+<p>We love automated scripts because the time saved each week easily compounds. It's also a nice way to hone your Python skills so I encourage you to always find opportunities to write these kind of utilities.</p>
+<p>Feel free to share use cases in the comments below or on our Slack which you can join via <a href="https://codechalleng.es">our platform</a>.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/collections.html">collections</a>
+      <a href="https://pybit.es/tag/defaultdict.html">defaultdict</a>
+      <a href="https://pybit.es/tag/re.html">re</a>
+      <a href="https://pybit.es/tag/regular-expressions.html">regular expressions</a>
+      <a href="https://pybit.es/tag/requests.html">requests</a>
+      <a href="https://pybit.es/tag/challenges.html">challenges</a>
+      <a href="https://pybit.es/tag/review-post.html">review post</a>
+      <a href="https://pybit.es/tag/parsing.html">parsing</a>
+      <a href="https://pybit.es/tag/string-manipulation.html">string manipulation</a>
+      <a href="https://pybit.es/tag/github.html">github</a>
+      <a href="https://pybit.es/tag/api.html">API</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

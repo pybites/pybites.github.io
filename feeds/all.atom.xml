@@ -1,5 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-11-09T09:40:00+01:00</updated><entry><title>Code Challenge 58 - Analyze Podcast Transcripts with NLTK - Part I</title><link href="https://pybit.es/codechallenge58.html" rel="alternate"></link><published>2018-11-09T09:40:00+01:00</published><updated>2018-11-09T09:40:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-11-09:/codechallenge58.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, Welcome to Pybites Code Challenge 58! In this two part challenge we're going to do some natural language processing on podcast transcript data. Prepare to have fun expanding your data science skills!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-11-13T10:00:00+01:00</updated><entry><title>Automating PyBites Review Post Using Github API and collections.defaultdict</title><link href="https://pybit.es/github-api-collections-defaultdict.html" rel="alternate"></link><published>2018-11-13T10:00:00+01:00</published><updated>2018-11-13T10:00:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-11-13:/github-api-collections-defaultdict.html</id><summary type="html">&lt;p&gt;In this post I share a quick script I produced last week to automate a portion of our review post. There are some nice idioms that you might find useful.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post I share a quick script I produced last week to automate a portion of our review post. I used the Github API and the &lt;code&gt;collections.defaultdict&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The goal of this script and post is to show you how to convert &lt;a href="https://github.com/pybites/challenges/pulls"&gt;open PRs&lt;/a&gt; of &lt;a href="https://github.com/pybites/challenges"&gt;our challenges repo&lt;/a&gt; into markdown for &lt;a href="https://pybit.es/pages/challenges.html"&gt;our weekly review post&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Setting the stage&lt;/h2&gt;
+&lt;p&gt;First I am importing the libraries to use and some constants:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;collections&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;defaultdict&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+
+&lt;span class="n"&gt;GH_API_PULLS_ENDPOINT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://api.github.com/repos/pybites/challenges/pulls&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;PR_LINK&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://github.com/pybites/challenges/pull/{id}&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;CHALLENGE_LINK&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;http://codechalleng.es/challenges/{id}&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;EXTRACT_TEMPLATE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;compile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.*learn\?\):\s+\[(.*?)\]Other.*&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We will use the &lt;code&gt;EXTRACT_TEMPLATE&lt;/code&gt; regex in a bit. I had to escape the &lt;code&gt;?&lt;/code&gt;, &lt;code&gt;)&lt;/code&gt;, &lt;code&gt;[&lt;/code&gt; and &lt;code&gt;]&lt;/code&gt;, because they have special meaning in regex land. Here I want to match the literal ones which are part of the PR template.&lt;/p&gt;
+&lt;h2&gt;Parsing the review template&lt;/h2&gt;
+&lt;p&gt;Each PR has a fixed template we use to have developers document their learning and provide us feedback. Here is my last submission for example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Difficulty level (1-10): [3]
+Estimated time spent (hours): [1]
+Completed (yes/no): [No]
+I stretched my coding skills (if yes what did you learn?): [Nice one to get back into Pandas, blabla ...]
+Other feedback (what can we improve?): []
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I defined a helper to parse the learning part ("what did you  learn") from this template. As it might span multiple lines, I cannot just index a list, hence I used the &lt;code&gt;EXTRACT_TEMPLATE&lt;/code&gt; regex to parse the full string.&lt;/p&gt;
+&lt;p&gt;The nice thing about &lt;code&gt;re.compile&lt;/code&gt; is that you can define your regex once (here in a &lt;em&gt;constant&lt;/em&gt;) and call regex methods like &lt;code&gt;sub&lt;/code&gt; on it. The &lt;code&gt;\1&lt;/code&gt; is the user's learning part I am interested in, which I captured using parenthesis in the regular expression.&lt;/p&gt;
+&lt;p&gt;Before anything else I make sure we're dealing with a single-line string by taking the &lt;code&gt;\r\n&lt;/code&gt;s out (you can probably also use &lt;code&gt;re.M&lt;/code&gt; = multi-line matching, but that does not always work for me):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_learning(template):
+    &amp;quot;&amp;quot;&amp;quot;Helper to extract learning from PR template&amp;quot;&amp;quot;&amp;quot;
+    learning = &amp;#39;&amp;#39;.join(template.split(&amp;#39;\r\n&amp;#39;))
+    return EXTRACT_TEMPLATE.sub(r&amp;#39;\1&amp;#39;, learning).strip()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;By the way, I am not sure why I got a Windows-like &lt;code&gt;\r&lt;/code&gt; but it does give me the opportunity to highlight two things here:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;The first iteration of this script I did in a Jupyter notebook which is a great tool to play around with Python and document your progress!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Another great way to inspect a data structure when you are writing a script like this, is to pop a quick &lt;code&gt;import pdb;pdb.set_trace()&lt;/code&gt; into your code (since Python 3.7 &lt;a href="https://hackernoon.com/python-3-7s-new-builtin-breakpoint-a-quick-tour-4f1aebc444c"&gt;we can actually use &lt;code&gt;breakpoint()&lt;/code&gt;&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Github API and collections.defaultdict&lt;/h2&gt;
+&lt;p&gt;To pull the open PRs from Github I don't need an API key. Secondly notice the nice way you can &lt;em&gt;chain&lt;/em&gt; operations in Python and the fact &lt;code&gt;requests&lt;/code&gt; has a convenient &lt;code&gt;json&lt;/code&gt; method. This is as expressive as it can get no?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;open_pulls = requests.get(GH_API_PULLS_ENDPOINT).json()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is part of the &lt;code&gt;get_open_prs&lt;/code&gt; function in which I loop through the pull requests and add each (PR number, learning) &lt;code&gt;tuple&lt;/code&gt; into a &lt;code&gt;defaultdict&lt;/code&gt; which I return. The nice thing about &lt;code&gt;defaultdict&lt;/code&gt; is that it prevents having to write code to look for a key before inserting a value into the dictionary:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def get_open_prs():
+    &amp;quot;&amp;quot;&amp;quot;Parse GH API pulls JSON into a dict of keys = code challenge ids
+    and values = lists of (pr_number, learning) tuples&amp;quot;&amp;quot;&amp;quot;
+    open_pulls = requests.get(GH_API_PULLS_ENDPOINT).json()
+    prs = defaultdict(list)
+
+    for pull in open_pulls:
+        pr_number = pull[&amp;#39;number&amp;#39;]
+
+        pcc = pull[&amp;#39;head&amp;#39;][&amp;#39;ref&amp;#39;].upper()
+        learning = get_learning(pull[&amp;#39;body&amp;#39;])
+        if learning:
+            prs[pcc].append((pr_number, learning))
+
+    return prs
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I used a dictionary here to sort the code challenge ids (or "PCCs") as we'll see next.&lt;/p&gt;
+&lt;h2&gt;Print markdown compatible with our review post&lt;/h2&gt;
+&lt;p&gt;Lastly I print the resulting &lt;code&gt;prs&lt;/code&gt; dictionary sorting on key to show all PRs per challenge in ascending order (I needed the &lt;code&gt;&amp;lt;!-- --&amp;gt;&lt;/code&gt; to visually separate blockquotes well):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def print_review_markdown(prs):
+    &amp;quot;&amp;quot;&amp;quot;Return markdown for review post, e.g.
+    https://pybit.es/codechallenge57_review.html -&amp;gt;
+    Read Code for Fun and Profit&amp;quot;&amp;quot;&amp;quot;
+    for pcc, prs in sorted(prs.items()):
+        challenge_link = CHALLENGE_LINK.format(id=pcc.strip(&amp;#39;PCC&amp;#39;))
+        print(f&amp;#39;\n#### [{pcc}]({challenge_link})&amp;#39;)
+
+        for i, (pr_number, learning) in enumerate(prs):
+            if i &amp;gt; 0:
+                print(&amp;#39;\n&amp;lt;!-- --&amp;gt;&amp;#39;)
+            pr_link = PR_LINK.format(id=pr_number)
+            print(f&amp;#39;\n&amp;gt; {learning} - [PR]({pr_link})&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And I have my &lt;code&gt;main&lt;/code&gt; block to call the two functions:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;if __name__ == &amp;#39;__main__&amp;#39;:
+    prs = get_open_prs()
+    print_review_markdown(prs)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Running the script&lt;/h2&gt;
+&lt;p&gt;You can check out the complete script in &lt;a href="https://github.com/pybites/blog_code/blob/master/pybites_review/prs.py"&gt;our blog code repo&lt;/a&gt;. Here is when I run it (output changes depending on the current open challenge PRs):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$  python prs.py
+
+&lt;span class="c1"&gt;#### [PCC01](http://codechalleng.es/challenges/01)&lt;/span&gt;
+
+&amp;gt; Before this exercise I never came across dictionary comprehensions. A bit confusing at first! - &lt;span class="o"&gt;[&lt;/span&gt;PR&lt;span class="o"&gt;](&lt;/span&gt;https://github.com/pybites/challenges/pull/428&lt;span class="o"&gt;)&lt;/span&gt;
+
+&amp;lt;!-- --&amp;gt;
+
+&amp;gt; testing - &lt;span class="o"&gt;[&lt;/span&gt;PR&lt;span class="o"&gt;](&lt;/span&gt;https://github.com/pybites/challenges/pull/427&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;#### [PCC03](http://codechalleng.es/challenges/03)&lt;/span&gt;
+
+&amp;gt; - Learned about SequenceMatcher. Great thing.- Started to think about how tests actually work, since I did get the results from the website but could not manage to pass the tests &lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;- Heard about nltk &lt;span class="o"&gt;(&lt;/span&gt;looks interesting&lt;span class="o"&gt;)&lt;/span&gt;. - &lt;span class="o"&gt;[&lt;/span&gt;PR&lt;span class="o"&gt;](&lt;/span&gt;https://github.com/pybites/challenges/pull/423&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;#### [PCC16](http://codechalleng.es/challenges/16)&lt;/span&gt;
+
+&amp;gt; I learn how to make request to remote database &lt;span class="o"&gt;(&lt;/span&gt;in this project used RIPE DB&lt;span class="o"&gt;)&lt;/span&gt; and how to parse JSON output from DB - &lt;span class="o"&gt;[&lt;/span&gt;PR&lt;span class="o"&gt;](&lt;/span&gt;https://github.com/pybites/challenges/pull/426&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;p&gt;We love automated scripts because the time saved each week easily compounds. It's also a nice way to hone your Python skills so I encourage you to always find opportunities to write these kind of utilities.&lt;/p&gt;
+&lt;p&gt;Feel free to share use cases in the comments below or on our Slack which you can join via &lt;a href="https://codechalleng.es"&gt;our platform&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="collections"></category><category term="defaultdict"></category><category term="re"></category><category term="regular expressions"></category><category term="requests"></category><category term="challenges"></category><category term="review post"></category><category term="parsing"></category><category term="string manipulation"></category><category term="github"></category><category term="API"></category></entry><entry><title>Code Challenge 58 - Analyze Podcast Transcripts with NLTK - Part I</title><link href="https://pybit.es/codechallenge58.html" rel="alternate"></link><published>2018-11-09T09:40:00+01:00</published><updated>2018-11-09T09:40:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-11-09:/codechallenge58.html</id><summary type="html">&lt;p&gt;Hi Pythonistas, Welcome to Pybites Code Challenge 58! In this two part challenge we're going to do some natural language processing on podcast transcript data. Prepare to have fun expanding your data science skills!&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;There is an immense amount to be learned simply by tinkering with things. - Henry Ford&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Hey Pythonistas,&lt;/p&gt;
