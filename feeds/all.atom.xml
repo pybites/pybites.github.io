@@ -1,5 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-11-13T10:00:00+01:00</updated><entry><title>Automating PyBites Review Post Using Github API and collections.defaultdict</title><link href="https://pybit.es/github-api-collections-defaultdict.html" rel="alternate"></link><published>2018-11-13T10:00:00+01:00</published><updated>2018-11-13T10:00:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-11-13:/github-api-collections-defaultdict.html</id><summary type="html">&lt;p&gt;In this post I share a quick script I produced last week to automate a portion of our review post. There are some nice idioms that you might find useful.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post I share a quick script I produced last week to automate a portion of our review post. I used the Github API and the &lt;code&gt;collections.defaultdict&lt;/code&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-11-16T12:30:00+01:00</updated><entry><title>How to Test Your Django App with Selenium and pytest</title><link href="https://pybit.es/selenium-pytest-and-django.html" rel="alternate"></link><published>2018-11-16T12:30:00+01:00</published><updated>2018-11-16T12:30:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-11-16:/selenium-pytest-and-django.html</id><summary type="html">&lt;p&gt;In this article I will show you how to test a Django app with pytest and Selenium. We will test our &lt;a href="https://codechalleng.es"&gt;CodeChalleng.es platform&lt;/a&gt; comparing the logged out homepage with the logged in dashboard. We are going to see how to connect to a real database, login to a webpage with Selenium, navigate the DOM seeing if elements shown on the page match up with what's in the DB. We even see some dateutil to come up with the expected values for our new coding streak calendar headers. Overall you should learn enough Selenium and pytest to start testing your Django app end-to-end. Sounds exciting? Let's dive straight in!&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I will show you how to test a Django app with pytest and Selenium. We will test our &lt;a href="https://codechalleng.es"&gt;CodeChalleng.es platform&lt;/a&gt; comparing the logged out homepage with the logged in dashboard. We are going to see how to connect to a real database, login to a webpage with Selenium, navigate the DOM seeing if elements shown on the page match up with what's in the DB. We even see some dateutil to come up with the expected values for our new coding streak calendar headers. Overall you should learn enough Selenium and pytest to start testing your Django app end-to-end. Sounds exciting? Let's dive straight in!&lt;/p&gt;
+&lt;h2&gt;Dependencies and environment variables&lt;/h2&gt;
+&lt;p&gt;First we want to make sure we have proper support for &lt;code&gt;pytest&lt;/code&gt; in Django, hence after &lt;a href="https://pybit.es/the-beauty-of-virtualenv.html"&gt;setting up my virtual environment&lt;/a&gt;, I installed &lt;a href="https://docs.pytest.org/en/latest/"&gt;&lt;code&gt;pytest&lt;/code&gt;&lt;/a&gt;, &lt;a href="https://pytest-django.readthedocs.io/en/latest/"&gt;&lt;code&gt;pytest-django&lt;/code&gt;&lt;/a&gt; and &lt;a href="https://selenium-python.readthedocs.io/"&gt;&lt;code&gt;selenium&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ more requirements_dev.txt
+pytest
+pytest-django
+selenium
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I am using Selenium to test with the real UI and database, so I set up some environment variables in my &lt;code&gt;venv/bin/activate&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export DB_HOST=0.0.0.0
+export DB_PORT=5432
+export DB_NAME=
+export DB_USER=
+export DB_PASSWORD=
+export HOMEPAGE=&amp;quot;localhost:8000&amp;quot;  # swappable wit uat environment
+export FREE_USER=Github user
+export FREE_USER_PASSWORD=
+export PREMIUM_USER=another Github user
+export PREMIUM_USER_PASSWORD=
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I also &lt;code&gt;unset&lt;/code&gt; these in the &lt;code&gt;deactivate&lt;/code&gt; function of &lt;code&gt;venv/bin/activate&lt;/code&gt; so they don't linger around when I leave the virtual env, a trick I learned when writing &lt;a href="https://realpython.com/building-a-simple-web-app-with-bottle-sqlalchemy-twitter-api/"&gt;Building a Simple Web App With Bottle, SQLAlchemy, and the Twitter API&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;...
+...
+deactivate () {
+    ...
+    ...
+    unset DB_HOST
+    unset DB_PORT
+    unset DB_NAME
+    unset DB_USER
+    unset DB_PASSWORD
+    unset HOMEPAGE
+    unset FREE_USER
+    unset FREE_USER_PASSWORD
+    unset PREMIUM_USER
+    unset PREMIUM_USER_PASSWORD
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To illustrate this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[bobbelderbos@imac codechalleng.es (master)]$ env|grep HOMEPAGE
+[bobbelderbos@imac codechalleng.es (master)]$ source venv/bin/activate
+(venv) [bobbelderbos@imac codechalleng.es (master)]$ env|grep HOMEPAGE
+HOMEPAGE=localhost:8000
+(venv) [bobbelderbos@imac codechalleng.es (master)]$ deactivate
+[bobbelderbos@imac codechalleng.es (master)]$ env|grep HOMEPAGE
+[bobbelderbos@imac codechalleng.es (master)]$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;pytest setup&lt;/h2&gt;
+&lt;p&gt;Next let's create a &lt;code&gt;pytest.ini&lt;/code&gt; file to set the &lt;code&gt;DJANGO_SETTINGS_MODULE&lt;/code&gt; environment variable to point to Django's configuration file, by default &lt;code&gt;settings.py&lt;/code&gt; inside the main app:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cat pytest.ini
+&lt;span class="o"&gt;[&lt;/span&gt;pytest&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;DJANGO_SETTINGS_MODULE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; mysite.core.settings
+&lt;span class="c1"&gt;# -- recommended but optional:&lt;/span&gt;
+&lt;span class="nv"&gt;python_files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; tests.py test_*.py *_tests.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Testing using a DB / conftest.py&lt;/h2&gt;
+&lt;p&gt;Then we need to connect to the app's database. It took me a bit of trial and error how to use a real database because &lt;code&gt;pytest-django&lt;/code&gt; takes a &lt;em&gt;conservative approach&lt;/em&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pytest-django takes a conservative approach to enabling database access. By default your tests will fail if they try to access the database. Only if you explicitly request database access will this be allowed. This encourages you to keep database-needing tests to a minimum which is a best practice since next-to-no business logic should be requiring the database. Moreover it makes it very clear what code uses the database and catches any mistakes. &lt;a href="https://pytest-django.readthedocs.io/en/latest/database.html"&gt;docs&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The use of a real DB here is experimental. I could probably work around it by inferring the number of objects from the pages rather than the DB. I am leaving this in here though, because I think it's good to know how to have &lt;code&gt;pytest-django&lt;/code&gt; connect to a real DB. The other nice thing is that you can simply toggle the use of the DB on a test-by-test basis using the &lt;code&gt;@pytest.mark.django_db&lt;/code&gt; &lt;em&gt;fixture&lt;/em&gt; as we will see later.&lt;/p&gt;
+&lt;p&gt;First create a &lt;code&gt;conftest.py&lt;/code&gt; file in your main app folder, loading in the database connection environment variables:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cat&lt;/span&gt; &lt;span class="n"&gt;mysite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;conftest&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;settings&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pytest&lt;/span&gt;
+
+&lt;span class="n"&gt;DEFAULT_ENGINE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;&lt;/span&gt;
+
+&lt;span class="nd"&gt;@pytest.fixture&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;scope&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;session&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;django_db_setup&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DATABASES&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;ENGINE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DB_ENGINE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DEFAULT_ENGINE&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;HOST&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DB_HOST&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DB_NAME&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;PORT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DB_PORT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;USER&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DB_USER&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;PASSWORD&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DB_PASSWORD&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is a predefined &lt;em&gt;fixture&lt;/em&gt; &lt;code&gt;pytest-django&lt;/code&gt; provides which will be triggered by &lt;code&gt;@pytest.mark.django_db&lt;/code&gt;. As we want to set this up once for the whole test session, I set &lt;code&gt;scope='session'&lt;/code&gt; in fixture's argument.&lt;/p&gt;
+&lt;h2&gt;Test our homepage&lt;/h2&gt;
+&lt;p&gt;Now let's use both &lt;code&gt;pytest&lt;/code&gt; and &lt;code&gt;selenium&lt;/code&gt; to test the homepage of &lt;a href="https://codechalleng.es"&gt;our platform&lt;/a&gt; logged in vs logged out. I added the following code to a &lt;code&gt;tests.py&lt;/code&gt; file in my main app folder. &lt;code&gt;pytest.ini&lt;/code&gt; makes that the &lt;code&gt;pytest&lt;/code&gt; command line interface will find it.&lt;/p&gt;
+&lt;h3&gt;Setup work&lt;/h3&gt;
+&lt;p&gt;As per PEP8 first we have some standard library modules, then external ones, then own modules:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;date&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dateutil.relativedelta&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;relativedelta&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pytest&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;selenium&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;webdriver&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;selenium.webdriver.common.keys&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Keys&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;mysite.core.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Challenge&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bites.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bite&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I load in my remaining env variables:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;HOME = os.environ[&amp;quot;HOMEPAGE&amp;quot;]
+TODAY = date.today()
+
+FREE_USER = os.environ[&amp;#39;FREE_USER&amp;#39;]
+FREE_USER_PASSWORD = os.environ[&amp;#39;FREE_USER_PASSWORD&amp;#39;]
+PREMIUM_USER = os.environ[&amp;#39;PREMIUM_USER&amp;#39;]
+PREMIUM_USER_PASSWORD = os.environ[&amp;#39;PREMIUM_USER_PASSWORD&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And I define a helper function to convert a &lt;code&gt;datetime&lt;/code&gt; to an uppercase 3-char month string (SEP/OCT/NOV), we see why in a bit ...&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def _make_3char_monthname(dt):
+    return dt.strftime(&amp;#39;%b&amp;#39;).upper()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Selenium driver and pytest's tearDown&lt;/h3&gt;
+&lt;p&gt;First I need to instantiate a Selenium webdriver. As required I have the &lt;em&gt;geckodriver&lt;/em&gt; (I am using Chrome) sitting in my &lt;code&gt;~/bin&lt;/code&gt; folder which is in my &lt;code&gt;$PATH&lt;/code&gt;, see the &lt;a href="https://selenium-python.readthedocs.io/installation.html#drivers"&gt;Selenium with Python documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I wrote a second &lt;em&gt;fixture&lt;/em&gt; to return a Selenium driver object which will span all test so I set &lt;code&gt;scope="module"&lt;/code&gt; (when I will have multiple modules I will probably set this to &lt;code&gt;session&lt;/code&gt;, like the &lt;code&gt;django_db_setup&lt;/code&gt; fixture).&lt;/p&gt;
+&lt;p&gt;One really cool and elegant thing I learned is to simply replace &lt;code&gt;return&lt;/code&gt; with &lt;code&gt;yield&lt;/code&gt; in a fixture, to have some &lt;code&gt;tearDown&lt;/code&gt; code which suited me perfectly here to close out the Chrome browser Selenium opens while testing:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pytest supports execution of fixture specific finalization code when the fixture goes out of scope. By using a yield statement instead of return, all the code after the yield statement serves as the teardown code &lt;a href="https://docs.pytest.org/en/latest/fixture.html#fixture-finalization-executing-teardown-code"&gt;docs&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@pytest.fixture(scope=&amp;quot;module&amp;quot;)
+def driver():
+    driver = webdriver.Chrome()
+    yield driver
+    driver.quit()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Test the logged out homepage&lt;/h3&gt;
+&lt;p&gt;Next a &lt;em&gt;hello world&lt;/em&gt; Selenium test: &lt;code&gt;driver.get(HOME)&lt;/code&gt; reaches out to the platform's homepage and it just checks if the title is as expected. Here is the logged out homepage:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="homepage logged out" src="https://pybit.es/images/homepage-loggedout.png"&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def test_loggedout_homepage(driver):
+    driver.get(HOME)
+    expected = &amp;quot;PyBites Code Challenges | Hone Your Python Skills&amp;quot;
+    assert driver.title == expected
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note I am using &lt;code&gt;localhost&lt;/code&gt; for &lt;code&gt;HOME&lt;/code&gt; here so prior to this I started my Django app server in a second terminal tab: &lt;code&gt;python manage.py runserver&lt;/code&gt;;&lt;/p&gt;
+&lt;h3&gt;Test the logged in dashboard&lt;/h3&gt;
+&lt;p&gt;Let's do something more interesting. Here is the &lt;a href="https://codechalleng.es"&gt;CodeChalleng.es&lt;/a&gt; dashboard of my test user:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="homepage logged in" src="https://pybit.es/images/homepage-loggedin.png"&gt;&lt;/p&gt;
+&lt;p&gt;Let's see if we can test the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The H2 headers are as expected.&lt;/li&gt;
+&lt;li&gt;The new &lt;em&gt;coding streak&lt;/em&gt; calendar at the right bottom shows the last 3 months.&lt;/li&gt;
+&lt;li&gt;In that widget only one day has the css class &lt;em&gt;today&lt;/em&gt; (orange border).&lt;/li&gt;
+&lt;li&gt;Match the number of &lt;em&gt;Bite of Py&lt;/em&gt; links with the number of published Bites in the DB.&lt;/li&gt;
+&lt;li&gt;Match the number of &lt;em&gt;Blog Challenges&lt;/em&gt; links (2nd tab alongside "Bites of Py") with the number of published Challenges in the DB.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;DB fixture and login&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;pytest-django&lt;/code&gt;'s predefined &lt;code&gt;@pytest.mark.django_db&lt;/code&gt; fixture will magically reference my &lt;code&gt;django_db_setup&lt;/code&gt; in &lt;code&gt;conftest.py&lt;/code&gt;. I go to &lt;code&gt;HOME&lt;/code&gt; again and login using the &lt;em&gt;Sign In With Github&lt;/em&gt; button image we saw in the logged out view above. Of course we use our loaded in environment variables for the login and password:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@pytest.mark.django_db
+def test_loggedin_dashboard(driver):
+    driver.get(HOME)
+    login_btn = &amp;#39;//a[img/@src=&amp;quot;/static/img/ghlogin.png&amp;quot;]&amp;#39;
+    driver.find_element_by_xpath(login_btn).click()
+    driver.find_element_by_name(&amp;#39;login&amp;#39;).send_keys(FREE_USER)
+    driver.find_element_by_name(&amp;#39;password&amp;#39;).send_keys(FREE_USER_PASSWORD
+                                                    + Keys.RETURN)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Finding elements&lt;/h3&gt;
+&lt;p&gt;I use Selenium's &lt;code&gt;find_elements_by_tag_name&lt;/code&gt; to find all h2 elements, then I check if the expected headers are in there:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    h2s = [h2.text for h2 in driver.find_elements_by_tag_name(&amp;#39;h2&amp;#39;)]
+    expected = [f&amp;#39;Happy Coding, {FREE_USER}!&amp;#39;, &amp;#39;Announcements&amp;#39;,
+                &amp;#39;PyBites Ninjas (score ≥ 50)&amp;#39;, &amp;#39;Become a better Pythonista!&amp;#39;,
+                &amp;#39;Keep Calm and Code in Python!    SHARE ON TWITTER&amp;#39;]
+    for header in expected:
+        assert header in h2s, f&amp;#39;{header} not in h2 headers&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Assert calendar headers and a CSS class&lt;/h3&gt;
+&lt;p&gt;You want to learn about &lt;code&gt;dateutil&lt;/code&gt;'s &lt;code&gt;relativedelta&lt;/code&gt;. I use it here because &lt;code&gt;datetime&lt;/code&gt;'s &lt;code&gt;timedelta&lt;/code&gt; does not have a delta of months. Here I calculate the last 3 months, at the time of this writing NOV-, OCT-, and SEP 2018. I then check if these are in the H2 headers:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    # calendar / coding streak feature
+    this_month = _make_3char_monthname(TODAY)
+    last_month = _make_3char_monthname(TODAY-relativedelta(months=+1))
+    two_months_ago = _make_3char_monthname(TODAY-relativedelta(months=+2))
+    for month in (this_month, last_month, two_months_ago):
+        month_year = f&amp;#39;{month} {TODAY.year}&amp;#39;
+        assert month_year in h2s, f&amp;#39;{month_year} not in h2 headers&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Only one day should be marked with the &lt;em&gt;today&lt;/em&gt; css class, we can use Selenium's &lt;code&gt;find_elements_by_class_name&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    # only current date is marked active
+    assert len(driver.find_elements_by_class_name(&amp;#39;today&amp;#39;)) == 1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Inspect links&lt;/h3&gt;
+&lt;p&gt;Selenium has a powerful &lt;code&gt;find_elements_by_xpath&lt;/code&gt; method that lets me grab all links from the page like so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    # all bites and challenges show up
+    all_links = driver.find_elements_by_xpath(&amp;quot;//a[@href]&amp;quot;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then I check how many Bites we have in the database and match the link using a regex in list comprehension:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    expected_num_bites = Bite.objects.filter(published=True).count()
+    actual_num_bites = len([link for link in all_links
+                            if re.match(r&amp;#39;^Bite \d+\..*&amp;#39;,  # no class
+                                        link.text)])
+    assert actual_num_bites == expected_num_bites
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ditto for Challenges but I don't need the regex because it conveniently has a class name of &lt;em&gt;challengeTitle&lt;/em&gt; so I can use Selenium's &lt;code&gt;find_elements_by_class_name&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    expected_num_challenges = Challenge.objects.filter(published=True).count()
+    challenge_titles = driver.find_elements_by_class_name(&amp;#39;challengeTitle&amp;#39;)
+    actual_num_challenges = len(challenge_titles)
+    assert actual_num_challenges == expected_num_challenges
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's an additional advantage of writing tests: you will find refactoring candidates. The example here - add a class name to Bite links - is trivial, but it highlights a point.&lt;/p&gt;
+&lt;p&gt;And the results:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pytest selenium result" src="https://pybit.es/images/pytest-selenium-result.png"&gt;&lt;/p&gt;
+&lt;p&gt;It took some time to write all this, and maybe we want to split this into multiple tests.&lt;/p&gt;
+&lt;p&gt;One useful tip in this context: set a &lt;em&gt;breakpoint&lt;/em&gt; in the test you are writing. You can use &lt;code&gt;breakpoint()&lt;/code&gt; if on &amp;gt;= 3.7 else &lt;code&gt;import pdb; pdb.set_trace()&lt;/code&gt;. In the debugger start playing around with Selenium's methods till you get it exactly right. At that point you can just copy+paste it into your test. This will save you a lot of time and makes the learning experience more fun :)&lt;/p&gt;
+&lt;p&gt;The exciting thing is that at this point I can just run this every time we make changes to check for any regression bugs. Imagine having a suite of hundreds of these tests, it's a real safeguard and time saver!&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Of course this is only one page and even so it only hits the surface. Other tests we could write for this page:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Resolve a Bite, does your score go up? Cheat a Bite, is only 1 point added to score?&lt;/li&gt;
+&lt;li&gt;Go from 8 to 10 points, do I earn my first badge?&lt;/li&gt;
+&lt;li&gt;Go from 48 to 50 points, is my user starting to show up on the leader board (right top)?&lt;/li&gt;
+&lt;li&gt;Are &lt;em&gt;bitecoins&lt;/em&gt; changing from grey to colored when I complete a Bite?&lt;/li&gt;
+&lt;li&gt;Are coding actions over multiple days get the corresponding green cells in the &lt;em&gt;coding streak&lt;/em&gt; / calendar widget?&lt;/li&gt;
+&lt;li&gt;The NEW background image label for &lt;em&gt;new&lt;/em&gt; (&amp;lt; 1 week old) Bites and Challenges.&lt;/li&gt;
+&lt;li&gt;The Bite Token Counter for the Cherry-Pick Tier this user is on.&lt;/li&gt;
+&lt;li&gt;Etc. etc.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;It is good to start thinking about all these scenarios because as your app grows the permutations of all possible outcomes grow exponentially, so automate testing is paramount. And with that I hope this gave you a feel how you can test your Django app with &lt;code&gt;pytest&lt;/code&gt; and &lt;code&gt;selenium&lt;/code&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code|Test in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="django"></category><category term="pytest"></category><category term="selenium"></category><category term="platform"></category><category term="fixtures"></category></entry><entry><title>Automating PyBites Review Post Using Github API and collections.defaultdict</title><link href="https://pybit.es/github-api-collections-defaultdict.html" rel="alternate"></link><published>2018-11-13T10:00:00+01:00</published><updated>2018-11-13T10:00:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-11-13:/github-api-collections-defaultdict.html</id><summary type="html">&lt;p&gt;In this post I share a quick script I produced last week to automate a portion of our review post. There are some nice idioms that you might find useful.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post I share a quick script I produced last week to automate a portion of our review post. I used the Github API and the &lt;code&gt;collections.defaultdict&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The goal of this script and post is to show you how to convert &lt;a href="https://github.com/pybites/challenges/pulls"&gt;open PRs&lt;/a&gt; of &lt;a href="https://github.com/pybites/challenges"&gt;our challenges repo&lt;/a&gt; into markdown for &lt;a href="https://pybit.es/pages/challenges.html"&gt;our weekly review post&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Setting the stage&lt;/h2&gt;
 &lt;p&gt;First I am importing the libraries to use and some constants:&lt;/p&gt;
