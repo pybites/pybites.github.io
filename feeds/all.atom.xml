@@ -53,8 +53,8 @@ deactivate () {
 
 &lt;h2&gt;Testing using a DB / conftest.py&lt;/h2&gt;
 &lt;p&gt;Overall I don't need the DB for Selenium testing but for some tests it would be nice to match up the page elements with what's in the DB, for example the amount of Bite exercises shown on the page vs records in the DB.&lt;/p&gt;
-&lt;p&gt;Another use case I found while writing more Selenium code for our platform was the activation link when users add their email. No real email gets send from my localhost and/or when testing so I needed to query the user's object to retrieve the newly generated link.  &lt;/p&gt;
-&lt;p&gt;It took me a bit of trial and error how to use a real database because &lt;code&gt;pytest-django&lt;/code&gt; &lt;a href="https://pytest-django.readthedocs.io/en/latest/database.html"&gt;takes a conservative approach&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Another use case I found while writing more Selenium code for our platform was the activation link when users add their email. No real email gets sent from my localhost and/or when testing so I needed to query the user's object to retrieve the newly generated link.  &lt;/p&gt;
+&lt;p&gt;It took me a bit of trial and error to figure out how to use a real database because &lt;code&gt;pytest-django&lt;/code&gt; &lt;a href="https://pytest-django.readthedocs.io/en/latest/database.html"&gt;takes a conservative approach&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I ended up using a &lt;code&gt;conftest.py&lt;/code&gt; file (in the main app folder) as specified in the documentation:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cat&lt;/span&gt; &lt;span class="n"&gt;mysite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;core&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;conftest&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;

@@ -201,8 +201,8 @@ deactivate () {
 
 <h2>Testing using a DB / conftest.py</h2>
 <p>Overall I don't need the DB for Selenium testing but for some tests it would be nice to match up the page elements with what's in the DB, for example the amount of Bite exercises shown on the page vs records in the DB.</p>
-<p>Another use case I found while writing more Selenium code for our platform was the activation link when users add their email. No real email gets send from my localhost and/or when testing so I needed to query the user's object to retrieve the newly generated link.  </p>
-<p>It took me a bit of trial and error how to use a real database because <code>pytest-django</code> <a href="https://pytest-django.readthedocs.io/en/latest/database.html">takes a conservative approach</a>.</p>
+<p>Another use case I found while writing more Selenium code for our platform was the activation link when users add their email. No real email gets sent from my localhost and/or when testing so I needed to query the user's object to retrieve the newly generated link.  </p>
+<p>It took me a bit of trial and error to figure out how to use a real database because <code>pytest-django</code> <a href="https://pytest-django.readthedocs.io/en/latest/database.html">takes a conservative approach</a>.</p>
 <p>I ended up using a <code>conftest.py</code> file (in the main app folder) as specified in the documentation:</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">cat</span> <span class="n">mysite</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">conftest</span><span class="o">.</span><span class="n">py</span>
 <span class="kn">import</span> <span class="nn">os</span>
