@@ -1,5 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-11-22T22:10:00+01:00</updated><entry><title>How to Test Your Django App with Selenium and pytest</title><link href="https://pybit.es/selenium-pytest-and-django.html" rel="alternate"></link><published>2018-11-22T22:10:00+01:00</published><updated>2018-11-22T22:10:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-11-22:/selenium-pytest-and-django.html</id><summary type="html">&lt;p&gt;In this article I will show you how to test a Django app with pytest and Selenium. We will test our &lt;a href="https://codechalleng.es"&gt;CodeChalleng.es platform&lt;/a&gt; comparing the logged out homepage vs the logged in dashboard. We will navigate the DOM matching elements and more. Overall you should learn enough Selenium and pytest to start testing a web page including a login. Sounds exciting? Let's dive straight in!&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I will show you how to test a Django app with pytest and Selenium. We will test our &lt;a href="https://codechalleng.es"&gt;CodeChalleng.es platform&lt;/a&gt; comparing the logged out homepage vs the logged in dashboard. We will navigate the DOM matching elements and more. Overall you should learn enough Selenium and pytest to start testing a web page including a login. Sounds exciting? Let's dive straight in!&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-11-30T12:00:00+01:00</updated><entry><title>3 Cool Things You Can do With the dateutil Module</title><link href="https://pybit.es/python-dateutil.html" rel="alternate"></link><published>2018-11-30T12:00:00+01:00</published><updated>2018-11-30T12:00:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-11-30:/python-dateutil.html</id><summary type="html">&lt;p&gt;In this short article I will show you how to use &lt;code&gt;dateutil&lt;/code&gt;'s &lt;code&gt;parse&lt;/code&gt;, &lt;code&gt;relativedelta&lt;/code&gt; and &lt;code&gt;rrule&lt;/code&gt; to make it easier to work with datetimes in Python.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this short article I will show you how to use &lt;code&gt;dateutil&lt;/code&gt;'s &lt;code&gt;parse&lt;/code&gt;, &lt;code&gt;relativedelta&lt;/code&gt; and &lt;code&gt;rrule&lt;/code&gt; to make it easier to work with datetimes in Python.&lt;/p&gt;
+&lt;p&gt;Firt some necessary imports:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;date&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dateutil.parser&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;parse&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dateutil.relativedelta&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;relativedelta&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dateutil.rrule&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;rrule&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;WEEKLY&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;WE&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;1. Parse a datetime from a string&lt;/h2&gt;
+&lt;p&gt;This is actually what made me look into &lt;code&gt;dateutil&lt;/code&gt; to start with. &lt;a href="https://github.com/camaz"&gt;Camaz&lt;/a&gt; shared this technique in the forum for &lt;a href="https://codechalleng.es/bites/7/"&gt;Bite 7. Parsing dates from logs&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;Imagine you have this log line:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; log_line = &amp;#39;INFO 2014-07-03T23:27:51 supybot Shutdown complete.&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Up until recently I used &lt;code&gt;datetime&lt;/code&gt;'s &lt;code&gt;strptime&lt;/code&gt; like so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; date_str = &amp;#39;%Y-%m-%dT%H:%M:%S&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; datetime.strptime(log_line.split()[1], date_str)
+datetime.datetime(2014, 7, 3, 23, 27, 51)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;More string manipulation and you have to know the &lt;a href="https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior"&gt;format string syntax&lt;/a&gt;. &lt;code&gt;dateutil&lt;/code&gt;'s &lt;code&gt;parse&lt;/code&gt; takes this complexity away:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; timestamp = parse(log_line, fuzzy=True)
+&amp;gt;&amp;gt;&amp;gt; print(timestamp)
+2014-07-03 23:27:51
+&amp;gt;&amp;gt;&amp;gt; print(type(timestamp))
+&amp;lt;class &amp;#39;datetime.datetime&amp;#39;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;2. Get a timedelta in months&lt;/h2&gt;
+&lt;p&gt;A limitation of &lt;code&gt;datetime&lt;/code&gt;'s &lt;code&gt;timedelta&lt;/code&gt; is that it does not show the number of months:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; today = date.today()
+&amp;gt;&amp;gt;&amp;gt; pybites_born = date(year=2016, month=12, day=19)
+&amp;gt;&amp;gt;&amp;gt; (today-pybites_born).days
+711
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So far so good. However this does not work:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; (today-pybites_born).years
+Traceback (most recent call last):
+File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt;
+AttributeError: &amp;#39;datetime.timedelta&amp;#39; object has no attribute &amp;#39;years&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nor this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; (today-pybites_born).months
+Traceback (most recent call last):
+File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt;
+AttributeError: &amp;#39;datetime.timedelta&amp;#39; object has no attribute &amp;#39;months&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;relativedelta&lt;/code&gt; to the rescue:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; diff = relativedelta(today, pybites_born)
+&amp;gt;&amp;gt;&amp;gt; diff.years
+1
+&amp;gt;&amp;gt;&amp;gt; diff.months
+11
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;When you need months, use &lt;code&gt;relativedelta&lt;/code&gt;. And yes, we can almost celebrate two years of PyBites! &lt;/p&gt;
+&lt;p&gt;Another use case of this we saw in my previous article, &lt;a href="https://pybit.es/selenium-pytest-and-django.html"&gt;How to Test Your Django App with Selenium and pytest&lt;/a&gt;, where I used it to get the last 3 months for our new &lt;a href="https://codechalleng.es"&gt;Platform Coding Streak feature&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; def _make_3char_monthname(dt):
+...     return dt.strftime(&amp;#39;%b&amp;#39;).upper()
+...
+&amp;gt;&amp;gt;&amp;gt; this_month = _make_3char_monthname(today)
+&amp;gt;&amp;gt;&amp;gt; last_month = _make_3char_monthname(today-relativedelta(months=+1))
+&amp;gt;&amp;gt;&amp;gt; two_months_ago = _make_3char_monthname(today-relativedelta(months=+2))
+&amp;gt;&amp;gt;&amp;gt; for month in (this_month, last_month, two_months_ago):
+...     print(f&amp;#39;{month} {today.year}&amp;#39;)
+...
+NOV 2018
+OCT 2018
+SEP 2018
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's get next Wednesday for the next example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; next_wednesday = today+relativedelta(weekday=WE(+1))
+&amp;gt;&amp;gt;&amp;gt; next_wednesday
+datetime.date(2018, 12, 5)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;3. Make a range of dates&lt;/h2&gt;
+&lt;p&gt;Say I want to schedule my next batch of Italian lessons, each Wednesday for the coming 10 weeks. Easy:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;gt;&amp;gt;&amp;gt; rrule(WEEKLY, count=10, dtstart=next_wednesday)
+&amp;lt;dateutil.rrule.rrule object at 0x1033ef898&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As this will return an iterator and it does not show up vertically, let's materialize it in a &lt;code&gt;list&lt;/code&gt; and pass it to &lt;code&gt;pprint&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pprint&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;pprint&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;pp&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rrule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;WEEKLY&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dtstart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;next_wednesday&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2018&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2018&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2018&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;19&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2018&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;26&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Double-check with Unix &lt;code&gt;cal&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cal &lt;span class="m"&gt;12&lt;/span&gt; &lt;span class="m"&gt;2018&lt;/span&gt;
+December &lt;span class="m"&gt;2018&lt;/span&gt;
+Su Mo Tu We Th Fr Sa
+                   &lt;span class="m"&gt;1&lt;/span&gt;
+ &lt;span class="m"&gt;2&lt;/span&gt;  &lt;span class="m"&gt;3&lt;/span&gt;  &lt;span class="m"&gt;4&lt;/span&gt;  &lt;span class="m"&gt;5&lt;/span&gt;  &lt;span class="m"&gt;6&lt;/span&gt;  &lt;span class="m"&gt;7&lt;/span&gt;  &lt;span class="m"&gt;8&lt;/span&gt;
+ &lt;span class="m"&gt;9&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt; &lt;span class="m"&gt;11&lt;/span&gt; &lt;span class="m"&gt;12&lt;/span&gt; &lt;span class="m"&gt;13&lt;/span&gt; &lt;span class="m"&gt;14&lt;/span&gt; &lt;span class="m"&gt;15&lt;/span&gt;
+&lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;17&lt;/span&gt; &lt;span class="m"&gt;18&lt;/span&gt; &lt;span class="m"&gt;19&lt;/span&gt; &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="m"&gt;21&lt;/span&gt; &lt;span class="m"&gt;22&lt;/span&gt;
+&lt;span class="m"&gt;23&lt;/span&gt; &lt;span class="m"&gt;24&lt;/span&gt; &lt;span class="m"&gt;25&lt;/span&gt; &lt;span class="m"&gt;26&lt;/span&gt; &lt;span class="m"&gt;27&lt;/span&gt; &lt;span class="m"&gt;28&lt;/span&gt; &lt;span class="m"&gt;29&lt;/span&gt;
+&lt;span class="m"&gt;30&lt;/span&gt; &lt;span class="m"&gt;31&lt;/span&gt;
+
+$ cal &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2019&lt;/span&gt;
+    January &lt;span class="m"&gt;2019&lt;/span&gt;
+Su Mo Tu We Th Fr Sa
+       &lt;span class="m"&gt;1&lt;/span&gt;  &lt;span class="m"&gt;2&lt;/span&gt;  &lt;span class="m"&gt;3&lt;/span&gt;  &lt;span class="m"&gt;4&lt;/span&gt;  &lt;span class="m"&gt;5&lt;/span&gt;
+ &lt;span class="m"&gt;6&lt;/span&gt;  &lt;span class="m"&gt;7&lt;/span&gt;  &lt;span class="m"&gt;8&lt;/span&gt;  &lt;span class="m"&gt;9&lt;/span&gt; &lt;span class="m"&gt;10&lt;/span&gt; &lt;span class="m"&gt;11&lt;/span&gt; &lt;span class="m"&gt;12&lt;/span&gt;
+&lt;span class="m"&gt;13&lt;/span&gt; &lt;span class="m"&gt;14&lt;/span&gt; &lt;span class="m"&gt;15&lt;/span&gt; &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;17&lt;/span&gt; &lt;span class="m"&gt;18&lt;/span&gt; &lt;span class="m"&gt;19&lt;/span&gt;
+&lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="m"&gt;21&lt;/span&gt; &lt;span class="m"&gt;22&lt;/span&gt; &lt;span class="m"&gt;23&lt;/span&gt; &lt;span class="m"&gt;24&lt;/span&gt; &lt;span class="m"&gt;25&lt;/span&gt; &lt;span class="m"&gt;26&lt;/span&gt;
+&lt;span class="m"&gt;27&lt;/span&gt; &lt;span class="m"&gt;28&lt;/span&gt; &lt;span class="m"&gt;29&lt;/span&gt; &lt;span class="m"&gt;30&lt;/span&gt; &lt;span class="m"&gt;31&lt;/span&gt;
+
+$ cal &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="m"&gt;2019&lt;/span&gt;
+February &lt;span class="m"&gt;2019&lt;/span&gt;
+Su Mo Tu We Th Fr Sa
+                &lt;span class="m"&gt;1&lt;/span&gt;  &lt;span class="m"&gt;2&lt;/span&gt;
+ &lt;span class="m"&gt;3&lt;/span&gt;  &lt;span class="m"&gt;4&lt;/span&gt;  &lt;span class="m"&gt;5&lt;/span&gt;  &lt;span class="m"&gt;6&lt;/span&gt;  &lt;span class="m"&gt;7&lt;/span&gt;  &lt;span class="m"&gt;8&lt;/span&gt;  &lt;span class="m"&gt;9&lt;/span&gt;
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We added &lt;a href="https://codechalleng.es/bites/147/"&gt;an exercise&lt;/a&gt; to our platform to create a &lt;a href="https://pybit.es/pages/courses.html"&gt;#100DaysOfCode&lt;/a&gt; planning, skipping weekend days. &lt;code&gt;rrule&lt;/code&gt; made this relatively easy.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;And that's it, my favorite use cases of &lt;code&gt;dateutil&lt;/code&gt; so far. There is some timezone functionality in &lt;code&gt;dateutil&lt;/code&gt; as well, but I have mostly used &lt;code&gt;pytz&lt;/code&gt; for that. &lt;/p&gt;
+&lt;p&gt;Learn more? Check out this nice &lt;a href="https://dateutil.readthedocs.io/en/stable/examples.html"&gt;dateutil examples page&lt;/a&gt; and feel free to share your favorite snippets in the comments below.&lt;/p&gt;
+&lt;p&gt;Don't forget this is an external library (&lt;code&gt;pip install python-dateutil&lt;/code&gt;), for most basic operations &lt;code&gt;datetime&lt;/code&gt; would suffice. Another nice stdlib module worth checking out is &lt;a href="https://docs.python.org/3.7/library/calendar.html"&gt;&lt;code&gt;calendar&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="dateutil"></category><category term="parse"></category><category term="relativedelta"></category><category term="rrule"></category><category term="fuzzy parser"></category><category term="datetime"></category><category term="timedelta"></category><category term="100DaysOfCode"></category></entry><entry><title>How to Test Your Django App with Selenium and pytest</title><link href="https://pybit.es/selenium-pytest-and-django.html" rel="alternate"></link><published>2018-11-22T22:10:00+01:00</published><updated>2018-11-22T22:10:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2018-11-22:/selenium-pytest-and-django.html</id><summary type="html">&lt;p&gt;In this article I will show you how to test a Django app with pytest and Selenium. We will test our &lt;a href="https://codechalleng.es"&gt;CodeChalleng.es platform&lt;/a&gt; comparing the logged out homepage vs the logged in dashboard. We will navigate the DOM matching elements and more. Overall you should learn enough Selenium and pytest to start testing a web page including a login. Sounds exciting? Let's dive straight in!&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I will show you how to test a Django app with pytest and Selenium. We will test our &lt;a href="https://codechalleng.es"&gt;CodeChalleng.es platform&lt;/a&gt; comparing the logged out homepage vs the logged in dashboard. We will navigate the DOM matching elements and more. Overall you should learn enough Selenium and pytest to start testing a web page including a login. Sounds exciting? Let's dive straight in!&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;This article focuses on getting Selenium + pytest working with Django, but as the pytest + Selenium part is applicable to any web app, I ditched the Django / DB part from the final script which I will link to at the end of this article.&lt;/p&gt;
 &lt;/blockquote&gt;
