@@ -224,3 +224,73 @@ h2#sitesubtitle {
 #ninjaWidget img {
   max-width: 170px;
 }
+
+/* https://davidwalsh.name/css-slide */
+#codeChallengeWrapper {
+  z-index: 999;
+  position: fixed;
+  bottom: 0px;
+  right: 80px;
+  background-color: #fff;
+  border: 1px solid #f2f2f2;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+#codeChallengeWrapper button {
+  background-color: #ffce3e;
+  color: #000;
+  width: 100%;
+  border: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 10px;
+  font-size: 120%;
+  outline: none;
+  cursor: pointer;
+}
+#codeChallengeWrapper blockquote {
+  font-size: 130%;
+  border-left: none;
+}
+#codeChallengeWrapper img.ninja {
+  width: 180px;
+}
+#codeWithUs {
+  overflow-y: hidden;
+  max-height: 0;
+}
+#codeWithUs.open {
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(1, 0, 0.5, 0);
+  max-height: 580px; /* approximate max height */
+}
+@media (max-width: 480px) {
+  #codeChallengeWrapper {
+    width: 80%;
+  }
+}
+@media (max-width: 768px) {
+  #codeChallengeWrapper {
+    width: 70%;
+  }
+}
+@media (min-width:768px) and (max-width: 1024px) {
+  #codeChallengeWrapper {
+    width: 50%;
+  }
+}
+@media (max-width: 1024px) {
+  #codeChallengeWrapper img.ninja {
+    width: 80px;
+  }
+  #codeChallengeWrapper blockquote {
+    padding: 0px;
+    font-size: 110%;
+  }
+}
+@media (max-width: 300px) {
+  #codeChallengeWrapper img.ninja {
+    width: 50px;
+  }
+}
