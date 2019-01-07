@@ -1,5 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2018-12-19T22:59:00+01:00</updated><entry><title>2 years of PyBites, Our Pythonic Journey and the Creation of an Awesome Community</title><link href="https://pybit.es/special-pybites-2years.html" rel="alternate"></link><published>2018-12-19T22:59:00+01:00</published><updated>2018-12-19T22:59:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-12-19:/special-pybites-2years.html</id><summary type="html">&lt;p&gt;Today marks exactly 2 years since we set off on our amazing PyBites journey. In this special post we look back and reflect on what we learned.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2019-01-07T19:00:00+01:00</updated><entry><title>Code Challenge 58 - Analyze Podcast Transcripts with NLTK - Part I - Review</title><link href="https://pybit.es/codechallenge58_review.html" rel="alternate"></link><published>2019-01-07T19:00:00+01:00</published><updated>2019-01-07T19:00:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2019-01-07:/codechallenge58_review.html</id><summary type="html">&lt;p&gt;In this article we review our &lt;a href="http://pybit.es/codechallenge58.html"&gt;PCC58 - Analyze Podcast Transcripts with NLTK - Part I&lt;/a&gt; code challenge.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article we review our &lt;a href="http://pybit.es/codechallenge58.html"&gt;PCC58 - Analyze Podcast Transcripts with NLTK - Part I&lt;/a&gt; code challenge. &lt;/p&gt;
+&lt;h2&gt;Community Pull Requests&lt;/h2&gt;
+&lt;p&gt;It has been a while but we're all caught up: we merged in 40+ Pull Requests. Kudos to all of you that submitted code, really cool seeing all the different solutions for our code challenges! &lt;/p&gt;
+&lt;p&gt;Below is a digest of last month's learning ...&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git pull origin community
+...
+remote: Total &lt;span class="m"&gt;504&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta &lt;span class="m"&gt;213&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;, reused &lt;span class="m"&gt;176&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta &lt;span class="m"&gt;170&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;, pack-reused &lt;span class="m"&gt;247&lt;/span&gt;
+...
+   aff4834..54cebc2  community  -&amp;gt; origin/community
+...
+ &lt;span class="m"&gt;72&lt;/span&gt; files changed, &lt;span class="m"&gt;3959&lt;/span&gt; insertions&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;PCC58 Lessons&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Used &lt;code&gt;itertools.chain&lt;/code&gt; because some Talk Python transcripts were missing, so I had to skip those. I also used &lt;code&gt;sqlite3&lt;/code&gt; for the first time. It's really easy to use, I think I'll use it more in the future to store data that I retrieve from APIs. I also got more experience using the GitHub API for retrieving repo content. - &lt;a href="https://github.com/pybites/challenges/pull/431"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Nice challenge! I scraped Talk Python's RSS feed (requests/ feedparser) getting the transcripts from GH, saved all this in a &lt;code&gt;sqlite3&lt;/code&gt; DB, also wrote a function to generate an HTML for consumption on my Kindle (after Save-to-PDF on Mac). Some details: &lt;code&gt;decode("utf-8")&lt;/code&gt; to work around some transcripts being stored as &lt;code&gt;bytes&lt;/code&gt; (required some debugging), &lt;code&gt;f'{episode_id:0&amp;gt;3}'&lt;/code&gt; as alternative for &lt;code&gt;zfill&lt;/code&gt;, cur.executemany is awesome as it works flawlessly with a generator of namedtuples, to get row dicts from sqlite use &lt;code&gt;conn.row_factory = sqlite3.Row&lt;/code&gt;, I also used &lt;code&gt;writelines&lt;/code&gt; for the first time!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;Reading Code for Fun and Profit&lt;/h3&gt;
+&lt;p&gt;The best way to learn/improve programming is to read and write a lot of code. Apart from following along with our review posts, you can look at &lt;a href="https://github.com/pybites/challenges/pulls?q=is%3Apr+is%3Aclosed"&gt;all submitted PRs&lt;/a&gt; and/or checking our &lt;a href="https://github.com/pybites/challenges/tree/community"&gt;our Community branch&lt;/a&gt; where we merge in all solutions.  &lt;/p&gt;
+&lt;p&gt;Here are the Pythonic learnings we spotted in Pull Requests made during the last week: &lt;/p&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/01"&gt;PCC01&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I have an opportunity with discover more sorted list with all given arguments, get some more details with some commands in git I didn't know yet. - &lt;a href="https://github.com/pybites/challenges/pull/448"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;To reverse an &lt;code&gt;OrderedDict&lt;/code&gt; one must create another one by the use of &lt;code&gt;OrderedDict(sorted(..., reverse=True, ...))&lt;/code&gt; - &lt;a href="https://github.com/pybites/challenges/pull/439"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Mostly, I learned about &lt;em&gt;list comprehensions&lt;/em&gt; after looking at the official solution and refining my own. I kept my original code in comments, but it helped me better understand the official one by typing it in myself. - &lt;a href="https://github.com/pybites/challenges/pull/464"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I learned how to read a file and create a list from it. I practiced my recent git skills and was introduced to unit tests. - &lt;a href="https://github.com/pybites/challenges/pull/465"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Before this exercise I never came across &lt;em&gt;dictionary comprehensions&lt;/em&gt;. A bit confusing at first! - &lt;a href="https://github.com/pybites/challenges/pull/428"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Yes, I learned how to better format lines from input files by using &lt;code&gt;splitlines()&lt;/code&gt; - &lt;a href="https://github.com/pybites/challenges/pull/430"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/02"&gt;PCC02&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I introduced myself to &lt;code&gt;itertools&lt;/code&gt; package to create permutations. I also focused on breaking my code into smaller, easier to manage functions. Practiced basic game logic and list manipulation. - &lt;a href="https://github.com/pybites/challenges/pull/466"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Refresher on manipulating lists and using &lt;code&gt;itertools&lt;/code&gt; functionality - &lt;a href="https://github.com/pybites/challenges/pull/452"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Yes, I learned how to build a set using &lt;em&gt;iterators&lt;/em&gt; - &lt;a href="https://github.com/pybites/challenges/pull/445"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/03"&gt;PCC03&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Yes, I learned how to parse from &lt;code&gt;xml&lt;/code&gt; documents. I also found a fun side effect of sets: as unordered collections, the order in which they return data is inconsistent and seems to be dependent on where that data is in memory. If it's important to display the information consistently or in the same order every time a program is run, either refrain from using a set or change it back to a list to sort it. - &lt;a href="https://github.com/pybites/challenges/pull/446"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Learned about &lt;code&gt;SequenceMatcher&lt;/code&gt;. Great thing. Started to think about how tests actually work, since I did get the results from the website but could not manage to pass the tests. Heard about &lt;code&gt;nltk&lt;/code&gt; (looks interesting). - &lt;a href="https://github.com/pybites/challenges/pull/423"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/11"&gt;PCC11&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I learned about the power of generators when you need to pass lists, dicts, or sets around - &lt;a href="https://github.com/pybites/challenges/pull/468"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/12"&gt;PCC12&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I gained experience in compartmentalizing code, I broke down big code chunks into smaller functions to make it easier to understand. I didn't use any new features of Python, but I got better with software development practices. - &lt;a href="https://github.com/pybites/challenges/pull/457"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/13"&gt;PCC13&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;yes, how to tie together a few tools from the &lt;code&gt;collections&lt;/code&gt; module to get a seemingly complicated task done relatively quickly. - &lt;a href="https://github.com/pybites/challenges/pull/470"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I learnt a lot more about &lt;code&gt;collections&lt;/code&gt;, in particular &lt;code&gt;defaultdict&lt;/code&gt;. Using it with &lt;code&gt;namedtuple&lt;/code&gt; was a great exercise. - &lt;a href="https://github.com/pybites/challenges/pull/455"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I learned &lt;code&gt;collections&lt;/code&gt; - &lt;code&gt;defaultdict&lt;/code&gt;, &lt;code&gt;namedtuple&lt;/code&gt;, &lt;code&gt;Counter&lt;/code&gt;. I learned how to use &lt;code&gt;f-string&lt;/code&gt;. I still do not know how I can sort specific element inside the value of the default dict e.g. in this case I can't sort the score of movies under the director. - &lt;a href="https://github.com/pybites/challenges/pull/437"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I learned about &lt;code&gt;namedtuple&lt;/code&gt; - &lt;a href="https://github.com/pybites/challenges/pull/436"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/16"&gt;PCC16&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I learn how to make request to remote database (in this project used RIPE DB) and how to parse &lt;code&gt;JSON&lt;/code&gt; output from DB - &lt;a href="https://github.com/pybites/challenges/pull/426"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/27"&gt;PCC27&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I learned how to use &lt;code&gt;praw&lt;/code&gt;, the library for accessing the reddit API through a python wrapper. This challenge was fun, I think I'll be using praw more in the future. - &lt;a href="https://github.com/pybites/challenges/pull/461"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/39"&gt;PCC39&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Create an Interval class that can be leveraged by a pomodoro app. I learned &lt;code&gt;pytest&lt;/code&gt; methodology for testing a custom class - &lt;a href="https://github.com/pybites/challenges/pull/460"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;yes, I mucked around with &lt;code&gt;flask&lt;/code&gt; testing - &lt;a href="https://github.com/pybites/challenges/pull/459"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/42"&gt;PCC42&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Solidified my understanding of regex. - &lt;a href="https://github.com/pybites/challenges/pull/467"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Didn't know non-capture group can be used like that. - &lt;a href="https://github.com/pybites/challenges/pull/429"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;a href="http://codechalleng.es/challenges/52"&gt;PCC52&lt;/a&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Kind of? &lt;code&gt;datetime&lt;/code&gt; is pretty new to me, and this is the first time I actually used the time module. It was also the first time I used &lt;code&gt;os.system&lt;/code&gt;, and the "\r" character. It was a good experience, but I wouldn't go as far as to say that I "stretched" my skills. I will most likely come back to the timer and improve the interface a bit. - &lt;a href="https://github.com/pybites/challenges/pull/443"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I learned how to define the &lt;code&gt;timedelta&lt;/code&gt;, how to use string to properly show &lt;code&gt;datetime.&lt;/code&gt; - &lt;a href="https://github.com/pybites/challenges/pull/432"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Yes, I learned that when I print &lt;code&gt;timedelta&lt;/code&gt;, it shows the string in this format: "0:00:00". - &lt;a href="https://github.com/pybites/challenges/pull/434"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;argparse&lt;/code&gt;, &lt;code&gt;datetime&lt;/code&gt;, making CLI applications - &lt;a href="https://github.com/pybites/challenges/pull/440"&gt;PR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;Thanks to everyone for your participation in our blog code challenges! &lt;a href="https://codechalleng.es/challenges/"&gt;Keep the PRs coming&lt;/a&gt; and &lt;strong&gt;include a README.md with one or more screenshots if you want to be featured in this weekly review post&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2&gt;Become a Python Ninja&lt;/h2&gt;
+&lt;p&gt;Master Python through Code Challenges:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Subscribe to our blog (sidebar) to get a new PyBites Code Challenge (PCC) in your inbox every week.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Take any of our 50+ challenges &lt;a href="https://codechalleng.es/challenges/"&gt;on our platform&lt;/a&gt;. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Prefer coding bite-sized Python exercises in the comfort of your browser? Try our growing collection of &lt;em&gt;&lt;a href="https://codechalleng.es/bites/"&gt;Bites of Py&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Want to do the &lt;a href="https://twitter.com/hashtag/100DaysOfCode?src=hash&amp;amp;lang=en"&gt;#100DaysOfCode&lt;/a&gt; but not sure what to work on? Take &lt;a href="https://talkpython.fm/100days?utm_source=pybites"&gt;our course&lt;/a&gt; and/or start logging your 100 Days progress using our &lt;em&gt;Progress Grid Feature&lt;/em&gt; &lt;a href="https://codechalleng.es/100days/"&gt;on our platform&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob and Julian&lt;/p&gt;</content><category term="code challenge"></category><category term="challenges"></category><category term="NLTK"></category><category term="podcast"></category><category term="text parsing"></category><category term="data mining"></category><category term="data science"></category><category term="talk python"></category></entry><entry><title>2 years of PyBites, Our Pythonic Journey and the Creation of an Awesome Community</title><link href="https://pybit.es/special-pybites-2years.html" rel="alternate"></link><published>2018-12-19T22:59:00+01:00</published><updated>2018-12-19T22:59:00+01:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2018-12-19:/special-pybites-2years.html</id><summary type="html">&lt;p&gt;Today marks exactly 2 years since we set off on our amazing PyBites journey. In this special post we look back and reflect on what we learned.&lt;/p&gt;</summary><content type="html">&lt;blockquote&gt;
 &lt;p&gt;There is nothing like a challenge to bring out the best in man. - Sean Connery&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;!-- --&gt;
