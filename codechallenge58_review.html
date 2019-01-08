@@ -28,7 +28,7 @@
 
 <meta name="author" content="PyBites" />
 <meta name="description" content="In this article we review our PCC58 - Analyze Podcast Transcripts with NLTK - Part I code challenge." />
-<meta name="keywords" content="code challenge, challenges, NLTK, podcast, text parsing, data mining, data science, talk python">
+<meta name="keywords" content="code challenge, challenges, NLTK, podcast, text parsing, data mining, data science, talk python, itertools, sqlite3, dictionary comprehensions, list comprehensions, splitlines, iterators, SequenceMatcher, OrderedDict, praw, collections, defaultdict, namedtuple, Counter, JSON, XML, pomodoro, Flask, regex, datetime, timedelta, CLI applications, f-strings, feedparser, requests">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Code Challenge 58 - Analyze Podcast Transcripts with NLTK - Part I - Review"/>
 <meta property="og:description" content="In this article we review our PCC58 - Analyze Podcast Transcripts with NLTK - Part I code challenge."/>
@@ -47,6 +47,30 @@
 <meta property="article:tag" content="data mining"/>
 <meta property="article:tag" content="data science"/>
 <meta property="article:tag" content="talk python"/>
+<meta property="article:tag" content="itertools"/>
+<meta property="article:tag" content="sqlite3"/>
+<meta property="article:tag" content="dictionary comprehensions"/>
+<meta property="article:tag" content="list comprehensions"/>
+<meta property="article:tag" content="splitlines"/>
+<meta property="article:tag" content="iterators"/>
+<meta property="article:tag" content="SequenceMatcher"/>
+<meta property="article:tag" content="OrderedDict"/>
+<meta property="article:tag" content="praw"/>
+<meta property="article:tag" content="collections"/>
+<meta property="article:tag" content="defaultdict"/>
+<meta property="article:tag" content="namedtuple"/>
+<meta property="article:tag" content="Counter"/>
+<meta property="article:tag" content="JSON"/>
+<meta property="article:tag" content="XML"/>
+<meta property="article:tag" content="pomodoro"/>
+<meta property="article:tag" content="Flask"/>
+<meta property="article:tag" content="regex"/>
+<meta property="article:tag" content="datetime"/>
+<meta property="article:tag" content="timedelta"/>
+<meta property="article:tag" content="CLI applications"/>
+<meta property="article:tag" content="f-strings"/>
+<meta property="article:tag" content="feedparser"/>
+<meta property="article:tag" content="requests"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
 
 <meta name="twitter:card" content="summary" />
@@ -206,11 +230,11 @@ remote: Total <span class="m">504</span> <span class="o">(</span>delta <span cla
 <!-- -->
 
 <blockquote>
-<p>Nice challenge! I scraped Talk Python's RSS feed (requests/ feedparser) getting the transcripts from GH, saved all this in a <code>sqlite3</code> DB, also wrote a function to generate an HTML for consumption on my Kindle (after Save-to-PDF on Mac). Some details: <code>decode("utf-8")</code> to work around some transcripts being stored as <code>bytes</code> (required some debugging), <code>f'{episode_id:0&gt;3}'</code> as alternative for <code>zfill</code>, cur.executemany is awesome as it works flawlessly with a generator of namedtuples, to get row dicts from sqlite use <code>conn.row_factory = sqlite3.Row</code>, I also used <code>writelines</code> for the first time!</p>
+<p>Nice challenge! I scraped Talk Python's RSS feed (requests/ feedparser) getting the transcripts from GH, saved all this in a <code>sqlite3</code> DB, also wrote a function to generate an HTML for consumption on my Kindle (after Save-to-PDF on Mac). Some details: <code>decode("utf-8")</code> to work around some transcripts being stored as <code>bytes</code> (required some debugging), <code>f'{episode_id:0&gt;3}'</code> as alternative for <code>zfill</code>, cur.executemany is awesome as it works flawlessly with a generator of namedtuples, to get row dicts from sqlite use <code>conn.row_factory = sqlite3.Row</code>, I also used <code>writelines</code> for the first time! - <a href="https://github.com/pybites/challenges/pull/471">PR</a></p>
 </blockquote>
 <h3>Reading Code for Fun and Profit</h3>
 <p>The best way to learn/improve programming is to read and write a lot of code. Apart from following along with our review posts, you can look at <a href="https://github.com/pybites/challenges/pulls?q=is%3Apr+is%3Aclosed">all submitted PRs</a> and/or checking our <a href="https://github.com/pybites/challenges/tree/community">our Community branch</a> where we merge in all solutions.  </p>
-<p>Here are the Pythonic learnings we spotted in Pull Requests made during the last week: </p>
+<p>Here are the Pythonic learnings we spotted in Pull Requests made during the last month: </p>
 <h4><a href="http://codechalleng.es/challenges/01">PCC01</a></h4>
 <blockquote>
 <p>I have an opportunity with discover more sorted list with all given arguments, get some more details with some commands in git I didn't know yet. - <a href="https://github.com/pybites/challenges/pull/448">PR</a></p>
@@ -336,12 +360,12 @@ remote: Total <span class="m">504</span> <span class="o">(</span>delta <span cla
 <p><code>argparse</code>, <code>datetime</code>, making CLI applications - <a href="https://github.com/pybites/challenges/pull/440">PR</a></p>
 </blockquote>
 <hr>
-<p>Thanks to everyone for your participation in our blog code challenges! <a href="https://codechalleng.es/challenges/">Keep the PRs coming</a> and <strong>include a README.md with one or more screenshots if you want to be featured in this weekly review post</strong>.</p>
+<p>Thanks to everyone for your participation in our blog code challenges! <a href="https://codechalleng.es/challenges/">Keep the PRs coming</a> and <strong>include a README.md with one or more screenshots if you want to be featured in this review post</strong>.</p>
 <h2>Become a Python Ninja</h2>
 <p>Master Python through Code Challenges:</p>
 <ul>
 <li>
-<p>Subscribe to our blog (sidebar) to get a new PyBites Code Challenge (PCC) in your inbox every week.</p>
+<p>Subscribe to our blog (sidebar) to get new PyBites Code Challenges (PCCs) in your inbox.</p>
 </li>
 <li>
 <p>Take any of our 50+ challenges <a href="https://codechalleng.es/challenges/">on our platform</a>. </p>
@@ -371,6 +395,30 @@ remote: Total <span class="m">504</span> <span class="o">(</span>delta <span cla
       <a href="https://pybit.es/tag/data-mining.html">data mining</a>
       <a href="https://pybit.es/tag/data-science.html">data science</a>
       <a href="https://pybit.es/tag/talk-python.html">talk python</a>
+      <a href="https://pybit.es/tag/itertools.html">itertools</a>
+      <a href="https://pybit.es/tag/sqlite3.html">sqlite3</a>
+      <a href="https://pybit.es/tag/dictionary-comprehensions.html">dictionary comprehensions</a>
+      <a href="https://pybit.es/tag/list-comprehensions.html">list comprehensions</a>
+      <a href="https://pybit.es/tag/splitlines.html">splitlines</a>
+      <a href="https://pybit.es/tag/iterators.html">iterators</a>
+      <a href="https://pybit.es/tag/sequencematcher.html">SequenceMatcher</a>
+      <a href="https://pybit.es/tag/ordereddict.html">OrderedDict</a>
+      <a href="https://pybit.es/tag/praw.html">praw</a>
+      <a href="https://pybit.es/tag/collections.html">collections</a>
+      <a href="https://pybit.es/tag/defaultdict.html">defaultdict</a>
+      <a href="https://pybit.es/tag/namedtuple.html">namedtuple</a>
+      <a href="https://pybit.es/tag/counter.html">Counter</a>
+      <a href="https://pybit.es/tag/json.html">JSON</a>
+      <a href="https://pybit.es/tag/xml.html">XML</a>
+      <a href="https://pybit.es/tag/pomodoro.html">pomodoro</a>
+      <a href="https://pybit.es/tag/flask.html">Flask</a>
+      <a href="https://pybit.es/tag/regex.html">regex</a>
+      <a href="https://pybit.es/tag/datetime.html">datetime</a>
+      <a href="https://pybit.es/tag/timedelta.html">timedelta</a>
+      <a href="https://pybit.es/tag/cli-applications.html">CLI applications</a>
+      <a href="https://pybit.es/tag/f-strings.html">f-strings</a>
+      <a href="https://pybit.es/tag/feedparser.html">feedparser</a>
+      <a href="https://pybit.es/tag/requests.html">requests</a>
     </p>
   </div>
 
