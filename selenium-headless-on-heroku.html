@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Ever wondered how you scrape hidden (or JS generated) HTML? Selenium is your friend. Ever wondered how to run it without a browser popping up? Use headless mode. How would you run it remotely? Use Heroku. And how about autoposting to Slack and Twitter? With the right libraries and API setup little code is needed. In this 10 step guide I will show you how to build a Packt Free Learning Notifier which will accomplish all these tasks. Ready to learn some nice automation skills in Python?" />
+<meta name="keywords" content="Selenium, headless, Heroku, tweepy, argparse, Slack, Packt, books, automation, parsing, BeautifulSoup, requests, namedtuple, Scheduler, git, buildpacks, environment variables">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku"/>
+<meta property="og:description" content="Ever wondered how you scrape hidden (or JS generated) HTML? Selenium is your friend. Ever wondered how to run it without a browser popping up? Use headless mode. How would you run it remotely? Use Heroku. And how about autoposting to Slack and Twitter? With the right libraries and API setup little code is needed. In this 10 step guide I will show you how to build a Packt Free Learning Notifier which will accomplish all these tasks. Ready to learn some nice automation skills in Python?"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/selenium-headless-on-heroku.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2019-02-19 14:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Tools"/>
+<meta property="article:tag" content="Selenium"/>
+<meta property="article:tag" content="headless"/>
+<meta property="article:tag" content="Heroku"/>
+<meta property="article:tag" content="tweepy"/>
+<meta property="article:tag" content="argparse"/>
+<meta property="article:tag" content="Slack"/>
+<meta property="article:tag" content="Packt"/>
+<meta property="article:tag" content="books"/>
+<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="parsing"/>
+<meta property="article:tag" content="BeautifulSoup"/>
+<meta property="article:tag" content="requests"/>
+<meta property="article:tag" content="namedtuple"/>
+<meta property="article:tag" content="Scheduler"/>
+<meta property="article:tag" content="git"/>
+<meta property="article:tag" content="buildpacks"/>
+<meta property="article:tag" content="environment variables"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku" />
+<meta name="twitter:description" content="Ever wondered how you scrape hidden (or JS generated) HTML? Selenium is your friend. Ever wondered how to run it without a browser popping up? Use headless mode. How would you run it remotely? Use Heroku. And how about autoposting to Slack and Twitter? With the right libraries and API setup little code is needed. In this 10 step guide I will show you how to build a Packt Free Learning Notifier which will accomplish all these tasks. Ready to learn some nice automation skills in Python?" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku</title>
+
+
+</head>
+<body>
+<div id="codeChallengeWrapper">
+
+  <div id="codeWithUs">
+
+    <div class="quote-box">
+      <div class="quote">
+
+        <img src="https://codechalleng.es/static/img/honors/unlock.png" class="ninja" alt="earn the White PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_yellow.png" class="ninja" alt="earn the Yellow PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_orange.png" class="ninja" alt="earn the Orange PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/right-arrow.png" class="ninja" alt="right arrow">
+        <img src="https://codechalleng.es/static/img/honors/unlock_red.png" class="ninja" alt="earn more PyBites Ninja belts and certificates">
+
+        <hr>
+
+        <blockquote>
+          The best way to learn to <strong>code in Python</strong> is to <strong><a href="https://pybit.es/learn-by-doing.html" target="_blank">actually use the language</a></strong>.
+          <br><br>
+          Our platform offers <strong>effective Test Driven Learning</strong> which will be key to your progress.
+          <br><br><br>
+          Join thousands of Pythonistas and start coding!
+
+          <br><br><br>
+          <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/ghlogin.png" alt="Join us on our PyBites Platform"></a>
+        </blockquote>
+  
+      </div>
+    </div>
+
+  </div>
+
+  <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
+    Hone Your Python Skills, Become a PyBites Ninja &raquo;
+  </button>
+
+</div><!-- end codeChallengeWrapper -->
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/reading.html">Reading</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="selenium-headless-on-heroku">How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 19 February 2019 in <a href="https://pybit.es/category/tools.html">Tools</a>
+
+
+        &#8226; 6 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Ever wondered how you scrape hidden (or JS generated) HTML? Selenium is your friend. Ever wondered how to run it without a browser popping up? Use <em>headless</em> mode. How would you run it remotely? Use Heroku. And how about autoposting to Slack and Twitter? </p>
+<p>With the right libraries and API setup little code is needed. In this 10 step guide I will show you how to build a <a href="https://github.com/pybites/packt"><em>Packt Free Learning Notifier</em></a> which will accomplish all these tasks. Ready to learn some nice automation skills in Python?</p>
+<h2>Part I. the parser</h2>
+<h3>1. Setup</h3>
+<p>Packt has this awesome <a href="https://www.packtpub.com/packt/offers/free-learning">Free Learning campaign</a>: a free ebook a day. It even includes video these days. Thank you Packt!</p>
+<p>We had a nice daily notification posting into our <a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU">Slack #books channel</a>, until it started posting empty messages. Oops!</p>
+<p>The page still works:</p>
+<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning1.png"></p>
+<p>However looking at the HTML it changed:</p>
+<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning2.png"></p>
+<h3>2. Where is the HTML?!</h3>
+<p>... wait that title string surely was on the page, no? Let's do an inspect:</p>
+<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning3.png"></p>
+<p>Let's look for the class:</p>
+<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning4.png"></p>
+<p>OK is this content generated by JS? I verified our <a href="https://github.com/pybites/packt_pytweet">Packt PyTweet</a> BeautifulSoup code and indeed it came up empty. But wait what was that testing tool <a href="https://pybit.es/selenium-pytest-and-django.html">I played with the other day</a>?</p>
+<h3>3. Selenium to the rescue</h3>
+<p><a href="https://selenium-python.readthedocs.io/">Selenium</a> seemed to have no issues finding these "hidden" CSS classes!</p>
+<p>What follows are snippets to keep the flow of the post, you can find the complete code/repo <a href="https://github.com/pybites/packt">here</a> ...</p>
+<div class="highlight"><pre><span></span>driver.get(PACKT_FREE_LEARNING)
+
+find_class = driver.find_element_by_class_name
+
+title = find_class(&#39;product__title&#39;).text
+author = find_class(&#39;product__author&#39;).text
+pub_date = find_class(&#39;product__publication-date&#39;).text
+timer = find_class(&#39;countdown__title&#39;).text.splitlines()[-1]
+
+driver.quit()
+
+book = Book(title, author, pub_date, _get_expired(timer))
+return _create_update(book)
+</pre></div>
+
+
+<p><code>Book</code> is a <code>namedtuple</code> I populate with my findings. Easy enough! But I inmediately thought about:</p>
+<ol>
+<li>Scaling: how to post this valuable info to social media - bear with me ...</li>
+<li>Deployment: I don't want to run this manually every morning, how to automate this, and therefore: how to run Selenium remotely?!</li>
+</ol>
+<h3>4. Adding headless mode</h3>
+<p>This led me to Selenium's <em>headless</em> mode. This is pretty easy to configure using Selenium's <code>Options</code> object (as imported from <code>selenium.webdriver.chrome.options</code>):</p>
+<div class="highlight"><pre><span></span>options = Options()
+options.add_argument(&quot;--headless&quot;)
+options.binary_location = GOOGLE_CHROME_BIN
+options.add_argument(&#39;--disable-gpu&#39;)
+options.add_argument(&#39;--no-sandbox&#39;)
+</pre></div>
+
+
+<p><code>GOOGLE_CHROME_BIN</code> is defined as an <em>environment variable</em>, because it will be different according to the env we run our script in. More on this in a bit.</p>
+<p>There is quite a bit more to it and thankfully I found <a href="https://stackoverflow.com/a/44958044">Emanoeli M's Stack Overflow thread</a> which pointed me in the right direction. </p>
+<h3>5. Deploy to Heroku part I - adding buildpacks</h3>
+<p>First I deployed the script to Heroku using <a href="https://devcenter.heroku.com/articles/git">its Git procedure</a>, basically:</p>
+<ul>
+<li>make sure you have <a href="https://devcenter.heroku.com/articles/heroku-cli#download-and-install">Heroku CLI</a> installed</li>
+<li>create an app: <code>heroku create</code></li>
+<li>push to new remote: <code>git push heroku master</code></li>
+<li>try to run the script: <code>heroku run bash</code> -&gt; <code>$ python packt.py</code></li>
+</ul>
+<p>This of course failed because the new app sandbox could not locate the <code>chromedriver</code>. I naively thought that was the only requirement, but you actually also need the <code>Chrome</code> browser. This meant getting familiar with Heroku's <em>buildpacks</em>!</p>
+<p>The default buildpack Heroku auto-detected was the Python one, good.</p>
+<p>Here are the commands to add the <code>chromedriver</code> and <code>Chrome</code>. Note that <code>heroku-buildpack-xvfb-google-chrome</code> (from the SO thread) gave me some compatibility issues so I ended up using <code>heroku-buildpack-google-chrome</code>!</p>
+<div class="highlight"><pre><span></span>$ heroku create --buildpack https://github.com/heroku/heroku-buildpack-chromedriver.git
+$ heroku buildpacks:add heroku/chromedriver
+</pre></div>
+
+
+<p>And:</p>
+<div class="highlight"><pre><span></span>$ heroku create --buildpack https://github.com/heroku/heroku-buildpack-google-chrome
+$ heroku buildpacks:add heroku/google-chrome
+</pre></div>
+
+
+<p>(see all Heroku's buildpacks <a href="https://github.com/heroku?utf8=%E2%9C%93&amp;q=buildpack&amp;type=&amp;language=">here</a>)</p>
+<p>So I ended up with 3 buildpacks!</p>
+<p><img alt="I ended up with 3 buildpacks" src="https://pybit.es/images/selenium-headless-heroku/buildpacks.png"></p>
+<p>(ignore <em>secure-beach</em>, I was playing around ...)</p>
+<p>And upon the next <code>git push heroku master</code> it got really busy installing Chrome :)</p>
+<p><img alt="installing Chrome" src="https://pybit.es/images/selenium-headless-heroku/installing-chrome.png"></p>
+<p>That in and by itself was still not enough:</p>
+<p><img alt="path not found" src="https://pybit.es/images/selenium-headless-heroku/chromedriver-not-found.png"></p>
+<h3>6. Deploy to Heroku part II - setting env variables</h3>
+<p>To let Selenium know where to find the <code>chromedriver</code> and <code>Chrome</code> binaries, I had to define 2 environment variables. Compare how they look locally (to isolate them, I set them in my <code>venv/bin/activate</code> script):</p>
+<div class="highlight"><pre><span></span>export CHROME_DRIVER=/Users/bbelderbos/bin/chromedriver
+export GOOGLE_CHROME_BIN=&quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;
+</pre></div>
+
+
+<p>vs. remotely on Heroku (hence why we call them <em>environment</em> variables):</p>
+<p><img alt="Heroku env variables" src="https://pybit.es/images/selenium-headless-heroku/env-variables.png"></p>
+<p>After setting those in the heroku.com GUI they show up when entering in the Heroku shell (run: <code>heroku run bash</code>) and like magic the script started to work!</p>
+<p><img alt="working script with env variables" src="https://pybit.es/images/selenium-headless-heroku/it-works.png"></p>
+<hr>
+<h2>Part II - sharing is caring</h2>
+<p>Awesome! Let's indulge in a moment of celebration: not only did we manage to scrape "hidden" HTML (was that even possible?!), what's even more mindblowing to me is that we also got Selenium to run without opening a Browser window (also known as <em>headless</em> mode) in the cloud!</p>
+<p>This gave us the possibility to run our script on a remote server == automation <em>for fun and profit</em> :)</p>
+<p>Well back up a bit there ... not much "profit" if it only spits out something to stdout never to be seen again unless you like consuming <code>heroku logs</code> ...</p>
+<p><img alt="ok ok the &quot;heroku logs&quot; command does show the outputs" src="https://pybit.es/images/selenium-headless-heroku/heroku-logs.png"></p>
+<p>So let's do something more interesting ...</p>
+<h3>7. Auto-posting to Twitter</h3>
+<p>First you need to make a Twitter app via <a href="https://developer.twitter.com/en/docs.html">its API</a>. Then set the required keys and tokens as environment variables:</p>
+<div class="highlight"><pre><span></span>export CONSUMER_KEY=123
+export CONSUMER_SECRET=456
+export ACCESS_TOKEN=123
+export ACCESS_SECRET=456
+</pre></div>
+
+
+<p>I use <code>tweepy</code> which makes posting to Twitter a breeze:</p>
+<div class="highlight"><pre><span></span>def twitter_authenticate():
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
+    return tweepy.API(auth)
+
+
+def post_to_twitter(book_post):
+    try:
+        api = twitter_authenticate()
+        api.update_status(book_post)
+        print(f&#39;Shared title on Twitter&#39;)
+    except Exception as exc:
+        print(f&#39;Error posting to Twitter: {exc}&#39;)
+</pre></div>
+
+
+<h3>8. Auto-posting to Slack</h3>
+<p>Similarly you create an app via the <a href="https://api.slack.com/">Slack API</a> and submit it to the Admins for approval. Upon approval you install the app into the workspace and you can then <a href="https://api.slack.com/incoming-webhooks">create an <em>incoming webhook</em></a>. </p>
+<p>You would want this URL to be secret so we also load this in from the environment:</p>
+<div class="highlight"><pre><span></span>export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/123/456/789
+</pre></div>
+
+
+<p>Then we use <code>requests</code> to post to this webhook, pretty straightforward:</p>
+<div class="highlight"><pre><span></span>def post_to_slack(book_post):
+    payload = {&#39;text&#39;: book_post}
+    headers = {&#39;Content-Type&#39;: &#39;application/json&#39;}
+    resp = requests.post(SLACK_WEBHOOK_URL,
+                         data=json.dumps(payload),
+                         headers=headers)
+    if resp.status_code == 200:
+        print(f&#39;Shared title on Slack&#39;)
+    else:
+        print(f&#39;Error posting to Slack: {resp.status_code}&#39;)
+</pre></div>
+
+
+<h3>9. Make a simple CLI interface with <code>argparse</code></h3>
+<p>Next we want to make some command line switches to enable/disable posting to Twitter and Slack. <code>argparse</code> makes this pretty easy. I put this under the <code>main</code> block to only run it when the script is called directly:</p>
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
+    description = &#39;Packt free book (video) of the day&#39;
+
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument(&#39;-t&#39;, &#39;--twitter&#39;, action=&#39;store_true&#39;,
+                        help=&quot;Post title to Twitter&quot;)
+    parser.add_argument(&#39;-s&#39;, &#39;--slack&#39;, action=&#39;store_true&#39;,
+                        help=&quot;Post title to Slack&quot;)
+    args = parser.parse_args()
+
+    book_update = get_packt_book()
+    print(book_update)
+
+    if args.slack:
+        post_to_slack(book_update)
+
+    if args.twitter:
+        post_to_twitter(book_update)
+</pre></div>
+
+
+<p><code>argparse</code> adds a nice helper message by default:</p>
+<div class="highlight"><pre><span></span>$ python packt.py -h
+usage: packt.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-t<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span>
+
+Packt free book <span class="o">(</span>video<span class="o">)</span> of the day
+
+optional arguments:
+-h, --help     show this <span class="nb">help</span> message and <span class="nb">exit</span>
+-t, --twitter  Post title to Twitter
+-s, --slack    Post title to Slack
+</pre></div>
+
+
+<h3>10. Deploy to Heroku part III - use the Scheduler addon</h3>
+<p>Finally I wanted to have this script auto-post the daily Free Learning resource to Twitter and Slack automatically. Enter the free <a href="https://devcenter.heroku.com/articles/scheduler">Heroku Scheduler addon</a> which you can add under the "Resources" tab of your app via Heroku's GUI:</p>
+<p><img alt="Heroku Scheduler is awesome" src="https://pybit.es/images/selenium-headless-heroku/heroku-scheduler.png"></p>
+<p>We can just specify the script and command line switches, just as if we ran it locally. The dependencies and environment variables are already loaded in the app sandbox when this executes! Let's notify early in the morning (my local time):</p>
+<p><img alt="cronjob scheduled!" src="https://pybit.es/images/selenium-headless-heroku/cronjob-scheduled.png"></p>
+<h2>Result</h2>
+<p><img alt="I love it when a plan comes together!" src="https://pybit.es/images/selenium-headless-heroku/plan-comes-together.png"></p>
+<p>Voilà: this morning I saw this auto-posted to my Twitter:</p>
+<p><img alt="post to Twitter" src="https://pybit.es/images/selenium-headless-heroku/post-to-twitter.png"></p>
+<p>And this in our #books Slack channel:</p>
+<p><img alt="post to Slack" src="https://pybit.es/images/selenium-headless-heroku/post-to-slack.png"></p>
+<h2>Conclusion</h2>
+<p>This was a fun exercise! Not only did it solve a pressing need of keeping our Slack community up2date about Packt's awesome deal, along the way I learned:</p>
+<ul>
+<li>how to scrape "hidden" HTML,</li>
+<li>how to work with Selenium in <em>headless</em> mode,</li>
+<li>auto-post to Twitter and Slack using their APIs,</li>
+<li>and deploy my script to Heroku using its <em>Scheduler</em> addon to run it automatically every day.</li>
+</ul>
+<p>That's the part I like most: as long as the page source does not update again, I can forget about it :)</p>
+<h3>Our Slack</h3>
+<p>I hope you enjoyed this post and feel free to get notified joining our #books channel on <a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU">our Slack</a>. </p>
+<p>While there feel free to share inspiring books you came across that helped you grow as a developer and human being (you can also use <a href="https://pbreadinglist.herokuapp.com/">our Django app</a>).</p>
+<p>It's a super nice community filled with passionate Pythonistas learning and sharing everything Python / coding related ...</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/selenium.html">Selenium</a>
+      <a href="https://pybit.es/tag/headless.html">headless</a>
+      <a href="https://pybit.es/tag/heroku.html">Heroku</a>
+      <a href="https://pybit.es/tag/tweepy.html">tweepy</a>
+      <a href="https://pybit.es/tag/argparse.html">argparse</a>
+      <a href="https://pybit.es/tag/slack.html">Slack</a>
+      <a href="https://pybit.es/tag/packt.html">Packt</a>
+      <a href="https://pybit.es/tag/books.html">books</a>
+      <a href="https://pybit.es/tag/automation.html">automation</a>
+      <a href="https://pybit.es/tag/parsing.html">parsing</a>
+      <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>
+      <a href="https://pybit.es/tag/requests.html">requests</a>
+      <a href="https://pybit.es/tag/namedtuple.html">namedtuple</a>
+      <a href="https://pybit.es/tag/scheduler.html">Scheduler</a>
+      <a href="https://pybit.es/tag/git.html">git</a>
+      <a href="https://pybit.es/tag/buildpacks.html">buildpacks</a>
+      <a href="https://pybit.es/tag/environment-variables.html">environment variables</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>
