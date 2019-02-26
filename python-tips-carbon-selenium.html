@@ -209,10 +209,10 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 <h2>Introducing our Platform Tips</h2>
 <p>At the time of this writing we have <a href="https://codechalleng.es/tips">92 tips on our platform</a>:</p>
 <p><img alt="pybites tips page" src="https://pybit.es/images/selenium-carbon/pybites-tips.png"></p>
-<p>Let's inspect the html we need to parse with BeautifulSoup:</p>
+<p>Let's inspect the tip html we need to parse with BeautifulSoup:</p>
 <p><img alt="html of each tip" src="https://pybit.es/images/selenium-carbon/tip-html.png"></p>
 <p>Each tip is wrapped in a <code>tr</code> where the tip text is in a <code>blockquote</code> and the code in <code>pre</code> tags.</p>
-<p>We also want to know if a tip has already been shared out by inspecting the Twitter link. In this example it has <em>pybites/status</em> which means we did share it out.</p>
+<p>We also want to know if a tip has already been shared out by inspecting the Twitter link. In this example it has <em>pybites/status</em> which means we did.</p>
 <p><img alt="check if there is a twitter link href" src="https://pybit.es/images/selenium-carbon/twitter-href.png"></p>
 <hr>
 <p>By the way, I didn't realize it at the time of coding this, but we did make an <a href="https://codechalleng.es/api/tips/">API GET endpoint</a> some time ago. If there is an API it's preferred to use that to retrieve data. However knowing <code>BeautifulSoup</code> might come in handy too :)</p>
@@ -282,40 +282,34 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 <p>OK step by step:</p>
 <ul>
 <li>
-<p>We are going to use some nice stdlib modules like <code>collections</code> and <code>random</code>.</p>
+<p>We are going to use some nice stdlib modules like <code>collections</code> and <code>random</code>. Secondly we import the external modules we just installed.</p>
 </li>
 <li>
-<p>Secondly we import the external modules we just installed.</p>
+<p>We define some constants. <code>TWEET</code> is the template of the tweet we want to build. I will explain why we need <code>TWEET_BTN_CLASS</code> when we get to the carbon section ...</p>
 </li>
 <li>
-<p>We define some constants. I will explain why we need <code>TWEET_BTN_CLASS</code> when we get to the carbon section ...</p>
+<p>I define a <code>namedtuple</code> (basically a <code>class</code> without behavior) to hold a tip.</p>
 </li>
 <li>
-<p><code>TWEET</code> is the template of the tweet we want to build.</p>
+<p>We are going to do the work in two functions: <code>retrieve_tips</code> and <code>get_carbon_image</code> (I probably should add some <a href="https://docs.python.org/3/library/typing.html">type hinting</a> on the next iteration ...)</p>
 </li>
 <li>
-<p>I define a <code>namedtuple</code> (basically a <code>class</code> without methods or behavior) to hold one tip.</p>
-</li>
-<li>
-<p>We are going to do the work in two functions: <code>retrieve_tips</code> and <code>get_carbon_image</code> (I could add some <a href="https://docs.python.org/3/library/typing.html">type hinting</a> on the next iteration ...)</p>
-</li>
-<li>
-<p>Under <code>if __name__ == '__main__'</code> (aka "I, the script, am called, not imported") I define two modes of operation:</p>
+<p>Under <code>if __name__ == '__main__'</code> (aka "I, the script, am called, not imported") I define two ways to call the script:</p>
 <ul>
 <li>
-<p>called with exactly one argument (<code>len(sys.argv) == 2</code>, <code>sys.argv[0]</code> is the script name), it retrieves the tip by numeric ID (see the left column on the tips page).</p>
+<p>with exactly one argument (<code>len(sys.argv) == 2</code>, <code>sys.argv[0]</code> is the script name), retrieving the tip by numeric ID (see the first column of the <a href="https://codechalleng.es/tips">tips table</a>).</p>
 </li>
 <li>
-<p>called with any other number of arguments, it takes a random tip from the retrieved <code>dict</code>. <code>random.choice</code> is really nice for this.</p>
+<p>with any other number of arguments, taking a random tip from the retrieved <code>dict</code> using <code>random.choice</code>.</p>
 </li>
 </ul>
 </li>
 <li>
-<p>It retrieves the tip from the <code>tips dict</code> and creates the tweet using the <code>TWEET</code> template and prints it to stdout. For now I am happy to manually post it. See a demo towards the end of this article.</p>
+<p>It retrieves the tip from the <code>tips dict</code> and creates the tweet using the <code>TWEET</code> template and prints it to stdout. For now I am happy to manually post it (see demo at the end).</p>
 </li>
 </ul>
 <h2>Parsing the tips</h2>
-<p>At this point the code at best will throw an <code>AttributeError</code>, because our tips <code>dict</code> is empty. So let's write <code>retrieve_tips</code> to fix that:</p>
+<p>At this point the code at best will throw an <code>AttributeError</code>, because our tips <code>dict</code> is empty. So let's write <code>retrieve_tips</code> to populate it:</p>
 <div class="highlight"><pre><span></span>def retrieve_tips():
     &quot;&quot;&quot;Grab and parse all tips from https://codechalleng.es/tips
     returning a dict of keys: tip IDs and values: Tip namedtuples
@@ -333,17 +327,17 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 </pre></div>
 
 
-<p>As we saw all tips are in a table, each one in a table row or <code>tr</code>, so let's get all those:</p>
+<p>As we saw all the tips are in a table, each one in a table row or <code>tr</code>, so let's get all of them:</p>
 <div class="highlight"><pre><span></span>    trs = soup.findAll(&quot;tr&quot;)
 </pre></div>
 
 
-<p>Next let's use return data structure. At first I used a <code>list</code> but later I wanted to index by tip ID, so a <code>dict</code> turned out to be more appropriate:</p>
+<p>Next let's use a data structure to store the tips. At first I used a <code>list</code> but later I wanted to index by tip ID, so a <code>dict</code> turned out to be more appropriate:</p>
 <div class="highlight"><pre><span></span>    tips = {}
 </pre></div>
 
 
-<p>Next let's loop through the rows and make a Tip <code>namedtuple</code> object:</p>
+<p>Next let's loop through the rows, creating Tip <code>namedtuple</code>s and adding them to our <code>tips dict</code>:</p>
 <div class="highlight"><pre><span></span>    for tr in trs:
         tds = tr.find_all(&quot;td&quot;)
         id_ = int(tds[0].text.strip().rstrip(&#39;.&#39;))
@@ -369,7 +363,7 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 <p>Step by step:</p>
 <ul>
 <li>
-<p>First I get al table cells or <code>td</code> elements in the table row.</p>
+<p>First I get all table cells or <code>td</code> elements in the table row.</p>
 </li>
 <li>
 <p>I parse the tip ID from the first cell, stripping off the dot and storing it in a variable called <code>id_</code>.</p>
@@ -378,13 +372,13 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 <p>The tip html is in the second table cell.</p>
 </li>
 <li>
-<p>I see if there any links in the tips html. As you scroll down on the <a href="https://codechalleng.es/tips">tips page</a> there is always a share link (<img src="https://codechalleng.es/static/img/icon-twitter.9f5315ee958c.png" alt="twitter icon">), and optionally a second resource link (<img src="https://codechalleng.es/static/img/info.5b6dc8a26e88.png" alt="more info" title="check out additional info">).</p>
+<p>I check if there are any links in the tips html. As you scroll down on the <a href="https://codechalleng.es/tips">tips page</a> there is always a share link (<img src="https://codechalleng.es/static/img/icon-twitter.9f5315ee958c.png" alt="twitter icon">), and an optional second resource link (<img src="https://codechalleng.es/static/img/info.5b6dc8a26e88.png" alt="more info" title="check out additional info">).</p>
 </li>
 <li>
 <p>I put the tip code in a variable called <code>code</code>.</p>
 </li>
 <li>
-<p>Then I check if the tip was already shared on Twitter by checking if <code>PYBITES_HAS_TWEETED</code> (<em>pybites/status</em>) is in the share link, or the tip does not contain any code. In these instances we want to exclude it.</p>
+<p>Then I check if the tip was already shared on Twitter by checking if <code>PYBITES_HAS_TWEETED</code> (<em>pybites/status</em>) is in the share link, or if the tip does not contain any code (some are just quotes). In these instances we want to exclude the tip.</p>
 </li>
 <li>
 <p>Next we put the tip text in a variable called <code>tip</code>.</p>
@@ -392,7 +386,9 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 <li>
 <p>We add the resource link in a variable called <code>src</code>. As it's optional we first check the length of the <code>links</code> list.</p>
 </li>
-<li>Finally we make the <code>Tip namedtuple</code> and assign it as value to the <code>id_</code> key in the <code>tips dict</code>.</li>
+<li>
+<p>Finally we make the <code>Tip namedtuple</code> and assign it as value to the <code>id_</code> key in the <code>tips dict</code>.</p>
+</li>
 </ul>
 <p>Lastly we return the tips <code>dict</code>:</p>
 <div class="highlight"><pre><span></span>    return tips
@@ -407,13 +403,12 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 <h2>Beautiful images of your source code</h2>
 <p>Meet <a href="https://carbon.now.sh/">carbon</a>:</p>
 <p><img alt="carbon home" src="https://pybit.es/images/selenium-carbon/carbon-home.png"></p>
-<p>It allows you to add code, choose a language and configure other settings, then generate the image and/or tweet it out. Really awesome!</p>
-<p>Of course we want to automate some of this. While playing with the interface I found that clicking the Tweet button it would generate a shareable picture hosted on Twitter :)</p>
-<p>For example clicking the Tweet button I get this popup:</p>
+<p>It allows you to add code, choose a language and configure other settings, then generate the image and/or tweet it out. It's really nice!</p>
+<p>While playing with the interface I found that clicking the <em>Tweet</em> button it would generate a shareable picture hosted on Twitter. For example clicking the <em>Tweet</em> button I get this popup:</p>
 <p><img alt="clicking tweet button" src="https://pybit.es/images/selenium-carbon/clicking-tweet-button.png"></p>
 <p>And that Twitter link shows the generated code snippet image:</p>
 <p><img alt="resulting carbon image" src="https://pybit.es/images/selenium-carbon/resulting-carbon-image.png"></p>
-<p>This is why I made the <code>TWEET_BTN_CLASS</code> constant. We will use Selenium next to target this button to generate the image for us.</p>
+<p>We can automate this using Selenium to click the <em>Tweet</em> button, capturing the generated image link. This is why I defined the <code>TWEET_BTN_CLASS</code> constant which is the class set on this button.</p>
 <h2>Use Selenium to create tip code image</h2>
 <p>Let's write the second function <code>get_carbon_image</code>:</p>
 <div class="highlight"><pre><span></span>def get_carbon_image(tip):
@@ -423,17 +418,17 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 </pre></div>
 
 
-<p>First we need to encode the code, basically replace special characters. <code>urllib.parse</code>'s <code>quote_plus</code> (in addition to <code>quote</code>) <em>also replaces spaces by plus signs, as required for quoting HTML form values when building up a query string to go into a URL</em> (see <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.quote_plus">docs</a>).</p>
+<p>First we need to encode (replace special characters) the tip code snippet. <code>quote_plus</code> (from <code>urllib.parse</code>) <em>also replaces spaces by plus signs, as required for quoting HTML form values when building up a query string to go into a URL</em> (see <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.quote_plus">docs</a>).</p>
 <div class="highlight"><pre><span></span>    code = urllib.parse.quote_plus(tip.code)
 </pre></div>
 
 
-<p>We define the full url:</p>
+<p>With that done we define the full url:</p>
 <div class="highlight"><pre><span></span>    url = CARBON.format(code=code)
 </pre></div>
 
 
-<p>We then start the Chromedriver. Unlike <a href="https://pybit.es/selenium-headless-on-heroku.html">last time</a> I am not going to use <em>headless</em> mode here, because I am OK with Selenium opening a browser (<code>driver.get(url)</code>) so I can see what is happening:</p>
+<p>We then start the Chromedriver. Unlike <a href="https://pybit.es/selenium-headless-on-heroku.html">last time</a> I am not going to use <em>headless</em> mode here, because I'd actually like to see what Selenium is doing:</p>
 <div class="highlight"><pre><span></span>    driver = webdriver.Chrome()
     driver.get(url)
 </pre></div>
@@ -444,20 +439,20 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 </pre></div>
 
 
-<p>Trial and error taught me that this might have a slight delay so let's <code>sleep</code> a bit:</p>
+<p>Trial and error taught me that this might take a bit so I use <code>sleep</code>:</p>
 <div class="highlight"><pre><span></span>    sleep(5)
 </pre></div>
 
 
 <h2>Retrieve the image from popup</h2>
-<p>And here is the tricky part. The Tweet button opened a popup but the driver is still on the main browser page window (see second 15 and 41 of the demo below).</p>
-<p>You can use the <code>driver</code>'s <code>switch_to.window</code> though to switch to it:</p>
+<p>And here is the tricky part. The <em>Tweet</em> button opened a popup but the driver is still on the main browser page window (see seconds 15 and 41 of the demo below).</p>
+<p>You can toggle windows though using <code>driver.switch_to.window</code>:</p>
 <div class="highlight"><pre><span></span>    window_handles = driver.window_handles
     driver.switch_to.window(window_handles[1])
 </pre></div>
 
 
-<p>Now I am on the popup window and I can target the status ID field and grab the image URL from it:</p>
+<p>Now I am on the Twitter popup window and I can target the <em>status</em> ID field and grab the image URL from it:</p>
 <div class="highlight"><pre><span></span>    status = driver.find_element_by_id(&#39;status&#39;)
     img = status.text.split(&#39; &#39;)[-1]
 </pre></div>
@@ -470,13 +465,13 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 
 
 <h2>See it in action</h2>
-<p>Here you can see this automation script in action, generating an image from a random tip as well as a specified tip ID:</p>
+<p>Here you can see this automation script in action, generating an image from a random tip as well as when specifying a specific ID:</p>
 <div class="container">
 ▸␣␣␣<iframe src="https://www.youtube.com/embed/V3-7RvipiSU" frameborder="0" allowfullscreen class="video"></iframe>
 </div>
 
 <p>And voilà: two new tips I could post to our Twitter (<a href="https://twitter.com/pybites/status/1100343735299252225">here</a> and <a href="https://twitter.com/pybites/status/1100342422473719809">here</a>).</p>
-<p>After manually tweeting it out as <a href="https://twitter.com/pybites">@pybites</a>, we set the obtained tweet URL on the tip (in the DB) so it's not selected upon next run (the <code>if PYBITES_HAS_TWEETED in share_link: ... continue</code> part above):</p>
+<p>Note that after manually tweeting it out as <a href="https://twitter.com/pybites">@pybites</a>, we set the obtained tweet URL on the tip (in the DB) so it's not selected upon next run (the <code>if PYBITES_HAS_TWEETED in share_link</code> check above).</p>
 <h3>Room for improvement</h3>
 <p>Here are some things we can do to take it to the next level:</p>
 <ol>
@@ -489,10 +484,9 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 </ol>
 <p>Feel free to PR any of this <a href="https://github.com/pybites/blog_code/pulls">here</a>.</p>
 <hr>
-<p>I hope you enjoyed this and it inspired you to build your own automation script. To learn how to run Selenium in headless mode on Heroku, check out <a href="https://pybit.es/selenium-headless-on-heroku.html">our article from last week</a>.</p>
+<p>I hope you enjoyed this and it inspired you to build your own automation scripts. To learn how to run Selenium in headless mode on Heroku, check out <a href="https://pybit.es/selenium-headless-on-heroku.html">our article from last week</a>.</p>
 <p>Feel free to share more Python tips <a href="https://codechalleng.es/inbox/new/pytip/">on our platform</a>.</p>
-<p>What would you like us to write about more? You can leave a request <a href="https://codechalleng.es/inbox/new/feature/">here</a> or just <a href="mailto:pybitesblog@gmail.com">drop us an email</a>.</p>
-<p>Or to brainstorm with us and our amazing community <a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU">join our Slack</a>.</p>
+<p>Question: what would you like us to write about more? You can <a href="mailto:pybitesblog@gmail.com">drop us an email</a> or brainstorm with us and our amazing community <a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU">on our Slack</a>. We do accept <a href="https://pybit.es/pages/guests.html">guest posts</a>!</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
