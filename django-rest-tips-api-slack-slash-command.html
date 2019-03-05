@@ -5,19 +5,19 @@
   <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="./theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/ribbons.css">
-  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/custom.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
 
     <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
 
     <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
 
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -27,17 +27,17 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using Postman. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover next week. Sounds exciting? You bet it is! Let's jump straight in!" />
+<meta name="description" content="In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using curl, Postman and Django REST's browser front-end. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover in the next article. Sounds exciting? You bet it is! Let's jump straight in!" />
 <meta name="keywords" content="Django, APIs, Django REST Framework, tips, Digital Ocean, Django Commands, Postman, Nginx, postgres, Gunicorn, BeautifulSoup, requests, curl, SSH">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean"/>
-<meta property="og:description" content="In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using Postman. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover next week. Sounds exciting? You bet it is! Let's jump straight in!"/>
+<meta property="og:description" content="In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using curl, Postman and Django REST's browser front-end. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover in the next article. Sounds exciting? You bet it is! Let's jump straight in!"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="./django-rest-tips-api-slack-slash-command.html"/>
+<meta property="og:url" content="https://pybit.es/django-rest-tips-api-slack-slash-command.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2019-03-05 12:30:00+01:00"/>
 <meta property="article:modified_time" content=""/>
-<meta property="article:author" content="./author/bob.html">
+<meta property="article:author" content="https://pybit.es/author/bob.html">
 <meta property="article:section" content="Django"/>
 <meta property="article:tag" content="Django"/>
 <meta property="article:tag" content="APIs"/>
@@ -53,13 +53,13 @@
 <meta property="article:tag" content="requests"/>
 <meta property="article:tag" content="curl"/>
 <meta property="article:tag" content="SSH"/>
-<meta property="og:image" content="./images/featured/pb-article.png">
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean" />
-<meta name="twitter:description" content="In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using Postman. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover next week. Sounds exciting? You bet it is! Let's jump straight in!" />
-<meta name="twitter:image" content="./images/featured/pb-article.png">
+<meta name="twitter:description" content="In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using curl, Postman and Django REST's browser front-end. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover in the next article. Sounds exciting? You bet it is! Let's jump straight in!" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean</title>
 
@@ -114,10 +114,10 @@
     <aside class='blue'>
   
     <div>
-      <a href=".">
-          <img src="./theme/img/article.png" alt="PyBites" title="PyBites">
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
       </a>
-      <h1><a href=".">PyBites</a></h1>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
 
 <h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
       <nav>
@@ -160,11 +160,11 @@
       </div>
         
       <ul class="social">
-        <li><a href="https://twitter.com/pybites" target="_blank"><img src='./theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
-        <li><a href="https://github.com/pybites/" target="_blank"><img src='./theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
-        <li><a href="https://instagram.com/pybites" target="_blank"><img src='./theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
-        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='./theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='./theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -182,25 +182,32 @@
   <header>
     <h1 id="django-rest-tips-api-slack-slash-command">Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean</h1>
     <p>
-          Posted by <a href="./author/bob.html">Bob</a> on Tue 05 March 2019 in <a href="./category/django.html">Django</a>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 05 March 2019 in <a href="https://pybit.es/category/django.html">Django</a>
 
 
-        &#8226; 13 min read
+        &#8226; 14 min read
     </p>
   </header>
 
 
   <div>
-    <p>In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using Postman. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover next week. Sounds exciting? You bet it is! Let's jump straight in!</p>
+    <p>In this article I will show you how to build a simple API for our growing collection of Python tips:</p>
+<ul>
+<li>First we make a simple Django app, defining the model.</li>
+<li>Next we use Django REST Framework to make an API supporting common CRUD operations.</li>
+<li>Then we will test it out using curl, Postman and Django REST's browser front-end.</li>
+<li>Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover in the next article.</li>
+</ul>
+<p>Sounds exciting? You bet it is! Let's jump straight in!</p>
 <h2>Setup</h2>
-<blockquote>
-<p>If you want to follow along, the final code is <a href="https://github.com/pybites/python_tips">here</a>.</p>
-</blockquote>
-<p>First make <a href="https://pybit.es/the-beauty-of-virtualenv.html">a virtual environment</a> and <code>pip install</code> <a href="https://github.com/pybites/python_tips/requirements.txt">the requirements</a> which include:
-- <code>django</code> to build the app,
-- <code>django-rest</code> to build the API,
-- <code>bs4</code> (<code>BeautifulSoup</code>) and <code>requests</code> to parse the existing tips from our platform,
-- <code>psycopg2</code> and <code>gunicorn</code> for deployment to <a href="https://www.digitalocean.com/">Digital Ocean</a>.</p>
+<p><em>If you want to follow along, the final code is <a href="https://github.com/pybites/python_tips">here</a></em>.</p>
+<p>First we make <a href="https://pybit.es/the-beauty-of-virtualenv.html">a virtual environment</a> and <code>pip install</code> <a href="https://github.com/pybites/python_tips/requirements.txt">the requirements</a> which include:</p>
+<ul>
+<li><code>django</code> to build the app,</li>
+<li><code>django-rest</code> to build the API,</li>
+<li><code>bs4</code> (<code>BeautifulSoup</code>) and <code>requests</code> to parse the existing tips from our platform,</li>
+<li><code>psycopg2</code> and <code>gunicorn</code> for deployment on <a href="https://www.digitalocean.com/">Digital Ocean</a>.</li>
+</ul>
 <p>So here we go:</p>
 <div class="highlight"><pre><span></span>[bobbelderbos@imac code]$ mkdir tips_api &amp;&amp; cd $_
 [bobbelderbos@imac carbon]$ alias pvenv
@@ -213,13 +220,7 @@ Python 3.7.0
 </pre></div>
 
 
-<p>Let's set 2 environment as referenced in <code>tips/settings.py</code>:</p>
-<div class="highlight"><pre><span></span>SECRET_KEY = os.environ[&#39;SECRET_KEY&#39;]
-DEBUG = os.environ.get(&#39;DEBUG&#39;, False)
-</pre></div>
-
-
-<p>So add this to the virtual environment's activation script <code>venv/bin/activate</code>:</p>
+<p>Let's set the following 2 environment variables as referenced in Django's <code>settings.py</code> file later on:</p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ deactivate
 [bobbelderbos@imac tips_api (master)]$ vi venv/bin/activate
 ...
@@ -234,12 +235,8 @@ export DEBUG=True
 </pre></div>
 
 
-<p>It's also important to set <code>ALLOWED_HOSTS</code>, but it defaults to localhost which is fine for my local env:</p>
-<div class="highlight"><pre><span></span>ALLOWED_HOSTS = os.environ.get(&#39;ALLOWED_HOSTS&#39;, &#39;localhost, 127.0.0.1&#39;).split(&#39;, &#39;)
-</pre></div>
-
-
-<h2>Make a Django app</h2>
+<p>It's also important to set <code>ALLOWED_HOSTS</code>, but as we will see later I have it default to localhost which is fine for my local env.</p>
+<h2>Create a Django project and app</h2>
 <p>Let's make a Django project in the current (<code>.</code>) directory:</p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api]$ django-admin.py startproject tips .
 </pre></div>
@@ -277,7 +274,7 @@ export DEBUG=True
 </pre></div>
 
 
-<p>Lastly tell Django about both apps in <code>settings.py</code> -&gt; <code>INSTALLED_APPS</code>, we also add <code>rest_framework</code> there:</p>
+<p>Lastly tell Django about both apps in <code>tips/settings.py</code> -&gt; <code>INSTALLED_APPS</code>. We also add <code>rest_framework</code> here:</p>
 <div class="highlight"><pre><span></span>INSTALLED_APPS = [
     ...
     &#39;rest_framework&#39;,
@@ -289,11 +286,10 @@ export DEBUG=True
 
 
 <h3>The model</h3>
-<p>Let's look at the original model on our platform:</p>
-<p><img alt="design" src="{filename}/images/django-rest-digital-ocean/design.png"></p>
+<p>Looking at the original model on our platform we see the following fields:</p>
+<p><img alt="design" src="https://pybit.es/images/django-rest-digital-ocean/design.png"></p>
 <p>Let's build our model <code>tips/models.py</code> using these fields. </p>
-<p>Additionally I am making an <code>Author</code> model to store Twitter and Slack handles from future users. The former to give credit when we share their tips, the latter to store the author of the tip when we start posting them from Slack.</p>
-<p>How it works is that when a new <code>User</code> is created a new entry is made in the <code>Author</code> as well. This is one of the ways to extend Django's <code>User</code> model which I learned about <a href="https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html">here</a>. Note the <code>User</code> ForeignKey in <code>Tip</code>.</p>
+<p>Additionally I am making an <code>Author</code> model to store Twitter and Slack handles from future contibuting users. The former to give credit when we share their tips, the latter to store the author of the tip when we start receiving them from Slack (next article). Thinking about (predicting) tomorrow's requirement is one of the fascinating things about software development!</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
 <span class="kn">from</span> <span class="nn">django.db.models.signals</span> <span class="kn">import</span> <span class="n">post_save</span>
@@ -335,7 +331,11 @@ export DEBUG=True
 </pre></div>
 
 
-<p>Now it's time to make the migration files and migrate (sync) the two new models to the database. As it's the first time we call <code>migrate</code> all models that come with Django out of the box gets synced with the DB as well. I am using the default sqlite3 DB for now.</p>
+<p>The <code>Tip</code> model should be pretty straightforward. Note the <code>User</code> ForeignKey in <code>Tip</code> to give them <em>owners</em>.</p>
+<p>I added <code>@receiver</code>s to Django-native <code>User</code> model to detect when a new user gets created. When that happens a new <code>Author</code> instance is created as well.</p>
+<p>This is one way to extend Django's <code>User</code> model which I learned about <a href="https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html">here</a>. </p>
+<p>Now it's time to make the migration files and migrate (sync) the two new models to the database.</p>
+<p>As it's the first time we call <code>migrate</code> all models that come with Django get synced to the DB as well. I am using the default sqlite3 DB for now.</p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py makemigrations tips
 Migrations for &#39;tips&#39;:
 tips/migrations/0001_initial.py
@@ -375,14 +375,12 @@ Superuser created successfully.
 </pre></div>
 
 
-<p>Great: that created both the User and Author entries:</p>
-<p><img alt="auth user" src="{filename}/images/django-rest-digital-ocean/auth_user.png"></p>
-<p><img alt="tips author" src="{filename}/images/django-rest-digital-ocean/tips_author.png"></p>
+<p>Great: that created both a User and an Author instance in the DB:</p>
+<p><img alt="auth user" src="https://pybit.es/images/django-rest-digital-ocean/auth_user.png"></p>
+<p><img alt="tips author" src="https://pybit.es/images/django-rest-digital-ocean/tips_author.png"></p>
 <h2>Import Tips from our Platform</h2>
 <p>Next we want to retrieve the tips <a href="https://codechalleng.es/tips">currently on our platform</a> so I coded up a <a href="https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/">Django command</a> to parse them and save them to our new tips Database. </p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ cd tips/
-(venv) [bobbelderbos@imac tips (master)]$ ls
-__init__.py __pycache__ migrations  models.py   settings.py urls.py     wsgi.py
 (venv) [bobbelderbos@imac tips (master)]$ mkdir -p management/commands
 (venv) [bobbelderbos@imac tips (master)]$ cd $_
 (venv) [bobbelderbos@imac commands (master)]$ vi sync_tips.py
@@ -436,7 +434,6 @@ __init__.py __pycache__ migrations  models.py   settings.py urls.py     wsgi.py
             <span class="n">pre</span> <span class="o">=</span> <span class="n">tip_html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;pre&quot;</span><span class="p">)</span>
             <span class="n">code</span> <span class="o">=</span> <span class="n">pre</span> <span class="ow">and</span> <span class="n">pre</span><span class="o">.</span><span class="n">text</span> <span class="ow">or</span> <span class="bp">None</span>
 
-            <span class="c1"># skip if tweeted or not code in tip</span>
             <span class="n">share_link</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="k">if</span> <span class="n">PYBITES_HAS_TWEETED</span> <span class="ow">in</span> <span class="n">first_link</span><span class="p">:</span>
                 <span class="n">share_link</span> <span class="o">=</span> <span class="n">first_link</span>
@@ -445,9 +442,9 @@ __init__.py __pycache__ migrations  models.py   settings.py urls.py     wsgi.py
             <span class="n">src</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">links</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">links</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span>
 
             <span class="n">_</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Tip</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">tip</span><span class="o">=</span><span class="n">tip</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span>
-                                                <span class="n">link</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
-                                                <span class="n">approved</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                                <span class="n">share_link</span><span class="o">=</span><span class="n">share_link</span><span class="p">)</span>
+                                                   <span class="n">link</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                                                   <span class="n">approved</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                   <span class="n">share_link</span><span class="o">=</span><span class="n">share_link</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">created</span><span class="p">:</span>
                 <span class="n">new_tips_created</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -456,23 +453,23 @@ __init__.py __pycache__ migrations  models.py   settings.py urls.py     wsgi.py
 </pre></div>
 
 
-<p>It scrapes the page with <code>requests</code> and <code>BeautifulSoup</code>. Originally I kept a list of <code>Tip</code> objects and used Django's ORM <code>bulk_create</code> method to write them to the DB once. </p>
-<p>However I found it nicer to make it work for new tips as well in case the platform still has new tips our API does not have. Hence I use Django's handy <code>Tip.objects.get_or_create</code> which will create the tip if nothing matches the <code>kwargs</code> passed in, otherwise it will return the object. This way it will only create a tip if not already in the DB. </p>
+<p>It scrapes the page with <code>requests</code> and <code>BeautifulSoup</code>. Originally I kept a list of <code>Tip</code> objects and used Django's ORM <code>bulk_create</code> method to write them to the DB in one transaction which is neat. </p>
+<p>However I found it nicer to make it work like an update script, in case the platform gets new tips in the interim. Calling the script again should just insert the newer tips. For that reason I went with Django's handy <code>Tip.objects.get_or_create</code> which will create the tip if nothing matches the <code>kwargs</code> passed in, otherwise it will return the object (which I ignore using <code>_</code>). This way it will only create a tip if not already in the DB. </p>
 <p>Let's run this:</p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py sync_tips
 Done: 92 tips imported
 </pre></div>
 
 
-<p>Awesome:</p>
-<p><img alt="tips imported" src="{filename}/images/django-rest-digital-ocean/import.png"></p>
-<p><img alt="a single tip" src="{filename}/images/django-rest-digital-ocean/import2.png"></p>
+<p><img alt="tips imported" src="https://pybit.es/images/django-rest-digital-ocean/import.png"></p>
+<p><img alt="a single tip" src="https://pybit.es/images/django-rest-digital-ocean/import2.png"></p>
+<p>Awesome: we have our tips in the DB and you now know how to write a Django Command! Just extend <code>BaseCommand</code>, implement <code>handle</code> and save the script in <code>management/commands</code>.</p>
 <h2>Build an API with Django REST Framework</h2>
 <p>Let's build the API next. We already added <code>rest_framework</code> to <code>INSTALLED_APPS</code>. Let's also set <a href="https://www.django-rest-framework.org/api-guide/permissions/">permissions</a> to <code>DjangoModelPermissionsOrAnonReadOnly</code> which seems to match what we want:</p>
 <blockquote>
 <p>Similar to <code>DjangoModelPermissions</code> (permission class ties into Django's standard <code>django.contrib.auth</code> model permissions), but also allows unauthenticated users to have read-only access to the API.</p>
 </blockquote>
-<p>In <code>tips/settings.py</code> I am adding:</p>
+<p>In <code>tips/settings.py</code> I am adding this setting:</p>
 <div class="highlight"><pre><span></span>REST_FRAMEWORK = {
     # Use Django&#39;s standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -488,7 +485,7 @@ Done: 92 tips imported
 <blockquote>
 <p>Serializers allow complex data such as querysets and model instances to be converted to native Python datatypes that can then be easily rendered into JSON, XML or other content types. Serializers also provide deserialization, allowing parsed data to be converted back into complex types, after first validating the incoming data.</p>
 </blockquote>
-<p>In api/serializers.py I add this code which is pretty similar to <a href="https://docs.djangoproject.com/en/2.0/topics/forms/">working with forms in Django</a>:</p>
+<p>In <code>api/serializers.py</code> I added this code which should look familiar if you have worked with the <a href="https://docs.djangoproject.com/en/2.0/topics/forms/">Django Form</a> class:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
 
 <span class="kn">from</span> <span class="nn">tips.models</span> <span class="kn">import</span> <span class="n">Tip</span>
@@ -504,8 +501,7 @@ Done: 92 tips imported
 
 
 <h3>Views</h3>
-<p>Next the views. Again Django REST Framework great level of abstraction saves us a lot of boilerplate code. We can just extend classes defined in <code>generics</code>.</p>
-<p>I structured the docstrings in a way to easily add documentation using a tool like <a href="https://swagger.io/">Swagger</a> in the future: </p>
+<p>Next the views. Again Django REST Framework's great level of abstraction saves us a lot of boilerplate code. We can just extend some very useful classes defined in <code>generics</code>:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">generics</span>
 
 <span class="kn">from</span> <span class="nn">tips.models</span> <span class="kn">import</span> <span class="n">Tip</span>
@@ -542,8 +538,9 @@ Done: 92 tips imported
 </pre></div>
 
 
-<h3>Urls</h3>
-<p>And finally to be able to access the routes let's set up our URL <code>path</code>s in <code>api/urls.py</code>:</p>
+<p>Note that I structured the <em>docstrings</em> in a way to easily add documentation using a tool like <a href="https://swagger.io/">Swagger</a> in the future: </p>
+<h3>Routes</h3>
+<p>And finally to be able to access the routes let's set up our <code>urlpatterns</code> in <code>api/urls.py</code>:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
 
 <span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">TipList</span><span class="p">,</span> <span class="n">TipDetail</span>
@@ -556,7 +553,7 @@ Done: 92 tips imported
 </pre></div>
 
 
-<p>And in the main <code>tips</code> app's URL file <code>tips/urls.py</code> we include the <code>api</code>'s url file:</p>
+<p>And in the main app include this API router file, so in <code>tips/urls.py</code> add this:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
@@ -565,7 +562,7 @@ Done: 92 tips imported
 </pre></div>
 
 
-<p>And that's it! Let's launch the server and check out our new API. </p>
+<p>And that's it! Let's launch the server and check out our new API next ...</p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py runserver
 ...
 Starting development server at http://127.0.0.1:8000/
@@ -574,7 +571,7 @@ Starting development server at http://127.0.0.1:8000/
 
 <h2>Verify it works</h2>
 <p>We can consume our API with various tools:</p>
-<h3>A simple curl</h3>
+<h3><code>curl</code></h3>
 <div class="highlight"><pre><span></span>[bobbelderbos@imac ~]$ curl http://127.0.0.1:8000/api/4
 {&quot;tip&quot;:&quot;Q: difference between __str__ and __repr__ in #Python? A: \&quot;My rule of thumb:  __repr__ is for developers, __str__ is for customers.\&quot; (Ned Batchelder on SO)&quot;,&quot;code&quot;:null,&quot;link&quot;:&quot;https://stackoverflow.com/a/1438297&quot;,&quot;user&quot;:1,&quot;approved&quot;:true,&quot;share_link&quot;:null}
 </pre></div>
@@ -582,41 +579,41 @@ Starting development server at http://127.0.0.1:8000/
 
 <h3>Postman</h3>
 <p><em>Postman Simplifies API Development.</em>, download it <a href="https://www.getpostman.com/">here</a></p>
-<p><img alt="get all tips" src="{filename}/images/django-rest-digital-ocean/postman-get-all.png"></p>
-<p><img alt="get single tip" src="{filename}/images/django-rest-digital-ocean/postman-get-one.png"></p>
-<p>I cannot post!</p>
-<p><img alt="cannot post" src="{filename}/images/django-rest-digital-ocean/postman-post.png"></p>
-<h3>Django REST Framework's front-end</h3>
-<p>Django REST provides a really nice front-end to play with our new API:</p>
-<p><img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser1.png"></p>
-<p>As I am an <em>anonymous</em> user I cannot edit:</p>
-<p><img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser2.png"></p>
-<p>When I log in as my <em>superuser</em> I can:</p>
-<p><img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser3.png"></p>
-<p>And navigating back to the root I also can <code>POST</code> a new tip now when logged in:</p>
-<p><img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser4.png"></p>
+<p>Get all tips:</p>
+<p><img alt="get all tips" src="https://pybit.es/images/django-rest-digital-ocean/postman-get-all.png"></p>
+<p>Get a single tip:</p>
+<p><img alt="get single tip" src="https://pybit.es/images/django-rest-digital-ocean/postman-get-one.png"></p>
+<p>Verify I cannot post without login:</p>
+<p><img alt="cannot post" src="https://pybit.es/images/django-rest-digital-ocean/postman-post.png"></p>
+<h3>Django REST Framework</h3>
+<p>Django REST provides a really nice browser interface to play with our new API:</p>
+<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser1.png"></p>
+<p>As I am an <em>anonymous</em> user I don't see any edit options:</p>
+<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser2.png"></p>
+<p>When I log in as my <em>superuser</em> though a form and delete button show up:</p>
+<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser3.png"></p>
+<p>Navigating back to the root of the API, I can also <code>POST</code> a new tip now that I am logged in:</p>
+<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser4.png"></p>
 <h3>Tests</h3>
-<p>Ideally we'd write some tests at this point to automatically regression test the API at this point. I leave that as an exercise (challenge) for the reader. You can PR your code <a href="https://codechalleng.es/challenges/39/">here</a>.</p>
+<p>Ideally we'd write some tests at this point to future-proof any changes we have to make to our API. I leave that as an exercise (challenge) for the reader though. You can PR your code for this challenge <a href="https://codechalleng.es/challenges/39/">here</a>. We did a similar exercise <a href="https://pybit.es/simple-flask-api.html">here</a>.</p>
 <hr>
 <h2>Deploy the API to Digital Ocean</h2>
 <p>I got 100 bucks credit for free via <a href="https://pythonbytes.fm/">Python Bytes</a> - nice, thanks!</p>
 <h3>Fresh install</h3>
 <p>My first attempt (cause <em>programmers are supposed to be lazy</em>, right?!) was to go with the <a href="https://www.digitalocean.com/docs/one-clicks/django/">Django One-Click Application</a>:</p>
-<p><img alt="Django droplet" src="{filename}/images/django-rest-digital-ocean/django-droplet1.png"></p>
-<p><img alt="Django droplet" src="{filename}/images/django-rest-digital-ocean/django-droplet2.png"></p>
-<p>However the <a href="https://packages.ubuntu.com/bionic/python-django">latest Django from APT</a> is 1.11 and our API uses Django 2.x so let's do it properly setting everything up from scratch using a fresh Ubuntu 18.04 server instance:</p>
-<p><img alt="new Ubuntu instance" src="{filename}/images/django-rest-digital-ocean/ubuntu1804.png"></p>
+<p><img alt="Django droplet" src="https://pybit.es/images/django-rest-digital-ocean/django-droplet1.png"></p>
+<p><img alt="Django droplet" src="https://pybit.es/images/django-rest-digital-ocean/django-droplet2.png"></p>
+<p>However the <a href="https://packages.ubuntu.com/bionic/python-django">latest Django from APT</a> is 1.11 at this time and our API uses Django 2.x so let's set everything up from scratch using a fresh Ubuntu 18.04 server instance. Not only do we get it exactly as we want, it's also a nice learning exercise!</p>
+<p><img alt="new Ubuntu instance" src="https://pybit.es/images/django-rest-digital-ocean/ubuntu1804.png"></p>
 <h3>SSH access and keys</h3>
-<p>First hurdle you might find is not being able to SSH in as root:</p>
+<p>First hurdle you might find is not being able to SSH in as root (I should have remembered this from the old Sun/ Solaris days ...):</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ssh</span> <span class="n">root</span><span class="mf">@159.203.186.209</span>
 <span class="n">root</span><span class="mf">@159.203.186.209</span><span class="o">:</span> <span class="n">Permission</span> <span class="n">denied</span> <span class="p">(</span><span class="n">publickey</span><span class="p">).</span>
 </pre></div>
 
 
-<p><code>PermitRootLogin</code> was already set to <code>yes</code> in <code>/etc/ssh/sshd_config</code>, but I also had to set <code>PasswordAuthentication</code> to <code>yes</code> opening a Console session from Digital Ocean's BUI, then do a <code>sudo service ssh restart</code>. </p>
-<p>Then I got the SSH password prompt and could actually login.</p>
-<p>I <a href="https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/to-account/">uploaded a SSH public key</a> and enabled the option when creating the droplet to have it saved to <code>~/.ssh/authorized_keys</code>. Locally I made an alias to make login as easy as typing <code>ssh dioc</code>:</p>
-<p>.ssh/config</p>
+<p><code>PermitRootLogin</code> was already set to <code>yes</code> in <code>/etc/ssh/sshd_config</code>, but I also had to set <code>PasswordAuthentication</code> to <code>yes</code> opening a Console session from Digital Ocean's BUI, followed by a <code>sudo service ssh restart</code>. Now I was able to SSH in as root.</p>
+<p>I <a href="https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/to-account/">uploaded a SSH public key</a> and enabled the option when creating the droplet to have it saved to <code>~/.ssh/authorized_keys</code>. Locally I made an alias to make login as easy as typing <code>ssh dioc</code>, putting this into my <code>.ssh/config</code>:</p>
 <div class="highlight"><pre><span></span>Host dioc
 HostName 159.203.186.209
 User root
@@ -624,8 +621,9 @@ IdentityFile ~/.ssh/DO
 </pre></div>
 
 
+<p>(where <code>/.ssh/DO</code> is my private key)</p>
 <h3>Upgrade</h3>
-<p>As a first step I upgraded the OS which required a reboot:</p>
+<p>Best practice is to first upgrade the OS because it was behind on important security fixes. This required a reboot:</p>
 <div class="highlight"><pre><span></span>apt-get update &amp;&amp; apt-get -y upgrade
 reboot
 </pre></div>
@@ -670,7 +668,7 @@ IdentityFile ~/.ssh/DO
 </pre></div>
 
 
-<p>And now I had two ssh logins, one as <code>root</code> the second one as user <code>bob</code>, using the new alias <code>ssh diocu</code>:</p>
+<p>At this point <code>bob</code> could SSH in with the key as well using the alias <code>ssh diocu</code>:</p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ ssh diocu
 Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-45-generic x86_64)
 ...
@@ -681,9 +679,15 @@ bob@ubuntu-s-1vcpu-1gb-nyc1-01:~$
 </pre></div>
 
 
-<p>Now it's time to install / setup our app. I followed Digital Ocean's <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04">How To Set Up Django with Postgres, Nginx, and Gunicorn on Ubuntu 18.04</a> which shows you how to install Django within a virtual environment. <em>Namespaces are one honking great idea -- let's do more of those!</em> - so yes that seems the way to go. What follows is mostly the same as the article, just how I did it. The only challenge was <code>gunicorn</code> and environment variables which we will see towards the end ...</p>
+<p>Next I followed Digital Ocean's useful: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04">How To Set Up Django with Postgres, Nginx, and Gunicorn on Ubuntu 18.04</a></p>
+<p>This guide shows you how to install Django within a virtual environment which I think is the best way to go, <em>Namespaces are one honking great idea -- let's do more of those!</em></p>
+<p>What follows is mostly the same as the steps outlined in this guide, but through the lens of me doing it for our app. </p>
+<h3>Python 3</h3>
+<p>First we need to install the following packages, upgrade <code>pip</code> and grab <code>virtualenv</code>:</p>
 <div class="highlight"><pre><span></span>sudo apt update
 sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl
+sudo -H pip3 install --upgrade pip
+sudo -H pip3 install virtualenv
 </pre></div>
 
 
@@ -706,23 +710,15 @@ postgres=# \q
 </pre></div>
 
 
-<p>Let's upgrade <code>pip</code> and get <code>virtualenv</code>:</p>
-<div class="highlight"><pre><span></span>sudo -H pip3 install --upgrade pip
-sudo -H pip3 install virtualenv
-</pre></div>
-
-
 <h3>Pull in the Django API code</h3>
-<p>Not part of the article, let's pull in our code from Github:</p>
-<div class="highlight"><pre><span></span>in our `$HOME`:
-
-    git clone https://github.com/pybites/tips_api
-    cd tips_api
+<p>Not part of the guide, but we need to pull in our code from Github. In <code>$HOME</code>:</p>
+<div class="highlight"><pre><span></span>git clone https://github.com/pybites/tips_api
+cd tips_api
 </pre></div>
 
 
 <h3>Settings</h3>
-<p>Initially I added this to the venv's activation script, but as we will run the server through <code>gunicorn</code> later you might skip this:</p>
+<p>I added this to the venv's activation script, to run the dev server (<code>gunicorn</code> won't use these though as we will see in a bit):</p>
 <div class="highlight"><pre><span></span>$ vi venv/bin/activate
 ...
 <span class="nb">export</span> <span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s1">&#39;xyz&#39;</span>
@@ -747,7 +743,7 @@ DATABASES = {
         &#39;USER&#39;: os.environ.get(&#39;DB_USER&#39;, &#39;&#39;),
         &#39;PASSWORD&#39;: os.environ.get(&#39;DB_PASSWORD&#39;, &#39;&#39;),
         &#39;HOST&#39;: os.environ.get(&#39;DB_HOST&#39;, &#39;localhost&#39;),
-        &#39;PORT&#39;: os.environ.get(&#39;DB_PORT&#39;, &#39;&#39;),  # can leave empty on Dig Ocean
+        &#39;PORT&#39;: os.environ.get(&#39;DB_PORT&#39;, &#39;&#39;),  # can leave empty on Digital Ocean
     }
 }
 </pre></div>
@@ -776,14 +772,14 @@ urllib3==1.24.1
 
 
 <h3>Static files</h3>
-<p>And support for static file handling by Nginx in <code>tips/settings.py</code>:</p>
+<p>To support static file handling by Nginx we need to set the following to constants in <code>tips/settings.py</code>:</p>
 <div class="highlight"><pre><span></span>STATIC_URL = &#39;/static/&#39;
 STATIC_ROOT = os.path.join(BASE_DIR, &#39;static/&#39;)
 </pre></div>
 
 
 <h3>Sync the DB</h3>
-<p>Let's sync the models/migrations to the newly created postgres DB:</p>
+<p>Next we sync the models/migrations to the newly created postgres DB:</p>
 <div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py migrate
 Operations to perform:
 Apply all migrations: admin, auth, contenttypes, sessions, tips
@@ -810,7 +806,7 @@ Applying tips.0003_auto_20190302_2011... OK
 
 
 <p>Great!</p>
-<p>Note that Django migrations are comitted to source code so I did not have to generate (<code>makemigrations</code>) them again!</p>
+<p>Note that Django migrations are comitted to source code so I did not have to generate them (<code>makemigrations</code>) again!</p>
 <h3>Superuser</h3>
 <p>Let's create our <code>pybites</code> admin to pull in our existing tips:</p>
 <div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py createsuperuser
@@ -828,7 +824,7 @@ Done: 92 tips imported
 </pre></div>
 
 
-<p>Perfect. Let's collect the static files (I thought why bother, but admin and rest_framework DO have static files!):</p>
+<p>Perfect. Let's collect the static files (<em>but it's an API?</em> you might ask ... well, Django's Admin back-end and Django REST Framework's browser UI have static files!)</p>
 <div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py collectstatic
 155 static files copied to &#39;/home/bob/tips_api/static&#39;.
 
@@ -846,7 +842,7 @@ Rule added (v6)
 </pre></div>
 
 
-<p>Run the development server: </p>
+<p>And now we can run the development server: </p>
 <div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py runserver 0.0.0.0:8000
 Performing system checks...
 
@@ -858,9 +854,9 @@ Quit the server with CONTROL-C.
 </pre></div>
 
 
-<p>Browsing to: http://159.203.186.209:8000/api/:</p>
-<p><img alt="api from dev server" src="{filename}/images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
-<p>Awesome! Well, actually first I got a permission error because I only had <em>localhost</em> in <code>ALLOWED_HOSTS</code> so make sure you add your own IP to it, in this case 159.203.186.209</p>
+<p>Browsing to <code>http://159.203.186.209:8000/api/</code> we see:</p>
+<p><img alt="api from dev server" src="https://pybit.es/images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
+<p>Awesome! Well, actually first I got a permission error because I only had <em>localhost</em> in <code>ALLOWED_HOSTS</code> so make sure you add your own IP. Again in this case that is <code>159.203.186.209</code>.</p>
 <h3>Gunicorn</h3>
 <p>Now let's use Gunicorn. First test it manually:</p>
 <div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ gunicorn --bind 0.0.0.0:8000 tips.wsgi
@@ -871,16 +867,15 @@ Quit the server with CONTROL-C.
 </pre></div>
 
 
-<p>Next we make it persistent with a socket</p>
+<p>Next we make it persistent with a <em>socket</em>:</p>
 <blockquote>
 <p>The Gunicorn socket will be created at boot and will listen for connections. When a connection occurs, systemd will automatically start the Gunicorn process to handle the connection.</p>
 </blockquote>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ deactivate
-bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.socket
+<div class="highlight"><pre><span></span>bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.socket
 </pre></div>
 
 
-<p>And add this:</p>
+<p>Add this:</p>
 <div class="highlight"><pre><span></span><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">gunicorn socket</span>
 
@@ -925,8 +920,10 @@ bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.
 </pre></div>
 
 
-<p>And here I had some trouble: Gunicorn did not pick up env variables so Django would not get its <code>SECRET_KEY</code> etc. As per <a href="https://www.digitalocean.com/community/questions/gunicorn-service-can-t-read-environment-variables">this thread</a> I tried <code>EnvironmentFile=/home/bob/.env</code> copying the variables from <code>venv/bin/activate</code> (argh). Even that did not work. So I ended up with adding them with multiple <code>-e</code> flags maing it less DRY (sigh), but hey we should configure this once hopefully (we can probably ditch them from the venv activation script now).</p>
-<p>Set it in motion:</p>
+<p>And here I had some trouble: Gunicorn did not pick up env variables so Django would not get its required <code>SECRET_KEY</code> etc.</p>
+<p>As per <a href="https://www.digitalocean.com/community/questions/gunicorn-service-can-t-read-environment-variables">this thread</a> I tried <code>EnvironmentFile=/home/bob/.env</code> copying the variables from <code>venv/bin/activate</code> (argh). Even that did not work.</p>
+<p>So I ended up with adding them with multiple <code>-e</code> flags making it less DRY, although as all runs through <code>gunicorn</code> we might just ditch them from <code>venv/bin/activate</code> altogether.</p>
+<p>To set this in motion:</p>
 <div class="highlight"><pre><span></span><span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">systemctl</span> <span class="nt">start</span> <span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span>
 <span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">systemctl</span> <span class="nt">enable</span> <span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span>
 <span class="nt">Created</span> <span class="nt">symlink</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">systemd</span><span class="o">/</span><span class="nt">system</span><span class="o">/</span><span class="nt">sockets</span><span class="p">.</span><span class="nc">target</span><span class="p">.</span><span class="nc">wants</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span> <span class="err">→</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">systemd</span><span class="o">/</span><span class="nt">system</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span><span class="o">.</span>
@@ -946,7 +943,7 @@ bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.
 </pre></div>
 
 
-<p>When troubleshooting any gunicorn issues, remember to AND restart the <code>daemon</code> and the processes:</p>
+<p>By the way, when troubleshooting these kind of issues and when making changes to your <code>gunicorn</code> config, remember to restart both the <code>daemon</code> and the <code>gunicorn</code> service:</p>
 <div class="highlight"><pre><span></span>bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart gunicorn.socket gunicorn.service
 </pre></div>
 
@@ -985,17 +982,20 @@ bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.
 </pre></div>
 
 
-<p>I ran into a weird error:</p>
+<p>I ran into a weird error after this:</p>
 <div class="highlight"><pre><span></span>Mar 04 10:06:18 ubuntu-s-1vcpu-1gb-nyc1-01 systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid argument
 </pre></div>
 
 
-<p>Which I could resolve using <a href="https://stackoverflow.com/a/42084804">this workaround</a>, but it was overshadowed by the Gunicorn ENV variable issue I described earlier, so not sure if this would have been a stopper.</p>
+<p>... which I could resolve using <a href="https://stackoverflow.com/a/42084804">this workaround</a>, but it was overshadowed by the Gunicorn ENV variable issue I described earlier, so not sure if this would have been a stopper.</p>
 <p>And voilà: we have our PyBites API hosted on Digital Ocean!</p>
-<p><img alt="API on Digital Ocean" src="{filename}/images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
+<p><img alt="API on Digital Ocean" src="https://pybit.es/images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
 <h2>Conclusion</h2>
-<p>This was a fun exercise! We managed to make the tips its own service hosted in the cloud. Now go build your own API with Django REST Framework and <a href="https://codechalleng.es/challenges/34/">PR your code here</a>.</p>
-<p>Next week I will do an article on how to use the Slack API and its <a href="https://api.slack.com/slash-commands">Slash Commands</a> feature to post tips to this API from our Slack (by the way, it's a really cool place to hang out, you can join <a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU">here</a>).</p>
+<p>This was a fun exercise! We managed to turn PyBites Tips into its own service hosted in the cloud!</p>
+<p>The only challenge was <code>gunicorn</code> not picking up environment variables from a file, but we got around that and it all work nicely now ...</p>
+<p>Now go build your own API with the <a href="https://www.django-rest-framework.org/">Django REST Framework</a> and <a href="https://codechalleng.es/challenges/34/">PR us your code here</a>.</p>
+<p>I will do a follow-up article on how to use the Slack API and its <a href="https://api.slack.com/slash-commands">Slash Commands</a> feature to <code>POST</code> tips to this API from our Slack. </p>
+<p>By the way, PyBites Slack is a really cool place to hang out, you can join us <a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU">here</a>.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
@@ -1006,20 +1006,20 @@ bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.
 
   <div class="tag-cloud">
     <p>
-      <a href="./tag/django.html">Django</a>
-      <a href="./tag/apis.html">APIs</a>
-      <a href="./tag/django-rest-framework.html">Django REST Framework</a>
-      <a href="./tag/tips.html">tips</a>
-      <a href="./tag/digital-ocean.html">Digital Ocean</a>
-      <a href="./tag/django-commands.html">Django Commands</a>
-      <a href="./tag/postman.html">Postman</a>
-      <a href="./tag/nginx.html">Nginx</a>
-      <a href="./tag/postgres.html">postgres</a>
-      <a href="./tag/gunicorn.html">Gunicorn</a>
-      <a href="./tag/beautifulsoup.html">BeautifulSoup</a>
-      <a href="./tag/requests.html">requests</a>
-      <a href="./tag/curl.html">curl</a>
-      <a href="./tag/ssh.html">SSH</a>
+      <a href="https://pybit.es/tag/django.html">Django</a>
+      <a href="https://pybit.es/tag/apis.html">APIs</a>
+      <a href="https://pybit.es/tag/django-rest-framework.html">Django REST Framework</a>
+      <a href="https://pybit.es/tag/tips.html">tips</a>
+      <a href="https://pybit.es/tag/digital-ocean.html">Digital Ocean</a>
+      <a href="https://pybit.es/tag/django-commands.html">Django Commands</a>
+      <a href="https://pybit.es/tag/postman.html">Postman</a>
+      <a href="https://pybit.es/tag/nginx.html">Nginx</a>
+      <a href="https://pybit.es/tag/postgres.html">postgres</a>
+      <a href="https://pybit.es/tag/gunicorn.html">Gunicorn</a>
+      <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>
+      <a href="https://pybit.es/tag/requests.html">requests</a>
+      <a href="https://pybit.es/tag/curl.html">curl</a>
+      <a href="https://pybit.es/tag/ssh.html">SSH</a>
     </p>
   </div>
 
@@ -1090,7 +1090,7 @@ bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.
   "@context" : "http://schema.org",
   "@type" : "Blog",
   "name": " PyBites ",
-  "url" : ".",
+  "url" : "https://pybit.es",
   "image": "https://pybit.es/theme/img/profile.png",
   "description": "A Community that Masters Python through Code Challenges"
 }
