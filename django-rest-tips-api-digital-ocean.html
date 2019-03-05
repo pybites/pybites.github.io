@@ -568,9 +568,12 @@ Done: 92 tips imported
 
 
 <p><code>obj.user</code> refers to the <code>ForeignKey</code> we defined on the <code>Tip</code> model:</p>
-<p>▸␣␣␣class Tip(models.Model):
-    ...
-▸␣␣␣▸␣␣␣user = models.ForeignKey(User, on_delete=models.CASCADE)</p>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Tip</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Model</span><span class="p">)</span><span class="o">:</span>
+    <span class="p">...</span>
+    <span class="nx">user</span> <span class="o">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">ForeignKey</span><span class="p">(</span><span class="nx">User</span><span class="p">,</span> <span class="nx">on_delete</span><span class="o">=</span><span class="nx">models</span><span class="p">.</span><span class="nx">CASCADE</span><span class="p">)</span>
+</pre></div>
+
+
 <h3>Routes</h3>
 <p>And finally to be able to access the routes let's set up our <code>urlpatterns</code> in <code>api/urls.py</code>:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
