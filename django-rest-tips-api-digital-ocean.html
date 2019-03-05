@@ -290,7 +290,7 @@ export DEBUG=True
 <h3>The model</h3>
 <p>Looking at the original model on our platform we see the following fields:</p>
 <p><img alt="design" src="https://pybit.es/images/django-rest-digital-ocean/design.png"></p>
-<p>As we saw <a href="https://pybit.es/python-tips-carbon-selenium.html">last time</a> the <code>share_link</code> is to be populated by an admin when we share out a tip with a nice <a href="https://www.django-rest-framework.org/">carbon</a> image.</p>
+<p>As we saw <a href="https://pybit.es/python-tips-carbon-selenium.html">last time</a> the <code>share_link</code> is to be populated by an admin when we share out a tip with a nice <a href="https://carbon.now.sh">carbon</a> image.</p>
 <p>Let's build our model <code>tips/models.py</code> using these fields. </p>
 <p>I am also creating an <code>Author</code> model to store Twitter and Slack handles from future contributing users. The former to give credit when we share their tips on Twitter, the latter to store the author of the tip when we start receiving them from Slack (next article).</p>
 <p>Thinking about (predicting) tomorrow's requirement is one of the fascinating things about software development!</p>
@@ -545,6 +545,32 @@ Done: 92 tips imported
 
 
 <p>Note that I structured the <em>docstrings</em> in a way to easily add documentation using a tool like <a href="https://swagger.io/">Swagger</a> in the future.</p>
+<h3>Permissions</h3>
+<p>In the <code>TipDetail</code> view we defined a customized <em>permission class</em> called <code>IsOwnerOrReadOnly</code> which we need to define next in <code>api/permissions.py</code> (code from second example <a href="https://www.django-rest-framework.org/api-guide/permissions/#examples">here</a>).</p>
+<p>The following code in that module will grant read access to any safe methods (<code>GET</code>, <code>OPTIONS</code> and <code>HEAD</code>) and edit right for users that have authored ("own") tips. </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">permissions</span>
+
+
+<span class="k">class</span> <span class="nc">IsOwnerOrReadOnly</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make sure only owners of tips can edit them.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="c1"># Read permissions are allowed to any request,</span>
+        <span class="c1"># so we&#39;ll always allow GET, HEAD or OPTIONS requests.</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="n">permissions</span><span class="o">.</span><span class="n">SAFE_METHODS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="c1"># Instance must have an attribute named `owner`.</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">user</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+</pre></div>
+
+
+<p><code>obj.user</code> refers to the <code>ForeignKey</code> we defined on the <code>Tip</code> model:</p>
+<p>▸␣␣␣class Tip(models.Model):
+    ...
+▸␣␣␣▸␣␣␣user = models.ForeignKey(User, on_delete=models.CASCADE)</p>
 <h3>Routes</h3>
 <p>And finally to be able to access the routes let's set up our <code>urlpatterns</code> in <code>api/urls.py</code>:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>

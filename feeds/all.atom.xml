@@ -96,7 +96,7 @@ export DEBUG=True
 &lt;h3&gt;The model&lt;/h3&gt;
 &lt;p&gt;Looking at the original model on our platform we see the following fields:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="design" src="https://pybit.es/images/django-rest-digital-ocean/design.png"&gt;&lt;/p&gt;
-&lt;p&gt;As we saw &lt;a href="https://pybit.es/python-tips-carbon-selenium.html"&gt;last time&lt;/a&gt; the &lt;code&gt;share_link&lt;/code&gt; is to be populated by an admin when we share out a tip with a nice &lt;a href="https://www.django-rest-framework.org/"&gt;carbon&lt;/a&gt; image.&lt;/p&gt;
+&lt;p&gt;As we saw &lt;a href="https://pybit.es/python-tips-carbon-selenium.html"&gt;last time&lt;/a&gt; the &lt;code&gt;share_link&lt;/code&gt; is to be populated by an admin when we share out a tip with a nice &lt;a href="https://carbon.now.sh"&gt;carbon&lt;/a&gt; image.&lt;/p&gt;
 &lt;p&gt;Let's build our model &lt;code&gt;tips/models.py&lt;/code&gt; using these fields. &lt;/p&gt;
 &lt;p&gt;I am also creating an &lt;code&gt;Author&lt;/code&gt; model to store Twitter and Slack handles from future contributing users. The former to give credit when we share their tips on Twitter, the latter to store the author of the tip when we start receiving them from Slack (next article).&lt;/p&gt;
 &lt;p&gt;Thinking about (predicting) tomorrow's requirement is one of the fascinating things about software development!&lt;/p&gt;
@@ -351,6 +351,32 @@ Done: 92 tips imported
 
 
 &lt;p&gt;Note that I structured the &lt;em&gt;docstrings&lt;/em&gt; in a way to easily add documentation using a tool like &lt;a href="https://swagger.io/"&gt;Swagger&lt;/a&gt; in the future.&lt;/p&gt;
+&lt;h3&gt;Permissions&lt;/h3&gt;
+&lt;p&gt;In the &lt;code&gt;TipDetail&lt;/code&gt; view we defined a customized &lt;em&gt;permission class&lt;/em&gt; called &lt;code&gt;IsOwnerOrReadOnly&lt;/code&gt; which we need to define next in &lt;code&gt;api/permissions.py&lt;/code&gt; (code from second example &lt;a href="https://www.django-rest-framework.org/api-guide/permissions/#examples"&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;The following code in that module will grant read access to any safe methods (&lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;OPTIONS&lt;/code&gt; and &lt;code&gt;HEAD&lt;/code&gt;) and edit right for users that have authored ("own") tips. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;rest_framework&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;permissions&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;IsOwnerOrReadOnly&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;permissions&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BasePermission&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    Make sure only owners of tips can edit them.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;has_object_permission&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;view&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="c1"&gt;# Read permissions are allowed to any request,&lt;/span&gt;
+        &lt;span class="c1"&gt;# so we&amp;#39;ll always allow GET, HEAD or OPTIONS requests.&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;permissions&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SAFE_METHODS&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+
+        &lt;span class="c1"&gt;# Instance must have an attribute named `owner`.&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;obj.user&lt;/code&gt; refers to the &lt;code&gt;ForeignKey&lt;/code&gt; we defined on the &lt;code&gt;Tip&lt;/code&gt; model:&lt;/p&gt;
+&lt;p&gt;▸␣␣␣class Tip(models.Model):
+    ...
+▸␣␣␣▸␣␣␣user = models.ForeignKey(User, on_delete=models.CASCADE)&lt;/p&gt;
 &lt;h3&gt;Routes&lt;/h3&gt;
 &lt;p&gt;And finally to be able to access the routes let's set up our &lt;code&gt;urlpatterns&lt;/code&gt; in &lt;code&gt;api/urls.py&lt;/code&gt;:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;
