@@ -1,5 +1,812 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2019-02-26T12:00:00+01:00</updated><entry><title>Generating Beautiful Code Snippets with Carbon and Selenium</title><link href="https://pybit.es/python-tips-carbon-selenium.html" rel="alternate"></link><published>2019-02-26T12:00:00+01:00</published><updated>2019-02-26T12:00:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2019-02-26:/python-tips-carbon-selenium.html</id><summary type="html">&lt;p&gt;Did you notice our &lt;a href="https://twitter.com/search?q=pybites%20carbon&amp;amp;src=typd"&gt;Python tips&lt;/a&gt; lately? They looks more sexy, don't they? That's thanks to &lt;a href="https://carbon.now.sh/"&gt;Carbon&lt;/a&gt; which lets you &lt;em&gt;create beautiful images of your source code&lt;/em&gt;. As much as I love its interface though, what if we can automate this process generating the image for us? That's what we did and posting new tips to Twitter is now a breeze. In this article I will show you how using a bit of &lt;code&gt;BeautifulSoup&lt;/code&gt; and &lt;code&gt;selenium&lt;/code&gt;. Enjoy!&lt;/p&gt;</summary><content type="html">&lt;p&gt;Did you notice our &lt;a href="https://twitter.com/search?q=pybites%20carbon&amp;amp;src=typd"&gt;Python tips&lt;/a&gt; lately? They looks more sexy, don't they? That's thanks to &lt;a href="https://carbon.now.sh/"&gt;Carbon&lt;/a&gt; which lets you &lt;em&gt;create beautiful images of your source code&lt;/em&gt;. As much as I love its interface though, what if we can automate this process generating the image for us?&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2019-03-05T12:30:00+01:00</updated><entry><title>Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean</title><link href="https://pybit.es/django-rest-tips-api-slack-slash-command.html" rel="alternate"></link><published>2019-03-05T12:30:00+01:00</published><updated>2019-03-05T12:30:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2019-03-05:/django-rest-tips-api-slack-slash-command.html</id><summary type="html">&lt;p&gt;In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using Postman. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover next week. Sounds exciting? You bet it is! Let's jump straight in!&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using Postman. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover next week. Sounds exciting? You bet it is! Let's jump straight in!&lt;/p&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you want to follow along, the final code is &lt;a href="https://github.com/pybites/python_tips"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;First make &lt;a href="https://pybit.es/the-beauty-of-virtualenv.html"&gt;a virtual environment&lt;/a&gt; and &lt;code&gt;pip install&lt;/code&gt; &lt;a href="https://github.com/pybites/python_tips/requirements.txt"&gt;the requirements&lt;/a&gt; which include:
+- &lt;code&gt;django&lt;/code&gt; to build the app,
+- &lt;code&gt;django-rest&lt;/code&gt; to build the API,
+- &lt;code&gt;bs4&lt;/code&gt; (&lt;code&gt;BeautifulSoup&lt;/code&gt;) and &lt;code&gt;requests&lt;/code&gt; to parse the existing tips from our platform,
+- &lt;code&gt;psycopg2&lt;/code&gt; and &lt;code&gt;gunicorn&lt;/code&gt; for deployment to &lt;a href="https://www.digitalocean.com/"&gt;Digital Ocean&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So here we go:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[bobbelderbos@imac code]$ mkdir tips_api &amp;amp;&amp;amp; cd $_
+[bobbelderbos@imac carbon]$ alias pvenv
+alias pvenv=&amp;#39;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7 -m venv venv &amp;amp;&amp;amp; source venv/bin/activate&amp;#39;
+[bobbelderbos@imac carbon]$ pvenv
+(venv) [bobbelderbos@imac carbon]$ python -V
+Python 3.7.0
+(venv) [bobbelderbos@imac carbon]$ pip install -r requirements.txt
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's set 2 environment as referenced in &lt;code&gt;tips/settings.py&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;SECRET_KEY = os.environ[&amp;#39;SECRET_KEY&amp;#39;]
+DEBUG = os.environ.get(&amp;#39;DEBUG&amp;#39;, False)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So add this to the virtual environment's activation script &lt;code&gt;venv/bin/activate&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api (master)]$ deactivate
+[bobbelderbos@imac tips_api (master)]$ vi venv/bin/activate
+...
+export SECRET_KEY=&amp;#39;assasd893232i3902andkja&amp;#39;
+export DEBUG=True
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then activate the venv:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[bobbelderbos@imac tips_api (master)]$ source venv/bin/activate
+(venv) [bobbelderbos@imac tips_api (master)]$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It's also important to set &lt;code&gt;ALLOWED_HOSTS&lt;/code&gt;, but it defaults to localhost which is fine for my local env:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ALLOWED_HOSTS = os.environ.get(&amp;#39;ALLOWED_HOSTS&amp;#39;, &amp;#39;localhost, 127.0.0.1&amp;#39;).split(&amp;#39;, &amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Make a Django app&lt;/h2&gt;
+&lt;p&gt;Let's make a Django project in the current (&lt;code&gt;.&lt;/code&gt;) directory:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api]$ django-admin.py startproject tips .
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ignoring my virtual env folder, Django created this minimalistic project folder with our main &lt;em&gt;tips&lt;/em&gt; app:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ tree -I venv
+.
+├── manage.py
+├── requirements.txt
+└── tips
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+
+&lt;span class="m"&gt;1&lt;/span&gt; directory, &lt;span class="m"&gt;6&lt;/span&gt; files
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And let's make our api &lt;em&gt;app&lt;/em&gt; to keep it isolated from the rest:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api]$ django-admin.py startapp api
+(venv) [bobbelderbos@imac tips_api]$ tree -I venv
+.
+├── api
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Lastly tell Django about both apps in &lt;code&gt;settings.py&lt;/code&gt; -&amp;gt; &lt;code&gt;INSTALLED_APPS&lt;/code&gt;, we also add &lt;code&gt;rest_framework&lt;/code&gt; there:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;INSTALLED_APPS = [
+    ...
+    &amp;#39;rest_framework&amp;#39;,
+    ...
+    &amp;#39;tips&amp;#39;,
+    &amp;#39;api&amp;#39;,
+]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;The model&lt;/h3&gt;
+&lt;p&gt;Let's look at the original model on our platform:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="design" src="{filename}/images/django-rest-digital-ocean/design.png"&gt;&lt;/p&gt;
+&lt;p&gt;Let's build our model &lt;code&gt;tips/models.py&lt;/code&gt; using these fields. &lt;/p&gt;
+&lt;p&gt;Additionally I am making an &lt;code&gt;Author&lt;/code&gt; model to store Twitter and Slack handles from future users. The former to give credit when we share their tips, the latter to store the author of the tip when we start posting them from Slack.&lt;/p&gt;
+&lt;p&gt;How it works is that when a new &lt;code&gt;User&lt;/code&gt; is created a new entry is made in the &lt;code&gt;Author&lt;/code&gt; as well. This is one of the ways to extend Django's &lt;code&gt;User&lt;/code&gt; model which I learned about &lt;a href="https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html"&gt;here&lt;/a&gt;. Note the &lt;code&gt;User&lt;/code&gt; ForeignKey in &lt;code&gt;Tip&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib.auth.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;User&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.db&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.db.models.signals&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;post_save&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.dispatch&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;receiver&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Tip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;tip&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;TextField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;TextField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;null&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;link&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;URLField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;null&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# set by admin&lt;/span&gt;
+    &lt;span class="n"&gt;approved&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BooleanField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;share_link&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;URLField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blank&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;null&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;added&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;auto_now_add&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;edited&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;auto_now&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;on_delete&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CASCADE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Author&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Extending the standard User model:&lt;/span&gt;
+&lt;span class="sd"&gt;    https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OneToOneField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;on_delete&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CASCADE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;slack_handle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;unique&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;twitter_handle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="nd"&gt;@receiver&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;post_save&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;create_user_author&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;instance&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;created&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;created&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;Author&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;instance&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="nd"&gt;@receiver&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;post_save&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;save_user_author&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;instance&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;instance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;author&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now it's time to make the migration files and migrate (sync) the two new models to the database. As it's the first time we call &lt;code&gt;migrate&lt;/code&gt; all models that come with Django out of the box gets synced with the DB as well. I am using the default sqlite3 DB for now.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py makemigrations tips
+Migrations for &amp;#39;tips&amp;#39;:
+tips/migrations/0001_initial.py
+    - Create model Author
+    - Create model Tip
+
+(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, auth, contenttypes, sessions, tips
+Running migrations:
+Applying contenttypes.0001_initial... OK
+Applying auth.0001_initial... OK
+Applying admin.0001_initial... OK
+Applying admin.0002_logentry_remove_auto_add... OK
+Applying admin.0003_logentry_add_action_flag_choices... OK
+Applying contenttypes.0002_remove_content_type_name... OK
+Applying auth.0002_alter_permission_name_max_length... OK
+Applying auth.0003_alter_user_email_max_length... OK
+Applying auth.0004_alter_user_username_opts... OK
+Applying auth.0005_alter_user_last_login_null... OK
+Applying auth.0006_require_contenttypes_0002... OK
+Applying auth.0007_alter_validators_add_error_messages... OK
+Applying auth.0008_alter_user_username_max_length... OK
+Applying auth.0009_alter_user_last_name_max_length... OK
+Applying sessions.0001_initial... OK
+Applying tips.0001_initial... OK
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's create a &lt;code&gt;superuser&lt;/code&gt; &lt;em&gt;pybites&lt;/em&gt; to access the app and see if the &lt;code&gt;Author&lt;/code&gt; entry was created as well&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python manage.py createsuperuser
+Username &lt;span class="o"&gt;(&lt;/span&gt;leave blank to use &lt;span class="s1"&gt;&amp;#39;bobbelderbos&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;: pybites
+Email address:
+Password:
+Password &lt;span class="o"&gt;(&lt;/span&gt;again&lt;span class="o"&gt;)&lt;/span&gt;:
+Superuser created successfully.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Great: that created both the User and Author entries:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="auth user" src="{filename}/images/django-rest-digital-ocean/auth_user.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="tips author" src="{filename}/images/django-rest-digital-ocean/tips_author.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Import Tips from our Platform&lt;/h2&gt;
+&lt;p&gt;Next we want to retrieve the tips &lt;a href="https://codechalleng.es/tips"&gt;currently on our platform&lt;/a&gt; so I coded up a &lt;a href="https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/"&gt;Django command&lt;/a&gt; to parse them and save them to our new tips Database. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api (master)]$ cd tips/
+(venv) [bobbelderbos@imac tips (master)]$ ls
+__init__.py __pycache__ migrations  models.py   settings.py urls.py     wsgi.py
+(venv) [bobbelderbos@imac tips (master)]$ mkdir -p management/commands
+(venv) [bobbelderbos@imac tips (master)]$ cd $_
+(venv) [bobbelderbos@imac commands (master)]$ vi sync_tips.py
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here is the code I mostly re-used from last week's article: &lt;a href="https://pybit.es/python-tips-carbon-selenium.html"&gt;Generating Beautiful Code Snippets with Carbon and Selenium&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bs4&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib.auth.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;User&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.core.management.base&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BaseCommand&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;tips.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Tip&lt;/span&gt;
+
+&lt;span class="n"&gt;PYBITES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pybites&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;PYBITES_HAS_TWEETED&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;{PYBITES}/status&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;TIPS_PAGE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://codechalleng.es/tips&amp;#39;&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Command&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BaseCommand&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Quick and dirty, using bs4 from last article:&lt;/span&gt;
+&lt;span class="sd"&gt;    https://github.com/pybites/blog_code/blob/master/tips/tips.py&lt;/span&gt;
+
+&lt;span class="sd"&gt;    About django-admin commands:&lt;/span&gt;
+&lt;span class="sd"&gt;    https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;help&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Script to insert pybites tips from platform&amp;#39;&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;PYBITES&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="n"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DoesNotExist&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;error&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Cannot run this without SU pybites&amp;#39;&lt;/span&gt;
+            &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="n"&gt;html&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TIPS_PAGE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;soup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;html.parser&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;trs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;soup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;findAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;tr&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="n"&gt;new_tips_created&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;tr&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;trs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;tds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tr&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;td&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;tip_html&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tds&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+            &lt;span class="n"&gt;links&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tip_html&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;findAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;a&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;class_&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;left&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;first_link&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;links&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attrs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;href&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+            &lt;span class="n"&gt;pre&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tip_html&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;pre&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="ow"&gt;or&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;
+
+            &lt;span class="c1"&gt;# skip if tweeted or not code in tip&lt;/span&gt;
+            &lt;span class="n"&gt;share_link&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;PYBITES_HAS_TWEETED&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;first_link&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;share_link&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;first_link&lt;/span&gt;
+
+            &lt;span class="n"&gt;tip&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tip_html&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;blockquote&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+            &lt;span class="n"&gt;src&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;links&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;links&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;attrs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;href&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;or&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;
+
+            &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;created&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Tip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_or_create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tip&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                                &lt;span class="n"&gt;link&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                                &lt;span class="n"&gt;approved&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                                &lt;span class="n"&gt;share_link&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;share_link&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;created&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;new_tips_created&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+
+        &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Done: {new_tips_created} tips imported&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It scrapes the page with &lt;code&gt;requests&lt;/code&gt; and &lt;code&gt;BeautifulSoup&lt;/code&gt;. Originally I kept a list of &lt;code&gt;Tip&lt;/code&gt; objects and used Django's ORM &lt;code&gt;bulk_create&lt;/code&gt; method to write them to the DB once. &lt;/p&gt;
+&lt;p&gt;However I found it nicer to make it work for new tips as well in case the platform still has new tips our API does not have. Hence I use Django's handy &lt;code&gt;Tip.objects.get_or_create&lt;/code&gt; which will create the tip if nothing matches the &lt;code&gt;kwargs&lt;/code&gt; passed in, otherwise it will return the object. This way it will only create a tip if not already in the DB. &lt;/p&gt;
+&lt;p&gt;Let's run this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py sync_tips
+Done: 92 tips imported
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Awesome:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="tips imported" src="{filename}/images/django-rest-digital-ocean/import.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="a single tip" src="{filename}/images/django-rest-digital-ocean/import2.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Build an API with Django REST Framework&lt;/h2&gt;
+&lt;p&gt;Let's build the API next. We already added &lt;code&gt;rest_framework&lt;/code&gt; to &lt;code&gt;INSTALLED_APPS&lt;/code&gt;. Let's also set &lt;a href="https://www.django-rest-framework.org/api-guide/permissions/"&gt;permissions&lt;/a&gt; to &lt;code&gt;DjangoModelPermissionsOrAnonReadOnly&lt;/code&gt; which seems to match what we want:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Similar to &lt;code&gt;DjangoModelPermissions&lt;/code&gt; (permission class ties into Django's standard &lt;code&gt;django.contrib.auth&lt;/code&gt; model permissions), but also allows unauthenticated users to have read-only access to the API.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In &lt;code&gt;tips/settings.py&lt;/code&gt; I am adding:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;REST_FRAMEWORK = {
+    # Use Django&amp;#39;s standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    &amp;#39;DEFAULT_PERMISSION_CLASSES&amp;#39;: [
+        &amp;#39;rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly&amp;#39;
+    ]
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Serializers&lt;/h3&gt;
+&lt;p&gt;Next we need a serializer which &lt;a href="https://www.django-rest-framework.org/api-guide/serializers/"&gt;Django REST&lt;/a&gt; defines as:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Serializers allow complex data such as querysets and model instances to be converted to native Python datatypes that can then be easily rendered into JSON, XML or other content types. Serializers also provide deserialization, allowing parsed data to be converted back into complex types, after first validating the incoming data.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In api/serializers.py I add this code which is pretty similar to &lt;a href="https://docs.djangoproject.com/en/2.0/topics/forms/"&gt;working with forms in Django&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;rest_framework&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;serializers&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;tips.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Tip&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TipSerializer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;serializers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ModelSerializer&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;author&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;serializers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RelatedField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;read_only&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Meta&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;model&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Tip&lt;/span&gt;
+        &lt;span class="n"&gt;fields&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tip&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;code&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;link&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;author&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;approved&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;share_link&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Views&lt;/h3&gt;
+&lt;p&gt;Next the views. Again Django REST Framework great level of abstraction saves us a lot of boilerplate code. We can just extend classes defined in &lt;code&gt;generics&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I structured the docstrings in a way to easily add documentation using a tool like &lt;a href="https://swagger.io/"&gt;Swagger&lt;/a&gt; in the future: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;rest_framework&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;generics&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;tips.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Tip&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.serializers&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TipSerializer&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.permissions&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;IsOwnerOrReadOnly&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TipList&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;generics&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ListCreateAPIView&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    get:&lt;/span&gt;
+&lt;span class="sd"&gt;    Return a list of all tips in the DB.&lt;/span&gt;
+
+&lt;span class="sd"&gt;    post:&lt;/span&gt;
+&lt;span class="sd"&gt;    Create an awesome new tip.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;queryset&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Tip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;serializer_class&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;TipSerializer&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TipDetail&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;generics&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RetrieveUpdateDestroyAPIView&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    get:&lt;/span&gt;
+&lt;span class="sd"&gt;    Return an individual tip.&lt;/span&gt;
+
+&lt;span class="sd"&gt;    put:&lt;/span&gt;
+&lt;span class="sd"&gt;    Update an existing tip.&lt;/span&gt;
+
+&lt;span class="sd"&gt;    delete:&lt;/span&gt;
+&lt;span class="sd"&gt;    Delete a single tip.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;permission_classes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IsOwnerOrReadOnly&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;queryset&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Tip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;serializer_class&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;TipSerializer&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Urls&lt;/h3&gt;
+&lt;p&gt;And finally to be able to access the routes let's set up our URL &lt;code&gt;path&lt;/code&gt;s in &lt;code&gt;api/urls.py&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.views&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TipList&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;TipDetail&lt;/span&gt;
+
+&lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;TipList&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as_view&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;int:pk&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;TipDetail&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as_view&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;admin/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rest_framework.urls&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And in the main &lt;code&gt;tips&lt;/code&gt; app's URL file &lt;code&gt;tips/urls.py&lt;/code&gt; we include the &lt;code&gt;api&lt;/code&gt;'s url file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;
+
+&lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;api/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;api.urls&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And that's it! Let's launch the server and check out our new API. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py runserver
+...
+Starting development server at http://127.0.0.1:8000/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Verify it works&lt;/h2&gt;
+&lt;p&gt;We can consume our API with various tools:&lt;/p&gt;
+&lt;h3&gt;A simple curl&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[bobbelderbos@imac ~]$ curl http://127.0.0.1:8000/api/4
+{&amp;quot;tip&amp;quot;:&amp;quot;Q: difference between __str__ and __repr__ in #Python? A: \&amp;quot;My rule of thumb:  __repr__ is for developers, __str__ is for customers.\&amp;quot; (Ned Batchelder on SO)&amp;quot;,&amp;quot;code&amp;quot;:null,&amp;quot;link&amp;quot;:&amp;quot;https://stackoverflow.com/a/1438297&amp;quot;,&amp;quot;user&amp;quot;:1,&amp;quot;approved&amp;quot;:true,&amp;quot;share_link&amp;quot;:null}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Postman&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Postman Simplifies API Development.&lt;/em&gt;, download it &lt;a href="https://www.getpostman.com/"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="get all tips" src="{filename}/images/django-rest-digital-ocean/postman-get-all.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="get single tip" src="{filename}/images/django-rest-digital-ocean/postman-get-one.png"&gt;&lt;/p&gt;
+&lt;p&gt;I cannot post!&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cannot post" src="{filename}/images/django-rest-digital-ocean/postman-post.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Django REST Framework's front-end&lt;/h3&gt;
+&lt;p&gt;Django REST provides a really nice front-end to play with our new API:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser1.png"&gt;&lt;/p&gt;
+&lt;p&gt;As I am an &lt;em&gt;anonymous&lt;/em&gt; user I cannot edit:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser2.png"&gt;&lt;/p&gt;
+&lt;p&gt;When I log in as my &lt;em&gt;superuser&lt;/em&gt; I can:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser3.png"&gt;&lt;/p&gt;
+&lt;p&gt;And navigating back to the root I also can &lt;code&gt;POST&lt;/code&gt; a new tip now when logged in:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Django rest front-end" src="{filename}/images/django-rest-digital-ocean/django-rest-browser4.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Tests&lt;/h3&gt;
+&lt;p&gt;Ideally we'd write some tests at this point to automatically regression test the API at this point. I leave that as an exercise (challenge) for the reader. You can PR your code &lt;a href="https://codechalleng.es/challenges/39/"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;Deploy the API to Digital Ocean&lt;/h2&gt;
+&lt;p&gt;I got 100 bucks credit for free via &lt;a href="https://pythonbytes.fm/"&gt;Python Bytes&lt;/a&gt; - nice, thanks!&lt;/p&gt;
+&lt;h3&gt;Fresh install&lt;/h3&gt;
+&lt;p&gt;My first attempt (cause &lt;em&gt;programmers are supposed to be lazy&lt;/em&gt;, right?!) was to go with the &lt;a href="https://www.digitalocean.com/docs/one-clicks/django/"&gt;Django One-Click Application&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Django droplet" src="{filename}/images/django-rest-digital-ocean/django-droplet1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Django droplet" src="{filename}/images/django-rest-digital-ocean/django-droplet2.png"&gt;&lt;/p&gt;
+&lt;p&gt;However the &lt;a href="https://packages.ubuntu.com/bionic/python-django"&gt;latest Django from APT&lt;/a&gt; is 1.11 and our API uses Django 2.x so let's do it properly setting everything up from scratch using a fresh Ubuntu 18.04 server instance:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="new Ubuntu instance" src="{filename}/images/django-rest-digital-ocean/ubuntu1804.png"&gt;&lt;/p&gt;
+&lt;h3&gt;SSH access and keys&lt;/h3&gt;
+&lt;p&gt;First hurdle you might find is not being able to SSH in as root:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;ssh&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="mf"&gt;@159.203.186.209&lt;/span&gt;
+&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="mf"&gt;@159.203.186.209&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Permission&lt;/span&gt; &lt;span class="n"&gt;denied&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;publickey&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;PermitRootLogin&lt;/code&gt; was already set to &lt;code&gt;yes&lt;/code&gt; in &lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;, but I also had to set &lt;code&gt;PasswordAuthentication&lt;/code&gt; to &lt;code&gt;yes&lt;/code&gt; opening a Console session from Digital Ocean's BUI, then do a &lt;code&gt;sudo service ssh restart&lt;/code&gt;. &lt;/p&gt;
+&lt;p&gt;Then I got the SSH password prompt and could actually login.&lt;/p&gt;
+&lt;p&gt;I &lt;a href="https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/to-account/"&gt;uploaded a SSH public key&lt;/a&gt; and enabled the option when creating the droplet to have it saved to &lt;code&gt;~/.ssh/authorized_keys&lt;/code&gt;. Locally I made an alias to make login as easy as typing &lt;code&gt;ssh dioc&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;.ssh/config&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Host dioc
+HostName 159.203.186.209
+User root
+IdentityFile ~/.ssh/DO
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Upgrade&lt;/h3&gt;
+&lt;p&gt;As a first step I upgraded the OS which required a reboot:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apt-get update &amp;amp;&amp;amp; apt-get -y upgrade
+reboot
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Logging in again I followed Digital Ocean's &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04"&gt;Initial Server Setup with Ubuntu 18.04&lt;/a&gt; creating a user: &lt;code&gt;adduser bob&lt;/code&gt; and granting &lt;code&gt;sudo&lt;/code&gt; rights: &lt;code&gt;usermod -aG sudo bob&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Firewall&lt;/h3&gt;
+&lt;p&gt;Next I enabled the firewall:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw app list
+Available applications:
+OpenSSH
+root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw allow OpenSSH
+Rules updated
+Rules updated (v6)
+root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw enable
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;SSH part II&lt;/h3&gt;
+&lt;p&gt;Next I made sure my new user (&lt;code&gt;bob&lt;/code&gt;) could login.&lt;/p&gt;
+&lt;p&gt;As I use SSH keys for logging in as root, I copied over the &lt;code&gt;.ssh&lt;/code&gt; folder to my new user's home folder using &lt;code&gt;rsync&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@ubuntu-s-1vcpu-1gb-nyc1-01:~# rsync --archive --chown=bob:bob ~/.ssh /home/bob
+root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ls -l  /home/bob/.ssh/authorized_keys
+-rw------- 1 bob bob 410 Mar  3 07:40 /home/bob/.ssh/authorized_keys
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And locally I made a new SSH shortcut in &lt;code&gt;.ssh/config&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Host diocu
+HostName 159.203.186.209
+User bob
+IdentityFile ~/.ssh/DO
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And now I had two ssh logins, one as &lt;code&gt;root&lt;/code&gt; the second one as user &lt;code&gt;bob&lt;/code&gt;, using the new alias &lt;code&gt;ssh diocu&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac tips_api (master)]$ ssh diocu
+Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-45-generic x86_64)
+...
+To run a command as administrator (user &amp;quot;root&amp;quot;), use &amp;quot;sudo &amp;lt;command&amp;gt;&amp;quot;.
+See &amp;quot;man sudo_root&amp;quot; for details.
+
+bob@ubuntu-s-1vcpu-1gb-nyc1-01:~$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now it's time to install / setup our app. I followed Digital Ocean's &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04"&gt;How To Set Up Django with Postgres, Nginx, and Gunicorn on Ubuntu 18.04&lt;/a&gt; which shows you how to install Django within a virtual environment. &lt;em&gt;Namespaces are one honking great idea -- let's do more of those!&lt;/em&gt; - so yes that seems the way to go. What follows is mostly the same as the article, just how I did it. The only challenge was &lt;code&gt;gunicorn&lt;/code&gt; and environment variables which we will see towards the end ...&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt update
+sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Database&lt;/h3&gt;
+&lt;p&gt;We want to use a postgres DB and user:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo -u postgres psql
+postgres=# CREATE DATABASE tips;
+CREATE DATABASE
+postgres=# CREATE USER pybites WITH PASSWORD &amp;#39;something-secure&amp;#39;;
+CREATE ROLE
+postgres=# ALTER ROLE pybites SET client_encoding TO &amp;#39;utf8&amp;#39;;
+ALTER ROLE
+postgres=# ALTER ROLE pybites SET default_transaction_isolation TO &amp;#39;read committed&amp;#39;;
+ALTER ROLE
+postgres=# ALTER ROLE pybites SET timezone TO &amp;#39;UTC&amp;#39;;
+ALTER ROLE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE tips TO pybites;
+GRANT
+postgres=# \q
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's upgrade &lt;code&gt;pip&lt;/code&gt; and get &lt;code&gt;virtualenv&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo -H pip3 install --upgrade pip
+sudo -H pip3 install virtualenv
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Pull in the Django API code&lt;/h3&gt;
+&lt;p&gt;Not part of the article, let's pull in our code from Github:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;in our `$HOME`:
+
+    git clone https://github.com/pybites/tips_api
+    cd tips_api
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Settings&lt;/h3&gt;
+&lt;p&gt;Initially I added this to the venv's activation script, but as we will run the server through &lt;code&gt;gunicorn&lt;/code&gt; later you might skip this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vi venv/bin/activate
+...
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;SECRET_KEY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;xyz&amp;#39;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DEBUG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;True
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;ALLOWED_HOSTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;localhost, 159.203.186.209&amp;#39;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DB_ENGINE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;django.db.backends.postgresql_psycopg2&amp;#39;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DB_NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tips&amp;#39;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DB_USER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pybites&amp;#39;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DB_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;something-secure&amp;#39;&lt;/span&gt;
+
+$ &lt;span class="nb"&gt;source&lt;/span&gt; venv/bin/activate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;These are referenced in Django's &lt;code&gt;tips/settings.py&lt;/code&gt; with sensible defaults if omitted:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ALLOWED_HOSTS = os.environ.get(&amp;#39;ALLOWED_HOSTS&amp;#39;, &amp;#39;localhost&amp;#39;).split(&amp;#39;, &amp;#39;)
+...
+DATABASES = {
+    &amp;#39;default&amp;#39;: {
+        &amp;#39;ENGINE&amp;#39;: os.environ.get(&amp;#39;DB_ENGINE&amp;#39;, &amp;#39;django.db.backends.sqlite3&amp;#39;),  # default sqlite3 if desired
+        &amp;#39;NAME&amp;#39;: os.environ.get(&amp;#39;DB_NAME&amp;#39;, os.path.join(BASE_DIR, &amp;#39;db.sqlite3&amp;#39;)),
+        &amp;#39;USER&amp;#39;: os.environ.get(&amp;#39;DB_USER&amp;#39;, &amp;#39;&amp;#39;),
+        &amp;#39;PASSWORD&amp;#39;: os.environ.get(&amp;#39;DB_PASSWORD&amp;#39;, &amp;#39;&amp;#39;),
+        &amp;#39;HOST&amp;#39;: os.environ.get(&amp;#39;DB_HOST&amp;#39;, &amp;#39;localhost&amp;#39;),
+        &amp;#39;PORT&amp;#39;: os.environ.get(&amp;#39;DB_PORT&amp;#39;, &amp;#39;&amp;#39;),  # can leave empty on Dig Ocean
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;p&gt;With my venv enabled let's install the dependencies:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ pip install -r requirements.txt
+...
+(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ pip freeze
+beautifulsoup4==4.7.1
+bs4==0.0.1
+certifi==2018.11.29
+chardet==3.0.4
+Django==2.1.7
+djangorestframework==3.9.1
+gunicorn==19.9.0
+idna==2.8
+psycopg2==2.7.7
+psycopg2-binary==2.7.7
+pytz==2018.9
+requests==2.21.0
+soupsieve==1.8
+urllib3==1.24.1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Static files&lt;/h3&gt;
+&lt;p&gt;And support for static file handling by Nginx in &lt;code&gt;tips/settings.py&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;STATIC_URL = &amp;#39;/static/&amp;#39;
+STATIC_ROOT = os.path.join(BASE_DIR, &amp;#39;static/&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Sync the DB&lt;/h3&gt;
+&lt;p&gt;Let's sync the models/migrations to the newly created postgres DB:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, auth, contenttypes, sessions, tips
+Running migrations:
+Applying contenttypes.0001_initial... OK
+Applying auth.0001_initial... OK
+Applying admin.0001_initial... OK
+Applying admin.0002_logentry_remove_auto_add... OK
+Applying admin.0003_logentry_add_action_flag_choices... OK
+Applying contenttypes.0002_remove_content_type_name... OK
+Applying auth.0002_alter_permission_name_max_length... OK
+Applying auth.0003_alter_user_email_max_length... OK
+Applying auth.0004_alter_user_username_opts... OK
+Applying auth.0005_alter_user_last_login_null... OK
+Applying auth.0006_require_contenttypes_0002... OK
+Applying auth.0007_alter_validators_add_error_messages... OK
+Applying auth.0008_alter_user_username_max_length... OK
+Applying auth.0009_alter_user_last_name_max_length... OK
+Applying sessions.0001_initial... OK
+Applying tips.0001_initial... OK
+Applying tips.0002_auto_20190302_1958... OK
+Applying tips.0003_auto_20190302_2011... OK
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Great!&lt;/p&gt;
+&lt;p&gt;Note that Django migrations are comitted to source code so I did not have to generate (&lt;code&gt;makemigrations&lt;/code&gt;) them again!&lt;/p&gt;
+&lt;h3&gt;Superuser&lt;/h3&gt;
+&lt;p&gt;Let's create our &lt;code&gt;pybites&lt;/code&gt; admin to pull in our existing tips:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py createsuperuser
+Username (leave blank to use &amp;#39;bob&amp;#39;): pybites
+Email address:
+Password:
+Password (again):
+Superuser created successfully.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And import the tips from our platform:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py sync_tips
+Done: 92 tips imported
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Perfect. Let's collect the static files (I thought why bother, but admin and rest_framework DO have static files!):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py collectstatic
+155 static files copied to &amp;#39;/home/bob/tips_api/static&amp;#39;.
+
+(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ ls static/
+admin  rest_framework
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Dev server&lt;/h3&gt;
+&lt;p&gt;To run the development server have the firewall grant access to port 8000:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo ufw allow 8000
+[sudo] password for bob:
+Rule added
+Rule added (v6)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Run the development server: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py runserver 0.0.0.0:8000
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 04, 2019 - 09:05:00
+Django version 2.1.7, using settings &amp;#39;tips.settings&amp;#39;
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Browsing to: http://159.203.186.209:8000/api/:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="api from dev server" src="{filename}/images/django-rest-digital-ocean/remote-api-dev-server.png"&gt;&lt;/p&gt;
+&lt;p&gt;Awesome! Well, actually first I got a permission error because I only had &lt;em&gt;localhost&lt;/em&gt; in &lt;code&gt;ALLOWED_HOSTS&lt;/code&gt; so make sure you add your own IP to it, in this case 159.203.186.209&lt;/p&gt;
+&lt;h3&gt;Gunicorn&lt;/h3&gt;
+&lt;p&gt;Now let's use Gunicorn. First test it manually:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ gunicorn --bind 0.0.0.0:8000 tips.wsgi
+[2019-03-04 09:11:10 +0000] [16579] [INFO] Starting gunicorn 19.9.0
+[2019-03-04 09:11:10 +0000] [16579] [INFO] Listening at: http://0.0.0.0:8000 (16579)
+[2019-03-04 09:11:10 +0000] [16579] [INFO] Using worker: sync
+[2019-03-04 09:11:10 +0000] [16582] [INFO] Booting worker with pid: 16582
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Next we make it persistent with a socket&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Gunicorn socket will be created at boot and will listen for connections. When a connection occurs, systemd will automatically start the Gunicorn process to handle the connection.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ deactivate
+bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.socket
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And add this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;gunicorn socket&lt;/span&gt;
+
+&lt;span class="k"&gt;[Socket]&lt;/span&gt;
+&lt;span class="na"&gt;ListenStream&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/run/gunicorn.sock&lt;/span&gt;
+
+&lt;span class="k"&gt;[Install]&lt;/span&gt;
+&lt;span class="na"&gt;WantedBy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;sockets.target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then create a &lt;code&gt;gunicorn.service&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.service
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Adding:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;gunicorn daemon&lt;/span&gt;
+&lt;span class="na"&gt;Requires&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;gunicorn.socket&lt;/span&gt;
+&lt;span class="na"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;network.target&lt;/span&gt;
+
+&lt;span class="k"&gt;[Service]&lt;/span&gt;
+&lt;span class="na"&gt;User&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;bob&lt;/span&gt;
+&lt;span class="na"&gt;Group&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;www-data&lt;/span&gt;
+&lt;span class="na"&gt;WorkingDirectory&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/home/bob/tips_api&lt;/span&gt;
+&lt;span class="na"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/home/bob/tips_api/venv/bin/gunicorn \&lt;/span&gt;
+&lt;span class="s"&gt;        -e SECRET_KEY=&amp;#39;abc&amp;#39; \&lt;/span&gt;
+&lt;span class="s"&gt;        -e DEBUG=True \&lt;/span&gt;
+&lt;span class="s"&gt;        -e ALLOWED_HOSTS=&amp;#39;localhost, 159.203.186.209&amp;#39; \&lt;/span&gt;
+&lt;span class="s"&gt;        -e DB_ENGINE=&amp;#39;django.db.backends.postgresql_psycopg2&amp;#39; \&lt;/span&gt;
+&lt;span class="s"&gt;        -e DB_NAME=&amp;#39;tips&amp;#39; \&lt;/span&gt;
+&lt;span class="s"&gt;        -e DB_USER=&amp;#39;pybites&amp;#39; \&lt;/span&gt;
+&lt;span class="s"&gt;        -e DB_PASSWORD=&amp;#39;abc&amp;#39; \&lt;/span&gt;
+&lt;span class="s"&gt;        --access-logfile - \&lt;/span&gt;
+&lt;span class="s"&gt;        --workers 3 \&lt;/span&gt;
+&lt;span class="s"&gt;        --bind unix:/run/gunicorn.sock \&lt;/span&gt;
+&lt;span class="s"&gt;        tips.wsgi:application&lt;/span&gt;
+
+&lt;span class="k"&gt;[Install]&lt;/span&gt;
+&lt;span class="na"&gt;WantedBy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;multi-user.target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And here I had some trouble: Gunicorn did not pick up env variables so Django would not get its &lt;code&gt;SECRET_KEY&lt;/code&gt; etc. As per &lt;a href="https://www.digitalocean.com/community/questions/gunicorn-service-can-t-read-environment-variables"&gt;this thread&lt;/a&gt; I tried &lt;code&gt;EnvironmentFile=/home/bob/.env&lt;/code&gt; copying the variables from &lt;code&gt;venv/bin/activate&lt;/code&gt; (argh). Even that did not work. So I ended up with adding them with multiple &lt;code&gt;-e&lt;/code&gt; flags maing it less DRY (sigh), but hey we should configure this once hopefully (we can probably ditch them from the venv activation script now).&lt;/p&gt;
+&lt;p&gt;Set it in motion:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;systemctl&lt;/span&gt; &lt;span class="nt"&gt;start&lt;/span&gt; &lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt;
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;systemctl&lt;/span&gt; &lt;span class="nt"&gt;enable&lt;/span&gt; &lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt;
+&lt;span class="nt"&gt;Created&lt;/span&gt; &lt;span class="nt"&gt;symlink&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;systemd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;system&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;sockets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;target&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;wants&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt; &lt;span class="err"&gt;→&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;systemd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;system&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;systemctl&lt;/span&gt; &lt;span class="nt"&gt;status&lt;/span&gt; &lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt;
+&lt;span class="nt"&gt;Failed&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;dump&lt;/span&gt; &lt;span class="nt"&gt;process&lt;/span&gt; &lt;span class="nt"&gt;list&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;ignoring&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;No&lt;/span&gt; &lt;span class="nt"&gt;such&lt;/span&gt; &lt;span class="nt"&gt;file&lt;/span&gt; &lt;span class="nt"&gt;or&lt;/span&gt; &lt;span class="nt"&gt;directory&lt;/span&gt;
+&lt;span class="err"&gt;●&lt;/span&gt; &lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;gunicorn&lt;/span&gt; &lt;span class="nt"&gt;socket&lt;/span&gt;
+&lt;span class="nt"&gt;Loaded&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;loaded&lt;/span&gt; &lt;span class="o"&gt;(/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;systemd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;system&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;enabled&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;vendor&lt;/span&gt; &lt;span class="nt"&gt;preset&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;enabled&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nt"&gt;Active&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;active&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;listening&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="nt"&gt;since&lt;/span&gt; &lt;span class="nt"&gt;Mon&lt;/span&gt; &lt;span class="nt"&gt;2019-03-04&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;18&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;06&lt;/span&gt; &lt;span class="nt"&gt;UTC&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;21s&lt;/span&gt; &lt;span class="nt"&gt;ago&lt;/span&gt;
+&lt;span class="nt"&gt;Listen&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;sock&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;Stream&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nt"&gt;CGroup&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;system&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;slice&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;socket&lt;/span&gt;
+
+&lt;span class="nt"&gt;Mar&lt;/span&gt; &lt;span class="nt"&gt;04&lt;/span&gt; &lt;span class="nt"&gt;09&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;18&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;06&lt;/span&gt; &lt;span class="nt"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt; &lt;span class="nt"&gt;systemd&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;Listening&lt;/span&gt; &lt;span class="nt"&gt;on&lt;/span&gt; &lt;span class="nt"&gt;gunicorn&lt;/span&gt; &lt;span class="nt"&gt;socket&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;file&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;sock&lt;/span&gt;
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;gunicorn&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;sock&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;socket&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;When troubleshooting any gunicorn issues, remember to AND restart the &lt;code&gt;daemon&lt;/code&gt; and the processes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo systemctl daemon-reload &amp;amp;&amp;amp; sudo systemctl restart gunicorn.socket gunicorn.service
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Nginx&lt;/h3&gt;
+&lt;p&gt;As per &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04"&gt;Digital Ocean's guide&lt;/a&gt; I needed to do the following to get Nginx running:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;vi&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;sites-available&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;
+
+&lt;span class="nt"&gt;server&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;listen&lt;/span&gt; &lt;span class="nt"&gt;80&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+    &lt;span class="nt"&gt;server_name&lt;/span&gt; &lt;span class="nt"&gt;159&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;203&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;186&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;209&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;location&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;favicon&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;ico&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="err"&gt;access_log&lt;/span&gt; &lt;span class="err"&gt;off&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="err"&gt;log_not_found&lt;/span&gt; &lt;span class="err"&gt;off&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="nt"&gt;location&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;static&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="err"&gt;root&lt;/span&gt; &lt;span class="err"&gt;/home/bob/tips_api&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="nt"&gt;location&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="err"&gt;include&lt;/span&gt; &lt;span class="err"&gt;proxy_params&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="err"&gt;proxy_pass&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;unix&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gunicorn&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sock&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;ln&lt;/span&gt; &lt;span class="nt"&gt;-s&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;sites-available&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;sites-enabled&lt;/span&gt;
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;nginx&lt;/span&gt; &lt;span class="nt"&gt;-t&lt;/span&gt;
+&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;configuration&lt;/span&gt; &lt;span class="nt"&gt;file&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;conf&lt;/span&gt; &lt;span class="nt"&gt;syntax&lt;/span&gt; &lt;span class="nt"&gt;is&lt;/span&gt; &lt;span class="nt"&gt;ok&lt;/span&gt;
+&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;configuration&lt;/span&gt; &lt;span class="nt"&gt;file&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;nginx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;conf&lt;/span&gt; &lt;span class="nt"&gt;test&lt;/span&gt; &lt;span class="nt"&gt;is&lt;/span&gt; &lt;span class="nt"&gt;successful&lt;/span&gt;
+
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;systemctl&lt;/span&gt; &lt;span class="nt"&gt;restart&lt;/span&gt; &lt;span class="nt"&gt;nginx&lt;/span&gt;
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;ufw&lt;/span&gt; &lt;span class="nt"&gt;delete&lt;/span&gt; &lt;span class="nt"&gt;allow&lt;/span&gt; &lt;span class="nt"&gt;8000&lt;/span&gt;
+&lt;span class="nt"&gt;Rule&lt;/span&gt; &lt;span class="nt"&gt;deleted&lt;/span&gt;
+&lt;span class="nt"&gt;Rule&lt;/span&gt; &lt;span class="nt"&gt;deleted&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nt"&gt;bob&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;ubuntu-s-1vcpu-1gb-nyc1-01&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="nt"&gt;tips_api&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt; &lt;span class="nt"&gt;sudo&lt;/span&gt; &lt;span class="nt"&gt;ufw&lt;/span&gt; &lt;span class="nt"&gt;allow&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Nginx Full&amp;#39;&lt;/span&gt;
+&lt;span class="nt"&gt;Rule&lt;/span&gt; &lt;span class="nt"&gt;added&lt;/span&gt;
+&lt;span class="nt"&gt;Rule&lt;/span&gt; &lt;span class="nt"&gt;added&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I ran into a weird error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Mar 04 10:06:18 ubuntu-s-1vcpu-1gb-nyc1-01 systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid argument
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Which I could resolve using &lt;a href="https://stackoverflow.com/a/42084804"&gt;this workaround&lt;/a&gt;, but it was overshadowed by the Gunicorn ENV variable issue I described earlier, so not sure if this would have been a stopper.&lt;/p&gt;
+&lt;p&gt;And voilà: we have our PyBites API hosted on Digital Ocean!&lt;/p&gt;
+&lt;p&gt;&lt;img alt="API on Digital Ocean" src="{filename}/images/django-rest-digital-ocean/remote-api-dev-server.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This was a fun exercise! We managed to make the tips its own service hosted in the cloud. Now go build your own API with Django REST Framework and &lt;a href="https://codechalleng.es/challenges/34/"&gt;PR your code here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Next week I will do an article on how to use the Slack API and its &lt;a href="https://api.slack.com/slash-commands"&gt;Slash Commands&lt;/a&gt; feature to post tips to this API from our Slack (by the way, it's a really cool place to hang out, you can join &lt;a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU"&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="Django"></category><category term="APIs"></category><category term="Django REST Framework"></category><category term="tips"></category><category term="Digital Ocean"></category><category term="Django Commands"></category><category term="Postman"></category><category term="Nginx"></category><category term="postgres"></category><category term="Gunicorn"></category><category term="BeautifulSoup"></category><category term="requests"></category><category term="curl"></category><category term="SSH"></category></entry><entry><title>Generating Beautiful Code Snippets with Carbon and Selenium</title><link href="https://pybit.es/python-tips-carbon-selenium.html" rel="alternate"></link><published>2019-02-26T12:00:00+01:00</published><updated>2019-02-26T12:00:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2019-02-26:/python-tips-carbon-selenium.html</id><summary type="html">&lt;p&gt;Did you notice our &lt;a href="https://twitter.com/search?q=pybites%20carbon&amp;amp;src=typd"&gt;Python tips&lt;/a&gt; lately? They looks more sexy, don't they? That's thanks to &lt;a href="https://carbon.now.sh/"&gt;Carbon&lt;/a&gt; which lets you &lt;em&gt;create beautiful images of your source code&lt;/em&gt;. As much as I love its interface though, what if we can automate this process generating the image for us? That's what we did and posting new tips to Twitter is now a breeze. In this article I will show you how using a bit of &lt;code&gt;BeautifulSoup&lt;/code&gt; and &lt;code&gt;selenium&lt;/code&gt;. Enjoy!&lt;/p&gt;</summary><content type="html">&lt;p&gt;Did you notice our &lt;a href="https://twitter.com/search?q=pybites%20carbon&amp;amp;src=typd"&gt;Python tips&lt;/a&gt; lately? They looks more sexy, don't they? That's thanks to &lt;a href="https://carbon.now.sh/"&gt;Carbon&lt;/a&gt; which lets you &lt;em&gt;create beautiful images of your source code&lt;/em&gt;. As much as I love its interface though, what if we can automate this process generating the image for us?&lt;/p&gt;
 &lt;p&gt;That's what we did and posting new tips to Twitter is now a breeze. In this article I will show you how using a bit of &lt;code&gt;BeautifulSoup&lt;/code&gt; and &lt;code&gt;selenium&lt;/code&gt;. Enjoy!&lt;/p&gt;
 &lt;h2&gt;Getting Ready&lt;/h2&gt;
 &lt;p&gt;If you want to follow along, the final code is &lt;a href="https://github.com/pybites/blog_code/blob/master/tips/tips.py"&gt;here&lt;/a&gt;.&lt;/p&gt;
