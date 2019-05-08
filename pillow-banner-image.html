@@ -217,12 +217,12 @@
 <p>Let's write some code.</p>
 <p><em>Disclaimer</em>: we just write it in a procedural way to get something working. We will refactor it in step 4.</p>
 <p>Create a <code>banner.py</code> and add the following code:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
 
 <span class="n">ASSET_DIR</span> <span class="o">=</span> <span class="s1">&#39;assets&#39;</span>
-<span class="n">PB_CHALLENGE_IMG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;pybites-challenges.png&#39;</span><span class="p">)</span>
-<span class="n">PILLOW_IMG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;pillow-logo.png&#39;</span><span class="p">)</span>
+<span class="n">PB_CHALLENGE_IMG</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;pybites-challenges.png&#39;</span><span class="p">)</span>
+<span class="n">PILLOW_IMG</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;pillow-logo.png&#39;</span><span class="p">)</span>
 <span class="n">DEFAULT_WIDTH</span> <span class="o">=</span> <span class="mi">600</span>
 <span class="n">DEFAULT_HEIGHT</span> <span class="o">=</span> <span class="mi">150</span>
 <span class="n">DEFAULT_CANVAS_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_WIDTH</span><span class="p">,</span> <span class="n">DEFAULT_HEIGHT</span><span class="p">)</span>
@@ -240,7 +240,7 @@
 </pre></div>
 
 
-<p>We do our imports and set up some constants. <code>os.path.join</code> is always best practice to join directories and filenames to make it compatible across different operating systems.</p>
+<p>We do our imports and set up some constants. <code>pathlib.Path</code> is always best practice to join directories and filenames to make it compatible across different operating systems.</p>
 <p>We create a new canvas with <code>Image.new</code> stating the dimensions and background color. We put (<code>image.paste</code>) the Pybites challenges logo at an offset of left=0, top=15. And we store the image's width use height in variables for later use.</p>
 <p>We save the image to a file which confirms this worked:</p>
 <p><img alt="pillow-step1.png" class="border" src="https://pybit.es/images/pillow-step1.png"></p>
@@ -270,7 +270,7 @@ image.paste(second_img, offset_second_img)
 <p>Add this code:</p>
 <div class="highlight"><pre><span></span>...
 BLACK = (0, 0, 0)
-TEXT_FONT_TYPE = os.path.join(ASSET_DIR, &#39;SourceSansPro-Regular.otf&#39;)
+TEXT_FONT_TYPE = Path(ASSET_DIR, &#39;SourceSansPro-Regular.otf&#39;)
 TEXT_SIZE = 24
 TEXT_PADDING_HOR = 20
 TEXT_PADDING_VERT = 40

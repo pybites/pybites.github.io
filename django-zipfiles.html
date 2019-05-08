@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ..." />
+<meta name="keywords" content="Django, zipfile, snippets, archive, response, request, admin, DB, sqlite3, migrations, virtualenv">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to Create and Serve Zipfiles from Django"/>
+<meta property="og:description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ..."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/django-zipfiles.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2019-05-08 08:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Django"/>
+<meta property="article:tag" content="Django"/>
+<meta property="article:tag" content="zipfile"/>
+<meta property="article:tag" content="snippets"/>
+<meta property="article:tag" content="archive"/>
+<meta property="article:tag" content="response"/>
+<meta property="article:tag" content="request"/>
+<meta property="article:tag" content="admin"/>
+<meta property="article:tag" content="DB"/>
+<meta property="article:tag" content="sqlite3"/>
+<meta property="article:tag" content="migrations"/>
+<meta property="article:tag" content="virtualenv"/>
+<meta property="og:image" content="https://pybit.es/theme/img/profile.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How to Create and Serve Zipfiles from Django" />
+<meta name="twitter:description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ..." />
+<meta name="twitter:image" content="https://pybit.es/theme/img/profile.png" />
+
+  <title>PyBites &ndash; How to Create and Serve Zipfiles from Django</title>
+
+
+</head>
+<body>
+<div id="codeChallengeWrapper">
+
+  <div id="codeWithUs">
+
+    <div class="quote-box">
+      <div class="quote">
+
+        <img src="https://codechalleng.es/static/img/honors/unlock.png" class="ninja" alt="earn the White PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_yellow.png" class="ninja" alt="earn the Yellow PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_orange.png" class="ninja" alt="earn the Orange PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/right-arrow.png" class="ninja" alt="right arrow">
+        <img src="https://codechalleng.es/static/img/honors/unlock_red.png" class="ninja" alt="earn more PyBites Ninja belts and certificates">
+
+        <hr>
+
+        <blockquote>
+          The best way to learn to <strong>code in Python</strong> is to <strong><a href="https://pybit.es/learn-by-doing.html" target="_blank">actually use the language</a></strong>.
+          <br><br>
+          Our platform offers <strong>effective Test Driven Learning</strong> which will be key to your progress.
+          <br><br><br>
+          Join thousands of Pythonistas and start coding!
+
+          <br><br><br>
+          <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/ghlogin.png" alt="Join us on our PyBites Platform"></a>
+        </blockquote>
+  
+      </div>
+    </div>
+
+  </div>
+
+  <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
+    Hone Your Python Skills, Become a PyBites Ninja &raquo;
+  </button>
+
+</div><!-- end codeChallengeWrapper -->
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Code Challenges</a></li>
+          <li><a href="/pages/courses.html">#100DaysOfCode</a></li>
+          <li><a href="/pages/news.html">Python News</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="django-zipfiles">How to Create and Serve Zipfiles from Django</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Wed 08 May 2019 in <a href="https://pybit.es/category/django.html">Django</a>
+
+
+        &#8226; 6 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>We added support <a href="https://codechalleng.es">to our platfom</a> for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ...</p>
+<h2>Setup</h2>
+<p>First we make a virtual env, set a secret key in our venv and install Django:</p>
+<div class="highlight"><pre><span></span>[bobbelderbos@imac code]$ mkdir django-archive
+[bobbelderbos@imac code]$ cd $_
+[bobbelderbos@imac django-archive]$ python3.7 -m venv venv
+[bobbelderbos@imac django-archive]$ echo &quot;export SECRET_KEY=&#39;abc123.;#&#39;&quot; &gt;&gt; venv/bin/activate
+[bobbelderbos@imac django-archive]$ source venv/bin/activate
+(venv) [bobbelderbos@imac django-archive]$ pip install django
+Collecting django
+...
+Successfully installed django-2.2 pytz-2019.1 sqlparse-0.3.0
+</pre></div>
+
+
+<p>Now let's create a project and app in Django. Don't forget the extra dot in the <code>startproject</code> command to not create an extra subdirectory.</p>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ django-admin startproject snippets .
+(venv) [bobbelderbos@imac django-archive]$ django-admin startapp archive
+(venv) [bobbelderbos@imac django-archive]$ tree -L 2
+.
+├── archive
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── manage.py
+├── snippets
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── venv
+    ...
+</pre></div>
+
+
+<p>Make sure we add the new app to Django's config:</p>
+<p>snippets/settings.py</p>
+<div class="highlight"><pre><span></span>INSTALLED_APPS = [
+    ...
+    # own apps
+    &#39;archive&#39;,
+]
+</pre></div>
+
+
+<p>While here, let's also load the secret key from our venv (<code>venv/bin/activate</code>) as defined earlier:</p>
+<div class="highlight"><pre><span></span>SECRET_KEY = os.environ[&#39;SECRET_KEY&#39;]
+</pre></div>
+
+
+<p>Lastly let's sync the pending migrations to our default sqlite DB and create a superuser to access Django's admin back-end:</p>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+Applying contenttypes.0001_initial... OK
+Applying auth.0001_initial... OK
+Applying admin.0001_initial... OK
+Applying admin.0002_logentry_remove_auto_add... OK
+Applying admin.0003_logentry_add_action_flag_choices... OK
+Applying contenttypes.0002_remove_content_type_name... OK
+Applying auth.0002_alter_permission_name_max_length... OK
+Applying auth.0003_alter_user_email_max_length... OK
+Applying auth.0004_alter_user_username_opts... OK
+Applying auth.0005_alter_user_last_login_null... OK
+Applying auth.0006_require_contenttypes_0002... OK
+Applying auth.0007_alter_validators_add_error_messages... OK
+Applying auth.0008_alter_user_username_max_length... OK
+Applying auth.0009_alter_user_last_name_max_length... OK
+Applying auth.0010_alter_group_name_max_length... OK
+Applying auth.0011_update_proxy_permissions... OK
+Applying sessions.0001_initial... OK
+
+(venv) [bobbelderbos@imac django-archive]$ python manage.py createsuperuser
+Username (leave blank to use &#39;bobbelderbos&#39;): bob
+Email address:
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+</pre></div>
+
+
+<h2>Create routes</h2>
+<p>In the main app <code>snippets</code>, that was created with the <code>startproject</code> command, we add the following routes:</p>
+<p>snippets/urls.py</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;archive.urls&#39;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;archive&#39;</span><span class="p">)),</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p>Apart from the default admin routes (<code>admin.site.urls</code>), we namespace the <code>archive</code> app's routes, defining them in the app:</p>
+<p>archive/urls.py</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">app_name</span> <span class="o">=</span> <span class="s1">&#39;archive&#39;</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;download/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">download</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;download&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p>This will be the download endpoint that will serve the zipfile, we will write that code in a bit. First let's define the model (DB table) that will hold our code snippets.</p>
+<h2>Create a Script model</h2>
+<p>In our <code>archive</code> app we make this simple model and sync it to the DB:</p>
+<p>archive/models.py</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="k">class</span> <span class="nc">Script</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="n">added</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-added&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>We inherit all goodness from Django's <code>Model</code> class. The <code>added</code> datetime gets automatically populated upon insert. Defining a <code>__str__</code> on the class makes it easier to inspect the objects when debugging (or in Django's interactive shell). And we can use the inner <code>Meta</code> class to set further behaviors, in this case let's show most recently added snippets first. </p>
+<p>Now we have to commit ("migrate") this model to the DB which is easy using Django's <code>manage.py</code>. However first we need to stub out the <code>download</code> function we defined in <code>archive/urls.py</code>, otherwise we get: <code>AttributeError: module 'archive.views' has no attribute 'download'</code> upon migration. Add this code to <code>archive/views.py</code>:</p>
+<p>archive/views.py</p>
+<div class="highlight"><pre><span></span>def download(request):
+    pass
+</pre></div>
+
+
+<p>Now it should work:</p>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ python manage.py makemigrations
+Migrations for &#39;archive&#39;:
+archive/migrations/0001_initial.py
+    - Create model Script
+(venv) [bobbelderbos@imac django-archive]$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, archive, auth, contenttypes, sessions
+Running migrations:
+Applying archive.0001_initial... OK
+</pre></div>
+
+
+<p>I am just using the default <code>sqlite</code> DB, we can use schema to see what <code>migrate</code> created:</p>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ sqlite3 db.sqlite3
+SQLite version 3.24.0 2018-06-04 19:24:41
+Enter &quot;.help&quot; for usage hints.
+sqlite&gt; .table
+... other tables ...
+archive_script              &lt;== our new table
+sqlite&gt; .schema  archive_script
+CREATE TABLE IF NOT EXISTS &quot;archive_script&quot; (&quot;id&quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, &quot;name&quot; varchar(100) NOT NULL, &quot;code&quot; text NOT NULL, &quot;added&quot; datetime NOT NULL);
+</pre></div>
+
+
+<h2>Django's admin interface</h2>
+<p>To be able to work with the new model from the admin interface we need to register it. Add this code to the <code>archive/admin.py</code> module:</p>
+<p>archive/admin.py</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Script</span>
+
+
+<span class="k">class</span> <span class="nc">ScriptAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="k">pass</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Script</span><span class="p">,</span> <span class="n">ScriptAdmin</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now let's spin up the dev server. As I leave it running in the foreground I use a second terminal:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /Users/bbelderbos/code/django-archive
+$ <span class="nb">source</span> venv/bin/activate
+<span class="o">(</span>venv<span class="o">)</span> <span class="o">[</span>bbelderbos@imac django-archive<span class="o">]</span>$ python manage.py runserver
+Watching <span class="k">for</span> file changes with StatReloader
+Performing system checks...
+
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+May <span class="m">08</span>, <span class="m">2019</span> - <span class="m">02</span>:17:32
+Django version <span class="m">2</span>.2, using settings <span class="s1">&#39;snippets.settings&#39;</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+</pre></div>
+
+
+<p>Now I can access <code>http://localhost:8000/admin</code> and login with the superuser I created earlier. At this point we should see the new model:</p>
+<p><img alt="new model in admin" src="https://pybit.es/images/django-zip/admin.png"></p>
+<p>Let's add some small code snippets from <a href="https://codechalleng.es/tips">our tips page</a>:</p>
+<p><img alt="3 snippets added" src="https://pybit.es/images/django-zip/3-snippets.png"></p>
+<p><img alt="adding snippet 1" src="https://pybit.es/images/django-zip/snippet1.png"></p>
+<p><img alt="adding snippet 2" src="https://pybit.es/images/django-zip/snippet2.png"></p>
+<p><img alt="adding snippet 3" src="https://pybit.es/images/django-zip/snippet3.png"></p>
+<h2>Serving up a zipfile</h2>
+<p>Now let's create a zipfile with all the code snippets stored in the DB. We do this in the <code>download</code> view we stubbed out earlier:</p>
+<p>archive/views.py</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Script</span>
+
+<span class="n">README_NAME</span> <span class="o">=</span> <span class="s1">&#39;README.md&#39;</span>
+<span class="n">README_CONTENT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">## PyBites Code Snippet Archive</span>
+
+<span class="s2">Here is a zipfile with some useful code snippets.</span>
+
+<span class="s2">Produced for blog post https://pybit.es/django-zipfiles.html</span>
+
+<span class="s2">Keep calm and code in Python!</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">ZIPFILE_NAME</span> <span class="o">=</span> <span class="s1">&#39;pybites_codesnippets.zip&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download archive zip file of code snippets&quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="s1">&#39;application/zip&#39;</span><span class="p">)</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="c1"># create the zipfile in memory using writestr</span>
+    <span class="c1"># add a readme</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="n">README_NAME</span><span class="p">,</span> <span class="n">README_CONTENT</span><span class="p">)</span>
+
+    <span class="c1"># retrieve snippets from ORM and them to zipfile</span>
+    <span class="n">scripts</span> <span class="o">=</span> <span class="n">Script</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">snippet</span> <span class="ow">in</span> <span class="n">scripts</span><span class="p">:</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="n">snippet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">snippet</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+
+    <span class="c1"># return as zipfile</span>
+    <span class="n">response</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;attachment; filename={ZIPFILE_NAME}&#39;</span>
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div>
+
+
+<p>We use Django's <code>HttpResponse</code> object which we have to give a <code>Content-Disposition</code> attribute. To directly serve up the resulting zipfile, not writing it to disk, I use <code>zipfile</code>'s <code>writestr</code>. Getting the snippets from Django's ORM is as easy as: <code>Script.objects.all()</code>. I also added a <em>README</em> file.</p>
+<p>Now visit the download endpoint: http://localhost:8000/download -&gt; A zipfile should automatically download to your desktop:</p>
+<p><img alt="download the zipfile" src="https://pybit.es/images/django-zip/download-endpoint.png"></p>
+<p>Let's see if it worked by unzipping the obtained zipfile into a tmp directory:</p>
+<div class="highlight"><pre><span></span>[bbelderbos@imac Downloads]$ mkdir tmp
+[bbelderbos@imac Downloads]$ mv pybites_codesnippets.zip tmp
+[bbelderbos@imac Downloads]$ cd tmp
+[bbelderbos@imac tmp]$ unzip pybites_codesnippets.zip
+Archive:  pybites_codesnippets.zip
+extracting: README.md
+extracting: flatten.py
+extracting: zipping.py
+extracting: enumerate.py
+
+[bbelderbos@imac tmp]$ cat README.md
+
+## PyBites Code Snippet Archive
+
+Here is a zipfile with some useful code snippets.
+
+Produced for blog post https://pybit.es/django-zipfile
+
+Keep calm and code in Python!
+
+[bbelderbos@imac tmp]$ for i in *py; do echo &quot;== $i ==&quot;; cat $i; echo ; done
+== enumerate.py ==
+names = &#39;bob julian tim sara&#39;.split()
+for i, name in enumerate(names, 1):
+    print(i, name)
+== flatten.py ==
+list_of_lists = [[1, 2], [3], [4, 5], [6, 7, 8]]
+flattened = sum(list_of_lists, [])
+print(flattened)
+== zipping.py ==
+names = &#39;bob julian tim sara&#39;.split()
+ages = &#39;11 22 33 44&#39;.split()
+print(dict(zip(names, ages)))
+</pre></div>
+
+
+<hr>
+<p>Cool! So there you have it: a small Django app with a single model and view to serve zipfiles :)</p>
+<p>One enhancement would be to lock this down for users that are not logged in. Django makes this easy, just add this the following code at the top of the <code>download</code> function, returning a 401 (and <em>toast</em> message) if the user is not authenticated:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+<span class="o">...</span>
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download archive zip file of code snippets&quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="s1">&#39;application/zip&#39;</span><span class="p">)</span>
+
+    <span class="c1"># add this:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Need to be logged in to access this endpoint&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">401</span><span class="p">)</span>
+    <span class="c1"># end</span>
+
+    <span class="o">...</span> 
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>The full code for this blog post is <a href="http://github.com/pybites/blog_code/django-archive">here</a>.</p>
+<hr>
+<p>If you saved some code for Bite exercises <a href="http://codechalleng.es">on our platform</a> you can check out this feature scrolling to the bottom of <a href="http://codechalleng.es/settings">the settings page</a> ...</p>
+<p>I hope this was useful and let us know if there are other Django related topics you'd like to see covered here ...</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/django.html">Django</a>
+      <a href="https://pybit.es/tag/zipfile.html">zipfile</a>
+      <a href="https://pybit.es/tag/snippets.html">snippets</a>
+      <a href="https://pybit.es/tag/archive.html">archive</a>
+      <a href="https://pybit.es/tag/response.html">response</a>
+      <a href="https://pybit.es/tag/request.html">request</a>
+      <a href="https://pybit.es/tag/admin.html">admin</a>
+      <a href="https://pybit.es/tag/db.html">DB</a>
+      <a href="https://pybit.es/tag/sqlite3.html">sqlite3</a>
+      <a href="https://pybit.es/tag/migrations.html">migrations</a>
+      <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>

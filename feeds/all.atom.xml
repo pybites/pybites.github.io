@@ -1,5 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2019-03-05T12:30:00+01:00</updated><entry><title>Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean</title><link href="https://pybit.es/django-rest-tips-api-digital-ocean.html" rel="alternate"></link><published>2019-03-05T12:30:00+01:00</published><updated>2019-03-05T12:30:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2019-03-05:/django-rest-tips-api-digital-ocean.html</id><summary type="html">&lt;p&gt;In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using curl, Postman and Django REST's browser front-end. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover in the next article. Sounds exciting? You bet it is! Let's jump straight in!&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I will show you how to build a simple API for our growing collection of Python tips:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>PyBites</title><link href="https://pybit.es/" rel="alternate"></link><link href="https://pybit.es/feeds/all.atom.xml" rel="self"></link><id>https://pybit.es/</id><updated>2019-05-08T08:00:00+02:00</updated><entry><title>How to Create and Serve Zipfiles from Django</title><link href="https://pybit.es/django-zipfiles.html" rel="alternate"></link><published>2019-05-08T08:00:00+02:00</published><updated>2019-05-08T08:00:00+02:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2019-05-08:/django-zipfiles.html</id><summary type="html">&lt;p&gt;We added support &lt;a href="https://codechalleng.es"&gt;to our platfom&lt;/a&gt; for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ...&lt;/p&gt;</summary><content type="html">&lt;p&gt;We added support &lt;a href="https://codechalleng.es"&gt;to our platfom&lt;/a&gt; for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ...&lt;/p&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;p&gt;First we make a virtual env, set a secret key in our venv and install Django:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[bobbelderbos@imac code]$ mkdir django-archive
+[bobbelderbos@imac code]$ cd $_
+[bobbelderbos@imac django-archive]$ python3.7 -m venv venv
+[bobbelderbos@imac django-archive]$ echo &amp;quot;export SECRET_KEY=&amp;#39;abc123.;#&amp;#39;&amp;quot; &amp;gt;&amp;gt; venv/bin/activate
+[bobbelderbos@imac django-archive]$ source venv/bin/activate
+(venv) [bobbelderbos@imac django-archive]$ pip install django
+Collecting django
+...
+Successfully installed django-2.2 pytz-2019.1 sqlparse-0.3.0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now let's create a project and app in Django. Don't forget the extra dot in the &lt;code&gt;startproject&lt;/code&gt; command to not create an extra subdirectory.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac django-archive]$ django-admin startproject snippets .
+(venv) [bobbelderbos@imac django-archive]$ django-admin startapp archive
+(venv) [bobbelderbos@imac django-archive]$ tree -L 2
+.
+├── archive
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── manage.py
+├── snippets
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── venv
+    ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Make sure we add the new app to Django's config:&lt;/p&gt;
+&lt;p&gt;snippets/settings.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;INSTALLED_APPS = [
+    ...
+    # own apps
+    &amp;#39;archive&amp;#39;,
+]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;While here, let's also load the secret key from our venv (&lt;code&gt;venv/bin/activate&lt;/code&gt;) as defined earlier:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;SECRET_KEY = os.environ[&amp;#39;SECRET_KEY&amp;#39;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Lastly let's sync the pending migrations to our default sqlite DB and create a superuser to access Django's admin back-end:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac django-archive]$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+Applying contenttypes.0001_initial... OK
+Applying auth.0001_initial... OK
+Applying admin.0001_initial... OK
+Applying admin.0002_logentry_remove_auto_add... OK
+Applying admin.0003_logentry_add_action_flag_choices... OK
+Applying contenttypes.0002_remove_content_type_name... OK
+Applying auth.0002_alter_permission_name_max_length... OK
+Applying auth.0003_alter_user_email_max_length... OK
+Applying auth.0004_alter_user_username_opts... OK
+Applying auth.0005_alter_user_last_login_null... OK
+Applying auth.0006_require_contenttypes_0002... OK
+Applying auth.0007_alter_validators_add_error_messages... OK
+Applying auth.0008_alter_user_username_max_length... OK
+Applying auth.0009_alter_user_last_name_max_length... OK
+Applying auth.0010_alter_group_name_max_length... OK
+Applying auth.0011_update_proxy_permissions... OK
+Applying sessions.0001_initial... OK
+
+(venv) [bobbelderbos@imac django-archive]$ python manage.py createsuperuser
+Username (leave blank to use &amp;#39;bobbelderbos&amp;#39;): bob
+Email address:
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Create routes&lt;/h2&gt;
+&lt;p&gt;In the main app &lt;code&gt;snippets&lt;/code&gt;, that was created with the &lt;code&gt;startproject&lt;/code&gt; command, we add the following routes:&lt;/p&gt;
+&lt;p&gt;snippets/urls.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;admin&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;
+
+&lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;admin/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urls&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;archive.urls&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;namespace&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;archive&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Apart from the default admin routes (&lt;code&gt;admin.site.urls&lt;/code&gt;), we namespace the &lt;code&gt;archive&lt;/code&gt; app's routes, defining them in the app:&lt;/p&gt;
+&lt;p&gt;archive/urls.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;views&lt;/span&gt;
+
+&lt;span class="n"&gt;app_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;archive&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;download/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;views&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;download&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;download&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will be the download endpoint that will serve the zipfile, we will write that code in a bit. First let's define the model (DB table) that will hold our code snippets.&lt;/p&gt;
+&lt;h2&gt;Create a Script model&lt;/h2&gt;
+&lt;p&gt;In our &lt;code&gt;archive&lt;/code&gt; app we make this simple model and sync it to the DB:&lt;/p&gt;
+&lt;p&gt;archive/models.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.db&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Script&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;TextField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;added&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;auto_now_add&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__str__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;
+
+    &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Meta&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;ordering&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;-added&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We inherit all goodness from Django's &lt;code&gt;Model&lt;/code&gt; class. The &lt;code&gt;added&lt;/code&gt; datetime gets automatically populated upon insert. Defining a &lt;code&gt;__str__&lt;/code&gt; on the class makes it easier to inspect the objects when debugging (or in Django's interactive shell). And we can use the inner &lt;code&gt;Meta&lt;/code&gt; class to set further behaviors, in this case let's show most recently added snippets first. &lt;/p&gt;
+&lt;p&gt;Now we have to commit ("migrate") this model to the DB which is easy using Django's &lt;code&gt;manage.py&lt;/code&gt;. However first we need to stub out the &lt;code&gt;download&lt;/code&gt; function we defined in &lt;code&gt;archive/urls.py&lt;/code&gt;, otherwise we get: &lt;code&gt;AttributeError: module 'archive.views' has no attribute 'download'&lt;/code&gt; upon migration. Add this code to &lt;code&gt;archive/views.py&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;archive/views.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def download(request):
+    pass
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now it should work:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac django-archive]$ python manage.py makemigrations
+Migrations for &amp;#39;archive&amp;#39;:
+archive/migrations/0001_initial.py
+    - Create model Script
+(venv) [bobbelderbos@imac django-archive]$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, archive, auth, contenttypes, sessions
+Running migrations:
+Applying archive.0001_initial... OK
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I am just using the default &lt;code&gt;sqlite&lt;/code&gt; DB, we can use schema to see what &lt;code&gt;migrate&lt;/code&gt; created:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(venv) [bobbelderbos@imac django-archive]$ sqlite3 db.sqlite3
+SQLite version 3.24.0 2018-06-04 19:24:41
+Enter &amp;quot;.help&amp;quot; for usage hints.
+sqlite&amp;gt; .table
+... other tables ...
+archive_script              &amp;lt;== our new table
+sqlite&amp;gt; .schema  archive_script
+CREATE TABLE IF NOT EXISTS &amp;quot;archive_script&amp;quot; (&amp;quot;id&amp;quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, &amp;quot;name&amp;quot; varchar(100) NOT NULL, &amp;quot;code&amp;quot; text NOT NULL, &amp;quot;added&amp;quot; datetime NOT NULL);
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Django's admin interface&lt;/h2&gt;
+&lt;p&gt;To be able to work with the new model from the admin interface we need to register it. Add this code to the &lt;code&gt;archive/admin.py&lt;/code&gt; module:&lt;/p&gt;
+&lt;p&gt;archive/admin.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;admin&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Script&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;ScriptAdmin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ModelAdmin&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;pass&lt;/span&gt;
+&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Script&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ScriptAdmin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now let's spin up the dev server. As I leave it running in the foreground I use a second terminal:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /Users/bbelderbos/code/django-archive
+$ &lt;span class="nb"&gt;source&lt;/span&gt; venv/bin/activate
+&lt;span class="o"&gt;(&lt;/span&gt;venv&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;bbelderbos@imac django-archive&lt;span class="o"&gt;]&lt;/span&gt;$ python manage.py runserver
+Watching &lt;span class="k"&gt;for&lt;/span&gt; file changes with StatReloader
+Performing system checks...
+
+System check identified no issues &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; silenced&lt;span class="o"&gt;)&lt;/span&gt;.
+May &lt;span class="m"&gt;08&lt;/span&gt;, &lt;span class="m"&gt;2019&lt;/span&gt; - &lt;span class="m"&gt;02&lt;/span&gt;:17:32
+Django version &lt;span class="m"&gt;2&lt;/span&gt;.2, using settings &lt;span class="s1"&gt;&amp;#39;snippets.settings&amp;#39;&lt;/span&gt;
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now I can access &lt;code&gt;http://localhost:8000/admin&lt;/code&gt; and login with the superuser I created earlier. At this point we should see the new model:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="new model in admin" src="https://pybit.es/images/django-zip/admin.png"&gt;&lt;/p&gt;
+&lt;p&gt;Let's add some small code snippets from &lt;a href="https://codechalleng.es/tips"&gt;our tips page&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="3 snippets added" src="https://pybit.es/images/django-zip/3-snippets.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="adding snippet 1" src="https://pybit.es/images/django-zip/snippet1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="adding snippet 2" src="https://pybit.es/images/django-zip/snippet2.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="adding snippet 3" src="https://pybit.es/images/django-zip/snippet3.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Serving up a zipfile&lt;/h2&gt;
+&lt;p&gt;Now let's create a zipfile with all the code snippets stored in the DB. We do this in the &lt;code&gt;download&lt;/code&gt; view we stubbed out earlier:&lt;/p&gt;
+&lt;p&gt;archive/views.py&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;zipfile&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.http&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Script&lt;/span&gt;
+
+&lt;span class="n"&gt;README_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;README.md&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;README_CONTENT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="s2"&gt;## PyBites Code Snippet Archive&lt;/span&gt;
+
+&lt;span class="s2"&gt;Here is a zipfile with some useful code snippets.&lt;/span&gt;
+
+&lt;span class="s2"&gt;Produced for blog post https://pybit.es/django-zipfiles.html&lt;/span&gt;
+
+&lt;span class="s2"&gt;Keep calm and code in Python!&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;ZIPFILE_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pybites_codesnippets.zip&amp;#39;&lt;/span&gt;
+
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;download&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Download archive zip file of code snippets&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;content_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;application/zip&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;zf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;zipfile&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ZipFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# create the zipfile in memory using writestr&lt;/span&gt;
+    &lt;span class="c1"&gt;# add a readme&lt;/span&gt;
+    &lt;span class="n"&gt;zf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;writestr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;README_NAME&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;README_CONTENT&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# retrieve snippets from ORM and them to zipfile&lt;/span&gt;
+    &lt;span class="n"&gt;scripts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Script&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;snippet&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;zf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;writestr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;snippet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;snippet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# return as zipfile&lt;/span&gt;
+    &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Content-Disposition&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;attachment; filename={ZIPFILE_NAME}&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We use Django's &lt;code&gt;HttpResponse&lt;/code&gt; object which we have to give a &lt;code&gt;Content-Disposition&lt;/code&gt; attribute. To directly serve up the resulting zipfile, not writing it to disk, I use &lt;code&gt;zipfile&lt;/code&gt;'s &lt;code&gt;writestr&lt;/code&gt;. Getting the snippets from Django's ORM is as easy as: &lt;code&gt;Script.objects.all()&lt;/code&gt;. I also added a &lt;em&gt;README&lt;/em&gt; file.&lt;/p&gt;
+&lt;p&gt;Now visit the download endpoint: http://localhost:8000/download -&amp;gt; A zipfile should automatically download to your desktop:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="download the zipfile" src="https://pybit.es/images/django-zip/download-endpoint.png"&gt;&lt;/p&gt;
+&lt;p&gt;Let's see if it worked by unzipping the obtained zipfile into a tmp directory:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[bbelderbos@imac Downloads]$ mkdir tmp
+[bbelderbos@imac Downloads]$ mv pybites_codesnippets.zip tmp
+[bbelderbos@imac Downloads]$ cd tmp
+[bbelderbos@imac tmp]$ unzip pybites_codesnippets.zip
+Archive:  pybites_codesnippets.zip
+extracting: README.md
+extracting: flatten.py
+extracting: zipping.py
+extracting: enumerate.py
+
+[bbelderbos@imac tmp]$ cat README.md
+
+## PyBites Code Snippet Archive
+
+Here is a zipfile with some useful code snippets.
+
+Produced for blog post https://pybit.es/django-zipfile
+
+Keep calm and code in Python!
+
+[bbelderbos@imac tmp]$ for i in *py; do echo &amp;quot;== $i ==&amp;quot;; cat $i; echo ; done
+== enumerate.py ==
+names = &amp;#39;bob julian tim sara&amp;#39;.split()
+for i, name in enumerate(names, 1):
+    print(i, name)
+== flatten.py ==
+list_of_lists = [[1, 2], [3], [4, 5], [6, 7, 8]]
+flattened = sum(list_of_lists, [])
+print(flattened)
+== zipping.py ==
+names = &amp;#39;bob julian tim sara&amp;#39;.split()
+ages = &amp;#39;11 22 33 44&amp;#39;.split()
+print(dict(zip(names, ages)))
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;p&gt;Cool! So there you have it: a small Django app with a single model and view to serve zipfiles :)&lt;/p&gt;
+&lt;p&gt;One enhancement would be to lock this down for users that are not logged in. Django makes this easy, just add this the following code at the top of the &lt;code&gt;download&lt;/code&gt; function, returning a 401 (and &lt;em&gt;toast&lt;/em&gt; message) if the user is not authenticated:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;messages&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;download&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Download archive zip file of code snippets&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;content_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;application/zip&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# add this:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;is_authenticated&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;messages&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Need to be logged in to access this endpoint&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;401&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# end&lt;/span&gt;
+
+    &lt;span class="o"&gt;...&lt;/span&gt; 
+    &lt;span class="o"&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The full code for this blog post is &lt;a href="http://github.com/pybites/blog_code/django-archive"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;If you saved some code for Bite exercises &lt;a href="http://codechalleng.es"&gt;on our platform&lt;/a&gt; you can check out this feature scrolling to the bottom of &lt;a href="http://codechalleng.es/settings"&gt;the settings page&lt;/a&gt; ...&lt;/p&gt;
+&lt;p&gt;I hope this was useful and let us know if there are other Django related topics you'd like to see covered here ...&lt;/p&gt;
+&lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
+&lt;p&gt;-- Bob&lt;/p&gt;</content><category term="Django"></category><category term="zipfile"></category><category term="snippets"></category><category term="archive"></category><category term="response"></category><category term="request"></category><category term="admin"></category><category term="DB"></category><category term="sqlite3"></category><category term="migrations"></category><category term="virtualenv"></category></entry><entry><title>PyBites Twitter Digest - Issue 04, 2019</title><link href="https://pybit.es/twitter_digest_201904.html" rel="alternate"></link><published>2019-04-07T19:39:00+02:00</published><updated>2019-04-07T19:39:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2019-04-07:/twitter_digest_201904.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Latest Test and Code Episode is out! Go Nina!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@brianokken:" target="_blank"&gt;@brianokken:&lt;/a&gt; Test &amp;amp; Code 71: Ultimate Guide To Memorable Tech Talks w/ &lt;a href="https://twitter.com/@nnja" target="_blank"&gt;@nnja&lt;/a&gt; &lt;a href="https://t.co/JPECNkzQr6" title="https://t.co/JPECNkzQr6" target="_blank"&gt;https://t.co/JPECNkzQr6&lt;/a&gt; Nina gives some great advice about…&lt;/p&gt;— TestDriven.io (@testdrivenio) &lt;a href="https://twitter.com/testdrivenio/status/1114252644820836352" data-datetime="2019-04-05T19:45:06+00:00"&gt;April 05, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;March Python VS Code Extension is out&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@pythonvscode:" target="_blank"&gt;@pythonvscode:&lt;/a&gt; The March release of the &lt;a href="https://twitter.com/search/#Python" target="_blank"&gt;#Python&lt;/a&gt; extension for &lt;a href="https://twitter.com/@code" target="_blank"&gt;@code&lt;/a&gt; is out! It includes Live Share support in the Python Interactive Win…&lt;/p&gt;— Visual Studio Code (@code) &lt;a href="https://twitter.com/code/status/1110978797673811969" data-datetime="2019-03-27T18:56:01+00:00"&gt;March 27, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Build a Django portfolio app&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@realpython:" target="_blank"&gt;@realpython:&lt;/a&gt; 🐍📰. Get Started With Django Part 1: Build a Portfolio App In this step-by-step tutorial, you'll learn the basics of creati…&lt;/p&gt;— Teachingpython (@teachingpython) &lt;a href="https://twitter.com/teachingpython/status/1113751903970656259" data-datetime="2019-04-04T10:35:21+00:00"&gt;April 04, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Attend sprints at US PyCon this year!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@treyhunner:" target="_blank"&gt;@treyhunner:&lt;/a&gt; Last year I wrote a blog post for first-time &lt;a href="https://twitter.com/@pycon" target="_blank"&gt;@pycon&lt;/a&gt; attendees, but I didn't mention the sprints at all in it, even though I…&lt;/p&gt;— Python Morsels (@PythonMorsels) &lt;a href="https://twitter.com/PythonMorsels/status/1113484810541043712" data-datetime="2019-04-03T16:54:01+00:00"&gt;April 03, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Python Out Loud episode 2!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;This isn't some late-breaking April Fool's trick. It's &lt;a href="https://twitter.com/search/#Python" target="_blank"&gt;#Python&lt;/a&gt; Out Loud's long-awaited Episode 2: python_powered (t… &lt;a href="https://t.co/4Ifzbwszf5" title="https://t.co/4Ifzbwszf5" target="_blank"&gt;https://t.co/4Ifzbwszf5&lt;/a&gt;&lt;/p&gt;— Python Out Loud! (@PythonOutLoud) &lt;a href="https://twitter.com/PythonOutLoud/status/1113305128486998017" data-datetime="2019-04-03T05:00:01+00:00"&gt;April 03, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;PyCon Africa is a thing! Yes!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@pyconafrica:" target="_blank"&gt;@pyconafrica:&lt;/a&gt; We are excited to officially announce &lt;a href="https://twitter.com/search/#PyCon" target="_blank"&gt;#PyCon&lt;/a&gt; Africa, the first pan-African gathering of the &lt;a href="https://twitter.com/search/#Python" target="_blank"&gt;#Python&lt;/a&gt; community! The confere…&lt;/p&gt;— Naomi Ceder (@NaomiCeder) &lt;a href="https://twitter.com/NaomiCeder/status/1114272582797266944" data-datetime="2019-04-05T21:04:20+00:00"&gt;April 05, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Adrian Rosebrock is launching a kickstarter on Raspberry Pi and Computer Vision&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;I just published the (tentative) Table of Contents to my upcoming &lt;a href="https://twitter.com/@Raspberry_Pi" target="_blank"&gt;@Raspberry_Pi&lt;/a&gt; for &lt;a href="https://twitter.com/search/#ComputerVision" target="_blank"&gt;#ComputerVision&lt;/a&gt; book. Find it h… &lt;a href="https://t.co/p8OZAfwvPX" title="https://t.co/p8OZAfwvPX" target="_blank"&gt;https://t.co/p8OZAfwvPX&lt;/a&gt;&lt;/p&gt;— Adrian Rosebrock (@PyImageSearch) &lt;a href="https://twitter.com/PyImageSearch/status/1114166190174294019" data-datetime="2019-04-05T14:01:34+00:00"&gt;April 05, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Ha!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;&lt;a href="https://twitter.com/search/#python2" target="_blank"&gt;#python2&lt;/a&gt; &lt;a href="https://t.co/Wn6ZlbdTGU" title="https://t.co/Wn6ZlbdTGU" target="_blank"&gt;https://t.co/Wn6ZlbdTGU&lt;/a&gt;&lt;/p&gt;— Harrison Kinsley🐍 (@Sentdex) &lt;a href="https://twitter.com/Sentdex/status/1105198525070086151" data-datetime="2019-03-11T20:07:16+00:00"&gt;March 11, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Nina's going to be a keynote speaker at US PyCon 2019!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;RT &lt;a href="https://twitter.com/@pycon:" target="_blank"&gt;@pycon:&lt;/a&gt; &lt;a href="https://twitter.com/search/#pycon2019's" target="_blank"&gt;#pycon2019's&lt;/a&gt; keynote lineup welcomes &lt;a href="https://twitter.com/@nnja!" target="_blank"&gt;@nnja!&lt;/a&gt; We are excited for Nina to share the joys of using Python on embedded devices and h…&lt;/p&gt;— Ewa Jodlowska (@ewa_jodlowska) &lt;a href="https://twitter.com/ewa_jodlowska/status/1113460878689677312" data-datetime="2019-04-03T15:18:55+00:00"&gt;April 03, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Running a Flask Application as a Service with systemd&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;A long requested topic finally landed on my blog: Running a Flask Application as a Service with Systemd. Enjoy! &lt;a href="https://t.co/h4MjAeH8KO" title="https://t.co/h4MjAeH8KO" target="_blank"&gt;https://t.co/h4MjAeH8KO&lt;/a&gt;&lt;/p&gt;— Miguel Grinberg (@miguelgrinberg) &lt;a href="https://twitter.com/miguelgrinberg/status/1107697087364378631" data-datetime="2019-03-18T17:35:40+00:00"&gt;March 18, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Python Resources for learning Data Science&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;"Learning Data Science: Our Favorite Python Resources" by &lt;a href="https://twitter.com/@SeattleDataGuy" target="_blank"&gt;@SeattleDataGuy&lt;/a&gt; &lt;a href="https://t.co/Sk6haMiGyR" title="https://t.co/Sk6haMiGyR" target="_blank"&gt;https://t.co/Sk6haMiGyR&lt;/a&gt; &lt;a href="https://twitter.com/search/#machinelearning" target="_blank"&gt;#machinelearning&lt;/a&gt; &lt;a href="https://twitter.com/search/#python" target="_blank"&gt;#python&lt;/a&gt;&lt;/p&gt;— Hacker Noon (@hackernoon) &lt;a href="https://twitter.com/hackernoon/status/1114799977916719105" data-datetime="2019-04-07T08:00:01+00:00"&gt;April 07, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;"One of the best programming skills you can have is knowing when to walk away for awhile." - Oscar Godson&lt;/p&gt;— Programming Wisdom (@CodeWisdom) &lt;a href="https://twitter.com/CodeWisdom/status/1113848707517231105" data-datetime="2019-04-04T17:00:00+00:00"&gt;April 04, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Python on calculators!&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;Python is shipping on the new TI-83 Premium CE calculators in France &lt;a href="https://t.co/u0VQLMDIUr" title="https://t.co/u0VQLMDIUr" target="_blank"&gt;https://t.co/u0VQLMDIUr&lt;/a&gt;&lt;/p&gt;— Python LibHunt (@PythonLibHunt) &lt;a href="https://twitter.com/PythonLibHunt/status/1112567048251424768" data-datetime="2019-04-01T04:07:09+00:00"&gt;April 01, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h3&gt;Nice vim tip&lt;/h3&gt;
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;vim tip: set relativenumber # Sets relative line numbers so that you can easily see how many lines away a line is f… &lt;a href="https://t.co/XRpeopjjnC" title="https://t.co/XRpeopjjnC" target="_blank"&gt;https://t.co/XRpeopjjnC&lt;/a&gt;&lt;/p&gt;— Command Line Magic (@climagic) &lt;a href="https://twitter.com/climagic/status/1114183573890838529" data-datetime="2019-04-05T15:10:39+00:00"&gt;April 05, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p&gt;The line if __name__ == "__main__ " is one of those things you often see in Python scripts. What is it and how to… &lt;a href="https://t.co/hOayUFxTZy" title="https://t.co/hOayUFxTZy" target="_blank"&gt;https://t.co/hOayUFxTZy&lt;/a&gt;&lt;/p&gt;— Daily Python Tip (@python_tip) &lt;a href="https://twitter.com/python_tip/status/1113924462016061440" data-datetime="2019-04-04T22:01:02+00:00"&gt;April 04, 2019&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pybites&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Bob&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Julian&lt;/span&gt;
+
+&lt;span class="n"&gt;Keep&lt;/span&gt; &lt;span class="n"&gt;Calm&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;Code&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="twitter"></category><category term="news"></category><category term="pybites"></category><category term="vs code"></category><category term="podcast"></category><category term="pycon"></category><category term="django"></category><category term="raspberry pi"></category><category term="computer vision"></category><category term="Flask"></category><category term="data science"></category><category term="resources"></category><category term="vim"></category></entry><entry><title>Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean</title><link href="https://pybit.es/django-rest-tips-api-digital-ocean.html" rel="alternate"></link><published>2019-03-05T12:30:00+01:00</published><updated>2019-03-05T12:30:00+01:00</updated><author><name>Bob</name></author><id>tag:pybit.es,2019-03-05:/django-rest-tips-api-digital-ocean.html</id><summary type="html">&lt;p&gt;In this article I will show you how to build a simple API for our growing collection of Python tips. First we make a simple Django app, defining the model. Next we use Django REST Framework to make an API supporting common CRUD operations. Then we will test it out using curl, Postman and Django REST's browser front-end. Lastly we deploy the API to Digital Ocean so we can start using it via our Slack with a Slash Command, which I will cover in the next article. Sounds exciting? You bet it is! Let's jump straight in!&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this article I will show you how to build a simple API for our growing collection of Python tips:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;First we make a simple Django app, defining the model.&lt;/li&gt;
 &lt;li&gt;Next we use Django REST Framework to make an API supporting common CRUD operations.&lt;/li&gt;
@@ -96,7 +453,7 @@ export DEBUG=True
 &lt;h3&gt;The model&lt;/h3&gt;
 &lt;p&gt;Looking at the original model on our platform we see the following fields:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="design" src="https://pybit.es/images/django-rest-digital-ocean/design.png"&gt;&lt;/p&gt;
-&lt;p&gt;As we saw &lt;a href="https://pybit.es/python-tips-carbon-selenium.html"&gt;last time&lt;/a&gt; the &lt;code&gt;share_link&lt;/code&gt; is to be populated by an admin when we share out a tip with a nice &lt;a href="https://www.django-rest-framework.org/"&gt;carbon&lt;/a&gt; image.&lt;/p&gt;
+&lt;p&gt;As we saw &lt;a href="https://pybit.es/python-tips-carbon-selenium.html"&gt;last time&lt;/a&gt; the &lt;code&gt;share_link&lt;/code&gt; is to be populated by an admin when we share out a tip with a nice &lt;a href="https://carbon.now.sh"&gt;carbon&lt;/a&gt; image.&lt;/p&gt;
 &lt;p&gt;Let's build our model &lt;code&gt;tips/models.py&lt;/code&gt; using these fields. &lt;/p&gt;
 &lt;p&gt;I am also creating an &lt;code&gt;Author&lt;/code&gt; model to store Twitter and Slack handles from future contributing users. The former to give credit when we share their tips on Twitter, the latter to store the author of the tip when we start receiving them from Slack (next article).&lt;/p&gt;
 &lt;p&gt;Thinking about (predicting) tomorrow's requirement is one of the fascinating things about software development!&lt;/p&gt;
@@ -351,6 +708,35 @@ Done: 92 tips imported
 
 
 &lt;p&gt;Note that I structured the &lt;em&gt;docstrings&lt;/em&gt; in a way to easily add documentation using a tool like &lt;a href="https://swagger.io/"&gt;Swagger&lt;/a&gt; in the future.&lt;/p&gt;
+&lt;h3&gt;Permissions&lt;/h3&gt;
+&lt;p&gt;In the &lt;code&gt;TipDetail&lt;/code&gt; view we defined a customized &lt;em&gt;permission class&lt;/em&gt; called &lt;code&gt;IsOwnerOrReadOnly&lt;/code&gt; which we need to define next in &lt;code&gt;api/permissions.py&lt;/code&gt; (code from second example &lt;a href="https://www.django-rest-framework.org/api-guide/permissions/#examples"&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;The following code in that module will grant read access to any safe methods (&lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;OPTIONS&lt;/code&gt; and &lt;code&gt;HEAD&lt;/code&gt;) and edit right for users that have authored ("own") tips. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;rest_framework&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;permissions&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;IsOwnerOrReadOnly&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;permissions&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BasePermission&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;    Make sure only owners of tips can edit them.&lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;has_object_permission&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;view&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="c1"&gt;# Read permissions are allowed to any request,&lt;/span&gt;
+        &lt;span class="c1"&gt;# so we&amp;#39;ll always allow GET, HEAD or OPTIONS requests.&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;method&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;permissions&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SAFE_METHODS&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+
+        &lt;span class="c1"&gt;# Instance must have an attribute named `owner`.&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;obj.user&lt;/code&gt; refers to the &lt;code&gt;ForeignKey&lt;/code&gt; we defined on the &lt;code&gt;Tip&lt;/code&gt; model:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Tip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+    &lt;span class="nx"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;User&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;on_delete&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;CASCADE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;h3&gt;Routes&lt;/h3&gt;
 &lt;p&gt;And finally to be able to access the routes let's set up our &lt;code&gt;urlpatterns&lt;/code&gt; in &lt;code&gt;api/urls.py&lt;/code&gt;:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;
@@ -17879,12 +18265,12 @@ Django on the other hand… I had no idea what the heck was going on from the st
 &lt;p&gt;Let's write some code.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Disclaimer&lt;/em&gt;: we just write it in a procedural way to get something working. We will refactor it in step 4.&lt;/p&gt;
 &lt;p&gt;Create a &lt;code&gt;banner.py&lt;/code&gt; and add the following code:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pathlib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Path&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;PIL&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ImageDraw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ImageFont&lt;/span&gt;
 
 &lt;span class="n"&gt;ASSET_DIR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;assets&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;PB_CHALLENGE_IMG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ASSET_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pybites-challenges.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;PILLOW_IMG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ASSET_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pillow-logo.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;PB_CHALLENGE_IMG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ASSET_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pybites-challenges.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;PILLOW_IMG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ASSET_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pillow-logo.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;DEFAULT_WIDTH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;600&lt;/span&gt;
 &lt;span class="n"&gt;DEFAULT_HEIGHT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;150&lt;/span&gt;
 &lt;span class="n"&gt;DEFAULT_CANVAS_SIZE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DEFAULT_WIDTH&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DEFAULT_HEIGHT&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -17902,7 +18288,7 @@ Django on the other hand… I had no idea what the heck was going on from the st
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;We do our imports and set up some constants. &lt;code&gt;os.path.join&lt;/code&gt; is always best practice to join directories and filenames to make it compatible across different operating systems.&lt;/p&gt;
+&lt;p&gt;We do our imports and set up some constants. &lt;code&gt;pathlib.Path&lt;/code&gt; is always best practice to join directories and filenames to make it compatible across different operating systems.&lt;/p&gt;
 &lt;p&gt;We create a new canvas with &lt;code&gt;Image.new&lt;/code&gt; stating the dimensions and background color. We put (&lt;code&gt;image.paste&lt;/code&gt;) the Pybites challenges logo at an offset of left=0, top=15. And we store the image's width use height in variables for later use.&lt;/p&gt;
 &lt;p&gt;We save the image to a file which confirms this worked:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="pillow-step1.png" class="border" src="https://pybit.es/images/pillow-step1.png"&gt;&lt;/p&gt;
@@ -17932,7 +18318,7 @@ image.paste(second_img, offset_second_img)
 &lt;p&gt;Add this code:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;...
 BLACK = (0, 0, 0)
-TEXT_FONT_TYPE = os.path.join(ASSET_DIR, &amp;#39;SourceSansPro-Regular.otf&amp;#39;)
+TEXT_FONT_TYPE = Path(ASSET_DIR, &amp;#39;SourceSansPro-Regular.otf&amp;#39;)
 TEXT_SIZE = 24
 TEXT_PADDING_HOR = 20
 TEXT_PADDING_VERT = 40
