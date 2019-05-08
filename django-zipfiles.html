@@ -434,7 +434,7 @@ Quit the server with CONTROL-C.
 
 
 <p>We use Django's <code>HttpResponse</code> object which we have to give a <code>Content-Disposition</code> attribute. To directly serve up the resulting zipfile, not writing it to disk, I use <code>zipfile</code>'s <code>writestr</code>. Getting the snippets from Django's ORM is as easy as: <code>Script.objects.all()</code>. I also added a <em>README</em> file.</p>
-<p>Now visit the download endpoint: http://localhost:8000/download -&gt; A zipfile should automatically download to your desktop:</p>
+<p>Now visit the download endpoint: http://localhost:8000/download -&gt; a zipfile should automatically download to your desktop:</p>
 <p><img alt="download the zipfile" src="https://pybit.es/images/django-zip/download-endpoint.png"></p>
 <p>Let's see if it worked by unzipping the obtained zipfile into a tmp directory:</p>
 <div class="highlight"><pre><span></span>[bbelderbos@imac Downloads]$ mkdir tmp
@@ -480,22 +480,19 @@ print(dict(zip(names, ages)))
 <span class="o">...</span>
 <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Download archive zip file of code snippets&quot;&quot;&quot;</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="s1">&#39;application/zip&#39;</span><span class="p">)</span>
 
-    <span class="c1"># add this:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
         <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Need to be logged in to access this endpoint&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">401</span><span class="p">)</span>
-    <span class="c1"># end</span>
 
-    <span class="o">...</span> 
     <span class="o">...</span>
 </pre></div>
 
 
-<p>The full code for this blog post is <a href="http://github.com/pybites/blog_code/django-archive">here</a>.</p>
+<p>The full code for this blog post is <a href="https://github.com/pybites/blog_code/tree/master/django-archive">in our blog code repo</a>.</p>
 <hr>
-<p>If you saved some code for Bite exercises <a href="http://codechalleng.es">on our platform</a> you can check out this feature scrolling to the bottom of <a href="http://codechalleng.es/settings">the settings page</a> ...</p>
+<p>If you saved some code for Bite exercises <a href="http://codechalleng.es">on our platform</a> you can check out this feature scrolling to the bottom of <a href="http://codechalleng.es/settings">the settings page</a>:</p>
+<p><img alt="the new platform code zip export button" src="https://pybit.es/images/django-zip/platform-export.png"></p>
 <p>I hope this was useful and let us know if there are other Django related topics you'd like to see covered here ...</p>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>

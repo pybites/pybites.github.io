@@ -245,7 +245,7 @@ Quit the server with CONTROL-C.
 
 
 &lt;p&gt;We use Django's &lt;code&gt;HttpResponse&lt;/code&gt; object which we have to give a &lt;code&gt;Content-Disposition&lt;/code&gt; attribute. To directly serve up the resulting zipfile, not writing it to disk, I use &lt;code&gt;zipfile&lt;/code&gt;'s &lt;code&gt;writestr&lt;/code&gt;. Getting the snippets from Django's ORM is as easy as: &lt;code&gt;Script.objects.all()&lt;/code&gt;. I also added a &lt;em&gt;README&lt;/em&gt; file.&lt;/p&gt;
-&lt;p&gt;Now visit the download endpoint: http://localhost:8000/download -&amp;gt; A zipfile should automatically download to your desktop:&lt;/p&gt;
+&lt;p&gt;Now visit the download endpoint: http://localhost:8000/download -&amp;gt; a zipfile should automatically download to your desktop:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="download the zipfile" src="https://pybit.es/images/django-zip/download-endpoint.png"&gt;&lt;/p&gt;
 &lt;p&gt;Let's see if it worked by unzipping the obtained zipfile into a tmp directory:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[bbelderbos@imac Downloads]$ mkdir tmp
@@ -291,22 +291,19 @@ print(dict(zip(names, ages)))
 &lt;span class="o"&gt;...&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;download&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Download archive zip file of code snippets&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;content_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;application/zip&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-    &lt;span class="c1"&gt;# add this:&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;is_authenticated&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;messages&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Need to be logged in to access this endpoint&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;401&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c1"&gt;# end&lt;/span&gt;
 
-    &lt;span class="o"&gt;...&lt;/span&gt; 
     &lt;span class="o"&gt;...&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;The full code for this blog post is &lt;a href="http://github.com/pybites/blog_code/django-archive"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The full code for this blog post is &lt;a href="https://github.com/pybites/blog_code/tree/master/django-archive"&gt;in our blog code repo&lt;/a&gt;.&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;If you saved some code for Bite exercises &lt;a href="http://codechalleng.es"&gt;on our platform&lt;/a&gt; you can check out this feature scrolling to the bottom of &lt;a href="http://codechalleng.es/settings"&gt;the settings page&lt;/a&gt; ...&lt;/p&gt;
+&lt;p&gt;If you saved some code for Bite exercises &lt;a href="http://codechalleng.es"&gt;on our platform&lt;/a&gt; you can check out this feature scrolling to the bottom of &lt;a href="http://codechalleng.es/settings"&gt;the settings page&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="the new platform code zip export button" src="https://pybit.es/images/django-zip/platform-export.png"&gt;&lt;/p&gt;
 &lt;p&gt;I hope this was useful and let us know if there are other Django related topics you'd like to see covered here ...&lt;/p&gt;
 &lt;p&gt;Keep Calm and Code in Python!&lt;/p&gt;
 &lt;p&gt;-- Bob&lt;/p&gt;</content><category term="Django"></category><category term="zipfile"></category><category term="snippets"></category><category term="archive"></category><category term="response"></category><category term="request"></category><category term="admin"></category><category term="DB"></category><category term="sqlite3"></category><category term="migrations"></category><category term="virtualenv"></category></entry><entry><title>PyBites Twitter Digest - Issue 04, 2019</title><link href="https://pybit.es/twitter_digest_201904.html" rel="alternate"></link><published>2019-04-07T19:39:00+02:00</published><updated>2019-04-07T19:39:00+02:00</updated><author><name>PyBites</name></author><id>tag:pybit.es,2019-04-07:/twitter_digest_201904.html</id><summary type="html">&lt;p&gt;Every weekend we share a curated list of 15 cool things (mostly Python) that we found / tweeted throughout the week.&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Latest Test and Code Episode is out! Go Nina!&lt;/h3&gt;
