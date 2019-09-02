@@ -27,35 +27,36 @@
 
 
 <meta name="author" content="PyBites" />
-<meta name="description" content="Hi Pythonistas, a new week, a new 'bite' of Python coding! This week we'll let you play with Web APIs. They are fun to fiddle with and great for learning and building cool things. Enjoy!" />
-<meta name="keywords" content="codechallenges, learning, APIs, movies, music, Slack, Twitter, weather">
+<meta name="description" content="Hey Pythonistas, in this new blog code challenge you are going to use selenium to automatically generate some cool featured images for PyBites. Have fun!" />
+<meta name="keywords" content="code challenge, challenges, web scraping, images, selenium, automation, material design, file handling, zipfile">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Code Challenge 16 - Query Your Favorite API"/>
-<meta property="og:description" content="Hi Pythonistas, a new week, a new 'bite' of Python coding! This week we'll let you play with Web APIs. They are fun to fiddle with and great for learning and building cool things. Enjoy!"/>
+<meta property="og:title" content="Code Challenge 63 - Automatically Generate Blog Featured Images"/>
+<meta property="og:description" content="Hey Pythonistas, in this new blog code challenge you are going to use selenium to automatically generate some cool featured images for PyBites. Have fun!"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/codechallenge16.html"/>
+<meta property="og:url" content="https://pybit.es/codechallenge63.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-04-24 00:01:00+02:00"/>
+<meta property="article:published_time" content="2019-09-02 09:00:00+02:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="https://pybit.es/author/pybites.html">
-<meta property="article:section" content="Challenges"/>
-<meta property="article:tag" content="codechallenges"/>
-<meta property="article:tag" content="learning"/>
-<meta property="article:tag" content="APIs"/>
-<meta property="article:tag" content="movies"/>
-<meta property="article:tag" content="music"/>
-<meta property="article:tag" content="Slack"/>
-<meta property="article:tag" content="Twitter"/>
-<meta property="article:tag" content="weather"/>
+<meta property="article:section" content="Challenge"/>
+<meta property="article:tag" content="code challenge"/>
+<meta property="article:tag" content="challenges"/>
+<meta property="article:tag" content="web scraping"/>
+<meta property="article:tag" content="images"/>
+<meta property="article:tag" content="selenium"/>
+<meta property="article:tag" content="automation"/>
+<meta property="article:tag" content="material design"/>
+<meta property="article:tag" content="file handling"/>
+<meta property="article:tag" content="zipfile"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-challenge.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Code Challenge 16 - Query Your Favorite API" />
-<meta name="twitter:description" content="Hi Pythonistas, a new week, a new 'bite' of Python coding! This week we'll let you play with Web APIs. They are fun to fiddle with and great for learning and building cool things. Enjoy!" />
+<meta name="twitter:title" content="Code Challenge 63 - Automatically Generate Blog Featured Images" />
+<meta name="twitter:description" content="Hey Pythonistas, in this new blog code challenge you are going to use selenium to automatically generate some cool featured images for PyBites. Have fun!" />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-challenge.png">
 
-  <title>PyBites &ndash; Code Challenge 16 - Query Your Favorite API</title>
+  <title>PyBites &ndash; Code Challenge 63 - Automatically Generate Blog Featured Images</title>
 
 
 </head>
@@ -174,72 +175,134 @@
 
 <article class="single">
   <header>
-    <h1 id="codechallenge16">Code Challenge 16 - Query Your Favorite API</h1>
+    <h1 id="codechallenge63">Code Challenge 63 - Automatically Generate Blog Featured Images</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 24 April 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
+          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 02 September 2019 in <a href="https://pybit.es/category/challenge.html">Challenge</a>
 
 
-        &#8226; 2 min read
+        &#8226; 3 min read
     </p>
   </header>
 
 
   <div>
     <blockquote>
-<p>There is nothing like a challenge to bring out the best in man. - Sean Connery</p>
+<p>There is an immense amount to be learned simply by tinkering with things. - Henry Ford</p>
 </blockquote>
-<p>Hi Pythonistas, a new week, a new 'bite' of Python coding! This week we'll let you play with Web APIs. They are fun to fiddle with and great for learning and building cool things.</p>
-<p>We are eager to see what you come up with. If you want to share your work please do so <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">via our new PR proc</a>. Enjoy!</p>
+<p>Hey Pythonistas,</p>
+<p>In this new blog code challenge you are going to use <code>selenium</code> to automatically generate some cool featured images for PyBites. Let's write some Python code, shall we?</p>
 <h2>The Challenge</h2>
-<p>We keep it free-form so you can go wild on consuming your favorite service(s) / data.</p>
-<p>Lack inspiration? Here are some ideas to get you started:</p>
+<p>Some time ago Bob made a tool to automate blog image generation: <a href="http://projects.bobbelderbos.com/featured_image/">Featured Image Creator</a>.</p>
+<p>In this challenge you will help PyBites create some nice featured images for their code challenges or articles (heck, we could even use them on Twitter!)</p>
+<p>Steps:</p>
+<ol>
+<li>
+<p>Make a virtual env and pip install <code>selenium</code> (and optionally <code>bs4</code> or <code>feedparser</code>), however this is not a requirement, use your favorite tools ...</p>
+</li>
+<li>
+<p>Scrape all <a href="https://pybit.es/pages/challenges.html">blog code challenge titles</a> and/or <a href="https://pybit.es/pages/articles.html">PyBites articles</a> (feel free to <code>feedparse</code> our <a href="https://pybit.es/feeds/all.rss.xml">RSS feed</a>). We want images for all of them.</p>
+</li>
+<li>
+<p>Using Selenium navigate to <a href="http://projects.bobbelderbos.com/featured_image/">Featured Image Creator</a> and set the canvas (button ID <code>#submitDimensions</code>) to your preferred size (e.g. w=300/ h=100, or w=200 / h=200)</p>
+</li>
+<li>
+<p>Loop over the challenge and/or article titles you scraped and for each title:</p>
 <ul>
 <li>
-<p>Make a Twitter digest or search for recommended books by your followers (we used the <a href="https://dev.twitter.com/rest/public">Twitter API</a> before, see <a href="http://pybit.es/codechallenge04_review.html">here</a>, <a href="http://pybit.es/100days-autotweet.html">here</a>, and <a href="http://pybit.es/automate-twitter.html">here</a>).</p>
+<p>enter the title alongside <em>Title text in image (blog post)</em> (<code>#title</code> ID field).</p>
 </li>
 <li>
-<p>Make a Slack bot, for example to monitor Twitter (we will post an article this week how!). We have used the Slack API before, see <a href="http://pybit.es/flask-api-part2.html">here</a> and <a href="http://pybit.es/simple-chatbot.html">here</a>.</p>
+<p>choose a <em>Margin-top</em> and <em>Google Font</em> from the two dropdown fields (<code>#topoffset</code> and <code>#font</code> field IDs respectively).</p>
 </li>
 <li>
-<p>Make a notification email of series being aired this week, using <a href="http://thetvdb.com">TheTVDB</a> and/or movies premieres using <a href="https://www.themoviedb.org/?language=en">TheMovieDB API</a>.</p>
+<p>choose a theme: <em>BG theme: material</em> or <em>BG theme: bamboo</em> (<code>#collection</code> ID field).</p>
 </li>
 <li>
-<p>Pull a bunch of movie metadata using <a href="http://www.omdbapi.com/">OMDb API</a>. Maybe you want to use <a href="https://www.themoviedb.org/?language=en-US">TMDb</a> instead, as one of our community members commented in his PR for this challenge: <em>TMDb seems more full featured and better supported</em>.</p>
-</li>
-<li>
-<p>Check reddit for useful (Python) threads using the <a href="https://www.reddit.com/dev/api">their API</a></p>
-</li>
-<li>
-<p>Pull your music playlists / metadata from <a href="https://developer.spotify.com/web-api/">Spotify API</a> / <a href="https://developers.soundcloud.com/docs/api/guide">Soundcloud API</a> / <a href="https://developers.google.com/youtube/">YouTube API</a>.</p>
-</li>
-<li>
-<p>Republish your Instagram photos to your blog <a href="https://www.instagram.com/developer/">via their API</a>.</p>
-</li>
-<li>
-<p>Dump your friends' birthdays in your own DB using the <a href="https://developers.facebook.com/">Facebook API</a>. The FB API is huge, ranging from FB login to leveraging their powerful <a href="https://developers.facebook.com/docs/graph-api">Graph API</a>.</p>
-</li>
-<li>
-<p>Do cool stuff with Google APIs: e.g. calendar, books, drive, Gmail, translate, Youtube, <a href="https://developers.google.com/apis-explorer/#p/">wow they really have a lot</a>.</p>
-</li>
-<li>
-<p>Send SMS with <a href="https://www.twilio.com/">Twilio API</a>, you probably have seen <a href="https://www.twilio.com/blog/2017/04/wedding-at-scale-how-i-used-twilio-python-and-google-to-automate-my-wedding.html">this awesome example</a> some weeks ago? If not, check it out!</p>
-</li>
-<li>
-<p>Query the weather via <a href="https://openweathermap.org/api">OpenWeatherMap</a> (example <a href="http://pybit.es/flask-simple-weather-app.html">here</a>).</p>
+<p>choose a picture from the auto-complete (<code>#bg1_url</code> ID field), or just fill in the field picking random ones from the 2 lists below (one per theme):</p>
+<div class="highlight"><pre><span></span>featured_image/images/material]# ls -C1|grep full|sort|sed &#39;s@\(.*\)@images/material/\1@g&#39;
+images/material/black-blue_full.jpg
+images/material/black_full.jpg
+images/material/black-red_full.jpg
+images/material/blue-black_full.jpg
+images/material/blue-brown_full.png
+images/material/blue_full.jpg
+images/material/blue-green_full.png
+images/material/blue-lightblue-white_full.jpg
+images/material/blue-white_full.jpg
+images/material/blue-yellow_full.png
+images/material/darkgreen-red-yellow_full.png
+images/material/green-blue_full.jpg
+images/material/green_full.png
+images/material/green-red_full.jpg
+images/material/orange-black_full.jpg
+images/material/orange-blue_full.jpg
+images/material/purple-blue_full.jpg
+images/material/purple-blue-red_full.jpg
+images/material/purple-red-orange_full.png
+images/material/purple-red-white_full.png
+images/material/purple-yellow-white_full.png
+images/material/red_full.jpg
+images/material/red-green_full.jpg
+images/material/white-blue_full.png
+images/material/yellow-darkgrey-red_full.jpg
+
+featured_image/images/bamboo]# ls -C1|grep full|sort -n|sed &#39;s@\(.*\)@images/bamboo/\1@g&#39;
+images/bamboo/1_green_full.jpg
+images/bamboo/2_black_full.jpg
+images/bamboo/3_black_full.jpg
+images/bamboo/4_black_full.jpg
+images/bamboo/5_black_full.jpg
+images/bamboo/6_white_black_full.jpg
+images/bamboo/7_black_full.jpg
+images/bamboo/8_black_full.jpg
+images/bamboo/9_black_full.jpg
+images/bamboo/10_green_full.jpg
+images/bamboo/11_black_full.jpg
+images/bamboo/12_black_olive_full.jpg
+images/bamboo/13_gray_full.jpg
+images/bamboo/14_black_full.jpg
+images/bamboo/15_green_full.jpg
+images/bamboo/16_black_full.jpg
+images/bamboo/17_green_white_olive_full.jpg
+images/bamboo/18_black_full.jpg
+images/bamboo/19_green_full.jpg
+images/bamboo/20_gray_full.jpg
+images/bamboo/21_silver_full.jpg
+images/bamboo/22_white_full.jpg
+images/bamboo/23_black_olive_full.jpg
+images/bamboo/24_white_full.jpg
+images/bamboo/25_black_white_full.jpg
+</pre></div>
+
+
 </li>
 </ul>
+</li>
+<li>
+<p>Feel free to set the other fields as well, but so far your should have a decent featured image, so move onto to saving the image ...</p>
+</li>
+<li>
+<p>Click the <em>Save</em> button (<code>#btnSave</code> ID field).</p>
+</li>
+<li>
+<p>Move the obtained file to an output directory and zip them up (using Python's <code>zipfile</code>).</p>
+</li>
+</ol>
+<p><a href="https://codechalleng.es/challenges/63/">PR your work on our platform</a> including the generated zipfile (or host it yourself and link in the PR to keep our challenges repo lean).</p>
+<p>Good luck and have fun coding Python! Ideas for future challenges? use <a href="https://github.com/pybites/challenges/issues">GH Issues</a>.</p>
 <hr>
-<p>Still searching ideas? Check out <a href="https://www.reddit.com/r/webdev/comments/3wrswc/what_are_some_fun_apis_to_play_with/">this thread</a> or <a href="https://www.programmableweb.com/apis">programmableweb</a>.</p>
-<p>Using one API is cool, combining two is even more powerful (e.g. Twitter + Slack, Google + FB, or whatever combination). There are so many options here, we probably reserve another challenge to do more of this (if you like it).</p>
-<p>If you are going to call an API repeatedly while developing you might want to consider <a href="http://pybit.es/requests-cache.html">a library like Requests-cache</a>.</p>
-<h2>Getting ready</h2>
-<p>See <a href="https://github.com/pybites/challenges/blob/master/INSTALL.md">our INSTALL doc</a> how to fork <a href="https://github.com/pybites/challenges">our challenges repo</a> to get cracking. We updated this doc with additional instructions how to submit your solution to our community branch (and end-of-the-week review) via a Pull Request (PR).</p>
-<h2>Archive</h2>
-<p>You can find all our code challenges so far <a href="http://pybit.es/pages/challenges.html">here</a>. If you have ideas for a future challenge or find any issues, please <a href="http://pybit.es/pages/about.html">contact us</a> or open a <a href="https://github.com/pybites/challenges/issues">GH Issue</a>.</p>
-<p>Last but not least: there is no best solution, only learning more and better Python. Good luck!</p>
+<h2>Get serious, take your Python to the next level ...</h2>
+<p>At PyBites we're all about creating Python ninjas through challenges and real-world exercises. Read more about <a href="https://pybit.es/special-learning-python.html">our story</a>.</p>
+<p>We are happy and proud to share that we now hear monthly stories from our users that they're landing new Python jobs. For many this is a dream come true, especially as they're often landing roles with significantly higher salaries!</p>
+<p>Our <em><a href="https://codechalleng.es/bites/">200 Bites of Py exercises</a></em> are geared toward instilling the habit of coding frequently, if not daily which will dramatically improve your Python and problem solving skills. This is <strong>THE</strong> number one skillset necessary to becoming a linchpin in the industry and will enable you to crush it wherever codes need to be written.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5AQg2UxvXbI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>Take <a href="https://codechalleng.es">our free trial</a> and let us know on Slack how it helps you improve your Python!</p>
 <hr>
-<p>Keep Calm and Code in Python!</p>
-<p>-- Bob and Julian</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pybites</span> <span class="kn">import</span> <span class="n">Bob</span><span class="p">,</span> <span class="n">Julian</span>
+
+<span class="n">Keep</span> <span class="n">Calm</span> <span class="ow">and</span> <span class="n">Code</span> <span class="ow">in</span> <span class="n">Python</span><span class="err">!</span>
+</pre></div>
   </div>
 
   <hr>
@@ -247,14 +310,15 @@
 
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>
-      <a href="https://pybit.es/tag/learning.html">learning</a>
-      <a href="https://pybit.es/tag/apis.html">APIs</a>
-      <a href="https://pybit.es/tag/movies.html">movies</a>
-      <a href="https://pybit.es/tag/music.html">music</a>
-      <a href="https://pybit.es/tag/slack.html">Slack</a>
-      <a href="https://pybit.es/tag/twitter.html">Twitter</a>
-      <a href="https://pybit.es/tag/weather.html">weather</a>
+      <a href="https://pybit.es/tag/code-challenge.html">code challenge</a>
+      <a href="https://pybit.es/tag/challenges.html">challenges</a>
+      <a href="https://pybit.es/tag/web-scraping.html">web scraping</a>
+      <a href="https://pybit.es/tag/images.html">images</a>
+      <a href="https://pybit.es/tag/selenium.html">selenium</a>
+      <a href="https://pybit.es/tag/automation.html">automation</a>
+      <a href="https://pybit.es/tag/material-design.html">material design</a>
+      <a href="https://pybit.es/tag/file-handling.html">file handling</a>
+      <a href="https://pybit.es/tag/zipfile.html">zipfile</a>
     </p>
   </div>
 
