@@ -89,7 +89,7 @@
   </div>
 
   <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
-    Hone Your Python Skills, Become a PyBites Ninja &raquo;
+    Land a better Python job? Try our coding platform &raquo;
   </button>
 
 </div><!-- end codeChallengeWrapper -->
@@ -190,11 +190,11 @@
 <p>Coincidence: I was brainstorming how to rotate letters and independently I found the solution reading about deque later in the evening (see further down).</p>
 <h2>Rotate without deque</h2>
 <p>One solution I found on Google / Stackoverflow shows a reasonable way to go:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; def rotate(strg,n):
-...     return strg[n:] + strg[:n]
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">rotate</span><span class="ss">(</span><span class="nv">strg</span>,<span class="nv">n</span><span class="ss">)</span>:
+...     <span class="k">return</span> <span class="nv">strg</span>[<span class="nv">n</span>:] <span class="o">+</span> <span class="nv">strg</span>[:<span class="nv">n</span>]
 ... 
-&gt;&gt;&gt; assert(rotate(&#39;hello&#39;, 2) == &#39;llohe&#39;)
-&gt;&gt;&gt; assert(rotate(&#39;hello&#39;, -2) == &#39;lohel&#39;)
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">assert</span><span class="ss">(</span><span class="nv">rotate</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello</span><span class="s1">&#39;</span>, <span class="mi">2</span><span class="ss">)</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">llohe</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">assert</span><span class="ss">(</span><span class="nv">rotate</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello</span><span class="s1">&#39;</span>, <span class="o">-</span><span class="mi">2</span><span class="ss">)</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">lohel</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -208,22 +208,22 @@
 <blockquote>
 <p>Rotate the deque n steps to the right. If n is negative, rotate to the left.</p>
 </blockquote>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
-&gt;&gt;&gt; d = deque(s)
-&gt;&gt;&gt; d
-deque([&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;])
-# 2 to left
-&gt;&gt;&gt; d.rotate(-2)
-&gt;&gt;&gt; d
-deque([&#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;])
-# reset
-&gt;&gt;&gt; d.rotate(2)
-&gt;&gt;&gt; d
-deque([&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;])
-# 2 to right
-&gt;&gt;&gt; d.rotate(2)
-&gt;&gt;&gt; d
-deque([&#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;, &#39;l&#39;])
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">])</span>
+<span class="o">#</span> <span class="mi">2</span> <span class="k">to</span> <span class="k">left</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">])</span>
+<span class="o">#</span> <span class="k">reset</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">])</span>
+<span class="o">#</span> <span class="mi">2</span> <span class="k">to</span> <span class="k">right</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">])</span>
 </pre></div>
 
 

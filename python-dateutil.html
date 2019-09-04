@@ -92,7 +92,7 @@
   </div>
 
   <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
-    Hone Your Python Skills, Become a PyBites Ninja &raquo;
+    Land a better Python job? Try our coding platform &raquo;
   </button>
 
 </div><!-- end codeChallengeWrapper -->
@@ -197,88 +197,88 @@
 <h2>1. Parse a datetime from a string</h2>
 <p>This is actually what made me look into <code>dateutil</code> to start with. <a href="https://github.com/camaz">Camaz</a> shared this technique in the forum for <a href="https://codechalleng.es/bites/7/">Bite 7. Parsing dates from logs</a> </p>
 <p>Imagine you have this log line:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; log_line = &#39;INFO 2014-07-03T23:27:51 supybot Shutdown complete.&#39;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">log_line</span> <span class="o">=</span> <span class="s1">&#39;INFO 2014-07-03T23:27:51 supybot Shutdown complete.&#39;</span>
 </pre></div>
 
 
 <p>Up until recently I used <code>datetime</code>'s <code>strptime</code> like so:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; date_str = &#39;%Y-%m-%dT%H:%M:%S&#39;
-&gt;&gt;&gt; datetime.strptime(log_line.split()[1], date_str)
-datetime.datetime(2014, 7, 3, 23, 27, 51)
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">date_str</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-%dT%H:%M:%S&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">log_line</span><span class="p">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span> <span class="n">date_str</span><span class="p">)</span>
+<span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>
 </pre></div>
 
 
 <p>More string manipulation and you have to know the <a href="https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior">format string syntax</a>. <code>dateutil</code>'s <code>parse</code> takes this complexity away:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; timestamp = parse(log_line, fuzzy=True)
-&gt;&gt;&gt; print(timestamp)
-2014-07-03 23:27:51
-&gt;&gt;&gt; print(type(timestamp))
-&lt;class &#39;datetime.datetime&#39;&gt;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">timestamp</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">log_line</span><span class="p">,</span> <span class="n">fuzzy</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="k">timestamp</span><span class="p">)</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">03</span> <span class="mi">23</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">51</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="k">timestamp</span><span class="p">))</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="s1">&#39;datetime.datetime&#39;</span><span class="o">&gt;</span>
 </pre></div>
 
 
 <h2>2. Get a timedelta in months</h2>
 <p>A limitation of <code>datetime</code>'s <code>timedelta</code> is that it does not show the number of months:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; today = date.today()
-&gt;&gt;&gt; pybites_born = date(year=2016, month=12, day=19)
-&gt;&gt;&gt; (today-pybites_born).days
-711
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">today</span> <span class="o">=</span> <span class="nb">date</span><span class="p">.</span><span class="n">today</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pybites_born</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="k">year</span><span class="o">=</span><span class="mi">2016</span><span class="p">,</span> <span class="k">month</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="k">day</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">today</span><span class="o">-</span><span class="n">pybites_born</span><span class="p">).</span><span class="n">days</span>
+<span class="mi">711</span>
 </pre></div>
 
 
 <p>So far so good. However this does not work:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; (today-pybites_born).years
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-AttributeError: &#39;datetime.timedelta&#39; object has no attribute &#39;years&#39;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">today</span><span class="o">-</span><span class="n">pybites_born</span><span class="p">).</span><span class="n">years</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="k">call</span> <span class="k">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="n">AttributeError</span><span class="p">:</span> <span class="s1">&#39;datetime.timedelta&#39;</span> <span class="k">object</span> <span class="n">has</span> <span class="k">no</span> <span class="n">attribute</span> <span class="s1">&#39;years&#39;</span>
 </pre></div>
 
 
 <p>Nor this:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; (today-pybites_born).months
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-AttributeError: &#39;datetime.timedelta&#39; object has no attribute &#39;months&#39;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">today</span><span class="o">-</span><span class="n">pybites_born</span><span class="p">).</span><span class="n">months</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="k">call</span> <span class="k">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="n">AttributeError</span><span class="p">:</span> <span class="s1">&#39;datetime.timedelta&#39;</span> <span class="k">object</span> <span class="n">has</span> <span class="k">no</span> <span class="n">attribute</span> <span class="s1">&#39;months&#39;</span>
 </pre></div>
 
 
 <p><code>relativedelta</code> to the rescue:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; diff = relativedelta(today, pybites_born)
-&gt;&gt;&gt; diff.years
-1
-&gt;&gt;&gt; diff.months
-11
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">today</span><span class="p">,</span> <span class="n">pybites_born</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">diff</span><span class="p">.</span><span class="n">years</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">diff</span><span class="p">.</span><span class="n">months</span>
+<span class="mi">11</span>
 </pre></div>
 
 
 <p>When you need months, use <code>relativedelta</code>. And yes, we can almost celebrate two years of PyBites! </p>
 <p>Another use case of this we saw in my previous article, <a href="https://pybit.es/selenium-pytest-and-django.html">How to Test Your Django App with Selenium and pytest</a>, where I used it to get the last 3 months for our new <a href="https://codechalleng.es">Platform Coding Streak feature</a>:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; def _make_3char_monthname(dt):
-...     return dt.strftime(&#39;%b&#39;).upper()
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">dt</span><span class="ss">)</span>:
+...     <span class="k">return</span> <span class="nv">dt</span>.<span class="nv">strftime</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">%b</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">upper</span><span class="ss">()</span>
 ...
-&gt;&gt;&gt; this_month = _make_3char_monthname(today)
-&gt;&gt;&gt; last_month = _make_3char_monthname(today-relativedelta(months=+1))
-&gt;&gt;&gt; two_months_ago = _make_3char_monthname(today-relativedelta(months=+2))
-&gt;&gt;&gt; for month in (this_month, last_month, two_months_ago):
-...     print(f&#39;{month} {today.year}&#39;)
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">this_month</span> <span class="o">=</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">today</span><span class="ss">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">last_month</span> <span class="o">=</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">today</span><span class="o">-</span><span class="nv">relativedelta</span><span class="ss">(</span><span class="nv">months</span><span class="o">=+</span><span class="mi">1</span><span class="ss">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">two_months_ago</span> <span class="o">=</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">today</span><span class="o">-</span><span class="nv">relativedelta</span><span class="ss">(</span><span class="nv">months</span><span class="o">=+</span><span class="mi">2</span><span class="ss">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">month</span> <span class="nv">in</span> <span class="ss">(</span><span class="nv">this_month</span>, <span class="nv">last_month</span>, <span class="nv">two_months_ago</span><span class="ss">)</span>:
+...     <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">{month} {today.year}</span><span class="s1">&#39;</span><span class="ss">)</span>
 ...
-NOV 2018
-OCT 2018
-SEP 2018
+<span class="nv">NOV</span> <span class="mi">2018</span>
+<span class="nv">OCT</span> <span class="mi">2018</span>
+<span class="nv">SEP</span> <span class="mi">2018</span>
 </pre></div>
 
 
 <p>Let's get next Wednesday for the next example:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; next_wednesday = today+relativedelta(weekday=WE(+1))
-&gt;&gt;&gt; next_wednesday
-datetime.date(2018, 12, 5)
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">next_wednesday</span> <span class="o">=</span> <span class="n">today</span><span class="o">+</span><span class="n">relativedelta</span><span class="p">(</span><span class="n">weekday</span><span class="o">=</span><span class="n">WE</span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">next_wednesday</span>
+<span class="n">datetime</span><span class="p">.</span><span class="nb">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
 
 <h2>3. Make a range of dates</h2>
 <p>Say I want to schedule my next batch of Italian lessons, each Wednesday for the coming 10 weeks. Easy:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; rrule(WEEKLY, count=10, dtstart=next_wednesday)
-&lt;dateutil.rrule.rrule object at 0x1033ef898&gt;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">rrule</span><span class="p">(</span><span class="n">WEEKLY</span><span class="p">,</span> <span class="k">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtstart</span><span class="o">=</span><span class="n">next_wednesday</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">dateutil</span><span class="p">.</span><span class="n">rrule</span><span class="p">.</span><span class="n">rrule</span> <span class="k">object</span> <span class="k">at</span> <span class="mi">0</span><span class="n">x1033ef898</span><span class="o">&gt;</span>
 </pre></div>
 
 

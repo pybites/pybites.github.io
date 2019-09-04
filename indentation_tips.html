@@ -90,7 +90,7 @@
   </div>
 
   <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
-    Hone Your Python Skills, Become a PyBites Ninja &raquo;
+    Land a better Python job? Try our coding platform &raquo;
   </button>
 
 </div><!-- end codeChallengeWrapper -->
@@ -188,8 +188,8 @@
 <h2>What is Indentation?</h2>
 <p>Okay I'll keep this quick. It's just important that I cover this for anyone new to programming.</p>
 <p>Indentation is the white space at the front of your code. In all languages you'll see some sort of indentation such as this:</p>
-<div class="highlight"><pre><span></span>def how_to_be_cool():
-    wear_aviator_sunglasses()
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">how_to_be_cool</span><span class="p">():</span>
+    <span class="n">wear_aviator_sunglasses</span><span class="p">()</span>
 </pre></div>
 
 
@@ -199,33 +199,33 @@
 <p>Python, however, relies on indents. In the above code, the indent in front of line 2 tells the compiler that this code "belongs" to the <em>how_to_be_cool</em> function.</p>
 <p>Check out the difference between Javascript and Python for the same code:</p>
 <p><strong>Javascript</strong></p>
-<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">how_to_be_cool() {</span>
-    <span class="nx">wear_aviator_sunglasses</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="k">function</span> <span class="n">how_to_be_cool</span><span class="p">()</span> <span class="err">{</span>
+    <span class="n">wear_aviator_sunglasses</span><span class="p">();</span>
+<span class="err">}</span>
 </pre></div>
 
 
 <p><strong>Python</strong></p>
-<div class="highlight"><pre><span></span>def how_to_be_cool():
-    wear_aviator_sunglasses()
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">how_to_be_cool</span><span class="p">():</span>
+    <span class="n">wear_aviator_sunglasses</span><span class="p">()</span>
 </pre></div>
 
 
 <p>Much simpler in Python! Anything that's indented by the same amount under the function will be considered part of the function. The general rule of thumb is to use 4 spaces.</p>
 <h2>Hanging Indents for Nested Code</h2>
 <p>Indents for your nested statements is a little more flexible but there are definitely guidelines. Let's add a simple infinite while Loop to the above code and check out the indentation:</p>
-<div class="highlight"><pre><span></span>def how_to_be_cool():
-    while True:
-        wear_aviator_sunglasses()
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">how_to_be_cool</span><span class="ss">()</span>:
+    <span class="k">while</span> <span class="nv">True</span>:
+        <span class="nv">wear_aviator_sunglasses</span><span class="ss">()</span>
 </pre></div>
 
 
 <p>The while loop is now in the first indent of 4 spaces and the sunglasses function call is indented by a further 4 spaces to indicate that it's now in the loop.</p>
 <p>If I want to add code to the <em>how_to_be_cool</em> function after the while loop, I simply write code one indentation margin (4 spaces) "up". Check it out:</p>
-<div class="highlight"><pre><span></span>def how_to_be_cool():
-    while True:
-        wear_aviator_sunglasses()
-    time.sleep(5)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">how_to_be_cool</span><span class="ss">()</span>:
+    <span class="k">while</span> <span class="nv">True</span>:
+        <span class="nv">wear_aviator_sunglasses</span><span class="ss">()</span>
+    <span class="nv">time</span>.<span class="nv">sleep</span><span class="ss">(</span><span class="mi">5</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -235,10 +235,10 @@
 <p>I can't stress that enough. If you're not careful, you are bound to make mistakes and waste time debugging your code. Python expects proper marginalised indents. Unless you're continuing code from the previous line onto subsequent lines, your code needs to line up. If not, Python will most likely spit the dummy.</p>
 <p>Of course, you won't always do it intentionally. While editing and fine tuning my own code I was doing so without removing previous indents and spaces. As a result I was left with unexpected spaces that caused my code to error out.</p>
 <p>Here's an example of the above code with indentation that's just <em>slightly</em> out of whack:</p>
-<div class="highlight"><pre><span></span>def how_to_be_cool:
-    while True:
-        wear_aviator_sunglasses()
-     time.sleep(5)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">how_to_be_cool</span>:
+    <span class="k">while</span> <span class="nv">True</span>:
+        <span class="nv">wear_aviator_sunglasses</span><span class="ss">()</span>
+     <span class="nv">time</span>.<span class="nv">sleep</span><span class="ss">(</span><span class="mi">5</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -250,14 +250,14 @@
 <p>There's an extensive list of different indentation scenarios on the <a href="https://www.python.org/dev/peps/pep-0008/#indentation">Python Style Guide</a>. I found it to be quite enlightening! I recommend checking it out posthaste!</p>
 <h2>Vim Settings to Make Your Life Easier</h2>
 <p>For the Vim lovers out there, adding the following to your <em>.vimrc</em> file will take care of a lot of your indentation woes:</p>
-<div class="highlight"><pre><span></span>au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
+<div class="highlight"><pre><span></span><span class="n">au</span> <span class="n">BufNewFile</span><span class="p">,</span><span class="n">BufRead</span> <span class="o">*</span><span class="p">.</span><span class="n">py</span>
+    <span class="err">\</span> <span class="k">set</span> <span class="n">tabstop</span><span class="o">=</span><span class="mi">4</span>
+    <span class="err">\</span> <span class="k">set</span> <span class="n">softtabstop</span><span class="o">=</span><span class="mi">4</span>
+    <span class="err">\</span> <span class="k">set</span> <span class="n">shiftwidth</span><span class="o">=</span><span class="mi">4</span>
+    <span class="err">\</span> <span class="k">set</span> <span class="n">textwidth</span><span class="o">=</span><span class="mi">79</span>
+    <span class="err">\</span> <span class="k">set</span> <span class="n">expandtab</span>
+    <span class="err">\</span> <span class="k">set</span> <span class="n">autoindent</span>
+    <span class="err">\</span> <span class="k">set</span> <span class="n">fileformat</span><span class="o">=</span><span class="n">unix</span>
 </pre></div>
 
 

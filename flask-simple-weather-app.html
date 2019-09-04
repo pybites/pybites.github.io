@@ -94,7 +94,7 @@
   </div>
 
   <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
-    Hone Your Python Skills, Become a PyBites Ninja &raquo;
+    Land a better Python job? Try our coding platform &raquo;
   </button>
 
 </div><!-- end codeChallengeWrapper -->
@@ -227,10 +227,10 @@ $ pip install -r requirements.txt
 </li>
 <li>
 <p>With these helpers the <a href="https://github.com/pybites/weather_compare/blob/master/app.py">main app</a> becomes pretty lean (just 32 LOC). I only use the root (/) path for both view and POST. If POST, I get the 2 cities from the form with request.form.get, I query the API for both cities appending the results to data. If data does not have 2 items we set the error variable. All the data gets passed to the weather html template with this: </p>
-<div class="highlight"><pre><span></span>return render_template(&quot;weather.html&quot;,
-                    data=data,
-                    error=error,
-                    time=get_local_time)
+<div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">render_template</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">weather.html</span><span class="s2">&quot;</span>,
+                    <span class="nv">data</span><span class="o">=</span><span class="nv">data</span>,
+                    <span class="nv">error</span><span class="o">=</span><span class="nv">error</span>,
+                    <span class="nv">time</span><span class="o">=</span><span class="nv">get_local_time</span><span class="ss">)</span>
 </pre></div>
 
 

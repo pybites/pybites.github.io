@@ -93,7 +93,7 @@
   </div>
 
   <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
-    Hone Your Python Skills, Become a PyBites Ninja &raquo;
+    Land a better Python job? Try our coding platform &raquo;
   </button>
 
 </div><!-- end codeChallengeWrapper -->
@@ -192,25 +192,25 @@
 </blockquote>
 <h2>The Problem - BCC</h2>
 <p>When sending emails where I’m happy for all email addresses to be visible to recipients (such as to myself and Bob), the code looks like the following:</p>
-<div class="highlight"><pre><span></span>from_addr = &#39;pybitesblog@gmail.com&#39;
-to_addr = [&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;]
-msg = MIMEMultipart()
-msg[&#39;From&#39;] = from_addr
-msg[&#39;To&#39;] = &quot;, &quot;.join(to_addr)
-msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
+<div class="highlight"><pre><span></span><span class="n">from_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="w"></span>
+<span class="n">to_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;</span><span class="o">]</span><span class="w"></span>
+<span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MIMEMultipart</span><span class="p">()</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;From&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from_addr</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;To&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;, &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">to_addr</span><span class="p">)</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;Subject&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Test Automation Email&#39;</span><span class="w"></span>
 </pre></div>
 
 
 <p>This is the header information code. When the email sends, both Bob and I will be able to see one another on the email.</p>
 <p>After some reading and searching online, my understanding was that to make the recipients anonymous, I could use the BCC field as follows:</p>
-<div class="highlight"><pre><span></span>from_addr = &#39;pybitesblog@gmail.com&#39;
-to_addr = ‘pybitesblog@gmail.com’
-recipients = [&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;]
-msg = MIMEMultipart()
-msg[&#39;From&#39;] = from_addr
-msg[&#39;To&#39;] = to_addr
-msg[&#39;Bcc&#39;] = &quot;, &quot;.join(recipients)
-msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
+<div class="highlight"><pre><span></span><span class="n">from_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="w"></span>
+<span class="n">to_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">‘</span><span class="n">pybitesblog</span><span class="nv">@gmail</span><span class="p">.</span><span class="n">com</span><span class="err">’</span><span class="w"></span>
+<span class="n">recipients</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;</span><span class="o">]</span><span class="w"></span>
+<span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MIMEMultipart</span><span class="p">()</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;From&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from_addr</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;To&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_addr</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;Bcc&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;, &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">recipients</span><span class="p">)</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;Subject&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Test Automation Email&#39;</span><span class="w"></span>
 </pre></div>
 
 
@@ -222,21 +222,21 @@ msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
 <p>It turns out anything you put in the header is, by design, visible to the recipient. Any email address I assign to `msg['Bcc']’ is again, by design, supposed to be visible to all recipients.</p>
 <p>The workaround I’ve found that works for me is to completely omit my list of recipients from the MIME header information altogether and instead include it in the <code>sendmail()</code> function.
 The current sendmail parameters are:</p>
-<div class="highlight"><pre><span></span>smtp_server.sendmail(from_addr, to_addr, text)
+<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span> <span class="n">to_addr</span><span class="p">,</span> <span class="nb">text</span><span class="p">)</span>
 </pre></div>
 
 
 <p>With the workaround it’s:</p>
-<div class="highlight"><pre><span></span>from_addr = &#39;pybitesblog@gmail.com&#39;
-to_addr = ‘pybitesblog@gmail.com’
-recipients = [&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;]
+<div class="highlight"><pre><span></span><span class="n">from_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="w"></span>
+<span class="n">to_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">‘</span><span class="n">pybitesblog</span><span class="nv">@gmail</span><span class="p">.</span><span class="n">com</span><span class="err">’</span><span class="w"></span>
+<span class="n">recipients</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;</span><span class="o">]</span><span class="w"></span>
 
-msg = MIMEMultipart()
-msg[&#39;From&#39;] = from_addr
-msg[&#39;To&#39;] = to_addr
-msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
+<span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MIMEMultipart</span><span class="p">()</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;From&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from_addr</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;To&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_addr</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;Subject&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Test Automation Email&#39;</span><span class="w"></span>
 
-smtp_server.sendmail(from_addr, [to_addr] + recipients, text)
+<span class="n">smtp_server</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n">to_addr</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">recipients</span><span class="p">,</span><span class="w"> </span><span class="nc">text</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
