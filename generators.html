@@ -170,6 +170,9 @@
 
   </aside>
   <main>
+    <div style="width: 100%; margin: 10px 0 0 100px; border-bottom: 1px solid #f2f2f2; padding: 0px;">
+      <iframe scrolling="no" frameborder="0" style="margin:0 auto; border:none;" src="https://www.humblebundle.com/_widget//level-up-your-python" width="410" height="150"></iframe>
+    </div>
 
 
 <article class="single">
@@ -368,7 +371,7 @@
         <span class="nv">yield</span> <span class="s1">&#39;</span><span class="s">{}.{}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">net</span>, <span class="nv">i</span><span class="ss">)</span>
 
 # <span class="nv">consume</span> <span class="nv">it</span>
-<span class="k">for</span> <span class="nv">node</span> <span class="nv">in</span> <span class="nv">get_nodes</span><span class="ss">()</span>:
+<span class="k">for</span> <span class="nv">node</span> <span class="nv">in</span> <span class="nv">get_nodes</span><span class="ss">(</span><span class="nv">net</span><span class="ss">)</span>:
     <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Checking IP {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">node</span><span class="ss">))</span>
     <span class="nv">try</span>:
         <span class="nv">ssh</span> <span class="o">=</span> <span class="nv">paramiko</span>.<span class="nv">SSHClient</span><span class="ss">()</span>

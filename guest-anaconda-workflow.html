@@ -174,6 +174,9 @@
 
   </aside>
   <main>
+    <div style="width: 100%; margin: 10px 0 0 100px; border-bottom: 1px solid #f2f2f2; padding: 0px;">
+      <iframe scrolling="no" frameborder="0" style="margin:0 auto; border:none;" src="https://www.humblebundle.com/_widget//level-up-your-python" width="410" height="150"></iframe>
+    </div>
 
 
 <article class="single">
@@ -189,7 +192,7 @@
 
 
   <div>
-    <p>In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, updating Anaconda, and setting environment variables. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference. Enter Martin: </p>
+    <p>In this article Martin provides an easy-to-follow reference guide of his Anaconda workflow. He uses this to make his life easier managing the his Python environment and package dependencies. And to great avail as you will soon discover. Not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, updating Anaconda, and setting environment variables. Warning: this might get you on Anaconda, and if you are already you probably want to keep this one nearby for reference. Enter Martin:</p>
 <h1>My Anaconda Workflow</h1>
 <p>I've been working with <a href="https://anaconda.org/">Anaconda</a> for a while now and I've been relatively pleased with it. I'll admit, there was a bit of a learning curve at first, but hopefully I can get you past that initial hump with this write-up. There are lots of commands and covering them all is better done in the official <a href="https://docs.anaconda.com/anaconda-cloud/user-guide/">documentation</a>.</p>
 <blockquote>
@@ -263,16 +266,18 @@
 <span class="n">Verifying</span><span class="w"> </span><span class="k">transaction</span><span class="err">:</span><span class="w"> </span><span class="n">done</span><span class="w"></span>
 <span class="n">Executing</span><span class="w"> </span><span class="k">transaction</span><span class="err">:</span><span class="w"> </span><span class="n">done</span><span class="w"></span>
 <span class="err">#</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">To</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="err">:</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">pybites</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="k">To</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="w"></span>
 <span class="err">#</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="k">To</span><span class="w"> </span><span class="n">deactivate</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="err">:</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">deactivate</span><span class="w"></span>
+<span class="err">#</span><span class="w">     </span><span class="err">$</span><span class="w"> </span><span class="n">conda</span><span class="w"> </span><span class="n">activate</span><span class="w"> </span><span class="n">pybites</span><span class="w"></span>
+<span class="err">#</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="k">To</span><span class="w"> </span><span class="n">deactivate</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="n">environment</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="w"></span>
+<span class="err">#</span><span class="w"></span>
+<span class="err">#</span><span class="w">     </span><span class="err">$</span><span class="w"> </span><span class="n">conda</span><span class="w"> </span><span class="n">deactivate</span><span class="w"></span>
 <span class="err">#</span><span class="w"></span>
 </pre></div>
 
 
-<p>The comments at the end show you how to activate/deactivate your new environment. I have an alias set in my shell's rc file that maps <code>activate</code> to <code>source activate</code> so that I don't have to type <code>source</code> all of the time.</p>
+<p>The comments at the end show you how to activate/deactivate your new environment.</p>
 <p><a name="list_virtual_environments"></a></p>
 <h2>List Virtual Environments</h2>
 <p>Don't remember what you named your environment? Just what to see which ones you have created? You can view them all with <code>conda env list</code>. The name of the environment will be shown as well as its location:</p>
@@ -861,6 +866,14 @@
 <tr>
 <td>Create virtual environment</td>
 <td align="right"><code>conda create --name ENVNAME</code></td>
+</tr>
+<tr>
+<td>Activate environment</td>
+<td align="right"><code>conda activate ENVNAME</code></td>
+</tr>
+<tr>
+<td>Deactivate environment</td>
+<td align="right"><code>conda deactivate</code></td>
 </tr>
 <tr>
 <td>List virtual environments</td>
