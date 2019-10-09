@@ -196,26 +196,26 @@
 <h2>The Challenge</h2>
 <p>Write a script that receives a directory name and retrieves all mp3 (or mp4 or m4a) files. It then sums up the durations of each file and prints them in a nice table with a total duration.</p>
 <p>This could look like the following:</p>
-<div class="highlight"><pre><span></span>    $ module_duration.py ~/Music/iTunes/iTunes\ Media/Music/Manu\ Chao/Manu\ Chao\ -\ Esperanza/
-    Manu Chao - Bixo.m4a                    : 112
-    Manu Chao - Denia.m4a                   : 279
-    Manu Chao - El Dorrado 1997.m4a         : 89
-    Manu Chao - Homens.m4a                  : 198
-    Manu Chao - Infinita Tristeza.m4a       : 236
-    Manu Chao - La Chinita.m4a              : 93
-    Manu Chao - La Marea.m4a                : 136
-    Manu Chao - La Primavera.m4a            : 112
-    Manu Chao - La Vacaloca.m4a             : 143
-    Manu Chao - Le Rendez Vous.m4a          : 116
-    Manu Chao - Me Gustas Tu.m4a            : 240
-    Manu Chao - Merry Blues.m4a             : 216
-    Manu Chao - Mi Vida.m4a                 : 152
-    Manu Chao - Mr Bobby.m4a                : 229
-    Manu Chao - Papito.m4a                  : 171
-    Manu Chao - Promiscuity.m4a             : 96
-    Manu Chao - Trapped by Love.m4a         : 114
-    --------------------------------------------------
-    Total                                   : 0:45:32
+<div class="highlight"><pre><span></span>    <span class="err">$</span> <span class="n">module_duration</span><span class="p">.</span><span class="n">py</span> <span class="o">~/</span><span class="n">Music</span><span class="o">/</span><span class="n">iTunes</span><span class="o">/</span><span class="n">iTunes</span><span class="err">\</span> <span class="n">Media</span><span class="o">/</span><span class="n">Music</span><span class="o">/</span><span class="n">Manu</span><span class="err">\</span> <span class="n">Chao</span><span class="o">/</span><span class="n">Manu</span><span class="err">\</span> <span class="n">Chao</span><span class="err">\</span> <span class="o">-</span><span class="err">\</span> <span class="n">Esperanza</span><span class="o">/</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Bixo</span><span class="p">.</span><span class="n">m4a</span>                    <span class="p">:</span> <span class="mi">112</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Denia</span><span class="p">.</span><span class="n">m4a</span>                   <span class="p">:</span> <span class="mi">279</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">El</span> <span class="n">Dorrado</span> <span class="mi">1997</span><span class="p">.</span><span class="n">m4a</span>         <span class="p">:</span> <span class="mi">89</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Homens</span><span class="p">.</span><span class="n">m4a</span>                  <span class="p">:</span> <span class="mi">198</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Infinita</span> <span class="n">Tristeza</span><span class="p">.</span><span class="n">m4a</span>       <span class="p">:</span> <span class="mi">236</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">La</span> <span class="n">Chinita</span><span class="p">.</span><span class="n">m4a</span>              <span class="p">:</span> <span class="mi">93</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">La</span> <span class="n">Marea</span><span class="p">.</span><span class="n">m4a</span>                <span class="p">:</span> <span class="mi">136</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">La</span> <span class="n">Primavera</span><span class="p">.</span><span class="n">m4a</span>            <span class="p">:</span> <span class="mi">112</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">La</span> <span class="n">Vacaloca</span><span class="p">.</span><span class="n">m4a</span>             <span class="p">:</span> <span class="mi">143</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Le</span> <span class="n">Rendez</span> <span class="n">Vous</span><span class="p">.</span><span class="n">m4a</span>          <span class="p">:</span> <span class="mi">116</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Me</span> <span class="n">Gustas</span> <span class="n">Tu</span><span class="p">.</span><span class="n">m4a</span>            <span class="p">:</span> <span class="mi">240</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Merry</span> <span class="n">Blues</span><span class="p">.</span><span class="n">m4a</span>             <span class="p">:</span> <span class="mi">216</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Mi</span> <span class="n">Vida</span><span class="p">.</span><span class="n">m4a</span>                 <span class="p">:</span> <span class="mi">152</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Mr</span> <span class="n">Bobby</span><span class="p">.</span><span class="n">m4a</span>                <span class="p">:</span> <span class="mi">229</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Papito</span><span class="p">.</span><span class="n">m4a</span>                  <span class="p">:</span> <span class="mi">171</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Promiscuity</span><span class="p">.</span><span class="n">m4a</span>             <span class="p">:</span> <span class="mi">96</span>
+    <span class="n">Manu</span> <span class="n">Chao</span> <span class="o">-</span> <span class="n">Trapped</span> <span class="k">by</span> <span class="n">Love</span><span class="p">.</span><span class="n">m4a</span>         <span class="p">:</span> <span class="mi">114</span>
+    <span class="c1">--------------------------------------------------</span>
+    <span class="n">Total</span>                                   <span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">32</span>
 </pre></div>
 
 

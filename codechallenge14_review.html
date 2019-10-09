@@ -193,9 +193,9 @@
 </li>
 <li>
 <p>As we sensed using optional arguments made the mute_exception more versatile. You can run it in various ways: </p>
-<div class="highlight"><pre><span></span>@mute_exception                                    # works: no args provided = takes defaults (no reraise, returns None)
-@mute_exception(reraise=True)                      # works: raises the ZeroDivisionError = crash
-@mute_exception(reraise=False, default_return=0)   # works: does not reraise ZeroDivisionError and returns 0 in that case
+<div class="highlight"><pre><span></span><span class="nv">@mute_exception</span><span class="w">                                    </span><span class="err">#</span><span class="w"> </span><span class="nl">works</span><span class="p">:</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="n">provided</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">takes</span><span class="w"> </span><span class="n">defaults</span><span class="w"> </span><span class="p">(</span><span class="k">no</span><span class="w"> </span><span class="n">reraise</span><span class="p">,</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"></span>
+<span class="nv">@mute_exception</span><span class="p">(</span><span class="n">reraise</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="w">                      </span><span class="err">#</span><span class="w"> </span><span class="nl">works</span><span class="p">:</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">ZeroDivisionError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crash</span><span class="w"></span>
+<span class="nv">@mute_exception</span><span class="p">(</span><span class="n">reraise</span><span class="o">=</span><span class="k">False</span><span class="p">,</span><span class="w"> </span><span class="n">default_return</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="nl">works</span><span class="p">:</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">reraise</span><span class="w"> </span><span class="n">ZeroDivisionError</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">case</span><span class="w"></span>
 </pre></div>
 
 
@@ -226,13 +226,13 @@ div <span class="m">3</span>/0 <span class="o">=</span> <span class="m">0</span>
 
 
 <p>The program did not crash by the divide by 0, logging the exception:</p>
-<div class="highlight"><pre><span></span>$ tail decorators.log
+<div class="highlight"><pre><span></span>$ <span class="nv">tail</span> <span class="nv">decorators</span>.<span class="nv">log</span>
 ...
 ...
-<span class="m">00</span>:58:36 root         DEBUG    div called <span class="k">for</span> args <span class="o">(</span><span class="m">1</span>, <span class="m">4</span><span class="o">)</span>
-<span class="m">00</span>:58:36 root         DEBUG    div called <span class="k">for</span> args <span class="o">(</span><span class="m">2</span>, <span class="m">5</span><span class="o">)</span>
-<span class="m">00</span>:58:37 root         DEBUG    div called <span class="k">for</span> args <span class="o">(</span><span class="m">3</span>, <span class="m">0</span><span class="o">)</span>
-<span class="m">00</span>:58:37 root         ERROR    div raised exception ZeroDivisionError <span class="k">for</span> args: <span class="o">(</span><span class="m">3</span>, <span class="m">0</span><span class="o">)</span>
+<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">36</span> <span class="nv">root</span>         <span class="nv">DEBUG</span>    <span class="nv">div</span> <span class="nv">called</span> <span class="k">for</span> <span class="nv">args</span> <span class="ss">(</span><span class="mi">1</span>, <span class="mi">4</span><span class="ss">)</span>
+<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">36</span> <span class="nv">root</span>         <span class="nv">DEBUG</span>    <span class="nv">div</span> <span class="nv">called</span> <span class="k">for</span> <span class="nv">args</span> <span class="ss">(</span><span class="mi">2</span>, <span class="mi">5</span><span class="ss">)</span>
+<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">37</span> <span class="nv">root</span>         <span class="nv">DEBUG</span>    <span class="nv">div</span> <span class="nv">called</span> <span class="k">for</span> <span class="nv">args</span> <span class="ss">(</span><span class="mi">3</span>, <span class="mi">0</span><span class="ss">)</span>
+<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">37</span> <span class="nv">root</span>         <span class="nv">ERROR</span>    <span class="nv">div</span> <span class="nv">raised</span> <span class="nv">exception</span> <span class="nv">ZeroDivisionError</span> <span class="k">for</span> <span class="nv">args</span>: <span class="ss">(</span><span class="mi">3</span>, <span class="mi">0</span><span class="ss">)</span>
 </pre></div>
 
 
