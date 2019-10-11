@@ -209,28 +209,28 @@
 </li>
 <li>
 <p>The SMTP server you're connecting to requires a sort of 'handshake' for the service to work properly. This is done using the .ehlo() function of smtplib.</p>
-<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">ehlo</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>smtp_server.ehlo()
 </pre></div>
 
 
 </li>
 <li>
 <p>As Google doesn't use SSL, we need to kick off TLS Encryption manually.</p>
-<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">starttls</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>smtp_server.starttls()
 </pre></div>
 
 
 </li>
 <li>
 <p>Now for the login. Keep in mind at this point, you'll use the App Password you obtained earlier instead of your usual Gmail password.</p>
-<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">login</span><span class="p">(</span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&lt;App Password&gt;&#39;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span>smtp_server.login(&#39;pybitesblog@gmail.com&#39;, &#39;&lt;App Password&gt;&#39;)
 </pre></div>
 
 
 </li>
 <li>
 <p>Next we send the actual email message. The first email address is the address you're emailing from, the second is the recipient.</p>
-<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;recipient@gmail.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Subject: Happy Australia Day!\nHi Everyone! Happy Australia Day! Cheers, Julian&#39;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span>smtp_server.sendmail(&#39;pybitesblog@gmail.com&#39;, &#39;recipient@gmail.com&#39;, &#39;Subject: Happy Australia Day!\nHi Everyone! Happy Australia Day! Cheers, Julian&#39;)
 </pre></div>
 
 
@@ -240,7 +240,7 @@
 </li>
 <li>
 <p>Finally, disconnect from the SMTP server when complete.</p>
-<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>smtp_server.quit()
 </pre></div>
 
 

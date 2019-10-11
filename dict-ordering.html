@@ -192,17 +192,17 @@
 <p>Disclaimer: I'm not having a mid-life crisis. I'm quite aware that I'm no longer 20.</p>
 <p>Disclaimer 2: I'm being generous when I say Bob is 23. Sorry Bob!</p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">ages</span> <span class="o">=</span> {<span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span>: <span class="mi">20</span>, <span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>: <span class="mi">23</span>, <span class="s1">&#39;</span><span class="s">zack</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">anthony</span><span class="s1">&#39;</span>: <span class="mi">95</span>, <span class="s1">&#39;</span><span class="s">daniel</span><span class="s1">&#39;</span>: <span class="mi">41</span>}
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">ages</span>.<span class="nv">items</span><span class="ss">()</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>, <span class="nv">v</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; ages = {&#39;julian&#39;: 20, &#39;bob&#39;: 23, &#39;zack&#39;: 3, &#39;anthony&#39;: 95, &#39;daniel&#39;: 41}
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in ages.items():
+    print(k, v)
 
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="o">&gt;&gt;&gt;</span>
+julian 20
+bob 23
+zack 3
+anthony 95
+daniel 41
+&gt;&gt;&gt;
 </pre></div>
 
 
@@ -226,8 +226,8 @@
 </blockquote>
 <p>The previous output is great but what if I wanted to print the <em>ages</em> data in alphabetical order? Not only do I need to sort it by the letter but also make sure I point my sorting method at the <strong>key</strong> in the dict. I can do this with a lambda!</p>
 <p>First, let's sort it alphabetically with the help of a lambda:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">[(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[0])
+[(&#39;anthony&#39;, 95), (&#39;bob&#39;, 23), (&#39;daniel&#39;, 41), (&#39;julian&#39;, 20), (&#39;zack&#39;, 3)]
 </pre></div>
 
 
@@ -252,21 +252,21 @@
 <h2>Sorting the Output in Numerical Order</h2>
 <p>Now for the flip side. What if I wanted to sort it in numerical order which would be by the <strong>value</strong> in this case?</p>
 <p>Identical as the above sort with one tiny change:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">[(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[1])
+[(&#39;zack&#39;, 3), (&#39;julian&#39;, 20), (&#39;bob&#39;, 23), (&#39;daniel&#39;, 41), (&#39;anthony&#39;, 95)]
 </pre></div>
 
 
 <p>Yep! All we do is change the lambda x function to point at position <em>x[1]</em>, the value.</p>
 <h2>Sorting in Reverse!</h2>
 <p>Sorting that output in reverse is quite simple as well. We use the <em>reverse</em> flag that <em>sorted()</em> so handily supports:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="o">#</span><span class="n">Reverse</span><span class="o">/</span><span class="n">Descending</span> <span class="n">Name</span> <span class="n">Sort</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
-<span class="p">[(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">)]</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="o">#</span><span class="n">Reverse</span><span class="o">/</span><span class="n">Descending</span> <span class="n">Age</span> <span class="n">Sort</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
-<span class="p">[(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; #Reverse/Descending Name Sort
+&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[0], reverse=True)
+[(&#39;zack&#39;, 3), (&#39;julian&#39;, 20), (&#39;daniel&#39;, 41), (&#39;bob&#39;, 23), (&#39;anthony&#39;, 95)]
+&gt;&gt;&gt;
+&gt;&gt;&gt; #Reverse/Descending Age Sort
+&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[1], reverse=True)
+[(&#39;anthony&#39;, 95), (&#39;daniel&#39;, 41), (&#39;bob&#39;, 23), (&#39;julian&#39;, 20), (&#39;zack&#39;, 3)]
 </pre></div>
 
 
@@ -275,37 +275,37 @@
 <p>The thing is, it's a lot harder and less Pythonic to print the output of a dict as a list, then iterate over that to get our friendlier <em>print()</em> output.</p>
 <p>It'd be much better to iterate over the output like we did at the start of this post but to do that, our <em>sorted()</em> output would need to be a dict. How do we do that if we know <em>sorted()</em> always returns a list?</p>
 <p>Easy!</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">dict</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<span class="err">{</span><span class="s1">&#39;anthony&#39;</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;daniel&#39;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span> <span class="s1">&#39;julian&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;zack&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="err">}</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; dict(sorted(ages.items(), key=lambda x: x[0]))
+{&#39;anthony&#39;: 95, &#39;bob&#39;: 23, &#39;daniel&#39;: 41, &#39;julian&#39;: 20, &#39;zack&#39;: 3}
 </pre></div>
 
 
 <p>We simply call dict on the output of <em>sorted()</em>. How cool is that? The output is now a dict!</p>
 <h2>Printing the Final Result</h2>
 <p>The moment of truth. Let's print the sorted dict output:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">alpha</span> <span class="o">=</span> <span class="nv">dict</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">ages</span>.<span class="nv">items</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">lambda</span> <span class="nv">x</span>: <span class="nv">x</span>[<span class="mi">0</span>]<span class="ss">))</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">alpha</span>.<span class="nv">items</span><span class="ss">()</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>, <span class="nv">v</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; alpha = dict(sorted(ages.items(), key=lambda x: x[0]))
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in alpha.items():
+    print(k, v)
 
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">num</span> <span class="o">=</span> <span class="nv">dict</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">ages</span>.<span class="nv">items</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">lambda</span> <span class="nv">x</span>: <span class="nv">x</span>[<span class="mi">1</span>]<span class="ss">))</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">num</span>.<span class="nv">items</span><span class="ss">()</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>, <span class="nv">v</span><span class="ss">)</span>
+anthony 95
+bob 23
+daniel 41
+julian 20
+zack 3
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; num = dict(sorted(ages.items(), key=lambda x: x[1]))
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in num.items():
+    print(k, v)
 
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="o">&gt;&gt;&gt;</span>
+zack 3
+julian 20
+bob 23
+daniel 41
+anthony 95
+&gt;&gt;&gt;
 </pre></div>
 
 
@@ -341,10 +341,10 @@
 </blockquote>
 <h2>Bonus: Substituting the Lambda for Readability</h2>
 <p>We <em>could</em> leave things as they are but let's make this a little more readable by storing the lambda function in a variable:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">get_alpha</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">get_alpha</span><span class="p">)</span>
-<span class="p">[(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; get_alpha = lambda x: x[0]
+&gt;&gt;&gt;
+&gt;&gt;&gt; sorted(ages.items(), key=get_alpha)
+[(&#39;anthony&#39;, 95), (&#39;bob&#39;, 23), (&#39;daniel&#39;, 41), (&#39;julian&#39;, 20), (&#39;zack&#39;, 3)]
 </pre></div>
 
 
@@ -352,14 +352,14 @@
 <h2>Bonus: Printing the Highest/Lowest Dict Item</h2>
 <p>Okay this is way out of scope for this post but I got playing and figured I'd add it in for good measure.</p>
 <p>What if I wanted to list out the oldest chap in this list? Well, we don't need to sort anything, we just need to know the <em>max</em> number/age right? (For readability, I'm substituting the <strong>value</strong> lambda from the previous examples with <em>get_num</em>).</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">max</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">get_num</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; max(ages.items(), key=get_num)
+(&#39;anthony&#39;, 95)
 </pre></div>
 
 
 <p>We can also pull the youngest/lowest entry:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">min</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">get_num</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; min(ages.items(), key=get_num)
+(&#39;zack&#39;, 3)
 </pre></div>
 
 
@@ -367,31 +367,31 @@
 <p>Okay last one, I swear!</p>
 <p>Why don't we put all of this into a function that we can call easily at any time? I mean, it'd be nice to have the ability to reuse this code on any dict we want to sort alphabetically or numerically right?</p>
 <p>Keep in mind the below is assuming the dict key is the string we're sorting by. If we tried to give it a dict where the key was a number and the value was a string it would sort it by the key/number.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">alpha_sort</span><span class="ss">(</span><span class="nv">some_dict</span><span class="ss">)</span>:
-...     <span class="nv">alpha</span> <span class="o">=</span> <span class="nv">OrderedDict</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">some_dict</span>.<span class="nv">items</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">lambda</span> <span class="nv">x</span>: <span class="nv">x</span>[<span class="mi">0</span>]<span class="ss">))</span>
-...     <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">alpha</span>.<span class="nv">items</span><span class="ss">()</span>:
-...         <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>,<span class="nv">v</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def alpha_sort(some_dict):
+...     alpha = OrderedDict(sorted(some_dict.items(), key=lambda x: x[0]))
+...     for k, v in alpha.items():
+...         print(k,v)
 ... 
-<span class="o">&gt;&gt;&gt;</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">alpha_sort</span><span class="ss">(</span><span class="nv">ages</span><span class="ss">)</span>
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="o">&gt;&gt;&gt;</span>
+&gt;&gt;&gt; 
+&gt;&gt;&gt; alpha_sort(ages)
+anthony 95
+bob 23
+daniel 41
+julian 20
+zack 3
+&gt;&gt;&gt;
 </pre></div>
 
 
 <p>We can then use this same <em>alpha_sort</em> function on any similarly constructed dict we want!</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="o">#</span><span class="n">Top</span> <span class="mi">5</span> <span class="n">pet</span> <span class="n">peeves</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">alpha_sort</span><span class="p">(</span><span class="n">pet_peeves</span><span class="p">)</span>
-<span class="n">Bad</span> <span class="n">Drivers</span> <span class="mi">2</span>
-<span class="n">Laziness</span> <span class="mi">3</span>
-<span class="n">Predictable</span> <span class="n">TV</span> <span class="n">Shows</span> <span class="mi">4</span>
-<span class="n">Rude</span> <span class="n">People</span> <span class="mi">1</span>
-<span class="n">Telemarketers</span> <span class="mi">5</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; #Top 5 pet peeves
+&gt;&gt;&gt; alpha_sort(pet_peeves)
+Bad Drivers 2
+Laziness 3
+Predictable TV Shows 4
+Rude People 1
+Telemarketers 5
+&gt;&gt;&gt;
 </pre></div>
 
 
