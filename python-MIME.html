@@ -207,12 +207,12 @@
 
 <h2>Data Entry</h2>
 <p>Next we'll add the missing header detail to the email. I aimed to make this as Pythonic as possible:</p>
-<div class="highlight"><pre><span></span>from_addr = &#39;pybitesblog@gmail.com&#39;
-to_addr = [&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;]
-msg = MIMEMultipart()
-msg[&#39;From&#39;] = from_addr
-msg[&#39;To&#39;] = &quot;, &quot;.join(to_addr)
-msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
+<div class="highlight"><pre><span></span><span class="n">from_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="w"></span>
+<span class="n">to_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;</span><span class="o">]</span><span class="w"></span>
+<span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MIMEMultipart</span><span class="p">()</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;From&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from_addr</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;To&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;, &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">to_addr</span><span class="p">)</span><span class="w"></span>
+<span class="n">msg</span><span class="o">[</span><span class="n">&#39;Subject&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Test Automation Email&#39;</span><span class="w"></span>
 </pre></div>
 
 
@@ -238,37 +238,37 @@ msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
 </li>
 </ol>
 <p>Now for the meat. Add the text for the body of your email and again add it to MIME:</p>
-<div class="highlight"><pre><span></span>body = &quot;Hello Everyone!&quot;
+<div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="ss">&quot;Hello Everyone!&quot;</span>
 
-msg.attach(MIMEText(body, &#39;plain&#39;))
+<span class="n">msg</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">MIMEText</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="s1">&#39;plain&#39;</span><span class="p">))</span>
 </pre></div>
 
 
 <p>I've added the data in the body variable to MIMEText in plain text format. You can specify HTML if you wish.</p>
 <h2>Send the Email</h2>
 <p>I'll be reusing the code from the simple email article here with a small addition. First the standard code:</p>
-<div class="highlight"><pre><span></span>smtp_server = smtplib.SMTP(&#39;smtp.gmail.com&#39;, 587) #Specify Gmail Mail server
+<div class="highlight"><pre><span></span><span class="nv">smtp_server</span> <span class="o">=</span> <span class="nv">smtplib</span>.<span class="nv">SMTP</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">smtp.gmail.com</span><span class="s1">&#39;</span>, <span class="mi">587</span><span class="ss">)</span> #<span class="nv">Specify</span> <span class="nv">Gmail</span> <span class="nv">Mail</span> <span class="nv">server</span>
 
-smtp_server.ehlo() #Send mandatory &#39;hello&#39; message to SMTP server
+<span class="nv">smtp_server</span>.<span class="nv">ehlo</span><span class="ss">()</span> #<span class="k">Send</span> <span class="nv">mandatory</span> <span class="s1">&#39;</span><span class="s">hello</span><span class="s1">&#39;</span> <span class="nv">message</span> <span class="nv">to</span> <span class="nv">SMTP</span> <span class="nv">server</span>
 
-smtp_server.starttls() #Start TLS Encryption as we&#39;re not using SSL.
+<span class="nv">smtp_server</span>.<span class="nv">starttls</span><span class="ss">()</span> #<span class="nv">Start</span> <span class="nv">TLS</span> <span class="nv">Encryption</span> <span class="nv">as</span> <span class="nv">we</span><span class="s1">&#39;</span><span class="s">re not using SSL.</span>
 
-#Login to gmail: Account | Password
-smtp_server.login(&#39; pybitesblog@gmail.com &#39;, &#39; GMAIL APPLICATION PASSWORD &#39;)
+#<span class="nv">Login</span> <span class="nv">to</span> <span class="nv">gmail</span>: <span class="nv">Account</span> <span class="o">|</span> <span class="nv">Password</span>
+<span class="nv">smtp_server</span>.<span class="nv">login</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s"> pybitesblog@gmail.com </span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s"> GMAIL APPLICATION PASSWORD </span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>The additional code is in the sendmail function. We now need to specify the text that we're sending. That is, we take all of the data that was added to the MIMEMultipart function (<em>msg</em> variable) and we use it to populate the email:</p>
-<div class="highlight"><pre><span></span>text = msg.as_string()
+<div class="highlight"><pre><span></span><span class="nb">text</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">as_string</span><span class="p">()</span>
 
-#Compile email: From, To, Email body
-smtp_server.sendmail(from_addr, to_addr, text)
+<span class="o">#</span><span class="n">Compile</span> <span class="n">email</span><span class="p">:</span> <span class="k">From</span><span class="p">,</span> <span class="k">To</span><span class="p">,</span> <span class="n">Email</span> <span class="n">body</span>
+<span class="n">smtp_server</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span> <span class="n">to_addr</span><span class="p">,</span> <span class="nb">text</span><span class="p">)</span>
 </pre></div>
 
 
 <p>And finally, best practice, we close off the SMTP connection and in this case, print a message to indicate the email was sent:</p>
-<div class="highlight"><pre><span></span>smtp_server.quit()
-print(&#39;Email sent successfully&#39;)
+<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="n">print</span><span class="p">(</span><span class="s1">&#39;Email sent successfully&#39;</span><span class="p">)</span>
 </pre></div>
 
 
