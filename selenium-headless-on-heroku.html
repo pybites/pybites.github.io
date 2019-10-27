@@ -214,19 +214,19 @@
 <h3>3. Selenium to the rescue</h3>
 <p><a href="https://selenium-python.readthedocs.io/">Selenium</a> seemed to have no issues finding these "hidden" CSS classes!</p>
 <p>What follows are snippets to keep the flow of the post, you can find the complete code/repo <a href="https://github.com/pybites/packt">here</a> ...</p>
-<div class="highlight"><pre><span></span>driver.get(PACKT_FREE_LEARNING)
+<div class="highlight"><pre><span></span><span class="nv">driver</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">PACKT_FREE_LEARNING</span><span class="ss">)</span>
 
-find_class = driver.find_element_by_class_name
+<span class="nv">find_class</span> <span class="o">=</span> <span class="nv">driver</span>.<span class="nv">find_element_by_class_name</span>
 
-title = find_class(&#39;product__title&#39;).text
-author = find_class(&#39;product__author&#39;).text
-pub_date = find_class(&#39;product__publication-date&#39;).text
-timer = find_class(&#39;countdown__title&#39;).text.splitlines()[-1]
+<span class="nv">title</span> <span class="o">=</span> <span class="nv">find_class</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">product__title</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">text</span>
+<span class="nv">author</span> <span class="o">=</span> <span class="nv">find_class</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">product__author</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">text</span>
+<span class="nv">pub_date</span> <span class="o">=</span> <span class="nv">find_class</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">product__publication-date</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">text</span>
+<span class="nv">timer</span> <span class="o">=</span> <span class="nv">find_class</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">countdown__title</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">text</span>.<span class="nv">splitlines</span><span class="ss">()</span>[<span class="o">-</span><span class="mi">1</span>]
 
-driver.quit()
+<span class="nv">driver</span>.<span class="nv">quit</span><span class="ss">()</span>
 
-book = Book(title, author, pub_date, _get_expired(timer))
-return _create_update(book)
+<span class="nv">book</span> <span class="o">=</span> <span class="nv">Book</span><span class="ss">(</span><span class="nv">title</span>, <span class="nv">author</span>, <span class="nv">pub_date</span>, <span class="nv">_get_expired</span><span class="ss">(</span><span class="nv">timer</span><span class="ss">))</span>
+<span class="k">return</span> <span class="nv">_create_update</span><span class="ss">(</span><span class="nv">book</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -237,11 +237,11 @@ return _create_update(book)
 </ol>
 <h3>4. Adding headless mode</h3>
 <p>This led me to Selenium's <em>headless</em> mode. This is pretty easy to configure using Selenium's <code>Options</code> object (as imported from <code>selenium.webdriver.chrome.options</code>):</p>
-<div class="highlight"><pre><span></span>options = Options()
-options.add_argument(&quot;--headless&quot;)
-options.binary_location = GOOGLE_CHROME_BIN
-options.add_argument(&#39;--disable-gpu&#39;)
-options.add_argument(&#39;--no-sandbox&#39;)
+<div class="highlight"><pre><span></span><span class="k">options</span> <span class="o">=</span> <span class="k">Options</span><span class="p">()</span>
+<span class="k">options</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="ss">&quot;--headless&quot;</span><span class="p">)</span>
+<span class="k">options</span><span class="p">.</span><span class="n">binary_location</span> <span class="o">=</span> <span class="n">GOOGLE_CHROME_BIN</span>
+<span class="k">options</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--disable-gpu&#39;</span><span class="p">)</span>
+<span class="k">options</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--no-sandbox&#39;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -279,8 +279,8 @@ $ heroku buildpacks:add heroku/google-chrome
 <p><img alt="path not found" src="https://pybit.es/images/selenium-headless-heroku/chromedriver-not-found.png"></p>
 <h3>6. Deploy to Heroku part II - setting env variables</h3>
 <p>To let Selenium know where to find the <code>chromedriver</code> and <code>Chrome</code> binaries, I had to define 2 environment variables. Compare how they look locally (to isolate them, I set them in my <code>venv/bin/activate</code> script):</p>
-<div class="highlight"><pre><span></span>export CHROME_DRIVER=/Users/bbelderbos/bin/chromedriver
-export GOOGLE_CHROME_BIN=&quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;
+<div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CHROME_DRIVER</span><span class="o">=/</span><span class="n">Users</span><span class="o">/</span><span class="n">bbelderbos</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">chromedriver</span>
+<span class="n">export</span> <span class="n">GOOGLE_CHROME_BIN</span><span class="o">=</span><span class="ss">&quot;/Applications/Google Chrome.app/Contents/MacOS/Google Chrome&quot;</span>
 </pre></div>
 
 
@@ -297,84 +297,84 @@ export GOOGLE_CHROME_BIN=&quot;/Applications/Google Chrome.app/Contents/MacOS/Go
 <p>So let's do something more interesting ...</p>
 <h3>7. Auto-posting to Twitter</h3>
 <p>First you need to make a Twitter app via <a href="https://developer.twitter.com/en/docs.html">its API</a>. Then set the required keys and tokens as environment variables:</p>
-<div class="highlight"><pre><span></span>export CONSUMER_KEY=123
-export CONSUMER_SECRET=456
-export ACCESS_TOKEN=123
-export ACCESS_SECRET=456
+<div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CONSUMER_KEY</span><span class="o">=</span><span class="mi">123</span>
+<span class="n">export</span> <span class="n">CONSUMER_SECRET</span><span class="o">=</span><span class="mi">456</span>
+<span class="n">export</span> <span class="n">ACCESS_TOKEN</span><span class="o">=</span><span class="mi">123</span>
+<span class="n">export</span> <span class="n">ACCESS_SECRET</span><span class="o">=</span><span class="mi">456</span>
 </pre></div>
 
 
 <p>I use <code>tweepy</code> which makes posting to Twitter a breeze:</p>
-<div class="highlight"><pre><span></span>def twitter_authenticate():
-    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
-    return tweepy.API(auth)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">twitter_authenticate</span><span class="ss">()</span>:
+    <span class="nv">auth</span> <span class="o">=</span> <span class="nv">tweepy</span>.<span class="nv">OAuthHandler</span><span class="ss">(</span><span class="nv">CONSUMER_KEY</span>, <span class="nv">CONSUMER_SECRET</span><span class="ss">)</span>
+    <span class="nv">auth</span>.<span class="nv">set_access_token</span><span class="ss">(</span><span class="nv">ACCESS_TOKEN</span>, <span class="nv">ACCESS_SECRET</span><span class="ss">)</span>
+    <span class="k">return</span> <span class="nv">tweepy</span>.<span class="nv">API</span><span class="ss">(</span><span class="nv">auth</span><span class="ss">)</span>
 
 
-def post_to_twitter(book_post):
-    try:
-        api = twitter_authenticate()
-        api.update_status(book_post)
-        print(f&#39;Shared title on Twitter&#39;)
-    except Exception as exc:
-        print(f&#39;Error posting to Twitter: {exc}&#39;)
+<span class="nv">def</span> <span class="nv">post_to_twitter</span><span class="ss">(</span><span class="nv">book_post</span><span class="ss">)</span>:
+    <span class="nv">try</span>:
+        <span class="nv">api</span> <span class="o">=</span> <span class="nv">twitter_authenticate</span><span class="ss">()</span>
+        <span class="nv">api</span>.<span class="nv">update_status</span><span class="ss">(</span><span class="nv">book_post</span><span class="ss">)</span>
+        <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Shared title on Twitter</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="nv">except</span> <span class="nv">Exception</span> <span class="nv">as</span> <span class="nv">exc</span>:
+        <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Error posting to Twitter: {exc}</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
 <h3>8. Auto-posting to Slack</h3>
 <p>Similarly you create an app via the <a href="https://api.slack.com/">Slack API</a> and submit it to the Admins for approval. Upon approval you install the app into the workspace and you can then <a href="https://api.slack.com/incoming-webhooks">create an <em>incoming webhook</em></a>. </p>
 <p>You would want this URL to be secret so we also load this in from the environment:</p>
-<div class="highlight"><pre><span></span>export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/123/456/789
+<div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SLACK_WEBHOOK_URL</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">hooks</span><span class="p">.</span><span class="n">slack</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">services</span><span class="o">/</span><span class="mi">123</span><span class="o">/</span><span class="mi">456</span><span class="o">/</span><span class="mi">789</span>
 </pre></div>
 
 
 <p>Then we use <code>requests</code> to post to this webhook, pretty straightforward:</p>
-<div class="highlight"><pre><span></span>def post_to_slack(book_post):
-    payload = {&#39;text&#39;: book_post}
-    headers = {&#39;Content-Type&#39;: &#39;application/json&#39;}
-    resp = requests.post(SLACK_WEBHOOK_URL,
-                         data=json.dumps(payload),
-                         headers=headers)
-    if resp.status_code == 200:
-        print(f&#39;Shared title on Slack&#39;)
-    else:
-        print(f&#39;Error posting to Slack: {resp.status_code}&#39;)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">post_to_slack</span><span class="ss">(</span><span class="nv">book_post</span><span class="ss">)</span>:
+    <span class="nv">payload</span> <span class="o">=</span> {<span class="s1">&#39;</span><span class="s">text</span><span class="s1">&#39;</span>: <span class="nv">book_post</span>}
+    <span class="nv">headers</span> <span class="o">=</span> {<span class="s1">&#39;</span><span class="s">Content-Type</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">application/json</span><span class="s1">&#39;</span>}
+    <span class="nv">resp</span> <span class="o">=</span> <span class="nv">requests</span>.<span class="nv">post</span><span class="ss">(</span><span class="nv">SLACK_WEBHOOK_URL</span>,
+                         <span class="nv">data</span><span class="o">=</span><span class="nv">json</span>.<span class="nv">dumps</span><span class="ss">(</span><span class="nv">payload</span><span class="ss">)</span>,
+                         <span class="nv">headers</span><span class="o">=</span><span class="nv">headers</span><span class="ss">)</span>
+    <span class="k">if</span> <span class="nv">resp</span>.<span class="nv">status_code</span> <span class="o">==</span> <span class="mi">200</span>:
+        <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Shared title on Slack</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="k">else</span>:
+        <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Error posting to Slack: {resp.status_code}</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
 <h3>9. Make a simple CLI interface with <code>argparse</code></h3>
 <p>Next we want to make some command line switches to enable/disable posting to Twitter and Slack. <code>argparse</code> makes this pretty easy. I put this under the <code>main</code> block to only run it when the script is called directly:</p>
-<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
-    description = &#39;Packt free book (video) of the day&#39;
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
+    <span class="nv">description</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">Packt free book (video) of the day</span><span class="s1">&#39;</span>
 
-    parser = argparse.ArgumentParser(description=description)
-    parser.add_argument(&#39;-t&#39;, &#39;--twitter&#39;, action=&#39;store_true&#39;,
-                        help=&quot;Post title to Twitter&quot;)
-    parser.add_argument(&#39;-s&#39;, &#39;--slack&#39;, action=&#39;store_true&#39;,
-                        help=&quot;Post title to Slack&quot;)
-    args = parser.parse_args()
+    <span class="nv">parser</span> <span class="o">=</span> <span class="nv">argparse</span>.<span class="nv">ArgumentParser</span><span class="ss">(</span><span class="nv">description</span><span class="o">=</span><span class="nv">description</span><span class="ss">)</span>
+    <span class="nv">parser</span>.<span class="nv">add_argument</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">-t</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">--twitter</span><span class="s1">&#39;</span>, <span class="nv">action</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">store_true</span><span class="s1">&#39;</span>,
+                        <span class="nv">help</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">Post title to Twitter</span><span class="s2">&quot;</span><span class="ss">)</span>
+    <span class="nv">parser</span>.<span class="nv">add_argument</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">-s</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">--slack</span><span class="s1">&#39;</span>, <span class="nv">action</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">store_true</span><span class="s1">&#39;</span>,
+                        <span class="nv">help</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">Post title to Slack</span><span class="s2">&quot;</span><span class="ss">)</span>
+    <span class="nv">args</span> <span class="o">=</span> <span class="nv">parser</span>.<span class="nv">parse_args</span><span class="ss">()</span>
 
-    book_update = get_packt_book()
-    print(book_update)
+    <span class="nv">book_update</span> <span class="o">=</span> <span class="nv">get_packt_book</span><span class="ss">()</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="nv">book_update</span><span class="ss">)</span>
 
-    if args.slack:
-        post_to_slack(book_update)
+    <span class="k">if</span> <span class="nv">args</span>.<span class="nv">slack</span>:
+        <span class="nv">post_to_slack</span><span class="ss">(</span><span class="nv">book_update</span><span class="ss">)</span>
 
-    if args.twitter:
-        post_to_twitter(book_update)
+    <span class="k">if</span> <span class="nv">args</span>.<span class="nv">twitter</span>:
+        <span class="nv">post_to_twitter</span><span class="ss">(</span><span class="nv">book_update</span><span class="ss">)</span>
 </pre></div>
 
 
 <p><code>argparse</code> adds a nice helper message by default:</p>
-<div class="highlight"><pre><span></span>$ python packt.py -h
-usage: packt.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-t<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span>
+<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">packt</span>.<span class="nv">py</span> <span class="o">-</span><span class="nv">h</span>
+<span class="nv">usage</span>: <span class="nv">packt</span>.<span class="nv">py</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">-</span><span class="nv">t</span>] [<span class="o">-</span><span class="nv">s</span>]
 
-Packt free book <span class="o">(</span>video<span class="o">)</span> of the day
+<span class="nv">Packt</span> <span class="nv">free</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">video</span><span class="ss">)</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">day</span>
 
-optional arguments:
--h, --help     show this <span class="nb">help</span> message and <span class="nb">exit</span>
--t, --twitter  Post title to Twitter
--s, --slack    Post title to Slack
+<span class="nv">optional</span> <span class="nv">arguments</span>:
+<span class="o">-</span><span class="nv">h</span>, <span class="o">--</span><span class="nv">help</span>     <span class="k">show</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
+<span class="o">-</span><span class="nv">t</span>, <span class="o">--</span><span class="nv">twitter</span>  <span class="nv">Post</span> <span class="nv">title</span> <span class="nv">to</span> <span class="nv">Twitter</span>
+<span class="o">-</span><span class="nv">s</span>, <span class="o">--</span><span class="nv">slack</span>    <span class="nv">Post</span> <span class="nv">title</span> <span class="nv">to</span> <span class="nv">Slack</span>
 </pre></div>
 
 

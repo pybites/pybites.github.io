@@ -243,68 +243,68 @@
 </li>
 <li>
 <p>Instantiate a Slacker object:</p>
-<div class="highlight"><pre><span></span>slack = Slacker(SLACK_TOKEN)
+<div class="highlight"><pre><span></span><span class="n">slack</span> <span class="o">=</span> <span class="n">Slacker</span><span class="p">(</span><span class="n">SLACK_TOKEN</span><span class="p">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Set up logging if we need to debug anything on the remote server one day:</p>
-<div class="highlight"><pre><span></span>logging.basicConfig(level=logging.DEBUG,
-                    format=&#39;%(asctime)s %(name)-12s %(levelname)-8s %(message)s&#39;,
-                    datefmt=&#39;%m-%d %H:%M&#39;,
-                    filename=&#39;bot.log&#39;)
+<div class="highlight"><pre><span></span><span class="n">logging</span><span class="p">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="k">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">DEBUG</span><span class="p">,</span>
+                    <span class="n">format</span><span class="o">=</span><span class="s1">&#39;%(asctime)s %(name)-12s %(levelname)-8s %(message)s&#39;</span><span class="p">,</span>
+                    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%m-%d %H:%M&#39;</span><span class="p">,</span>
+                    <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;bot.log&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>A helper to create the message that shows up in our Slack channel: </p>
-<div class="highlight"><pre><span></span>def create_post(data):
-    tweet_text = data[&#39;text&#39;]
-    tweet_id = data[&#39;id_str&#39;]
-    user = data[&#39;user&#39;][&#39;screen_name&#39;]
-    name = data[&#39;user&#39;][&#39;name&#39;]
-    followers = data[&#39;user&#39;][&#39;followers_count&#39;]
-    return MSG.format(domain=&#39;.&#39;.join(DOMAIN),
-                    user=user,
-                    name=name,
-                    followers=followers,
-                    tweet_text=tweet_text,
-                    tweet_id=tweet_id)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">create_post</span><span class="ss">(</span><span class="nv">data</span><span class="ss">)</span>:
+    <span class="nv">tweet_text</span> <span class="o">=</span> <span class="nv">data</span>[<span class="s1">&#39;</span><span class="s">text</span><span class="s1">&#39;</span>]
+    <span class="nv">tweet_id</span> <span class="o">=</span> <span class="nv">data</span>[<span class="s1">&#39;</span><span class="s">id_str</span><span class="s1">&#39;</span>]
+    <span class="nv">user</span> <span class="o">=</span> <span class="nv">data</span>[<span class="s1">&#39;</span><span class="s">user</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">screen_name</span><span class="s1">&#39;</span>]
+    <span class="nv">name</span> <span class="o">=</span> <span class="nv">data</span>[<span class="s1">&#39;</span><span class="s">user</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>]
+    <span class="nv">followers</span> <span class="o">=</span> <span class="nv">data</span>[<span class="s1">&#39;</span><span class="s">user</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">followers_count</span><span class="s1">&#39;</span>]
+    <span class="k">return</span> <span class="nv">MSG</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">domain</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">.</span><span class="s1">&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">DOMAIN</span><span class="ss">)</span>,
+                    <span class="nv">user</span><span class="o">=</span><span class="nv">user</span>,
+                    <span class="nv">name</span><span class="o">=</span><span class="nv">name</span>,
+                    <span class="nv">followers</span><span class="o">=</span><span class="nv">followers</span>,
+                    <span class="nv">tweet_text</span><span class="o">=</span><span class="nv">tweet_text</span>,
+                    <span class="nv">tweet_id</span><span class="o">=</span><span class="nv">tweet_id</span><span class="ss">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>What really makes this solution cool is the <a href="https://dev.twitter.com/streaming/overview">Streaming API</a>. We also used it <a href="http://pybit.es/codechallenge07.html">here</a>. <a href="https://twython.readthedocs.io/en/latest/usage/streaming_api.html">TwythonStreamer</a> makes it quite easy to start to monitor Twitter: 6 LOC in the docs, 10 LOC here, because we added exception handling, logging and posting to Slack:</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">MyStreamer</span><span class="p">(</span><span class="nx">TwythonStreamer</span><span class="p">)</span><span class="o">:</span>
-    <span class="s1">&#39;&#39;&#39; https://twython.readthedocs.io/en/latest/usage/streaming_api.html &#39;&#39;&#39;</span>
+<div class="highlight"><pre><span></span><span class="nv">class</span> <span class="nv">MyStreamer</span><span class="ss">(</span><span class="nv">TwythonStreamer</span><span class="ss">)</span>:
+    <span class="s1">&#39;&#39;&#39;</span><span class="s"> https://twython.readthedocs.io/en/latest/usage/streaming_api.html </span><span class="s1">&#39;&#39;&#39;</span>
 
-    <span class="nx">def</span> <span class="nx">on_success</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">post</span> <span class="o">=</span> <span class="nx">create_post</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-        <span class="nx">logging</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">post</span><span class="p">)</span>
-        <span class="k">try</span><span class="o">:</span>
-            <span class="nx">slack</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">post_message</span><span class="p">(</span><span class="nx">CHANNEL</span><span class="p">,</span> <span class="nx">post</span><span class="p">,</span> <span class="nx">as_user</span><span class="o">=</span><span class="nx">True</span><span class="p">)</span>
-        <span class="nx">except</span> <span class="nx">Exception</span> <span class="kr">as</span> <span class="nx">exc</span>:
-            <span class="kt">logging.error</span><span class="p">(</span><span class="s1">&#39;cannot post to channel: {}&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">exc</span><span class="p">))</span>
+    <span class="nv">def</span> <span class="nv">on_success</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">data</span><span class="ss">)</span>:
+        <span class="nv">post</span> <span class="o">=</span> <span class="nv">create_post</span><span class="ss">(</span><span class="nv">data</span><span class="ss">)</span>
+        <span class="nv">logging</span>.<span class="nv">debug</span><span class="ss">(</span><span class="nv">post</span><span class="ss">)</span>
+        <span class="nv">try</span>:
+            <span class="nv">slack</span>.<span class="nv">chat</span>.<span class="nv">post_message</span><span class="ss">(</span><span class="nv">CHANNEL</span>, <span class="nv">post</span>, <span class="nv">as_user</span><span class="o">=</span><span class="nv">True</span><span class="ss">)</span>
+        <span class="nv">except</span> <span class="nv">Exception</span> <span class="nv">as</span> <span class="nv">exc</span>:
+            <span class="nv">logging</span>.<span class="nv">error</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">cannot post to channel: {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">exc</span><span class="ss">))</span>
 
-    <span class="nx">def</span> <span class="nx">on_error</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">status_code</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;An error occurred: {}, exiting&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">status_code</span><span class="p">))</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">()</span>
+    <span class="nv">def</span> <span class="nv">on_error</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">status_code</span>, <span class="nv">data</span><span class="ss">)</span>:
+        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">An error occurred: {}, exiting</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">status_code</span><span class="ss">))</span>
+        <span class="nv">self</span>.<span class="k">disconnect</span><span class="ss">()</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Invoke the Streamer. Important note: pybit.es (one term) did not work so well, so we had to feed stream.statuses.filter 'pybit es' which works as a logical AND, see <a href="https://dev.twitter.com/streaming/overview/request-parameters#track">here</a>:</p>
-<div class="highlight"><pre><span></span>if __name__ == &quot;__main__&quot;:
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s">__main__</span><span class="s2">&quot;</span>:
 
-    stream = MyStreamer(CONSUMER_KEY, CONSUMER_SECRET,
-                        ACCESS_TOKEN, ACCESS_SECRET)
+    <span class="nv">stream</span> <span class="o">=</span> <span class="nv">MyStreamer</span><span class="ss">(</span><span class="nv">CONSUMER_KEY</span>, <span class="nv">CONSUMER_SECRET</span>,
+                        <span class="nv">ACCESS_TOKEN</span>, <span class="nv">ACCESS_SECRET</span><span class="ss">)</span>
 
-    # https://dev.twitter.com/streaming/overview/request-parameters#track
-    stream.statuses.filter(track=&#39; &#39;.join(DOMAIN))
+    # <span class="nv">https</span>:<span class="o">//</span><span class="nv">dev</span>.<span class="nv">twitter</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">streaming</span><span class="o">/</span><span class="nv">overview</span><span class="o">/</span><span class="nv">request</span><span class="o">-</span><span class="nv">parameters</span>#<span class="nv">track</span>
+    <span class="nv">stream</span>.<span class="nv">statuses</span>.<span class="nv">filter</span><span class="ss">(</span><span class="nv">track</span><span class="o">=</span><span class="s1">&#39;</span><span class="s"> </span><span class="s1">&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">DOMAIN</span><span class="ss">))</span>
 </pre></div>
 
 

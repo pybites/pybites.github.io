@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="AJ Kerrigan" />
+<meta name="description" content="Use Python's "dis" module to see how Python evaluates two similar comparison operations." />
+<meta name="keywords" content="guest, learning, dis, precedence, chaining">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Under the Hood: Python Comparison Breakdown"/>
+<meta property="og:description" content="Use Python's "dis" module to see how Python evaluates two similar comparison operations."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/guest-python-comparison-breakdown.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2019-10-27 23:20:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/aj-kerrigan.html">
+<meta property="article:section" content="Concepts"/>
+<meta property="article:tag" content="guest"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="dis"/>
+<meta property="article:tag" content="precedence"/>
+<meta property="article:tag" content="chaining"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Under the Hood: Python Comparison Breakdown" />
+<meta name="twitter:description" content="Use Python's "dis" module to see how Python evaluates two similar comparison operations." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+  <title>PyBites &ndash; Under the Hood: Python Comparison Breakdown</title>
+
+
+</head>
+<body>
+<div id="codeChallengeWrapper">
+
+  <div id="codeWithUs">
+
+    <div class="quote-box">
+      <div class="quote">
+
+        <img src="https://codechalleng.es/static/img/honors/unlock.png" class="ninja" alt="earn the White PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_yellow.png" class="ninja" alt="earn the Yellow PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_orange.png" class="ninja" alt="earn the Orange PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/right-arrow.png" class="ninja" alt="right arrow">
+        <img src="https://codechalleng.es/static/img/honors/unlock_red.png" class="ninja" alt="earn more PyBites Ninja belts and certificates">
+
+        <hr>
+
+        <blockquote>
+          The best way to learn to <strong>code in Python</strong> is to <strong><a href="https://pybit.es/learn-by-doing.html" target="_blank">actually use the language</a></strong>.
+          <br><br>
+          Our platform offers <strong>effective Test Driven Learning</strong> which will be key to your progress.
+          <br><br><br>
+          Join thousands of Pythonistas and start coding!
+
+          <br><br><br>
+          <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/ghlogin.png" alt="Join us on our PyBites Platform"></a>
+        </blockquote>
+  
+      </div>
+    </div>
+
+  </div>
+
+  <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
+    Land a better Python job? Try our coding platform &raquo;
+  </button>
+
+</div><!-- end codeChallengeWrapper -->
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      brown
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='brown'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/guest.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
+          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
+          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+          <li><a href="/pages/community.html">Join our Slack</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="guest-python-comparison-breakdown">Under the Hood: Python Comparison Breakdown</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/aj-kerrigan.html">AJ Kerrigan</a> on Sun 27 October 2019 in <a href="https://pybit.es/category/concepts.html">Concepts</a>
+
+
+        &#8226; 5 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>PyBites community member <code>fusionmuck</code> asked an interesting question in the Slack channel recently:</p>
+<blockquote>
+<p>I am trying to get my head around the order of precedence. The test code is listed without brackets. In the second portion, I add brackets to test my understanding of precedence and I get a return value of True. I am missing something here...</p>
+</blockquote>
+<p>Followed by this code sample:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="o">-</span><span class="mi">3</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span> 
+<span class="bp">False</span> 
+
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(((</span><span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">))</span> <span class="o">&lt;</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span> 
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>I love this question because there are a few different concepts colliding, but fusionmuck still has a clear question - "Why does Python do <em>this</em> when I expect it to do <em>that</em>?"</p>
+<p>When I saw the question, I thought I understood at least part of what was going on. I needed to run some checks to be sure though, and this is fun stuff to play with. So let's do it together!</p>
+<ol>
+<li><a href="#simplify">Simplify</a></li>
+<li><a href="#read-or-experiment">Read or Experiment?</a></li>
+<li><a href="#avengers-disassemble">Avengers... Disassemble!</a></li>
+<li><a href="#bonus-round-outside-python">Bonus Round: Outside Python</a></li>
+<li><a href="#takeaways-and-related-reading">Takeaways and Related Reading</a></li>
+</ol>
+<h2>Simplify</h2>
+<p>I mentioned that there were a few concepts colliding in the original question. It can be helpful to break down the code that we're trying to understand, and strip out as much noise as possible. So let's remove some elements like:</p>
+<ul>
+<li>Pulling items from a list</li>
+<li>Using 0 as a boolean (True/False) value</li>
+<li>Negative numbers</li>
+</ul>
+<p>And come up with a pair of simpler comparisons that still demonstrate the behavior from the original question:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">==</span> <span class="bp">False</span>
+<span class="bp">False</span> 
+
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="mi">3</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="bp">False</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>We still might not be able to explain what's going on yet, but we have a much more focused question.</p>
+<h2>Read or Experiment?</h2>
+<p>The original question was about operator precedence in Python. One way to answer that question is to check the official Python documentation. The sections on <a href="https://docs.python.org/3/reference/expressions.html#operator-precedence">operator precedence</a> and <a href="https://docs.python.org/3/reference/expressions.html#comparisons">comparison chaining</a> are definitely helpful:</p>
+<blockquote>
+<p>Note that comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right chaining feature as described in the Comparisons section.</p>
+</blockquote>
+<p>And:</p>
+<blockquote>
+<p>Comparisons can be chained arbitrarily, e.g., x &lt; y &lt;= z is equivalent to x &lt; y and y &lt;= z, except that y is evaluated only once (but in both cases z is not evaluated at all when x &lt; y is found to be false).</p>
+<p>Formally, if a, b, c, …, y, z are expressions and op1, op2, …, opN are comparison operators, then a op1 b op2 c ... y opN z is equivalent to a op1 b and b op2 c and ... y opN z, except that each expression is evaluated at most once.)</p>
+</blockquote>
+<p>Applying that to our question, that means for a comparison like this:</p>
+<div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">==</span> <span class="bp">False</span>
+</pre></div>
+
+
+<p>Python treats it like this:</p>
+<div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">1</span> <span class="o">==</span> <span class="bp">False</span>
+</pre></div>
+
+
+<p>That makes things a lot clearer! Adding parentheses helps turn a chained comparison into separate, explicitly ordered operations.</p>
+<p>But... what if we want to see that difference in action? What happens under the hood when we add those parentheses? We can't break down the code any more while preserving the behavior we're trying to observe, so <code>print()</code> statements or Python debuggers are of limited use. But we still have ways to look closer.</p>
+<h2>Avengers... Disassemble!</h2>
+<p>Python's <a href="https://docs.python.org/3/library/dis.html">dis</a> module can help us break down Python code into the internal instructions (<a href="https://docs.python.org/3/glossary.html#term-bytecode">bytecode</a>) that the CPython interpreter sees. That can be very helpful for understanding how Python code works. Reading disassembled output can be tricky at first, but you don't need to understand every detail to spot differences between two pieces of code.</p>
+<p>So let's look at some bytecode for these two comparisons. And if this is your first time looking at disassembled Python code, don't panic! Focus on how much longer the first block of instructions is:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">dis</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="s1">&#39;3 &lt; 1 == False&#39;</span><span class="p">)</span>
+  <span class="mi">1</span>           <span class="mi">0</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+              <span class="mi">2</span> <span class="n">LOAD_CONST</span>               <span class="mi">1</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+              <span class="mi">4</span> <span class="n">DUP_TOP</span>
+              <span class="mi">6</span> <span class="n">ROT_THREE</span>
+              <span class="mi">8</span> <span class="n">COMPARE_OP</span>               <span class="mi">0</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">)</span>
+             <span class="mi">10</span> <span class="n">JUMP_IF_FALSE_OR_POP</span>    <span class="mi">18</span>
+             <span class="mi">12</span> <span class="n">LOAD_CONST</span>               <span class="mi">2</span> <span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+             <span class="mi">14</span> <span class="n">COMPARE_OP</span>               <span class="mi">2</span> <span class="p">(</span><span class="o">==</span><span class="p">)</span>
+             <span class="mi">16</span> <span class="n">RETURN_VALUE</span>
+        <span class="o">&gt;&gt;</span>   <span class="mi">18</span> <span class="n">ROT_TWO</span>
+             <span class="mi">20</span> <span class="n">POP_TOP</span>
+             <span class="mi">22</span> <span class="n">RETURN_VALUE</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="s1">&#39;(3 &lt; 1) == False&#39;</span><span class="p">)</span>
+  <span class="mi">1</span>           <span class="mi">0</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+              <span class="mi">2</span> <span class="n">LOAD_CONST</span>               <span class="mi">1</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+              <span class="mi">4</span> <span class="n">COMPARE_OP</span>               <span class="mi">0</span> <span class="p">(</span><span class="o">&lt;</span><span class="p">)</span>
+              <span class="mi">6</span> <span class="n">LOAD_CONST</span>               <span class="mi">2</span> <span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+              <span class="mi">8</span> <span class="n">COMPARE_OP</span>               <span class="mi">2</span> <span class="p">(</span><span class="o">==</span><span class="p">)</span>
+             <span class="mi">10</span> <span class="n">RETURN_VALUE</span>
+</pre></div>
+
+
+<p>Those extra instructions in the first block are the work Python has to do to manage <a href="https://docs.python.org/3/reference/expressions.html#comparisons">chained comparisons</a>. Have some fun playing with <code>dis</code> - send it some code you understand, or some that you don't (yet)!</p>
+<p>Here are some homespun animations that loop through the bytecode instructions, showing the evaluation stack along the way. If you want to follow along with a reference, <a href="https://docs.python.org/3/library/dis.html#python-bytecode-instructions">this section</a> of the <code>dis</code> documentation explains how each bytecode instruction interacts with the evaluation stack.</p>
+<p>Here's the breakdown of <code>3 &lt; 1 == False</code> (<a href="https://pybit.es/images/comparison-anim-no-parens-full.gif">full size</a>):</p>
+<p><img alt="evaluation stack animation - no parentheses" src="https://pybit.es/images/comparison-anim-no-parens-small.gif"></p>
+<p>And here's <code>(3 &lt; 1) == False</code> (<a href="https://pybit.es/images/comparison-anim-with-parens-full.gif">full size</a>):</p>
+<p><img alt="evaluation stack animation - with parentheses" src="https://pybit.es/images/comparison-anim-with-parens-small.gif"></p>
+<p>That was a lot of words and pictures to break down two comparison operations, but I hope you had fun along the way.</p>
+<h2>Bonus Round: Outside Python</h2>
+<p>One tricky aspect of this question is that <code>==</code> and <code>&lt;</code> have the same precedence. Often this isn't relevant, because you would be unlikely to type:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>when you could use the simpler:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>or:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>If you're coming to Python from another language though, Python's operator precedence rules can catch you off guard. In languages such as C, C#, Java and JavaScript, relational comparisons like <code>&lt;</code> have higher precedence than equality checks like <code>==</code>. That makes <code>3 &lt; 1 == false</code> functionally equivalent to <code>(3 &lt; 1) == false</code>. <a href="https://doc.rust-lang.org/1.22.1/reference/expressions/operator-expr.html#comparison-operators">Rust</a> sidesteps this confusion entirely by forcing you to be explicit:</p>
+<blockquote>
+<p>Parentheses are required when chaining comparison operators. For example, the expression a == b == c is invalid and may be written as (a == b) == c.</p>
+</blockquote>
+<h2>Takeaways and Related Reading</h2>
+<p>The thing I hope people take away from this post is that if you're not sure what a line of Python code is doing, try disassembling it. It can't hurt, and it might lead to some fun discoveries.</p>
+<p>The post that inspired <em>me</em> to pull out the <code>dis</code> module more often was:</p>
+<p><a href="https://kate.io/blog/2017/08/24/python-constants-in-bytecode/">Weird Python Integers Part II: Constants in Bytecode</a> by Kate Murphy</p>
+<hr>
+<p>Thanks for reading! Please leave any questions or comments below, especially if you know of a better way to create evaluation stack animations from Python bytecode.</p>
+<p>Keep calm and code in Python!</p>
+<p>-- AJ</p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/guest.html">guest</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/dis.html">dis</a>
+      <a href="https://pybit.es/tag/precedence.html">precedence</a>
+      <a href="https://pybit.es/tag/chaining.html">chaining</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>
