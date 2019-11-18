@@ -27,11 +27,11 @@
 
 
 <meta name="author" content="Bob" />
-<meta name="description" content="Writing test code is an essential skill. As PyBites we believe in writing code as being the only solution to becoming a master (Ninja) at programming. Same applies to test code. For that reason we extended our regular exercises with Test Bites. In this article you will read about the feature showcasing it on our first ever Test Bite. We also share some details around implementation and a challenge we hit getting it to work. Enjoy and start honing your testing skills today!" />
+<meta name="description" content="Writing test code is an essential skill. As PyBites we believe writing code is the only solution to becoming a master (Ninja) at programming. The same applies to test code. For that reason we extended our regular exercises with Test Bites. In this article you will read about the feature showcasing it on our first ever Test Bite. We also share some details around implementation and a challenge we hit getting it to work. Enjoy and start honing your testing skills today!" />
 <meta name="keywords" content="pytest, platform, feature, mutpy, mutation testing, fizzbuzz, fibonacci">
 <meta property="og:site_name" content="PyBites"/>
 <meta property="og:title" content="You can now hone your testing / pytest skills on our platform"/>
-<meta property="og:description" content="Writing test code is an essential skill. As PyBites we believe in writing code as being the only solution to becoming a master (Ninja) at programming. Same applies to test code. For that reason we extended our regular exercises with Test Bites. In this article you will read about the feature showcasing it on our first ever Test Bite. We also share some details around implementation and a challenge we hit getting it to work. Enjoy and start honing your testing skills today!"/>
+<meta property="og:description" content="Writing test code is an essential skill. As PyBites we believe writing code is the only solution to becoming a master (Ninja) at programming. The same applies to test code. For that reason we extended our regular exercises with Test Bites. In this article you will read about the feature showcasing it on our first ever Test Bite. We also share some details around implementation and a challenge we hit getting it to work. Enjoy and start honing your testing skills today!"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/launch-pytest-bites.html"/>
 <meta property="og:type" content="article"/>
@@ -51,7 +51,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
 <meta name="twitter:title" content="You can now hone your testing / pytest skills on our platform" />
-<meta name="twitter:description" content="Writing test code is an essential skill. As PyBites we believe in writing code as being the only solution to becoming a master (Ninja) at programming. Same applies to test code. For that reason we extended our regular exercises with Test Bites. In this article you will read about the feature showcasing it on our first ever Test Bite. We also share some details around implementation and a challenge we hit getting it to work. Enjoy and start honing your testing skills today!" />
+<meta name="twitter:description" content="Writing test code is an essential skill. As PyBites we believe writing code is the only solution to becoming a master (Ninja) at programming. The same applies to test code. For that reason we extended our regular exercises with Test Bites. In this article you will read about the feature showcasing it on our first ever Test Bite. We also share some details around implementation and a challenge we hit getting it to work. Enjoy and start honing your testing skills today!" />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
   <title>PyBites &ndash; You can now hone your testing / pytest skills on our platform</title>
@@ -185,116 +185,116 @@
 
 
   <div>
-    <p>Writing test code is an essential skill. As PyBites we believe in writing code as being the only solution to becoming a master (Ninja) at programming. Same applies to test code. For that reason we extended our regular exercises with <strong>Test Bites</strong>.</p>
+    <p>Writing test code is an essential skill. As PyBites we believe writing code is the only solution to becoming a master (Ninja) at programming. The same applies to test code. For that reason we extended our regular exercises with <strong>Test Bites</strong>.</p>
 <p>In this article you will read about the feature showcasing it on our first ever Test Bite. We also share some details around implementation and a challenge we hit getting it to work. Enjoy and start honing your testing skills today!</p>
 <h2>Why did we add this?</h2>
 <p>It was one of the most requested features. Period.</p>
-<p>It is also a logical progression. So far coding our 200+ Bites of Py you have <em>looked</em> at test code and <em>analyzed</em> its output when Bites did not pass. This is of course very useful, but it does not teach you <strong>how to write tests</strong> for your code. Many users expressed how cool it would be if they could learn how to code in <code>pytest</code> on our platform. Well, now you can! We <a href="https://codechalleng.es/bites/catalogue">just added 3 Test Bites</a> and stay tuned for more soon ...</p>
+<p>It is also a logical progression. So far, coding our 200+ Bites of Py you have <em>looked</em> at test code and <em>analyzed</em> its output when Bites did not pass. This is of course very useful, but it does not teach you <strong>how to write tests</strong> for your code. Many users expressed how cool it would be if they could learn how to code in <code>pytest</code> on our platform. Well, now you can! We <a href="https://codechalleng.es/bites/catalogue">just added 3 Test Bites</a> - stay tuned for more soon ...</p>
 <h2>How to test test code?</h2>
 <p>This was a challenge, but somebody on Slack suggested <a href="https://en.wikipedia.org/wiki/Mutation_testing">mutation testing</a> and a quick google search yielded <a href="https://pypi.org/project/MutPy/">MutPy</a>:</p>
 <blockquote>
 <p>MutPy is a mutation testing tool for Python 3.3+ source code. MutPy supports standard unittest module, generates YAML/HTML reports and has colorful output. It applies mutation on AST level. You could boost your mutation testing process with high order mutations (HOM) and code coverage analysis.</p>
 </blockquote>
 <p>Here we run it manually on <a href="https://codechalleng.es/bites/5/">Bite 05</a>:</p>
-<div class="highlight"><pre><span></span>    $ <span class="nv">mut</span>.<span class="nv">py</span> <span class="o">-</span><span class="nv">h</span>
-    <span class="nv">usage</span>: <span class="nv">mut</span>.<span class="nv">py</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">--</span><span class="nv">version</span>] [<span class="o">--</span><span class="nv">target</span> <span class="nv">TARGET</span> [<span class="nv">TARGET</span> ...]]
-                [<span class="o">--</span><span class="nv">unit</span><span class="o">-</span><span class="nv">test</span> <span class="nv">UNIT_TEST</span> [<span class="nv">UNIT_TEST</span> ...]] [<span class="o">--</span><span class="nv">runner</span> <span class="nv">RUNNER</span>]
-                [<span class="o">--</span><span class="nv">report</span> <span class="nv">REPORT_FILE</span>] [<span class="o">--</span><span class="nv">report</span><span class="o">-</span><span class="nv">html</span> <span class="nv">DIR_NAME</span>]
-                [<span class="o">--</span><span class="nb">timeout</span><span class="o">-</span><span class="nv">factor</span> <span class="nv">TIMEOUT_FACTOR</span>] [<span class="o">--</span><span class="k">show</span><span class="o">-</span><span class="nv">mutants</span>] [<span class="o">--</span><span class="nv">quiet</span>]
-                [<span class="o">--</span><span class="nv">debug</span>] [<span class="o">--</span><span class="nv">colored</span><span class="o">-</span><span class="nv">output</span>] [<span class="o">--</span><span class="nv">disable</span><span class="o">-</span><span class="nv">stdout</span>]
-                [<span class="o">--</span><span class="nv">experimental</span><span class="o">-</span><span class="nv">operators</span>] [<span class="o">--</span><span class="nv">operator</span> <span class="nv">OPERATOR</span> [<span class="nv">OPERATOR</span> ...]]
-                [<span class="o">--</span><span class="nv">disable</span><span class="o">-</span><span class="nv">operator</span> <span class="nv">OPERATOR</span> [<span class="nv">OPERATOR</span> ...]] [<span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">operators</span>]
-                [<span class="o">--</span><span class="nv">path</span> <span class="nv">DIR</span>] [<span class="o">--</span><span class="nv">percentage</span> <span class="nv">PERCENTAGE</span>] [<span class="o">--</span><span class="nv">coverage</span>]
-                [<span class="o">--</span><span class="nv">order</span> <span class="nv">ORDER</span>] [<span class="o">--</span><span class="nv">hom</span><span class="o">-</span><span class="nv">strategy</span> <span class="nv">HOM_STRATEGY</span>]
-                [<span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">hom</span><span class="o">-</span><span class="nv">strategies</span>] [<span class="o">--</span><span class="nv">mutation</span><span class="o">-</span><span class="nv">number</span> <span class="nv">MUTATION_NUMBER</span>]
+<div class="highlight"><pre><span></span>    $ mut.py -h
+    usage: mut.py [-h] [--version] [--target TARGET [TARGET ...]]
+                [--unit-test UNIT_TEST [UNIT_TEST ...]] [--runner RUNNER]
+                [--report REPORT_FILE] [--report-html DIR_NAME]
+                [--timeout-factor TIMEOUT_FACTOR] [--show-mutants] [--quiet]
+                [--debug] [--colored-output] [--disable-stdout]
+                [--experimental-operators] [--operator OPERATOR [OPERATOR ...]]
+                [--disable-operator OPERATOR [OPERATOR ...]] [--list-operators]
+                [--path DIR] [--percentage PERCENTAGE] [--coverage]
+                [--order ORDER] [--hom-strategy HOM_STRATEGY]
+                [--list-hom-strategies] [--mutation-number MUTATION_NUMBER]
 
-    $ <span class="nv">mut</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">target</span> <span class="nv">names</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">unit</span><span class="o">-</span><span class="nv">test</span> <span class="nv">test_names</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">runner</span> <span class="nv">pytest</span> <span class="o">--</span><span class="nv">coverage</span>
-    [<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutation</span> <span class="nv">process</span>:
-    <span class="o">-</span> <span class="nv">targets</span>: <span class="nv">names</span>.<span class="nv">py</span>
-    <span class="o">-</span> <span class="nv">tests</span>: <span class="nv">test_names</span>.<span class="nv">py</span>
-    [<span class="o">*</span>] <span class="mi">6</span> <span class="nv">tests</span> <span class="nv">passed</span>:
-    <span class="o">-</span> <span class="nv">test_names</span> [<span class="mi">0</span>.<span class="mi">37057</span> <span class="nv">s</span>]
-    [<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutants</span> <span class="nv">generation</span> <span class="nv">and</span> <span class="nv">execution</span>:
-    <span class="o">-</span> [#   <span class="mi">1</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">13190</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">2</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09615</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">3</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09483</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">4</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09546</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">5</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09294</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">6</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09068</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">7</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">08975</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">8</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09013</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">9</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">12359</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">10</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09420</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">11</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09482</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">12</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09506</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">13</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09875</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">14</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09385</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">15</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09451</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">16</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09528</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">17</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09253</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">18</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09329</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">19</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09638</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">20</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09449</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">21</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09480</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">22</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09092</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">23</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09388</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">24</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09356</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">25</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09271</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">26</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09341</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">27</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09397</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">28</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">10249</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_shortest_first_name</span>
-    [<span class="o">*</span>] <span class="nv">Mutation</span> <span class="nv">score</span> [<span class="mi">8</span>.<span class="mi">05135</span> <span class="nv">s</span>]: <span class="mi">100</span>.<span class="mi">0</span><span class="o">%</span>
-    <span class="o">-</span> <span class="nv">all</span>: <span class="mi">28</span>
-    <span class="o">-</span> <span class="nv">killed</span>: <span class="mi">28</span> <span class="ss">(</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    <span class="o">-</span> <span class="nv">survived</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    <span class="o">-</span> <span class="nv">incompetent</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    <span class="o">-</span> <span class="nb">timeout</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    [<span class="o">*</span>] <span class="nv">Coverage</span>: <span class="mi">113</span> <span class="nv">of</span> <span class="mi">113</span> <span class="nv">AST</span> <span class="nv">nodes</span> <span class="ss">(</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
+    $ mut.py --target names.py --unit-test test_names.py --runner pytest --coverage
+    [*] Start mutation process:
+    - targets: names.py
+    - tests: test_names.py
+    [*] 6 tests passed:
+    - test_names [0.37057 s]
+    [*] Start mutants generation and execution:
+    - [#   1] CRP names: [0.13190 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   2] CRP names: [0.09615 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   3] CRP names: [0.09483 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   4] CRP names: [0.09546 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   5] CRP names: [0.09294 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   6] CRP names: [0.09068 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   7] CRP names: [0.08975 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   8] CRP names: [0.09013 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   9] CRP names: [0.12359 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  10] CRP names: [0.09420 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  11] CRP names: [0.09482 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  12] CRP names: [0.09506 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  13] CRP names: [0.09875 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  14] CRP names: [0.09385 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  15] CRP names: [0.09451 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  16] CRP names: [0.09528 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  17] CRP names: [0.09253 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  18] CRP names: [0.09329 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  19] CRP names: [0.09638 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  20] CRP names: [0.09449 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  21] CRP names: [0.09480 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  22] CRP names: [0.09092 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  23] CRP names: [0.09388 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  24] CRP names: [0.09356 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  25] CRP names: [0.09271 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  26] CRP names: [0.09341 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  27] CRP names: [0.09397 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  28] CRP names: [0.10249 s] killed by test_names.py::test_shortest_first_name
+    [*] Mutation score [8.05135 s]: 100.0%
+    - all: 28
+    - killed: 28 (100.0%)
+    - survived: 0 (0.0%)
+    - incompetent: 0 (0.0%)
+    - timeout: 0 (0.0%)
+    [*] Coverage: 113 of 113 AST nodes (100.0%)
 </pre></div>
 
 
-<p>To see the mutations it tried run it with the <code>-m</code> switch:</p>
-<div class="highlight"><pre><span></span>    <span class="err">$</span> <span class="n">mut</span><span class="p">.</span><span class="n">py</span> <span class="c1">--target names.py --unit-test test_names.py --runner pytest --coverage -m</span>
-    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="k">Start</span> <span class="n">mutation</span> <span class="n">process</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">targets</span><span class="p">:</span> <span class="k">names</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">-</span> <span class="n">tests</span><span class="p">:</span> <span class="n">test_names</span><span class="p">.</span><span class="n">py</span>
-    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="mi">6</span> <span class="n">tests</span> <span class="n">passed</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">test_names</span> <span class="p">[</span><span class="mi">0</span><span class="p">.</span><span class="mi">32475</span> <span class="n">s</span><span class="p">]</span>
-    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="k">Start</span> <span class="n">mutants</span> <span class="n">generation</span> <span class="k">and</span> <span class="n">execution</span><span class="p">:</span>
-    <span class="o">-</span> <span class="p">[</span><span class="o">#</span>   <span class="mi">1</span><span class="p">]</span> <span class="n">CRP</span> <span class="k">names</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="o">-</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;arnold schwarzenegger&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="o">+</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mutpy&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">2</span><span class="p">:</span>     <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="s1">&#39;sandra bullock&#39;</span><span class="p">,</span> <span class="s1">&#39;keanu reeves&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">3</span><span class="p">:</span>     <span class="s1">&#39;julbob pybites&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">4</span><span class="p">:</span>     <span class="s1">&#39;al pacino&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">,</span> <span class="s1">&#39;matt damon&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">]</span>
-    <span class="mi">5</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">.</span><span class="mi">10319</span> <span class="n">s</span><span class="p">]</span> <span class="n">killed</span> <span class="k">by</span> <span class="n">test_names</span><span class="p">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_sort_by_surname_desc</span>
-    <span class="o">-</span> <span class="p">[</span><span class="o">#</span>   <span class="mi">2</span><span class="p">]</span> <span class="n">CRP</span> <span class="k">names</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="o">-</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;arnold schwarzenegger&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="o">+</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">2</span><span class="p">:</span>     <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="s1">&#39;sandra bullock&#39;</span><span class="p">,</span> <span class="s1">&#39;keanu reeves&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">3</span><span class="p">:</span>     <span class="s1">&#39;julbob pybites&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">4</span><span class="p">:</span>     <span class="s1">&#39;al pacino&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">,</span> <span class="s1">&#39;matt damon&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">]</span>
-    <span class="mi">5</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">.</span><span class="mi">09149</span> <span class="n">s</span><span class="p">]</span> <span class="n">killed</span> <span class="k">by</span> <span class="n">test_names</span><span class="p">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_sort_by_surname_desc</span>
-    <span class="p">...</span>
-    <span class="p">...</span> <span class="n">many</span> <span class="k">more</span> <span class="p">...</span>
-    <span class="p">...</span>
+<p>To see the mutations it tried, run it with the <code>-m</code> switch:</p>
+<div class="highlight"><pre><span></span>    $ mut.py --target names.py --unit-test test_names.py --runner pytest --coverage -m
+    [*] Start mutation process:
+    - targets: names.py
+    - tests: test_names.py
+    [*] 6 tests passed:
+    - test_names [0.32475 s]
+    [*] Start mutants generation and execution:
+    - [#   1] CRP names:
+    --------------------------------------------------------------------------------
+    -  1: NAMES = [&#39;arnold schwarzenegger&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    +  1: NAMES = [&#39;mutpy&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    2:     &#39;julian sequeira&#39;, &#39;sandra bullock&#39;, &#39;keanu reeves&#39;, \
+    3:     &#39;julbob pybites&#39;, &#39;bob belderbos&#39;, &#39;julian sequeira&#39;, \
+    4:     &#39;al pacino&#39;, &#39;brad pitt&#39;, &#39;matt damon&#39;, &#39;brad pitt&#39;]
+    5:
+    --------------------------------------------------------------------------------
+    [0.10319 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   2] CRP names:
+    --------------------------------------------------------------------------------
+    -  1: NAMES = [&#39;arnold schwarzenegger&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    +  1: NAMES = [&#39;&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    2:     &#39;julian sequeira&#39;, &#39;sandra bullock&#39;, &#39;keanu reeves&#39;, \
+    3:     &#39;julbob pybites&#39;, &#39;bob belderbos&#39;, &#39;julian sequeira&#39;, \
+    4:     &#39;al pacino&#39;, &#39;brad pitt&#39;, &#39;matt damon&#39;, &#39;brad pitt&#39;]
+    5:
+    --------------------------------------------------------------------------------
+    [0.09149 s] killed by test_names.py::test_sort_by_surname_desc
+    ...
+    ... many more ...
+    ...
 </pre></div>
 
 
 <p>Pretty cool eh? There is also a good explanation and simple example on <a href="https://pypi.org/project/MutPy/">MutPy's project page</a>.</p>
 <h2>How it works on our platform</h2>
-<p>As said a Test Bite just looks like a regular Bite but instead of a given set of tests, you are provided with a code module that gets imported. You are asked to write one or more test functions:</p>
+<p>As previously mentioned, a Test Bite looks like a regular Bite but instead of a given set of tests, you are provided with a code module that gets imported. You are asked to write one or more test functions:</p>
 <p><img alt="test bite interface" src="https://pybit.es/images/testbites/test-bite-interface1.png"></p>
 <p><img alt="test bite interface" src="https://pybit.es/images/testbites/test-bite-interface2.png"></p>
 <p>Let's write some code <a href="https://codechalleng.es/bites/238/">for this Bite</a> and see the different checks (<strong>warning</strong>: contains spoilers, if you want to try it out now, <a href="https://codechalleng.es/bites/238/">go write code here</a>!)</p>
 <h3>Bad syntax</h3>
-<p>It first checks if your test code runs, here I forgot a colon after my function declaration:</p>
+<p>It first checks if your test code runs. Here I forgot a colon after my function declaration:</p>
 <p><img alt="syntax error" src="https://pybit.es/images/testbites/syntax-error1.png"></p>
 <p>If you click <em>Show pytest output</em> you can see where you went wrong:</p>
 <p><img alt="syntax error" src="https://pybit.es/images/testbites/syntax-error2.png"></p>
@@ -304,16 +304,16 @@
 <p>And it doesn't like that:</p>
 <p><img alt="pytest fail" src="https://pybit.es/images/testbites/pytest-fail2.png"></p>
 <h3>Coverage</h3>
-<p>Next step is code coverage. Our first go was <a href="https://pypi.org/project/pytest-cov/">pytest-cov</a> but that would mean two commands to run on the code. If possible it's preferrable to use <strong>one</strong> tool. Luckily <a href="https://pypi.org/project/MutPy/">MutPy</a> had us <em>covered</em> (no pun intended). As long as we run it with the <code>--coverage</code> flag (see above).</p>
+<p>Next step is code coverage. Our initial thought was to use <a href="https://pypi.org/project/pytest-cov/">pytest-cov</a> but that would mean two commands to run on the code. If possible it's preferable to use <strong>one</strong> tool. Luckily <a href="https://pypi.org/project/MutPy/">MutPy</a> had us <em>covered</em> (pun intended). As long as we run it with the <code>--coverage</code> flag (see above).</p>
 <p>The code so far has a coverage of 50%:</p>
 <p><img alt="coverage" src="https://pybit.es/images/testbites/coverage.png"></p>
 <h3>Mutation testing</h3>
-<p>At this point we also see MutPy's mutation test output we included (using the <code>-m</code> switch). Again use <em>Show pytest output</em> to reveal the full output. </p>
+<p>At this point we also see MutPy's mutation test output that we included (using the <code>-m</code> switch). Again use <em>Show pytest output</em> to reveal the full output. </p>
 <p>As you can see MutPy started the <em>mutants generation and execution</em>. Sounds like a game no? It tries to <em>kill the mutants</em> using your test code. </p>
 <p><img alt="mutpy output" src="https://pybit.es/images/testbites/mutpy-output.png"></p>
 <p>More in a bit. Scrolling down you see the coverage for which it uses Python's <a href="https://docs.python.org/3/library/ast.html"><code>ast</code> or <em>Abstract Syntax Trees</em></a>.</p>
 <p><img alt="coverage calculation" src="https://pybit.es/images/testbites/coverage-calc.png"></p>
-<p>Deleting one of the lines we have written so far we see that not all muttans get killed. Scrolling down you see 2 survivors:</p>
+<p>Deleting one of the lines we have written so far we see that not all mutants get killed. Scrolling down you see 2 survivors:</p>
 <p><img alt="mutants fail" src="https://pybit.es/images/testbites/mutants-fail.png"></p>
 <p>Here is a mutant our tests addressed:</p>
 <p><img alt="mutant killed" src="https://pybit.es/images/testbites/killed.png"></p>
@@ -328,7 +328,9 @@
 <p>I'll leave that as an exercise to the reader :)</p>
 <p>Finally when you pass syntax + pytest run + 100% coverage + 100% mutation score you pass the Bite:</p>
 <p><img alt="pass feedback" src="https://pybit.es/images/testbites/pass-feedback.png"></p>
+<blockquote>
 <p>As we're still testing the waters of this feature / the MutPy module, minimum coverage and mutation required scores might go down a bit if the Test Bites become too challenging ...</p>
+</blockquote>
 <h2>Remember MutPy == multiprocessing</h2>
 <p>As elaborated in <a href="https://testandcode.com/83">PyBites Code Challenges behind the scenes</a> we run our platform on Heroku and use AWS Lambda for code execution.</p>
 <p>One tough nut to crack was AWS's lack of parallel processing, more specifically <code>multiprocessing.Queue</code> that <code>MutPy</code> uses (if you try it, you'll get <code>OSError: [Errno 38] Function not implemented</code>).</p>
@@ -336,8 +338,8 @@
 <p>Just leaving this note here if somebody runs into this.</p>
 <h2>Start today!</h2>
 <p>We hope this will not only improve your <code>pytest</code> skills, but also <strong>how you think about writing test code</strong>.</p>
-<p>We are putting all Test Bites into a new / dedicated learning path soon, stay tuned ...</p>
-<p>As always have fun and let us know if you have any feedback on this new feature, preferrably on Slack:</p>
+<p>We are putting all Test Bites into a new / dedicated learning path soon so stay tuned ...</p>
+<p>As always have fun and let us know if you have any feedback on this new feature, preferably on Slack:</p>
 <ul>
 <li>
 <p>For platform questions use the <a href="https://pybites.slack.com/archives/C6BGDQQ3B">#codechallenges</a> channel.</p>

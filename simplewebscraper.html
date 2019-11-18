@@ -198,10 +198,10 @@
 <li>Decide on the site to scrape.</li>
 <li><a href="http://pybit.es/the-beauty-of-virtualenv.html">Create a venv</a> to run all of this up in. I created a directory called "wowhead" for this and created the venv in that:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">pwd</span>
-<span class="n">wowhead</span>
-<span class="o">#</span> <span class="n">ls</span>
-<span class="n">venv</span>    <span class="n">wowhead_scraper</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span></span># pwd
+wowhead
+# ls
+venv    wowhead_scraper.py
 </pre></div>
 
 
@@ -216,12 +216,12 @@
 <ul>
 <li>After the initial code setup of importing modules and defining main, the first task is to grab a copy of the site's html file:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="nv">URL</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">http://www.wowhead.com</span><span class="s2">&quot;</span>
-<span class="nv">header_list</span> <span class="o">=</span> []
+<div class="highlight"><pre><span></span>URL = &quot;http://www.wowhead.com&quot;
+header_list = []
 
-<span class="nv">def</span> <span class="nv">main</span><span class="ss">()</span>:
-    <span class="nv">raw_site_page</span> <span class="o">=</span> <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">URL</span><span class="ss">)</span>
-    <span class="nv">raw_site_page</span>.<span class="nv">raise_for_status</span><span class="ss">()</span>  #<span class="nv">Confirm</span> <span class="nv">site</span> <span class="nv">was</span> <span class="nv">pulled</span>. <span class="nv">Error</span> <span class="k">if</span> <span class="nv">not</span>
+def main():
+    raw_site_page = requests.get(URL)
+    raw_site_page.raise_for_status()  #Confirm site was pulled. Error if not
 </pre></div>
 
 
@@ -230,7 +230,7 @@
 <ul>
 <li>Next, Beautiful Soup fun:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">bs4</span><span class="p">.</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">raw_site_page</span><span class="p">.</span><span class="nb">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>soup = bs4.BeautifulSoup(raw_site_page.text, &#39;html.parser&#39;)
 </pre></div>
 
 
@@ -238,9 +238,9 @@
 <ul>
 <li>Now the tricky part:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="nv">html_header_list</span> <span class="o">=</span> <span class="nv">soup</span>.<span class="nv">select</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">.heading-size-1</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">headers</span> <span class="nv">in</span> <span class="nv">html_header_list</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nv">headers</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>html_header_list = soup.select(&#39;.heading-size-1&#39;)
+    for headers in html_header_list:
+        print(headers)
 </pre></div>
 
 
@@ -259,9 +259,9 @@
 <ul>
 <li>We could use regex to strop the URLs out but BS4 makes it easier. We can grab just the plain text used within the CSS element using .getText():</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="nv">html_header_list</span> <span class="o">=</span> <span class="nv">soup</span>.<span class="nv">select</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">.heading-size-1</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">headers</span> <span class="nv">in</span> <span class="nv">html_header_list</span>:
-        <span class="nv">header_list</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">headers</span>.<span class="nv">getText</span><span class="ss">())</span>
+<div class="highlight"><pre><span></span>html_header_list = soup.select(&#39;.heading-size-1&#39;)
+    for headers in html_header_list:
+        header_list.append(headers.getText())
 </pre></div>
 
 
@@ -269,8 +269,8 @@
 <ul>
 <li>Now if we iterate over <em>header_list</em> we see just the data we want!</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">headers</span> <span class="nv">in</span> <span class="nv">header_list</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nv">headers</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>for headers in header_list:
+        print(headers)
 </pre></div>
 
 
