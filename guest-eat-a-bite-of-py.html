@@ -28,9 +28,9 @@
 
 <meta name="author" content="AJ Kerrigan" />
 <meta name="description" content="There are many ways to tackle a Bites of Py exercise, try them all!" />
-<meta name="keywords" content="guest, pybites, learning, tips, editors, setup, ptpython, bpython, mutpy">
+<meta name="keywords" content="guest, pybites, platform, REPL, virtualenv, learning, tips, editors, setup, ptpython, bpython, mutpy, Anaconda, iPad">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="There's no wrong way... to eat a Bite of Py"/>
+<meta property="og:title" content="There's no Wrong Way... to Eat a Bite of Py"/>
 <meta property="og:description" content="There are many ways to tackle a Bites of Py exercise, try them all!"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://pybit.es/guest-eat-a-bite-of-py.html"/>
@@ -41,6 +41,9 @@
 <meta property="article:section" content="Tips"/>
 <meta property="article:tag" content="guest"/>
 <meta property="article:tag" content="pybites"/>
+<meta property="article:tag" content="platform"/>
+<meta property="article:tag" content="REPL"/>
+<meta property="article:tag" content="virtualenv"/>
 <meta property="article:tag" content="learning"/>
 <meta property="article:tag" content="tips"/>
 <meta property="article:tag" content="editors"/>
@@ -48,15 +51,17 @@
 <meta property="article:tag" content="ptpython"/>
 <meta property="article:tag" content="bpython"/>
 <meta property="article:tag" content="mutpy"/>
+<meta property="article:tag" content="Anaconda"/>
+<meta property="article:tag" content="iPad"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="There's no wrong way... to eat a Bite of Py" />
+<meta name="twitter:title" content="There's no Wrong Way... to Eat a Bite of Py" />
 <meta name="twitter:description" content="There are many ways to tackle a Bites of Py exercise, try them all!" />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
 
-  <title>PyBites &ndash; There's no wrong way... to eat a Bite of Py</title>
+  <title>PyBites &ndash; There's no Wrong Way... to Eat a Bite of Py</title>
 
 
 </head>
@@ -176,7 +181,7 @@
 
 <article class="single">
   <header>
-    <h1 id="guest-eat-a-bite-of-py">There's no wrong way... to eat a Bite of Py</h1>
+    <h1 id="guest-eat-a-bite-of-py">There's no Wrong Way... to Eat a Bite of Py</h1>
     <p>
           Posted by <a href="https://pybit.es/author/aj-kerrigan.html">AJ Kerrigan</a> on Wed 27 November 2019 in <a href="https://pybit.es/category/tips.html">Tips</a>
 
@@ -213,6 +218,13 @@
 <p>Depending on the bite you're working on, you might need to install additional packages. It pays to do a little bit of work to keep your PyBites environment isolated, by following steps like these:</p>
 <ul>
 <li>Prepare a new <code>pybites</code> virtual environment. <a href="https://realpython.com/">Real Python</a> has a <a href="https://realpython.com/python-virtual-environments-a-primer/">primer</a> on virtual environments that can help you get started.</li>
+</ul>
+<div class="highlight"><pre><span></span>$ python -m venv pybites
+$ <span class="nb">source</span> pybites/bin/activate
+</pre></div>
+
+
+<ul>
 <li>Install required packages inside your <code>pybites</code> virtual environment. The specific requirements vary from bite to bite, but here are some packages that you'll need eventually:</li>
 <li>requests</li>
 <li>bs4 - for BeautifulSoup/web scraping bites</li>
@@ -220,6 +232,10 @@
 <li>python-dateutil</li>
 <li>pandas</li>
 </ul>
+<div class="highlight"><pre><span></span>$ python -m pip install requests bs4 feedparser python-dateutil pandas
+</pre></div>
+
+
 <p>Aside from running <code>python</code>, there are a number of alternative REPLs available. This includes local tools such as <a href="https://bpython-interpreter.org/">bpython</a> or <a href="https://github.com/prompt-toolkit/ptpython/">ptpython</a>, and web-based options like <a href="https://repl.it/">repl.it</a>. My REPL of choice is the <code>ptipython</code> component of <a href="https://github.com/prompt-toolkit/ptpython/">ptpython</a>, with vim keybindings. This is mostly personal preference though, so find the experience that best fits your style!</p>
 <p>Sometimes after I've done some exploring and feel comfortable with the concepts of a bite, I find that I'm getting hung up with a few failing tests. In that case I am looking for a smoother flow for testing and debugging. I might jump over to...</p>
 <p><a name="testingdebugging-support-a-full-featured-editor"></a></p>
@@ -230,6 +246,12 @@
 <h4>First-time setup</h4>
 <ul>
 <li>Set up a directory where pybites code will live. For me, that is <code>~/code/pybites</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span>mkdir -p ~/code/pybites
+</pre></div>
+
+
+<ul>
 <li>Activate the same <code>pybites</code> virtual environment I created for use with my REPL. Microsoft has some <a href="https://code.visualstudio.com/docs/python/environments">helpful guidance</a> for working with virtual environments in VS Code.</li>
 </ul>
 <p><a name="per-bite-setup"></a></p>
@@ -243,6 +265,13 @@
 <p><a name="test-bites-a-new-spin"></a></p>
 <h3>Test Bites: A New Spin</h3>
 <p>Now that <a href="https://pybit.es/launch-pytest-bites.html">Test Bites</a> are live, there's an extra wrinkle to the coding and testing workflow. If you've already got a local environment set up though, you've already laid the groundwork for testing your tests! The last piece you need is the <a href="https://github.com/mutpy/mutpy">MutPy</a> <a href="https://en.wikipedia.org/wiki/Mutation_testing">mutation testing</a> tool. With that installed, you can run your mutation tests locally just like <a href="author/bob.html">Bob</a> did in the <a href="https://pybit.es/launch-pytest-bites.html">launch post</a>!</p>
+<p><a name="related-reading"></a></p>
+<h3>Related Reading</h3>
+<p>Here are some ways that other PyBites community members get ready for practice:</p>
+<ul>
+<li><a href="pages/guests.html#martinuribe">Martin</a> <a href="guest-anaconda-workflow.html">manages his environments</a> with <a href="https://anaconda.org/">Anaconda</a></li>
+<li><a href="https://joeriksson.io/">J-O Eriksson</a> <a href="https://joeriksson.io/blog/how-i-work-with-pybites-exercises-on-my-ipad/">works from his iPad</a></li>
+</ul>
 <p><a name="theres-no-wrong-way"></a></p>
 <h3>There's No Wrong Way...</h3>
 <p>If you're practicing on PyBites, you'll definitely be submitting code from the browser. But what other tools will help you along the way? The options are endless - so go nuts, find something that works for you, and share your own tips in the comments!</p>
@@ -257,6 +286,9 @@
     <p>
       <a href="https://pybit.es/tag/guest.html">guest</a>
       <a href="https://pybit.es/tag/pybites.html">pybites</a>
+      <a href="https://pybit.es/tag/platform.html">platform</a>
+      <a href="https://pybit.es/tag/repl.html">REPL</a>
+      <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>
       <a href="https://pybit.es/tag/learning.html">learning</a>
       <a href="https://pybit.es/tag/tips.html">tips</a>
       <a href="https://pybit.es/tag/editors.html">editors</a>
@@ -264,6 +296,8 @@
       <a href="https://pybit.es/tag/ptpython.html">ptpython</a>
       <a href="https://pybit.es/tag/bpython.html">bpython</a>
       <a href="https://pybit.es/tag/mutpy.html">mutpy</a>
+      <a href="https://pybit.es/tag/anaconda.html">Anaconda</a>
+      <a href="https://pybit.es/tag/ipad.html">iPad</a>
     </p>
   </div>
 
