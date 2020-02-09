@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Harrison Morgan" />
+<meta name="description" content="A while back we launched our Test Bites. In this follow up article Harrison explains the MutPy mutation testing tool in depth and how we use it to verify test code on our platform. Enter Harrison." />
+<meta name="keywords" content="guest, mutpy, pytest, coverage, bites of py, platform, mutants">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Exploring the Mutpy Library and How PyBites Uses it to Verify Test Code"/>
+<meta property="og:description" content="A while back we launched our Test Bites. In this follow up article Harrison explains the MutPy mutation testing tool in depth and how we use it to verify test code on our platform. Enter Harrison."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/guest-mutpy-exploration.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-02-09 10:00:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/harrison-morgan.html">
+<meta property="article:section" content="Testing"/>
+<meta property="article:tag" content="guest"/>
+<meta property="article:tag" content="mutpy"/>
+<meta property="article:tag" content="pytest"/>
+<meta property="article:tag" content="coverage"/>
+<meta property="article:tag" content="bites of py"/>
+<meta property="article:tag" content="platform"/>
+<meta property="article:tag" content="mutants"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Exploring the Mutpy Library and How PyBites Uses it to Verify Test Code" />
+<meta name="twitter:description" content="A while back we launched our Test Bites. In this follow up article Harrison explains the MutPy mutation testing tool in depth and how we use it to verify test code on our platform. Enter Harrison." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+  <title>PyBites &ndash; Exploring the Mutpy Library and How PyBites Uses it to Verify Test Code</title>
+
+
+</head>
+<body>
+<div id="codeChallengeWrapper">
+
+  <div id="codeWithUs">
+
+    <div class="quote-box">
+      <div class="quote">
+
+        <img src="https://codechalleng.es/static/img/honors/unlock.png" class="ninja" alt="earn the White PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_yellow.png" class="ninja" alt="earn the Yellow PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/honors/unlock_orange.png" class="ninja" alt="earn the Orange PyBites Ninja">
+        <img src="https://codechalleng.es/static/img/right-arrow.png" class="ninja" alt="right arrow">
+        <img src="https://codechalleng.es/static/img/honors/unlock_red.png" class="ninja" alt="earn more PyBites Ninja belts and certificates">
+
+        <hr>
+
+        <blockquote>
+          The best way to learn to <strong>code in Python</strong> is to <strong><a href="https://pybit.es/learn-by-doing.html" target="_blank">actually use the language</a></strong>.
+          <br><br>
+          Our platform offers <strong>effective Test Driven Learning</strong> which will be key to your progress.
+          <br><br><br>
+          Join thousands of Pythonistas and start coding!
+
+          <br><br><br>
+          <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/ghlogin.png" alt="Join us on our PyBites Platform"></a>
+        </blockquote>
+  
+      </div>
+    </div>
+
+  </div>
+
+  <button class="center mui-btn mui-btn--flat mui-btn--primary" onclick="document.getElementById('codeWithUs').classList.toggle('open');">
+    Land a better Python job? Try our coding platform &raquo;
+  </button>
+
+</div><!-- end codeChallengeWrapper -->
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      brown
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='brown'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/guest.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
+          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
+          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+          <li><a href="/pages/community.html">Join our Slack</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="guest-mutpy-exploration">Exploring the Mutpy Library and How PyBites Uses it to Verify Test Code</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/harrison-morgan.html">Harrison Morgan</a> on Sun 09 February 2020 in <a href="https://pybit.es/category/testing.html">Testing</a>
+
+
+        &#8226; 8 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>A while back we launched <a href="https://pybit.es/launch-pytest-bites.html">our Test Bites</a>. In this follow up article Harrison explains the <a href="https://pypi.org/project/MutPy/">MutPy mutation testing tool</a> in depth and how we use it to verify test code on our platform. Enter Harrison.</p>
+<h1>Table of Contents</h1>
+<ol>
+<li><a href="#what-is-mutation-testing">What Is Mutation Testing?</a></li>
+<li><a href="#what-is-mutpy">What Is Mut.py?</a></li>
+<li><a href="#example-output">Example of Mut.py's Output</a></li>
+<li><a href="#killing-mutants">Killing Mutants</a></li>
+<li><a href="#summary-of-results">Summary of Results</a></li>
+<li><a href="#typical-workflow">Typical Workflow</a></li>
+<li><a href="#tips">Tips for Completing Test Bites</a></li>
+</ol>
+<p><a name="what-is-mutation-testing"></a></p>
+<h1>What Is Mutation Testing?</h1>
+<p>Mutation testing is a way of testing your tests. It should be used after you already have tests that cover your code well.</p>
+<p>In the case of a <a href="https://codechalleng.es/bites/paths/pytest">Test Bite on PyBites</a>, that means you should have <a href="https://pypi.org/project/pytest-cov/">100% code coverage first</a>.</p>
+<p>The way it works is by subtly changing, in various ways, the source code being tested, then rerunning the tests for each change.</p>
+<p>If the tests continue to pass, then the change was not caught. The idea is that if a random change can be made to the code without causing a failure, then either the tests are not specific enough, or they don't cover enough.</p>
+<p>Thus, mutation testing can help you identify areas where your tests are weak and need improvement. Beyond the improvements to your tests, I believe one of the main benefits is the depth of understanding of the code being tested that you often develop. I'll talk more about that later.</p>
+<p>Mutation testing has been around for a long time, but because it can be slow, it only recently has started to become more popular. If your tests take a long time to run already, adding mutation testing will increase that time by quite a bit. </p>
+<p>Some people also argue that a reason not to use it is that sometimes the mutations are not useful in improving tests. Sometimes you deliberately do not want to test a particular line of code--but to make the mutation tester happy, you either have to test that line or add a comment to tell it not to mutate that line, which doesn't look very nice and can be distracting.</p>
+<p>I think it does have pros and cons, so use your discretion in whether to make mutation testing a regular part of a project. For PyBites, where the code is short and the tests are fast, mut.py is a good way to test Test Bites.</p>
+<p>Some common terminology in mutation testing inludes: <strong>mutant</strong>, <strong>killed</strong>, <strong>incompetent</strong>, and <strong>survived</strong>:</p>
+<ol>
+<li>
+<p><strong>Mutant</strong>: this refers to a changed copy of the original code.</p>
+</li>
+<li>
+<p><strong>Killed</strong>: a killed mutant is one that causes one of your tests to fail.</p>
+</li>
+<li>
+<p><strong>Incompetent</strong>: an incompetent mutant causes the code to raise an error, before your tests even run. You can consider it killed.</p>
+</li>
+<li>
+<p><strong>Survived</strong>: a mutant that survives did not cause your tests to fail, so the change was not caught.</p>
+</li>
+</ol>
+<p>I like to use an analogy of a lab experimenting on mutant mice. Imagine you're in charge of the last line of defence security system preventing the mutants from escaping and wreaking havoc on society.</p>
+<p>A bunch of mutants break out and try to escape. If an escaping mutant survives, your security system needs to be improved. If one is killed, your security system did its job. An incompetent mutant accidentally drank poison before it even got to your security system.</p>
+<p><a name="what-is-mutpy"></a></p>
+<h1>What is Mut.py?</h1>
+<p>Mut.py is a mutation tester for Python programs. There also exist Mutmut and Cosmic Ray, which you can explore for your own use, but these require multiple commands to run and review results, so they were not ideal for the PyBites environment.</p>
+<p>Mut.py makes changes to your Python programs by applying various operations to <a href="https://greentreesnakes.readthedocs.io/en/latest/">Abstract Syntax Trees</a>. There are a lot of powerful options -- the complete list can be found in <a href="https://github.com/mutpy/mutpy#command-line-arguments">the repository</a> -- which can be used to customize how mutants are generated, types of output, and more. </p>
+<p><a name="example-output"></a></p>
+<h2>How to Read Mut.py's Output</h2>
+<p>There are four sections in Mut.py's output, which are marked by <code>[*]</code>:</p>
+<ul>
+<li>
+<p>The section starting with <code>Start mutation process</code> loads the code and tests.</p>
+</li>
+<li>
+<p>The section starting with <code>3 tests passed</code>, which runs the tests with the original (unmutated) code. </p>
+</li>
+<li>
+<p><code>Start mutants generation and execution</code> marks the main section, where the mutants are actually generated and tested.</p>
+</li>
+<li>
+<p>The section starting with <code>Mutation score</code> summarizes the results of the mutations.</p>
+</li>
+</ul>
+<p>The first two sections are fairly self-explanatory, and for the most part you won't need to look at them. So, we'll focus on the third and fourth sections.</p>
+<p>Here's an example of Mut.py's output from a partially-completed <a href="https://codechalleng.es/bites/241/">Bite 241</a>:</p>
+<div class="highlight"><pre><span></span><span class="o">===</span> <span class="mi">2</span>. <span class="nv">MutPy</span> <span class="nv">output</span> <span class="o">===</span>
+<span class="o">===</span> $ <span class="nv">mut</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">target</span> <span class="nv">numbers_to_dec</span> <span class="o">--</span><span class="nv">unit</span><span class="o">-</span><span class="nv">test</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">runner</span> <span class="nv">pytest</span> <span class="o">-</span><span class="nv">m</span> <span class="o">===</span>
+
+[<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutation</span> <span class="nv">process</span>:
+   <span class="o">-</span> <span class="nv">targets</span>: <span class="nv">numbers_to_dec</span>
+   <span class="o">-</span> <span class="nv">tests</span>: <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>
+[<span class="o">*</span>] <span class="mi">3</span> <span class="nv">tests</span> <span class="nv">passed</span>:
+   <span class="o">-</span> <span class="nv">test_numbers_to_dec</span> [<span class="mi">0</span>.<span class="mi">32171</span> <span class="nv">s</span>]
+[<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutants</span> <span class="nv">generation</span> <span class="nv">and</span> <span class="nv">execution</span>:
+   <span class="o">-</span> [#   <span class="mi">1</span>] <span class="nv">COD</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11618</span> <span class="nv">s</span>] <span class="nv">incompetent</span>
+   <span class="o">-</span> [#   <span class="mi">2</span>] <span class="nv">COD</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11565</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_out_of_range</span>
+   <span class="o">-</span> [#   <span class="mi">3</span>] <span class="nv">COI</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11298</span> <span class="nv">s</span>] <span class="nv">incompetent</span>
+   <span class="o">-</span> [#   <span class="mi">4</span>] <span class="nv">COI</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11256</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_out_of_range</span>
+   <span class="o">-</span> [#   <span class="mi">5</span>] <span class="nv">COI</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11287</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_out_of_range</span>
+   <span class="o">-</span> [#   <span class="mi">6</span>] <span class="nv">CRP</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11643</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_correct</span>
+   <span class="o">-</span> [#   <span class="mi">7</span>] <span class="nv">CRP</span> <span class="nv">numbers_to_dec</span>: 
+<span class="o">--------------------------------------------------------------------------------</span>
+  <span class="mi">14</span>:     <span class="s2">&quot;&quot;&quot;</span>
+  <span class="mi">15</span>:     <span class="k">for</span> <span class="nv">num</span> <span class="nv">in</span> <span class="nv">nums</span>:
+  <span class="mi">16</span>:         <span class="k">if</span> <span class="ss">(</span><span class="nv">isinstance</span><span class="ss">(</span><span class="nv">num</span>, <span class="nv">bool</span><span class="ss">)</span> <span class="nv">or</span> <span class="nv">not</span> <span class="ss">(</span><span class="nv">isinstance</span><span class="ss">(</span><span class="nv">num</span>, <span class="nv">int</span><span class="ss">)))</span>:
+  <span class="mi">17</span>:             <span class="nv">raise</span> <span class="nv">TypeError</span>
+<span class="o">-</span> <span class="mi">18</span>:         <span class="nv">elif</span> <span class="nv">not</span> <span class="ss">(</span><span class="nv">num</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">0</span>, <span class="mi">10</span><span class="ss">))</span>:
+<span class="o">+</span> <span class="mi">18</span>:         <span class="nv">elif</span> <span class="nv">not</span> <span class="ss">(</span><span class="nv">num</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">0</span>, <span class="mi">11</span><span class="ss">))</span>:
+  <span class="mi">19</span>:             <span class="nv">raise</span> <span class="nv">ValueError</span>
+  <span class="mi">20</span>:
+  <span class="mi">21</span>:     <span class="k">return</span> <span class="nv">int</span><span class="ss">(</span><span class="s1">&#39;&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">map</span><span class="ss">(</span><span class="nv">str</span>, <span class="nv">nums</span><span class="ss">)))</span>
+<span class="o">--------------------------------------------------------------------------------</span>
+[<span class="mi">0</span>.<span class="mi">11324</span> <span class="nv">s</span>] <span class="nv">survived</span>
+
+   <span class="o">-</span> [#   <span class="mi">8</span>] <span class="nv">CRP</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">13675</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_correct</span>
+   <span class="o">-</span> [#   <span class="mi">9</span>] <span class="nv">LCR</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11509</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_wrong_type</span>
+[<span class="o">*</span>] <span class="nv">Mutation</span> <span class="nv">score</span> [<span class="mi">1</span>.<span class="mi">50227</span> <span class="nv">s</span>]: <span class="mi">85</span>.<span class="mi">7</span><span class="o">%</span>
+   <span class="o">-</span> <span class="nv">all</span>: <span class="mi">9</span>
+   <span class="o">-</span> <span class="nv">killed</span>: <span class="mi">6</span> <span class="ss">(</span><span class="mi">66</span>.<span class="mi">7</span><span class="o">%</span><span class="ss">)</span>
+   <span class="o">-</span> <span class="nv">survived</span>: <span class="mi">1</span> <span class="ss">(</span><span class="mi">11</span>.<span class="mi">1</span><span class="o">%</span><span class="ss">)</span>
+   <span class="o">-</span> <span class="nv">incompetent</span>: <span class="mi">2</span> <span class="ss">(</span><span class="mi">22</span>.<span class="mi">2</span><span class="o">%</span><span class="ss">)</span>
+   <span class="o">-</span> <span class="nb">timeout</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
+</pre></div>
+
+
+<p><a name="killing-mutants"></a></p>
+<h2>Killing Mutants</h2>
+<p>The third section of the output gives us all the information we need to start killing mutants, but it can be confusing.</p>
+<p>Let's break down a few lines to see what each part means, and which parts are relevant to killing mutants.</p>
+<p><code>- [#   1] COD numbers_to_dec: [0.11618 s] incompetent</code></p>
+<ul>
+<li>
+<p><code>[#   1]</code> is the mutation number. It identifies the mutation and allows you to rerun Mut.py with only that mutation to make debugging faster, using the <code>--mutation-number MUTATION_NUMBER</code> flag.</p>
+</li>
+<li>
+<p><code>COD</code> is the mutation operator. It stands for “conditional operator deletion.” The mutation operator tells you what Mut.py did to mutate the code. The full list of mutation operators can be found in the readme.</p>
+</li>
+<li>
+<p><code>numbers_to_dec</code> is the module being mutated.</p>
+</li>
+<li>
+<p><code>[0.11618 s]</code> is how long the tests took for this mutation. Sometimes, a mutation will result in an infinite loop, or otherwise cause the tests to take a long time. Mut.py tracks the time for each mutation and compares it to the baseline tests it ran before mutations started, so it can detect and end tests that take much longer than the baseline.</p>
+</li>
+<li>
+<p><code>incompetent</code> is the result of the mutation. More on this later!</p>
+</li>
+</ul>
+<hr>
+<p><code>- [#   2] COD numbers_to_dec: [0.11565 s] killed by test_numbers_to_dec.py::test_out_of_range</code></p>
+<p>This is an example of a mutation that was killed. It includes the test module and the specific function from that module which killed the mutant. So, what that means is that<code>test_out_of_range</code> was the first test to fail.</p>
+<p>Note that both this mutation and the previous one would normally print out more information, but PyBites shortens the output to make it clearer. You don't need the extra information for these mutations because they're already done. However, if you run the same command locally, the output will be much more verbose.</p>
+<hr>
+<p><code>- [#   7] CRP numbers_to_dec: … [0.11324 s] survived</code></p>
+<p>Here's a mutant that survived.</p>
+<p>It contains the same information the other mutants do, as well as outputting the diff that shows the exact change that was made. The line starting with <code>- 18:</code> is the original code, and the line starting with <code>+ 18:</code> is the mutation. The rest is just there for context. In this case, we can see that Mut.py replaced the constant <code>10</code> with <code>11</code>.</p>
+<p>With this information, we have what we need to make a test that fails. The test has to make sure that the <code>range</code> doesn't change. Doing that can be tricky, and a lot of people have struggled with this particular mutant.
+s
+In order to make sure it doesn't change at all, you have to know what it does. This is one of the benefits of testing with Mut.py, as I mentioned above: it forces you to think: what exactly does this code do? Then: how do I test this code to make sure it does exactly what it is supposed to do?</p>
+<p>Pretty useful questions!</p>
+<p><a name="summary-of-results"></a></p>
+<h2>Summary of Results</h2>
+<p>The final section summarizes the results, telling us how many mutations there were and the percentage that didn't survive. There are also four ways a mutation can be categorized: killed, survived, incompetent, or timeout.</p>
+<p>In this case, 6 mutants were killed, 1 survived, 2 were incompetent, and 0 timed out. Keeping in mind that the goal of your tests is to fail when a mutant is applied, here's an explanation of the categories. We already talked about the <strong>killed</strong>, <strong>survived</strong>, and <strong>incompetent</strong> categories, so that just leaves...</p>
+<p><strong>Timeout</strong> mutants took too long to run. The cutoff is at 10x longer than the baseline of how long the tests took to run on the unmutated code, so probably what happened is that a loop got broken and started going for infinity or just taking way longer. These ones don't count against us.</p>
+<p><a name="typical-workflow"></a></p>
+<h1>Typical workflow</h1>
+<ol>
+<li>
+<p>Write code. (Doesn't apply to PyBites test bites -- the code is already written!)</p>
+</li>
+<li>
+<p>Write tests.</p>
+</li>
+<li>
+<p>Run mut.py.</p>
+</li>
+<li>
+<p>Focus on a mutation that survived.</p>
+</li>
+<li>
+<p>Write/modify a test to fail when the mutation is applied.</p>
+</li>
+<li>
+<p>Repeat 3-5 until all mutations are killed.</p>
+</li>
+</ol>
+<p><a name="tips"></a></p>
+<h1>Tips for Completing Test Bites</h1>
+<p>Some mutants can be particularly, frustratingly stubborn! Sometimes the best thing to do is to step away from the problem for a while and come back to it later. When that doesn't work, here are some tips to help:</p>
+<ul>
+<li>
+<p>Think about these questions:</p>
+<ul>
+<li>
+<p>“What exactly does this line of code do?”</p>
+</li>
+<li>
+<p>“In what way does this mutation change what this line of code does?”</p>
+</li>
+<li>
+<p>“How can I write a test that passes for the original line of code, but fails when it is mutated?”</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Refresh your memory about how mutation testing works. The process can be especially confusing when you're testing that the code raises errors when it's supposed to, like in the example from Bite 241. You have to write a test that causes the code to fail and the test to pass in the normal (unmutated) case, but causes the code to pass and the test to fail when mutated. Thinking through the workflow may help keep things straight.</p>
+</li>
+<li>
+<p>Ask for help on the <a href="https://pybit.es/pages/community.html">PyBites Slack channel</a> (<a href="https://pybites.slack.com/archives/CB387MV44">#pytest channel</a>). There's almost always someone around who will be willing to help. Knowing when to ask for help is part of the learning process, too!</p>
+</li>
+</ul>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- <a href="pages/guests.html#harrisonmorgan">Harrison</a></p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/guest.html">guest</a>
+      <a href="https://pybit.es/tag/mutpy.html">mutpy</a>
+      <a href="https://pybit.es/tag/pytest.html">pytest</a>
+      <a href="https://pybit.es/tag/coverage.html">coverage</a>
+      <a href="https://pybit.es/tag/bites-of-py.html">bites of py</a>
+      <a href="https://pybit.es/tag/platform.html">platform</a>
+      <a href="https://pybit.es/tag/mutants.html">mutants</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+</body>
+</html>
