@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Julian" />
+<meta name="description" content="In this article I'm going to break down what a function is and how you can use them to be a better coder." />
+<meta name="keywords" content="learning, code, programming, python, functions, beginners">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Introduction to Python Functions"/>
+<meta property="og:description" content="In this article I'm going to break down what a function is and how you can use them to be a better coder."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/python-functions.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-02-11 22:13:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/julian.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="functions"/>
+<meta property="article:tag" content="beginners"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Introduction to Python Functions" />
+<meta name="twitter:description" content="In this article I'm going to break down what a function is and how you can use them to be a better coder." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Introduction to Python Functions</title>
+
+
+</head>
+<body>
+
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
+          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
+          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+          <li><a href="/pages/community.html">Join our Slack</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="python-functions">Introduction to Python Functions</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Tue 11 February 2020 in <a href="https://pybit.es/category/learning.html">Learning</a>
+
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>While seemingly "simple" to comprehend and use, functions can definitely be a bit of a hurdle to overcome when you're new to Python or programming in general.
+In this article I'm going to break down what a function is and how you can use them to be a better coder.</p>
+<h2>What is a function?</h2>
+<p>Straight to the point, I like it.</p>
+<p>Let's just say that a function is a reusable bit of code. It could be a single line of code or it could be many. It'll only have one purpose and it'll do it well.</p>
+<p>Pretty vague right? Well that's kind of unavoidable. When you understand the ideology behind a function, then you'll start to get it.</p>
+<h2>Let's put the FUN in function!</h2>
+<p>Excuse the sub-header, I just had to say it.</p>
+<p>First, let's look at why we need functions. Why do we need reusable bits of code?</p>
+<p>The quickest answer is that it makes repetition easy.</p>
+<p>For a moment, let's replace the word "function" with the word <em>task</em>. Think of a repetitive task that you have in your daily life. How about <em>taking a shower</em>.</p>
+<p>If we break down taking a shower into a series of steps we could say that a shower consists of:</p>
+<ol>
+<li>Turning on the water.</li>
+<li>Using shampoo.</li>
+<li>Using soap.</li>
+<li>Rinsing off.</li>
+<li>Turning off the water.</li>
+</ol>
+<p>If we were to write that in Python code it could look like this:</p>
+<div class="highlight"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned on the water.&quot;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used shampoo.&quot;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used soap.&quot;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Rinsed off.&quot;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned off the water.&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Nice! We have the code to print out the steps or actions required for taking a shower.</p>
+<p>Here's the thing though. What if, as part of a video game a player can choose to "take a shower" when certain things happen? Am I really going to write out the code for taking a shower every single time it's needed? That's five lines of code that I'd have to include for every scenario where they could choose to take a shower.</p>
+<h2>Bring on the fun(ction)!</h2>
+<p>This is why functions are so amazing. We can take those five repetitive steps for taking a shower and wrap them up in a nice little ball to be called whenever needed.</p>
+<p>Here's what a function for taking a shower would look like:</p>
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">take_a_shower</span><span class="p">():</span>
+    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned on the water.&quot;</span><span class="p">)</span>
+    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used shampoo.&quot;</span><span class="p">)</span>
+    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used soap.&quot;</span><span class="p">)</span>
+    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Rinsed off.&quot;</span><span class="p">)</span>
+    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned off the water.&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>To break it down:</p>
+<ol>
+<li>The <code>def</code> is how we indicate we're writing a function.</li>
+<li>We give the function a nice, user friendly name.</li>
+<li>The empty <code>()</code>s allow you to specify any objects/variable you want to pass into the function. We don't need any right now so don't worry about that for now.</li>
+<li>Any code that is considered to be part of our function needs to be indented by 4 spaces. Thus, all of our print statements are in our <code>take_a_shower</code> function.</li>
+</ol>
+<h2>Calling the function</h2>
+<p>We have a <code>take_a_shower</code> function that contains our steps. Now what?</p>
+<p>Well, any time a player chooses to take a shower, we can just <em>call</em> the <code>take_a_shower</code> function and it'll print out our actions for taking a shower. The way to call a function is to just use the function's name:</p>
+<div class="highlight"><pre><span></span><span class="n">take_a_shower</span><span class="p">()</span>
+</pre></div>
+
+
+<p>It makes more sense when you use it. We could add it to a game like this:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">player</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s">stinky</span><span class="s2">&quot;</span>:
+    <span class="nv">take_a_shower</span><span class="ss">()</span>
+<span class="k">else</span>:
+    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">You smell fantastic! Let&#39;s go eat some chocolate!</span><span class="s2">&quot;</span><span class="ss">)</span>
+</pre></div>
+
+
+<p>In this scenario, if the player is stinky, then the game calls the <code>take_a_shower</code> function. Otherwise the player gets to go eat some chocolate.
+When the <code>take_a_shower</code> function is called, it <em>executes</em> the lines of code we put in the function, i.e., our 5 print statements.</p>
+<h2>Simplistic but powerful</h2>
+<p>I know this seems inane and simplistic but I wanted to demonstrate it with something relatable.</p>
+<p>The reality here is we can break down just about anything into chunks and create functions out of them, ready to be called whenever necessary.</p>
+<p>Rather than having a long page of code, try breaking your code up into functions that can be called at any time.</p>
+<p>When you're starting out with Python and creating really basic programs for yourself, some easy functions to create for yourself could include:</p>
+<ul>
+<li>Basic math, e.g.: a + b</li>
+<li>A text menu system for your program</li>
+<li>Collecting user input</li>
+<li>Different aspects/tasks of a text based game</li>
+<li>Randomisation</li>
+<li>Timers</li>
+<li>Date Calculation</li>
+</ul>
+<p>The list is essentially endless but you get the point.</p>
+<h2>Take Action</h2>
+<p>If you're new to Python and functions, go look at any code you've written to date and see how you can <a href="https://pybit.es/refactoring.html"><em>refactor</em></a> your code and use functions instead.</p>
+<p>Once done, leave a comment below and tell us about the functions you created!</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Julian</p>
+<div class="ctaBox">
+    <p>With so many avenues to pursue in Python it can be tough to know what to do. If you're looking for some <strong>direction</strong> or want to take your Python code and career to the next level, <a href="https://go.oncehub.com/pybites" target="_blank">schedule a call with us now</a>. We can helpyou!</p>
+</div>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/code.html">code</a>
+      <a href="https://pybit.es/tag/programming.html">programming</a>
+      <a href="https://pybit.es/tag/python.html">python</a>
+      <a href="https://pybit.es/tag/functions.html">functions</a>
+      <a href="https://pybit.es/tag/beginners.html">beginners</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
+</body>
+</html>
