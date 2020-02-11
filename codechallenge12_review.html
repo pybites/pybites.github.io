@@ -154,42 +154,42 @@
 <ul>
 <li>
 <p>We went for the AI opponent to play against. Not sure if it is unbeatable, but it has some 'intelligence' because it knows when to win, block you or take the next best moves (more on this later). We need to know a score for each position which we calculate by counting the number of times each position is in a winning combination:</p>
-<div class="highlight"><pre><span></span><span class="n">WINNING_COMBINATIONS</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span>WINNING_COMBINATIONS = (
+    (7, 8, 9), (4, 5, 6), (1, 2, 3),
+    (7, 4, 1), (8, 5, 2), (9, 6, 3),
+    (1, 5, 9), (7, 5, 3),
+)
 
-<span class="n">POSITION_VALUES</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span>
-    <span class="n">itertools</span><span class="p">.</span><span class="k">chain</span><span class="p">(</span><span class="o">*</span><span class="n">WINNING_COMBINATIONS</span><span class="p">)</span>
-<span class="p">)</span>
+POSITION_VALUES = Counter(
+    itertools.chain(*WINNING_COMBINATIONS)
+)
 </pre></div>
 
 
 </li>
 <li>
 <p>Like Hangman, you have to keep state, so a class worked best for us and it is important to use a suitable data structure: a list of key numbers in the order of a typical key pad:</p>
-<div class="highlight"><pre><span></span><span class="nv">VALID_POSITIONS</span> <span class="o">=</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">range</span><span class="ss">(</span><span class="mi">1</span>, <span class="mi">10</span><span class="ss">))</span>
-...
+<div class="highlight"><pre><span></span><span class="nx">VALID_POSITIONS</span> <span class="o">=</span> <span class="nx">list</span><span class="p">(</span><span class="nx">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="p">...</span>
 
-<span class="nv">class</span> <span class="nv">TicTacToe</span>:
+<span class="kr">class</span> <span class="nx">TicTacToe</span>:
 
-    <span class="nv">def</span> <span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="nv">self</span>.<span class="nv">board</span> <span class="o">=</span> [<span class="nv">None</span>] <span class="o">+</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">VALID_POSITIONS</span><span class="ss">)</span> <span class="o">*</span> [<span class="nv">DEFAULT</span>]  # <span class="nv">skip</span> <span class="nv">index</span> <span class="mi">0</span>
+    <span class="kt">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">board</span> <span class="o">=</span> <span class="p">[</span><span class="nx">None</span><span class="p">]</span> <span class="o">+</span> <span class="nx">len</span><span class="p">(</span><span class="nx">VALID_POSITIONS</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="nx">DEFAULT</span><span class="p">]</span>  <span class="err">#</span> <span class="nx">skip</span> <span class="nx">index</span> <span class="mi">0</span>
 
-<span class="s1">&#39;&#39;&#39;</span><span class="s">Simple tictactoe game, board positions are like keyboard</span>
-                <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>
-                <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span>
-                <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="s1">&#39;&#39;&#39;Simple tictactoe game, board positions are like keyboard</span>
+<span class="s1">                7 8 9</span>
+<span class="s1">                4 5 6</span>
+<span class="s1">                1 2 3</span>
 <span class="s1">&#39;&#39;&#39;</span>
 
-@<span class="nv">clear_screen</span>
-<span class="nv">def</span> <span class="nv">__str__</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+<span class="kd">@clear_screen</span>
+<span class="nx">def</span> <span class="nx">__str__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
     <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
-        {} <span class="o">|</span> {} <span class="o">|</span> {}
-        {} <span class="o">|</span> {} <span class="o">|</span> {}
-        {} <span class="o">|</span> {} <span class="o">|</span> {}
-    <span class="s1">&#39;&#39;&#39;</span><span class="s">.format(*(self.board[7:] + self.board[4:7] + self.board[1:4]))</span>
+<span class="s1">        {} | {} | {}</span>
+<span class="s1">        {} | {} | {}</span>
+<span class="s1">        {} | {} | {}</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">board</span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="p">]</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">board</span><span class="p">[</span><span class="nx">4</span>:<span class="kt">7</span><span class="p">]</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">board</span><span class="p">[</span><span class="nx">1</span>:<span class="kt">4</span><span class="p">]))</span>
 </pre></div>
 
 
@@ -197,64 +197,64 @@
 </li>
 <li>
 <p>Probably the most important method is to determine if there is a win state. is_win() loops over all winning combinations and if there is not a DEFAULT (_) in the 3 positions and they are of the same ('O' or 'X') we have a win:</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">is_win</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="k">for</span> <span class="nv">combo</span> <span class="nv">in</span> <span class="nv">WINNING_COMBINATIONS</span>:
-        <span class="nv">a</span>, <span class="nv">b</span>, <span class="nv">c</span> <span class="o">=</span> <span class="nv">combo</span>
-        <span class="nv">combo_vals</span> <span class="o">=</span> <span class="nv">set</span><span class="ss">(</span>[<span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">a</span>], <span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">b</span>], <span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">c</span>]]<span class="ss">)</span>
-        <span class="k">if</span> <span class="nv">DEFAULT</span> <span class="nv">not</span> <span class="nv">in</span> <span class="nv">combo_vals</span> <span class="nv">and</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">combo_vals</span><span class="ss">)</span> <span class="o">==</span> <span class="mi">1</span>:
-            <span class="k">return</span> <span class="nv">True</span>
-    <span class="k">return</span> <span class="nv">False</span>
+<div class="highlight"><pre><span></span>def is_win(self):
+    for combo in WINNING_COMBINATIONS:
+        a, b, c = combo
+        combo_vals = set([self.board[a], self.board[b], self.board[c]])
+        if DEFAULT not in combo_vals and len(combo_vals) == 1:
+            return True
+    return False
 </pre></div>
 
 
 </li>
 <li>
 <p>Under main we drive the interface. It is one of the few times we choose a "for / else" construct, which some advice against. However here we liked it because there is a clear use case: if we break out of the for loop we have a win, else we ended performing all max 9 turns/moves, so we enter the for's else = game ends in 'draw'. The advantage of this approach is that we did not have to calculate the 'draw' scenario. We separated computer vs manual into 2 methods: ai_move() and manual_move():</p>
-<div class="highlight"><pre><span></span><span class="k">while</span> <span class="nv">True</span>:
-    <span class="nv">game</span> <span class="o">=</span> <span class="nv">TicTacToe</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>while True:
+    game = TicTacToe()
 
-    <span class="nv">turns</span> <span class="o">=</span> <span class="nv">itertools</span>.<span class="nv">cycle</span><span class="ss">(</span>[<span class="nv">first</span>, <span class="nv">second</span>]<span class="ss">)</span>
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">game</span><span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">_</span> <span class="nv">in</span> <span class="nv">VALID_POSITIONS</span>:
-        <span class="nv">player</span> <span class="o">=</span> <span class="k">next</span><span class="ss">(</span><span class="nv">turns</span><span class="ss">)</span>
-        <span class="k">if</span> <span class="nv">player</span> <span class="o">==</span> <span class="nv">COMPUTER</span>:
-            <span class="nv">game</span>.<span class="nv">ai_move</span><span class="ss">()</span>
-        <span class="k">else</span>:
-            <span class="nv">game</span>.<span class="nv">manual_move</span><span class="ss">()</span>
-        <span class="nv">print</span><span class="ss">(</span><span class="nv">game</span><span class="ss">)</span>
-        <span class="k">if</span> <span class="nv">game</span>.<span class="nv">is_win</span><span class="ss">()</span>:
-            <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Player {} wins</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">player</span><span class="ss">))</span>
-            <span class="k">break</span>
-    <span class="k">else</span>:  # <span class="k">for</span> <span class="o">/</span> <span class="k">else</span> <span class="nv">is</span> <span class="nv">frowned</span> <span class="nv">upon</span>, <span class="nv">I</span> <span class="k">do</span> <span class="nv">like</span> <span class="nv">it</span> <span class="nv">here</span> <span class="nv">though</span><span class="o">!</span>
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Draw</span><span class="s1">&#39;</span><span class="ss">)</span>
+    turns = itertools.cycle([first, second])
+    print(game)
+    for _ in VALID_POSITIONS:
+        player = next(turns)
+        if player == COMPUTER:
+            game.ai_move()
+        else:
+            game.manual_move()
+        print(game)
+        if game.is_win():
+            print(&#39;Player {} wins&#39;.format(player))
+            break
+    else:  # for / else is frowned upon, I do like it here though!
+        print(&#39;Draw&#39;)
 </pre></div>
 
 
 </li>
 <li>
 <p>The AI bit was the most interesting part. We went not as far as the full 8 steps in <a href="https://en.wikipedia.org/wiki/Tic-tac-toe#Strategy">tictactoe's strategy</a>, yet this will give you a bit of challenge. The computer checks first if it can win (end) the game, then if the player can win, if so prevent (block) that. If none of these two situations, it takes the best next move based on the before mentioned POSITION_VALUES which is a counter so its most_common() method returns most valuable positions first. Splitting this in multiple methods makes it easier maintainable.</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">ai_move</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="nv">self</span>.<span class="nv">_win_or_block</span><span class="ss">()</span> <span class="nv">or</span> <span class="nv">self</span>.<span class="nv">_take_best_next_free_pos</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>def ai_move(self):
+    self._win_or_block() or self._take_best_next_free_pos()
 
-<span class="nv">def</span> <span class="nv">_win_or_block</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="k">for</span> <span class="nv">combo</span> <span class="nv">in</span> <span class="nv">WINNING_COMBINATIONS</span>:
-        <span class="nv">a</span>, <span class="nv">b</span>, <span class="nv">c</span> <span class="o">=</span> <span class="nv">combo</span>
-        <span class="nv">combo_vals</span> <span class="o">=</span> [<span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">a</span>], <span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">b</span>], <span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">c</span>]]
-        # <span class="nv">can</span> <span class="nv">only</span> <span class="nv">use</span> <span class="nv">unitiated</span> <span class="nv">positions</span>
-        <span class="k">if</span> <span class="nv">DEFAULT</span> <span class="nv">not</span> <span class="nv">in</span> <span class="nv">combo_vals</span>:
-            <span class="k">continue</span>
-        <span class="k">if</span> <span class="nv">combo_vals</span>.<span class="nv">count</span><span class="ss">(</span><span class="nv">COMPUTER</span><span class="ss">)</span> <span class="o">==</span> <span class="mi">2</span>:
-            <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_update_board</span><span class="ss">(</span><span class="nv">combo</span>, <span class="nv">combo_vals</span><span class="ss">)</span>
-        <span class="k">if</span> <span class="nv">combo_vals</span>.<span class="nv">count</span><span class="ss">(</span><span class="nv">PLAYER</span><span class="ss">)</span> <span class="o">==</span> <span class="mi">2</span>:
-            <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_update_board</span><span class="ss">(</span><span class="nv">combo</span>, <span class="nv">combo_vals</span><span class="ss">)</span>
-    <span class="k">return</span> <span class="nv">False</span>
+def _win_or_block(self):
+    for combo in WINNING_COMBINATIONS:
+        a, b, c = combo
+        combo_vals = [self.board[a], self.board[b], self.board[c]]
+        # can only use unitiated positions
+        if DEFAULT not in combo_vals:
+            continue
+        if combo_vals.count(COMPUTER) == 2:
+            return self._update_board(combo, combo_vals)
+        if combo_vals.count(PLAYER) == 2:
+            return self._update_board(combo, combo_vals)
+    return False
 
-<span class="nv">def</span> <span class="nv">_take_best_next_free_pos</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="k">for</span> <span class="nv">pos</span>, <span class="nv">_</span> <span class="nv">in</span> <span class="nv">POSITION_VALUES</span>.<span class="nv">most_common</span><span class="ss">()</span>:
-        <span class="k">if</span> <span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">pos</span>] <span class="o">==</span> <span class="nv">DEFAULT</span>:
-            <span class="nv">self</span>.<span class="nv">board</span>[<span class="nv">pos</span>] <span class="o">=</span> <span class="nv">COMPUTER</span>
-            <span class="k">return</span> <span class="nv">True</span>
-    <span class="k">return</span> <span class="nv">False</span>
+def _take_best_next_free_pos(self):
+    for pos, _ in POSITION_VALUES.most_common():
+        if self.board[pos] == DEFAULT:
+            self.board[pos] = COMPUTER
+            return True
+    return False
 </pre></div>
 
 

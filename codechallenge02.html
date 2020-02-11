@@ -157,11 +157,11 @@
 </blockquote>
 <h3>Given a random set of 7 letters build the most valuable word</h3>
 <p>Using what we've learned <a href="http://pybit.es/codechallenge01.html">the last challenge</a> this week we build a simple Scrabble-like game (without board):</p>
-<div class="highlight"><pre><span></span><span class="n">Letters</span> <span class="n">drawn</span><span class="p">:</span> <span class="k">G</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">V</span>
-<span class="n">Form</span> <span class="n">a</span> <span class="k">valid</span> <span class="n">word</span><span class="p">:</span> <span class="n">gary</span>  <span class="o">&lt;&lt;</span> <span class="k">user</span> <span class="k">input</span>
-<span class="n">Word</span> <span class="n">chosen</span><span class="p">:</span> <span class="n">GARY</span> <span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="mi">8</span><span class="p">)</span>
-<span class="n">Optimal</span> <span class="n">word</span> <span class="n">possible</span><span class="p">:</span> <span class="n">GARVEY</span> <span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="mi">13</span><span class="p">)</span>
-<span class="n">You</span> <span class="n">scored</span><span class="p">:</span> <span class="mi">61</span><span class="p">.</span><span class="mi">5</span>
+<div class="highlight"><pre><span></span>Letters drawn: G, A, R, Y, T, E, V
+Form a valid word: gary  &lt;&lt; user input
+Word chosen: GARY (value: 8)
+Optimal word possible: GARVEY (value: 13)
+You scored: 61.5
 </pre></div>
 
 
@@ -172,12 +172,12 @@
 
 
 <p>If you already forked it <a href="https://help.github.com/articles/syncing-a-fork/">sync it</a>:</p>
-<div class="highlight"><pre><span></span># <span class="nv">assuming</span> <span class="nv">using</span> <span class="nv">ssh</span> <span class="nv">key</span>
-$ <span class="nv">git</span> <span class="nv">remote</span> <span class="nv">add</span> <span class="nv">upstream</span> <span class="nv">git</span>@<span class="nv">github</span>.<span class="nv">com</span>:<span class="nv">pybites</span><span class="o">/</span><span class="nv">challenges</span>.<span class="nv">git</span> 
-$ <span class="nv">git</span> <span class="nv">fetch</span> <span class="nv">upstream</span>
-# <span class="k">if</span> <span class="nv">not</span> <span class="nv">on</span> <span class="nv">master</span>: 
-$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">master</span> 
-$ <span class="nv">git</span> <span class="nv">merge</span> <span class="nv">upstream</span><span class="o">/</span><span class="nv">master</span>
+<div class="highlight"><pre><span></span># assuming using ssh key
+$ git remote add upstream git@github.com:pybites/challenges.git 
+$ git fetch upstream
+# if not on master: 
+$ git checkout master 
+$ git merge upstream/master
 </pre></div>
 
 
@@ -202,16 +202,16 @@ $ cp game-TEMPLATE.py game.py
 <li>
 <p>Draw 7 random letters from POUCH.</p>
 <p>As said POUCH is given and contains a distribution of Scrabble letters so that the player gets enough vowels (equally drawing A-Z makes it extremely hard because you need more vowels to make words):</p>
-<div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span>
-<span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="p">...]</span>
+<div class="highlight"><pre><span></span>[&#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;, &#39;C&#39;, &#39;C&#39;,
+&#39;D&#39;, &#39;D&#39;, &#39;D&#39;, &#39;D&#39;, ...]
 </pre></div>
 
 
 </li>
 <li>
 <p>Ask the player to form a word with one or more of the 7 letters of the draw. Validate input for:</p>
-<div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="k">all</span> <span class="n">letters</span> <span class="k">of</span> <span class="n">word</span> <span class="k">are</span> <span class="k">in</span> <span class="n">draw</span><span class="p">;</span>
-<span class="mi">2</span><span class="p">)</span> <span class="n">word</span> <span class="k">is</span> <span class="k">in</span> <span class="k">DICTIONARY</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>1) all letters of word are in draw;
+2) word is in DICTIONARY.
 </pre></div>
 
 

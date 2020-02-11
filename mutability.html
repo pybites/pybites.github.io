@@ -162,105 +162,105 @@
 </ul>
 </blockquote>
 <p>In our API exercise app.items was a list of dicts, so I needed deepcopy:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">setUp</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">backup_items</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">app</span><span class="p">.</span><span class="n">items</span><span class="p">)</span>  
-    <span class="p">...</span>
+<div class="highlight"><pre><span></span>def setUp(self):
+    self.backup_items = deepcopy(app.items)  
+    ...
 
-<span class="p">...</span>
+...
 
-<span class="n">def</span> <span class="n">tearDown</span><span class="p">(</span><span class="k">self</span><span class="p">):</span>
-    <span class="o">#</span> <span class="k">reset</span> <span class="n">app</span><span class="p">.</span><span class="n">items</span> <span class="k">to</span> <span class="n">initial</span> <span class="k">state</span>
-    <span class="n">app</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="k">self</span><span class="p">.</span><span class="n">backup_items</span>
+def tearDown(self):
+    # reset app.items to initial state
+    app.items = self.backup_items
 </pre></div>
 
 
 <p>I even ended up adding a test in <a href="https://github.com/pybites/blog_code/blob/master/flaskapi/test_app.py">the <em>test_update</em> method</a> to make sure the backup did not get corrupted:</p>
-<div class="highlight"><pre><span></span>..
-..
-<span class="nv">self</span>.<span class="nv">assertEqual</span><span class="ss">(</span><span class="nv">data</span>[<span class="s1">&#39;</span><span class="s">item</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>], <span class="mi">30</span><span class="ss">)</span>
-# <span class="nv">proof</span> <span class="nv">need</span> <span class="k">for</span> <span class="nv">deepcopy</span> <span class="nv">in</span> <span class="nv">setUp</span>: <span class="nv">update</span> <span class="nv">app</span>.<span class="nv">items</span> <span class="nv">should</span> <span class="nv">not</span> <span class="nv">affect</span> <span class="nv">self</span>.<span class="nv">backup_items</span>
-# <span class="nv">this</span> <span class="nv">fails</span> <span class="nv">when</span> <span class="nv">you</span> <span class="nv">use</span> <span class="nv">shallow</span> <span class="nv">copy</span>
-<span class="nv">self</span>.<span class="nv">assertEqual</span><span class="ss">(</span><span class="nv">self</span>.<span class="nv">backup_items</span>[<span class="mi">2</span>][<span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>], <span class="mi">20</span><span class="ss">)</span>  # <span class="mi">20</span> <span class="o">==</span> <span class="nv">org</span> <span class="nv">value</span>
+<div class="highlight"><pre><span></span><span class="cp">..</span>
+<span class="cp">..</span>
+self.assertEqual(data[&#39;item&#39;][&#39;value&#39;], 30)
+# proof need for deepcopy in setUp: update app.items should not affect self.backup_items
+# this fails when you use shallow copy
+self.assertEqual(self.backup_items[2][&#39;value&#39;], 20)  # 20 == org value
 </pre></div>
 
 
 <p>See REPL output to clarify this further: </p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span> <span class="o">=</span> [
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; items = [
 ...     {
-...         <span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">1</span>,
-...         <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>,
-...         <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>
+...         &#39;id&#39;: 1,
+...         &#39;name&#39;: &#39;laptop&#39;,
+...         &#39;value&#39;: 1000
 ...     },
 ...     {
-...         <span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>,
-...         <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>,
-...         <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>,
+...         &#39;id&#39;: 2,
+...         &#39;name&#39;: &#39;chair&#39;,
+...         &#39;value&#39;: 300,
 ...     },
 ...     {
-...         <span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>,
-...         <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>,
-...         <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>,
+...         &#39;id&#39;: 3,
+...         &#39;name&#39;: &#39;book&#39;,
+...         &#39;value&#39;: 20,
 ...     },
 ... ]
 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">1</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span> <span class="o">=</span> <span class="nv">items</span>[:]  # <span class="nv">shallow</span> <span class="nv">copy</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">1</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span> <span class="o">==</span> <span class="nv">items</span>
-<span class="nv">True</span>
+&gt;&gt;&gt; items
+[{&#39;id&#39;: 1, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
+&gt;&gt;&gt; items2 = items[:]  # shallow copy
+&gt;&gt;&gt; items2
+[{&#39;id&#39;: 1, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
+&gt;&gt;&gt; items2 == items
+True
 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>[<span class="mi">0</span>][<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>] <span class="o">=</span> <span class="mi">5</span>
-# <span class="nv">oops</span> <span class="nv">the</span> <span class="nv">items2</span> <span class="nv">copy</span> <span class="nv">got</span> <span class="nv">updated</span> <span class="nv">as</span> <span class="nv">well</span><span class="o">!</span>
-# <span class="o">-&gt;</span> <span class="nv">id</span> <span class="nv">of</span> <span class="nv">first</span> <span class="nv">item</span> <span class="nv">got</span> <span class="nv">corrupted</span> <span class="ss">(</span><span class="mi">5</span> <span class="o">!=</span> <span class="mi">1</span><span class="ss">)</span>
+&gt;&gt;&gt; items[0][&#39;id&#39;] = 5
+# oops the items2 copy got updated as well!
+# -&gt; id of first item got corrupted (5 != 1)
 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span> <span class="o">==</span> <span class="nv">items</span>
-<span class="nv">True</span>
+&gt;&gt;&gt; items2 == items
+True
 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span>  
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">5</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">5</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
+&gt;&gt;&gt; items2  
+[{&#39;id&#39;: 5, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
+&gt;&gt;&gt; items
+[{&#39;id&#39;: 5, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
 
-# <span class="nv">same</span> <span class="k">for</span> <span class="nv">copying</span> <span class="nv">with</span> <span class="nv">list</span> <span class="nv">constructor</span>, <span class="nv">another</span> <span class="nv">shallow</span> <span class="nv">copy</span> <span class="nv">it</span> <span class="nv">turns</span> <span class="nv">out</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span> <span class="o">=</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">items</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span> <span class="o">==</span> <span class="nv">items</span>
-<span class="nv">True</span>
+# same for copying with list constructor, another shallow copy it turns out
+&gt;&gt;&gt; items2 = list(items)
+&gt;&gt;&gt; items2 == items
+True
 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">5</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">5</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
+&gt;&gt;&gt; items
+[{&#39;id&#39;: 5, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
+&gt;&gt;&gt; items2
+[{&#39;id&#39;: 5, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>[<span class="mi">0</span>][<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>] <span class="o">=</span> <span class="mi">6</span>
+&gt;&gt;&gt; items[0][&#39;id&#39;] = 6
 
-# <span class="nv">oops</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span> <span class="o">==</span> <span class="nv">items</span>
-<span class="nv">True</span>
+# oops
+&gt;&gt;&gt; items2 == items
+True
 
-# <span class="nv">again</span> <span class="nv">both</span> <span class="nv">data</span> <span class="nv">structures</span><span class="s1">&#39;</span><span class="s"> first item were updated</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">6</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">6</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
+# again both data structures&#39; first item were updated
+&gt;&gt;&gt; items
+[{&#39;id&#39;: 6, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
+&gt;&gt;&gt; items2
+[{&#39;id&#39;: 6, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
 
-# <span class="nv">now</span> <span class="nv">the</span> <span class="nv">right</span> <span class="nv">way</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">from</span> <span class="nv">copy</span> <span class="nv">import</span> <span class="nv">deepcopy</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span> <span class="o">=</span> <span class="nv">deepcopy</span><span class="ss">(</span><span class="nv">items</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span> <span class="o">==</span> <span class="nv">items2</span>
-<span class="nv">True</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>[<span class="mi">0</span>][<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>] <span class="o">=</span> <span class="mi">7</span>
+# now the right way
+&gt;&gt;&gt; from copy import deepcopy
+&gt;&gt;&gt; items2 = deepcopy(items)
+&gt;&gt;&gt; items == items2
+True
+&gt;&gt;&gt; items[0][&#39;id&#39;] = 7
 
-# <span class="nv">cool</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span> <span class="o">==</span> <span class="nv">items2</span>
-<span class="nv">False</span>
+# cool
+&gt;&gt;&gt; items == items2
+False
 
-# <span class="nv">backup</span> <span class="nv">items2</span> <span class="nv">intact</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">7</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">items2</span>
-[{<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">6</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">laptop</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">1000</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">2</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">chair</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">300</span>}, {<span class="s1">&#39;</span><span class="s">id</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">name</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">book</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>: <span class="mi">20</span>}]<span class="nv">i</span>
+# backup items2 intact
+&gt;&gt;&gt; items
+[{&#39;id&#39;: 7, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]
+&gt;&gt;&gt; items2
+[{&#39;id&#39;: 6, &#39;name&#39;: &#39;laptop&#39;, &#39;value&#39;: 1000}, {&#39;id&#39;: 2, &#39;name&#39;: &#39;chair&#39;, &#39;value&#39;: 300}, {&#39;id&#39;: 3, &#39;name&#39;: &#39;book&#39;, &#39;value&#39;: 20}]i
 </pre></div>
 
 

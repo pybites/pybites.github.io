@@ -171,10 +171,10 @@
 
 
 <p>Let's get the images we will use for our banner.</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">mkdir</span> <span class="n">assets</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">_</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pybit</span><span class="p">.</span><span class="n">es</span><span class="o">/</span><span class="n">theme</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">page</span><span class="err">{</span><span class="o">-</span><span class="n">challenges</span><span class="p">.</span><span class="n">png</span><span class="err">}</span> <span class="o">-</span><span class="n">o</span> <span class="ss">&quot;pybites#1&quot;</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pbs</span><span class="p">.</span><span class="n">twimg</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">profile_images</span><span class="o">/</span><span class="mi">510760404411109380</span><span class="o">/</span><span class="n">wDGjWJxk</span><span class="p">.</span><span class="n">png</span> <span class="o">-</span><span class="n">o</span> <span class="n">pillow</span><span class="o">-</span><span class="n">logo</span><span class="p">.</span><span class="n">png</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">cd</span> <span class="p">..</span>
+<div class="highlight"><pre><span></span>(venv) $ mkdir assets &amp;&amp; cd _
+(venv) $ curl https://pybit.es/theme/img/page{-challenges.png} -o &quot;pybites#1&quot;
+(venv) $ curl https://pbs.twimg.com/profile_images/510760404411109380/wDGjWJxk.png -o pillow-logo.png
+(venv) $ cd ..
 </pre></div>
 
 
@@ -213,15 +213,15 @@
 <h2>Step 2. - add a second image</h2>
 <p>The second image is the Pillow logo. But the original is 442 × 442. Let's resize it. One way is to calculate it, <a href="https://github.com/pybites/100DaysOfCode/blob/master/074/text_on_image.py">like I did last time</a>. Another way is using the <code>thumbnail</code> method as I found <a href="https://stackoverflow.com/questions/2232742/does-python-pil-resize-maintain-the-aspect-ratio">on this SO thread</a>.</p>
 <p>The offset of this second image gets calculated so it should still work if one day I decide to change the canvas or Pybites logo image sizes.</p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
+<div class="highlight"><pre><span></span>...
 
-<span class="n">second_img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="n">PILLOW_IMG</span><span class="p">)</span>
-<span class="n">second_img</span><span class="p">.</span><span class="n">thumbnail</span><span class="p">(</span><span class="n">pb_logo</span><span class="p">.</span><span class="k">size</span><span class="p">,</span> <span class="n">Image</span><span class="p">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
+second_img = Image.open(PILLOW_IMG)
+second_img.thumbnail(pb_logo.size, Image.ANTIALIAS)
 
-<span class="n">offset_second_img</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_WIDTH</span> <span class="o">-</span> <span class="n">pb_logo_width</span><span class="p">,</span> <span class="n">DEFAULT_TOP_MARGIN</span><span class="p">)</span>
-<span class="n">image</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">second_img</span><span class="p">,</span> <span class="n">offset_second_img</span><span class="p">)</span>
+offset_second_img = (DEFAULT_WIDTH - pb_logo_width, DEFAULT_TOP_MARGIN)
+image.paste(second_img, offset_second_img)
 
-<span class="p">...</span>
+...
 </pre></div>
 
 
@@ -234,21 +234,21 @@
 <p><code>ImageFont.truetype</code> lets you work with nice fonts so let's get a <a href="https://en.wikipedia.org/wiki/TrueType">TrueType</a> file. </p>
 <p>I used <a href="https://www.fontsquirrel.com/">Font Squirrel</a> and downloaded <a href="https://www.fontsquirrel.com/fonts/list/find_fonts?q%5Bterm%5D=ubuntu&amp;q%5Bsearch_check%5D=Y">Ubuntu</a> and <a href="https://www.fontsquirrel.com/fonts/source-sans-pro?q%5Bterm%5D=source+sans+pro&amp;q%5Bsearch_check%5D=Y">Source Sans Pro</a> (latter we use on our blog). I included both in the <code>assets</code> folder.</p>
 <p>Add this code:</p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="n">BLACK</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">TEXT_FONT_TYPE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">ASSET_DIR</span><span class="p">,</span> <span class="s1">&#39;SourceSansPro-Regular.otf&#39;</span><span class="p">)</span>
-<span class="n">TEXT_SIZE</span> <span class="o">=</span> <span class="mi">24</span>
-<span class="n">TEXT_PADDING_HOR</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">TEXT_PADDING_VERT</span> <span class="o">=</span> <span class="mi">40</span>
-<span class="n">IMG_TEXT</span> <span class="o">=</span> <span class="s1">&#39;Code Challenge 31:\nImage Manipulation With Pillow&#39;</span>
+<div class="highlight"><pre><span></span>...
+BLACK = (0, 0, 0)
+TEXT_FONT_TYPE = Path(ASSET_DIR, &#39;SourceSansPro-Regular.otf&#39;)
+TEXT_SIZE = 24
+TEXT_PADDING_HOR = 20
+TEXT_PADDING_VERT = 40
+IMG_TEXT = &#39;Code Challenge 31:\nImage Manipulation With Pillow&#39;
 
-<span class="p">...</span>
+...
 
-<span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="p">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="p">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">TEXT_FONT_TYPE</span><span class="p">,</span> <span class="n">TEXT_SIZE</span><span class="p">)</span>
-<span class="n">offset_text</span> <span class="o">=</span> <span class="p">(</span><span class="n">pb_logo_width</span> <span class="o">+</span> <span class="n">TEXT_PADDING_HOR</span><span class="p">,</span> <span class="n">TEXT_PADDING_VERT</span><span class="p">)</span>
-<span class="n">draw</span><span class="p">.</span><span class="nb">text</span><span class="p">(</span><span class="n">offset_text</span><span class="p">,</span> <span class="n">IMG_TEXT</span><span class="p">,</span> <span class="n">BLACK</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="p">...</span>
+draw = ImageDraw.Draw(image)
+font = ImageFont.truetype(TEXT_FONT_TYPE, TEXT_SIZE)
+offset_text = (pb_logo_width + TEXT_PADDING_HOR, TEXT_PADDING_VERT)
+draw.text(offset_text, IMG_TEXT, BLACK, font=font)
+...
 </pre></div>
 
 
@@ -260,9 +260,9 @@
 <ol>
 <li>
 <p>I added a simple CLI interface (just <code>sys.argv</code>, use <code>argparse</code> or <code>click</code> if you need more inputs). You can now run it like: </p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">python</span> <span class="n">banner</span><span class="p">.</span><span class="n">py</span>
-<span class="k">Usage</span><span class="p">:</span> <span class="n">banner</span><span class="p">.</span><span class="n">py</span> <span class="n">img1</span> <span class="n">img2</span> <span class="nb">text</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">python</span> <span class="n">banner</span><span class="p">.</span><span class="n">py</span> <span class="n">assets</span><span class="o">/</span><span class="n">pybites</span><span class="o">-</span><span class="n">challenges</span><span class="p">.</span><span class="n">png</span> <span class="n">assets</span><span class="o">/</span><span class="n">pillow</span><span class="o">-</span><span class="n">logo</span><span class="p">.</span><span class="n">png</span> <span class="err">$</span><span class="s1">&#39;Code Challenge 31:\nImage Manipulation With Pillow&#39;</span>
+<div class="highlight"><pre><span></span>(venv) $ python banner.py
+Usage: banner.py img1 img2 text
+(venv) $ python banner.py assets/pybites-challenges.png assets/pillow-logo.png $&#39;Code Challenge 31:\nImage Manipulation With Pillow&#39;
 </pre></div>
 
 
