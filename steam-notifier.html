@@ -171,8 +171,8 @@
 <h2>pull_xml.py</h2>
 <p>We’ll attack this in executional order. First up is <code>pull_xml.py</code>.</p>
 <p>This is a very simple <code>requests</code> pull. It requests the newreleases.xml file from Steam and saves the contents to the local directory. The main thing to note in the code is the <code>wb</code> open mode:</p>
-<div class="highlight"><pre><span></span>with open(&#39;newreleases.xml&#39;, &#39;wb&#39;) as f:
-    f.write(r.content)
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="k">open</span><span class="p">(</span><span class="s1">&#39;newreleases.xml&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
 </pre></div>
 
 
@@ -181,41 +181,41 @@
 <h2>xml_steam_scraper.py</h2>
 <p>Now for the meat. I’ll cover the noteworthy parts as it should hopefully help anyone learning Python.</p>
 <p><br></p>
-<div class="highlight"><pre><span></span>Game = namedtuple(&#39;Game&#39;, &#39;title url&#39;)
+<div class="highlight"><pre><span></span><span class="n">Game</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Game&#39;</span><span class="p">,</span> <span class="s1">&#39;title url&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Here we have a <code>namedtuple</code> from the <code>collections</code> module. Read this <a href="https://docs.python.org/3/library/collections.html#collections.namedtuple">docs.python doc</a> if you’re new to these. Essentially we’re creating a tuple subclass named <code>Game</code>. It has two fields associated with it: <code>title</code> and <code>url</code> (more on this later).</p>
 <p><br></p>
-<div class="highlight"><pre><span></span>def check_create_db():
-    with sqlite3.connect(DB_NAME) as connection:
-        c = connection.cursor()
-        try:
-            c.execute(&quot;&quot;&quot;CREATE TABLE new_steam_games
-                (Name TEXT, Link TEXT, Emailed TEXT)
-                    &quot;&quot;&quot;)        
-        except:
-            pass
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">check_create_db</span><span class="ss">()</span>:
+    <span class="nv">with</span> <span class="nv">sqlite3</span>.<span class="k">connect</span><span class="ss">(</span><span class="nv">DB_NAME</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">connection</span>:
+        <span class="nv">c</span> <span class="o">=</span> <span class="nv">connection</span>.<span class="nv">cursor</span><span class="ss">()</span>
+        <span class="nv">try</span>:
+            <span class="nv">c</span>.<span class="nv">execute</span><span class="ss">(</span><span class="s2">&quot;&quot;&quot;</span><span class="s">CREATE TABLE new_steam_games</span>
+                <span class="ss">(</span><span class="nv">Name</span> <span class="nv">TEXT</span>, <span class="nv">Link</span> <span class="nv">TEXT</span>, <span class="nv">Emailed</span> <span class="nv">TEXT</span><span class="ss">)</span>
+                    <span class="s2">&quot;&quot;&quot;</span><span class="s">)        </span>
+        <span class="nv">except</span>:
+            <span class="nv">pass</span>
 </pre></div>
 
 
 <p>This entire function handles the database creation we’re using for this program. The <code>sqlite</code> code will create the DB <code>steam_games.db</code> (as per the declaration at the top of the code) if the DB doesn’t exist. If it does exist, it just continues on.</p>
 <p><br></p>
-<div class="highlight"><pre><span></span>c.execute(&quot;SELECT Name from new_steam_games&quot;)
-db_games_list = c.fetchall()
+<div class="highlight"><pre><span></span><span class="k">c</span><span class="p">.</span><span class="k">execute</span><span class="p">(</span><span class="ss">&quot;SELECT Name from new_steam_games&quot;</span><span class="p">)</span>
+<span class="n">db_games_list</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">fetchall</span><span class="p">()</span>
 </pre></div>
 
 
 <p>Within the <code>pull_db_data()</code> function you’ll see this line. This code will pull the <code>Name</code> data from the <code>steam_games.db</code> file and populate the <code>db_games_list</code> list with the data.</p>
 <p><br></p>
-<div class="highlight"><pre><span></span>#Ignore my intentionally awesome function names
-def parse_that_feed_baby():
-    feed_list = []
-    feed = feedparser.parse(FEED_FILE)
-    for entry in feed[&#39;entries&#39;]:
-        game_data = Game(title=entry[&#39;title&#39;], url=entry[&#39;link&#39;])
-        feed_list.append(game_data)
-    return feed_list
+<div class="highlight"><pre><span></span>#<span class="nv">Ignore</span> <span class="nv">my</span> <span class="nv">intentionally</span> <span class="nv">awesome</span> <span class="nv">function</span> <span class="nv">names</span>
+<span class="nv">def</span> <span class="nv">parse_that_feed_baby</span><span class="ss">()</span>:
+    <span class="nv">feed_list</span> <span class="o">=</span> []
+    <span class="nv">feed</span> <span class="o">=</span> <span class="nv">feedparser</span>.<span class="nv">parse</span><span class="ss">(</span><span class="nv">FEED_FILE</span><span class="ss">)</span>
+    <span class="k">for</span> <span class="nv">entry</span> <span class="nv">in</span> <span class="nv">feed</span>[<span class="s1">&#39;</span><span class="s">entries</span><span class="s1">&#39;</span>]:
+        <span class="nv">game_data</span> <span class="o">=</span> <span class="nv">Game</span><span class="ss">(</span><span class="nv">title</span><span class="o">=</span><span class="nv">entry</span>[<span class="s1">&#39;</span><span class="s">title</span><span class="s1">&#39;</span>], <span class="nv">url</span><span class="o">=</span><span class="nv">entry</span>[<span class="s1">&#39;</span><span class="s">link</span><span class="s1">&#39;</span>]<span class="ss">)</span>
+        <span class="nv">feed_list</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">game_data</span><span class="ss">)</span>
+    <span class="k">return</span> <span class="nv">feed_list</span>
 </pre></div>
 
 
@@ -223,19 +223,19 @@ def parse_that_feed_baby():
 <p>The <code>title</code> field is given the XML “title” of the game; the <code>url</code> field is given the link to the game.</p>
 <p>This is done for every individual “entry” (game) in the XML file using the <code>for</code> loop. It’s all appended to <code>feed_list</code>.</p>
 <p><br></p>
-<div class="highlight"><pre><span></span>def check_for_new(feed_list, db_games):
-    new_games_list = []
-    for data in feed_list:
-        if (data.title,) not in db_games:
-            new_games_list.append(data)
-    return new_games_list
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">check_for_new</span><span class="ss">(</span><span class="nv">feed_list</span>, <span class="nv">db_games</span><span class="ss">)</span>:
+    <span class="nv">new_games_list</span> <span class="o">=</span> []
+    <span class="k">for</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">feed_list</span>:
+        <span class="k">if</span> <span class="ss">(</span><span class="nv">data</span>.<span class="nv">title</span>,<span class="ss">)</span> <span class="nv">not</span> <span class="nv">in</span> <span class="nv">db_games</span>:
+            <span class="nv">new_games_list</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">data</span><span class="ss">)</span>
+    <span class="k">return</span> <span class="nv">new_games_list</span>
 </pre></div>
 
 
 <p>This function creates an empty list called <code>new_games_list</code>. It then checks whether <code>data.title</code> (<code>.title</code> being the field from the namedtuple) is <strong>not</strong> in the existing games database <code>db_games</code>. I’m essentially doing a name match. Eg: Does the game name from the feed list exist in the list of games already in the database.</p>
 <p>If the name <strong>isn’t</strong> in the existing DB, then we add it to the <code>new_games_list</code> list.</p>
 <p><br></p>
-<div class="highlight"><pre><span></span>c.executemany(&quot;INSERT INTO new_steam_games VALUES (?, ?, 0)&quot;, new_games)
+<div class="highlight"><pre><span></span><span class="k">c</span><span class="p">.</span><span class="n">executemany</span><span class="p">(</span><span class="ss">&quot;INSERT INTO new_steam_games VALUES (?, ?, 0)&quot;</span><span class="p">,</span> <span class="n">new_games</span><span class="p">)</span>
 </pre></div>
 
 
@@ -250,12 +250,12 @@ def parse_that_feed_baby():
 <h2>emailer.py</h2>
 <p>I’ve covered sending advanced emails using Python MIME in a <a href="http://pybit.es/python-MIME.html">previous article</a> so have a read through of that for the basics if you’re not sure what you’re looking at here.</p>
 <p>The important code is this:</p>
-<div class="highlight"><pre><span></span>with sqlite3.connect(DATA_FILE) as connection:
-    c = connection.cursor()
-    c.execute(&quot;SELECT Name, Link FROM new_steam_games WHERE Emailed=&#39;0&#39;&quot;)
-    for item in c.fetchall():
-        body += item[0] + &#39;: &#39; + item[1] + &#39;\n&#39;
-    c.execute(&quot;UPDATE new_steam_games SET Emailed=&#39;1&#39;&quot;)
+<div class="highlight"><pre><span></span><span class="nv">with</span> <span class="nv">sqlite3</span>.<span class="k">connect</span><span class="ss">(</span><span class="nv">DATA_FILE</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">connection</span>:
+    <span class="nv">c</span> <span class="o">=</span> <span class="nv">connection</span>.<span class="nv">cursor</span><span class="ss">()</span>
+    <span class="nv">c</span>.<span class="nv">execute</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">SELECT Name, Link FROM new_steam_games WHERE Emailed=&#39;0&#39;</span><span class="s2">&quot;</span><span class="ss">)</span>
+    <span class="k">for</span> <span class="nv">item</span> <span class="nv">in</span> <span class="nv">c</span>.<span class="nv">fetchall</span><span class="ss">()</span>:
+        <span class="nv">body</span> <span class="o">+=</span> <span class="nv">item</span>[<span class="mi">0</span>] <span class="o">+</span> <span class="s1">&#39;</span><span class="s">: </span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nv">item</span>[<span class="mi">1</span>] <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="nv">c</span>.<span class="nv">execute</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">UPDATE new_steam_games SET Emailed=&#39;1&#39;</span><span class="s2">&quot;</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -268,7 +268,7 @@ def parse_that_feed_baby():
 <p>I’ve got the pull, the feedparse and emailer all running on separate cron jobs, one after the other (2 mins apart).</p>
 <p>The pull writes over newreleases.xml with fresh data; feedparser updates the DB with fresh data (if any) and the emailer sends out any new games.</p>
 <p>An example crontab entry could be:</p>
-<div class="highlight"><pre><span></span>30 20 * * * cd /opt/development/steamscraper &amp;&amp; /usr/bin/python3 pull_xml.py
+<div class="highlight"><pre><span></span><span class="mi">30</span> <span class="mi">20</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">development</span><span class="o">/</span><span class="n">steamscraper</span> <span class="o">&amp;&amp;</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">python3</span> <span class="n">pull_xml</span><span class="p">.</span><span class="n">py</span>
 </pre></div>
 
 

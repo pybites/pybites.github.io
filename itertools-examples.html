@@ -168,14 +168,14 @@
 
 
 <p>Another use case: roll 2 dices (<a href="http://stackoverflow.com/questions/3099987/generating-permutations-with-repetitions-in-python">SO is your friend</a>): </p>
-<div class="highlight"><pre><span></span>dice = range(2, 7)
-random.choice([p for p in itertools.product(dice, repeat=2)])
+<div class="highlight"><pre><span></span><span class="nv">dice</span> <span class="o">=</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">2</span>, <span class="mi">7</span><span class="ss">)</span>
+<span class="k">random</span>.<span class="nv">choice</span><span class="ss">(</span>[<span class="nv">p</span> <span class="k">for</span> <span class="nv">p</span> <span class="nv">in</span> <span class="nv">itertools</span>.<span class="nv">product</span><span class="ss">(</span><span class="nv">dice</span>, <span class="nv">repeat</span><span class="o">=</span><span class="mi">2</span><span class="ss">)</span>]<span class="ss">)</span>
 
-# output: 
-(5, 2)
-(2, 5)
-(2, 5)
-(6, 5)
+# <span class="nv">output</span>: 
+<span class="ss">(</span><span class="mi">5</span>, <span class="mi">2</span><span class="ss">)</span>
+<span class="ss">(</span><span class="mi">2</span>, <span class="mi">5</span><span class="ss">)</span>
+<span class="ss">(</span><span class="mi">2</span>, <span class="mi">5</span><span class="ss">)</span>
+<span class="ss">(</span><span class="mi">6</span>, <span class="mi">5</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -204,17 +204,17 @@ random.choice([p for p in itertools.product(dice, repeat=2)])
 <h3>3. Use dropwhile to get counts of &gt;= n in a Counter dict</h3>
 <p>Given a books Counter object, get me books with &gt;= 2 occurences. </p>
 <p>I needed this for my <a href="http://bobbelderbos.com/2016/12/code-kata/">tools of titans kata</a> to see which books got recommended more than once by Tim Ferriss' podcast guests. </p>
-<div class="highlight"><pre><span></span>def get_multiple_mentions(books, keep=2):
-    for key, count in itertools.dropwhile(lambda key_count: key_count[1] &gt;= keep, books.most_common()):
-        del books[key]
-    return books
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_multiple_mentions</span><span class="ss">(</span><span class="nv">books</span>, <span class="nv">keep</span><span class="o">=</span><span class="mi">2</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">key</span>, <span class="nv">count</span> <span class="nv">in</span> <span class="nv">itertools</span>.<span class="nv">dropwhile</span><span class="ss">(</span><span class="nv">lambda</span> <span class="nv">key_count</span>: <span class="nv">key_count</span>[<span class="mi">1</span>] <span class="o">&gt;=</span> <span class="nv">keep</span>, <span class="nv">books</span>.<span class="nv">most_common</span><span class="ss">())</span>:
+        <span class="nv">del</span> <span class="nv">books</span>[<span class="nv">key</span>]
+    <span class="k">return</span> <span class="nv">books</span>
 
-# filters all books with count (occurence = 1) out:
-Counter({&#39;4-hour-workweek-escape-live-anywhere&#39;: 2,
-        &#39;alchemist-paulo-coelho&#39;: 2,
-        &#39;atlas-shrugged-ayn-rand&#39;: 3,
-        &#39;black-swan-improbable-robustness-fragility&#39;: 2,
-        &#39;checklist-manifesto-how-things-right&#39;: 2,
+# <span class="nv">filters</span> <span class="nv">all</span> <span class="nv">books</span> <span class="nv">with</span> <span class="nv">count</span> <span class="ss">(</span><span class="nv">occurence</span> <span class="o">=</span> <span class="mi">1</span><span class="ss">)</span> <span class="nv">out</span>:
+<span class="nv">Counter</span><span class="ss">(</span>{<span class="s1">&#39;</span><span class="s">4-hour-workweek-escape-live-anywhere</span><span class="s1">&#39;</span>: <span class="mi">2</span>,
+        <span class="s1">&#39;</span><span class="s">alchemist-paulo-coelho</span><span class="s1">&#39;</span>: <span class="mi">2</span>,
+        <span class="s1">&#39;</span><span class="s">atlas-shrugged-ayn-rand</span><span class="s1">&#39;</span>: <span class="mi">3</span>,
+        <span class="s1">&#39;</span><span class="s">black-swan-improbable-robustness-fragility</span><span class="s1">&#39;</span>: <span class="mi">2</span>,
+        <span class="s1">&#39;</span><span class="s">checklist-manifesto-how-things-right</span><span class="s1">&#39;</span>: <span class="mi">2</span>,
         ...
 </pre></div>
 
@@ -222,17 +222,17 @@ Counter({&#39;4-hour-workweek-escape-live-anywhere&#39;: 2,
 <h3>4. Combinations and permutations</h3>
 <p>For the difference read <a href="https://betterexplained.com/articles/easy-permutations-and-combinations/">this great explanation</a>. </p>
 <p>Given a list of friends how many pairs can be formed?</p>
-<div class="highlight"><pre><span></span>friends = &#39;bob tim julian fred&#39;.split()
-# as these are &quot;Combinatoric generators&quot; I consume them here for example purposes using list()
-list(itertools.combinations(friends, 2))
+<div class="highlight"><pre><span></span><span class="nv">friends</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">bob tim julian fred</span><span class="s1">&#39;</span>.<span class="nv">split</span><span class="ss">()</span>
+# <span class="nv">as</span> <span class="nv">these</span> <span class="nv">are</span> <span class="s2">&quot;</span><span class="s">Combinatoric generators</span><span class="s2">&quot;</span> <span class="nv">I</span> <span class="nv">consume</span> <span class="nv">them</span> <span class="nv">here</span> <span class="k">for</span> <span class="nv">example</span> <span class="nv">purposes</span> <span class="nv">using</span> <span class="nv">list</span><span class="ss">()</span>
+<span class="nv">list</span><span class="ss">(</span><span class="nv">itertools</span>.<span class="nv">combinations</span><span class="ss">(</span><span class="nv">friends</span>, <span class="mi">2</span><span class="ss">))</span>
 
-# output:
-[(&#39;bob&#39;, &#39;tim&#39;),
-(&#39;bob&#39;, &#39;julian&#39;),
-(&#39;bob&#39;, &#39;fred&#39;),
-(&#39;tim&#39;, &#39;julian&#39;),
-(&#39;tim&#39;, &#39;fred&#39;),
-(&#39;julian&#39;, &#39;fred&#39;)]
+# <span class="nv">output</span>:
+[<span class="ss">(</span><span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">tim</span><span class="s1">&#39;</span><span class="ss">)</span>,
+<span class="ss">(</span><span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span><span class="ss">)</span>,
+<span class="ss">(</span><span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">fred</span><span class="s1">&#39;</span><span class="ss">)</span>,
+<span class="ss">(</span><span class="s1">&#39;</span><span class="s">tim</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span><span class="ss">)</span>,
+<span class="ss">(</span><span class="s1">&#39;</span><span class="s">tim</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">fred</span><span class="s1">&#39;</span><span class="ss">)</span>,
+<span class="ss">(</span><span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">fred</span><span class="s1">&#39;</span><span class="ss">)</span>]
 </pre></div>
 
 
@@ -247,21 +247,21 @@ list(itertools.combinations(friends, 2))
 <h3>5. Groupby to count amount of keys for specific value in dict</h3>
 <p>Count the number of keys for a value, for example count the number of users (keys) that have email as pref (value) in a user_prefs dict.</p>
 <p>This example is based on the one I found at <a href="https://pymotw.com/2/itertools/">pymotw</a>.</p>
-<div class="highlight"><pre><span></span># set up dict
-users = &#39;tim bob julian sue fred frank maria&#39;.split()
-prefs = &#39;email phone IM email F2F email phone&#39;.split()
-user_prefs = dict(zip(users, prefs))
-user_prefs
+<div class="highlight"><pre><span></span># <span class="nv">set</span> <span class="nv">up</span> <span class="nv">dict</span>
+<span class="nv">users</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">tim bob julian sue fred frank maria</span><span class="s1">&#39;</span>.<span class="nv">split</span><span class="ss">()</span>
+<span class="nv">prefs</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">email phone IM email F2F email phone</span><span class="s1">&#39;</span>.<span class="nv">split</span><span class="ss">()</span>
+<span class="nv">user_prefs</span> <span class="o">=</span> <span class="nv">dict</span><span class="ss">(</span><span class="nv">zip</span><span class="ss">(</span><span class="nv">users</span>, <span class="nv">prefs</span><span class="ss">))</span>
+<span class="nv">user_prefs</span>
 
-user_prefs_sorted = sorted(user_prefs.items(), key=itemgetter(1))
-for pref, users in itertools.groupby(user_prefs_sorted, key=itemgetter(1)):
-    print(pref, list(map(itemgetter(0), users)))
+<span class="nv">user_prefs_sorted</span> <span class="o">=</span> <span class="nv">sorted</span><span class="ss">(</span><span class="nv">user_prefs</span>.<span class="nv">items</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">itemgetter</span><span class="ss">(</span><span class="mi">1</span><span class="ss">))</span>
+<span class="k">for</span> <span class="nv">pref</span>, <span class="nv">users</span> <span class="nv">in</span> <span class="nv">itertools</span>.<span class="nv">groupby</span><span class="ss">(</span><span class="nv">user_prefs_sorted</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">itemgetter</span><span class="ss">(</span><span class="mi">1</span><span class="ss">))</span>:
+    <span class="nv">print</span><span class="ss">(</span><span class="nv">pref</span>, <span class="nv">list</span><span class="ss">(</span><span class="nv">map</span><span class="ss">(</span><span class="nv">itemgetter</span><span class="ss">(</span><span class="mi">0</span><span class="ss">)</span>, <span class="nv">users</span><span class="ss">)))</span>
 
-# output: 
-F2F [&#39;fred&#39;]
-IM [&#39;julian&#39;]
-email [&#39;frank&#39;, &#39;tim&#39;, &#39;sue&#39;]
-phone [&#39;bob&#39;, &#39;maria&#39;]
+# <span class="nv">output</span>: 
+<span class="nv">F2F</span> [<span class="s1">&#39;</span><span class="s">fred</span><span class="s1">&#39;</span>]
+<span class="nv">IM</span> [<span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span>]
+<span class="nv">email</span> [<span class="s1">&#39;</span><span class="s">frank</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">tim</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">sue</span><span class="s1">&#39;</span>]
+<span class="nv">phone</span> [<span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">maria</span><span class="s1">&#39;</span>]
 </pre></div>
 
 
