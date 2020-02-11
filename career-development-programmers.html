@@ -161,18 +161,18 @@
 <ul>
 <li>
 <p>The first thing obviously is to code. A lot. I was reminded of this again reading this <a href="https://medium.com/swlh/what-happened-after-i-left-the-best-job-in-the-world-to-become-an-engineer-ee06caca7db2#.l0jw2no7d">great post</a> this morning:</p>
-<div class="highlight"><pre><span></span><span class="nv">wakeUp</span><span class="ss">()</span><span class="c1">;</span>
+<div class="highlight"><pre><span></span>wakeUp();
 
-<span class="nv">workOut</span><span class="ss">()</span><span class="c1">;</span>
+workOut();
 
-<span class="nv">var</span> <span class="nv">currentHour</span> <span class="o">=</span> <span class="nv">new</span> <span class="nv">Date</span><span class="ss">()</span>.<span class="nv">getHours</span><span class="ss">()</span><span class="c1">;</span>
+var currentHour = new Date().getHours();
 
-<span class="nv">var</span> <span class="nv">bedtimeHour</span> <span class="o">=</span> <span class="mi">22</span><span class="c1">;</span>
+var bedtimeHour = 22;
 
-<span class="k">while</span><span class="ss">(</span><span class="nv">currentHour</span> <span class="o">&lt;</span> <span class="nv">bedtimeHour</span><span class="ss">)</span> {
-  <span class="nv">code</span><span class="ss">()</span><span class="c1">;</span>
-  <span class="nv">currentHour</span> <span class="o">=</span> <span class="nv">new</span> <span class="nv">Date</span><span class="ss">()</span>.<span class="nv">getHours</span><span class="ss">()</span><span class="c1">;</span>
-}<span class="c1">;</span>
+while(currentHour &lt; bedtimeHour) {
+  code();
+  currentHour = new Date().getHours();
+};
 </pre></div>
 
 

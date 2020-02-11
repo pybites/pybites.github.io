@@ -27,35 +27,33 @@
 
 
 <meta name="author" content="Julian" />
-<meta name="description" content="Learn to compare blocks of text with the difflib module." />
-<meta name="keywords" content="python, learning, beginners, stdlib, tips, cleancode, bestpractices, pythonic">
+<meta name="description" content="In this article I'm going to break down what a function is and how you can use them to be a better coder." />
+<meta name="keywords" content="learning, code, programming, python, functions, beginners">
 <meta property="og:site_name" content="PyBites"/>
-<meta property="og:title" content="Comparing Lists with Difflib"/>
-<meta property="og:description" content="Learn to compare blocks of text with the difflib module."/>
+<meta property="og:title" content="Introduction to Python Functions"/>
+<meta property="og:description" content="In this article I'm going to break down what a function is and how you can use them to be a better coder."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es/comparing_lists.html"/>
+<meta property="og:url" content="https://pybit.es/python-functions.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-03-08 10:00:00+01:00"/>
+<meta property="article:published_time" content="2020-02-11 22:13:00+01:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="https://pybit.es/author/julian.html">
 <meta property="article:section" content="Learning"/>
-<meta property="article:tag" content="python"/>
 <meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="code"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="functions"/>
 <meta property="article:tag" content="beginners"/>
-<meta property="article:tag" content="stdlib"/>
-<meta property="article:tag" content="tips"/>
-<meta property="article:tag" content="cleancode"/>
-<meta property="article:tag" content="bestpractices"/>
-<meta property="article:tag" content="pythonic"/>
 <meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@pybites" />
-<meta name="twitter:title" content="Comparing Lists with Difflib" />
-<meta name="twitter:description" content="Learn to compare blocks of text with the difflib module." />
+<meta name="twitter:title" content="Introduction to Python Functions" />
+<meta name="twitter:description" content="In this article I'm going to break down what a function is and how you can use them to be a better coder." />
 <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
 
-  <title>PyBites &ndash; Comparing Lists with Difflib</title>
+  <title>PyBites &ndash; Introduction to Python Functions</title>
 
 
 </head>
@@ -140,106 +138,106 @@
 
 <article class="single">
   <header>
-    <h1 id="comparing_lists">Comparing Lists with Difflib</h1>
+    <h1 id="python-functions">Introduction to Python Functions</h1>
     <p>
-          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Wed 08 March 2017 in <a href="https://pybit.es/category/learning.html">Learning</a>
+          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Tue 11 February 2020 in <a href="https://pybit.es/category/learning.html">Learning</a>
 
 
-        &#8226; 3 min read
+        &#8226; 4 min read
     </p>
   </header>
 
 
   <div>
-    <p>I love finding new things, especially when they end up saving you a boat load of time and effort! I was looking for a way to compare two lists as the code I had seemed quite clunky. Surely there had to be a better way out there! That's when I discovered difflib.</p>
-<h2>The Julian Way</h2>
-<p>I'll show you how I was approaching the problem first. Don't judge me!</p>
-<p>First, the two blocks of text (made these lists up on the spot):</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; text1 = &quot;&quot;&quot;Julian&#39;s to-do list:
-1. Be awesome.
-2. Pybites.
-3. Enjoy a beer.&quot;&quot;&quot;
-&gt;&gt;&gt; 
-&gt;&gt;&gt; text2 = &quot;&quot;&quot;Bob&#39;s to-do list:
-1. Be awesome!
-2. PyBites.
-3. Enjoy a beer.&quot;&quot;&quot;
-&gt;&gt;&gt;
+    <p>While seemingly "simple" to comprehend and use, functions can definitely be a bit of a hurdle to overcome when you're new to Python or programming in general.
+In this article I'm going to break down what a function is and how you can use them to be a better coder.</p>
+<h2>What is a function?</h2>
+<p>Straight to the point, I like it.</p>
+<p>Let's just say that a function is a reusable bit of code. It could be a single line of code or it could be many. It'll only have one purpose and it'll do it well.</p>
+<p>Pretty vague right? Well that's kind of unavoidable. When you understand the ideology behind a function, then you'll start to get it.</p>
+<h2>Let's put the FUN in function!</h2>
+<p>Excuse the sub-header, I just had to say it.</p>
+<p>First, let's look at why we need functions. Why do we need reusable bits of code?</p>
+<p>The quickest answer is that it makes repetition easy.</p>
+<p>For a moment, let's replace the word "function" with the word <em>task</em>. Think of a repetitive task that you have in your daily life. How about <em>taking a shower</em>.</p>
+<p>If we break down taking a shower into a series of steps we could say that a shower consists of:</p>
+<ol>
+<li>Turning on the water.</li>
+<li>Using shampoo.</li>
+<li>Using soap.</li>
+<li>Rinsing off.</li>
+<li>Turning off the water.</li>
+</ol>
+<p>If we were to write that in Python code it could look like this:</p>
+<div class="highlight"><pre><span></span>print(&quot;Turned on the water.&quot;)
+print(&quot;Used shampoo.&quot;)
+print(&quot;Used soap.&quot;)
+print(&quot;Rinsed off.&quot;)
+print(&quot;Turned off the water.&quot;)
 </pre></div>
 
 
-<p>I then split the these blocks up into strings using <em>splitlines()</em>. This returns a list containing each line:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; text1_split = text1.splitlines()
-&gt;&gt;&gt; text2_split = text2.splitlines()
+<p>Nice! We have the code to print out the steps or actions required for taking a shower.</p>
+<p>Here's the thing though. What if, as part of a video game a player can choose to "take a shower" when certain things happen? Am I really going to write out the code for taking a shower every single time it's needed? That's five lines of code that I'd have to include for every scenario where they could choose to take a shower.</p>
+<h2>Bring on the fun(ction)!</h2>
+<p>This is why functions are so amazing. We can take those five repetitive steps for taking a shower and wrap them up in a nice little ball to be called whenever needed.</p>
+<p>Here's what a function for taking a shower would look like:</p>
+<div class="highlight"><pre><span></span>def take_a_shower():
+    print(&quot;Turned on the water.&quot;)
+    print(&quot;Used shampoo.&quot;)
+    print(&quot;Used soap.&quot;)
+    print(&quot;Rinsed off.&quot;)
+    print(&quot;Turned off the water.&quot;)
 </pre></div>
 
 
-<p>This is where I got stuck. I came up with a for loop that checked to see if items from the <em>text1_split</em> list were in the <em>text2_split</em> list. There's an if statement for the checking:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; for i in text1_split:
-    if i in text2_split:
-        print(&quot;&#39;%s&#39; is in both lists!&quot; % (i))
-    else:
-        print(&quot;&#39;%s&#39; is NOT in both lists!&quot; % (i))
-
-
-&#39;Julian&#39;s to-do list:&#39; is NOT in both lists!
-&#39;1. Be awesome.&#39; is NOT in both lists!
-&#39;2. Pybites.&#39; is NOT in both lists!
-&#39;3. Enjoy a beer.&#39; is in both lists!
-&gt;&gt;&gt;
+<p>To break it down:</p>
+<ol>
+<li>The <code>def</code> is how we indicate we're writing a function.</li>
+<li>We give the function a nice, user friendly name.</li>
+<li>The empty <code>()</code>s allow you to specify any objects/variable you want to pass into the function. We don't need any right now so don't worry about that for now.</li>
+<li>Any code that is considered to be part of our function needs to be indented by 4 spaces. Thus, all of our print statements are in our <code>take_a_shower</code> function.</li>
+</ol>
+<h2>Calling the function</h2>
+<p>We have a <code>take_a_shower</code> function that contains our steps. Now what?</p>
+<p>Well, any time a player chooses to take a shower, we can just <em>call</em> the <code>take_a_shower</code> function and it'll print out our actions for taking a shower. The way to call a function is to just use the function's name:</p>
+<div class="highlight"><pre><span></span>take_a_shower()
 </pre></div>
 
 
-<p>The problem is that it doesn't tell me what's in <em>text2_split</em>. All it's confirming is whether the items in <em>text1_split</em> exist in <em>text2_split</em>. </p>
-<p>The code was already getting out of hand. From here I'd need to add code to tell me what's in <em>text2_split</em> if there isn't a match and what the differences are. 
-Enter difflib.</p>
-<h2>Difflib to the Rescue!</h2>
-<p>Before I show you the command, I'll just say that difflib is actually quite expansive, ie, there's a lot you can do with it. This post is just about the <em>Differ()</em> class.</p>
-<p>As before, you have to split the blocks of text into a list of strings/lines:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; text1_split = text1.splitlines()
-&gt;&gt;&gt; text2_split = text2.splitlines()
+<p>It makes more sense when you use it. We could add it to a game like this:</p>
+<div class="highlight"><pre><span></span>if player == &quot;stinky&quot;:
+    take_a_shower()
+else:
+    print(&quot;You smell fantastic! Let&#39;s go eat some chocolate!&quot;)
 </pre></div>
 
 
-<p>I then call <em>Differ().compare()</em> to do the comparison. I store the result of the command in the <em>diff</em> variable. Finally, I print the output, joining the lines with a new line to make it readable.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; diff = difflib.Differ().compare(text1_split, text2_split)
-&gt;&gt;&gt; print(&#39;\n&#39;.join(diff))
-- Julian&#39;s to-do list:
-? ^^^^^^
-
-+ Bob&#39;s to-do list:
-? ^^^
-
-- 1. Be awesome.
-?              ^
-
-+ 1. Be awesome!
-?              ^
-
-- 2. Pybites.
-?      ^
-
-+ 2. PyBites.
-?      ^
-
-  3. Enjoy a beer.
-</pre></div>
-
-
-<p>Look familiar? If you're a Linux/Unix fan you'll have likely come across the <em>diff</em> command, in which case you'll have no problem reading this!</p>
-<p>What you're seeing here is the differences between each list.</p>
-<p>The key to reading the above:</p>
-<p>'- ' indicates the difference is in the first list. In this case, the letters "Julian".</p>
-<p>'+ ' indicates the difference is in the second list. In this case, the letters "Bob".</p>
-<p>'? ' draws your attention to anything that doesn't appear in either list. It appears under every line here (except the last) because the new line we inserted wasn't originally there.</p>
-<p>'  ' (a blank space) indicates that this line is a perfect match and is in both lists. In this case, line item "3. Enjoy a beer.".</p>
-<p>The ^ (caret) symbol appears underneath the differing characters. Note the ^ under the lower and upper case B in the second line item.</p>
-<h2>Conclusion</h2>
-<p>This is only the tip of the iceberg as Difflib is pretty big. In fact, we used the difflib.SequenceMatcher class in our <a href="http://pybit.es/codechallenge03_review.html">Code Challenge 03 - PyBites blog tag analysis</a> to look for similarities between our blog tags.</p>
-<p>It's one of those handy stdlib modules you stumble across that can change how you code (another example we wrote about is <a href="http://pybit.es/collections-deque.html">deque</a>). I think it's brilliant!</p>
-<p>Read more on difflib <a href="https://docs.python.org/3/library/difflib.html">here</a> or use help(difflib) from the Python shell.</p>
+<p>In this scenario, if the player is stinky, then the game calls the <code>take_a_shower</code> function. Otherwise the player gets to go eat some chocolate.
+When the <code>take_a_shower</code> function is called, it <em>executes</em> the lines of code we put in the function, i.e., our 5 print statements.</p>
+<h2>Simplistic but powerful</h2>
+<p>I know this seems inane and simplistic but I wanted to demonstrate it with something relatable.</p>
+<p>The reality here is we can break down just about anything into chunks and create functions out of them, ready to be called whenever necessary.</p>
+<p>Rather than having a long page of code, try breaking your code up into functions that can be called at any time.</p>
+<p>When you're starting out with Python and creating really basic programs for yourself, some easy functions to create for yourself could include:</p>
+<ul>
+<li>Basic math, e.g.: a + b</li>
+<li>A text menu system for your program</li>
+<li>Collecting user input</li>
+<li>Different aspects/tasks of a text based game</li>
+<li>Randomisation</li>
+<li>Timers</li>
+<li>Date Calculation</li>
+</ul>
+<p>The list is essentially endless but you get the point.</p>
+<h2>Take Action</h2>
+<p>If you're new to Python and functions, go look at any code you've written to date and see how you can <a href="https://pybit.es/refactoring.html"><em>refactor</em></a> your code and use functions instead.</p>
+<p>Once done, leave a comment below and tell us about the functions you created!</p>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Julian</p>
+<blockquote>
+<p>With so many avenues to pursue in Python it can be tough to know what to do. If you're looking for some direction or want to take your Python code and career to the next level, <a href="https://go.oncehub.com/pybites">schedule a call with us now</a>. We can help!</p>
+</blockquote>
   </div>
 
   <hr>
@@ -247,14 +245,12 @@ Enter difflib.</p>
 
   <div class="tag-cloud">
     <p>
-      <a href="https://pybit.es/tag/python.html">python</a>
       <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/code.html">code</a>
+      <a href="https://pybit.es/tag/programming.html">programming</a>
+      <a href="https://pybit.es/tag/python.html">python</a>
+      <a href="https://pybit.es/tag/functions.html">functions</a>
       <a href="https://pybit.es/tag/beginners.html">beginners</a>
-      <a href="https://pybit.es/tag/stdlib.html">stdlib</a>
-      <a href="https://pybit.es/tag/tips.html">tips</a>
-      <a href="https://pybit.es/tag/cleancode.html">cleancode</a>
-      <a href="https://pybit.es/tag/bestpractices.html">bestpractices</a>
-      <a href="https://pybit.es/tag/pythonic.html">pythonic</a>
     </p>
   </div>
 
