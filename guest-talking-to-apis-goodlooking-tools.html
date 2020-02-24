@@ -1,0 +1,819 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Cedric Sambre" />
+<meta name="description" content="I recently ran into a tool called VTScan that uses the VirusTotal API to scan a file and print the results. I figured I could write the same, and add some functionality!" />
+<meta name="keywords" content="click, rest, requests, API, win10toast, directorywatcher, pywin32">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Talking to API's and goodlooking tools"/>
+<meta property="og:description" content="I recently ran into a tool called VTScan that uses the VirusTotal API to scan a file and print the results. I figured I could write the same, and add some functionality!"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/guest-talking-to-apis-goodlooking-tools.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-02-24 21:39:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/cedric-sambre.html">
+<meta property="article:section" content="Learning"/>
+<meta property="article:tag" content="click"/>
+<meta property="article:tag" content="rest"/>
+<meta property="article:tag" content="requests"/>
+<meta property="article:tag" content="API"/>
+<meta property="article:tag" content="win10toast"/>
+<meta property="article:tag" content="directorywatcher"/>
+<meta property="article:tag" content="pywin32"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Talking to API's and goodlooking tools" />
+<meta name="twitter:description" content="I recently ran into a tool called VTScan that uses the VirusTotal API to scan a file and print the results. I figured I could write the same, and add some functionality!" />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+  <title>PyBites &ndash; Talking to API's and goodlooking tools</title>
+
+
+</head>
+<body>
+
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      brown
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='brown'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/guest.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
+          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
+          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+          <li><a href="/pages/community.html">Join our Slack</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="guest-talking-to-apis-goodlooking-tools">Talking to API's and goodlooking tools</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/cedric-sambre.html">Cedric Sambre</a> on Mon 24 February 2020 in <a href="https://pybit.es/category/learning.html">Learning</a>
+
+
+        &#8226; 13 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>One of my go-to locations for security news had a thread recently about a tool called <a href="https://github.com/TheSecondSun/VTSCAN">VTScan</a>.
+I really liked the idea of not having to go through the browser overhead to check files against multiple scan engines.</p>
+<p>Although the tool (which is itself a basic <code>vt-cli</code> spinoff) already existed, I was looking for a new challenge, I decided to roll my own and add a few cool features!
+I'll have a thorough look at how python talks to API's with <code>requests</code> and I look at turning all this API data into a nice GUI application with <code>click</code>.
+I hope to give you some idea's for CLI styling in the future so I can see more awesome tools by you all!</p>
+<p>You can find the full code <a href="https://github.com/xWhiteListed/vt-scanner-python">on my github</a>.</p>
+<h2>Index</h2>
+<ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#rest">REST</a></li>
+<li><a href="#api-key-protection">API Key Protection</a></li>
+<li><a href="#setup">The Setup</a></li>
+<li><a href="#virustotal-api">The VirusTotal API</a><ul>
+<li><a href="#api-file-scan">VT API: /file/scan</a></li>
+<li><a href="#api-file-result">VT API: /file/result</a></li>
+<li><a href="#api-chain-endpoints">VT API: Chaining the endpoints</a></li>
+</ul>
+</li>
+<li><a href="#pretty-with-click">Making pretty CLI Tools with Click</a>    <ul>
+<li><a href="#helpers">Helpers, they really do help</a></li>
+<li><a href="#arguments-options-flags">Arguments, options and flags</a></li>
+</ul>
+</li>
+<li><a href="#adding-the-watcher">Adding more functionality: The watcher</a><ul>
+<li><a href="#additional-work-arguments">Additional work on the arguments</a></li>
+<li><a href="#watching-a-directory-win32">Watching a directory: Win32</a></li>
+<li><a href="#win10toast">Adding Toast messages: Win10Toast</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="requirements"></a></p>
+<h2>Requirements</h2>
+<ul>
+<li><a href="https://pypi.org/project/pywin32/">PyWin32</a></li>
+<li><a href="https://pypi.org/project/click/">Click</a></li>
+<li><a href="https://pypi.org/project/requests/">Requests</a></li>
+<li><a href="https://pypi.org/project/win10toast/">Win10Toast</a></li>
+<li><a href="https://pypi.org/project/colorama/">Colorama</a> (optional, but prettier)</li>
+</ul>
+<p><a name="rest"></a></p>
+<h2>REST</h2>
+<p>What is REST?</p>
+<p>According to Wikipedia:</p>
+<blockquote>
+<p>Representational state transfer (REST) is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the Internet. RESTful Web services allow the requesting systems to access and manipulate textual representations of Web resources by using a uniform and predefined set of stateless operations. Other kinds of Web services, such as SOAP Web services, expose their own arbitrary sets of operations.</p>
+</blockquote>
+<p>So in human language, a REST API is just a web-based endpoint that we can send HTTP requests to.
+This endpoint in turn will query an application on the backend and will return some data based on what the application does.</p>
+<p>In our example, we will post a file to a webserver, and the webserver will send the file to a number of anti-virus scanners.
+The results of all these scans will be put in a report to indicate if a file has been flagged as a virus or not.</p>
+<p><a name="api-key-protection"></a></p>
+<h2>Note: API Key Protection</h2>
+<p>Before we get into the action, I want to leave a small note about protecting your API keys.
+Your API key is a unique identifier and authorization mechanism to allow you to access certain services (like REST API's) with just a single key.</p>
+<p>If anyone manages to get a hold of this unique string, people WILL be able to query the service as if they are you.</p>
+<p>Something very common is that developers accidentally <a href="https://nakedsecurity.sophos.com/2019/03/25/thousands-of-coders-are-leaving-their-crown-jewels-exposed-on-github/">push their code including API keys to github</a>, and thus everyone can access the service as that developer.</p>
+<p>Bob mentioned a common way to tackle this problem in his <a href="https://pybit.es/python-mentoring-session.html">mentoring session digest</a> where he uses <code>os.getenv</code>.</p>
+<p>I personally tend to create a <code>sensitive.py</code> file, which I then add to my <code>.gitignore</code>. </p>
+<p>This allows me to import my sensitive data like: <code>from sensitive import APIKEY</code>.</p>
+<p>(Of course, the API key is still stored in a file, so Bob's way of using <code>os.getenv</code> is waaay more foolproof!)</p>
+<p>Either way, hide those keys!</p>
+<p><a name="setup"></a></p>
+<h3>The Setup</h3>
+<ol>
+<li>Get a free API key at <a href="https://www.virustotal.com">VirusTotal</a> by creating an account and getting the API-key from your profile:</li>
+</ol>
+<p><img alt="API Menu" src="images/vtscan/virustotal-profile.png"> </p>
+<ol>
+<li>Install the required packages:</li>
+</ol>
+<p><code>pip3 install pywin32 click requests win10toast</code></p>
+<p>(Optional):  Install the <code>colorama</code> package if you would like colors!</p>
+<p><code>pip3 install colorama</code></p>
+<p>This package is used by <code>click</code> to draw terminal colors, but <code>click</code> can run perfectly without it.</p>
+<p><a name="virustotal-api"></a></p>
+<h3>The VirusTotal API</h3>
+<p>The first thing you should do when implementing an API that you don't know, is to <a href="https://developers.virustotal.com/reference">Read the Manual!</a></p>
+<p>A lot of times, sample code is provided to get you started, and usually, API documentation lists all endpoints you can query to get information.
+Besides, your tool acts <strong>like</strong> a <em>view</em> for the API, so you need to know what you have to send, what you can expect, and what is required to make requests.</p>
+<p><img alt="RTFM!" src="images/vtscan/rtfm.png"></p>
+<p>So go ahead and have a quick look the 2 links below and just read through them.<br>
+I'll be focusing on <a href="https://developers.virustotal.com/reference#file-scan">/file/scan</a> and on <a href="https://developers.virustotal.com/reference#file-report">/file/report</a> for the purpose of this article!</p>
+<p><a name="api-file-scan"></a></p>
+<h3>The VT API: /file/scan</h3>
+<p>The endpoint is described as follows:</p>
+<blockquote>
+<p>This endpoint allows you to send a file for scanning with VirusTotal. Before performing your submissions we encourage you to retrieve the latest report on the file, if it is recent enough you might want to save time and bandwidth by making use of it. File size limit is 32MB, in order to submit files up to 200MB in size you must request a special upload URL using the /file/scan/upload_url endpoint.</p>
+</blockquote>
+<p>The python example looks like this:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.virustotal.com/vtapi/v2/file/scan&#39;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;apikey&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;apikey&gt;&#39;</span><span class="p">}</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;myfile.exe&#39;</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;myfile.exe&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+
+
+<p><em>What is going on?</em>
+<em> We make a very simple HTTP Post request to the VirusTotal scan endpoint.
+</em> As parameter, we send our API-key for authorization
+<em> We add the file to our body
+</em> We print out the response in json.</p>
+<p>Let's run this and have a look at the data that's being returned:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;scan_id&quot;</span><span class="p">:</span><span class="s2">&quot;8fbc375f08b4cb9b55c64f14b32891f9703ab3e69ca13f504deec7655fcd13b6-1582211127&quot;</span>
+    <span class="s2">&quot;sha1&quot;</span><span class="p">:</span><span class="s2">&quot;552d86c190fb6ad0f4734f44e59dce91fc364230&quot;</span>
+    <span class="s2">&quot;resource&quot;</span><span class="p">:</span><span class="s2">&quot;8fbc375f08b4cb9b55c64f14b32891f9703ab3e69ca13f504deec7655fcd13b6&quot;</span>
+    <span class="s2">&quot;response_code&quot;</span><span class="p">:</span><span class="mi">1</span>
+    <span class="s2">&quot;sha256&quot;</span><span class="p">:</span><span class="s2">&quot;8fbc375f08b4cb9b55c64f14b32891f9703ab3e69ca13f504deec7655fcd13b6&quot;</span>
+    <span class="s2">&quot;permalink&quot;</span><span class="p">:</span><span class="s2">&quot;https://www.virustotal.com/file/8fbc375f08b4cb9b55c64f14b32891f9703ab3e69ca13f504deec7655fcd13b6/ana ...&quot;</span>
+    <span class="s2">&quot;md5&quot;</span><span class="p">:</span><span class="s2">&quot;f9615c7e8528ed16b213a796af2ef31b&quot;</span>
+    <span class="s2">&quot;verbose_msg&quot;</span><span class="p">:</span><span class="s2">&quot;Scan request successfully queued, come back later for the report&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Looking good, although we don't have the results we're looking for yet, in terms of positives per scanner.</p>
+<p><a name="api-file-report"></a></p>
+<h3>The VT API: /file/report</h3>
+<p>This endpoint is described as follows:</p>
+<blockquote>
+<p>The resource argument can be the MD5, SHA-1 or SHA-256 of a file for which you want to retrieve the most recent antivirus report. You may also specify a scan_id returned by the /file/scan endpoint.</p>
+</blockquote>
+<p>Again, the python code is straightforward:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.virustotal.com/vtapi/v2/file/report&#39;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;apikey&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;apikey&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;resource&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;resource&gt;&#39;</span><span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+
+
+<p><em>What is going on?</em>
+<em> We make a HTTP GET Request to the <code>/file/report</code> endpoint this time.
+</em> As parameter, we send our API-key for authorization, and a resource.
+    * According to the documentation, this resource can be either and MD5, SHA1, SHA256 or Resource value
+    * We have obtained all these values above through the /file/scan endpoint</p>
+<p><a name="api-chain-endpoints"></a></p>
+<h3>VT API: Chaining the endpoints together</h3>
+<p>What we ultimately want to reach, is that we can run the script, pass a file to it, and it uploads and scans the file and prints the result without our intervention.
+By now we know a few things:
+<em> In order to get a scan report, we need to request the report  from <code>/file/report</code> based on the resource-id
+</em> We can get a resource-id for a file by posting the file to the <code>/file/scan</code> endpoint.</p>
+<p>Here's the function I wrote to contact the <code>/file/scan</code> endpoint:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scan_single_file</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.virustotal.com/vtapi/v2/file/scan&#39;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">_sess</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">_sess</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">_f</span><span class="p">},</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">json_resp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">resource</span> <span class="o">=</span> <span class="n">json_resp</span><span class="p">[</span><span class="s1">&#39;resource&#39;</span><span class="p">]</span> <span class="c1"># Extract the &quot;resource&quot; value from the JSON data</span>
+    <span class="n">_print_prefixed_message</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Getting Scan Result for {file}&#39;</span><span class="p">)</span>
+    <span class="n">generate_scan_report</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span> <span class="c1"># Call function to generate scan report based on the resource</span>
+</pre></div>
+
+
+<p>The first thing you might notice is that I do not have a declaration for params in this function.</p>
+<p>That is because params has to be sent to the endpoint every time.
+So if we want to reuse it in every function and it never changes, we can easily set a global variable at the top of our code that will act as a constant.</p>
+<p>A lot of people dislike working with global variables because it might not always be clear where the values are coming from. </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sensitive</span> <span class="kn">import</span> <span class="n">APIKEY</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;apikey&#39;</span><span class="p">:</span> <span class="n">APIKEY</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="o">...</span>
+</pre></div>
+
+
+<p>Because we are writing a single, non-object-oriented script, this is perfectly fine, and it should still be clear where this variable is coming from.</p>
+<p>Apart from that, we're pretty much doing the same as the example script, but we're making sure our files and sessions get closed properly by using the <code>with .. as .. :</code>-format.
+Don't worry too much about <code>_print_prefixed_message()</code>, we'll get to that later when we discuss the magic that <code>Click</code> is!</p>
+<p>If you don't understand <code>json_resp['resource']</code>, remember that Json is just another <code>dict</code> in python, and dicts have keys!</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">example_json</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Jarvis&#39;</span> <span class="p">}</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="nb">type</span><span class="p">(</span><span class="n">example_json</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="nb">dict</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">example_json</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">dict_keys</span><span class="p">([</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">example_json</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="s1">&#39;Jarvis&#39;</span>
+</pre></div>
+
+
+<p>So now we have a function to upload the file and get the resource-id. 
+Next we'll need a function to get the scan report based on this resource-id!</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_scan_report</span><span class="p">(</span><span class="n">resource_id</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.virustotal.com/vtapi/v2/file/report&#39;</span>
+    <span class="n">local_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;resource&#39;</span><span class="p">:</span> <span class="n">resource_id</span><span class="p">}</span>
+
+    <span class="n">full_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">full_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">full_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">local_params</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">_sess</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">_sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">full_params</span><span class="p">)</span>
+
+    <span class="n">json_resp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">json_resp</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;scans&quot;</span><span class="p">:</span>
+            <span class="n">vendor_table</span> <span class="o">=</span> <span class="n">json_resp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;verbose_msg&quot;</span><span class="p">:</span>
+            <span class="n">result_message</span> <span class="o">=</span> <span class="n">json_resp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;total&quot;</span><span class="p">:</span>
+            <span class="n">total_scans</span> <span class="o">=</span> <span class="n">json_resp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;positives&quot;</span><span class="p">:</span>
+            <span class="n">total_positives</span> <span class="o">=</span> <span class="n">json_resp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;permalink&quot;</span><span class="p">:</span>
+            <span class="n">permalink</span> <span class="o">=</span> <span class="n">json_resp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;scan_date&quot;</span><span class="p">:</span>
+            <span class="n">scan_date</span> <span class="o">=</span> <span class="n">json_resp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="n">print_scan_report</span><span class="p">(</span><span class="n">vendor_table</span><span class="p">,</span> <span class="n">permalink</span><span class="p">,</span> <span class="n">scan_date</span><span class="p">,</span> <span class="n">result_message</span><span class="p">,</span> <span class="n">total_scans</span><span class="p">,</span> <span class="n">total_positives</span><span class="p">)</span>
+</pre></div>
+
+
+<p><em>What is going on?</em>
+<em> Why are you updating dicts?
+    * We have to send a GET request, with our <code>resource</code>-id as a parameter
+    * We also (still) have to pass our API-key parameter!
+    * Parameters to <code>requests</code> POST or GET, are <code>dict</code>s.
+    * By calling <code>one_dict.update(other_dict)</code> we can put 2 dicts together into a single one!
+</em> After the parameter-preparation is done, we make our request and capture the response
+<em> We get some interesting values from the scan report
+</em> We pass it on to get printed (Next up!)</p>
+<p>If we look at the data that's coming back from the report endpoint we see it looks like this:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;scans&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Bkav&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;detected&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="s1">&#39;1.3.0.9899&#39;</span><span class="p">,</span> <span class="o">...</span>
+</pre></div>
+
+
+<p>Awesome that's exactly what we need but in it's current state, the tool is not really usable.</p>
+<p>However, in terms of what we need to know from the API, we're all done.
+Very often, creating a tool that chains API endpoints together can be done with just a few lines of code and the <code>requests</code> library.</p>
+<p>You can go out there right now, find an API of your liking, and start getting that data!</p>
+<p>When you've done all that, you can come back here and we'll get to making things pretty and usable!</p>
+<p><a name="pretty-with-click"></a></p>
+<h2>Making pretty CLI Tools with Click</h2>
+<p>If you've read <a href="https://pybit.es/guest-webscraper-to-wordcloud.html">my previous post</a>, you know I like my data pretty!</p>
+<p>So the end goal in this chapter will be to go from this:</p>
+<p><img alt="Ewwww Ugly" src="images/vtscan/ugly.png"></p>
+<p>To this:</p>
+<p><img alt="Woaahhh Pretty" src="images/vtscan/PrettyPositive.png"></p>
+<p><a name="helpers"></a></p>
+<h3>Helpers, they really do help</h3>
+<p>Earlier, I promised an explanation for that <code>_print_prefixed_message()</code> function.
+The <code>click</code> library provides 2 basic print functions <code>click.echo</code> and <code>click.secho</code> </p>
+<p>There's the option to add <code>style()</code> to <code>click.echo</code>, but <code>secho</code> already does this for us.</p>
+<p>From the docs:</p>
+<blockquote>
+<p>The combination of echo() and style() is also available in a single function called secho()</p>
+</blockquote>
+<p>Here's the prototype:</p>
+<p><code>click.secho(message=None, file=None, nl=True, err=False, color=None, **styles)</code></p>
+<p>Do you see those little <code>[:)]</code>'s and <code>[!!]</code>'s in their respective colors?</p>
+<p>In the beginning they were all individually printed, so I had multiple calls actually doing the same.
+When you're duplicating code, there's probably a way to throw it in a function:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_print_prefix</span><span class="p">(</span><span class="n">character</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="n">character</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s1">&#39;] &#39;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_print_prefixed_message</span><span class="p">(</span><span class="n">character</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="n">_print_prefix</span><span class="p">(</span><span class="n">character</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+
+
+<p><em>What's going on?</em></p>
+<ul>
+<li>
+<p>We're echo'ing a bracket, without starting a new line</p>
+</li>
+<li>
+<p>We print the characters that our <code>_print_prefix</code> received as an argument, together with the color of our choice, again no new line!</p>
+</li>
+<li>
+<p>We close off our prefix with a closing bracket, still no new line!</p>
+</li>
+<li>
+<p>In <code>_print_prefixed_message</code>, we simple call a function that does the above, and we add a message!</p>
+</li>
+</ul>
+<p>Instead of having to write 4 <code>click.secho's</code> every time I want to print a message, I can simply call:</p>
+<p><code>_print_prefixed_message('*', 'yellow', f'Yellow prefixed message for you!')</code></p>
+<p>If you have the feeling you're duplicating code and just making minor changes, take the time to look at what you're doing and sometimes, you can make a helper to help you!</p>
+<p>Here's an example use of <code>_print_prefix()</code> in case you're rightfully wondering why I broke those up.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_vendor_table</span><span class="p">(</span><span class="n">vendordict</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">vd</span> <span class="ow">in</span> <span class="n">vendordict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">vendordict</span><span class="p">[</span><span class="n">vd</span><span class="p">][</span><span class="s1">&#39;detected&#39;</span><span class="p">]:</span>
+            <span class="n">_print_prefix</span><span class="p">(</span><span class="s1">&#39;!!&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="n">vd</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_print_prefix</span><span class="p">(</span><span class="s1">&#39;:)&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="n">vd</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And even here we have some duplicate pieces that we could optimize. Everything in these helpers could probably also have been done with decorators.
+But the code is functional, readable and works, so that's enough for now (feel free to <a href="https://github.com/xWhiteListed/vt-scanner-python/pulls">submit a PR</a> if you like!)</p>
+<p><a name="options-flags"></a></p>
+<h3>Options and flags</h3>
+<p>Again, what we want to achieve, is a tool where we can simply go:</p>
+<p><code>python tool.py -f /file/to/scan.exe</code></p>
+<p>To make this type of behavior easier to implement, <code>click</code> offers a couple of decorators, here's the head of my <code>main()</code> function to give you an idea:</p>
+<div class="highlight"><pre><span></span><span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s2">&quot;-w&quot;</span><span class="p">,</span> <span class="s2">&quot;--watcher&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s2">&quot;-D&quot;</span><span class="p">,</span> <span class="s2">&quot;--directory&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;--file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p><em>What's going on?</em>
+- First we're saying that the following function is our command, click automatically adds a <code>--help</code> to commands.</p>
+<ul>
+<li>
+<p>We add a number of <code>-X</code> or <code>--Y</code> options and specify their types and defaults.</p>
+<ul>
+<li>These options will be stored in <code>Y</code> (the second argument, stripped off <code>--</code>)</li>
+</ul>
+</li>
+<li>
+<p>We define the <code>w</code> option as a <em>flag</em>, which means it can be set or unset, but no value has to be specified.</p>
+<ul>
+<li>
+<p>For options we have to do <code>--option VALUE</code></p>
+</li>
+<li>
+<p>For flags we can simply say <code>--flag</code> and it's toggled <code>True</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>The wrappers pass the options as <strong>named arguments</strong> to <code>main</code>    </p>
+</li>
+</ul>
+<p>So if I now run:</p>
+<p><code>python vtscan.py --file ./myfile.exe</code></p>
+<ul>
+<li>
+<p>the <code>./myfile.exe</code> string is stored and passed to <code>main</code></p>
+</li>
+<li>
+<p><code>directory</code> gets a default value of <code>None</code></p>
+</li>
+<li>
+<p>the <code>watcher</code> flag is set to it's default <code>False</code></p>
+</li>
+<li>
+<p><code>main</code> receives this as <code>main(file="./myfile.exe", directory=None, watcher=False)</code></p>
+</li>
+</ul>
+<p>This is where I'll close up around <code>click</code>, if you want to know more about this awesome library be sure to <a href="https://click.palletsprojects.com/en/7.x/">read the docs</a>!</p>
+<p><a name="adding-the-watcher"></a></p>
+<h2>More functionality: Adding the Watcher</h2>
+<p>This part covers how I added a directory watcher and some of the challenges I faced.</p>
+<p>Aside from the normal <code>vt-cli</code> behavior, I wanted to also be able to drop files in a directory and have them scanned automatically.</p>
+<p>We'll have a look at a script I found to do the actual directory matching, and we'll look at the module used: <code>pywin32</code>.</p>
+<p>I won't go too much in depth on the Win32 API because that's a whole different writeup.</p>
+<p><a name="additional-work-arguments"></a></p>
+<h3>Additional work on the arguments</h3>
+<p>When the program is running interactively with <code>-f</code> and it receives the file, it can't start it's watcher loop.
+If the program is running as a watcher, the <code>--directory</code> has to be specified and we shouldn't prompt the user for more details to prevent interruption.</p>
+<p>I also wanted to add my own messages so I could use the same format on my errors as I did for the rest of the scan reports, like this:</p>
+<p><img alt="Pretty Errors" src="images/vtscan/pretty_errors.png"></p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_cli_options</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">is_watcher</span>
+
+    <span class="n">watcher_opt</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;watcher&#39;</span><span class="p">]</span>
+    <span class="n">dir_opt</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;directory&#39;</span><span class="p">]</span>
+    <span class="n">file_opt</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">watcher_opt</span><span class="p">:</span>
+        <span class="n">_print_prefixed_message</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="s2">&quot;Running as watcher!&quot;</span><span class="p">)</span>
+        <span class="n">is_watcher</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">if</span> <span class="n">dir_opt</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">_print_prefixed_message</span><span class="p">(</span><span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;You need to specify a directory to watch when running as Watcher!&quot;</span><span class="p">)</span>
+            <span class="n">_print_prefixed_message</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="s2">&quot;Run VTScan.py --help for more info&quot;</span><span class="p">)</span>
+            <span class="nb">exit</span><span class="p">()</span>
+
+    <span class="k">elif</span> <span class="n">file_opt</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">_print_prefixed_message</span><span class="p">(</span><span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;You must specify a file when running interactively&quot;</span><span class="p">)</span>
+        <span class="n">_print_prefixed_message</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="s2">&quot;Run VTScan.py --help for more info&quot;</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">watcher_opt</span><span class="p">,</span> <span class="n">dir_opt</span><span class="p">,</span> <span class="n">file_opt</span>
+
+<span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s2">&quot;-w&quot;</span><span class="p">,</span> <span class="s2">&quot;--watcher&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s2">&quot;-D&quot;</span><span class="p">,</span> <span class="s2">&quot;--directory&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;--file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">watcher_opt</span><span class="p">,</span> <span class="n">dir_opt</span><span class="p">,</span> <span class="n">file_opt</span> <span class="o">=</span> <span class="n">parse_cli_options</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">watcher_opt</span><span class="p">:</span>
+        <span class="n">run_as_watcher</span><span class="p">(</span><span class="n">dir_opt</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">scan_single_file</span><span class="p">(</span><span class="n">file_opt</span><span class="p">)</span>
+</pre></div>
+
+
+<p><em>What's going on?</em></p>
+<ul>
+<li>
+<p>First, I expose the global variable <code>is_watcher</code></p>
+<ul>
+<li>
+<p>global variables can always be read</p>
+</li>
+<li>
+<p>if you want to write to a global variable, your function needs a line that exposes it: <code>global is_watcher</code></p>
+</li>
+<li>
+<p>depending on the -w flag, we want to toggle our watcher behavior.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Next, I get the function arguments out of <code>kwargs</code>, these all have a default value, so they all exist.</p>
+<ul>
+<li>
+<p>If the watcher option is set:</p>
+<ul>
+<li>
+<p>We change our global is_watcher (which is <code>False</code> by default)</p>
+</li>
+<li>
+<p>we verify that the directory was provided</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Otherwise we check that the file name was provided.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Now we're done with these extra prints and checks, we return the options to main.</p>
+<ul>
+<li>in main we check our watcher option and choose the correct path with it's respective argument.</li>
+</ul>
+</li>
+</ul>
+<p>Here's an example use of that global variable to toggle some functionality:</p>
+<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_watcher</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s1">&#39;Show Detail? [y/n]: &#39;</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">getchar</span><span class="p">()</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>
+            <span class="n">print_vendor_table</span><span class="p">(</span><span class="n">vendordict</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span><span class="p">:</span>
+            <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;Exiting!&quot;</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">()</span>
+</pre></div>
+
+
+<p>If we're running as a watcher, we don't need to ask the user to show details. Very convenient!</p>
+<p><a name="watching-a-directory-win32"></a></p>
+<h3>Watching a directory: Win32</h3>
+<p>Credit where credit is due, for this part, I only slightly modified the code I found <a href="http://timgolden.me.uk/python/win32_how_do_i/watch_directory_for_changes.html">here</a>.</p>
+<p>It elegantly uses <code>pywin32</code> to access the Win32 API and loops <code>ReadDirectoryChangesW</code> to check a directory for changes. 
+Perfect for our directory watcher!</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_as_watcher</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+    <span class="n">path_to_watch</span> <span class="o">=</span> <span class="n">directory</span>
+
+    <span class="n">hDir</span> <span class="o">=</span> <span class="n">win32file</span><span class="o">.</span><span class="n">CreateFile</span><span class="p">(</span>
+        <span class="n">path_to_watch</span><span class="p">,</span>
+        <span class="n">FILE_LIST_DIRECTORY</span><span class="p">,</span>
+        <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_SHARE_READ</span> <span class="o">|</span> <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_SHARE_WRITE</span> <span class="o">|</span> <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_SHARE_DELETE</span><span class="p">,</span>
+        <span class="bp">None</span><span class="p">,</span>
+        <span class="n">win32con</span><span class="o">.</span><span class="n">OPEN_EXISTING</span><span class="p">,</span>
+        <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_FLAG_BACKUP_SEMANTICS</span><span class="p">,</span>
+        <span class="bp">None</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">win32file</span><span class="o">.</span><span class="n">ReadDirectoryChangesW</span> <span class="p">(</span>
+                    <span class="n">hDir</span><span class="p">,</span>
+                    <span class="mi">1024</span><span class="p">,</span>
+                    <span class="bp">True</span><span class="p">,</span>
+                    <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_FILE_NAME</span> <span class="o">|</span>
+                    <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_DIR_NAME</span> <span class="o">|</span>
+                    <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_ATTRIBUTES</span> <span class="o">|</span>
+                    <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_SIZE</span> <span class="o">|</span>
+                    <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_LAST_WRITE</span> <span class="o">|</span>
+                    <span class="n">win32con</span><span class="o">.</span><span class="n">FILE_NOTIFY_CHANGE_SECURITY</span><span class="p">,</span>
+                    <span class="bp">None</span><span class="p">,</span>
+                    <span class="bp">None</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                    <span class="n">full_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_watch</span><span class="p">,</span> <span class="nb">file</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">ACTION</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Created&quot;</span><span class="p">:</span>
+                        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="n">scan_single_file</span><span class="p">(</span><span class="n">full_filename</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Exiting!&quot;</span><span class="p">)</span>
+        <span class="nb">exit</span><span class="p">()</span>
+</pre></div>
+
+
+<p><em>What's going on?</em></p>
+<ul>
+<li>
+<p>First we create a handle <code>hDir</code> to a directory using <code>CreateFile</code> (<a href="http://winapi.freetechsecrets.com/win32/WIN32CreateFile.htm">Win32 API Reference</a>)</p>
+<ul>
+<li>
+<p>Windows uses a lot of <code>handles</code> in it's API.</p>
+</li>
+<li>
+<p><code>ReadDirectoryChangesW</code> needs this handle to check that directory for changes.</p>
+</li>
+<li>
+<p>We pass our directory function argument to the file handle along with the required permissions and options.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Next, an infinite loop is started, wrapped with a try catch to check for <code>CTRL+C</code></p>
+</li>
+<li>
+<p>This runs <code>ReadDirectoryChangesW</code> over and over again (<a href="https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-readdirectorychangesw">Microsoft docs</a>)</p>
+<ul>
+<li>
+<p>When the contents of a directory changed, we check what change occured (Creation, deletion, modification)</p>
+<ul>
+<li>
+<p>If a file is created, it means a new file got pasted.</p>
+</li>
+<li>
+<p>We're only interested in new files</p>
+</li>
+</ul>
+</li>
+<li>
+<p>When a file gets pasted, the operating system first Creates an empty file, and then copies the original data to the copy.</p>
+<ul>
+<li>
+<p>This means that when the CREATE action occurs, our file will be in use</p>
+</li>
+<li>
+<p>So we sleep for a bit so Windows has time to finish the paste (or we wont have read access)</p>
+</li>
+<li>
+<p>finally, we just run the <code>single_scan</code> part again, and our <code>is_watcher</code> global flag will take care of the rest!</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>One way to replace <code>sleep</code> would be to wait for the file to no longer be in use, which is something for the future.
+Right now, the program will fail with an "Access Denied" if you paste a large file that takes longer than 1 second.</p>
+<p>And that's all there's to it!</p>
+<p><img alt="Watcher CLI" src="images/vtscan/watcher_cli.png"></p>
+<p><a name="win10toast"></a></p>
+<h3>Adding Toast messages: Win10Toast</h3>
+<p>A final library I added so I wouldn't have to go back to the CLI log everytime, was <code>win10toast</code>.</p>
+<p>Again, it's awesome how little code is needed to create a pretty toast message!</p>
+<div class="highlight"><pre><span></span><span class="c1"># Show results in Toast!</span>
+        <span class="n">toaster</span> <span class="o">=</span> <span class="n">ToastNotifier</span><span class="p">()</span>
+        <span class="n">toaster</span><span class="o">.</span><span class="n">show_toast</span><span class="p">(</span><span class="s2">&quot;Scan Complete!&quot;</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;Positives: {positives} / {total}&quot;</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">icon_path</span><span class="o">=</span><span class="s2">&quot;.</span><span class="se">\\</span><span class="s2">favicon.ico&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And we have a fully operational tool for our day to day job!</p>
+<p><img alt="Toast in Action GIF" src="images/vtscan/toastmessage.gif"></p>
+<p>--</p>
+<p>Thanks for reading, I hope you enjoyed it as much as I enjoyed writing it. 
+If you have any remarks or questions, you can likely find me on the <a href="pages/community.html">Pybites Slack Channel</a> as 'Jarvis'.</p>
+<p>Keep calm and code in Python!</p>
+<p>-- <a href="pages/guests.html#cedricsambre">Cedric</a></p>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/click.html">click</a>
+      <a href="https://pybit.es/tag/rest.html">rest</a>
+      <a href="https://pybit.es/tag/requests.html">requests</a>
+      <a href="https://pybit.es/tag/api.html">API</a>
+      <a href="https://pybit.es/tag/win10toast.html">win10toast</a>
+      <a href="https://pybit.es/tag/directorywatcher.html">directorywatcher</a>
+      <a href="https://pybit.es/tag/pywin32.html">pywin32</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
+</body>
+</html>
