@@ -214,15 +214,19 @@ Your API key is a unique identifier and authorization mechanism to allow you to 
 <p><a name="setup"></a></p>
 <h3>The Setup</h3>
 <ol>
-<li>Get a free API key at <a href="https://www.virustotal.com">VirusTotal</a> by creating an account and getting the API-key from your profile:</li>
-</ol>
+<li>
+<p>Get a free API key at <a href="https://www.virustotal.com">VirusTotal</a> by creating an account and getting the API-key from your profile:</p>
 <p><img alt="API Menu" src="images/vtscan/virustotal-profile.png"> </p>
-<ol>
-<li>Install the required packages:</li>
-</ol>
+</li>
+<li>
+<p>Install the required packages:</p>
 <p><code>pip3 install pywin32 click requests win10toast</code></p>
-<p>(Optional):  Install the <code>colorama</code> package if you would like colors!</p>
+</li>
+<li>
+<p>(Optional) Install the <code>colorama</code> package if you would like colors!</p>
 <p><code>pip3 install colorama</code></p>
+</li>
+</ol>
 <p>This package is used by <code>click</code> to draw terminal colors, but <code>click</code> can run perfectly without it.</p>
 <p><a name="virustotal-api"></a></p>
 <h3>The VirusTotal API</h3>
@@ -248,11 +252,21 @@ I'll be focusing on <a href="https://developers.virustotal.com/reference#file-sc
 </pre></div>
 
 
-<p><em>What is going on?</em>
-<em> We make a very simple HTTP Post request to the VirusTotal scan endpoint.
-</em> As parameter, we send our API-key for authorization
-<em> We add the file to our body
-</em> We print out the response in json.</p>
+<p><em>What is going on?</em></p>
+<ul>
+<li>
+<p>We make a very simple HTTP Post request to the VirusTotal scan endpoint.</p>
+</li>
+<li>
+<p>As parameter, we send our API-key for authorization</p>
+</li>
+<li>
+<p>We add the file to our body</p>
+</li>
+<li>
+<p>We print out the response in json.</p>
+</li>
+</ul>
 <p>Let's run this and have a look at the data that's being returned:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;scan_id&quot;</span><span class="p">:</span><span class="s2">&quot;8fbc375f08b4cb9b55c64f14b32891f9703ab3e69ca13f504deec7655fcd13b6-1582211127&quot;</span>
@@ -283,17 +297,35 @@ I'll be focusing on <a href="https://developers.virustotal.com/reference#file-sc
 </pre></div>
 
 
-<p><em>What is going on?</em>
-<em> We make a HTTP GET Request to the <code>/file/report</code> endpoint this time.
-</em> As parameter, we send our API-key for authorization, and a resource.
-    * According to the documentation, this resource can be either and MD5, SHA1, SHA256 or Resource value
-    * We have obtained all these values above through the /file/scan endpoint</p>
+<p><em>What is going on?</em></p>
+<ul>
+<li>
+<p>We make a HTTP GET Request to the <code>/file/report</code> endpoint this time.</p>
+</li>
+<li>
+<p>As parameter, we send our API-key for authorization, and a resource.</p>
+<ul>
+<li>
+<p>According to the documentation, this resource can be either and MD5, SHA1, SHA256 or Resource value</p>
+</li>
+<li>
+<p>We have obtained all these values above through the /file/scan endpoint</p>
+</li>
+</ul>
+</li>
+</ul>
 <p><a name="api-chain-endpoints"></a></p>
 <h3>VT API: Chaining the endpoints together</h3>
 <p>What we ultimately want to reach, is that we can run the script, pass a file to it, and it uploads and scans the file and prints the result without our intervention.
-By now we know a few things:
-<em> In order to get a scan report, we need to request the report  from <code>/file/report</code> based on the resource-id
-</em> We can get a resource-id for a file by posting the file to the <code>/file/scan</code> endpoint.</p>
+By now we know a few things:</p>
+<ul>
+<li>
+<p>In order to get a scan report, we need to request the report  from <code>/file/report</code> based on the resource-id</p>
+</li>
+<li>
+<p>We can get a resource-id for a file by posting the file to the <code>/file/scan</code> endpoint.</p>
+</li>
+</ul>
 <p>Here's the function I wrote to contact the <code>/file/scan</code> endpoint:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scan_single_file</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.virustotal.com/vtapi/v2/file/scan&#39;</span>
@@ -366,15 +398,35 @@ Next we'll need a function to get the scan report based on this resource-id!</p>
 </pre></div>
 
 
-<p><em>What is going on?</em>
-<em> Why are you updating dicts?
-    * We have to send a GET request, with our <code>resource</code>-id as a parameter
-    * We also (still) have to pass our API-key parameter!
-    * Parameters to <code>requests</code> POST or GET, are <code>dict</code>s.
-    * By calling <code>one_dict.update(other_dict)</code> we can put 2 dicts together into a single one!
-</em> After the parameter-preparation is done, we make our request and capture the response
-<em> We get some interesting values from the scan report
-</em> We pass it on to get printed (Next up!)</p>
+<p><em>What is going on?</em></p>
+<ul>
+<li>
+<p>Why are you updating dicts?</p>
+<ul>
+<li>
+<p>We have to send a GET request, with our <code>resource</code>-id as a parameter</p>
+</li>
+<li>
+<p>We also (still) have to pass our API-key parameter!</p>
+</li>
+<li>
+<p>Parameters to <code>requests</code> POST or GET, are <code>dict</code>s.</p>
+</li>
+<li>
+<p>By calling <code>one_dict.update(other_dict)</code> we can put 2 dicts together into a single one!</p>
+</li>
+</ul>
+</li>
+<li>
+<p>After the parameter-preparation is done, we make our request and capture the response</p>
+</li>
+<li>
+<p>We get some interesting values from the scan report</p>
+</li>
+<li>
+<p>We pass it on to get printed (Next up!)</p>
+</li>
+</ul>
 <p>If we look at the data that's coming back from the report endpoint we see it looks like this:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;scans&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Bkav&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;detected&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="s1">&#39;1.3.0.9899&#39;</span><span class="p">,</span> <span class="o">...</span>
 </pre></div>
