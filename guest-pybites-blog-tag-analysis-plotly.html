@@ -121,7 +121,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -160,83 +160,83 @@
 <h2>Code</h2>
 <p>The full code for this challenge is <a href="https://raw.githubusercontent.com/pybites/challenges/community/03/mridubhatnagar/tags.py">here</a>.</p>
 <p>The live RSS feed for Pybites returns XML. One possible approach  was to parse the XML response and list all the tags being used by PyBites. The other one was to lookout for a module that is used for parsing the RSS feeds. This is how I used feedparser:</p>
-<div class="highlight"><pre><span></span><span class="n">blog_feed</span> <span class="o">=</span> <span class="n">feedparser</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;https://pybit.es/feeds/all.rss.xml&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>blog_feed = feedparser.parse(&#39;https://pybit.es/feeds/all.rss.xml&#39;)
 </pre></div>
 
 
 <p>Now, blog_feed has feed of complete PyBites. But, at a granular level what I really wanted  was to retrieve all of the tags. To reach up to tags I had to do two levels of parsing. Going top-bottom. First I looped around all the entries. In particular blog_feed.entries would list details related to all the blog posts by PyBites. Per Blog it would have details like title, title_details, content, tags and so on for all the blogs. Then I looped across all the entries to get the tags. Per blog post I appended all the tags to a list.</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_tags</span><span class="ss">()</span>:
-<span class="s2">&quot;&quot;&quot;</span>
-<span class="nv">Find</span> <span class="nv">all</span> <span class="nv">tags</span> <span class="nv">in</span> <span class="nv">live</span> <span class="nv">feed</span>.
-<span class="nv">Replace</span> <span class="nv">dash</span> <span class="nv">with</span> <span class="nv">whitespace</span>.
-<span class="s2">&quot;&quot;&quot;</span>
-<span class="nv">tags</span> <span class="o">=</span> []
-<span class="nv">blog_feed</span> <span class="o">=</span> <span class="nv">feedparser</span>.<span class="nv">parse</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">https://pybit.es/feeds/all.rss.xml</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="k">for</span> <span class="nv">item</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">blog_feed</span>.<span class="nv">entries</span><span class="ss">))</span>:
-    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">blog_feed</span>.<span class="nv">entries</span>[<span class="nv">item</span>].<span class="nv">tags</span><span class="ss">))</span>:
-        <span class="nv">word</span> <span class="o">=</span> <span class="nv">blog_feed</span>.<span class="nv">entries</span>[<span class="nv">item</span>].<span class="nv">tags</span>[<span class="nv">i</span>][<span class="s1">&#39;</span><span class="s">term</span><span class="s1">&#39;</span>]
-        <span class="nv">tags</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">word</span><span class="ss">)</span>
-<span class="k">return</span> <span class="nv">tags</span>
+<div class="highlight"><pre><span></span>def get_tags():
+&quot;&quot;&quot;
+Find all tags in live feed.
+Replace dash with whitespace.
+&quot;&quot;&quot;
+tags = []
+blog_feed = feedparser.parse(&#39;https://pybit.es/feeds/all.rss.xml&#39;)
+for item in range(len(blog_feed.entries)):
+    for i in range(len(blog_feed.entries[item].tags)):
+        word = blog_feed.entries[item].tags[i][&#39;term&#39;]
+        tags.append(word)
+return tags
 </pre></div>
 
 
 <p>Next step was to get the top 10 tags that are being most commonly used. For this I created a dictionary having tag as the key and count per tag as the corresponding value:</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_top_tags</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">Get</span> <span class="nv">the</span> <span class="nv">TOP_NUMBER</span> <span class="nv">of</span> <span class="nv">most</span> <span class="nv">common</span> <span class="nv">tags</span>.
-    <span class="nv">tags</span>: <span class="nv">List</span> <span class="nv">of</span> <span class="nv">all</span> <span class="nv">the</span> <span class="nv">tags</span> <span class="nv">used</span> <span class="nv">by</span> <span class="nv">the</span> <span class="nv">website</span>.
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">tag_list</span> <span class="o">=</span> []
-    <span class="nv">D</span> <span class="o">=</span> {}
-    <span class="nv">top_tags</span> <span class="o">=</span> {}
-    <span class="k">for</span> <span class="nv">words</span> <span class="nv">in</span> <span class="nv">tags</span>:
-        <span class="nv">tag_list</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">words</span>.<span class="nv">lower</span><span class="ss">())</span>
-        <span class="nv">key</span> <span class="o">=</span> <span class="nv">words</span>.<span class="nv">lower</span><span class="ss">()</span>
-        <span class="nv">D</span>[<span class="nv">key</span>] <span class="o">=</span> <span class="nv">tag_list</span>.<span class="nv">count</span><span class="ss">(</span><span class="nv">key</span><span class="ss">)</span>
-    <span class="nv">top_tags</span> <span class="o">=</span> <span class="nv">sorted</span><span class="ss">(</span><span class="nv">D</span>.<span class="nv">items</span><span class="ss">()</span>,<span class="nv">key</span><span class="o">=</span><span class="nv">operator</span>.<span class="nv">itemgetter</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">reverse</span><span class="o">=</span><span class="nv">True</span><span class="ss">)</span>[:<span class="nv">TOP_NUMBER</span>]
-    <span class="k">return</span> <span class="nv">top_tags</span>
+<div class="highlight"><pre><span></span>def get_top_tags(tags):
+    &quot;&quot;&quot;
+    Get the TOP_NUMBER of most common tags.
+    tags: List of all the tags used by the website.
+    &quot;&quot;&quot;
+    tag_list = []
+    D = {}
+    top_tags = {}
+    for words in tags:
+        tag_list.append(words.lower())
+        key = words.lower()
+        D[key] = tag_list.count(key)
+    top_tags = sorted(D.items(),key=operator.itemgetter(1), reverse=True)[:TOP_NUMBER]
+    return top_tags
 </pre></div>
 
 
 <p>The top 10 tags were getting retrieved but similarity had to be calculated as well. SequenceMatcher came in handy for this. Based on the input words it returns a value that shows how similar the two words are. Given the threshold was 0.85, anything above this value was considered similar. </p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_similarities</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">Find</span> <span class="nv">set</span> <span class="nv">of</span> <span class="nv">tags</span> <span class="nv">pairs</span> <span class="nv">with</span> <span class="nv">similarity</span> <span class="nv">ratio</span> <span class="nv">of</span> <span class="o">&gt;</span> <span class="nv">SIMILAR</span>.
-    <span class="nv">Argument</span>:
-    <span class="nv">tags</span>: <span class="nv">List</span> <span class="nv">of</span> <span class="nv">all</span> <span class="nv">the</span> <span class="nv">tags</span> <span class="nv">used</span> <span class="nv">by</span> <span class="nv">the</span> <span class="nv">website</span>.
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">D</span><span class="o">=</span>{}
-    <span class="k">for</span> <span class="nv">word</span> <span class="nv">in</span> <span class="nv">tags</span>:
-        <span class="nv">word</span><span class="o">=</span><span class="nv">word</span>.<span class="nv">replace</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s"> </span><span class="s1">&#39;</span>,<span class="s1">&#39;&#39;</span><span class="ss">)</span>.<span class="nv">lower</span><span class="ss">()</span>
-        <span class="k">for</span> <span class="nv">words</span> <span class="nv">in</span> <span class="nv">tags</span>:
-            <span class="nv">words</span><span class="o">=</span><span class="nv">words</span>.<span class="nv">replace</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s"> </span><span class="s1">&#39;</span>,<span class="s1">&#39;&#39;</span><span class="ss">)</span>.<span class="nv">lower</span><span class="ss">()</span>
-            <span class="nv">value</span> <span class="o">=</span> <span class="nv">SequenceMatcher</span><span class="ss">(</span><span class="nv">None</span>, <span class="nv">word</span>, <span class="nv">words</span><span class="ss">)</span>.<span class="nv">ratio</span><span class="ss">()</span>
-            <span class="k">if</span> <span class="nv">SIMILAR</span><span class="o">&lt;</span><span class="nv">value</span><span class="o">&lt;</span><span class="mi">1</span>:
-                <span class="nv">D</span>[<span class="nv">word</span>]<span class="o">=</span><span class="nv">words</span>
-    <span class="k">return</span> <span class="nv">D</span>
+<div class="highlight"><pre><span></span>def get_similarities(tags):
+    &quot;&quot;&quot;
+    Find set of tags pairs with similarity ratio of &gt; SIMILAR.
+    Argument:
+    tags: List of all the tags used by the website.
+    &quot;&quot;&quot;
+    D={}
+    for word in tags:
+        word=word.replace(&#39; &#39;,&#39;&#39;).lower()
+        for words in tags:
+            words=words.replace(&#39; &#39;,&#39;&#39;).lower()
+            value = SequenceMatcher(None, word, words).ratio()
+            if SIMILAR&lt;value&lt;1:
+                D[word]=words
+    return D
 </pre></div>
 
 
 <p>Last but not least, visualization. All I aimed for was to come up with a bar graph that at any point in time shows me the most commonly used tags. To meet this requirement I used Plotly. The crisp documentation helped me a lot. On the x-axis I mentioned the tags being used. And y-axis showed the counts of each tag.</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">visualizations</span><span class="ss">(</span><span class="nv">top_tags</span><span class="ss">)</span>:
-    <span class="s1">&#39;&#39;&#39;</span>
-    <span class="nv">Data</span> <span class="nv">visualization</span> <span class="nv">using</span> <span class="nv">Bar</span> <span class="nv">Graph</span>.
-    <span class="nv">Argument</span>:
-    <span class="nv">top_tags</span>: <span class="nv">List</span> <span class="nv">containing</span> <span class="nv">tuples</span>.
-    <span class="nv">And</span> <span class="nv">tuple</span> <span class="nv">have</span> <span class="nv">tag</span> <span class="nv">and</span> <span class="nv">count</span> <span class="nv">respectively</span>.
+<div class="highlight"><pre><span></span>def visualizations(top_tags):
+    &#39;&#39;&#39;
+    Data visualization using Bar Graph.
+    Argument:
+    top_tags: List containing tuples.
+    And tuple have tag and count respectively.
 
-    <span class="nv">x</span> <span class="nv">axis</span> <span class="o">-</span> <span class="nv">tags</span>
-    <span class="nv">y</span> <span class="nv">axis</span> <span class="o">-</span> <span class="nv">counts</span>
-    <span class="s1">&#39;&#39;&#39;</span>
-    <span class="nv">tags</span><span class="o">=</span>[]
-    <span class="nv">counts</span><span class="o">=</span>[]
-    <span class="k">for</span> <span class="nv">tag</span>,<span class="nv">count</span> <span class="nv">in</span> <span class="nv">top_tags</span>:
-        <span class="nv">tags</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">tag</span><span class="ss">)</span>
-        <span class="nv">counts</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">count</span><span class="ss">)</span>
-    <span class="nv">data</span><span class="o">=</span>[<span class="nv">go</span>.<span class="nv">Bar</span><span class="ss">(</span>
-        <span class="nv">x</span><span class="o">=</span><span class="nv">tags</span>,
-        <span class="nv">y</span><span class="o">=</span><span class="nv">counts</span><span class="ss">)</span>]
-    <span class="nv">py</span>.<span class="nv">plot</span><span class="ss">(</span><span class="nv">data</span>, <span class="nv">filename</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">basic-visualization</span><span class="s1">&#39;</span><span class="ss">)</span>
+    x axis - tags
+    y axis - counts
+    &#39;&#39;&#39;
+    tags=[]
+    counts=[]
+    for tag,count in top_tags:
+        tags.append(tag)
+        counts.append(count)
+    data=[go.Bar(
+        x=tags,
+        y=counts)]
+    py.plot(data, filename=&#39;basic-visualization&#39;)
 </pre></div>
 
 

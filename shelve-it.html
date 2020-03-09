@@ -123,7 +123,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -205,7 +205,7 @@
 <p>The above is super basic of course. Shelves become really useful when we start storing lists and dicts in them.</p>
 <p>There is a catch though. Any data you read in from the shelf is not automatically updated in the shelf if changed by your script. Using the above script, after reading in <em>db_names</em>, if we were to change the name variable to contain 'Bob' instead of 'Julian', that update would not be pushed back to the <em>db</em> shelf.</p>
 <p>To enable automatic writing to the shelf you can open the shelf with "writeback" enabled:</p>
-<div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">shelve</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">writeback</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>db = shelve.open(&#39;data&#39;, writeback=True)
 </pre></div>
 
 
@@ -226,17 +226,17 @@
 </li>
 </ol>
 <p>As with all things Python, I found I was <em>try</em>-ing (pun intended!) too hard. It was as simple as using <em>try</em>:</p>
-<div class="highlight"><pre><span></span><span class="nv">name</span> <span class="o">=</span> []
+<div class="highlight"><pre><span></span>name = []
 
-<span class="k">while</span> <span class="nv">True</span>:
-    <span class="nv">try</span>:
-        <span class="nv">with</span> <span class="nv">shelve</span>.<span class="nv">open</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">data</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">db</span>:
-            <span class="nv">name</span> <span class="o">=</span> <span class="nv">db</span>[<span class="s1">&#39;</span><span class="s">db_names</span><span class="s1">&#39;</span>]
-            <span class="k">break</span>
-    <span class="nv">except</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Please enter a  name to begin: </span><span class="s2">&quot;</span><span class="ss">)</span>
-        <span class="nv">name</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">input</span><span class="ss">())</span>
-        <span class="k">break</span> 
+while True:
+    try:
+        with shelve.open(&#39;data&#39;) as db:
+            name = db[&#39;db_names&#39;]
+            break
+    except:
+        print(&quot;Please enter a  name to begin: &quot;)
+        name.append(input())
+        break 
 </pre></div>
 
 

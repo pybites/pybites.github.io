@@ -127,7 +127,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -173,21 +173,21 @@
 <p>We will use the <code>EXTRACT_TEMPLATE</code> regex in a bit. I had to escape the <code>?</code>, <code>)</code>, <code>[</code> and <code>]</code>, because they have special meaning in regex land. Here I want to match the literal ones which are part of the PR template.</p>
 <h2>Parsing the review template</h2>
 <p>Each PR has a fixed template we use to have developers document their learning and provide us feedback. Here is my last submission for example:</p>
-<div class="highlight"><pre><span></span><span class="nv">Difficulty</span> <span class="nv">level</span> <span class="ss">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="ss">)</span>: [<span class="mi">3</span>]
-<span class="nv">Estimated</span> <span class="nv">time</span> <span class="nv">spent</span> <span class="ss">(</span><span class="nv">hours</span><span class="ss">)</span>: [<span class="mi">1</span>]
-<span class="nv">Completed</span> <span class="ss">(</span><span class="nv">yes</span><span class="o">/</span><span class="nv">no</span><span class="ss">)</span>: [<span class="nv">No</span>]
-<span class="nv">I</span> <span class="nv">stretched</span> <span class="nv">my</span> <span class="nv">coding</span> <span class="nv">skills</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">yes</span> <span class="nv">what</span> <span class="nv">did</span> <span class="nv">you</span> <span class="nv">learn</span>?<span class="ss">)</span>: [<span class="nv">Nice</span> <span class="nv">one</span> <span class="nv">to</span> <span class="nv">get</span> <span class="nv">back</span> <span class="nv">into</span> <span class="nv">Pandas</span>, <span class="nv">blabla</span> ...]
-<span class="nv">Other</span> <span class="nv">feedback</span> <span class="ss">(</span><span class="nv">what</span> <span class="nv">can</span> <span class="nv">we</span> <span class="nv">improve</span>?<span class="ss">)</span>: []
+<div class="highlight"><pre><span></span>Difficulty level (1-10): [3]
+Estimated time spent (hours): [1]
+Completed (yes/no): [No]
+I stretched my coding skills (if yes what did you learn?): [Nice one to get back into Pandas, blabla ...]
+Other feedback (what can we improve?): []
 </pre></div>
 
 
 <p>I defined a helper to parse the learning part ("what did you  learn") from this template. As it might span multiple lines, I cannot just index a list, hence I used the <code>EXTRACT_TEMPLATE</code> regex to parse the full string.</p>
 <p>The nice thing about <code>re.compile</code> is that you can define your regex once (here in a <em>constant</em>) and call regex methods like <code>sub</code> on it. The <code>\1</code> is the user's learning part I am interested in, which I captured using parenthesis in the regular expression.</p>
 <p>Before anything else I make sure we're dealing with a single-line string by taking the <code>\r\n</code>s out (you can probably also use <code>re.M</code> = multi-line matching, but that does not always work for me):</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_learning</span><span class="ss">(</span><span class="nv">template</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Helper to extract learning from PR template</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">learning</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">template</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">\r</span><span class="se">\n</span><span class="s1">&#39;</span><span class="ss">))</span>
-    <span class="k">return</span> <span class="nv">EXTRACT_TEMPLATE</span>.<span class="nv">sub</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">\1</span><span class="s1">&#39;</span>, <span class="nv">learning</span><span class="ss">)</span>.<span class="nv">strip</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>def get_learning(template):
+    &quot;&quot;&quot;Helper to extract learning from PR template&quot;&quot;&quot;
+    learning = &#39;&#39;.join(template.split(&#39;\r\n&#39;))
+    return EXTRACT_TEMPLATE.sub(r&#39;\1&#39;, learning).strip()
 </pre></div>
 
 
@@ -202,74 +202,74 @@
 </ol>
 <h2>Github API and collections.defaultdict</h2>
 <p>To pull the open PRs from Github I don't need an API key. Secondly notice the nice way you can <em>chain</em> operations in Python and the fact <code>requests</code> has a convenient <code>json</code> method. This is as expressive as it can get no?</p>
-<div class="highlight"><pre><span></span><span class="n">open_pulls</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">GH_API_PULLS_ENDPOINT</span><span class="p">).</span><span class="n">json</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>open_pulls = requests.get(GH_API_PULLS_ENDPOINT).json()
 </pre></div>
 
 
 <p>This is part of the <code>get_open_prs</code> function in which I loop through the pull requests and add each (PR number, learning) <code>tuple</code> into a <code>defaultdict</code> which I return. The nice thing about <code>defaultdict</code> is that it prevents having to write code to look for a key before inserting a value into the dictionary:</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_open_prs</span><span class="ss">()</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Parse GH API pulls JSON into a dict of keys = code challenge ids</span>
-    <span class="nv">and</span> <span class="nv">values</span> <span class="o">=</span> <span class="nv">lists</span> <span class="nv">of</span> <span class="ss">(</span><span class="nv">pr_number</span>, <span class="nv">learning</span><span class="ss">)</span> <span class="nv">tuples</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">open_pulls</span> <span class="o">=</span> <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">GH_API_PULLS_ENDPOINT</span><span class="ss">)</span>.<span class="nv">json</span><span class="ss">()</span>
-    <span class="nv">prs</span> <span class="o">=</span> <span class="nv">defaultdict</span><span class="ss">(</span><span class="nv">list</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>def get_open_prs():
+    &quot;&quot;&quot;Parse GH API pulls JSON into a dict of keys = code challenge ids
+    and values = lists of (pr_number, learning) tuples&quot;&quot;&quot;
+    open_pulls = requests.get(GH_API_PULLS_ENDPOINT).json()
+    prs = defaultdict(list)
 
-    <span class="k">for</span> <span class="nv">pull</span> <span class="nv">in</span> <span class="nv">open_pulls</span>:
-        <span class="nv">pr_number</span> <span class="o">=</span> <span class="nv">pull</span>[<span class="s1">&#39;</span><span class="s">number</span><span class="s1">&#39;</span>]
+    for pull in open_pulls:
+        pr_number = pull[&#39;number&#39;]
 
-        <span class="nv">pcc</span> <span class="o">=</span> <span class="nv">pull</span>[<span class="s1">&#39;</span><span class="s">head</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">ref</span><span class="s1">&#39;</span>].<span class="nv">upper</span><span class="ss">()</span>
-        <span class="nv">learning</span> <span class="o">=</span> <span class="nv">get_learning</span><span class="ss">(</span><span class="nv">pull</span>[<span class="s1">&#39;</span><span class="s">body</span><span class="s1">&#39;</span>]<span class="ss">)</span>
-        <span class="k">if</span> <span class="nv">learning</span>:
-            <span class="nv">prs</span>[<span class="nv">pcc</span>].<span class="nv">append</span><span class="ss">((</span><span class="nv">pr_number</span>, <span class="nv">learning</span><span class="ss">))</span>
+        pcc = pull[&#39;head&#39;][&#39;ref&#39;].upper()
+        learning = get_learning(pull[&#39;body&#39;])
+        if learning:
+            prs[pcc].append((pr_number, learning))
 
-    <span class="k">return</span> <span class="nv">prs</span>
+    return prs
 </pre></div>
 
 
 <p>I used a dictionary here to sort the code challenge ids (or "PCCs") as we'll see next.</p>
 <h2>Print markdown compatible with our review post</h2>
 <p>Lastly I print the resulting <code>prs</code> dictionary sorting on key to show all PRs per challenge in ascending order (I needed the <code>&lt;!-- --&gt;</code> to visually separate blockquotes well):</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">print_review_markdown</span><span class="ss">(</span><span class="nv">prs</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Return markdown for review post, e.g.</span>
-    <span class="nv">https</span>:<span class="o">//</span><span class="nv">pybit</span>.<span class="nv">es</span><span class="o">/</span><span class="nv">codechallenge57_review</span>.<span class="nv">html</span> <span class="o">-&gt;</span>
-    <span class="nv">Read</span> <span class="nv">Code</span> <span class="k">for</span> <span class="nv">Fun</span> <span class="nv">and</span> <span class="nv">Profit</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="nv">pcc</span>, <span class="nv">prs</span> <span class="nv">in</span> <span class="nv">sorted</span><span class="ss">(</span><span class="nv">prs</span>.<span class="nv">items</span><span class="ss">())</span>:
-        <span class="nv">challenge_link</span> <span class="o">=</span> <span class="nv">CHALLENGE_LINK</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">id</span><span class="o">=</span><span class="nv">pcc</span>.<span class="nv">strip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">PCC</span><span class="s1">&#39;</span><span class="ss">))</span>
-        <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s">#### [{pcc}]({challenge_link})</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>def print_review_markdown(prs):
+    &quot;&quot;&quot;Return markdown for review post, e.g.
+    https://pybit.es/codechallenge57_review.html -&gt;
+    Read Code for Fun and Profit&quot;&quot;&quot;
+    for pcc, prs in sorted(prs.items()):
+        challenge_link = CHALLENGE_LINK.format(id=pcc.strip(&#39;PCC&#39;))
+        print(f&#39;\n#### [{pcc}]({challenge_link})&#39;)
 
-        <span class="k">for</span> <span class="nv">i</span>, <span class="ss">(</span><span class="nv">pr_number</span>, <span class="nv">learning</span><span class="ss">)</span> <span class="nv">in</span> <span class="nv">enumerate</span><span class="ss">(</span><span class="nv">prs</span><span class="ss">)</span>:
-            <span class="k">if</span> <span class="nv">i</span> <span class="o">&gt;</span> <span class="mi">0</span>:
-                <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s">&lt;!-- --&gt;</span><span class="s1">&#39;</span><span class="ss">)</span>
-            <span class="nv">pr_link</span> <span class="o">=</span> <span class="nv">PR_LINK</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">id</span><span class="o">=</span><span class="nv">pr_number</span><span class="ss">)</span>
-            <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s">&gt; {learning} - [PR]({pr_link})</span><span class="s1">&#39;</span><span class="ss">)</span>
+        for i, (pr_number, learning) in enumerate(prs):
+            if i &gt; 0:
+                print(&#39;\n&lt;!-- --&gt;&#39;)
+            pr_link = PR_LINK.format(id=pr_number)
+            print(f&#39;\n&gt; {learning} - [PR]({pr_link})&#39;)
 </pre></div>
 
 
 <p>And I have my <code>main</code> block to call the two functions:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
-    <span class="nv">prs</span> <span class="o">=</span> <span class="nv">get_open_prs</span><span class="ss">()</span>
-    <span class="nv">print_review_markdown</span><span class="ss">(</span><span class="nv">prs</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
+    prs = get_open_prs()
+    print_review_markdown(prs)
 </pre></div>
 
 
 <h2>Running the script</h2>
 <p>You can check out the complete script in <a href="https://github.com/pybites/blog_code/blob/master/pybites_review/prs.py">our blog code repo</a>. Here is when I run it (output changes depending on the current open challenge PRs):</p>
-<div class="highlight"><pre><span></span><span class="err">$</span><span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">prs</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<div class="highlight"><pre><span></span>$  python prs.py
 
-<span class="err">####</span><span class="w"> </span><span class="o">[</span><span class="n">PCC01</span><span class="o">]</span><span class="p">(</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">codechalleng</span><span class="p">.</span><span class="n">es</span><span class="o">/</span><span class="n">challenges</span><span class="o">/</span><span class="mi">01</span><span class="p">)</span><span class="w"></span>
+<span class="c1">#### [PCC01](http://codechalleng.es/challenges/01)</span>
 
-<span class="o">&gt;</span><span class="w"> </span><span class="k">Before</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">exercise</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">never</span><span class="w"> </span><span class="n">came</span><span class="w"> </span><span class="n">across</span><span class="w"> </span><span class="k">dictionary</span><span class="w"> </span><span class="n">comprehensions</span><span class="p">.</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="nc">bit</span><span class="w"> </span><span class="n">confusing</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="k">first</span><span class="err">!</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">PR</span><span class="o">]</span><span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">challenges</span><span class="o">/</span><span class="n">pull</span><span class="o">/</span><span class="mi">428</span><span class="p">)</span><span class="w"></span>
+&gt; Before this exercise I never came across dictionary comprehensions. A bit confusing at first! - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/428<span class="o">)</span>
 
-<span class="o">&lt;</span><span class="err">!</span><span class="c1">-- --&gt;</span>
+&lt;!-- --&gt;
 
-<span class="o">&gt;</span><span class="w"> </span><span class="n">testing</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">PR</span><span class="o">]</span><span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">challenges</span><span class="o">/</span><span class="n">pull</span><span class="o">/</span><span class="mi">427</span><span class="p">)</span><span class="w"></span>
+&gt; testing - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/427<span class="o">)</span>
 
-<span class="err">####</span><span class="w"> </span><span class="o">[</span><span class="n">PCC03</span><span class="o">]</span><span class="p">(</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">codechalleng</span><span class="p">.</span><span class="n">es</span><span class="o">/</span><span class="n">challenges</span><span class="o">/</span><span class="mi">03</span><span class="p">)</span><span class="w"></span>
+<span class="c1">#### [PCC03](http://codechalleng.es/challenges/03)</span>
 
-<span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Learned</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">SequenceMatcher</span><span class="p">.</span><span class="w"> </span><span class="n">Great</span><span class="w"> </span><span class="n">thing</span><span class="p">.</span><span class="o">-</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">think</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">how</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="n">actually</span><span class="w"> </span><span class="k">work</span><span class="p">,</span><span class="w"> </span><span class="n">since</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">did</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">manage</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="mi">8</span><span class="p">()</span><span class="o">-</span><span class="w"> </span><span class="n">Heard</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">nltk</span><span class="w"> </span><span class="p">(</span><span class="n">looks</span><span class="w"> </span><span class="n">interesting</span><span class="p">).</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">PR</span><span class="o">]</span><span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">challenges</span><span class="o">/</span><span class="n">pull</span><span class="o">/</span><span class="mi">423</span><span class="p">)</span><span class="w"></span>
+&gt; - Learned about SequenceMatcher. Great thing.- Started to think about how tests actually work, since I did get the results from the website but could not manage to pass the tests <span class="m">8</span><span class="o">()</span>- Heard about nltk <span class="o">(</span>looks interesting<span class="o">)</span>. - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/423<span class="o">)</span>
 
-<span class="err">####</span><span class="w"> </span><span class="o">[</span><span class="n">PCC16</span><span class="o">]</span><span class="p">(</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">codechalleng</span><span class="p">.</span><span class="n">es</span><span class="o">/</span><span class="n">challenges</span><span class="o">/</span><span class="mi">16</span><span class="p">)</span><span class="w"></span>
+<span class="c1">#### [PCC16](http://codechalleng.es/challenges/16)</span>
 
-<span class="o">&gt;</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">learn</span><span class="w"> </span><span class="n">how</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="p">(</span><span class="ow">in</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="n">RIPE</span><span class="w"> </span><span class="n">DB</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">how</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nf">parse</span><span class="w"> </span><span class="n">JSON</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">PR</span><span class="o">]</span><span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">challenges</span><span class="o">/</span><span class="n">pull</span><span class="o">/</span><span class="mi">426</span><span class="p">)</span><span class="w"></span>
+&gt; I learn how to make request to remote database <span class="o">(</span>in this project used RIPE DB<span class="o">)</span> and how to parse JSON output from DB - <span class="o">[</span>PR<span class="o">](</span>https://github.com/pybites/challenges/pull/426<span class="o">)</span>
 </pre></div>
 
 

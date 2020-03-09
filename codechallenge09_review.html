@@ -123,7 +123,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -165,14 +165,14 @@ In a venv, I installed the <a href="http://www.paramiko.org/">paramiko SSH packa
 <p>I wanted to see if I could use some existing code so I re-used the <a href="https://github.com/pybites/blog_code/blob/master/flaskapi/test_app.py">test code</a> of my <a href="http://pybit.es/simple-flask-api.html">Simple Flask API article</a>. Just as an exercise, in real life I actually like the setUp/tearDown sandwich unittest already provides. </p>
 <p>What I really liked was that I got to think about different ways to implement this: <a href="https://github.com/pybites/challenges/blob/solutions/09/with_testdb_class.py">class</a> vs <a href="https://github.com/pybites/challenges/blob/solutions/09/with_testdb.py">contextmanager</a>. All this experimentation led to some good learning.</p>
 <p>And I got to use pytest which I really want to explore further :)</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bbelderb@macbook 09 (solutions)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="n">with_tes</span><span class="o">*</span><span class="w"></span>
-<span class="o">===</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="o">===</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span>(venv) [bbelderb@macbook 09 (solutions)]$ pytest with_tes*
+=== test session starts ===
+...
 
-<span class="n">with_testdb</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">..</span><span class="w"></span>
-<span class="n">with_testdb_class</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">..</span><span class="w"></span>
+with_testdb.py ..
+with_testdb_class.py ..
 
-<span class="o">===</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mf">0.01</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="o">===</span><span class="w"></span>
+=== 4 passed in 0.01 seconds ===
 </pre></div>
 
 

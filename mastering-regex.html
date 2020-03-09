@@ -121,7 +121,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -178,13 +178,13 @@
 <h2>2. re.match() vs re.search()</h2>
 <ul>
 <li>match() checks at the start of a string and returns None if nothing is found.</li>
-<li>search() moves up the string, looking for the first occurrence of the given pattern, and returns None only if the pattern occurs nowhere in the string.<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">Use match vs search appropriately</span><span class="s1">&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">re</span>.<span class="nv">match</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">search</span><span class="s1">&#39;</span>, <span class="nv">text</span><span class="ss">)</span>
-# <span class="nv">don</span><span class="s1">&#39;</span><span class="s">t do:</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">re</span>.<span class="nv">match</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">.*search</span><span class="s1">&#39;</span>, <span class="nv">text</span><span class="ss">)</span>
-# <span class="nv">better</span>:
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">re</span>.<span class="nv">search</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">search</span><span class="s1">&#39;</span>, <span class="nv">text</span><span class="ss">)</span>
-<span class="o">&lt;</span><span class="nv">_sre</span>.<span class="nv">SRE_Match</span> <span class="nv">object</span><span class="c1">; span=(13, 19), match=&#39;search&#39;&gt;</span>
+<li>search() moves up the string, looking for the first occurrence of the given pattern, and returns None only if the pattern occurs nowhere in the string.<div class="highlight"><pre><span></span>&gt;&gt;&gt; text = &#39;Use match vs search appropriately&#39;
+&gt;&gt;&gt; re.match(&#39;search&#39;, text)
+# don&#39;t do:
+&gt;&gt;&gt; re.match(&#39;.*search&#39;, text)
+# better:
+&gt;&gt;&gt; re.search(&#39;search&#39;, text)
+&lt;_sre.SRE_Match object; span=(13, 19), match=&#39;search&#39;&gt;
 </pre></div>
 
 
@@ -192,15 +192,15 @@
 </ul>
 <h2>3. Non-capturing parenthesis</h2>
 <p>Use (?: ) to not capture matching contents, for example lets get all links and hashtags out of the tweet below. I need the outer parenthesis for capturing and the inner parenthesis to say '# or http', latter should not capture anything:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">tweet</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">New PyBites article: Module of the Week - Requests-cache for Repeated API Calls - http://pybit.es/requests-cache.html … #python #APIs</span><span class="s1">&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">re</span>.<span class="nv">findall</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">((?:#|http)\S+)</span><span class="s1">&#39;</span>, <span class="nv">tweet</span><span class="ss">)</span>
-[<span class="s1">&#39;</span><span class="s">http://pybit.es/requests-cache.html</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">#python</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">#APIs</span><span class="s1">&#39;</span>]
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; tweet = &#39;New PyBites article: Module of the Week - Requests-cache for Repeated API Calls - http://pybit.es/requests-cache.html … #python #APIs&#39;
+&gt;&gt;&gt; re.findall(r&#39;((?:#|http)\S+)&#39;, tweet)
+[&#39;http://pybit.es/requests-cache.html&#39;, &#39;#python&#39;, &#39;#APIs&#39;]
 </pre></div>
 
 
 <p>When I don't use (?: ) it goes wrong:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;((#|http)\S+)&#39;</span><span class="p">,</span> <span class="n">tweet</span><span class="p">)</span>
-<span class="p">[(</span><span class="s1">&#39;http://pybit.es/requests-cache.html&#39;</span><span class="p">,</span> <span class="s1">&#39;http&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;#python&#39;</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;#APIs&#39;</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; re.findall(r&#39;((#|http)\S+)&#39;, tweet)
+[(&#39;http://pybit.es/requests-cache.html&#39;, &#39;http&#39;), (&#39;#python&#39;, &#39;#&#39;), (&#39;#APIs&#39;, &#39;#&#39;)]
 </pre></div>
 
 
@@ -236,19 +236,19 @@
 
 <h2>6. Backreferences are powerful</h2>
 <p>I like this example from the HOWTO: find double words in a text:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;(\b\w+)\s+\1&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="k">search</span><span class="p">(</span><span class="s1">&#39;Paris in the the spring&#39;</span><span class="p">).</span><span class="k">group</span><span class="p">()</span>
-<span class="s1">&#39;the the&#39;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; p = re.compile(r&#39;(\b\w+)\s+\1&#39;)
+&gt;&gt;&gt; p.search(&#39;Paris in the the spring&#39;).group()
+&#39;the the&#39;
 </pre></div>
 
 
 <p>See also 8/re.sub where we use them for string replacements.</p>
 <h2>7. findall (finditer) is awesome</h2>
 <p>We used it <a href="https://github.com/pybites/blog_code/blob/1f4dc534d43ec2c8582a890a15fb54486b58af39/katas/course_time/js_course_time_scraper.py">here</a> for example to get al mm:ss timestamps of a course TOC, very cool:</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">search_file</span><span class="ss">(</span><span class="nv">file</span><span class="ss">)</span>:
-    <span class="nv">file_content</span> <span class="o">=</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">file</span><span class="ss">)</span>.<span class="nv">read</span><span class="ss">()</span>  # <span class="nv">should</span> <span class="nv">have</span> <span class="nv">used</span> <span class="nv">with</span>
-    <span class="nv">time_regex</span> <span class="o">=</span> <span class="nv">re</span>.<span class="nv">compile</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">\(\d+:\d+\)</span><span class="s1">&#39;</span><span class="ss">)</span>  # <span class="nv">seems</span> <span class="nv">we</span> <span class="nv">needed</span> <span class="nv">literal</span> <span class="nv">parenthesis</span> <span class="nv">as</span> <span class="nv">part</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">match</span>
-    <span class="k">return</span> <span class="nv">time_regex</span>.<span class="nv">findall</span><span class="ss">(</span><span class="nv">file_content</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>def search_file(file):
+    file_content = open(file).read()  # should have used with
+    time_regex = re.compile(r&#39;\(\d+:\d+\)&#39;)  # seems we needed literal parenthesis as part of the match
+    return time_regex.findall(file_content)
 </pre></div>
 
 
@@ -265,63 +265,63 @@ The course takes <span class="m">6</span>.841944444444445 hours to complete.
 
 <h2>8. String replacements</h2>
 <p>re.sub is your friend, I use it quite often, for example <a href="https://github.com/pybites/challenges/blob/master/10/movies.py">for our last challenge</a> to extract a movie title:</p>
-<div class="highlight"><pre><span></span><span class="nv">MOVIE_TITLE</span> <span class="o">=</span> <span class="nv">re</span>.<span class="nv">compile</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">\d+\.\s+(.*)\s\(.*</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">sub</span>
+<div class="highlight"><pre><span></span>MOVIE_TITLE = re.compile(r&#39;\d+\.\s+(.*)\s\(.*&#39;).sub
 
-<span class="nv">def</span> <span class="nv">get_movie</span><span class="ss">()</span>:
-    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">movies.txt</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
-        <span class="nv">rand_line</span> <span class="o">=</span> <span class="k">random</span>.<span class="nv">choice</span><span class="ss">(</span><span class="nv">f</span>.<span class="nv">readlines</span><span class="ss">())</span>
-        <span class="k">return</span> <span class="nv">MOVIE_TITLE</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">\1</span><span class="s1">&#39;</span>, <span class="nv">rand_line</span>.<span class="nv">rstrip</span><span class="ss">())</span>
+def get_movie():
+    with open(&#39;movies.txt&#39;) as f:
+        rand_line = random.choice(f.readlines())
+        return MOVIE_TITLE(r&#39;\1&#39;, rand_line.rstrip())
 </pre></div>
 
 
 <p>Use subn to also get the number of replacements done. Here for example it stripped 6 html tags:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">html</span>
-<span class="s1">&#39;</span><span class="s">&lt;div&gt;&lt;p&gt;Today a quick article on a nice caching module when working with APIs.&lt;/p&gt;&lt;p&gt;Read more ...&lt;/p&gt;&lt;/div&gt;</span><span class="s1">&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">strip_html</span><span class="ss">(</span><span class="nv">text</span><span class="ss">)</span>:
-...     <span class="k">return</span> <span class="nv">re</span>.<span class="nv">subn</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">&lt;[^&lt;]+?&gt;</span><span class="s1">&#39;</span>, <span class="s1">&#39;&#39;</span>, <span class="nv">text</span><span class="ss">)</span>  # <span class="nv">non</span><span class="o">-</span><span class="nv">greediness</span> <span class="nv">again</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; html
+&#39;<span class="nt">&lt;div&gt;&lt;p&gt;</span>Today a quick article on a nice caching module when working with APIs.<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Read more ...<span class="nt">&lt;/p&gt;&lt;/div&gt;</span>&#39;
+&gt;&gt;&gt; def strip_html(text):
+...     return re.subn(r&#39;<span class="err">&lt;</span>[^<span class="err">&lt;</span>]+?&gt;&#39;, &#39;&#39;, text)  # non-greediness again
 ...
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">strip_html</span><span class="ss">(</span><span class="nv">html</span><span class="ss">)</span>
-<span class="ss">(</span><span class="s1">&#39;</span><span class="s">Today a quick article on a nice caching module when working with APIs.Read more ...</span><span class="s1">&#39;</span>, <span class="mi">6</span><span class="ss">)</span>
+&gt;&gt;&gt; strip_html(html)
+(&#39;Today a quick article on a nice caching module when working with APIs.Read more ...&#39;, 6)
 </pre></div>
 
 
 <p>re.sub even can take a function, nice example from <a href="https://docs.python.org/2/library/re.html">the documentation</a>:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">repl</span><span class="ss">(</span><span class="nv">m</span><span class="ss">)</span>:
-...     <span class="nv">inner_word</span> <span class="o">=</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">m</span>.<span class="nv">group</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-...     <span class="k">random</span>.<span class="nv">shuffle</span><span class="ss">(</span><span class="nv">inner_word</span><span class="ss">)</span>
-...     <span class="k">return</span> <span class="nv">m</span>.<span class="nv">group</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">inner_word</span><span class="ss">)</span> <span class="o">+</span> <span class="nv">m</span>.<span class="nv">group</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Professor Abdolmalek, please report your absences promptly.</span><span class="s2">&quot;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">re</span>.<span class="nv">sub</span><span class="ss">(</span><span class="nv">r</span><span class="s2">&quot;</span><span class="s">(\w)(\w+)(\w)</span><span class="s2">&quot;</span>, <span class="nv">repl</span>, <span class="nv">text</span><span class="ss">)</span>
-<span class="s1">&#39;</span><span class="s">Poefsrosr Aealmlobdk, pslaee reorpt your abnseces plmrptoy.</span><span class="s1">&#39;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def repl(m):
+...     inner_word = list(m.group(2))
+...     random.shuffle(inner_word)
+...     return m.group(1) + &quot;&quot;.join(inner_word) + m.group(3)
+&gt;&gt;&gt; text = &quot;Professor Abdolmalek, please report your absences promptly.&quot;
+&gt;&gt;&gt; re.sub(r&quot;(\w)(\w+)(\w)&quot;, repl, text)
+&#39;Poefsrosr Aealmlobdk, pslaee reorpt your abnseces plmrptoy.&#39;
 </pre></div>
 
 
 <h2>9. Compilation flags / modifiers</h2>
 <p>See <a href="https://docs.python.org/3.6/howto/regex.html#compilation-flags">this table</a>: apart from re.I (IGNORECASE), I don't use them often, but they can be very handy when your match spans various lines or working with other character sets.</p>
 <p>The VERBOSE (X) flag can make a regex much more readable as nicely shown <a href="https://blog.codinghorror.com/regular-expressions-now-you-have-two-problems/">in Jeff Atwood's article</a> or taking this example from the <a href="https://docs.python.org/3.6/howto/regex.html">mentioned HOWTO</a>:</p>
-<div class="highlight"><pre><span></span><span class="nv">pat</span> <span class="o">=</span> <span class="nv">re</span>.<span class="nv">compile</span><span class="ss">(</span><span class="nv">r</span><span class="s2">&quot;&quot;&quot;</span>
-\<span class="nv">s</span><span class="o">*</span>                 # <span class="nv">Skip</span> <span class="nv">leading</span> <span class="nv">whitespace</span>
-<span class="ss">(</span>?<span class="nv">P</span><span class="o">&lt;</span><span class="nv">header</span><span class="o">&gt;</span>[<span class="o">^</span>:]<span class="o">+</span><span class="ss">)</span>   # <span class="nv">Header</span> <span class="nv">name</span>
-\<span class="nv">s</span><span class="o">*</span> :               # <span class="nv">Whitespace</span>, <span class="nv">and</span> <span class="nv">a</span> <span class="nv">colon</span>
-<span class="ss">(</span>?<span class="nv">P</span><span class="o">&lt;</span><span class="nv">value</span><span class="o">&gt;</span>.<span class="o">*</span>?<span class="ss">)</span>      # <span class="nv">The</span> <span class="nv">header</span><span class="s1">&#39;</span><span class="s">s value -- *? used to</span>
-                    # <span class="nv">lose</span> <span class="nv">the</span> <span class="nv">following</span> <span class="nv">trailing</span> <span class="nv">whitespace</span>
-\<span class="nv">s</span><span class="o">*</span>$                # <span class="nv">Trailing</span> <span class="nv">whitespace</span> <span class="nv">to</span> <span class="k">end</span><span class="o">-</span><span class="nv">of</span><span class="o">-</span><span class="nv">line</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="s">, re.VERBOSE)</span>
+<div class="highlight"><pre><span></span>pat = re.compile(r&quot;&quot;&quot;
+\s*                 # Skip leading whitespace
+(?P&lt;header&gt;[^:]+)   # Header name
+\s* :               # Whitespace, and a colon
+(?P&lt;value&gt;.*?)      # The header&#39;s value -- *? used to
+                    # lose the following trailing whitespace
+\s*$                # Trailing whitespace to end-of-line
+&quot;&quot;&quot;, re.VERBOSE)
 </pre></div>
 
 
 <h2>10. Python's unique naming style</h2>
 <p>Another readability feature is Python's specific regex syntax for named groups. This allows you to grab matches by key instead of number. I have not used this much, but writing one now I really like this so planning to adopt this syntax: </p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">bio</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">... name: Bob Belderbos</span>
-<span class="s1">... country: Spain</span>
-<span class="s1">... language: Python&#39;&#39;&#39;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; bio = &#39;&#39;&#39;
+... name: Bob Belderbos
+... country: Spain
+... language: Python&#39;&#39;&#39;
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="k">search</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;name: (?P&lt;name&gt;.*)\ncountry: (?P&lt;country&gt;.*)\nlanguage: (?P&lt;lang&gt;.*)&#39;</span><span class="p">,</span> <span class="n">bio</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="p">.</span><span class="k">group</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
-<span class="s1">&#39;Bob Belderbos&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span><span class="p">.</span><span class="n">groupdict</span><span class="p">()</span>
-<span class="err">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Bob Belderbos&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="s1">&#39;Spain&#39;</span><span class="p">,</span> <span class="s1">&#39;lang&#39;</span><span class="p">:</span> <span class="s1">&#39;Python&#39;</span><span class="err">}</span>
+&gt;&gt;&gt; m = re.search(r&#39;name: (?P&lt;name&gt;.*)\ncountry: (?P&lt;country&gt;.*)\nlanguage: (?P&lt;lang&gt;.*)&#39;, bio)
+&gt;&gt;&gt; m.group(&#39;name&#39;)
+&#39;Bob Belderbos&#39;
+&gt;&gt;&gt; m.groupdict()
+{&#39;name&#39;: &#39;Bob Belderbos&#39;, &#39;country&#39;: &#39;Spain&#39;, &#39;lang&#39;: &#39;Python&#39;}
 </pre></div>
 
 

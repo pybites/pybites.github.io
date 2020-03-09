@@ -123,7 +123,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -175,44 +175,44 @@
 </li>
 <li>
 <p>My server (see deployment below) runs on MT tz and I wanted to talk EMEA times. <a href="https://pypi.python.org/pypi/pytz">Pytz (World Timezone Definitions for Python)</a> to the rescue: it made working with timezones very easy: </p>
-<div class="highlight"><pre><span></span><span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="p">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Amsterdam&#39;</span><span class="p">)</span>
-<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
-<span class="k">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>  <span class="o">#</span> <span class="o">=</span> <span class="n">PyBites</span> <span class="mi">100</span> <span class="n">days</span> <span class="p">:)</span>
+<div class="highlight"><pre><span></span>tz = pytz.timezone(&#39;Europe/Amsterdam&#39;)
+now = datetime.datetime.now(tz)
+start = datetime.datetime(2017, 3, 29, tzinfo=tz)  # = PyBites 100 days :)
 </pre></div>
 
 
 </li>
 <li>
 <p>I define some constants in all capital letters with underscores separating words (PEP8). I start to like datetime: calculating dates is easy:</p>
-<div class="highlight"><pre><span></span><span class="n">CURRENT_CHALLENGE_DAY</span> <span class="o">=</span> <span class="n">str</span><span class="p">((</span><span class="n">now</span> <span class="o">-</span> <span class="k">start</span><span class="p">).</span><span class="n">days</span><span class="p">).</span><span class="n">zfill</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">LOG</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/pybites/100DaysOfCode/master/LOG.md&#39;</span>
-<span class="n">LOG_ENTRY</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;\[(?P&lt;title&gt;.*?)\]\((?P&lt;day&gt;\d+)\)&#39;</span><span class="p">)</span>
-<span class="n">REPO_URL</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/pybites/100DaysOfCode/tree/master/&#39;</span>
-<span class="n">TWEET_LEN</span> <span class="o">=</span> <span class="mi">140</span>
-<span class="n">TWEET_LINK_LEN</span> <span class="o">=</span> <span class="mi">23</span>
+<div class="highlight"><pre><span></span>CURRENT_CHALLENGE_DAY = str((now - start).days).zfill(3)
+LOG = &#39;https://raw.githubusercontent.com/pybites/100DaysOfCode/master/LOG.md&#39;
+LOG_ENTRY = re.compile(r&#39;\[(?P&lt;title&gt;.*?)\]\((?P&lt;day&gt;\d+)\)&#39;)
+REPO_URL = &#39;https://github.com/pybites/100DaysOfCode/tree/master/&#39;
+TWEET_LEN = 140
+TWEET_LINK_LEN = 23
 </pre></div>
 
 
 </li>
 <li>
 <p>Where would we be without requests? Here I get the LOG.md file from <a href="https://github.com/pybites/100DaysOfCode">our repo</a>, just a single line of code:</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_log</span><span class="ss">()</span>:
-    <span class="k">return</span> <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">LOG</span><span class="ss">)</span>.<span class="nv">text</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>def get_log():
+    return requests.get(LOG).text.split(&#39;\n&#39;)
 </pre></div>
 
 
 </li>
 <li>
 <p>I get the script title and day string from the line in LOG.md that matches the exact day string (today = '007'):</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_day_progress</span><span class="ss">(</span><span class="nv">html</span><span class="ss">)</span>:
-    <span class="nv">lines</span> <span class="o">=</span> [<span class="nv">line</span>.<span class="nv">strip</span><span class="ss">()</span>
-            <span class="k">for</span> <span class="nv">line</span> <span class="nv">in</span> <span class="nv">html</span>
-            <span class="k">if</span> <span class="nv">line</span>.<span class="nv">strip</span><span class="ss">()</span>]
+<div class="highlight"><pre><span></span>def get_day_progress(html):
+    lines = [line.strip()
+            for line in html
+            if line.strip()]
 
-    <span class="k">for</span> <span class="nv">line</span> <span class="nv">in</span> <span class="nv">lines</span>:
-        <span class="nv">day_entry</span> <span class="o">=</span> <span class="nv">line</span>.<span class="nv">strip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">|</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">|</span><span class="s1">&#39;</span><span class="ss">)</span>[<span class="mi">0</span>].<span class="nv">strip</span><span class="ss">()</span>
-        <span class="k">if</span> <span class="nv">day_entry</span> <span class="o">==</span> <span class="nv">CURRENT_CHALLENGE_DAY</span>:
-            <span class="k">return</span> <span class="nv">LOG_ENTRY</span>.<span class="nv">search</span><span class="ss">(</span><span class="nv">line</span><span class="ss">)</span>.<span class="nv">groupdict</span><span class="ss">()</span>
+    for line in lines:
+        day_entry = line.strip(&#39;|&#39;).split(&#39;|&#39;)[0].strip()
+        if day_entry == CURRENT_CHALLENGE_DAY:
+            return LOG_ENTRY.search(line).groupdict()
 </pre></div>
 
 
@@ -240,12 +240,12 @@
 </li>
 <li>
 <p>tweet_status() sends the tweet. We use the imported api object (from config.py) to send the tweet and we log an info if success, or error if any exception:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">tweet_status</span><span class="p">(</span><span class="n">tweet</span><span class="p">):</span>
-    <span class="n">try</span><span class="p">:</span>
-        <span class="n">api</span><span class="p">.</span><span class="n">update_status</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
-        <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Posted to Twitter&#39;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="k">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="n">logging</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error posting to Twitter: {}&#39;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">exc</span><span class="p">))</span>
+<div class="highlight"><pre><span></span>def tweet_status(tweet):
+    try:
+        api.update_status(tweet)
+        logging.info(&#39;Posted to Twitter&#39;)
+    except Exception as exc:
+        logging.error(&#39;Error posting to Twitter: {}&#39;.format(exc))
 </pre></div>
 
 
@@ -262,33 +262,33 @@
 </li>
 <li>
 <p>If test I use my local LOG file:</p>
-<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="nv">test</span>:
-        <span class="nv">log</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="k">basename</span><span class="ss">(</span><span class="nv">LOG</span><span class="ss">)</span>
-        <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">log</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
-            <span class="nv">html</span> <span class="o">=</span> <span class="nv">f</span>.<span class="nv">readlines</span><span class="ss">()</span>
-    <span class="k">else</span>:
-        <span class="nv">html</span> <span class="o">=</span> <span class="nv">get_log</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>    if test:
+        log = os.path.basename(LOG)
+        with open(log) as f:
+            html = f.readlines()
+    else:
+        html = get_log()
 </pre></div>
 
 
 </li>
 <li>
 <p>If for some reason I don't get a valid return from get_day_progress() I abort the script, logging the error:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">m</span> <span class="o">=</span> <span class="nv">get_day_progress</span><span class="ss">(</span><span class="nv">html</span><span class="ss">)</span>
-    <span class="k">if</span> <span class="nv">not</span> <span class="nv">m</span>:
-        <span class="nv">logging</span>.<span class="nv">error</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Error getting day progress from log</span><span class="s1">&#39;</span><span class="ss">)</span>
-        <span class="nv">sys</span>.<span class="k">exit</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>    m = get_day_progress(html)
+    if not m:
+        logging.error(&#39;Error getting day progress from log&#39;)
+        sys.exit(1)
 </pre></div>
 
 
 </li>
 <li>
 <p>I create the tweet. If dry run, I just log it, else it tweets automatically:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">tweet</span> <span class="o">=</span> <span class="nv">create_tweet</span><span class="ss">(</span><span class="nv">m</span><span class="ss">)</span>
-    <span class="k">if</span> <span class="nv">test</span>:
-        <span class="nv">logging</span>.<span class="nv">info</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Test: tweet to send: {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">tweet</span><span class="ss">))</span>
-    <span class="k">else</span>:
-        <span class="nv">tweet_status</span><span class="ss">(</span><span class="nv">tweet</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>    tweet = create_tweet(m)
+    if test:
+        logging.info(&#39;Test: tweet to send: {}&#39;.format(tweet))
+    else:
+        tweet_status(tweet)
 </pre></div>
 
 
