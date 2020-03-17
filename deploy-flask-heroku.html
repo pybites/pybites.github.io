@@ -123,7 +123,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -176,8 +176,8 @@ $ git init
 
 <p><br>
 4. We need to install <code>gunicorn</code>. This is a Python web server for UNIX based OS’s. It's required to have it in your code venv in order to launch the Flask app on Heroku. Initialise the virtualenv in your dir and install it.</p>
-<div class="highlight"><pre><span></span>flaskapps/timezone_printer$ source venv/bin/activate
-(venv)flaskapps/timezone_printer$ pip install gunicorn
+<div class="highlight"><pre><span></span><span class="n">flaskapps</span><span class="o">/</span><span class="n">timezone_printer$</span> <span class="k">source</span> <span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="n">flaskapps</span><span class="o">/</span><span class="n">timezone_printer$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">gunicorn</span>
 </pre></div>
 
 
@@ -187,7 +187,7 @@ $ git init
 </blockquote>
 <p><br>
 5. Next, if you haven't done so already, create your requirements.txt file. Heroku relies on the <code>requirements.txt</code> file to exist in order to deploy your app. When you deploy Heroku uses pip and requirements.txt to install everything required to run your app:</p>
-<div class="highlight"><pre><span></span>(venv)$ pip freeze &gt; requirements.txt
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="err">$</span> <span class="n">pip</span> <span class="k">freeze</span> <span class="o">&gt;</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
 </pre></div>
 
 
@@ -310,8 +310,8 @@ Scaling dynos... <span class="k">done</span>, now running web at <span class="m"
 2. Check to see if you have any other Heroku dynos running with <code>heroku ps</code>. It'll also tell you how many hours you have left of your quota. Handy if you're on the free tier!</p>
 <p><br>
 3. If you find an error in your logs relating to the IP address being in use, it may be the Flask app code itself. I found that in one of my older Flask apps I hadn't included the below line of code which resulted in Heroku failing to launch the app:</p>
-<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
-    app.run()
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
+    <span class="nv">app</span>.<span class="nv">run</span><span class="ss">()</span>
 </pre></div>
 
 

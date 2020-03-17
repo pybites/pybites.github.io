@@ -121,7 +121,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -183,7 +183,7 @@
 <ul>
 <li>Simple, we’re importing the <strong>Flask</strong> class from the <em>flask</em> module. This is the standard import call for the Flask module. Roll with it!</li>
 </ul>
-<div class="highlight"><pre><span></span>app = Flask(__name__)
+<div class="highlight"><pre><span></span><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 </pre></div>
 
 
@@ -195,14 +195,14 @@
 <p>(<strong>name</strong>) is the bloody confusing part. The Flask class needs to know what value is currently assigned to <strong>name</strong>. Whenever <strong>name</strong> is used in your code, it’s assigned the name of the module that’s currently active. The Flask class needs this information to be able to execute properly.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span>@app.route(&#39;/&#39;)
+<div class="highlight"><pre><span></span><span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
 <ul>
 <li>Think of this as the URL of the web page you’re coding. You’ll often hear people say “route” for short when talking Flask. If you wanted to create a page called <em>birthdays.html</em>, you’d name the route <em>@app.route(‘/birthdays’)</em>.</li>
 </ul>
-<div class="highlight"><pre><span></span>def hello():
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">hello</span><span class="p">():</span>
 </pre></div>
 
 
@@ -217,7 +217,7 @@
 <p>The recommended function naming convention is to give it the same name as the route. This Hello World example is thus against convention. Using the birthdays example, we’d create a function with: <em>def birthdays():</em>.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span>return &#39;Hello world! Can I get some CSS please?!’
+<div class="highlight"><pre><span></span><span class="k">return</span> <span class="s1">&#39;</span><span class="s">Hello world! Can I get some CSS please?!’</span>
 </pre></div>
 
 
@@ -232,7 +232,7 @@
 <p>In a more complex piece of code, you’d more likely be returning a variable or something similar.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span>app.run()
+<div class="highlight"><pre><span></span><span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 
 

@@ -122,7 +122,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -166,21 +166,21 @@
 </blockquote>
 <p>To demonstrate this in code, I wrote up a <code>Boss</code> class. Let’s face it, we’ve all had a job at some point in our lives. It’s also more than likely that we’ve copped good and bad bosses and managers along the way.</p>
 <p>Imagine if you would, a game with a Boss in it. I can imagine myself coding up a Boss class similar to the below. I’d then use this code to create different types of Bosses:</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Boss</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span><span class="o">:</span>
-    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">attitude</span><span class="p">,</span> <span class="nx">behaviour</span><span class="p">,</span> <span class="nx">face</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">attitude</span> <span class="o">=</span> <span class="nx">attitude</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">behaviour</span> <span class="o">=</span> <span class="nx">behaviour</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">face</span> <span class="o">=</span> <span class="nx">face</span>
+<div class="highlight"><pre><span></span><span class="nv">class</span> <span class="nv">Boss</span><span class="ss">(</span><span class="nv">object</span><span class="ss">)</span>:
+    <span class="nv">def</span> <span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">name</span>, <span class="nv">attitude</span>, <span class="nv">behaviour</span>, <span class="nv">face</span><span class="ss">)</span>:
+        <span class="nv">self</span>.<span class="nv">name</span> <span class="o">=</span> <span class="nv">name</span>
+        <span class="nv">self</span>.<span class="nv">attitude</span> <span class="o">=</span> <span class="nv">attitude</span>
+        <span class="nv">self</span>.<span class="nv">behaviour</span> <span class="o">=</span> <span class="nv">behaviour</span>
+        <span class="nv">self</span>.<span class="nv">face</span> <span class="o">=</span> <span class="nv">face</span>
 
-    <span class="nx">def</span> <span class="nx">get_attitude</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">attitude</span>
+    <span class="nv">def</span> <span class="nv">get_attitude</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">attitude</span>
 
-    <span class="nx">def</span> <span class="nx">get_behaviour</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">behaviour</span>
+    <span class="nv">def</span> <span class="nv">get_behaviour</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">behaviour</span>
 
-    <span class="nx">def</span> <span class="nx">get_face</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">face</span>
+    <span class="nv">def</span> <span class="nv">get_face</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">face</span>
 </pre></div>
 
 
@@ -190,13 +190,13 @@
 <p>A boss would have a <code>name</code>, an <code>attitude</code>, a <code>behaviour</code> and a <code>face</code> (facial expression!).</p>
 <p><br>
 Now, let’s start working on the Boss Subclasses. What kind of Bosses do we want to be able to make? How about a <code>GoodBoss</code> and a <code>BadBoss</code>?</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">GoodBoss</span><span class="p">(</span><span class="nx">Boss</span><span class="p">)</span><span class="o">:</span>
-    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span>
-                <span class="nx">name</span><span class="p">,</span>
-                <span class="nx">attitude</span><span class="p">,</span>
-                <span class="nx">behaviour</span><span class="p">,</span>
-                <span class="nx">face</span><span class="p">)</span><span class="o">:</span>
-        <span class="kr">super</span><span class="p">().</span><span class="nx">__init__</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">attitude</span><span class="p">,</span> <span class="nx">behaviour</span><span class="p">,</span> <span class="nx">face</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">GoodBoss</span>(<span class="n">Boss</span>):
+    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>,
+                <span class="nb">name</span>,
+                <span class="n">attitude</span>,
+                <span class="n">behaviour</span>,
+                <span class="n">face</span>):
+        <span class="n">super</span>().<span class="n">__init__</span>(<span class="nb">name</span>, <span class="n">attitude</span>, <span class="n">behaviour</span>, <span class="n">face</span>)
 </pre></div>
 
 
@@ -217,13 +217,13 @@ Now, let’s start working on the Boss Subclasses. What kind of Bosses do we wan
 </blockquote>
 <p><br></p>
 <p>Phew! Okay. Next up, we can define some GoodBoss specific class functions. These can <em>only</em> be used by an object created using the <code>GoodBoss</code> class:</p>
-<div class="highlight"><pre><span></span>def nurture_talent(self):
-    #A good boss nurtures talent making employees happy!
-    print(&quot;The employees feel all warm and fuzzy then put their talents to good use.&quot;)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">nurture_talent</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    #<span class="nv">A</span> <span class="nv">good</span> <span class="nv">boss</span> <span class="nv">nurtures</span> <span class="nv">talent</span> <span class="nv">making</span> <span class="nv">employees</span> <span class="nv">happy</span><span class="o">!</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">The employees feel all warm and fuzzy then put their talents to good use.</span><span class="s2">&quot;</span><span class="ss">)</span>
 
-def encourage(self):
-    #A good boss encourages their employees!
-    print(&quot;The team cheers, starts shouting awesome slogans then gets back to work.&quot;)
+<span class="nv">def</span> <span class="nv">encourage</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    #<span class="nv">A</span> <span class="nv">good</span> <span class="nv">boss</span> <span class="nv">encourages</span> <span class="nv">their</span> <span class="nv">employees</span><span class="o">!</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">The team cheers, starts shouting awesome slogans then gets back to work.</span><span class="s2">&quot;</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -242,40 +242,40 @@ The easiest way to test this out is to import the code into the interactive shel
 
 <p><br>
 Once imported, we can create a “standard” <code>Boss</code>, a <code>GoodBoss</code> or a <code>BadBoss</code>. Let’s start with the good one!</p>
-<div class="highlight"><pre><span></span>julian = GoodBoss(&quot;Julian&quot;, &quot;Positive&quot;, &quot;Sociable&quot;, &quot;Smiling&quot;)
+<div class="highlight"><pre><span></span><span class="n">julian</span> <span class="o">=</span> <span class="n">GoodBoss</span><span class="p">(</span><span class="ss">&quot;Julian&quot;</span><span class="p">,</span> <span class="ss">&quot;Positive&quot;</span><span class="p">,</span> <span class="ss">&quot;Sociable&quot;</span><span class="p">,</span> <span class="ss">&quot;Smiling&quot;</span><span class="p">)</span>
 </pre></div>
 
 
 <p><br>
 We can then use the class functions associated with both the <code>Boss</code> class <em>and</em> <code>GoodBoss</code>  subclass:</p>
-<div class="highlight"><pre><span></span>julian.attitude
-‘Positive’
+<div class="highlight"><pre><span></span><span class="nv">julian</span>.<span class="nv">attitude</span>
+‘<span class="nv">Positive</span>’
 
-julian.get_behaviour()
-‘Sociable’
+<span class="nv">julian</span>.<span class="nv">get_behaviour</span><span class="ss">()</span>
+‘<span class="nv">Sociable</span>’
 
-julian.nurture_talent()
-The employees feel all warm and fuzzy then put their talents to good use.
+<span class="nv">julian</span>.<span class="nv">nurture_talent</span><span class="ss">()</span>
+<span class="nv">The</span> <span class="nv">employees</span> <span class="nv">feel</span> <span class="nv">all</span> <span class="nv">warm</span> <span class="nv">and</span> <span class="nv">fuzzy</span> <span class="k">then</span> <span class="nv">put</span> <span class="nv">their</span> <span class="nv">talents</span> <span class="nv">to</span> <span class="nv">good</span> <span class="nv">use</span>.
 </pre></div>
 
 
 <p>I wish I really had that effect on people! Also, this is inheritance in action! We “inherited” the <code>get_behaviour</code> function from the <code>Boss</code> class! Woohoo!</p>
 <h2>Ending on a low</h2>
 <p>I know we’re on a roll but Bad Bosses always have a way of ruining things:</p>
-<div class="highlight"><pre><span></span>bob = BadBoss(&quot;Bob&quot;, “Crazy”, &quot;Anti-Social&quot;, &quot;Scowl of Hate&quot;)
+<div class="highlight"><pre><span></span><span class="nv">bob</span> <span class="o">=</span> <span class="nv">BadBoss</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Bob</span><span class="s2">&quot;</span>, “<span class="nv">Crazy</span>”, <span class="s2">&quot;</span><span class="s">Anti-Social</span><span class="s2">&quot;</span>, <span class="s2">&quot;</span><span class="s">Scowl of Hate</span><span class="s2">&quot;</span><span class="ss">)</span>
 
-bob.face
-&#39;Scowl of Hate&#39;
+<span class="nv">bob</span>.<span class="nv">face</span>
+<span class="s1">&#39;</span><span class="s">Scowl of Hate</span><span class="s1">&#39;</span>
 
-bob.get_attitude()
-‘Crazy’
+<span class="nv">bob</span>.<span class="nv">get_attitude</span><span class="ss">()</span>
+‘<span class="nv">Crazy</span>’
 
-bob.hoard_praise()
-The employees feel cheated and start plotting Bob&#39;s demise while he stares at his own reflection.
+<span class="nv">bob</span>.<span class="nv">hoard_praise</span><span class="ss">()</span>
+<span class="nv">The</span> <span class="nv">employees</span> <span class="nv">feel</span> <span class="nv">cheated</span> <span class="nv">and</span> <span class="nv">start</span> <span class="nv">plotting</span> <span class="nv">Bob</span><span class="s1">&#39;</span><span class="s">s demise while he stares at his own reflection.</span>
 
-bob.yell()
-Everyone stares while Bob yells. Someone shouts, &#39;Won&#39;t somebody PLEASE think of the children?!’
-Bob storms off, everyone comforts the victim and one person offers to arrange an &#39;accident&#39; for Bob.
+<span class="nv">bob</span>.<span class="nv">yell</span><span class="ss">()</span>
+<span class="nv">Everyone</span> <span class="nv">stares</span> <span class="k">while</span> <span class="nv">Bob</span> <span class="nv">yells</span>. <span class="nv">Someone</span> <span class="nv">shouts</span>, <span class="s1">&#39;</span><span class="s">Won</span><span class="s1">&#39;</span><span class="nv">t</span> <span class="nv">somebody</span> <span class="nv">PLEASE</span> <span class="nv">think</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">children</span>?<span class="o">!</span>’
+<span class="nv">Bob</span> <span class="nv">storms</span> <span class="nv">off</span>, <span class="nv">everyone</span> <span class="nv">comforts</span> <span class="nv">the</span> <span class="nv">victim</span> <span class="nv">and</span> <span class="nv">one</span> <span class="nv">person</span> <span class="nv">offers</span> <span class="nv">to</span> <span class="nv">arrange</span> <span class="nv">an</span> <span class="s1">&#39;</span><span class="s">accident</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="nv">Bob</span>.
 </pre></div>
 
 

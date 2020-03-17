@@ -124,7 +124,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -163,21 +163,21 @@
 <p><br></p>
 <h2>My Favourite Uses</h2>
 <p>The first thing I’ll point out is that Pendulum has a wonderfully simplistic way of describing what each function does. Take the following for example:</p>
-<div class="highlight"><pre><span></span>now = pendulum.now()
-print(now)
-&#39;2016-06-28T16:51:45.978473-05:00&#39;
+<div class="highlight"><pre><span></span><span class="n">now</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">print</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+<span class="s1">&#39;2016-06-28T16:51:45.978473-05:00&#39;</span>
 
-today = pendulum.today()
-print(today)
-&#39;2016-06-28T00:00:00-05:00&#39;
+<span class="n">today</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">today</span><span class="p">()</span>
+<span class="n">print</span><span class="p">(</span><span class="n">today</span><span class="p">)</span>
+<span class="s1">&#39;2016-06-28T00:00:00-05:00&#39;</span>
 
-tomorrow = pendulum.tomorrow(&#39;Europe/London&#39;)
-print(tomorrow)
-&#39;2016-06-29T00:00:00+01:00&#39;
+<span class="n">tomorrow</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">tomorrow</span><span class="p">(</span><span class="s1">&#39;Europe/London&#39;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="n">tomorrow</span><span class="p">)</span>
+<span class="s1">&#39;2016-06-29T00:00:00+01:00&#39;</span>
 
-yesterday = pendulum.yesterday()
-print(yesterday)
-&#39;2016-06-27T00:00:00-05:00&#39;
+<span class="n">yesterday</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">yesterday</span><span class="p">()</span>
+<span class="n">print</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span>
+<span class="s1">&#39;2016-06-27T00:00:00-05:00&#39;</span>
 </pre></div>
 
 
@@ -185,22 +185,22 @@ print(yesterday)
 <p>On top of that, you can even specify the timezone of the place you want to know the time of, thus the <code>.tomorrow(‘Europe/London’)</code> line.</p>
 <p><br></p>
 <p>My absolute favourite Pendulum feature is this:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; pendulum.now().to_datetime_string()
-&#39;2017-06-24 09:35:38&#39;
-&gt;&gt;&gt;
-&gt;&gt;&gt; pendulum.now().to_day_datetime_string()
-&#39;Sat, Jun 24, 2017 09:36 AM’
-&gt;&gt;&gt;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">to_datetime_string</span><span class="p">()</span>
+<span class="s1">&#39;2017-06-24 09:35:38&#39;</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">to_day_datetime_string</span><span class="p">()</span>
+<span class="err">&#39;</span><span class="n">Sat</span><span class="p">,</span> <span class="n">Jun</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">2017</span> <span class="mi">09</span><span class="p">:</span><span class="mi">36</span> <span class="n">AM</span><span class="err">’</span>
+<span class="o">&gt;&gt;&gt;</span>
 </pre></div>
 
 
 <p>Pendulum has a brilliant set of formatting options for datetime results. No longer do I need to use the convoluted and hard to remember <code>strftime</code> type formatting method (%D %M %Y). Pendulum will do it all for me! Mmmm.</p>
 <p><br>
 On top of all of this, I feel like date comparisons, calculations and timezone manipulation has also been made easier. For example, you can create a Pendulum instance with a specified timezone and time, then change the timezone for it on the fly with ease:</p>
-<div class="highlight"><pre><span></span>in_paris = pendulum.create(2016, 8, 7, 22, 24, 30, tz=&#39;Europe/Paris&#39;)
-&#39;2016-08-07T22:24:30+02:00&#39;
-in_paris.in_timezone(&#39;America/New_York&#39;)
-&#39;2016-08-07T16:24:30-04:00&#39;
+<div class="highlight"><pre><span></span><span class="n">in_paris</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="k">create</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">)</span>
+<span class="s1">&#39;2016-08-07T22:24:30+02:00&#39;</span>
+<span class="n">in_paris</span><span class="p">.</span><span class="n">in_timezone</span><span class="p">(</span><span class="s1">&#39;America/New_York&#39;</span><span class="p">)</span>
+<span class="s1">&#39;2016-08-07T16:24:30-04:00&#39;</span>
 </pre></div>
 
 

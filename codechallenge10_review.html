@@ -123,7 +123,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -157,9 +157,9 @@
 <ul>
 <li>
 <p>We used a class to keep state. We used two lists for secret and guessed_word. Looking at it now self.secret_word should probably be a tuple (inmutable). Handling non-ASCII in the constructor made the rest easier:</p>
-<div class="highlight"><pre><span></span>self.secret_word = list(word.lower())
-self.guessed_word = [PLACEHOLDER if c in ASCII else c
-                    for c in self.secret_word]
+<div class="highlight"><pre><span></span><span class="nv">self</span>.<span class="nv">secret_word</span> <span class="o">=</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">word</span>.<span class="nv">lower</span><span class="ss">())</span>
+<span class="nv">self</span>.<span class="nv">guessed_word</span> <span class="o">=</span> [<span class="nv">PLACEHOLDER</span> <span class="k">if</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">ASCII</span> <span class="k">else</span> <span class="nv">c</span>
+                    <span class="k">for</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">secret_word</span>]
 </pre></div>
 
 

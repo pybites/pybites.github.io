@@ -120,7 +120,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -180,27 +180,27 @@
 </li>
 <li>
 <p>Recusion provides elegant solutions. The book shows an example of finding a key in boxes, the recursive solution is much shorter and cleaner. And recursion at its simplest really comes down to <a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/03_recursion/python/01_countdown.py">just a few lines of code</a>:</p>
-<div class="highlight"><pre><span></span>def countdown(i):
-print i
-# base case
-if i &lt;= 0:
-    return
-# recursive case
-else:
-    countdown(i-1)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">countdown</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>:
+<span class="nv">print</span> <span class="nv">i</span>
+# <span class="nv">base</span> <span class="nv">case</span>
+<span class="k">if</span> <span class="nv">i</span> <span class="o">&lt;=</span> <span class="mi">0</span>:
+    <span class="k">return</span>
+# <span class="nv">recursive</span> <span class="nv">case</span>
+<span class="k">else</span>:
+    <span class="nv">countdown</span><span class="ss">(</span><span class="nv">i</span><span class="o">-</span><span class="mi">1</span><span class="ss">)</span>
 
-countdown(5)
+<span class="nv">countdown</span><span class="ss">(</span><span class="mi">5</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>For example to do a manual os.walk it only takes this: </p>
-<div class="highlight"><pre><span></span>def get_files_in_dir(dirname=&quot;.&quot;):
-    for file_name in os.listdir(dirname):
-        abs_path = os.path.join(dirname, file_name)
-        if os.path.isdir(abs_path):
-            yield from get_files_in_dir(abs_path)
-        else:
-            yield abs_path
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_files_in_dir</span><span class="ss">(</span><span class="k">dirname</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">.</span><span class="s2">&quot;</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">file_name</span> <span class="nv">in</span> <span class="nv">os</span>.<span class="nv">listdir</span><span class="ss">(</span><span class="k">dirname</span><span class="ss">)</span>:
+        <span class="nv">abs_path</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">join</span><span class="ss">(</span><span class="k">dirname</span>, <span class="nv">file_name</span><span class="ss">)</span>
+        <span class="k">if</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">isdir</span><span class="ss">(</span><span class="nv">abs_path</span><span class="ss">)</span>:
+            <span class="nv">yield</span> <span class="nv">from</span> <span class="nv">get_files_in_dir</span><span class="ss">(</span><span class="nv">abs_path</span><span class="ss">)</span>
+        <span class="k">else</span>:
+            <span class="nv">yield</span> <span class="nv">abs_path</span>
 </pre></div>
 
 
