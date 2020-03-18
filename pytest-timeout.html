@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Today a wanted to share a neat trick that might save you some headache: debugging a hanging test." />
+<meta name="keywords" content="testing, debugging, pytest, pytest-timeout, APIs, tricks, learning, requests, pip, time">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="How to Debug a Hanging Test Using pytest"/>
+<meta property="og:description" content="Today a wanted to share a neat trick that might save you some headache: debugging a hanging test."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/pytest-timeout.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-03-18 21:15:00+01:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Testing"/>
+<meta property="article:tag" content="testing"/>
+<meta property="article:tag" content="debugging"/>
+<meta property="article:tag" content="pytest"/>
+<meta property="article:tag" content="pytest-timeout"/>
+<meta property="article:tag" content="APIs"/>
+<meta property="article:tag" content="tricks"/>
+<meta property="article:tag" content="learning"/>
+<meta property="article:tag" content="requests"/>
+<meta property="article:tag" content="pip"/>
+<meta property="article:tag" content="time"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="How to Debug a Hanging Test Using pytest" />
+<meta name="twitter:description" content="Today a wanted to share a neat trick that might save you some headache: debugging a hanging test." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; How to Debug a Hanging Test Using pytest</title>
+
+
+</head>
+<body>
+
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
+          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
+          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+          <li><a href="/pages/community.html">Join our Slack</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="pytest-timeout">How to Debug a Hanging Test Using pytest</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Wed 18 March 2020 in <a href="https://pybit.es/category/testing.html">Testing</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <p>Today a wanted to share a neat trick that might save you some headache: debugging a hanging test.</p>
+<h2>Setup</h2>
+<p>Let's write some really simple (contrived) code to test:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="k">def</span> <span class="nf">call_api</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">response</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">sum_numbers</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And some test code to test it:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">script</span> <span class="kn">import</span> <span class="n">sum_numbers</span><span class="p">,</span> <span class="n">call_api</span>
+
+
+<span class="k">def</span> <span class="nf">test_sum_numbers</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">sum_numbers</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">==</span> <span class="mi">6</span>
+    <span class="k">assert</span> <span class="n">sum_numbers</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span> <span class="o">==</span> <span class="mi">9</span>
+
+
+<span class="k">def</span> <span class="nf">test_call_api</span><span class="p">():</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">call_api</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="k">assert</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Run <code>pytest</code> and: <code>2 passed in 0.03s</code> - all good.</p>
+<p>Now let's emulate a hanging test by adding a sleep of 60 seconds in <code>call_api</code></p>
+<p>Oops:</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac test-debug</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pytest</span><span class="w"></span>
+<span class="o">=====================================================================</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="o">======================================================================</span><span class="w"></span>
+<span class="n">platform</span><span class="w"> </span><span class="n">darwin</span><span class="w"> </span><span class="c1">-- Python 3.8.0, pytest-5.4.1, py-1.8.1, pluggy-0.13.1</span>
+<span class="nl">rootdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">bobbelderbos</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">debug</span><span class="w"></span>
+<span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">timeout</span><span class="o">-</span><span class="mf">1.3.4</span><span class="w"></span>
+<span class="n">collected</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">items</span><span class="w"></span>
+
+<span class="n">test_script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">(</span><span class="n">hangs</span><span class="w"> </span><span class="n">here</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+
+
+<p>Eventually you'll get there (<code>2 passed in 60.06s (0:01:00)</code>), but this might be far worse.</p>
+<p>Even with 1 or 2 minutes delay, you need to fix it. Tests need to be fast, because you will constantly run them to refactor and adding new features.</p>
+<h2>Debugging timeouts</h2>
+<p>I discovered a neat plugin for this: <a href="https://pypi.org/project/pytest-timeout/">pytest-timeout</a>. With your virtualenv enabled:</p>
+<div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">timeout</span>
+</pre></div>
+
+
+<p>Let's use it:</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac test-debug</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="c1">--timeout=3</span>
+<span class="n">test_script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">.</span><span class="n">F</span><span class="w">                                                                                                                                        </span><span class="o">[</span><span class="n">100%</span><span class="o">]</span><span class="w"></span>
+
+<span class="o">===========================================================================</span><span class="w"> </span><span class="n">FAILURES</span><span class="w"> </span><span class="o">===========================================================================</span><span class="w"></span>
+<span class="n">________________________________________________________________________</span><span class="w"> </span><span class="n">test_call_api</span><span class="w"> </span><span class="n">_________________________________________________________________________</span><span class="w"></span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">test_call_api</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w">       </span><span class="n">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">call_api</span><span class="p">()</span><span class="w"></span>
+
+<span class="n">test_script</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="mi">10</span><span class="err">:</span><span class="w"></span>
+<span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"></span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">call_api</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w">       </span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"></span>
+<span class="n">E</span><span class="w">       </span><span class="nl">Failed</span><span class="p">:</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="o">&gt;</span><span class="mf">3.0</span><span class="n">s</span><span class="w"></span>
+
+<span class="n">script</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="mi">5</span><span class="err">:</span><span class="w"> </span><span class="n">Failed</span><span class="w"></span>
+<span class="o">===================================================================</span><span class="w"> </span><span class="n">short</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">====================================================================</span><span class="w"></span>
+<span class="n">FAILED</span><span class="w"> </span><span class="n">test_script</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="err">:</span><span class="n">test_call_api</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nl">Failed</span><span class="p">:</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="o">&gt;</span><span class="mf">3.0</span><span class="n">s</span><span class="w"></span>
+<span class="o">=================================================================</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">failed</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mf">3.07</span><span class="n">s</span><span class="w"></span>
+</pre></div>
+
+
+<p>How cool is that, no?</p>
+<h2>A more complex use case</h2>
+<p>What if the bug is in some external module though?</p>
+<p>Here I pulled a fork of <code>requests</code> and:</p>
+<ul>
+<li>
+<p>added a <code>import time; time.sleep(60)</code> to the <code>get</code> function of the <code>api</code> module,</p>
+</li>
+<li>
+<p>added <code>import requests; requests.get('https://pybit.es')</code> to my <code>call_api</code> function,</p>
+</li>
+<li>
+<p>cd'd into the <em>requests</em> subfolder and did a <code>pip install -e .</code> to install THIS modified version (as opposed the one on the net).</p>
+</li>
+</ul>
+<p>And ... boom!</p>
+<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">test</span><span class="o">-</span><span class="nv">debug</span>]$ <span class="nv">pytest</span> <span class="nv">test_script</span>.<span class="nv">py</span> <span class="o">--</span><span class="nb">timeout</span><span class="o">=</span><span class="mi">3</span>
+<span class="o">=====================================================================</span> <span class="nv">test</span> <span class="nv">session</span> <span class="nv">starts</span> <span class="o">======================================================================</span>
+<span class="nv">platform</span> <span class="nv">darwin</span> <span class="o">--</span> <span class="nv">Python</span> <span class="mi">3</span>.<span class="mi">8</span>.<span class="mi">0</span>, <span class="nv">pytest</span><span class="o">-</span><span class="mi">5</span>.<span class="mi">4</span>.<span class="mi">1</span>, <span class="nv">py</span><span class="o">-</span><span class="mi">1</span>.<span class="mi">8</span>.<span class="mi">1</span>, <span class="nv">pluggy</span><span class="o">-</span><span class="mi">0</span>.<span class="mi">13</span>.<span class="mi">1</span>
+<span class="nv">rootdir</span>: <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bobbelderbos</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">test</span><span class="o">-</span><span class="nv">debug</span>
+<span class="nv">plugins</span>: <span class="nb">timeout</span><span class="o">-</span><span class="mi">1</span>.<span class="mi">3</span>.<span class="mi">4</span>
+<span class="nb">timeout</span>: <span class="mi">3</span>.<span class="mi">0</span><span class="nv">s</span>
+<span class="nb">timeout</span> <span class="nv">method</span>: <span class="nv">signal</span>
+<span class="nb">timeout</span> <span class="nv">func_only</span>: <span class="nv">False</span>
+<span class="nv">collected</span> <span class="mi">2</span> <span class="nv">items</span>
+
+<span class="nv">test_script</span>.<span class="nv">py</span> .<span class="nv">F</span>                                                                                                                                        [<span class="mi">100</span><span class="o">%</span>]
+
+<span class="o">===========================================================================</span> <span class="nv">FAILURES</span> <span class="o">===========================================================================</span>
+<span class="nv">________________________________________________________________________</span> <span class="nv">test_call_api</span> <span class="nv">_________________________________________________________________________</span>
+
+    <span class="nv">def</span> <span class="nv">test_call_api</span><span class="ss">()</span>:
+<span class="o">&gt;</span>       <span class="nv">resp</span> <span class="o">=</span> <span class="nv">call_api</span><span class="ss">()</span>
+
+<span class="nv">test_script</span>.<span class="nv">py</span>:<span class="mi">10</span>:
+<span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span>
+<span class="nv">script</span>.<span class="nv">py</span>:<span class="mi">5</span>: <span class="nv">in</span> <span class="nv">call_api</span>
+    <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">https://pybit.es</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span>
+
+<span class="nv">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">https://pybit.es</span><span class="s1">&#39;</span>, <span class="nb">params</span> <span class="o">=</span> <span class="nv">None</span>, <span class="nv">kwargs</span> <span class="o">=</span> {}
+
+    <span class="nv">def</span> <span class="nv">get</span><span class="ss">(</span><span class="nv">url</span>, <span class="nb">params</span><span class="o">=</span><span class="nv">None</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>:
+        <span class="nv">r</span><span class="s2">&quot;&quot;&quot;</span><span class="s">Sends a GET request.</span>
+
+        <span class="nl">:param</span> <span class="nv">url</span>: <span class="nv">URL</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">new</span> :<span class="nv">class</span>:`<span class="nv">Request</span>` <span class="nv">object</span>.
+        :<span class="nv">param</span> <span class="nb">params</span>: <span class="ss">(</span><span class="nv">optional</span><span class="ss">)</span> <span class="nv">Dictionary</span> <span class="nv">or</span> <span class="nv">bytes</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">sent</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">query</span> <span class="nv">string</span> <span class="k">for</span> <span class="nv">the</span> :<span class="nv">class</span>:`<span class="nv">Request</span>`.
+        :<span class="nv">param</span> \<span class="o">*</span>\<span class="o">*</span><span class="nv">kwargs</span>: <span class="nv">Optional</span> <span class="nv">arguments</span> <span class="nv">that</span> ``<span class="nv">request</span>`` <span class="nv">takes</span>.
+        :<span class="k">return</span>: :<span class="nv">class</span>:`<span class="nv">Response</span> <span class="o">&lt;</span><span class="nv">Response</span><span class="o">&gt;</span>` <span class="nv">object</span>
+        :<span class="nv">rtype</span>: <span class="nv">requests</span>.<span class="nv">Response</span>
+        <span class="s2">&quot;&quot;&quot;</span>
+<span class="o">&gt;</span>       <span class="nv">time</span>.<span class="nv">sleep</span><span class="ss">(</span><span class="mi">60</span><span class="ss">)</span>
+<span class="nv">E</span>       <span class="nv">Failed</span>: <span class="nb">Timeout</span> <span class="o">&gt;</span><span class="mi">3</span>.<span class="mi">0</span><span class="nv">s</span>
+</pre></div>
+
+
+<h2>Getting more debug info</h2>
+<p>What if the failing code is more layers down?</p>
+<p>Sometimes the issue is really nested and <code>pytest-timeout</code> might not be that smart. </p>
+<p>In that case you can swap the default <code>signal</code> of the <code>--timeout_method</code> flag for <code>thread</code> and it will dump a complete stacktrace!</p>
+<p>This can be very useful for debugging:</p>
+<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">test</span><span class="o">-</span><span class="nv">debug</span>]$ <span class="nv">pytest</span> <span class="nv">test_script</span>.<span class="nv">py</span> <span class="o">--</span><span class="nb">timeout</span><span class="o">=</span><span class="mi">3</span> <span class="o">--</span><span class="nv">timeout_method</span><span class="o">=</span><span class="nv">thread</span>
+<span class="o">=====================================================================</span> <span class="nv">test</span> <span class="nv">session</span> <span class="nv">starts</span> <span class="o">======================================================================</span>
+<span class="nv">platform</span> <span class="nv">darwin</span> <span class="o">--</span> <span class="nv">Python</span> <span class="mi">3</span>.<span class="mi">8</span>.<span class="mi">0</span>, <span class="nv">pytest</span><span class="o">-</span><span class="mi">5</span>.<span class="mi">4</span>.<span class="mi">1</span>, <span class="nv">py</span><span class="o">-</span><span class="mi">1</span>.<span class="mi">8</span>.<span class="mi">1</span>, <span class="nv">pluggy</span><span class="o">-</span><span class="mi">0</span>.<span class="mi">13</span>.<span class="mi">1</span>
+<span class="nv">rootdir</span>: <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bobbelderbos</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">test</span><span class="o">-</span><span class="nv">debug</span>
+<span class="nv">plugins</span>: <span class="nb">timeout</span><span class="o">-</span><span class="mi">1</span>.<span class="mi">3</span>.<span class="mi">4</span>
+<span class="nb">timeout</span>: <span class="mi">3</span>.<span class="mi">0</span><span class="nv">s</span>
+<span class="nb">timeout</span> <span class="nv">method</span>: <span class="nv">thread</span>
+<span class="nb">timeout</span> <span class="nv">func_only</span>: <span class="nv">False</span>
+<span class="nv">collected</span> <span class="mi">2</span> <span class="nv">items</span>
+
+<span class="nv">test_script</span>.<span class="nv">py</span> .
+<span class="o">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span> <span class="nb">Timeout</span> <span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+
+<span class="o">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span> <span class="nv">Stack</span> <span class="nv">of</span> <span class="nv">MainThread</span> <span class="ss">(</span><span class="mi">4523748800</span><span class="ss">)</span> <span class="o">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">/Users/bobbelderbos/code/test-debug/venv/bin/pytest</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">10</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+    <span class="nv">sys</span>.<span class="k">exit</span><span class="ss">(</span><span class="nv">main</span><span class="ss">())</span>
+    ...
+    <span class="nv">many</span> <span class="nv">more</span> <span class="nv">calls</span>
+    ...
+<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">/Users/bobbelderbos/code/test-debug/venv/lib/python3.8/site-packages/_pytest/python.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">184</span>, <span class="nv">in</span> <span class="nv">pytest_pyfunc_call</span>
+    <span class="nb">result</span> <span class="o">=</span> <span class="nv">testfunction</span><span class="ss">(</span><span class="o">**</span><span class="nv">testargs</span><span class="ss">)</span>
+<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">/Users/bobbelderbos/code/test-debug/test_script.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">10</span>, <span class="nv">in</span> <span class="nv">test_call_api</span>
+    <span class="nv">resp</span> <span class="o">=</span> <span class="nv">call_api</span><span class="ss">()</span>
+<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">/Users/bobbelderbos/code/test-debug/script.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">5</span>, <span class="nv">in</span> <span class="nv">call_api</span>
+    <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">https://pybit.es</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">/Users/bobbelderbos/code/test-debug/requests/requests/api.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">71</span>, <span class="nv">in</span> <span class="nv">get</span>
+    <span class="nv">time</span>.<span class="nv">sleep</span><span class="ss">(</span><span class="mi">60</span><span class="ss">)</span>
+
+<span class="o">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span> <span class="nb">Timeout</span> <span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">test</span><span class="o">-</span><span class="nv">debug</span>]$
+</pre></div>
+
+
+<p>Really cool stuff.</p>
+<p>I hope this is useful. Comment below next time this saves you some debugging time ...</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+<div class="ctaBox">
+<p>With so many avenues to pursue in Python it can be tough to know what to do. If you're looking for some <strong>direction</strong> or want to take your Python code and career to the next level, <a href="https://codechalleng.es/coaching" target="_blank">book a strategy session with us</a>. We can help you!</p>
+</div>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/testing.html">testing</a>
+      <a href="https://pybit.es/tag/debugging.html">debugging</a>
+      <a href="https://pybit.es/tag/pytest.html">pytest</a>
+      <a href="https://pybit.es/tag/pytest-timeout.html">pytest-timeout</a>
+      <a href="https://pybit.es/tag/apis.html">APIs</a>
+      <a href="https://pybit.es/tag/tricks.html">tricks</a>
+      <a href="https://pybit.es/tag/learning.html">learning</a>
+      <a href="https://pybit.es/tag/requests.html">requests</a>
+      <a href="https://pybit.es/tag/pip.html">pip</a>
+      <a href="https://pybit.es/tag/time.html">time</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
+</body>
+</html>
