@@ -126,7 +126,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -164,99 +164,99 @@
 <p>Code is <a href="https://github.com/pybites/100DaysOfCode/tree/master/076">here</a>.</p>
 <h2>Packt Ebook Download Manager</h2>
 <p>We also made a script to manage downloaded/purchased Packt ebooks. It uses requests session (detailed <a href="https://pybit.es/requests-session.html">here</a>) to login/access/download books. We use BeautifulSoup for html parsing. Here you can see it in action:</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">packt</span>.<span class="nv">py</span>
-<span class="nv">PACKT</span> <span class="nv">DOWNLOAD</span> <span class="nv">MANAGER</span>
+<div class="highlight"><pre><span></span>$ python packt.py
+PACKT DOWNLOAD MANAGER
 
-<span class="nv">Logging</span> <span class="nv">in</span>
-<span class="nv">Retrieving</span> <span class="nv">books</span>
+Logging in
+Retrieving books
 
-<span class="nv">Seach</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">q</span> <span class="k">for</span> <span class="k">exit</span><span class="ss">)</span>: <span class="nv">dta</span>
-<span class="nv">No</span> <span class="nv">matches</span>, <span class="nv">try</span> <span class="nv">again</span>
+Seach <span class="k">for</span> a book <span class="o">(</span>q <span class="k">for</span> <span class="nb">exit</span><span class="o">)</span>: dta
+No matches, try again
 
-<span class="nv">Seach</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">q</span> <span class="k">for</span> <span class="k">exit</span><span class="ss">)</span>: <span class="nv">data</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">Learning</span> <span class="nv">Data</span> <span class="nv">Mining</span> <span class="nv">with</span> <span class="nv">Python</span> [<span class="nv">eBook</span>]
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">R</span> <span class="nv">Data</span> <span class="nv">Visualization</span> <span class="nv">Cookbook</span> [<span class="nv">eBook</span>]
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">Practical</span> <span class="nv">Data</span> <span class="nv">Science</span> <span class="nv">Cookbook</span> [<span class="nv">eBook</span>]
-<span class="mi">4</span><span class="ss">)</span> <span class="nv">Data</span> <span class="nv">Analysis</span> <span class="nv">with</span> <span class="nv">R</span> [<span class="nv">eBook</span>]
-<span class="mi">5</span><span class="ss">)</span> <span class="nv">ASP</span>.<span class="nv">NET</span> <span class="nv">Data</span> <span class="nv">Presentation</span> <span class="nv">Controls</span> <span class="nv">Essentials</span> [<span class="nv">eBook</span>]
-<span class="mi">6</span><span class="ss">)</span> <span class="nv">Implementing</span> <span class="nv">Splunk</span>: <span class="nv">Big</span> <span class="nv">Data</span> <span class="nv">Reporting</span> <span class="nv">and</span> <span class="nv">Development</span> <span class="k">for</span> <span class="nv">Operational</span> <span class="nv">Intelligence</span> [<span class="nv">eBook</span>]
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="mi">1</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">21201</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">21201</span><span class="o">/</span><span class="nv">epub</span>
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">21201</span><span class="o">/</span><span class="nv">mobi</span>
-<span class="nv">Choose</span> <span class="nv">url</span> <span class="ss">(</span><span class="nv">c</span> <span class="nv">to</span> <span class="nv">cancel</span><span class="ss">)</span>: <span class="mi">1</span>
-<span class="nv">Downloading</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">21201</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="nv">Saving</span> <span class="nv">to</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">Documents</span><span class="o">/</span><span class="nv">books</span><span class="o">/</span><span class="nv">Packt</span><span class="o">/</span><span class="nv">learning</span><span class="o">-</span><span class="nv">data</span><span class="o">-</span><span class="nv">mining</span><span class="o">-</span><span class="nv">with</span><span class="o">-</span><span class="nv">python</span>.<span class="nv">pdf</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="nv">n</span>
+Seach <span class="k">for</span> a book <span class="o">(</span>q <span class="k">for</span> <span class="nb">exit</span><span class="o">)</span>: data
+<span class="m">1</span><span class="o">)</span> Learning Data Mining with Python <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">2</span><span class="o">)</span> R Data Visualization Cookbook <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">3</span><span class="o">)</span> Practical Data Science Cookbook <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">4</span><span class="o">)</span> Data Analysis with R <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">5</span><span class="o">)</span> ASP.NET Data Presentation Controls Essentials <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">6</span><span class="o">)</span> Implementing Splunk: Big Data Reporting and Development <span class="k">for</span> Operational Intelligence <span class="o">[</span>eBook<span class="o">]</span>
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: <span class="m">1</span>
+<span class="m">1</span><span class="o">)</span> https://www.packtpub.com/ebook_download/21201/pdf
+<span class="m">2</span><span class="o">)</span> https://www.packtpub.com/ebook_download/21201/epub
+<span class="m">3</span><span class="o">)</span> https://www.packtpub.com/ebook_download/21201/mobi
+Choose url <span class="o">(</span>c to cancel<span class="o">)</span>: <span class="m">1</span>
+Downloading https://www.packtpub.com/ebook_download/21201/pdf
+Saving to /Users/bbelderb/Documents/books/Packt/learning-data-mining-with-python.pdf
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: n
 
-<span class="nv">Seach</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">q</span> <span class="k">for</span> <span class="k">exit</span><span class="ss">)</span>: <span class="nv">python</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">Expert</span> <span class="nv">Python</span> <span class="nv">Programming</span> <span class="o">-</span> <span class="nv">Second</span> <span class="nv">Edition</span> [<span class="nv">eBook</span>]
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">Modern</span> <span class="nv">Python</span> <span class="nv">Cookbook</span> [<span class="nv">eBook</span>]
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">Python</span> <span class="nv">GUI</span> <span class="nv">Programming</span> <span class="nv">Cookbook</span> [<span class="nv">eBook</span>]
-<span class="mi">4</span><span class="ss">)</span> <span class="nv">What</span> <span class="nv">You</span> <span class="nv">Need</span> <span class="nv">to</span> <span class="nv">Know</span> <span class="nv">about</span> <span class="nv">Python</span> [<span class="nv">eBook</span>]
-<span class="mi">5</span><span class="ss">)</span> <span class="nv">Raspberry</span> <span class="nv">Pi</span> <span class="nv">Cookbook</span> <span class="k">for</span> <span class="nv">Python</span> <span class="nv">Programmers</span> [<span class="nv">eBook</span>]
-<span class="mi">6</span><span class="ss">)</span> <span class="nv">Learning</span> <span class="nv">Python</span> <span class="nv">Application</span> <span class="nv">Development</span> [<span class="nv">eBook</span>]
-<span class="mi">7</span><span class="ss">)</span> <span class="nv">Learning</span> <span class="nv">Robotics</span> <span class="nv">Using</span> <span class="nv">Python</span> [<span class="nv">eBook</span>]
+Seach <span class="k">for</span> a book <span class="o">(</span>q <span class="k">for</span> <span class="nb">exit</span><span class="o">)</span>: python
+<span class="m">1</span><span class="o">)</span> Expert Python Programming - Second Edition <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">2</span><span class="o">)</span> Modern Python Cookbook <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">3</span><span class="o">)</span> Python GUI Programming Cookbook <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">4</span><span class="o">)</span> What You Need to Know about Python <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">5</span><span class="o">)</span> Raspberry Pi Cookbook <span class="k">for</span> Python Programmers <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">6</span><span class="o">)</span> Learning Python Application Development <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">7</span><span class="o">)</span> Learning Robotics Using Python <span class="o">[</span>eBook<span class="o">]</span>
 ...
-<span class="nv">many</span> <span class="nv">more</span> <span class="ss">(</span><span class="nv">thanks</span> <span class="nv">Packt</span><span class="o">!</span><span class="ss">)</span>
+many more <span class="o">(</span>thanks Packt!<span class="o">)</span>
 ...
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="mi">1</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">25257</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">25257</span><span class="o">/</span><span class="nv">epub</span>
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">25257</span><span class="o">/</span><span class="nv">mobi</span>
-<span class="nv">Choose</span> <span class="nv">url</span> <span class="ss">(</span><span class="nv">c</span> <span class="nv">to</span> <span class="nv">cancel</span><span class="ss">)</span>: <span class="mi">3</span>
-<span class="nv">Downloading</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">25257</span><span class="o">/</span><span class="nv">mobi</span>
-<span class="nv">Saving</span> <span class="nv">to</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">Documents</span><span class="o">/</span><span class="nv">books</span><span class="o">/</span><span class="nv">Packt</span><span class="o">/</span><span class="nv">expert</span><span class="o">-</span><span class="nv">python</span><span class="o">-</span><span class="nv">programming</span><span class="o">-</span><span class="nv">second</span><span class="o">-</span><span class="nv">edition</span>.<span class="nv">mobi</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="mi">22</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">20125</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">20125</span><span class="o">/</span><span class="nv">epub</span>
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">20125</span><span class="o">/</span><span class="nv">mobi</span>
-<span class="nv">Choose</span> <span class="nv">url</span> <span class="ss">(</span><span class="nv">c</span> <span class="nv">to</span> <span class="nv">cancel</span><span class="ss">)</span>: <span class="mi">1</span>
-<span class="nv">Downloading</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">20125</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="nv">Saving</span> <span class="nv">to</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">Documents</span><span class="o">/</span><span class="nv">books</span><span class="o">/</span><span class="nv">Packt</span><span class="o">/</span><span class="nv">functional</span><span class="o">-</span><span class="nv">python</span><span class="o">-</span><span class="nv">programming</span>.<span class="nv">pdf</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="nv">n</span>
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: <span class="m">1</span>
+<span class="m">1</span><span class="o">)</span> https://www.packtpub.com/ebook_download/25257/pdf
+<span class="m">2</span><span class="o">)</span> https://www.packtpub.com/ebook_download/25257/epub
+<span class="m">3</span><span class="o">)</span> https://www.packtpub.com/ebook_download/25257/mobi
+Choose url <span class="o">(</span>c to cancel<span class="o">)</span>: <span class="m">3</span>
+Downloading https://www.packtpub.com/ebook_download/25257/mobi
+Saving to /Users/bbelderb/Documents/books/Packt/expert-python-programming-second-edition.mobi
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: <span class="m">22</span>
+<span class="m">1</span><span class="o">)</span> https://www.packtpub.com/ebook_download/20125/pdf
+<span class="m">2</span><span class="o">)</span> https://www.packtpub.com/ebook_download/20125/epub
+<span class="m">3</span><span class="o">)</span> https://www.packtpub.com/ebook_download/20125/mobi
+Choose url <span class="o">(</span>c to cancel<span class="o">)</span>: <span class="m">1</span>
+Downloading https://www.packtpub.com/ebook_download/20125/pdf
+Saving to /Users/bbelderb/Documents/books/Packt/functional-python-programming.pdf
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: n
 
-<span class="nv">Seach</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">q</span> <span class="k">for</span> <span class="k">exit</span><span class="ss">)</span>: <span class="nv">postgres</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">PostgreSQL</span> <span class="mi">9</span> <span class="nv">Admin</span> <span class="nv">Cookbook</span> [<span class="nv">eBook</span>]
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">Learning</span> <span class="nv">PostgreSQL</span> [<span class="nv">eBook</span>]
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="mi">2</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">22041</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">22041</span><span class="o">/</span><span class="nv">epub</span>
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">22041</span><span class="o">/</span><span class="nv">mobi</span>
-<span class="nv">Choose</span> <span class="nv">url</span> <span class="ss">(</span><span class="nv">c</span> <span class="nv">to</span> <span class="nv">cancel</span><span class="ss">)</span>: <span class="mi">1</span>
-<span class="nv">Downloading</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">22041</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="nv">Saving</span> <span class="nv">to</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">Documents</span><span class="o">/</span><span class="nv">books</span><span class="o">/</span><span class="nv">Packt</span><span class="o">/</span><span class="nv">learning</span><span class="o">-</span><span class="nv">postgresql</span>.<span class="nv">pdf</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="mi">1</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">6088</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">6088</span><span class="o">/</span><span class="nv">epub</span>
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">6088</span><span class="o">/</span><span class="nv">mobi</span>
-<span class="nv">Choose</span> <span class="nv">url</span> <span class="ss">(</span><span class="nv">c</span> <span class="nv">to</span> <span class="nv">cancel</span><span class="ss">)</span>: <span class="nv">c</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="nv">n</span>
+Seach <span class="k">for</span> a book <span class="o">(</span>q <span class="k">for</span> <span class="nb">exit</span><span class="o">)</span>: postgres
+<span class="m">1</span><span class="o">)</span> PostgreSQL <span class="m">9</span> Admin Cookbook <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">2</span><span class="o">)</span> Learning PostgreSQL <span class="o">[</span>eBook<span class="o">]</span>
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: <span class="m">2</span>
+<span class="m">1</span><span class="o">)</span> https://www.packtpub.com/ebook_download/22041/pdf
+<span class="m">2</span><span class="o">)</span> https://www.packtpub.com/ebook_download/22041/epub
+<span class="m">3</span><span class="o">)</span> https://www.packtpub.com/ebook_download/22041/mobi
+Choose url <span class="o">(</span>c to cancel<span class="o">)</span>: <span class="m">1</span>
+Downloading https://www.packtpub.com/ebook_download/22041/pdf
+Saving to /Users/bbelderb/Documents/books/Packt/learning-postgresql.pdf
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: <span class="m">1</span>
+<span class="m">1</span><span class="o">)</span> https://www.packtpub.com/ebook_download/6088/pdf
+<span class="m">2</span><span class="o">)</span> https://www.packtpub.com/ebook_download/6088/epub
+<span class="m">3</span><span class="o">)</span> https://www.packtpub.com/ebook_download/6088/mobi
+Choose url <span class="o">(</span>c to cancel<span class="o">)</span>: c
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: n
 
-<span class="nv">Seach</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">q</span> <span class="k">for</span> <span class="k">exit</span><span class="ss">)</span>: <span class="nv">science</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">Practical</span> <span class="nv">Data</span> <span class="nv">Science</span> <span class="nv">Cookbook</span> [<span class="nv">eBook</span>]
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="nv">n</span>
+Seach <span class="k">for</span> a book <span class="o">(</span>q <span class="k">for</span> <span class="nb">exit</span><span class="o">)</span>: science
+<span class="m">1</span><span class="o">)</span> Practical Data Science Cookbook <span class="o">[</span>eBook<span class="o">]</span>
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: n
 
-<span class="nv">Seach</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">q</span> <span class="k">for</span> <span class="k">exit</span><span class="ss">)</span>: <span class="nv">machine</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">Practical</span> <span class="nv">Machine</span> <span class="nv">Learning</span> [<span class="nv">eBook</span>]
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">Machine</span> <span class="nv">Learning</span> <span class="nv">with</span> <span class="nv">R</span> <span class="o">-</span> <span class="nv">Second</span> <span class="nv">Edition</span> [<span class="nv">eBook</span>]
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">Machine</span> <span class="nv">Learning</span> <span class="nv">with</span> <span class="nv">Spark</span> [<span class="nv">eBook</span>]
-<span class="mi">4</span><span class="ss">)</span> <span class="nv">Python</span> <span class="nv">Machine</span> <span class="nv">Learning</span> [<span class="nv">eBook</span>]
-<span class="mi">5</span><span class="ss">)</span> <span class="nv">Building</span> <span class="nv">Machine</span> <span class="nv">Learning</span> <span class="nv">Systems</span> <span class="nv">with</span> <span class="nv">Python</span> [<span class="nv">eBook</span>]
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="mi">6</span>
-<span class="nv">Wrong</span> <span class="nv">input</span>, <span class="nv">please</span> <span class="nv">try</span> <span class="nv">again</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="nv">f</span>
-<span class="nv">Wrong</span> <span class="nv">input</span>, <span class="nv">please</span> <span class="nv">try</span> <span class="nv">again</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="mi">5</span>
-<span class="mi">1</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">11703</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="mi">2</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">11703</span><span class="o">/</span><span class="nv">epub</span>
-<span class="mi">3</span><span class="ss">)</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">11703</span><span class="o">/</span><span class="nv">mobi</span>
-<span class="nv">Choose</span> <span class="nv">url</span> <span class="ss">(</span><span class="nv">c</span> <span class="nv">to</span> <span class="nv">cancel</span><span class="ss">)</span>: <span class="mi">1</span>
-<span class="nv">Downloading</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">packtpub</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">ebook_download</span><span class="o">/</span><span class="mi">11703</span><span class="o">/</span><span class="nv">pdf</span>
-<span class="nv">Saving</span> <span class="nv">to</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">Documents</span><span class="o">/</span><span class="nv">books</span><span class="o">/</span><span class="nv">Packt</span><span class="o">/</span><span class="nv">building</span><span class="o">-</span><span class="nv">machine</span><span class="o">-</span><span class="nv">learning</span><span class="o">-</span><span class="nv">systems</span><span class="o">-</span><span class="nv">with</span><span class="o">-</span><span class="nv">python</span>.<span class="nv">pdf</span>
-<span class="nv">Choose</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">n</span> <span class="k">for</span> <span class="nv">new</span> <span class="nv">search</span><span class="ss">)</span>: <span class="nv">n</span>
-<span class="nv">Seach</span> <span class="k">for</span> <span class="nv">a</span> <span class="nv">book</span> <span class="ss">(</span><span class="nv">q</span> <span class="k">for</span> <span class="k">exit</span><span class="ss">)</span>: <span class="nv">q</span>
-<span class="nv">Bye</span>
+Seach <span class="k">for</span> a book <span class="o">(</span>q <span class="k">for</span> <span class="nb">exit</span><span class="o">)</span>: machine
+<span class="m">1</span><span class="o">)</span> Practical Machine Learning <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">2</span><span class="o">)</span> Machine Learning with R - Second Edition <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">3</span><span class="o">)</span> Machine Learning with Spark <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">4</span><span class="o">)</span> Python Machine Learning <span class="o">[</span>eBook<span class="o">]</span>
+<span class="m">5</span><span class="o">)</span> Building Machine Learning Systems with Python <span class="o">[</span>eBook<span class="o">]</span>
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: <span class="m">6</span>
+Wrong input, please try again
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: f
+Wrong input, please try again
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: <span class="m">5</span>
+<span class="m">1</span><span class="o">)</span> https://www.packtpub.com/ebook_download/11703/pdf
+<span class="m">2</span><span class="o">)</span> https://www.packtpub.com/ebook_download/11703/epub
+<span class="m">3</span><span class="o">)</span> https://www.packtpub.com/ebook_download/11703/mobi
+Choose url <span class="o">(</span>c to cancel<span class="o">)</span>: <span class="m">1</span>
+Downloading https://www.packtpub.com/ebook_download/11703/pdf
+Saving to /Users/bbelderb/Documents/books/Packt/building-machine-learning-systems-with-python.pdf
+Choose book <span class="o">(</span>n <span class="k">for</span> new search<span class="o">)</span>: n
+Seach <span class="k">for</span> a book <span class="o">(</span>q <span class="k">for</span> <span class="nb">exit</span><span class="o">)</span>: q
+Bye
 </pre></div>
 
 
@@ -365,8 +365,5 @@
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
 </body>
 </html>

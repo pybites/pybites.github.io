@@ -123,7 +123,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -170,20 +170,20 @@
 <h2>Flake8 in Action</h2>
 <p>To demonstrate my beloved Flake8 I thought I'd grab an old, and I mean old, script that's likely riddled with issues. Judge me not friends!</p>
 <p>In an older (I'm really stressing old here) article I wrote a simple script to send emails. No functions or anything, just line by line code. Ignoring what the code actually does take a look at this snippet below. <a href="https://github.com/pybites/blog_code/blob/master/generic_emailer/generic_emailer.py">Full code here</a>.</p>
-<div class="highlight"><pre><span></span>λ <span class="nv">cat</span> <span class="nv">generic_emailer</span>.<span class="nv">py</span>
-#<span class="o">!</span><span class="nv">python3</span>
-#<span class="nv">emailer</span>.<span class="nv">py</span> <span class="nv">is</span> <span class="nv">a</span> <span class="nv">simple</span> <span class="nv">script</span> <span class="k">for</span> <span class="nv">sending</span> <span class="nv">emails</span> <span class="nv">using</span> <span class="nv">smtplib</span>
-#<span class="nv">The</span> <span class="nv">idea</span> <span class="nv">is</span> <span class="nv">to</span> <span class="nv">assign</span> <span class="nv">a</span> <span class="nv">web</span><span class="o">-</span><span class="nv">scraped</span> <span class="nv">file</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">DATA_FILE</span> <span class="nv">constant</span>.
-#<span class="nv">The</span> <span class="nv">data</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">file</span> <span class="nv">is</span> <span class="k">then</span> <span class="nv">read</span> <span class="nv">in</span> <span class="nv">and</span> <span class="nv">sent</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">body</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">email</span>.
+<div class="highlight"><pre><span></span>λ cat generic_emailer.py
+#!python3
+#emailer.py is a simple script for sending emails using smtplib
+#The idea is to assign a web-scraped file to the DATA_FILE constant.
+#The data in the file is then read in and sent as the body of the email.
 
-<span class="o">&lt;</span><span class="nv">snip</span><span class="o">&gt;</span> 
+&lt;snip&gt; 
 
-<span class="nv">DATA_FILE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">scraped_data_file</span><span class="s1">&#39;</span>
-<span class="nv">from_addr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">your_email@gmail.com</span><span class="s1">&#39;</span>
-<span class="nv">to_addr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">your_email@gmail.com</span><span class="s1">&#39;</span>  #<span class="nv">Or</span> <span class="nv">any</span> <span class="nv">generic</span> <span class="nv">email</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">all</span> <span class="nv">recipients</span> <span class="nv">to</span> <span class="nv">see</span>
-<span class="nv">bcc</span> <span class="o">=</span> <span class="nv">EMAILS</span> 
+DATA_FILE = &#39;scraped_data_file&#39;
+from_addr = &#39;your_email@gmail.com&#39;
+to_addr = &#39;your_email@gmail.com&#39;  #Or any generic email you want all recipients to see
+bcc = EMAILS 
 
-<span class="o">&lt;</span><span class="nv">snip</span><span class="o">&gt;</span>
+&lt;snip&gt;
 </pre></div>
 
 
@@ -191,36 +191,36 @@
 <ol>
 <li>
 <p>pip install the sucker:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">λ</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">flake8</span>
+<div class="highlight"><pre><span></span>(venv) λ pip install flake8
 </pre></div>
 
 
 </li>
 <li>
 <p>Simply run <code>flake8</code> and point it at your script. Given <code>generic_emailer.py</code> is in my current directory I'd run the following:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">λ</span> <span class="n">flake8</span> <span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span></span>(venv) λ flake8 generic_emailer.py
 </pre></div>
 
 
 </li>
 <li>
 <p>In traditional CLI fashion, if you don't receive any output at all, you have no issues. In my case, yeah, nope. The output I receive when running Flake8 against my script is as follows:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">λ</span> <span class="n">flake8</span> <span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mi">80</span><span class="p">:</span> <span class="n">E501</span> <span class="n">line</span> <span class="n">too</span> <span class="n">long</span> <span class="p">(</span><span class="mi">86</span> <span class="o">&gt;</span> <span class="mi">79</span> <span class="n">characters</span><span class="p">)</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">44</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
+<div class="highlight"><pre><span></span>(venv) λ flake8 generic_emailer.py
+generic_emailer.py:2:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:3:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:4:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:14:35: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:14:80: E501 line too long (86 &gt; 79 characters)
+generic_emailer.py:27:50: E261 at least two spaces before inline comment
+generic_emailer.py:27:51: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:29:19: E261 at least two spaces before inline comment
+generic_emailer.py:29:20: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:31:23: E261 at least two spaces before inline comment
+generic_emailer.py:31:24: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:33:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:38:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:41:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:44:1: E265 block comment should start with &#39;# &#39;
 </pre></div>
 
 
@@ -247,25 +247,25 @@
 <li><code>generic_emailer.py:14:80: E501 line too long (86 &gt; 79 characters)</code></li>
 </ul>
 <p>The code in question on line 14 is this:</p>
-<div class="highlight"><pre><span></span><span class="n">to_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;your_email@gmail.com&#39;</span><span class="w">  </span><span class="n">#Or</span><span class="w"> </span><span class="ow">any</span><span class="w"> </span><span class="n">generic</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">recipients</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">see</span><span class="w"></span>
+<div class="highlight"><pre><span></span>to_addr = &#39;your_email@gmail.com&#39;  #Or any generic email you want all recipients to see
 </pre></div>
 
 
 <p>I can actually fix both issues by simply removing the comment. Doing this and running Flake8 again gets me the following output:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">λ</span> <span class="n">flake8</span> <span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">33</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">44</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">E265</span> <span class="n">block</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
+<div class="highlight"><pre><span></span>(venv) λ flake8 generic_emailer.py
+generic_emailer.py:2:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:3:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:4:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:27:50: E261 at least two spaces before inline comment
+generic_emailer.py:27:51: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:29:19: E261 at least two spaces before inline comment
+generic_emailer.py:29:20: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:31:23: E261 at least two spaces before inline comment
+generic_emailer.py:31:24: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:33:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:38:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:41:1: E265 block comment should start with &#39;# &#39;
+generic_emailer.py:44:1: E265 block comment should start with &#39;# &#39;
 </pre></div>
 
 
@@ -277,34 +277,34 @@
 <p>To save yourself time you can also create a Flake8 config file and hardcode the violation codes into that. This method will save you specifying the code every time you run Flake8.</p>
 <p>In my case I'm going to ignore those pesky <code>E265</code> violations because I can.</p>
 <p>I need to create a <code>.flake8</code> file in my parent directory and add the following (with vim of course!):</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">λ</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="n">flake8</span><span class="w"></span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">λ</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="p">.</span><span class="n">flake8</span><span class="w"></span>
-<span class="o">[</span><span class="n">flake8</span><span class="o">]</span><span class="w"></span>
-<span class="k">ignore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">E265</span><span class="w"></span>
+<div class="highlight"><pre><span></span>(venv) λ touch flake8
+(venv) λ cat .flake8
+[flake8]
+ignore = E265
 </pre></div>
 
 
 <p>When I re-run Flake8 I now see the following:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">λ</span> <span class="n">flake8</span> <span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span> <span class="n">E261</span> <span class="k">at</span> <span class="n">least</span> <span class="n">two</span> <span class="n">spaces</span> <span class="k">before</span> <span class="n">inline</span> <span class="k">comment</span>
-<span class="n">generic_emailer</span><span class="p">.</span><span class="n">py</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span> <span class="n">E262</span> <span class="n">inline</span> <span class="k">comment</span> <span class="n">should</span> <span class="k">start</span> <span class="k">with</span> <span class="s1">&#39;# &#39;</span>
+<div class="highlight"><pre><span></span>(venv) λ flake8 generic_emailer.py
+generic_emailer.py:27:50: E261 at least two spaces before inline comment
+generic_emailer.py:27:51: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:29:19: E261 at least two spaces before inline comment
+generic_emailer.py:29:20: E262 inline comment should start with &#39;# &#39;
+generic_emailer.py:31:23: E261 at least two spaces before inline comment
+generic_emailer.py:31:24: E262 inline comment should start with &#39;# &#39;
 </pre></div>
 
 
 <p>The rest of the errors are an easy clean up so I'll leave it here.</p>
 <p>Another way to ignore errors is <a href="http://flake8.pycqa.org/en/3.1.1/user/ignoring-errors.html#in-line-ignoring-errors">to add a <code># noqa: E...</code></a>, for example to ignore a very long comment you could add a <code># noqa E501</code> to the end::</p>
-<div class="highlight"><pre><span></span># <span class="nv">In</span> <span class="nv">some</span> <span class="nv">cases</span>, <span class="nv">we</span> <span class="nv">might</span> <span class="nv">not</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">ignore</span> <span class="nv">an</span> <span class="nv">error</span> <span class="nv">code</span> <span class="ss">(</span><span class="nv">or</span> <span class="nv">class</span> <span class="nv">of</span> <span class="nv">error</span> <span class="nv">codes</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">entirety</span> <span class="nv">of</span> <span class="nv">our</span> <span class="nv">project</span>. <span class="nv">Instead</span>, ...  # <span class="nv">noqa</span> <span class="nv">E501</span>
+<div class="highlight"><pre><span></span># In some cases, we might not want to ignore an error code (or class of error codes) for the entirety of our project. Instead, ...  # noqa E501
 </pre></div>
 
 
 <p>Of course it's even better if you split the comment over multiple lines, but just to make a point.</p>
 <h2>Vim shortcut</h2>
 <p>As highlighted in <a href="https://pybit.es/vim-tricks.html">5 Vim Tricks to Speed up Your Python Development</a>, a handy shortcut to invoke flake8 from within Vim, is adding this to your .vimrc:</p>
-<div class="highlight"><pre><span></span><span class="n">autocmd</span> <span class="n">FileType</span> <span class="n">python</span> <span class="k">map</span> <span class="o">&lt;</span><span class="n">buffer</span><span class="o">&gt;</span> <span class="p">,</span><span class="n">f</span> <span class="p">:</span><span class="k">call</span> <span class="n">Flake8</span><span class="p">()</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span>autocmd FileType python map &lt;buffer&gt; ,f :call Flake8()&lt;CR&gt;
 </pre></div>
 
 
@@ -408,8 +408,5 @@
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
 </body>
 </html>

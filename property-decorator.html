@@ -127,7 +127,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -162,48 +162,48 @@
 </blockquote>
 <h2>A simple Account class</h2>
 <p>Lets define a simple account class (full code is <a href="https://github.com/pybites/100DaysOfCode/blob/master/063/account.py">here</a>):</p>
-<div class="highlight"><pre><span></span><span class="nv">class</span> <span class="nv">Account</span>:
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Account</span>:
 
-    <span class="nv">def</span> <span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">owner</span>, <span class="nv">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="ss">)</span>:
-        <span class="nv">self</span>.<span class="nv">owner</span> <span class="o">=</span> <span class="nv">owner</span>.<span class="nv">title</span><span class="ss">()</span>
-        <span class="nv">self</span>.<span class="nv">start_balance</span> <span class="o">=</span> <span class="nv">start_balance</span>
-        <span class="nv">self</span>.<span class="nv">_transactions</span> <span class="o">=</span> []
+    <span class="kt">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">owner</span> <span class="o">=</span> <span class="nx">owner</span><span class="p">.</span><span class="nx">title</span><span class="p">()</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">start_balance</span> <span class="o">=</span> <span class="nx">start_balance</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">_transactions</span> <span class="o">=</span> <span class="p">[]</span>
 
-    # <span class="nv">first</span> <span class="nv">property</span> <span class="nv">use</span> <span class="nv">case</span>: <span class="nv">computed</span> <span class="nv">attributes</span>
+    <span class="err">#</span> <span class="nx">first</span> <span class="nx">property</span> <span class="nx">use</span> <span class="k">case</span><span class="o">:</span> <span class="nx">computed</span> <span class="nx">attributes</span>
 
-    @<span class="nv">property</span>
-    <span class="nv">def</span> <span class="nv">balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="nv">tt</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">t</span>.<span class="nv">amount</span> <span class="k">for</span> <span class="nv">t</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">_transactions</span><span class="ss">)</span>
-        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_start_balance</span> <span class="o">+</span> <span class="nv">tt</span>
+    <span class="kd">@property</span>
+    <span class="nx">def</span> <span class="nx">balance</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">tt</span> <span class="o">=</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">amount</span> <span class="k">for</span> <span class="nx">t</span> <span class="k">in</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_transactions</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_start_balance</span> <span class="o">+</span> <span class="nx">tt</span>
 
-    # <span class="nv">second</span> <span class="nv">property</span> <span class="nv">use</span> <span class="nv">case</span>: <span class="nv">encapsulation</span>
+    <span class="err">#</span> <span class="nx">second</span> <span class="nx">property</span> <span class="nx">use</span> <span class="k">case</span><span class="o">:</span> <span class="nx">encapsulation</span>
 
-    @<span class="nv">property</span>
-    <span class="nv">def</span> <span class="nv">start_balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_start_balance</span>
+    <span class="kd">@property</span>
+    <span class="nx">def</span> <span class="nx">start_balance</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_start_balance</span>
 
-    @<span class="nv">start_balance</span>.<span class="nv">setter</span>
-    <span class="nv">def</span> <span class="nv">start_balance</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">balance</span><span class="ss">)</span>:
-        <span class="k">if</span> <span class="nv">not</span> <span class="nv">isinstance</span><span class="ss">(</span><span class="nv">balance</span>, <span class="nv">int</span><span class="ss">)</span>:
-            <span class="nv">raise</span> <span class="nv">TypeError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Start balance needs to be int</span><span class="s1">&#39;</span><span class="ss">)</span>
-        <span class="k">if</span> <span class="nv">balance</span> <span class="o">&lt;</span> <span class="mi">0</span>:
-            <span class="nv">raise</span> <span class="nv">ValueError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Start balance cannot be negative</span><span class="s1">&#39;</span><span class="ss">)</span>
-        <span class="nv">self</span>.<span class="nv">_start_balance</span> <span class="o">=</span> <span class="nv">balance</span>
+    <span class="kd">@start_balance</span><span class="p">.</span><span class="nx">setter</span>
+    <span class="nx">def</span> <span class="nx">start_balance</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">balance</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">if</span> <span class="nx">not</span> <span class="nx">isinstance</span><span class="p">(</span><span class="nx">balance</span><span class="p">,</span> <span class="kr">int</span><span class="p">)</span><span class="o">:</span>
+            <span class="nx">raise</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s1">&#39;Start balance needs to be int&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">balance</span> <span class="o">&lt;</span> <span class="nx">0</span>:
+            <span class="kt">raise</span> <span class="nx">ValueError</span><span class="p">(</span><span class="s1">&#39;Start balance cannot be negative&#39;</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">_start_balance</span> <span class="o">=</span> <span class="nx">balance</span>
 
-    @<span class="nv">start_balance</span>.<span class="nv">deleter</span>
-    <span class="nv">def</span> <span class="nv">start_balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="nv">raise</span> <span class="nv">AttributeError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Cannot delete start_balance attr</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="kd">@start_balance</span><span class="p">.</span><span class="nx">deleter</span>
+    <span class="nx">def</span> <span class="nx">start_balance</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">raise</span> <span class="nx">AttributeError</span><span class="p">(</span><span class="s1">&#39;Cannot delete start_balance attr&#39;</span><span class="p">)</span>
 
-    # ... <span class="nv">more</span> <span class="nv">stuff</span> <span class="nv">to</span> <span class="nv">manage</span> <span class="nv">transactions</span>, <span class="nv">not</span> <span class="nv">related</span> <span class="nv">to</span> <span class="nv">properties</span> ...
+    <span class="err">#</span> <span class="p">...</span> <span class="nx">more</span> <span class="nx">stuff</span> <span class="nx">to</span> <span class="nx">manage</span> <span class="nx">transactions</span><span class="p">,</span> <span class="nx">not</span> <span class="nx">related</span> <span class="nx">to</span> <span class="nx">properties</span> <span class="p">...</span>
 
 
-<span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
-    <span class="nv">acc</span> <span class="o">=</span> <span class="nv">Account</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Bob</span><span class="s1">&#39;</span>, <span class="mi">100</span><span class="ss">)</span>
-    <span class="nv">acc</span> <span class="o">+=</span> <span class="mi">25</span>  # <span class="nv">using</span> <span class="nv">__iadd__</span> 
-    <span class="nv">acc</span> <span class="o">-=</span> <span class="mi">100</span> # <span class="nv">using</span> <span class="nv">__isub__</span>
-    <span class="nv">acc</span> <span class="o">+=</span> <span class="mi">50</span>
-    <span class="nv">acc</span> <span class="o">-=</span> <span class="mi">10</span>
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">acc</span><span class="ss">)</span>  # <span class="nv">spending</span> <span class="nv">too</span> <span class="nv">much</span><span class="o">!</span> :<span class="ss">)</span>
+<span class="k">if</span> <span class="nx">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="o">:</span>
+    <span class="nx">acc</span> <span class="o">=</span> <span class="nx">Account</span><span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nx">acc</span> <span class="o">+=</span> <span class="mi">25</span>  <span class="err">#</span> <span class="nx">using</span> <span class="nx">__iadd__</span> 
+    <span class="nx">acc</span> <span class="o">-=</span> <span class="mi">100</span> <span class="err">#</span> <span class="nx">using</span> <span class="nx">__isub__</span>
+    <span class="nx">acc</span> <span class="o">+=</span> <span class="mi">50</span>
+    <span class="nx">acc</span> <span class="o">-=</span> <span class="mi">10</span>
+    <span class="nx">print</span><span class="p">(</span><span class="nx">acc</span><span class="p">)</span>  <span class="err">#</span> <span class="nx">spending</span> <span class="nx">too</span> <span class="nx">much</span><span class="o">!</span> <span class="o">:</span><span class="p">)</span>
 </pre></div>
 
 
@@ -237,9 +237,9 @@
 
 <p>A useful insight I picked up from Powerful Python is to use the setter also in the constructor by NOT using the underscore. Here you see why:</p>
 <p>NOT:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">__init__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="k">owner</span><span class="p">,</span> <span class="n">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">self</span><span class="p">.</span><span class="k">owner</span> <span class="o">=</span> <span class="k">owner</span><span class="p">.</span><span class="n">title</span><span class="p">()</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">_start_balance</span> <span class="o">=</span> <span class="n">start_balance</span>
+<div class="highlight"><pre><span></span>def __init__(self, owner, start_balance=0):
+    self.owner = owner.title()
+    self._start_balance = start_balance
 </pre></div>
 
 
@@ -251,9 +251,9 @@
 
 
 <p>Use: </p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">__init__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="k">owner</span><span class="p">,</span> <span class="n">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">self</span><span class="p">.</span><span class="k">owner</span> <span class="o">=</span> <span class="k">owner</span><span class="p">.</span><span class="n">title</span><span class="p">()</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">start_balance</span> <span class="o">=</span> <span class="n">start_balance</span>
+<div class="highlight"><pre><span></span>def __init__(self, owner, start_balance=0):
+    self.owner = owner.title()
+    self.start_balance = start_balance
 </pre></div>
 
 
@@ -263,36 +263,36 @@
 <blockquote>
 <p>Properties can also be a way to define computed attributes. These are attributes that are not actually stored, but computed on demand.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">Account</span><span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">+=</span> <span class="mi">25</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">-=</span> <span class="mi">100</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">+=</span> <span class="mi">50</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">-=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">balance</span>
-<span class="mi">65</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">+=</span> <span class="mi">135</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">balance</span>
-<span class="mi">200</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; acc = Account(&#39;bob&#39;, 100)
+&gt;&gt;&gt; acc += 25
+&gt;&gt;&gt; acc -= 100
+&gt;&gt;&gt; acc += 50
+&gt;&gt;&gt; acc -= 10
+&gt;&gt;&gt; acc.balance
+65
+&gt;&gt;&gt; acc += 135
+&gt;&gt;&gt; acc.balance
+200
 </pre></div>
 
 
 <p>acc.balance corresponds to this code which is calculated on the fly: </p>
-<div class="highlight"><pre><span></span>@<span class="nv">property</span>
-<span class="nv">def</span> <span class="nv">balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="nv">tt</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">t</span>.<span class="nv">amount</span> <span class="k">for</span> <span class="nv">t</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">_transactions</span><span class="ss">)</span>
-    <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_start_balance</span> <span class="o">+</span> <span class="nv">tt</span>
+<div class="highlight"><pre><span></span>@property
+def balance(self):
+    tt = sum(t.amount for t in self._transactions)
+    return self._start_balance + tt
 </pre></div>
 
 
 <p>Yes you can also implement this as:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">get_balance</span><span class="p">()</span>
-<span class="mi">65</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; acc.get_balance()
+65
 </pre></div>
 
 
 <p>... but this is much nicer:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">balance</span>
-<span class="mi">65</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; acc.balance
+65
 </pre></div>
 
 
@@ -412,8 +412,5 @@
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
 </body>
 </html>

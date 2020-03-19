@@ -124,7 +124,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -161,16 +161,16 @@
 </li>
 <li>
 <p>We load all tweets per user in with get_user_tokens() and tokenize them with: </p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">tokenize_text</span><span class="ss">(</span><span class="nv">words</span><span class="ss">)</span>:
-    <span class="nv">words</span> <span class="o">=</span> [<span class="nv">word</span> <span class="k">for</span> <span class="nv">word</span> <span class="nv">in</span> <span class="nv">words</span> <span class="k">if</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">word</span><span class="ss">)</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="nv">and</span> <span class="nv">word</span> <span class="nv">not</span> <span class="nv">in</span> <span class="nv">STOPWORDS</span>]
-    <span class="nv">words</span> <span class="o">=</span> [<span class="nv">word</span> <span class="k">for</span> <span class="nv">word</span> <span class="nv">in</span> <span class="nv">words</span> <span class="k">if</span> <span class="nv">_is_ascii</span><span class="ss">(</span><span class="nv">word</span><span class="ss">)</span>]
-    <span class="nv">words</span> <span class="o">=</span> [<span class="nv">word</span> <span class="k">for</span> <span class="nv">word</span> <span class="nv">in</span> <span class="nv">words</span> <span class="k">if</span> <span class="nv">not</span> <span class="nv">IS_LINK_OBJ</span>.<span class="nv">search</span><span class="ss">(</span><span class="nv">word</span><span class="ss">)</span>]
-    <span class="k">return</span> <span class="nv">words</span>
+<div class="highlight"><pre><span></span>def tokenize_text(words):
+    words = [word for word in words if len(word) &gt; 4 and word not in STOPWORDS]
+    words = [word for word in words if _is_ascii(word)]
+    words = [word for word in words if not IS_LINK_OBJ.search(word)]
+    return words
 </pre></div>
 
 
 <p>Where IS_LINK_OBJ discards links and mentions:</p>
-<div class="highlight"><pre><span></span><span class="n">IS_LINK_OBJ</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;^(?:@|https?://)&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>IS_LINK_OBJ = re.compile(r&#39;^(?:@|https?://)&#39;)
 </pre></div>
 
 
@@ -221,71 +221,71 @@ $ wc -l new/*<span class="p">|</span>grep total
 
 
 <p>This did not make sense due to small data set:</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">similar_tweeters</span>.<span class="nv">py</span> <span class="nv">Pybonacci</span>
-<span class="nv">cine_tv_es</span> <span class="mi">0</span>.<span class="mi">999743</span> <span class="o">-&gt;</span> <span class="nv">nothing</span> <span class="nv">to</span> <span class="k">do</span> <span class="nv">yet</span> <span class="nv">almost</span> <span class="mi">1</span>.<span class="mi">0</span> ?<span class="o">!</span>
-<span class="nv">github</span> <span class="mi">0</span>.<span class="mi">999743</span>
-<span class="nv">gvanrossum</span> <span class="mi">0</span>.<span class="mi">455312</span>
+<div class="highlight"><pre><span></span>$ python similar_tweeters.py Pybonacci
+cine_tv_es <span class="m">0</span>.999743 -&gt; nothing to <span class="k">do</span> yet almost <span class="m">1</span>.0 ?!
+github <span class="m">0</span>.999743
+gvanrossum <span class="m">0</span>.455312
 ...
 </pre></div>
 
 
 <p>With the new data set, although the script takes longer to run, now the results are much better:</p>
-<div class="highlight"><pre><span></span># <span class="nv">not</span> <span class="nv">much</span> <span class="nv">Python</span>: 
-$ <span class="nv">python</span> <span class="nv">similar_tweeters</span>.<span class="nv">py</span> <span class="nv">paugasol</span>
-<span class="nv">jsonmez</span> <span class="mi">0</span>.<span class="mi">739746</span>
-<span class="nv">Schwarzenegger</span> <span class="mi">0</span>.<span class="mi">739746</span>
-<span class="nv">tferriss</span> <span class="mi">0</span>.<span class="mi">739746</span>
-<span class="nv">cine_tv_es</span> <span class="mi">0</span>.<span class="mi">631373</span>
-<span class="nv">gvanrossum</span> <span class="mi">0</span>.<span class="mi">631373</span>
-<span class="nv">treyhunner</span> <span class="mi">0</span>.<span class="mi">631373</span>
-<span class="nv">bbelderbos</span> <span class="mi">0</span>.<span class="mi">206394</span>
-<span class="nv">dbader_org</span> <span class="mi">0</span>.<span class="mi">206394</span>
-<span class="nv">newsafaribooks</span> <span class="mi">0</span>.<span class="mi">206394</span>
-<span class="nv">techmoneykids</span> <span class="mi">0</span>.<span class="mi">113994</span>
-<span class="nv">github</span> <span class="mi">0</span>.<span class="mi">0983753</span>
-<span class="nv">lifehacker</span> <span class="mi">0</span>.<span class="mi">0983753</span>
-<span class="nv">pybites</span> <span class="mi">0</span>.<span class="mi">056072</span>
-<span class="nv">importpython</span> <span class="mi">0</span>.<span class="mi">0432182</span>
-<span class="nv">PythonEggs</span> <span class="mi">0</span>.<span class="mi">0432182</span>
-<span class="nv">raymondh</span> <span class="mi">0</span>.<span class="mi">0432182</span>
+<div class="highlight"><pre><span></span># not much Python: 
+$ python similar_tweeters.py paugasol
+jsonmez 0.739746
+Schwarzenegger 0.739746
+tferriss 0.739746
+cine_tv_es 0.631373
+gvanrossum 0.631373
+treyhunner 0.631373
+bbelderbos 0.206394
+dbader_org 0.206394
+newsafaribooks 0.206394
+techmoneykids 0.113994
+github 0.0983753
+lifehacker 0.0983753
+pybites 0.056072
+importpython 0.0432182
+PythonEggs 0.0432182
+raymondh 0.0432182
 
-# <span class="nv">more</span> <span class="nv">Py</span>
-$ <span class="nv">python</span> <span class="nv">similar_tweeters</span>.<span class="nv">py</span> <span class="nv">pybites</span>
-<span class="nv">dbader_org</span> <span class="mi">0</span>.<span class="mi">936956</span>
-<span class="nv">importpython</span> <span class="mi">0</span>.<span class="mi">936956</span>
-<span class="nv">PythonEggs</span> <span class="mi">0</span>.<span class="mi">936956</span>
-<span class="nv">tferriss</span> <span class="mi">0</span>.<span class="mi">936956</span> <span class="o">-&gt;</span> <span class="nv">not</span> <span class="nv">sure</span> <span class="nv">about</span> <span class="nv">this</span> <span class="nv">one</span>
-<span class="nv">bbelderbos</span> <span class="mi">0</span>.<span class="mi">367078</span>
-<span class="nv">techmoneykids</span> <span class="mi">0</span>.<span class="mi">340996</span>
-<span class="nv">github</span> <span class="mi">0</span>.<span class="mi">320053</span>
-<span class="nv">newsafaribooks</span> <span class="mi">0</span>.<span class="mi">320053</span>
-<span class="nv">gvanrossum</span> <span class="mi">0</span>.<span class="mi">138829</span>
-<span class="nv">jsonmez</span> <span class="mi">0</span>.<span class="mi">138829</span>
-<span class="nv">lifehacker</span> <span class="mi">0</span>.<span class="mi">138829</span>
-<span class="nv">Schwarzenegger</span> <span class="mi">0</span>.<span class="mi">138829</span>
-<span class="nv">treyhunner</span> <span class="mi">0</span>.<span class="mi">138829</span>
-<span class="nv">raymondh</span> <span class="mi">0</span>.<span class="mi">0201458</span>
-<span class="nv">cine_tv_es</span> <span class="mi">0</span>.<span class="mi">0</span>
-<span class="nv">paugasol</span> <span class="mi">0</span>.<span class="mi">0</span>
+# more Py
+$ python similar_tweeters.py pybites
+dbader_org 0.936956
+importpython 0.936956
+PythonEggs 0.936956
+tferriss 0.936956 -&gt; not sure about this one
+bbelderbos 0.367078
+techmoneykids 0.340996
+github 0.320053
+newsafaribooks 0.320053
+gvanrossum 0.138829
+jsonmez 0.138829
+lifehacker 0.138829
+Schwarzenegger 0.138829
+treyhunner 0.138829
+raymondh 0.0201458
+cine_tv_es 0.0
+paugasol 0.0
 
-# <span class="nv">results</span> <span class="nv">change</span> <span class="nv">upon</span> <span class="nv">second</span> <span class="nv">run</span> <span class="o">-</span> <span class="nv">comment</span> <span class="k">if</span> <span class="nv">you</span> <span class="nv">know</span> <span class="nv">why</span> <span class="o">/</span> <span class="nv">how</span> <span class="nv">to</span> <span class="nv">fix</span> <span class="nv">or</span> <span class="nv">improve</span>?
-$ <span class="nv">python</span> <span class="nv">similar_tweeters</span>.<span class="nv">py</span> <span class="nv">pybites</span>
-<span class="nv">importpython</span> <span class="mi">0</span>.<span class="mi">890289</span>
-<span class="nv">newsafaribooks</span> <span class="mi">0</span>.<span class="mi">890289</span>
-<span class="nv">PythonEggs</span> <span class="mi">0</span>.<span class="mi">890289</span>
-<span class="nv">bbelderbos</span> <span class="mi">0</span>.<span class="mi">506814</span>
-<span class="nv">techmoneykids</span> <span class="mi">0</span>.<span class="mi">443702</span>
-<span class="nv">jsonmez</span> <span class="mi">0</span>.<span class="mi">426503</span>
-<span class="nv">paugasol</span> <span class="mi">0</span>.<span class="mi">426503</span>
-<span class="nv">Schwarzenegger</span> <span class="mi">0</span>.<span class="mi">426503</span>
-<span class="nv">tferriss</span> <span class="mi">0</span>.<span class="mi">426503</span>
-<span class="nv">github</span> <span class="mi">0</span>.<span class="mi">138233</span>
-<span class="nv">gvanrossum</span> <span class="mi">0</span>.<span class="mi">138233</span>
-<span class="nv">treyhunner</span> <span class="mi">0</span>.<span class="mi">138233</span>
-<span class="nv">dbader_org</span> <span class="mi">0</span>.<span class="mi">100782</span> <span class="o">-&gt;</span> <span class="nv">was</span> <span class="nv">high</span> <span class="nv">last</span> <span class="nv">run</span> ?<span class="o">!</span>
-<span class="nv">lifehacker</span> <span class="mi">0</span>.<span class="mi">0658598</span>
-<span class="nv">raymondh</span> <span class="mi">0</span>.<span class="mi">0658598</span>
-<span class="nv">cine_tv_es</span> <span class="mi">0</span>.<span class="mi">0451122</span>
+# results change upon second run - comment if you know why / how to fix or improve?
+$ python similar_tweeters.py pybites
+importpython 0.890289
+newsafaribooks 0.890289
+PythonEggs 0.890289
+bbelderbos 0.506814
+techmoneykids 0.443702
+jsonmez 0.426503
+paugasol 0.426503
+Schwarzenegger 0.426503
+tferriss 0.426503
+github 0.138233
+gvanrossum 0.138233
+treyhunner 0.138233
+dbader_org 0.100782 -&gt; was high last run ?!
+lifehacker 0.0658598
+raymondh 0.0658598
+cine_tv_es 0.0451122
 </pre></div>
 
 
@@ -411,8 +411,5 @@ lifehacker <span class="m">0</span>.0570781
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
 </body>
 </html>

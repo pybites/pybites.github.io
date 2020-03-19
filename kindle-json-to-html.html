@@ -123,7 +123,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -162,23 +162,23 @@
 <ul>
 <li>
 <p>Use json.loads(fh) to convert JSON into dict: </p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">load_json</span><span class="ss">(</span><span class="nv">json_file</span><span class="ss">)</span>:
-    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">json_file</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
-        <span class="k">return</span> <span class="nv">json</span>.<span class="nv">loads</span><span class="ss">(</span><span class="nv">f</span>.<span class="nv">read</span><span class="ss">())</span>
+<div class="highlight"><pre><span></span>def load_json(json_file):
+    with open(json_file) as f:
+        return json.loads(f.read())
 </pre></div>
 
 
 </li>
 <li>
 <p><a href="https://docs.python.org/2/library/string.html#template-strings">Template strings</a>: in <a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/templates.py">templates.py</a> PAGE defines the whole page, I use embedded CSS to make this a standalone solution. QUOTE defines a list item (highlight). Variables are defined with $ so: $title, $author, etc. In the <a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/kindle_json2html.py">main script</a> I can substitute these variable placeholders with a dict: </p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_highlights</span><span class="ss">(</span><span class="nv">highlights</span><span class="ss">)</span>:
-    <span class="k">for</span> <span class="nv">hl</span> <span class="nv">in</span> <span class="nv">highlights</span>:
-        <span class="nv">yield</span> <span class="nv">QUOTE</span>.<span class="nv">safe_substitute</span><span class="ss">(</span>{
-            <span class="s1">&#39;</span><span class="s">text</span><span class="s1">&#39;</span> : <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">text</span><span class="s1">&#39;</span>],
-            <span class="s1">&#39;</span><span class="s">note</span><span class="s1">&#39;</span> : <span class="s1">&#39;</span><span class="s"> / note: </span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">note</span><span class="s1">&#39;</span>] <span class="k">if</span> <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">note</span><span class="s1">&#39;</span>] <span class="k">else</span> <span class="s1">&#39;&#39;</span>,
-            <span class="s1">&#39;</span><span class="s">url</span><span class="s1">&#39;</span> : <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">location</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">url</span><span class="s1">&#39;</span>],
-            <span class="s1">&#39;</span><span class="s">location</span><span class="s1">&#39;</span>: <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">location</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>],
-        }<span class="ss">)</span>
+<div class="highlight"><pre><span></span>def get_highlights(highlights):
+    for hl in highlights:
+        yield QUOTE.safe_substitute({
+            &#39;text&#39; : hl[&#39;text&#39;],
+            &#39;note&#39; : &#39; / note: &#39; + hl[&#39;note&#39;] if hl[&#39;note&#39;] else &#39;&#39;,
+            &#39;url&#39; : hl[&#39;location&#39;][&#39;url&#39;],
+            &#39;location&#39;: hl[&#39;location&#39;][&#39;value&#39;],
+        })
 </pre></div>
 
 
@@ -188,17 +188,17 @@
 <ul>
 <li>
 <p>Use list() to consume all generator's values in one go: </p>
-<div class="highlight"><pre><span></span><span class="n">highlights</span> <span class="o">=</span> <span class="n">get_highlights</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="s1">&#39;highlights&#39;</span><span class="p">])</span>
-<span class="p">...</span>
-<span class="p">...</span>
-    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;\n&#39;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">highlights</span><span class="p">)),</span>
+<div class="highlight"><pre><span></span>highlights = get_highlights(content[&#39;highlights&#39;])
+...
+...
+    &#39;content&#39;: &#39;\n&#39;.join(list(highlights)),
 </pre></div>
 
 
 </li>
 <li>
 <p>You can give the script one or more JSON files simply by using a slice on sys.argv:</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">json_file</span> <span class="nv">in</span> <span class="nv">sys</span>.<span class="nv">argv</span>[<span class="mi">1</span>:]:
+<div class="highlight"><pre><span></span>for json_file in sys.argv[1:]:
     ...
 </pre></div>
 
@@ -316,8 +316,5 @@ the-circle.html created
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
 </body>
 </html>
