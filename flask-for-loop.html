@@ -122,7 +122,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -157,10 +157,10 @@
 <ul>
 <li>I decided I wanted to print out a dict of birthdays. You can see I’ve created a route to a page called ‘birthdays’. The function associated with this decorator contains the dict we want to display.</li>
 </ul>
-<div class="highlight"><pre><span></span>@app.route(&quot;/birthdays&quot;)
-def birthdays():
-    dates = {&quot;Julian&quot;: 25, &quot;Bob&quot;: 26, &quot;Dan&quot;: 47, &quot;Cornelius&quot;: 3}
-    return render_template(&quot;birthdays.html&quot;, dates=dates)
+<div class="highlight"><pre><span></span>@<span class="nv">app</span>.<span class="nv">route</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">/birthdays</span><span class="s2">&quot;</span><span class="ss">)</span>
+<span class="nv">def</span> <span class="nv">birthdays</span><span class="ss">()</span>:
+    <span class="nv">dates</span> <span class="o">=</span> {<span class="s2">&quot;</span><span class="s">Julian</span><span class="s2">&quot;</span>: <span class="mi">25</span>, <span class="s2">&quot;</span><span class="s">Bob</span><span class="s2">&quot;</span>: <span class="mi">26</span>, <span class="s2">&quot;</span><span class="s">Dan</span><span class="s2">&quot;</span>: <span class="mi">47</span>, <span class="s2">&quot;</span><span class="s">Cornelius</span><span class="s2">&quot;</span>: <span class="mi">3</span>}
+    <span class="k">return</span> <span class="nv">render_template</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">birthdays.html</span><span class="s2">&quot;</span>, <span class="nv">dates</span><span class="o">=</span><span class="nv">dates</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -187,7 +187,7 @@ def birthdays():
 </ul>
 <div class="highlight"><pre><span></span><span class="na">.thick-border</span> <span class="err">{</span>
         <span class="nl">border:</span> <span class="err">3</span><span class="nf">px</span> <span class="no">solid</span> <span class="no">black</span><span class="c">;</span>
-        <span class="no">border-collapse</span><span class="p">:</span> <span class="no">collapse</span><span class="c">;</span>
+        <span class="nl">border-collapse:</span> <span class="nf">collapse</span><span class="c">;</span>
 <span class="err">}</span>
 </pre></div>
 
@@ -216,7 +216,7 @@ def birthdays():
 <p>To print out the contents of the dict, we can use a for loop. The idea of the for loop stays the same, it’s just spread out across multiple lines and wrapped in HTML. First we start with the opening of the for loop.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span>{% for k, v in dates.items() %}
+<div class="highlight"><pre><span></span>{<span class="o">%</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">dates</span>.<span class="nv">items</span><span class="ss">()</span> <span class="o">%</span>}
 </pre></div>
 
 
@@ -238,7 +238,7 @@ def birthdays():
 <p>We then have to close off the for loop with one last bit of special Flask code.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span>{% endfor %}
+<div class="highlight"><pre><span></span><span class="err">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="err">}</span>
 </pre></div>
 
 
@@ -246,18 +246,18 @@ def birthdays():
 <ul>
 <li>This is what the code for the table should look like.</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;centered thick-border&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;tr&gt;</span>
-                <span class="nt">&lt;th&gt;</span>First name<span class="nt">&lt;/th&gt;</span>
-                <span class="nt">&lt;th&gt;</span>Age<span class="nt">&lt;/th&gt;</span>
-        <span class="nt">&lt;/tr&gt;</span>
-        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">k</span><span class="o">,</span> <span class="nv">v</span> <span class="k">in</span> <span class="nv">dates.items</span><span class="o">()</span> <span class="cp">%}</span>
-                <span class="nt">&lt;tr&gt;</span>
-                        <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">k</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
-                        <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">v</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
-                <span class="nt">&lt;/tr&gt;</span>
-        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
-<span class="nt">&lt;/table&gt;</span>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nv">table</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">centered thick-border</span><span class="s2">&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nv">tr</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nv">th</span><span class="o">&gt;</span><span class="nv">First</span> <span class="nv">name</span><span class="o">&lt;/</span><span class="nv">th</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nv">th</span><span class="o">&gt;</span><span class="nv">Age</span><span class="o">&lt;/</span><span class="nv">th</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="nv">tr</span><span class="o">&gt;</span>
+        {<span class="o">%</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">dates</span>.<span class="nv">items</span><span class="ss">()</span> <span class="o">%</span>}
+                <span class="o">&lt;</span><span class="nv">tr</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="nv">td</span><span class="o">&gt;</span>{{ <span class="nv">k</span> }}<span class="o">&lt;/</span><span class="nv">td</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="nv">td</span><span class="o">&gt;</span>{{ <span class="nv">v</span> }}<span class="o">&lt;/</span><span class="nv">td</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="nv">tr</span><span class="o">&gt;</span>
+        {<span class="o">%</span> <span class="nv">endfor</span> <span class="o">%</span>}
+<span class="o">&lt;/</span><span class="nv">table</span><span class="o">&gt;</span>
 </pre></div>
 
 
@@ -386,5 +386,8 @@ def birthdays():
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
 </body>
 </html>

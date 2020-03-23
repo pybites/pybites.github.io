@@ -126,7 +126,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -169,7 +169,7 @@
 <li>
 <p>Note that starting 5a34e5a, I ran the script before each commit to see if my assert would work (regression). </p>
 <p>For convenience I use this shortcut in my .vimrc:</p>
-<div class="highlight"><pre><span></span>nmap ,p :w&lt;CR&gt;:!python3.6 %&lt;CR&gt;
+<div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="p">,</span><span class="n">p</span> <span class="p">:</span><span class="n">w</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span><span class="p">:</span><span class="o">!</span><span class="n">python3</span><span class="p">.</span><span class="mi">6</span> <span class="o">%&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
 </pre></div>
 
 
@@ -181,8 +181,8 @@
 </li>
 <li>
 <p>Again see the <a href="https://github.com/pybites/blog_code/commits/master/katas/course_time">history link</a> or clone our <a href="https://github.com/pybites/blog_code">blog_code repo</a> and go through it with:</p>
-<div class="highlight"><pre><span></span>$ git log --oneline --reverse 66fb7c7fe..9876f968b
-$ git show &lt;commit-hash&gt;
+<div class="highlight"><pre><span></span>$ <span class="nv">git</span> <span class="nv">log</span> <span class="o">--</span><span class="nv">oneline</span> <span class="o">--</span><span class="nv">reverse</span> <span class="mi">66</span><span class="nv">fb7c7fe</span>..<span class="mi">9876</span><span class="nv">f968b</span>
+$ <span class="nv">git</span> <span class="k">show</span> <span class="o">&lt;</span><span class="nv">commit</span><span class="o">-</span><span class="nv">hash</span><span class="o">&gt;</span>
 </pre></div>
 
 
@@ -198,7 +198,7 @@ $ git show &lt;commit-hash&gt;
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/ce498d71e0316b2ecf7c4c9884fb988ba3a32c5d">ce498d7 add assert for regression</a></p>
 <p>When you refactor always have your tests at hand to make sure you don't mess anything up. This was just a small script so an assert was enough, whatever you use (unittest, pytest, ...) the tests need to perform fast, because you run them often (every step).</p>
-<div class="highlight"><pre><span></span>assert str(total_hours) == &#39;6.841944444444445&#39;
+<div class="highlight"><pre><span></span><span class="n">assert</span> <span class="n">str</span><span class="p">(</span><span class="n">total_hours</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;6.841944444444445&#39;</span>
 </pre></div>
 
 
@@ -207,7 +207,7 @@ $ git show &lt;commit-hash&gt;
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/5a34e5a7d4ff1bf2251851aabc18c736a62aeecc">5a34e5a add calling code in main</a></p>
 <p>I added the <a href="https://docs.python.org/3/library/__main__.html">Top-level script environment</a> to prevent the prints to run if the module is imported: </p>
-<div class="highlight"><pre><span></span>if __name__ == &quot;__main__&quot;:
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s">__main__</span><span class="s2">&quot;</span>:
 ...
 </pre></div>
 
@@ -219,12 +219,12 @@ $ git show &lt;commit-hash&gt;
 </li>
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/9d682fa943bf3ab461b6f48dba50b646491b12e5">9d682fa extract time_regex into constant</a></p>
-<div class="highlight"><pre><span></span>time_regex = re.compile(r&#39;\(\d+:\d+\)&#39;)
+<div class="highlight"><pre><span></span><span class="n">time_regex</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;\(\d+:\d+\)&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>This was defined in search_file, being a constant I moved it to the top of the file and used PEP8's uppercase convention:</p>
-<div class="highlight"><pre><span></span>TIME_REGEX = re.compile(r&#39;\(\d+:\d+\)&#39;)
+<div class="highlight"><pre><span></span><span class="n">TIME_REGEX</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;\(\d+:\d+\)&#39;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -232,8 +232,8 @@ $ git show &lt;commit-hash&gt;
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/57334a65de1b8a01aa852f222141f9e36e0a558c">57334a6 use open in with block to auto-close file handle</a></p>
 <p>open(HTML_FILE).read() was used without close(). Best practice for reading files is using a with block (aka <a href="https://docs.python.org/3/library/contextlib.html#contextlib.contextmanager">contextmanager</a>): </p>
-<div class="highlight"><pre><span></span>with open(HTML_FILE) as f:
-    ...
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="k">open</span><span class="p">(</span><span class="n">HTML_FILE</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="p">...</span>
 </pre></div>
 
 
@@ -241,26 +241,26 @@ $ git show &lt;commit-hash&gt;
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/1147bd08424a1c638661bc840bf6851c8d579873">1147bd0 no need for range, can just loop over duration iterator</a></p>
 <p>This is probably an inherited C (or other language) style:</p>
-<div class="highlight"><pre><span></span>for i in range(len(durations)):
-    minutes, seconds = durations[i].strip(&#39;()&#39;).split(&#39;:&#39;)
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">durations</span><span class="ss">))</span>:
+    <span class="nv">minutes</span>, <span class="nv">seconds</span> <span class="o">=</span> <span class="nv">durations</span>[<span class="nv">i</span>].<span class="nv">strip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">()</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">:</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>No list indexing needed, in Python you can just iterate over a sequence very easily with:</p>
-<div class="highlight"><pre><span></span>for mm_ss in durations:
-    minutes, seconds = mm_ss.strip(&#39;()&#39;).split(&#39;:&#39;)
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">mm_ss</span> <span class="nv">in</span> <span class="nv">durations</span>:
+    <span class="nv">minutes</span>, <span class="nv">seconds</span> <span class="o">=</span> <span class="nv">mm_ss</span>.<span class="nv">strip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">()</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">:</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/bc6ee8a93a4f622687f8811ed571da1ef30c38c7">bc6ee8a can use shortcut += for summing</a></p>
-<div class="highlight"><pre><span></span>sum_minutes = sum_minutes + int(minutes)
+<div class="highlight"><pre><span></span><span class="n">sum_minutes</span> <span class="o">=</span> <span class="n">sum_minutes</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">minutes</span><span class="p">)</span>
 </pre></div>
 
 
 <p>can be shortened to:</p>
-<div class="highlight"><pre><span></span>sum_minutes += int(minutes)
+<div class="highlight"><pre><span></span><span class="n">sum_minutes</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">minutes</span><span class="p">)</span>
 </pre></div>
 
 
@@ -295,13 +295,13 @@ $ git show &lt;commit-hash&gt;
 </li>
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/d026a7f0c7999821e07b16a46255207e6ccd0da4">d026a7f do adding/summing on one line</a></p>
-<div class="highlight"><pre><span></span>sum_seconds += int(minutes) * SECONDS_IN_MIN
-sum_seconds += int(seconds)
+<div class="highlight"><pre><span></span><span class="n">sum_seconds</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">minutes</span><span class="p">)</span> <span class="o">*</span> <span class="n">SECONDS_IN_MIN</span>
+<span class="n">sum_seconds</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span>
 </pre></div>
 
 
 <p>was still happening twice, so made that a one-liner:</p>
-<div class="highlight"><pre><span></span>sum_seconds += int(minutes) * SECONDS_IN_MIN + int(seconds)
+<div class="highlight"><pre><span></span><span class="n">sum_seconds</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">minutes</span><span class="p">)</span> <span class="o">*</span> <span class="n">SECONDS_IN_MIN</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span>
 </pre></div>
 
 
@@ -309,7 +309,7 @@ sum_seconds += int(seconds)
 <li>
 <p><a href="https://github.com/pybites/blog_code/commit/e45ce53e3407e25a648225829f2086e8a9020011">e45ce53 extract colon seperator into constant</a></p>
 <p>When I see any literal values, either numeric or strings, I extract them into constants:</p>
-<div class="highlight"><pre><span></span>MM_SS_SEP = &#39;:&#39;
+<div class="highlight"><pre><span></span><span class="n">MM_SS_SEP</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span>
 </pre></div>
 
 
@@ -432,5 +432,8 @@ sum_seconds += int(seconds)
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
 </body>
 </html>

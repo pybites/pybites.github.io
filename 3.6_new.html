@@ -126,7 +126,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -165,24 +165,24 @@ Python <span class="m">3</span>.6.0 <span class="o">(</span>v3.6.0:41df79263a11,
 <ul>
 <li>
 <p>String formatting: </p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; name = &#39;bob&#39;
-&gt;&gt;&gt; print(&#39;Hello %s&#39; % name) # not pythonic
-&gt;&gt;&gt; print(&#39;Hello {}&#39;.format(name)) # better
-Hello bob
-&gt;&gt;&gt; print(f&#39;Hello {name}&#39;) # new in 3.6
-Hello bob
-&gt;&gt;&gt; a = 2
-&gt;&gt;&gt; b = 4
-&gt;&gt;&gt; print(f&#39;Look I even can do math: { 5 * (a + b) }&#39;)
-Look I even can do math: 30
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Hello %s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nv">name</span><span class="ss">)</span> # <span class="nv">not</span> <span class="nv">pythonic</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Hello {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">name</span><span class="ss">))</span> # <span class="nv">better</span>
+<span class="nv">Hello</span> <span class="nv">bob</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Hello {name}</span><span class="s1">&#39;</span><span class="ss">)</span> # <span class="nv">new</span> <span class="nv">in</span> <span class="mi">3</span>.<span class="mi">6</span>
+<span class="nv">Hello</span> <span class="nv">bob</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">b</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Look I even can do math: { 5 * (a + b) }</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="nv">Look</span> <span class="nv">I</span> <span class="nv">even</span> <span class="nv">can</span> <span class="k">do</span> <span class="nv">math</span>: <span class="mi">30</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Make big numbers more readable with underscores: </p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; 1_000_000_000_000_000
-1000000000000000
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="n">_000_000_000_000_000</span>
+<span class="mi">1000000000000000</span>
 </pre></div>
 
 
@@ -190,26 +190,26 @@ Look I even can do math: 30
 <li>
 <p>Type hints:</p>
 <p>In 3.5 you could do this already for methods:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; sys.version
-&#39;3.5.1 |Anaconda 4.0.0 (x86_64)| (default, Dec  7 2015, 11:24:55) \n[GCC 4.2.1 (Apple Inc. build 5577)]&#39;
-&gt;&gt;&gt; def name(name: str) -&gt; str:
-...     return &#39;My name is {}&#39;.format(name)
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">sys</span>.<span class="nv">version</span>
+<span class="s1">&#39;</span><span class="s">3.5.1 |Anaconda 4.0.0 (x86_64)| (default, Dec  7 2015, 11:24:55) </span><span class="se">\n</span><span class="s">[GCC 4.2.1 (Apple Inc. build 5577)]</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">name</span><span class="ss">(</span><span class="nv">name</span>: <span class="nv">str</span><span class="ss">)</span> <span class="o">-&gt;</span> <span class="nv">str</span>:
+...     <span class="k">return</span> <span class="s1">&#39;</span><span class="s">My name is {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">name</span><span class="ss">)</span>
 ... 
-&gt;&gt;&gt; name(&#39;bob&#39;)
-&#39;My name is bob&#39;
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">name</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="s1">&#39;</span><span class="s">My name is bob</span><span class="s1">&#39;</span>
 </pre></div>
 
 
 <p>Now you can 'document' a standalone / instance variable's 'intent' as well:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; price : float = 9.99 # saves comments
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">price</span> <span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">9</span><span class="p">.</span><span class="mi">99</span> <span class="o">#</span> <span class="n">saves</span> <span class="n">comments</span>
 </pre></div>
 
 
 <p>'Intent' because nothing stops you from assigning another type: </p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; name : str = &#39;bob&#39;
-&gt;&gt;&gt; name = 2
-&gt;&gt;&gt; type(name)
-&lt;class &#39;int&#39;&gt;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;bob&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="s1">&#39;int&#39;</span><span class="o">&gt;</span>
 </pre></div>
 
 
@@ -351,5 +351,8 @@ Look I even can do math: 30
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
 </body>
 </html>

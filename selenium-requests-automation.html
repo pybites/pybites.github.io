@@ -126,7 +126,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -161,16 +161,16 @@
 <ul>
 <li>
 <p>Posting to a page is easy, use requests' <code>Session</code> object passing it headers and a payload dict with user data (POST parameters):</p>
-<div class="highlight"><pre><span></span>session = requests.Session()
-request = session.post(BANNER_APP, headers=HEADERS, data=payload)
+<div class="highlight"><pre><span></span><span class="k">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="k">Session</span><span class="p">()</span>
+<span class="n">request</span> <span class="o">=</span> <span class="k">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">BANNER_APP</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">,</span> <span class="k">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>As detailed  <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a> the Flask app returns the generated png image upon form submission. With the POST request we are effectively submitting the form so the repsonse object holds the banner image. To retrieve it just write the <code>request.content</code> to a file. As the image is binary don't forget to use <code>wb</code>:</p>
-<div class="highlight"><pre><span></span>with open(outfile, &#39;wb&#39;) as f:
-    f.write(request.content)
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="k">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
 </pre></div>
 
 
@@ -189,38 +189,38 @@ request = session.post(BANNER_APP, headers=HEADERS, data=payload)
 <ul>
 <li>
 <p><code>click</code> is your friend to build robust CLI interfaces. For example the username and password can be retrieved from ENV variables with: </p>
-<div class="highlight"><pre><span></span>@click.option(&#39;-u&#39;, &#39;--username&#39;, envvar=&#39;USERNAME&#39;)
-@click.option(&#39;-p&#39;, &#39;--password&#39;, envvar=&#39;PASSWORD&#39;)
+<div class="highlight"><pre><span></span><span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--username&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">envvar</span><span class="o">=</span><span class="s1">&#39;USERNAME&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--password&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">envvar</span><span class="o">=</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
 <p>Want a choice list? No problem:</p>
-<div class="highlight"><pre><span></span>@click.option(&#39;-l&#39;, &#39;--logo&#39;, type=click.Choice(PYBITES_PILLARS))
+<div class="highlight"><pre><span></span><span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--logo&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="n">click</span><span class="p">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">PYBITES_PILLARS</span><span class="p">))</span><span class="w"></span>
 </pre></div>
 
 
 <p>Or a boolean field? Add this:</p>
-<div class="highlight"><pre><span></span>@click.option(&#39;-b/-nb&#39;, &#39;--background/--no-background&#39;,
-            default=False, prompt=True)
+<div class="highlight"><pre><span></span><span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-b/-nb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--background/--no-background&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="k">default</span><span class="o">=</span><span class="k">False</span><span class="p">,</span><span class="w"> </span><span class="n">prompt</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
 </li>
 <li>
 <p>We wrap these user inputs (payload) in a data dict and we login to the site with a helper method:</p>
-<div class="highlight"><pre><span></span>driver = login(username, password)
+<div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
 </pre></div>
 
 
 <p>To enter data and submit just find the element for which Selenium <a href="http://selenium-python.readthedocs.io/locating-elements.html">has quite a few helper methods</a> and use <code>send_keys</code>, then click the Login button (xpath only needed because the lack of HTML id/name attributes):</p>
-<div class="highlight"><pre><span></span>username_field = driver.find_element_by_name(&#39;username&#39;)
-username_field.send_keys(username)
-password_field = driver.find_element_by_name(&#39;password&#39;)
-password_field.send_keys(password)
-# TODO: need html id/name on button
-btn_xpath = &quot;//button[contains(@class, &#39;pure-button-primary&#39;)]&quot;
-login_btn = driver.find_element_by_xpath(btn_xpath)
-login_btn.click()
+<div class="highlight"><pre><span></span><span class="n">username_field</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_name</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="n">username_field</span><span class="p">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">username</span><span class="p">)</span><span class="w"></span>
+<span class="n">password_field</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_name</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="n">password_field</span><span class="p">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">password</span><span class="p">)</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="nl">TODO</span><span class="p">:</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="n">id</span><span class="o">/</span><span class="n">name</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">button</span><span class="w"></span>
+<span class="n">btn_xpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;//button[contains(@class, &#39;pure-button-primary&#39;)]&quot;</span><span class="w"></span>
+<span class="n">login_btn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">btn_xpath</span><span class="p">)</span><span class="w"></span>
+<span class="n">login_btn</span><span class="p">.</span><span class="n">click</span><span class="p">()</span><span class="w"></span>
 </pre></div>
 
 
@@ -228,12 +228,12 @@ login_btn.click()
 </li>
 <li>
 <p>As selenium-requests uses Requests under the hood, the POST request and response handling is identical to the first script:</p>
-<div class="highlight"><pre><span></span>request = driver.request(&#39;POST&#39;, BANNER_APP, data=data)
+<div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="n">BANNER_APP</span><span class="p">,</span> <span class="k">data</span><span class="o">=</span><span class="k">data</span><span class="p">)</span>
 
-...
+<span class="p">...</span>
 
-with open(outfile, &#39;wb&#39;) as f:
-    f.write(request.content)
+<span class="k">with</span> <span class="k">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
 </pre></div>
 
 
@@ -244,19 +244,19 @@ with open(outfile, &#39;wb&#39;) as f:
 </ul>
 <h2>Let's try it</h2>
 <p>This is Click's out-of-the-box niceness:</p>
-<div class="highlight"><pre><span></span>$ python private_banner.py  --help
-Usage: private_banner.py <span class="o">[</span>OPTIONS<span class="o">]</span>
+<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">private_banner</span>.<span class="nv">py</span>  <span class="o">--</span><span class="nv">help</span>
+<span class="nv">Usage</span>: <span class="nv">private_banner</span>.<span class="nv">py</span> [<span class="nv">OPTIONS</span>]
 
-Options:
--n, --name TEXT
--l, --logo <span class="o">[</span>news<span class="p">|</span>challenge<span class="p">|</span>special<span class="p">|</span>article<span class="o">]</span>
--i, --image TEXT
--t, --text TEXT
--b, --background / -nb, --no-background
--o, --outfile TEXT
--u, --username TEXT
--p, --password TEXT
---help                          Show this message and exit.
+<span class="nv">Options</span>:
+<span class="o">-</span><span class="nv">n</span>, <span class="o">--</span><span class="nv">name</span> <span class="nv">TEXT</span>
+<span class="o">-</span><span class="nv">l</span>, <span class="o">--</span><span class="nv">logo</span> [<span class="nv">news</span><span class="o">|</span><span class="nv">challenge</span><span class="o">|</span><span class="nv">special</span><span class="o">|</span><span class="nv">article</span>]
+<span class="o">-</span><span class="nv">i</span>, <span class="o">--</span><span class="nv">image</span> <span class="nv">TEXT</span>
+<span class="o">-</span><span class="nv">t</span>, <span class="o">--</span><span class="nv">text</span> <span class="nv">TEXT</span>
+<span class="o">-</span><span class="nv">b</span>, <span class="o">--</span><span class="nv">background</span> <span class="o">/</span> <span class="o">-</span><span class="nv">nb</span>, <span class="o">--</span><span class="nv">no</span><span class="o">-</span><span class="nv">background</span>
+<span class="o">-</span><span class="nv">o</span>, <span class="o">--</span><span class="nv">outfile</span> <span class="nv">TEXT</span>
+<span class="o">-</span><span class="nv">u</span>, <span class="o">--</span><span class="nv">username</span> <span class="nv">TEXT</span>
+<span class="o">-</span><span class="nv">p</span>, <span class="o">--</span><span class="nv">password</span> <span class="nv">TEXT</span>
+<span class="o">--</span><span class="nv">help</span>                          <span class="k">Show</span> <span class="nv">this</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>.
 </pre></div>
 
 
@@ -397,5 +397,8 @@ Options:
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
 </body>
 </html>

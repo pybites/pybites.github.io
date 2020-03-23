@@ -129,7 +129,7 @@
         <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
         <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
         <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/groups/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
       </ul>
 
       <br>
@@ -176,7 +176,7 @@
 <p>On the surface, my foray into the world of APIs was disastrous. Seriously. Dive a little deeper though and it’s honestly been one of the greatest Python learning experiences I’ve had.</p>
 <p>Being a World of Warcraft nerd, naturally the first API I looked into was the <a href="https://dev.battle.net/">Blizzard Warcraft API</a>. Needless to say, I had no idea what the heck I was doing. The documentation assumed a level of familiarity with APIs and clearly that wasn’t me.</p>
 <p>After hours of playing around, I was able to get the basics down and pull some meaningful (to me!) data from my player profile. The saddest part is that after all of that effort, the most “crucial” line of code for the API call was this:</p>
-<div class="highlight"><pre><span></span>url = (&#39;https://us.api.battle.net/wow/character/%s/%s?fields=mounts&amp;locale=en_US&amp;apikey=%s&#39; % (realm, char_name, API_KEY))
+<div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://us.api.battle.net/wow/character/%s/%s?fields=mounts&amp;locale=en_US&amp;apikey=%s&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">realm</span><span class="p">,</span> <span class="n">char_name</span><span class="p">,</span> <span class="n">API_KEY</span><span class="p">))</span>
 </pre></div>
 
 
@@ -203,8 +203,8 @@
 <li>I learned that each type of call to the API has its own set of options that allow you to filter the returned data. Seems obvious now…</li>
 <li>I had more practice trying to parse multi-tiered JSON output.</li>
 </ul>
-<div class="highlight"><pre><span></span>results = service.users().settings().filters().list(userId=&#39;me&#39;).execute()
-    pprint(results)
+<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">service</span><span class="p">.</span><span class="n">users</span><span class="p">().</span><span class="n">settings</span><span class="p">().</span><span class="n">filters</span><span class="p">().</span><span class="n">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s1">&#39;me&#39;</span><span class="p">).</span><span class="k">execute</span><span class="p">()</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 
 
@@ -335,5 +335,8 @@
   "description": "A Community that Masters Python through Code Challenges"
 }
 </script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
 </body>
 </html>
