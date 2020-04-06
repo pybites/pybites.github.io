@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
+  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+
+    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+
+    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+
+    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+
+
+<meta name="author" content="Bob" />
+<meta name="description" content="Last week I did a couple of shared screen sessions debugging and teaching. I paused and reflected on the tools I used and how I sharpened my sword over the years." />
+<meta name="keywords" content="tools, ag, vim, unix, kindle, shell, perl, bookcision">
+<meta property="og:site_name" content="PyBites"/>
+<meta property="og:title" content="Effective Developers Leverage Their Toolset"/>
+<meta property="og:description" content="Last week I did a couple of shared screen sessions debugging and teaching. I paused and reflected on the tools I used and how I sharpened my sword over the years."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://pybit.es/developer-tools.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-04-06 10:00:00+02:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://pybit.es/author/bob.html">
+<meta property="article:section" content="Productivity"/>
+<meta property="article:tag" content="tools"/>
+<meta property="article:tag" content="ag"/>
+<meta property="article:tag" content="vim"/>
+<meta property="article:tag" content="unix"/>
+<meta property="article:tag" content="kindle"/>
+<meta property="article:tag" content="shell"/>
+<meta property="article:tag" content="perl"/>
+<meta property="article:tag" content="bookcision"/>
+<meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@pybites" />
+<meta name="twitter:title" content="Effective Developers Leverage Their Toolset" />
+<meta name="twitter:description" content="Last week I did a couple of shared screen sessions debugging and teaching. I paused and reflected on the tools I used and how I sharpened my sword over the years." />
+<meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+  <title>PyBites &ndash; Effective Developers Leverage Their Toolset</title>
+
+
+</head>
+<body>
+
+
+  <!-- change ribbon color based on topic -->
+  <div class="ribbon right
+      blue
+  ">
+    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
+  </div>
+
+  <!-- change aside color based on topic -->
+    <aside class='blue'>
+  
+    <div>
+      <a href="https://pybit.es">
+          <img src="https://pybit.es/theme/img/article.png" alt="PyBites" title="PyBites">
+      </a>
+      <h1><a href="https://pybit.es">PyBites</a></h1>
+
+<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
+      <nav>
+        <ul class="list">
+          <li><a href="/pages/articles.html">Articles</a></li>
+          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
+          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
+          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+          <li><a href="/pages/community.html">Join our Slack</a></li>
+          <li><a href="/pages/search.html">Search</a></li>
+        </ul>
+      </nav>
+
+      <div id='mc-dark'>
+<!-- Begin MailChimp Signup Form -->
+<hr class="softDivider">
+<div id="mc_embed_signup">
+<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    
+<div class="mc-field-group">
+  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup-->                  </div>
+
+      <hr class="softDivider">
+
+      <div id="ninjaWidget">
+        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
+      </div>
+        
+      <ul class="social">
+        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
+        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
+        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
+        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
+        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
+        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
+      </ul>
+
+      <br>
+      <script src="https://apis.google.com/js/platform.js"></script>
+
+	
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+    <h1 id="developer-tools">Effective Developers Leverage Their Toolset</h1>
+    <p>
+          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 06 April 2020 in <a href="https://pybit.es/category/productivity.html">Productivity</a>
+
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
+<p>Compound interest is the 8th wonder of the world. He who understands it, earns it; he who doesn’t, pays it. - Albert Einstein</p>
+</blockquote>
+<p>Last week I did a couple of shared screen sessions debugging and teaching.</p>
+<p>I paused and reflected on the tools I used and how I sharpened my sword over the years. </p>
+<p>This is not an article on how to deploy software with Docker, how to use git, or how to set up your env, although it has some shell and Vim goodness.</p>
+<p>It's more about how small tweaks made me more productive as a programmer and learner.</p>
+<h2>Command line</h2>
+<p>My favorite tool of all time!</p>
+<p>A silly example: what day is my birthday?</p>
+<p>I could search the web.</p>
+<p>I could write a Python program.</p>
+<p>Or just use Unix:</p>
+<div class="highlight"><pre><span></span>$ cal <span class="m">4</span> <span class="m">2020</span>
+    April <span class="m">2020</span>
+Su Mo Tu We Th Fr Sa
+        <span class="m">1</span>  <span class="m">2</span>  <span class="m">3</span>  <span class="m">4</span>
+<span class="m">5</span>  <span class="m">6</span>  <span class="m">7</span>  <span class="m">8</span>  <span class="m">9</span> <span class="m">10</span> <span class="m">11</span>
+<span class="m">12</span> <span class="m">13</span> <span class="m">14</span> <span class="m">15</span> <span class="m">16</span> <span class="m">17</span> <span class="m">18</span>
+<span class="m">19</span> <span class="m">20</span> <span class="m">21</span> <span class="m">22</span> <span class="m">23</span> <span class="m">24</span> <span class="m">25</span>
+<span class="m">26</span> <span class="m">27</span> <span class="m">28</span> <span class="m">29</span> <span class="m">30</span>
+</pre></div>
+
+
+<p>Nice, this year the 18th will be on a Saturday :)</p>
+<p>I often go to my terminal and use simple shell commands before even writing a script (e.g. to iterate over files is as easy as: <code>for i in *; do ls $i; done</code> - the <code>ls</code> can be any operation).</p>
+<p>Combining this with some regex (<code>perl -pe 's///g'</code>) can be pretty powerful.</p>
+<p>Another example are shell <em>aliases</em>, some of my common ones:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">alias</span> pvenv
+<span class="nb">alias</span> <span class="nv">pvenv</span><span class="o">=</span><span class="s1">&#39;/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8 -m venv venv &amp;&amp; source venv/bin/activate&#39;</span>
+$ <span class="nb">alias</span> ae
+<span class="nb">alias</span> <span class="nv">ae</span><span class="o">=</span><span class="s1">&#39;source venv/bin/activate&#39;</span>
+$ <span class="nb">alias</span> brc
+<span class="nb">alias</span> <span class="nv">brc</span><span class="o">=</span><span class="s1">&#39;vim ~/.bashrc&#39;</span>
+$ <span class="nb">alias</span> lt
+<span class="nb">alias</span> <span class="nv">lt</span><span class="o">=</span><span class="s1">&#39;ls -lrth&#39;</span>
+</pre></div>
+
+
+<p>I even use it to go to my Kindle highlights:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">alias</span> kindle
+<span class="nb">alias</span> <span class="nv">kindle</span><span class="o">=</span><span class="s1">&#39;open https://read.amazon.com/notebook&#39;</span>
+</pre></div>
+
+
+<p>I can just type <em>kindle</em> and get to my book notes instantly.</p>
+<p>(Talking about notes, I was actually going to write some code to download my notes, but there is already a tool for this: <a href="https://readwise.io/bookcision">Bookcision</a>, so sometimes the best code is the code you never write!)</p>
+<hr>
+<p>OK one more.</p>
+<p>I have been a nerd about <a href="https://bobbelderbos.com/2013/01/search-copy-stackoverflow-data-in-vim-with-conque/">terminal search for a while</a>, but an easier way is to just use a clever Python tool called <a href="https://github.com/gleitz/howdoi">howdoi</a> (demonstrated for its elegant code in <a href="https://www.amazon.com/Hitchhikers-Guide-Python-Practices-Development/dp/1491933178">The Hitchhiker's Guide to Python</a>):</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">alias</span> howdoi
+<span class="nb">alias</span> <span class="nv">howdoi</span><span class="o">=</span><span class="s1">&#39;cd $HOME/code/howdoi &amp;&amp; source venv/bin/activate &amp;&amp; howdoi&#39;</span>
+</pre></div>
+
+
+<p>Check this out:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">howdoi</span> <span class="n">argparse</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">a</span> <span class="o">==</span> <span class="s1">&#39;magic.name&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s1">&#39;You nailed it!&#39;</span>
+</pre></div>
+
+
+<h2>Text editing</h2>
+<p>I never felt more awkward having to use Vim in a terminal when I started at Sun Microsystems.</p>
+<p>However when I got past the steep learning curve, I became quite fast, using repeated replacement (dot (.) or <code>:s/string/replace/g</code>), leverage settings (<code>.vimrc</code>) and later on even Python syntax checking (<a href="https://gist.github.com/kyokley/0d7bb03eede831bea3fa">preventing saving for various errors in VIM</a> -&gt; this is really cool!)</p>
+<p><a href="https://pybit.es/vim-tricks.html">Here</a> are some more Vim tricks if interested.</p>
+<h2>Navigating code bases</h2>
+<p>At first I was typing <code>find . -name '*string*' | xargs grep ...</code> the whole time.</p>
+<p>Pretty inefficient.</p>
+<p>Till somebody suggested <code>ag</code> (aka <a href="https://github.com/ggreer/the_silver_searcher">The Silver Searcher</a>) and my dev life became so much better.</p>
+<hr>
+<p>There are many more examples, the key lessons though are:</p>
+<ul>
+<li>
+<p>Try to constantly improve your toolset, if you realize <em>there must be a better way to do this</em>, there probably is and you owe it to yourself to find out about it.</p>
+</li>
+<li>
+<p><strong>Invest the time to become really good at the tools you use</strong>. Your future self will thank you. The time saved (and joy in your daily work) will compound!</p>
+</li>
+</ul>
+<hr>
+<p>Again these are sometimes just small tweaks, but they shave off minutes a day, hours a week, days a year. </p>
+<p>Of course for the more serious work I would write shell or Python scripts (preferably latter).</p>
+<p>It feels awesome knowing the time and effort you invested learning the tools of the craft is seriously paying off.</p>
+<hr>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+<div class="ctaBox">
+<p>With so many avenues to pursue in Python it can be tough to know what to do. If you're looking for some <strong>direction</strong> or want to take your Python code and career to the next level, <a href="https://go.oncehub.com/pybites" target="_blank">schedule a call with us now</a>. We can help you!</p>
+</div>
+  </div>
+
+  <hr>
+  <p><strong>See an error in this post? Please submit a pull request <a href='https://github.com/pybites/pybites.github.io-src' target='_blank'>on Github.</a></strong></p>
+
+  <div class="tag-cloud">
+    <p>
+      <a href="https://pybit.es/tag/tools.html">tools</a>
+      <a href="https://pybit.es/tag/ag.html">ag</a>
+      <a href="https://pybit.es/tag/vim.html">vim</a>
+      <a href="https://pybit.es/tag/unix.html">unix</a>
+      <a href="https://pybit.es/tag/kindle.html">kindle</a>
+      <a href="https://pybit.es/tag/shell.html">shell</a>
+      <a href="https://pybit.es/tag/perl.html">perl</a>
+      <a href="https://pybit.es/tag/bookcision.html">bookcision</a>
+    </p>
+  </div>
+
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+  </div>
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'http-pybit-es';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>
+        Please enable JavaScript to view comments.
+
+</noscript>
+</article>
+
+    <footer>
+<p>&copy; pybites </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89294245-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+	<script>window.twttr = (function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0],
+		t = window.twttr || {};
+	if (d.getElementById(id)) return t;
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://platform.twitter.com/widgets.js";
+	fjs.parentNode.insertBefore(js, fjs);
+	t._e = [];
+	t.ready = function(f) {
+		t._e.push(f);
+	};
+	return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+	
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " PyBites ",
+  "url" : "https://pybit.es",
+  "image": "https://pybit.es/theme/img/profile.png",
+  "description": "A Community that Masters Python through Code Challenges"
+}
+</script>
+
+  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+
+</body>
+</html>
