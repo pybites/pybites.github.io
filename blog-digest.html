@@ -96,25 +96,25 @@
 <p>The script is <a href="https://github.com/pybites/blog_code/tree/master/pybites_digest">on github</a> in our <a href="https://github.com/pybites/blog_code">new blog repo</a>.</p>
 <p>No need to re-invent the wheel, PyPI (Python Package Index) has so much good stuff, feedparser is just what we need. It can take both a remote as well as local xml file, so you don't even need requests. </p>
 <p>This single line parses the feed into a comprehensive data structure:</p>
-<div class="highlight"><pre><span></span><span class="n">feed</span> <span class="o">=</span> <span class="n">feedparser</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>feed = feedparser.parse(xml)
 </pre></div>
 
 
 <p>Which you can then easily consume: </p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">article</span> <span class="nv">in</span> <span class="nv">feed</span>[<span class="s1">&#39;</span><span class="s">entries</span><span class="s1">&#39;</span>]:
-    # ... <span class="nv">filtering</span>
-    <span class="nv">yield</span> <span class="nv">article</span>
+<div class="highlight"><pre><span></span>for article in feed[&#39;entries&#39;]:
+    # ... filtering
+    yield article
 </pre></div>
 
 
 <p>The only thing I had to add was some timestamp conversations/calculations to go x days back (the returned feed data has a convenient <a href="https://docs.python.org/3.5/library/time.html#time.struct_time">time.struct_time field</a>).</p>
 <h2>Mail digest as txt/html in a cronjob</h2>
 <p>I left this for sendmail which accepts a mailheader, see <a href="http://stackoverflow.com/questions/24010230/mailx-send-html-message">here</a>. So this is my weekly cronjob:</p>
-<div class="highlight"><pre><span></span># <span class="nv">html</span> <span class="nv">email</span> 
-<span class="mi">0</span> <span class="mi">7</span> <span class="o">*</span> <span class="o">*</span> <span class="mi">6</span> <span class="nv">cat</span> <span class="nv">pybites_header</span> <span class="o">&lt;</span><span class="ss">(</span><span class="nv">python3</span> <span class="o">/</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">pybites_digest</span><span class="o">/</span><span class="nv">digest</span>.<span class="nv">py</span> <span class="mi">7</span> <span class="mi">1</span><span class="ss">)</span> <span class="o">|</span> <span class="nv">sendmail</span> <span class="o">-</span><span class="nv">t</span>
+<div class="highlight"><pre><span></span># html email 
+0 7 * * 6 cat pybites_header &lt;(python3 /path/to/pybites_digest/digest.py 7 1) | sendmail -t
 
-# <span class="nv">text</span> <span class="nv">version</span> <span class="k">for</span> <span class="nv">copy</span><span class="o">+</span><span class="nv">paste</span> <span class="nv">into</span> <span class="nv">social</span> <span class="nv">media</span> <span class="ss">(</span><span class="nv">no</span> <span class="nv">need</span> <span class="nv">to</span> <span class="nv">cat</span> <span class="nv">header</span> <span class="nv">file</span><span class="ss">)</span>
-<span class="mi">10</span> <span class="mi">7</span> <span class="o">*</span> <span class="o">*</span> <span class="mi">6</span> <span class="nv">python3</span> <span class="o">/</span><span class="nv">path</span><span class="o">/</span><span class="nv">to</span><span class="o">/</span><span class="nv">pybites_digest</span><span class="o">/</span><span class="nv">digest</span>.<span class="nv">py</span> <span class="mi">7</span> <span class="o">|</span> <span class="nv">mailx</span> <span class="o">-</span><span class="nv">s</span> <span class="s2">&quot;</span><span class="s">Weekly PyBites digest (txt ed)</span><span class="s2">&quot;</span> <span class="o">&lt;</span><span class="nv">email</span><span class="o">&gt;</span>
+# text version for copy+paste into social media (no need to cat header file)
+10 7 * * 6 python3 /path/to/pybites_digest/digest.py 7 | mailx -s &quot;Weekly PyBites digest (txt ed)&quot; &lt;email&gt;
 </pre></div>
 
 

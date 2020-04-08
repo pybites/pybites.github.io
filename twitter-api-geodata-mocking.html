@@ -122,15 +122,15 @@ Problem getting tweet:
 <p>In short, mocking is creating objects that simulate the behaviour of real objects.</p>
 </blockquote>
 <p>I learned about the unittest.mock patch decorator which I use like this: </p>
-<div class="highlight"><pre><span></span><span class="nv">@patch</span><span class="p">.</span><span class="k">object</span><span class="p">(</span><span class="n">tweepy</span><span class="p">.</span><span class="n">API</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;get_status&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">return_value</span><span class="o">=</span><span class="n">get_tweet</span><span class="p">(</span><span class="s1">&#39;AU&#39;</span><span class="p">))</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
-<span class="n">test</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@patch.object(tweepy.API, &#39;get_status&#39;, return_value=get_tweet(&#39;AU&#39;))
+...
+test
+...
 
-<span class="nv">@patch</span><span class="p">.</span><span class="k">object</span><span class="p">(</span><span class="n">tweepy</span><span class="p">.</span><span class="n">API</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;get_status&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">return_value</span><span class="o">=</span><span class="n">get_tweet</span><span class="p">(</span><span class="s1">&#39;ES&#39;</span><span class="p">))</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
-<span class="n">another</span><span class="w"> </span><span class="n">test</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
+@patch.object(tweepy.API, &#39;get_status&#39;, return_value=get_tweet(&#39;ES&#39;))
+...
+another test
+...
 </pre></div>
 
 

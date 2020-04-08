@@ -115,20 +115,20 @@ django-registration<span class="o">==</span><span class="m">2</span>.2
 
 
 <p>Let's create our Django project</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">django</span><span class="o">-</span><span class="k">admin</span><span class="p">.</span><span class="n">py</span> <span class="n">startproject</span> <span class="n">register</span>
-<span class="o">#</span> <span class="p">(</span><span class="n">cannot</span> <span class="n">use</span> <span class="n">dir</span> <span class="n">name</span> <span class="s1">&#39;registration&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>(venv) $ django-admin.py startproject register
+# (cannot use dir name &#39;registration&#39;)
 </pre></div>
 
 
 <p>When I talk about project toplevel or root dir I mean this outer register directory. It's where <code>manage.py</code> lives:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">ls</span> <span class="n">register</span><span class="o">/</span>
-<span class="n">manage</span><span class="p">.</span><span class="n">py</span>    <span class="n">register</span>
+<div class="highlight"><pre><span></span>(venv) $ ls register/
+manage.py    register
 </pre></div>
 
 
 <p>If I talk about the main app I mean this directory:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">ls</span> <span class="n">register</span><span class="o">/</span><span class="n">register</span><span class="o">/</span>
-<span class="n">__init__</span><span class="p">.</span><span class="n">py</span>    <span class="n">settings</span><span class="p">.</span><span class="n">py</span>    <span class="n">urls</span><span class="p">.</span><span class="n">py</span>        <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span></span>(venv) $ ls register/register/
+__init__.py    settings.py    urls.py        wsgi.py
 </pre></div>
 
 
@@ -145,10 +145,10 @@ $ python manage.py runserver
 
 <p>Navigate to <code>http://127.0.0.1:8000/</code> - you should see Django's <em>It worked!</em> page. It also says <em>You have 13 unapplied migration(s).</em> - we get to that later in the Migration section.</p>
 <p>If you want to use Postgres like me now is a good time to create the database. If you want to use SQLite you can skip this step.</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">psql</span>
-<span class="n">bbelderb</span><span class="o">=#</span> <span class="k">create</span> <span class="k">database</span> <span class="n">notifications</span><span class="p">;</span>
-<span class="n">bbelderb</span><span class="o">=#</span> <span class="err">\</span><span class="k">c</span> <span class="n">notifications</span>
-<span class="n">You</span> <span class="k">are</span> <span class="n">now</span> <span class="n">connected</span> <span class="k">to</span> <span class="k">database</span> <span class="ss">&quot;notifications&quot;</span> <span class="k">as</span> <span class="k">user</span> <span class="ss">&quot;bbelderb&quot;</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>(venv) $ psql
+bbelderb=# create database notifications;
+bbelderb=# \c notifications
+You are now connected to database &quot;notifications&quot; as user &quot;bbelderb&quot;.
 </pre></div>
 
 
@@ -167,25 +167,25 @@ $ python manage.py runserver
 <h2>Environment variables</h2>
 <p>We need some env variables. I set those in this virtual env so they are bound to this app (Zen: <em>namespaces are a honking great idea</em>, right?):</p>
 <p>At the end of <em>venv/bin/activate</em>:</p>
-<div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SECRET_KEY</span><span class="o">=</span><span class="n">some_large_random_string</span>  <span class="o">-&gt;</span> <span class="k">get</span> <span class="n">it</span> <span class="k">from</span> <span class="n">Django</span><span class="s1">&#39;s settings.py or generate one yourself</span>
-<span class="s1">export DJANGO_ENV=&#39;</span><span class="k">local</span><span class="s1">&#39;</span>
-<span class="s1">export GMAIL_SMTP_USER=&#39;</span><span class="n">new_gmail_account</span><span class="s1">&#39;</span>
-<span class="s1">export GMAIL_SMTP_PASSWORD=&#39;</span><span class="n">gmail_pw_of_this_account</span><span class="s1">&#39;</span>
-<span class="s1">export DB_NAME=&#39;</span><span class="n">notifications</span><span class="s1">&#39;</span>
-<span class="s1">export DB_USER=&#39;</span><span class="n">pbcl</span><span class="s1">&#39;</span>
-<span class="s1">export DB_PW=&#39;</span><span class="n">your_password</span><span class="err">&#39;</span>
+<div class="highlight"><pre><span></span>export SECRET_KEY=some_large_random_string  -&gt; get it from Django&#39;s settings.py or generate one yourself
+export DJANGO_ENV=&#39;local&#39;
+export GMAIL_SMTP_USER=&#39;new_gmail_account&#39;
+export GMAIL_SMTP_PASSWORD=&#39;gmail_pw_of_this_account&#39;
+export DB_NAME=&#39;notifications&#39;
+export DB_USER=&#39;pbcl&#39;
+export DB_PW=&#39;your_password&#39;
 </pre></div>
 
 
 <p>If you want to use SQLite you can omit the <code>DB_*</code> variables.</p>
 <p>Make sure you re-activate your venv so these variables become active:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">deactivate</span>
-<span class="err">$</span> <span class="k">source</span> <span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span>
+<div class="highlight"><pre><span></span>(venv) $ deactivate
+$ source venv/bin/activate
 </pre></div>
 
 
 <p>Last command is convenient to have in your .bashrc (assuming you always have your virtual env in your project folder naming it <em>venv</em>):</p>
-<div class="highlight"><pre><span></span><span class="k">alias</span> <span class="n">ae</span><span class="o">=</span><span class="s1">&#39;source venv/bin/activate&#39;</span>
+<div class="highlight"><pre><span></span>alias ae=&#39;source venv/bin/activate&#39;
 </pre></div>
 
 
@@ -194,20 +194,20 @@ $ python manage.py runserver
 <ol>
 <li>
 <p>Locate the <code>SECRET_KEY</code> variable, delete it and add your own, also let Django know in what environment we are:</p>
-<div class="highlight"><pre><span></span><span class="nv">SECRET_KEY</span> <span class="o">=</span> <span class="nv">os</span>.<span class="k">getenv</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">SECRET_KEY</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">DJANGO_ENV</span> <span class="o">=</span> <span class="nv">os</span>.<span class="k">getenv</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DJANGO_ENV</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">production</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">lower</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>SECRET_KEY = os.getenv(&#39;SECRET_KEY&#39;)
+DJANGO_ENV = os.getenv(&#39;DJANGO_ENV&#39;, &#39;production&#39;).lower()
 </pre></div>
 
 
 </li>
 <li>
 <p>Now using the newly Django env variable let's delete the <code>DEBUG</code> variable and set it based on env with the snippet below. We will use Heroku later to deploy the app so let's add that to <code>ALLOWED_HOSTS</code> (and limit the catch-all <code>*</code> to local env only):</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">DJANGO_ENV</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">local</span><span class="s1">&#39;</span>:
-    <span class="nv">DEBUG</span> <span class="o">=</span> <span class="nv">True</span>
-    <span class="nv">ALLOWED_HOSTS</span> <span class="o">=</span> [<span class="s1">&#39;</span><span class="s">*</span><span class="s1">&#39;</span>]
-<span class="k">else</span>:
-    <span class="nv">DEBUG</span> <span class="o">=</span> <span class="nv">False</span>
-    <span class="nv">ALLOWED_HOSTS</span> <span class="o">=</span> [<span class="s1">&#39;</span><span class="s">.herokuapp.com</span><span class="s1">&#39;</span>]
+<div class="highlight"><pre><span></span>if DJANGO_ENV == &#39;local&#39;:
+    DEBUG = True
+    ALLOWED_HOSTS = [&#39;*&#39;]
+else:
+    DEBUG = False
+    ALLOWED_HOSTS = [&#39;.herokuapp.com&#39;]
 </pre></div>
 
 
@@ -218,14 +218,14 @@ $ python manage.py runserver
 </li>
 <li>
 <p>Templates directories: update the DIRS list in <code>TEMPLATES</code> so Django knows where to look for templates:</p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">...</span>
-    <span class="s1">&#39;DIRS&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;templates&#39;</span><span class="p">),</span>
-        <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;register&#39;</span><span class="p">,</span> <span class="s1">&#39;templates&#39;</span><span class="p">),</span>
-  <span class="p">],</span>
-<span class="p">...</span>
+<div class="highlight"><pre><span></span>...
+TEMPLATES = [
+    ...
+    &#39;DIRS&#39;: [
+        os.path.join(BASE_DIR, &#39;templates&#39;),
+        os.path.join(BASE_DIR, &#39;register&#39;, &#39;templates&#39;),
+  ],
+...
 </pre></div>
 
 
@@ -253,27 +253,27 @@ $ python manage.py runserver
 
 
 <p>B. SQLite = default setting changing the name of the DB:</p>
-<div class="highlight"><pre><span></span><span class="n">DATABASES</span> <span class="o">=</span> <span class="err">{</span>
-    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="err">{</span>
-        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;notifications.sqlite3&#39;</span><span class="p">),</span>
-    <span class="err">}</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span>DATABASES = {
+    &#39;default&#39;: {
+        &#39;ENGINE&#39;: &#39;django.db.backends.sqlite3&#39;,
+        &#39;NAME&#39;: os.path.join(BASE_DIR, &#39;notifications.sqlite3&#39;),
+    }
+}
 </pre></div>
 
 
 </li>
 <li>
 <p>Static files are still confusing at times for me but this is <a href="https://devcenter.heroku.com/articles/django-assets">the recommended setting for Heroku</a> that worked for me. Put it at the end of <code>settings.py</code>:</p>
-<div class="highlight"><pre><span></span><span class="nv">PROJECT_ROOT</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="k">dirname</span><span class="ss">(</span><span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">abspath</span><span class="ss">(</span><span class="nv">__file__</span><span class="ss">))</span>
+<div class="highlight"><pre><span></span>PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-<span class="nv">STATIC_ROOT</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">PROJECT_ROOT</span>, <span class="s1">&#39;</span><span class="s">staticfiles</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">STATIC_URL</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">/static/</span><span class="s1">&#39;</span>
+STATIC_ROOT = os.path.join(PROJECT_ROOT, &#39;staticfiles&#39;)
+STATIC_URL = &#39;/static/&#39;
 
-# <span class="nv">Extra</span> <span class="nv">places</span> <span class="k">for</span> <span class="nv">collectstatic</span> <span class="nv">to</span> <span class="nv">find</span> <span class="nv">static</span> <span class="nv">files</span>.
-<span class="nv">STATICFILES_DIRS</span> <span class="o">=</span> <span class="ss">(</span>
-    <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">PROJECT_ROOT</span>, <span class="s1">&#39;</span><span class="s">static</span><span class="s1">&#39;</span><span class="ss">)</span>,
-<span class="ss">)</span>
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, &#39;static&#39;),
+)
 </pre></div>
 
 
@@ -281,18 +281,18 @@ $ python manage.py runserver
 </li>
 <li>
 <p>Add the Django-registration setting to limit activation of accounts from the validation email to 7 days:</p>
-<div class="highlight"><pre><span></span><span class="n">ACCOUNT_ACTIVATION_DAYS</span> <span class="o">=</span> <span class="mi">7</span>
+<div class="highlight"><pre><span></span>ACCOUNT_ACTIVATION_DAYS = 7
 </pre></div>
 
 
 </li>
 <li>
 <p>Set the email config, assuming you're using Gmail like me:</p>
-<div class="highlight"><pre><span></span><span class="nv">EMAIL_HOST</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">smtp.gmail.com</span><span class="s1">&#39;</span>
-<span class="nv">EMAIL_PORT</span> <span class="o">=</span> <span class="mi">587</span>
-<span class="nv">EMAIL_USE_TLS</span> <span class="o">=</span> <span class="nv">True</span>
-<span class="nv">EMAIL_HOST_USER</span> <span class="o">=</span> <span class="nv">os</span>.<span class="k">getenv</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">GMAIL_SMTP_USER</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">EMAIL_HOST_PASSWORD</span> <span class="o">=</span> <span class="nv">os</span>.<span class="k">getenv</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">GMAIL_SMTP_PASSWORD</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>EMAIL_HOST = &#39;smtp.gmail.com&#39;
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv(&#39;GMAIL_SMTP_USER&#39;)
+EMAIL_HOST_PASSWORD = os.getenv(&#39;GMAIL_SMTP_PASSWORD&#39;)
 </pre></div>
 
 
@@ -300,18 +300,18 @@ $ python manage.py runserver
 </li>
 <li>
 <p>And lastly with <code>DEBUG</code> set to False in Production (Heroku), if anything blows up we only see a useless 500 error. I <a href="https://chrxr.com/django-error-logging-configuration-heroku/">found this setting</a> which sends errors to Heroku's log. You can then easily debug anything pulling the remote logs with Heroku CLI's <code>heroku log</code> command. Add this snippet to <code>settings.py</code>:</p>
-<div class="highlight"><pre><span></span><span class="nv">LOGGING</span> <span class="o">=</span> {
-    <span class="s1">&#39;</span><span class="s">version</span><span class="s1">&#39;</span>: <span class="mi">1</span>,
-    <span class="s1">&#39;</span><span class="s">disable_existing_loggers</span><span class="s1">&#39;</span>: <span class="nv">False</span>,
-    <span class="s1">&#39;</span><span class="s">handlers</span><span class="s1">&#39;</span>: {
-        <span class="s1">&#39;</span><span class="s">console</span><span class="s1">&#39;</span>: {
-            <span class="s1">&#39;</span><span class="s">class</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">logging.StreamHandler</span><span class="s1">&#39;</span>,
+<div class="highlight"><pre><span></span>LOGGING = {
+    &#39;version&#39;: 1,
+    &#39;disable_existing_loggers&#39;: False,
+    &#39;handlers&#39;: {
+        &#39;console&#39;: {
+            &#39;class&#39;: &#39;logging.StreamHandler&#39;,
         },
     },
-    <span class="s1">&#39;</span><span class="s">loggers</span><span class="s1">&#39;</span>: {
-        <span class="s1">&#39;</span><span class="s">django</span><span class="s1">&#39;</span>: {
-            <span class="s1">&#39;</span><span class="s">handlers</span><span class="s1">&#39;</span>: [<span class="s1">&#39;</span><span class="s">console</span><span class="s1">&#39;</span>],
-            <span class="s1">&#39;</span><span class="s">level</span><span class="s1">&#39;</span>: <span class="nv">os</span>.<span class="k">getenv</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DJANGO_LOG_LEVEL</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">ERROR</span><span class="s1">&#39;</span><span class="ss">)</span>,
+    &#39;loggers&#39;: {
+        &#39;django&#39;: {
+            &#39;handlers&#39;: [&#39;console&#39;],
+            &#39;level&#39;: os.getenv(&#39;DJANGO_LOG_LEVEL&#39;, &#39;ERROR&#39;),
         },
     },
 }
@@ -322,13 +322,13 @@ $ python manage.py runserver
 </ol>
 <p>If you're lost at this point the complete settings file is <a href="https://github.com/pybites/django-registration/blob/master/register/settings.py">here</a>.</p>
 <p>Remember that we updated <code>TEMPLATES</code> settings under 4.? Let's create these directories. They will hold static and template files.</p>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">just</span> <span class="k">to</span> <span class="n">make</span> <span class="n">sure</span><span class="p">:</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">pwd</span>
-<span class="p">.</span><span class="o">/</span><span class="n">registration</span><span class="o">/</span><span class="n">register</span>
+<div class="highlight"><pre><span></span># just to make sure:
+(venv) $ pwd
+./registration/register
 
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">mkdir</span> <span class="n">templates</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">mkdir</span> <span class="n">register</span><span class="o">/</span><span class="n">templates</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">mkdir</span> <span class="n">register</span><span class="o">/</span><span class="k">static</span>
+(venv) $ mkdir templates
+(venv) $ mkdir register/templates
+(venv) $ mkdir register/static
 </pre></div>
 
 
@@ -403,17 +403,17 @@ Operations to perform:
 
 <h2>Django-registration templates</h2>
 <p>Unfortunately the required templates are not included in Django-registration when pip installing it. What I ended up doing was grabbing them from <a href="https://github.com/macdhuibh/django-registration-templates">django-registration-templates</a>. However I made some wording and styling (<a href="https://purecss.io">purecss</a>) changes to them and one template - <em>password_reset_email.txt</em> - was missing from that set, which caused the password reset page to crash. So grab my copy instead:</p>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">you</span> <span class="n">should</span> <span class="n">be</span> <span class="n">here</span><span class="p">:</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">pwd</span>
-<span class="p">.</span><span class="o">/</span><span class="n">registration</span><span class="o">/</span><span class="n">register</span>
+<div class="highlight"><pre><span></span># you should be here:
+(venv) $ pwd
+./registration/register
 
-<span class="o">#</span> <span class="n">grab</span> <span class="n">them</span> <span class="k">from</span> <span class="n">the</span> <span class="n">GH</span> <span class="n">repo</span> <span class="k">in</span> <span class="k">case</span> <span class="n">I</span> <span class="n">make</span> <span class="n">further</span> <span class="n">changes</span><span class="p">:</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">django</span><span class="o">-</span><span class="n">registration</span> <span class="o">~/</span><span class="n">Downloads</span><span class="o">/</span><span class="n">registration</span><span class="o">-</span><span class="n">templates</span>
-<span class="p">...</span>
+# grab them from the GH repo in case I make further changes:
+(venv) $ git clone https://github.com/pybites/django-registration ~/Downloads/registration-templates
+...
 
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">cp</span> <span class="o">-</span><span class="n">r</span>  <span class="o">~/</span><span class="n">Downloads</span><span class="o">/</span><span class="n">registration</span><span class="o">-</span><span class="n">templates</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">registration</span> <span class="n">templates</span><span class="o">/</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">ls</span> <span class="n">templates</span><span class="o">/</span>
-<span class="n">base</span><span class="p">.</span><span class="n">html</span>    <span class="n">registration</span>
+(venv) $ cp -r  ~/Downloads/registration-templates/templates/registration templates/
+(venv) $ ls templates/
+base.html    registration
 </pre></div>
 
 
@@ -421,7 +421,7 @@ Operations to perform:
 <p>OK with all this setup in place (sorry) let's actually write some code. The good news is that Django-registration requires very little of it.</p>
 <h2>URL routing</h2>
 <p>cd into the main app (./registration/register/register):</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">cd</span> <span class="n">register</span><span class="o">/</span>
+<div class="highlight"><pre><span></span>(venv) $ cd register/
 </pre></div>
 
 
@@ -480,13 +480,13 @@ Operations to perform:
 
 <p>Here we extend the base.html template in the root templates folder. The <code>TEMPLATES</code> -&gt; <code>DIR</code> list we updated earlier in <code>settings.py</code> makes this magically work. We check if the user is authenticated and message/link accordingly.</p>
 <p>Let's collect static files into <code>STATIC_ROOT</code> using <a href="https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#collectstatic">collectstatic</a>:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">cd</span> <span class="p">..</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">python</span> <span class="n">manage</span><span class="p">.</span><span class="n">py</span> <span class="n">collectstatic</span>
+<div class="highlight"><pre><span></span>(venv) $ cd ..
+(venv) $ python manage.py collectstatic
 </pre></div>
 
 
 <p>And run the app:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">python</span> <span class="n">manage</span><span class="p">.</span><span class="n">py</span> <span class="n">runserver</span>
+<div class="highlight"><pre><span></span>(venv) $ python manage.py runserver
 </pre></div>
 
 
@@ -506,23 +506,23 @@ Operations to perform:
 <h2>Commit to version control</h2>
 <p>Normally I would be make granular commits as we go but I wanted to focus on Django.</p>
 <p>First of all init a repo - inside the register/ root folder (where <code>manage.py</code> lives):</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="n">init</span>
+<div class="highlight"><pre><span></span>(venv) $ git init
 </pre></div>
 
 
 <p>Make sure we don't commit irrelevant files by adding a <code>.gitignore</code> file with the following content:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">cat</span> <span class="p">.</span><span class="n">gitignore</span>
-<span class="o">**</span><span class="n">pyc</span>
-<span class="o">**</span><span class="n">swp</span>
-<span class="o">**</span><span class="n">__pycache__</span>
-<span class="n">register</span><span class="o">/</span><span class="n">staticfiles</span><span class="o">/</span>
-<span class="o">*</span><span class="n">sqlite3</span>
+<div class="highlight"><pre><span></span>(venv) $ cat .gitignore
+**pyc
+**swp
+**__pycache__
+register/staticfiles/
+*sqlite3
 </pre></div>
 
 
 <p>(last line is if you use a SQLite DB)</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="k">add</span> <span class="p">.</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="k">commit</span> <span class="o">-</span><span class="n">m</span> <span class="ss">&quot;init commit&quot;</span>
+<div class="highlight"><pre><span></span>(venv) $ git add .
+(venv) $ git commit -m &quot;init commit&quot;
 </pre></div>
 
 
@@ -530,71 +530,71 @@ Operations to perform:
 <p>Now let's get our shiny app to the cloud. After all we did a lot of config in advance so it should be pretty easy now:</p>
 <h3>Heroku login</h3>
 <p>Install <a href="https://devcenter.heroku.com/articles/heroku-cli">Heroku CLI</a> and login.</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">login</span>
+<div class="highlight"><pre><span></span>(venv) $ heroku login
 </pre></div>
 
 
 <p>Make sure you are in register/ where <code>manage.py</code> lives. This is important because I had issues where I had Heroku look for <code>wsgi.py</code> under register/register and it would not work. So make sure you get this:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">ls</span> <span class="n">register</span><span class="o">/</span><span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
-<span class="n">register</span><span class="o">/</span><span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span></span>(venv) $ ls register/wsgi.py
+register/wsgi.py
 </pre></div>
 
 
 <p>Add the following required files:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">echo</span> <span class="ss">&quot;python-3.6.2&quot;</span> <span class="o">&gt;</span> <span class="n">runtime</span><span class="p">.</span><span class="n">txt</span>
+<div class="highlight"><pre><span></span>(venv) $ echo &quot;python-3.6.2&quot; &gt; runtime.txt
 </pre></div>
 
 
 <p>Nice, Heroku uses Python 3.6!</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">echo</span>  <span class="ss">&quot;release: python manage.py migrate&quot;</span> <span class="o">&gt;</span> <span class="n">Procfile</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">echo</span> <span class="ss">&quot;web: gunicorn register.wsgi:application --log-file -&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">Procfile</span>
+<div class="highlight"><pre><span></span>(venv) $ echo  &quot;release: python manage.py migrate&quot; &gt; Procfile
+(venv) $ echo &quot;web: gunicorn register.wsgi:application --log-file -&quot; &gt;&gt; Procfile
 </pre></div>
 
 
 <p>The first line is not required but adds migration as extra step to each Heroku build, useful.</p>
 <p>And finally let Heroku know what dependencies we need:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">pip</span> <span class="k">freeze</span> <span class="o">&gt;</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+<div class="highlight"><pre><span></span>(venv) $ pip freeze &gt; requirements.txt
 </pre></div>
 
 
 <p>Commit these 3 files:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="k">add</span> <span class="p">.</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="k">commit</span> <span class="o">-</span><span class="n">m</span> <span class="ss">&quot;added heroku config files&quot;</span>
+<div class="highlight"><pre><span></span>(venv) $ git add .
+(venv) $ git commit -m &quot;added heroku config files&quot;
 </pre></div>
 
 
 <p>You can test the site locally. If doing so store your env variables in <code>.env</code> (and make sure to exclude that file from version control!)</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="k">local</span> <span class="n">web</span>
+<div class="highlight"><pre><span></span>(venv) $ heroku local web
 </pre></div>
 
 
 <p>Crreate the app with a unique enough name:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">apps</span><span class="p">:</span><span class="k">create</span> <span class="n">bobregistration</span>
-<span class="n">Creating</span> <span class="err">⬢</span> <span class="n">bobregistration</span><span class="p">...</span> <span class="n">done</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bobregistration</span><span class="p">.</span><span class="n">herokuapp</span><span class="p">.</span><span class="n">com</span><span class="o">/</span> <span class="o">|</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="p">.</span><span class="n">heroku</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bobregistration</span><span class="p">.</span><span class="n">git</span>
+<div class="highlight"><pre><span></span>(venv) $ heroku apps:create bobregistration
+Creating ⬢ bobregistration... done
+https://bobregistration.herokuapp.com/ | https://git.heroku.com/bobregistration.git
 </pre></div>
 
 
 <p>The git remote should be added automatically, if not run:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="k">add</span> <span class="n">heroku</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="p">.</span><span class="n">heroku</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bobregistration</span><span class="p">.</span><span class="n">git</span>
+<div class="highlight"><pre><span></span>(venv) $ git remote add heroku https://git.heroku.com/bobregistration.git
 
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
-<span class="n">heroku</span>    <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="p">.</span><span class="n">heroku</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bobregistration</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="k">fetch</span><span class="p">)</span>
-<span class="n">heroku</span>    <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="p">.</span><span class="n">heroku</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">bobregistration</span><span class="p">.</span><span class="n">git</span> <span class="p">(</span><span class="n">push</span><span class="p">)</span>
+(venv) $ git remote -v
+heroku    https://git.heroku.com/bobregistration.git (fetch)
+heroku    https://git.heroku.com/bobregistration.git (push)
 </pre></div>
 
 
 <p>If you want to use a Postgres DB provision it now, see <a href="https://devcenter.heroku.com/articles/heroku-postgresql">here</a>:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">addons</span><span class="p">:</span><span class="k">create</span> <span class="n">heroku</span><span class="o">-</span><span class="n">postgresql</span><span class="p">:</span><span class="n">hobby</span><span class="o">-</span><span class="n">dev</span>
+<div class="highlight"><pre><span></span>(venv) $ heroku addons:create heroku-postgresql:hobby-dev
 </pre></div>
 
 
 <p>Heroku automatically sets the <code>DATABASE_URL</code> env variable for you. The <code>dj_database_url</code> plugin we pip installed and configured in <code>settings.py</code> takes care of the rest. This makes the <code>DB_ *</code> variables only for local use. You can see your Heroku databases <a href="https://data.heroku.com/">here</a>.</p>
 <p>Finally let's set the other env variables via Heroku CLI:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span><span class="p">:</span><span class="k">set</span> <span class="n">SECRET_KEY</span><span class="o">=</span><span class="s1">&#39;some_large_random_string&#39;</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span><span class="p">:</span><span class="k">set</span> <span class="n">DJANGO_ENV</span><span class="o">=</span><span class="s1">&#39;production&#39;</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span><span class="p">:</span><span class="k">set</span> <span class="n">GMAIL_SMTP_USER</span><span class="o">=</span><span class="s1">&#39;new_gmail_account&#39;</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span><span class="p">:</span><span class="k">set</span> <span class="n">GMAIL_SMTP_PASSWORD</span><span class="o">=</span><span class="s1">&#39;gmail_pw_of_this_account&#39;</span>
+<div class="highlight"><pre><span></span>(venv) $ heroku config:set SECRET_KEY=&#39;some_large_random_string&#39;
+(venv) $ heroku config:set DJANGO_ENV=&#39;production&#39;
+(venv) $ heroku config:set GMAIL_SMTP_USER=&#39;new_gmail_account&#39;
+(venv) $ heroku config:set GMAIL_SMTP_PASSWORD=&#39;gmail_pw_of_this_account&#39;
 </pre></div>
 
 
@@ -643,8 +643,8 @@ Operations to perform:
 
 <p>And voilà: the app now runs in the cloud. I will delete it after this tutorial, check out <a href="http://pybites-notifier.herokuapp.com/">this version</a> if you want to try it or subscribe to weekly PyBites Code Challenge notifications. Or better yet: host your own!</p>
 <p>To add the superuser to the remote DB you can use Heroku's shell:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">heroku</span> <span class="n">run</span> <span class="n">python</span> <span class="n">manage</span><span class="p">.</span><span class="n">py</span> <span class="n">createsuperuser</span>
-<span class="p">...</span>
+<div class="highlight"><pre><span></span>(venv) $ heroku run python manage.py createsuperuser
+...
 </pre></div>
 
 

@@ -108,41 +108,41 @@
 
 
 <p>This works fine if we have an argument:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
 
-    @<span class="nv">sleep</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
-    <span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello world</span><span class="s1">&#39;</span><span class="ss">)</span>
+    @sleep(1)
+    def hello():
+        print(&#39;hello world&#39;)
 
-    <span class="k">for</span> <span class="nv">_</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span>:
-        <span class="nv">hello</span><span class="ss">()</span>
+    for _ in range(3):
+        hello()
 
 
-$ <span class="nv">python</span> <span class="nv">decorators</span>.<span class="nv">py</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
+$ python decorators.py
+Sleeping for 1 seconds
+hello world
+Sleeping for 1 seconds
+hello world
+Sleeping for 1 seconds
+hello world
 </pre></div>
 
 
 <p>But when I call it without an argument (which I thought would work because I set it as optional argument) it fails:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
 
-    @<span class="nv">sleep</span>
-    <span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello world</span><span class="s1">&#39;</span><span class="ss">)</span>
+    @sleep
+    def hello():
+        print(&#39;hello world&#39;)
 
-    <span class="k">for</span> <span class="nv">_</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span>:
-        <span class="nv">hello</span><span class="ss">()</span>
+    for _ in range(3):
+        hello()
 
-$ <span class="nv">python</span> <span class="nv">decorators</span>.<span class="nv">py</span>
-<span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
-<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">decorators.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">36</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
-    <span class="nv">hello</span><span class="ss">()</span>
-<span class="nv">TypeError</span>: <span class="nv">real_decorator</span><span class="ss">()</span> <span class="nv">missing</span> <span class="mi">1</span> <span class="nv">required</span> <span class="nv">positional</span> <span class="nv">argument</span>: <span class="s1">&#39;</span><span class="s">func</span><span class="s1">&#39;</span>
+$ python decorators.py
+Traceback (most recent call last):
+File &quot;decorators.py&quot;, line 36, in &lt;module&gt;
+    hello()
+TypeError: real_decorator() missing 1 required positional argument: &#39;func&#39;
 </pre></div>
 
 
@@ -167,42 +167,42 @@ $ <span class="nv">python</span> <span class="nv">decorators</span>.<span class=
 
 
 <p>Again this works fine when I give it an argument:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
 
-    @<span class="nv">sleep</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
-    <span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello world</span><span class="s1">&#39;</span><span class="ss">)</span>
+    @sleep(1)
+    def hello():
+        print(&#39;hello world&#39;)
 
-    <span class="k">for</span> <span class="nv">_</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span>:
-        <span class="nv">hello</span><span class="ss">()</span>
+    for _ in range(3):
+        hello()
 
 
-$ <span class="nv">python</span> <span class="nv">decorators_cl</span>.<span class="nv">py</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
+$ python decorators_cl.py
+Sleeping for 1 seconds
+hello world
+Sleeping for 1 seconds
+hello world
+Sleeping for 1 seconds
+hello world
 </pre></div>
 
 
 <p>But leaving the arg off it fails:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
 
-    @<span class="nv">sleep</span>
-    <span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello world</span><span class="s1">&#39;</span><span class="ss">)</span>
+    @sleep
+    def hello():
+        print(&#39;hello world&#39;)
 
-    <span class="k">for</span> <span class="nv">_</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span>:
-        <span class="nv">hello</span><span class="ss">()</span>
+    for _ in range(3):
+        hello()
 
 
-$ <span class="nv">python</span> <span class="nv">decorators_cl</span>.<span class="nv">py</span>
-<span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
-<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">decorators_cl.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">25</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
-    <span class="nv">hello</span><span class="ss">()</span>
-<span class="nv">TypeError</span>: <span class="nv">__call__</span><span class="ss">()</span> <span class="nv">missing</span> <span class="mi">1</span> <span class="nv">required</span> <span class="nv">positional</span> <span class="nv">argument</span>: <span class="s1">&#39;</span><span class="s">func</span><span class="s1">&#39;</span>
+$ python decorators_cl.py
+Traceback (most recent call last):
+File &quot;decorators_cl.py&quot;, line 25, in &lt;module&gt;
+    hello()
+TypeError: __call__() missing 1 required positional argument: &#39;func&#39;
 </pre></div>
 
 
@@ -235,64 +235,64 @@ $ <span class="nv">python</span> <span class="nv">decorators_cl</span>.<span cla
 </blockquote>
 <p>I should probably write another article on this useful feature ...</p>
 <h2>It works :)</h2>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
 
-    <span class="nv">def</span> <span class="nv">call_n_times</span><span class="ss">(</span><span class="nv">func</span>, <span class="nv">n</span><span class="o">=</span><span class="mi">3</span><span class="ss">)</span>:
-        <span class="k">for</span> <span class="nv">_</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">n</span><span class="ss">)</span>:
-            <span class="nv">func</span><span class="ss">()</span>
+    def call_n_times(func, n=3):
+        for _ in range(n):
+            func()
 
-    @<span class="nv">sleep</span>  # <span class="nv">works</span> <span class="nv">now</span><span class="o">!</span>
-    <span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello world</span><span class="s1">&#39;</span><span class="ss">)</span>
+    @sleep  # works now!
+    def hello():
+        print(&#39;hello world&#39;)
 
-    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s">Without args</span><span class="se">\n</span><span class="s">---</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="nv">call_n_times</span><span class="ss">(</span><span class="nv">hello</span><span class="ss">)</span>
-
-
-    @<span class="nv">sleep</span><span class="ss">(</span><span class="nv">seconds</span><span class="o">=</span><span class="mi">2</span><span class="ss">)</span>
-    <span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello world</span><span class="s1">&#39;</span><span class="ss">)</span>
-
-    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s">With one opt arg: seconds</span><span class="se">\n</span><span class="s">---</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="nv">call_n_times</span><span class="ss">(</span><span class="nv">hello</span><span class="ss">)</span>
+    print(&#39;\nWithout args\n---&#39;)
+    call_n_times(hello)
 
 
-    @<span class="nv">sleep</span><span class="ss">(</span><span class="nv">seconds</span><span class="o">=</span><span class="mi">1</span>, <span class="nv">msg</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">I work so hard, resting a bit</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello world</span><span class="s1">&#39;</span><span class="ss">)</span>
+    @sleep(seconds=2)
+    def hello():
+        print(&#39;hello world&#39;)
 
-    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s">With two opt args: seconds and msg</span><span class="se">\n</span><span class="s">---</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="nv">call_n_times</span><span class="ss">(</span><span class="nv">hello</span><span class="ss">)</span>
+    print(&#39;\nWith one opt arg: seconds\n---&#39;)
+    call_n_times(hello)
 
 
-$ <span class="nv">python</span> <span class="nv">decorators_opt_arg</span>.<span class="nv">py</span>
+    @sleep(seconds=1, msg=&#39;I work so hard, resting a bit&#39;)
+    def hello():
+        print(&#39;hello world&#39;)
 
-<span class="nv">Without</span> <span class="nv">args</span>
-<span class="o">---</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">1</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
+    print(&#39;\nWith two opt args: seconds and msg\n---&#39;)
+    call_n_times(hello)
 
-<span class="nv">With</span> <span class="nv">one</span> <span class="nv">opt</span> <span class="nv">arg</span>: <span class="nv">seconds</span>
-<span class="o">---</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">2</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">2</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">Sleeping</span> <span class="k">for</span> <span class="mi">2</span> <span class="nv">seconds</span>
-<span class="nv">hello</span> <span class="nv">world</span>
 
-<span class="nv">With</span> <span class="nv">two</span> <span class="nv">opt</span> <span class="nv">args</span>: <span class="nv">seconds</span> <span class="nv">and</span> <span class="nv">msg</span>
-<span class="o">---</span>
-<span class="nv">I</span> <span class="nv">work</span> <span class="nv">so</span> <span class="nv">hard</span>, <span class="nv">resting</span> <span class="nv">a</span> <span class="nv">bit</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">I</span> <span class="nv">work</span> <span class="nv">so</span> <span class="nv">hard</span>, <span class="nv">resting</span> <span class="nv">a</span> <span class="nv">bit</span>
-<span class="nv">hello</span> <span class="nv">world</span>
-<span class="nv">I</span> <span class="nv">work</span> <span class="nv">so</span> <span class="nv">hard</span>, <span class="nv">resting</span> <span class="nv">a</span> <span class="nv">bit</span>
-<span class="nv">hello</span> <span class="nv">world</span>
+$ python decorators_opt_arg.py
+
+Without args
+---
+Sleeping for 1 seconds
+hello world
+Sleeping for 1 seconds
+hello world
+Sleeping for 1 seconds
+hello world
+
+With one opt arg: seconds
+---
+Sleeping for 2 seconds
+hello world
+Sleeping for 2 seconds
+hello world
+Sleeping for 2 seconds
+hello world
+
+With two opt args: seconds and msg
+---
+I work so hard, resting a bit
+hello world
+I work so hard, resting a bit
+hello world
+I work so hard, resting a bit
+hello world
 </pre></div>
 
 
