@@ -1,232 +1,160 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Seriously, Python is here to stay! (source) In the last years we have grown our PyBites community producing amazing results for our clients. We tackled common pitfalls like tutorial paralysis,...">
+        <meta name="keywords" content="">
+        <link rel="icon" href="./favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+        <title>We Create Rockstar Python Developers - PyBites</title>
 
-    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+        <!-- Stylesheets -->
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
 
-    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <!-- /RSS Feeds -->
 
-    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="" />
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-
-    <meta name="author" content="pybites" />
-    <meta name="description" content="A Community that Masters Python through Code Challenges" />
-<meta property="og:site_name" content="PyBites"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="PyBites"/>
-<meta property="og:description" content="A Community that Masters Python through Code Challenges"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es"/>
-<meta property="og:image" content="https://pybit.es/theme/img/profile.png">
-
-  <title>PyBites &ndash; Hone Your Python Skills</title>
-
-
-</head>
-<body>
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
 
 
-  <!-- change ribbon color based on topic -->
-  <div class="ribbon right
-      default
-  ">
-    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
-  </div>
+    </head>
 
-  <!-- change aside color based on topic -->
-    <aside class='default'>
-  
-    <div>
-      <a href="https://pybit.es">
-          <img src="https://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
-      </a>
-      <h1><a href="https://pybit.es">PyBites</a></h1>
+    <body>
 
-<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
-      <nav>
-        <ul class="list">
-          <li><a href="/pages/articles.html">Articles</a></li>
-          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
-          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
-          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
-          <li><a href="/pages/community.html">Join our Slack</a></li>
-          <li><a href="/pages/search.html">Search</a></li>
-        </ul>
-      </nav>
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('./images/circuit-bg.png'); background-position: center; ">
 
-      <div id='mc-dark'>
-<!-- Begin MailChimp Signup Form -->
-<hr class="softDivider">
-<div id="mc_embed_signup">
-<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-    
-<div class="mc-field-group">
-  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
-    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
-</div>
-    <div id="mce-responses" class="clear">
-        <div class="response" id="mce-error-response" style="display:none"></div>
-        <div class="response" id="mce-success-response" style="display:none"></div>
-    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="./">Home</a>
+                                <a href="./archives.html">Blog</a>
+                                <a  href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="./pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title text-uppercase">We Create Rockstar Python Developers</h1>
+                      <div class="header-underline"></div>
+                  </div>
+              </div>
+        </div>
     </div>
-</form>
-</div>
-<!--End mc_embed_signup-->                  </div>
+            <!-- /Header -->
 
-      <hr class="softDivider">
-
-      <div id="ninjaWidget">
-        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
-      </div>
-        
-      <ul class="social">
-        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
-        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
-        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
-        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
-        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
-      </ul>
-
-      <br>
-      <script src="https://apis.google.com/js/platform.js"></script>
-
-	
-    </div>
+        </div>
+        <!-- /Header -->
 
 
-  </aside>
-  <main>
-
-
-<article class="single">
-  <header>
-    <h1 id="hone-your-python-skills">Hone Your Python Skills</h1>
-  </header>
-  <div>
-    <p>Python is hot according to <a href="https://insights.dice.com/2016/02/01/whats-hot-and-not-in-tech-skills/">Dice</a>. It’s an easy language to learn, has an elegant design and is widely used. </p>
-<p>You might want to learn it. And we'd love to help you!</p>
-<p>We are Bob and Julian, two Pythonistas passionate about learning and teaching Python.</p>
-<p><img alt="bob + julian == pybites" class="profile_pic" src="https://pybit.es/images/pybites-banner.png"></p>
-<div style="clear: left;"></div>
-
-<p>Darren Hardy's advice in <a href="https://www.amazon.com/dp/159315724X/?tag=pyb0f-20">The Compound Effect</a> resonated with us:</p>
+        <!-- Content -->
+    <div class="container content">
+        <p>Seriously, Python is here to stay!</p>
+<p><img src="https://149351115.v2.pressablecdn.com/wp-content/uploads/2017/09/growth_major_languages-1-1400x1200.png" alt="Python is taking over graph" style="width: 400px;"></p>
+<p>(<a href="https://stackoverflow.blog/2017/09/06/incredible-growth-python/">source</a>)</p>
+<p>In the last years we have grown our PyBites community producing amazing results for our clients.</p>
+<p>We tackled common pitfalls like tutorial paralysis, improper sequencing and staying comfortable which won't get you anywhere.</p>
+<p>And now, after a lot of iterations, we have our unique system which creates rockstar Python developers.</p>
 <blockquote>
-<p>To up your chances of success, get a success buddy, someone who’ll keep you accountable as you cement your new habit while you return the favor.</p>
+<p>I recently interviewed for this Data Engineer position. I was able to answer questions during their technical phone screening that I otherwise wouldn’t have known because I kept up with the bites. I ended up getting an offer and I start next Monday! - Marin M.</p>
+<p>We set up a go grpc server and created a Python client for it today. Thanks to the web dev knowledge I learned with you in the last weeks, I knew all important things and was able to discuss API design etc. with the other backend dev 👌 Thanks again for the PyBites Developer Mindest Program 🙏 - Robin B</p>
 </blockquote>
-<p>So we stopped just chatting about Python and took action. <code>datetime(year=2016, month=12, day=19)</code> <a href="https://pybit.es/special-building-pybites.html">PyBites was born</a>. Our five pillars are: <a href="https://pybit.es/pages/articles.html">articles</a>, <a href="https://pybit.es/pages/news.html">news</a>, (<a href="https://pybit.es/alicante-pychallengeday.html">live</a>) <a href="https://pybit.es/pages/challenges.html">code challenges</a>, <a href="https://pybit.es/pages/courses.html">video courses</a> and <a href="https://pybit.es/pages/projects.html">'100 Days Of' projects</a>:</p>
-<p><br>
-<iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/362616857&color=ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false"></iframe> 
-<br>
-<br></p>
-<p>We are strong believers in <a href="https://pybit.es/learn-by-doing.html">Learning Python by Coding for Yourself</a> so we will have you hitting the ground running in no time by building projects. We have you challenging yourself which will make you come out stronger. You might even be surprised by what you are capable of. But for all the hard work we always try to add an element of fun :)</p>
-<p><img alt="prepare to write a lot of code and challenge yourself" src="https://pybit.es/images/workshop.jpg"></p>
-<h2>__init__.py</h2>
-<p>Here are some articles and code challenges to break the ice:</p>
-<ul>
-<li>
-<p>Common question: <a href="https://pybit.es/special-learning-python.html">How do I Learn Python</a>?</p>
-</li>
-<li>
-<p>What to code? Read <a href="https://pybit.es/special-100days-of-code.html">how we stretched our coding skills through #100DaysOfCode</a>.</p>
-</li>
-<li>
-<p>Coding time! We have a growing collection of code challenges: <a href="https://pybit.es/codechallenge01.html">wordvalues</a>, <a href="https://pybit.es/codechallenge42.html">regex</a>, <a href="https://pybit.es/codechallenge44.html">Marvel data</a>, <a href="https://pybit.es/codechallenge12.html">tic-tac-toe</a>, <a href="https://pybit.es/codechallenge13.html">movie data</a>, <a href="https://pybit.es/codechallenge11.html">generators</a>. Or maybe you'd like to <a href="https://twitter.com/pybites/status/928641721965129728">build the next awesome chatbot</a>? We <a href="https://pybit.es/pages/challenges.html">have more</a> and we ain't planning on stopping them anytime soon!</p>
-</li>
-<li>
-<p>Our latest articles and posts <a href="https://pybit.es/blog_index.html">appear here</a>. Check back regularly!</p>
-</li>
-<li>
-<p>Featured tweet:</p>
-<p><blockquote class="twitter-tweet"><p>We are very excited to announce our first <a href="https://twitter.com/search/#Python" target="_blank">#Python</a> <a href="https://twitter.com/search/#Flask" target="_blank">#Flask</a> course on Udemy. Check it out here:… <a href="https://t.co/r1tdMWmbdL" title="https://t.co/r1tdMWmbdL" target="_blank">https://t.co/r1tdMWmbdL</a></p>— Pybites (@pybites) <a href="https://twitter.com/pybites/status/925695076277374976" data-datetime="2017-11-01T12:04:39+00:00">November 01, 2017</a></blockquote></p>
-</li>
-</ul>
-<h2>Community</h2>
-<p>Programming is all about people, whether it be fellow developers who read your code or the consumers of your products. We place a high value on our PyBites as well as the greater Python community. </p>
-<p><img alt="bob + julian + community == pybites" class="profile_pic" src="https://pybit.es/images/pybites-community.png"></p>
-<div style="clear: left;"></div>
-
-<p>If you are doing our challenges, you like this effort or you want to collaborate, send us an <a href="mailto:support@pybit.es">email</a> with a request to join our community on Slack. We also recommend you sign up for <a href="http://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef">our newsletter</a> where you will receive a monthly update talking more Python with you.</p>
-<p>You can also reach out via: <a href="https://twitter.com/pybites">Twitter</a> / <a href="https://github.com/pybites">Github</a> / <a href="https://www.facebook.com/groups/pybites">Facebook</a></p>
-<p><img alt="and yes, like most coders we love coffee" src="https://pybit.es/images/coffee_small.jpg"></p>
 <hr>
-<p>Keep Calm and Code in Python!</p>
-<p>-- Bob and Julian</p>
-  </div>
-</article>
+<p>However coding is just one part of the equation and often the "easier" bit to learn.</p>
+<p>In order to grow your career you need to be strategic as well, build up relevant portfolio assets, drop perfectionism and develop confidence in your abilities.</p>
+<blockquote>
+<p>I feel like I had a big win with confidence today. Today I reached out to the biggest python groups on Facebook to promote my message. Bob and Julian' s mentorship kicked my ass into gear and proved to me that my skills are ready to showcase to the world. Thanks Bob and Julian. - Ben M.</p>
+</blockquote>
+<hr>
+<p>Congratulations. You have come to the right place. We deeply care about helping other people succeed in their careers using Python and leadership skills.</p>
+<h4>Don't miss out</h4>
+<p>Start to write more Pythonic code now using our <i>Become a Better Python Developer</i> cheat sheet. <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef" target="_blank">Subscribe to our list</a> and we'll send it to you as well as some training how to market yourself better as a developer (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
+<h2>Wait, who are these guys?</h2>
+<p>Glad you asked.</p>
+<h4>Meet Bob:</h4>
+<p><img src="https://codechalleng.es/static/img/bob.jpeg" alt="meet Bob" style="width:200px;"></p>
+<p>Bob studied business economics, but <a href="http://www.blog.pythonlibrary.org/2019/12/02/pydev-of-the-week-bob-belderbos/" target="_blank">got fired up about programming</a> early in his career.</p>
+<p>He taught himself web design / coding and started living his biggest passion: automate the boring stuff, making other people's lives easier.</p>
+<p>Since then he has coded <a href="https://blogs.oracle.com/jobsatoracle/bob-belderbos-career-success-story:-leveraging-your-brand-and-network-to-achieve-career-aspirations" target="_blank">projects accruing millions in cost savings</a> and built a coding platform that has taught Python to thousands of people worldwide.</p>
+<p>He deeply cares about helping other people succeed. His biggest win will be your next win!</p>
+<h4>...and Julian:</h4>
+<p><img src="https://pybit.es/images/julian.jpg" alt="meet Julian" style="width:200px;"></p>
+<p>With a background in Servers and Data Centers at 3 of the largest companies on the planet, Julian made the challenging switch to a Python software developer role in 2019.</p>
+<p>After learning Python teaching it on <a href="https://pybit.es" target="_blank">PyBites</a> with best friend Bob, Julian has made it his mission to spread not only his love of Python but also his expertise in communication and mindset.</p>
+<p>His infectious enthusiasm, motivation and ability to energise those around him greatly assist him in his role of mentoring aspiring Python developers keen on growing their careers.</p>
+<p>You can hear Julian in action <a href="https://testandcode.com/60" target="_blank">here</a>.</p>
+    </div>
+        <!-- /Content --> 
 
-    <footer>
-<p>&copy; pybites </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
-</p>    </footer>
-  </main>
-
-<!-- Google Analytics -->
-<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89294245-1', 'auto');
-  ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
-
-	<script>window.twttr = (function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0],
-		t = window.twttr || {};
-	if (d.getElementById(id)) return t;
-	js = d.createElement(s);
-	js.id = id;
-	js.src = "https://platform.twitter.com/widgets.js";
-	fjs.parentNode.insertBefore(js, fjs);
-	t._e = [];
-	t.ready = function(f) {
-		t._e.push(f);
-	};
-	return t;
-	}(document, "script", "twitter-wjs"));</script>
-
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-	
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
-  	<!-- search input field or archive pages -->
-  	<script src="https://pybit.es/theme/scripts/base.js" type="text/javascript"></script>
-
-
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Blog",
-  "name": " PyBites ",
-  "url" : "https://pybit.es",
-  "image": "https://pybit.es/theme/img/profile.png",
-  "description": "A Community that Masters Python through Code Challenges"
-}
-</script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
-</body>
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href=".https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="/archives.html" target="_blank">Twitter</a></li>
+                            <li><a href="http://facebook.com/pybites/" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
 </html>

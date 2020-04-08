@@ -1,399 +1,185 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content=" Tools">
+        <meta name="keywords" content="">
+        <link rel="icon" href="../favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+        <title> Tools - PyBites</title>
 
-    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+        <!-- Stylesheets -->
+        <link href="../theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
 
-    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/tools.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
 
-    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="" />
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-
-    <meta name="author" content="pybites" />
-    <meta name="description" content="A Community that Masters Python through Code Challenges" />
-<meta property="og:site_name" content="PyBites"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="PyBites"/>
-<meta property="og:description" content="A Community that Masters Python through Code Challenges"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es"/>
-<meta property="og:image" content="https://pybit.es/theme/img/profile.png">
-
-  <title>PyBites &ndash;     Category Tools
-</title>
-
-
-</head>
-<body>
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
 
 
-  <!-- change ribbon color based on topic -->
-  <div class="ribbon right
-      default
-  ">
-    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
-  </div>
+    </head>
 
-  <!-- change aside color based on topic -->
-    <aside class='default'>
-  
-    <div>
-      <a href="https://pybit.es">
-          <img src="https://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
-      </a>
-      <h1><a href="https://pybit.es">PyBites</a></h1>
+    <body>
 
-<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
-      <nav>
-        <ul class="list">
-          <li><a href="/pages/articles.html">Articles</a></li>
-          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
-          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
-          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
-          <li><a href="/pages/community.html">Join our Slack</a></li>
-          <li><a href="/pages/search.html">Search</a></li>
-        </ul>
-      </nav>
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/circuit-bg.png'); background-position: center; ">
 
-      <div id='mc-dark'>
-<!-- Begin MailChimp Signup Form -->
-<hr class="softDivider">
-<div id="mc_embed_signup">
-<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-    
-<div class="mc-field-group">
-  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
-    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
-</div>
-    <div id="mce-responses" class="clear">
-        <div class="response" id="mce-error-response" style="display:none"></div>
-        <div class="response" id="mce-success-response" style="display:none"></div>
-    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="../"><img class="mr20" src="../images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="../">Home</a>
+                                <a href="../archives.html">Blog</a>
+                                <a  href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="../pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title text-uppercase"> : Tools</h1>
+                      <div class="header-underline"></div>
+                      <p class="header-subtitle header-subtitle-homepage"> "Tools"</p>
+                  </div>
+              </div>
+        </div>
     </div>
-</form>
-</div>
-<!--End mc_embed_signup-->                  </div>
+            <!-- /Header -->
 
-      <hr class="softDivider">
+        </div>
+        <!-- /Header -->
 
-      <div id="ninjaWidget">
-        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
-      </div>
-        
-      <ul class="social">
-        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
-        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
-        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
-        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
-        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
-      </ul>
 
-      <br>
-      <script src="https://apis.google.com/js/platform.js"></script>
-
-	
+        <!-- Content -->
+    <div class="archive-container">
+        <div class="container content archive">
+            <h2><a href="../category/tools.html">Tools</a></h2>
+            <dl class="dl-horizontal">
+            	<dt>Wed 26 February 2020</dt>
+            	<dd><a href="../guest-howto-write-guest-posts.html">How to Write a Guest Article for PyBites</a></dd>
+            	<dt>Tue 26 February 2019</dt>
+            	<dd><a href="../python-tips-carbon-selenium.html">Generating Beautiful Code Snippets with Carbon and Selenium</a></dd>
+            	<dt>Tue 19 February 2019</dt>
+            	<dd><a href="../selenium-headless-on-heroku.html">How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku</a></dd>
+            	<dt>Tue 24 July 2018</dt>
+            	<dd><a href="../guest-anaconda-workflow.html">My Anaconda Workflow: Python environment and package management made easy</a></dd>
+            	<dt>Thu 31 May 2018</dt>
+            	<dd><a href="../guest-scrapy-packt-alexa.html">Pushing the Packt "free book of the day" to the world with Scrapy and Alexa</a></dd>
+            	<dt>Sun 10 December 2017</dt>
+            	<dd><a href="../guest-telegram-python-chatbot.html">DisAtBot - How I Built a Chatbot With Telegram And Python</a></dd>
+            	<dt>Wed 25 October 2017</dt>
+            	<dd><a href="../python-cookiecutter.html">Bootstrap Your Next Python Project With Cookiecutter</a></dd>
+            	<dt>Wed 06 September 2017</dt>
+            	<dd><a href="../python-MIME-bcc.html">Hiding BCC Recipients in Python MIME Emails</a></dd>
+            	<dt>Wed 30 August 2017</dt>
+            	<dd><a href="../bettercodehub.html">Improve the Quality of Your Code with Better Code Hub</a></dd>
+            	<dt>Sat 19 August 2017</dt>
+            	<dd><a href="../pillow-banner-flask.html">Making a Banner Generator With Pillow and Flask</a></dd>
+            	<dt>Sun 25 June 2017</dt>
+            	<dd><a href="../slack-karma-bot.html">Building a Karma Bot with Python and the Slack API</a></dd>
+            	<dt>Tue 25 April 2017</dt>
+            	<dd><a href="../twitter-monitor-slack-notify.html">How to Write a Simple Slack Bot to Monitor Your Brand on Twitter</a></dd>
+            	<dt>Wed 05 April 2017</dt>
+            	<dd><a href="../100days-autotweet.html">How we Automated our 100DaysOfCode Daily Tweet</a></dd>
+            	<dt>Tue 04 April 2017</dt>
+            	<dd><a href="../simple-chatbot.html">How to Build a Simple Slack Bot</a></dd>
+            	<dt>Tue 28 March 2017</dt>
+            	<dd><a href="../vim-tricks.html">5 Vim Tricks to Speed up Your Python Development</a></dd>
+            	<dt>Wed 22 March 2017</dt>
+            	<dd><a href="../python-porting.html">Best Practices for Compatible Python 2 and 3 Code</a></dd>
+            	<dt>Wed 01 February 2017</dt>
+            	<dd><a href="../python-MIME.html">Send Advanced Emails with Python MIME Submodules</a></dd>
+            	<dt>Thu 26 January 2017</dt>
+            	<dd><a href="../python-smtplib.html">Send Emails with Python smtplib</a></dd>
+            	<dt>Tue 17 January 2017</dt>
+            	<dd><a href="../awesome_python_resources.html">List of Awesome Python Resources</a></dd>
+            	<dt>Wed 11 January 2017</dt>
+            	<dd><a href="../simplewebscraper.html">Create a Simple Web Scraper with BeautifulSoup4</a></dd>
+            	<dt>Fri 06 January 2017</dt>
+            	<dd><a href="../pyperclip.html">Copy and Paste with Pyperclip</a></dd>
+            	<dt>Thu 29 December 2016</dt>
+            	<dd><a href="../automate-twitter.html">Automate Tweeting: how to build a Twitterbot</a></dd>
+            	<dt>Tue 27 December 2016</dt>
+            	<dd><a href="../kindle-json-to-html.html">How to create a nice-looking HTML page of your Kindle book highlights (notes)</a></dd>
+            	<dt>Sat 24 December 2016</dt>
+            	<dd><a href="../blog-digest.html">Get a weekly digest from a Pelican blog</a></dd>
+            	<dt>Thu 22 December 2016</dt>
+            	<dd><a href="../the-beauty-of-virtualenv.html">The Beauty of Python Virtualenvs</a></dd>
+            	<dt>Tue 20 December 2016</dt>
+            	<dd><a href="../install-me.html">How to get PyBites up and running on your machine</a></dd>
+            </dl>
+        </div>
     </div>
+        <!-- /Content --> 
 
-
-  </aside>
-  <main>
-
-
-
-
-<article>
-  <header>
-    <h2><a href="https://pybit.es/guest-howto-write-guest-posts.html">How to Write a Guest Article for PyBites</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/cedric-sambre.html">Cedric Sambre</a> on Wed 26 February 2020 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/guest-posting.html">guest posting</a>,              <a href="https://pybit.es/tag/blogging.html">blogging</a>,              <a href="https://pybit.es/tag/contribution.html">contribution</a>,              <a href="https://pybit.es/tag/pybites.html">PyBites</a>,              <a href="https://pybit.es/tag/git.html">git</a>,              <a href="https://pybit.es/tag/github.html">Github</a>,              <a href="https://pybit.es/tag/pull-request.html">pull request</a>,              <a href="https://pybit.es/tag/fork.html">fork</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>Hello Everybody! In this article I'll run through the procedure of using git and github to submit a guest article to PyBites.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/guest-howto-write-guest-posts.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/python-tips-carbon-selenium.html">Generating Beautiful Code Snippets with Carbon and Selenium</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 26 February 2019 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/selenium.html">Selenium</a>,              <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>,              <a href="https://pybit.es/tag/requests.html">requests</a>,              <a href="https://pybit.es/tag/collections.html">collections</a>,              <a href="https://pybit.es/tag/random.html">random</a>,              <a href="https://pybit.es/tag/urllib.html">urllib</a>,              <a href="https://pybit.es/tag/carbon.html">carbon</a>,              <a href="https://pybit.es/tag/tips.html">tips</a>,              <a href="https://pybit.es/tag/pprint.html">pprint</a>,              <a href="https://pybit.es/tag/automation.html">automation</a>
-        &#8226; 7 min read
-    </p>
-  </header>
-  <div>
-      <p>Did you notice our <a href="https://twitter.com/search?q=pybites%20carbon&amp;src=typd">Python tips</a> lately? They looks more sexy, don't they? That's thanks to <a href="https://carbon.now.sh/">Carbon</a> which lets you <em>create beautiful images of your source code</em>. As much as I love its interface though, what if we can automate this process generating the image for us? That's what we did and posting new tips to Twitter is now a breeze. In this article I will show you how using a bit of <code>BeautifulSoup</code> and <code>selenium</code>. Enjoy!</p>
-      <br>
-      <a class="btn" href="https://pybit.es/python-tips-carbon-selenium.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/selenium-headless-on-heroku.html">How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Tue 19 February 2019 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/selenium.html">Selenium</a>,              <a href="https://pybit.es/tag/headless.html">headless</a>,              <a href="https://pybit.es/tag/heroku.html">Heroku</a>,              <a href="https://pybit.es/tag/tweepy.html">tweepy</a>,              <a href="https://pybit.es/tag/argparse.html">argparse</a>,              <a href="https://pybit.es/tag/slack.html">Slack</a>,              <a href="https://pybit.es/tag/packt.html">Packt</a>,              <a href="https://pybit.es/tag/books.html">books</a>,              <a href="https://pybit.es/tag/automation.html">automation</a>,              <a href="https://pybit.es/tag/parsing.html">parsing</a>,              <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>,              <a href="https://pybit.es/tag/requests.html">requests</a>,              <a href="https://pybit.es/tag/namedtuple.html">namedtuple</a>,              <a href="https://pybit.es/tag/scheduler.html">Scheduler</a>,              <a href="https://pybit.es/tag/git.html">git</a>,              <a href="https://pybit.es/tag/buildpacks.html">buildpacks</a>,              <a href="https://pybit.es/tag/environment-variables.html">environment variables</a>
-        &#8226; 6 min read
-    </p>
-  </header>
-  <div>
-      <p>Ever wondered how you scrape hidden (or JS generated) HTML? Selenium is your friend. Ever wondered how to run it without a browser popping up? Use <em>headless</em> mode. How would you run it remotely? Use Heroku. And how about autoposting to Slack and Twitter? With the right libraries and API setup little code is needed. In this 10 step guide I will show you how to build a <a href="https://github.com/pybites/packt"><em>Packt Free Learning Notifier</em></a> which will accomplish all these tasks. Ready to learn some nice automation skills in Python?</p>
-      <br>
-      <a class="btn" href="https://pybit.es/selenium-headless-on-heroku.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/guest-anaconda-workflow.html">My Anaconda Workflow: Python environment and package management made easy</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/martin-uribe.html">Martin Uribe</a> on Tue 24 July 2018 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/anaconda.html">Anaconda</a>,              <a href="https://pybit.es/tag/anaconda-workflow.html">Anaconda workflow</a>,              <a href="https://pybit.es/tag/conda.html">conda</a>,              <a href="https://pybit.es/tag/pip.html">pip</a>,              <a href="https://pybit.es/tag/virtual-environment.html">virtual environment</a>,              <a href="https://pybit.es/tag/packages.html">packages</a>,              <a href="https://pybit.es/tag/packaging.html">packaging</a>,              <a href="https://pybit.es/tag/distribution.html">distribution</a>,              <a href="https://pybit.es/tag/configuration.html">configuration</a>,              <a href="https://pybit.es/tag/yaml.html">YAML</a>,              <a href="https://pybit.es/tag/python37.html">python3.7</a>
-        &#8226; 12 min read
-    </p>
-  </header>
-  <div>
-      <p>in this article martin provides an easy-to-follow reference guide of his anaconda workflow. he uses this to make his life easier managing the his python environment and package dependencies. and to great avail as you will soon discover. not only will you learn the basics of the powerful conda tool, he also goes into more depth on the more niche/advanced features like using alternate channels, distributing and cloning environments, updating anaconda, and setting environment variables. warning: this might get you on anaconda, and if you are already you probably want to keep this one nearby for reference.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/guest-anaconda-workflow.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/guest-scrapy-packt-alexa.html">Pushing the Packt "free book of the day" to the world with Scrapy and Alexa</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/rhys-powell.html">Rhys Powell</a> on Thu 31 May 2018 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/guest.html">guest</a>,              <a href="https://pybit.es/tag/alexa.html">Alexa</a>,              <a href="https://pybit.es/tag/scrapy.html">Scrapy</a>,              <a href="https://pybit.es/tag/web-scraping.html">web scraping</a>,              <a href="https://pybit.es/tag/packt.html">Packt</a>,              <a href="https://pybit.es/tag/books.html">books</a>
-        &#8226; 6 min read
-    </p>
-  </header>
-  <div>
-      <p>I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book. What I always forget to do is look at what today’s book is and what I didn’t have was a lot of time to meet this month's deadline for app submission. Why not combine them both?</p>
-      <br>
-      <a class="btn" href="https://pybit.es/guest-scrapy-packt-alexa.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/guest-telegram-python-chatbot.html">DisAtBot - How I Built a Chatbot With Telegram And Python</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/rodolfo-ferro.html">Rodolfo Ferro</a> on Sun 10 December 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/bots.html">bots</a>,              <a href="https://pybit.es/tag/code-challenge.html">code challenge</a>,              <a href="https://pybit.es/tag/guest.html">guest</a>,              <a href="https://pybit.es/tag/disatbot.html">DisAtBot</a>,              <a href="https://pybit.es/tag/chatbots.html">chatbots</a>,              <a href="https://pybit.es/tag/opensource.html">opensource</a>,              <a href="https://pybit.es/tag/telegram.html">Telegram</a>,              <a href="https://pybit.es/tag/mexico.html">Mexico</a>
-        &#8226; 6 min read
-    </p>
-  </header>
-  <div>
-      <p>Rodolfo recently joined our <a href="https://pybit.es/pages/challenges.html">Code Challenges</a> and built <em>Disaster Attention Bot (DisAtBot)</em>, a chatbot that helps people affected by natural disasters. In this article he shows how he built this bot with Telegram and (of course) Python. Show him some love because who knows, this could be a life saver (pun intended)! We are delighted to have him show this interesting project he submitted for <a href="https://pybit.es/codechallenge43.html">Code Challenge 43</a> which earned him a book on chatbots. /Rod please share ...</p>
-      <br>
-      <a class="btn" href="https://pybit.es/guest-telegram-python-chatbot.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/python-cookiecutter.html">Bootstrap Your Next Python Project With Cookiecutter</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Wed 25 October 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/cookiecutter.html">Cookiecutter</a>,              <a href="https://pybit.es/tag/setup.html">setup</a>,              <a href="https://pybit.es/tag/testing.html">testing</a>,              <a href="https://pybit.es/tag/packages.html">packages</a>,              <a href="https://pybit.es/tag/modules.html">modules</a>,              <a href="https://pybit.es/tag/bottle.html">Bottle</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>I finally did it! I bootstrapped my first project with Cookiecutter. There is a lot to discover but wow this tool can save you a ton of time, making your project more professional.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/python-cookiecutter.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/python-MIME-bcc.html">Hiding BCC Recipients in Python MIME Emails</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/julian.html">Julian</a> on Wed 06 September 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/python.html">python</a>,              <a href="https://pybit.es/tag/tips.html">tips</a>,              <a href="https://pybit.es/tag/tricks.html">tricks</a>,              <a href="https://pybit.es/tag/code.html">code</a>,              <a href="https://pybit.es/tag/pybites.html">pybites</a>,              <a href="https://pybit.es/tag/email.html">email</a>,              <a href="https://pybit.es/tag/automation.html">automation</a>,              <a href="https://pybit.es/tag/mime.html">MIME</a>,              <a href="https://pybit.es/tag/bcc.html">bcc</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>How to actually hide the BCC recipients when sending an email with Python MIME.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/python-MIME-bcc.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/bettercodehub.html">Improve the Quality of Your Code with Better Code Hub</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Wed 30 August 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/bettercodehub.html">bettercodehub</a>,              <a href="https://pybit.es/tag/sig.html">SIG</a>,              <a href="https://pybit.es/tag/refactoring.html">refactoring</a>,              <a href="https://pybit.es/tag/code-quality.html">code quality</a>,              <a href="https://pybit.es/tag/clean-code.html">clean code</a>,              <a href="https://pybit.es/tag/software-development.html">software development</a>,              <a href="https://pybit.es/tag/tools.html">tools</a>,              <a href="https://pybit.es/tag/platform.html">platform</a>
-        &#8226; 5 min read
-    </p>
-  </header>
-  <div>
-      <p>So you pushed your code to GitHub and deployed v1, congrats! But how maintainable is your code really? Do you have tests? Is your code modular? Are your methods short and concise? What if you could hit a button and a tool conveniently checks this for you? Free and integrated with GitHub? Enter <a href="https://bettercodehub.com">Better Code Hub</a> from <a href="https://www.sig.eu/">Software Improvement Group</a> ...</p>
-      <br>
-      <a class="btn" href="https://pybit.es/bettercodehub.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/pillow-banner-flask.html">Making a Banner Generator With Pillow and Flask</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Sat 19 August 2017 in <a href="https://pybit.es/category/tools.html">Tools</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/pillow.html">Pillow</a>,              <a href="https://pybit.es/tag/flask.html">Flask</a>,              <a href="https://pybit.es/tag/heroku.html">Heroku</a>,              <a href="https://pybit.es/tag/flask-wtf.html">Flask-WTF</a>,              <a href="https://pybit.es/tag/flask-sqlalchemy.html">Flask-SQLAlchemy</a>,              <a href="https://pybit.es/tag/challenges.html">challenges</a>,              <a href="https://pybit.es/tag/pybites-banner-generator.html">PyBites Banner Generator</a>,              <a href="https://pybit.es/tag/images.html">images</a>
-        &#8226; 4 min read
-    </p>
-  </header>
-  <div>
-      <p>In this article I will take <a href="https://pybit.es/pillow-banner-image.html">last week's banner.py Pillow script</a> and integrate it into a Flask app.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/pillow-banner-flask.html">    Continue reading
-</a>
-  </div>
-</article>
-
-  <div class="pagination">
-    <a class="btn" href="https://pybit.es/category/tools2.html">
-      <i class="fa fa-angle-left"></i>     Older Posts
-
-    </a>
-  </div>
-
-
-
-
-    <footer>
-<p>&copy; pybites </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
-</p>    </footer>
-  </main>
-
-<!-- Google Analytics -->
-<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89294245-1', 'auto');
-  ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
-
-	<script>window.twttr = (function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0],
-		t = window.twttr || {};
-	if (d.getElementById(id)) return t;
-	js = d.createElement(s);
-	js.id = id;
-	js.src = "https://platform.twitter.com/widgets.js";
-	fjs.parentNode.insertBefore(js, fjs);
-	t._e = [];
-	t.ready = function(f) {
-		t._e.push(f);
-	};
-	return t;
-	}(document, "script", "twitter-wjs"));</script>
-
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-	
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
-  	<!-- search input field or archive pages -->
-  	<script src="https://pybit.es/theme/scripts/base.js" type="text/javascript"></script>
-
-
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Blog",
-  "name": " PyBites ",
-  "url" : "https://pybit.es",
-  "image": "https://pybit.es/theme/img/profile.png",
-  "description": "A Community that Masters Python through Code Challenges"
-}
-</script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
-</body>
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="../pages/community.html">Community</a></li>
+                            <li><a href="..https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+                            <li><a href="../pages/search.html">Search</a></li>
+                            <li><a href="../pages/privacy-policy.html">Privacy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="/archives.html" target="_blank">Twitter</a></li>
+                            <li><a href="http://facebook.com/pybites/" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
 </html>

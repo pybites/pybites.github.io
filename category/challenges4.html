@@ -1,403 +1,297 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content=" Challenges">
+        <meta name="keywords" content="">
+        <link rel="icon" href="../favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+        <title> Challenges - PyBites</title>
 
-    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+        <!-- Stylesheets -->
+        <link href="../theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
 
-    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/challenges.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
 
-    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="" />
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-
-    <meta name="author" content="pybites" />
-    <meta name="description" content="A Community that Masters Python through Code Challenges" />
-<meta property="og:site_name" content="PyBites"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="PyBites"/>
-<meta property="og:description" content="A Community that Masters Python through Code Challenges"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es"/>
-<meta property="og:image" content="https://pybit.es/theme/img/profile.png">
-
-  <title>PyBites &ndash;     Category Challenges
-</title>
-
-
-</head>
-<body>
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
 
 
-  <!-- change ribbon color based on topic -->
-  <div class="ribbon right
-      default
-  ">
-    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
-  </div>
+    </head>
 
-  <!-- change aside color based on topic -->
-    <aside class='default'>
-  
-    <div>
-      <a href="https://pybit.es">
-          <img src="https://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
-      </a>
-      <h1><a href="https://pybit.es">PyBites</a></h1>
+    <body>
 
-<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
-      <nav>
-        <ul class="list">
-          <li><a href="/pages/articles.html">Articles</a></li>
-          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
-          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
-          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
-          <li><a href="/pages/community.html">Join our Slack</a></li>
-          <li><a href="/pages/search.html">Search</a></li>
-        </ul>
-      </nav>
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/circuit-bg.png'); background-position: center; ">
 
-      <div id='mc-dark'>
-<!-- Begin MailChimp Signup Form -->
-<hr class="softDivider">
-<div id="mc_embed_signup">
-<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-    
-<div class="mc-field-group">
-  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
-    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
-</div>
-    <div id="mce-responses" class="clear">
-        <div class="response" id="mce-error-response" style="display:none"></div>
-        <div class="response" id="mce-success-response" style="display:none"></div>
-    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="../"><img class="mr20" src="../images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="../">Home</a>
+                                <a href="../archives.html">Blog</a>
+                                <a  href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="../pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title text-uppercase"> : Challenges</h1>
+                      <div class="header-underline"></div>
+                      <p class="header-subtitle header-subtitle-homepage"> "Challenges"</p>
+                  </div>
+              </div>
+        </div>
     </div>
-</form>
-</div>
-<!--End mc_embed_signup-->                  </div>
+            <!-- /Header -->
 
-      <hr class="softDivider">
+        </div>
+        <!-- /Header -->
 
-      <div id="ninjaWidget">
-        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
-      </div>
-        
-      <ul class="social">
-        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
-        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
-        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
-        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
-        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
-      </ul>
 
-      <br>
-      <script src="https://apis.google.com/js/platform.js"></script>
-
-	
+        <!-- Content -->
+    <div class="archive-container">
+        <div class="container content archive">
+            <h2><a href="../category/challenges.html">Challenges</a></h2>
+            <dl class="dl-horizontal">
+            	<dt>Mon 07 January 2019</dt>
+            	<dd><a href="../codechallenge58_review.html">Code Challenge 58 - Analyze Podcast Transcripts with NLTK - Part I - Review</a></dd>
+            	<dt>Fri 09 November 2018</dt>
+            	<dd><a href="../codechallenge57_review.html">Code Challenge 57 - Analyze Olympic Games Data With Pandas - Review</a></dd>
+            	<dt>Tue 30 October 2018</dt>
+            	<dd><a href="../codechallenge56_review.html">Code Challenge 56 - Calculate the Duration of a Directory of Audio Files - Review</a></dd>
+            	<dt>Tue 23 October 2018</dt>
+            	<dd><a href="../codechallenge55_review.html">Code Challenge 55 - #100DaysOfCode Curriculum Generator - Review</a></dd>
+            	<dt>Tue 16 October 2018</dt>
+            	<dd><a href="../codechallenge54_review.html">Code Challenge 54 - Python Clipboard History - Review</a></dd>
+            	<dt>Tue 09 October 2018</dt>
+            	<dd><a href="../codechallenge53_review.html">Code Challenge 53 - Query the Spotify API - Review</a></dd>
+            	<dt>Mon 01 October 2018</dt>
+            	<dd><a href="../codechallenge52_review.html">Code Challenge 52 - Create your own Pomodoro Timer - Review</a></dd>
+            	<dt>Mon 24 September 2018</dt>
+            	<dd><a href="../codechallenge51_review.html">Code Challenge 51 - Analyse NBA Data with SQL/sqlite3 - Review</a></dd>
+            	<dt>Sun 10 December 2017</dt>
+            	<dd><a href="../codechallenge41-44_review.html">Code Challenge 41-44 Review - APIs, Regex, Chatbots and Marvel Data Analysis</a></dd>
+            	<dt>Wed 01 November 2017</dt>
+            	<dd><a href="../codechallenge40_review.html">Code Challenge 40 - Daily Python Tip Part 1 - Make a Web App - Review</a></dd>
+            	<dt>Wed 01 November 2017</dt>
+            	<dd><a href="../codechallenge39_review.html">Code Challenge 39 - Writing Tests With Pytest - Review</a></dd>
+            	<dt>Wed 01 November 2017</dt>
+            	<dd><a href="../codechallenge38_review.html">Code Challenge 38 - Build Your Own Hacktoberfest Checker With Bottle - Review</a></dd>
+            	<dt>Tue 03 October 2017</dt>
+            	<dd><a href="../codechallenge37_review.html">Code Challenge 37 - Automate a Task With Twilio - Review</a></dd>
+            	<dt>Tue 03 October 2017</dt>
+            	<dd><a href="../codechallenge36_review.html">Code Challenge 36 - Create an AWS Lambda Function - Review</a></dd>
+            	<dt>Mon 11 September 2017</dt>
+            	<dd><a href="../codechallenge35_review.html">Code Challenge 35 - Improve Your Python Code With BetterCodeHub - Review</a></dd>
+            	<dt>Fri 08 September 2017</dt>
+            	<dd><a href="../codechallenge34_review.html">Code Challenge 34 - Build a Simple API With Django REST Framework - Review</a></dd>
+            	<dt>Mon 28 August 2017</dt>
+            	<dd><a href="../codechallenge33_review.html">Code Challenge 33 - Build a Django Tracker, Weather or Review App - Review</a></dd>
+            	<dt>Mon 21 August 2017</dt>
+            	<dd><a href="../codechallenge32_review.html">Code Challenge 32 - Test a Simple Django App With Selenium - Review</a></dd>
+            	<dt>Mon 14 August 2017</dt>
+            	<dd><a href="../codechallenge31_review.html">Code Challenge 31 - Image Manipulation With Pillow - Review</a></dd>
+            	<dt>Tue 08 August 2017</dt>
+            	<dd><a href="../codechallenge31.html">Code Challenge 31 - Image Manipulation With Pillow</a></dd>
+            	<dt>Mon 07 August 2017</dt>
+            	<dd><a href="../codechallenge30_review.html">Code Challenge 30 - The Art of Refactoring: Improve Your Code - Review</a></dd>
+            	<dt>Tue 01 August 2017</dt>
+            	<dd><a href="../codechallenge30.html">Code Challenge 30 - The Art of Refactoring: Improve Your Code</a></dd>
+            	<dt>Mon 31 July 2017</dt>
+            	<dd><a href="../codechallenge29_review.html">Code Challenge 29 - Create a Simple Django App - Review</a></dd>
+            	<dt>Tue 25 July 2017</dt>
+            	<dd><a href="../codechallenge29.html">Code Challenge 29 - Create a Simple Django App</a></dd>
+            	<dt>Mon 24 July 2017</dt>
+            	<dd><a href="../codechallenge28_review.html">Code Challenge 28 - Integrate a Bokeh Chart Into Flask - Review</a></dd>
+            	<dt>Tue 18 July 2017</dt>
+            	<dd><a href="../codechallenge28.html">Code Challenge 28 - Integrate a Bokeh Chart Into Flask</a></dd>
+            	<dt>Tue 18 July 2017</dt>
+            	<dd><a href="../codechallenge27_review.html">Code Challenge 27 - PRAW: The Python Reddit API Wrapper - Review</a></dd>
+            	<dt>Tue 11 July 2017</dt>
+            	<dd><a href="../codechallenge27.html">Code Challenge 27 - PRAW: The Python Reddit API Wrapper</a></dd>
+            	<dt>Mon 10 July 2017</dt>
+            	<dd><a href="../codechallenge26_review.html">Code Challenge 26 - Create a Simple Python GUI - Review</a></dd>
+            	<dt>Tue 04 July 2017</dt>
+            	<dd><a href="../codechallenge26.html">Code Challenge 26 - Create a Simple Python GUI</a></dd>
+            	<dt>Mon 03 July 2017</dt>
+            	<dd><a href="../codechallenge25_review.html">Code Challenge 25 - Notification Service of Now Playing and Upcoming Movies - Review</a></dd>
+            	<dt>Mon 26 June 2017</dt>
+            	<dd><a href="../codechallenge25.html">Code Challenge 25 - Notification Service of Now Playing and Upcoming Movies</a></dd>
+            	<dt>Mon 26 June 2017</dt>
+            	<dd><a href="../codechallenge24_review.html">Code Challenge 24 - Use Dunder / Special Methods to Enrich a Class - Review</a></dd>
+            	<dt>Tue 20 June 2017</dt>
+            	<dd><a href="../codechallenge24.html">Code Challenge 24 - Use Dunder / Special Methods to Enrich a Class</a></dd>
+            	<dt>Sun 18 June 2017</dt>
+            	<dd><a href="../codechallenge23_review.html">Code Challenge 23 - Challenge Estimated Time API - Review</a></dd>
+            	<dt>Tue 13 June 2017</dt>
+            	<dd><a href="../codechallenge23.html">Code Challenge 23 - Challenge Estimated Time API</a></dd>
+            	<dt>Mon 12 June 2017</dt>
+            	<dd><a href="../codechallenge22_review.html">Code Challenge 22 - Packt Free Ebook Web Scraper - Review</a></dd>
+            	<dt>Mon 05 June 2017</dt>
+            	<dd><a href="../codechallenge22.html">Code Challenge 22 - Packt Free Ebook Web Scraper</a></dd>
+            	<dt>Mon 05 June 2017</dt>
+            	<dd><a href="../codechallenge21_review.html">Code Challenge 21 - Electricity Cost Calculation App - Review</a></dd>
+            	<dt>Mon 29 May 2017</dt>
+            	<dd><a href="../codechallenge21.html">Code Challenge 21 - Electricity Cost Calculation App</a></dd>
+            	<dt>Mon 29 May 2017</dt>
+            	<dd><a href="../codechallenge20_review.html">Code Challenge 20 - Object Oriented Programming Fun - Review</a></dd>
+            	<dt>Mon 22 May 2017</dt>
+            	<dd><a href="../codechallenge20.html">Code Challenge 20 - Object Oriented Programming Fun</a></dd>
+            	<dt>Mon 22 May 2017</dt>
+            	<dd><a href="../codechallenge19_review.html">Code Challenge 19 - Post to Your Favorite API - Review</a></dd>
+            	<dt>Mon 15 May 2017</dt>
+            	<dd><a href="../codechallenge19.html">Code Challenge 19 - Post to Your Favorite API</a></dd>
+            	<dt>Mon 15 May 2017</dt>
+            	<dd><a href="../codechallenge18_review.html">Code Challenge 18 - Get Recommendations - Review</a></dd>
+            	<dt>Mon 08 May 2017</dt>
+            	<dd><a href="../codechallenge18.html">Code Challenge 18 - Get Recommendations</a></dd>
+            	<dt>Sun 07 May 2017</dt>
+            	<dd><a href="../codechallenge17_review.html">Code Challenge 17 - Never Miss a Good Podcast - Review</a></dd>
+            	<dt>Mon 01 May 2017</dt>
+            	<dd><a href="../codechallenge17.html">Code Challenge 17 - Never Miss a Good Podcast</a></dd>
+            	<dt>Sun 30 April 2017</dt>
+            	<dd><a href="../codechallenge16_review.html">Code Challenge 16 - Query Your Favorite API - Review</a></dd>
+            	<dt>Mon 24 April 2017</dt>
+            	<dd><a href="../codechallenge16.html">Code Challenge 16 - Query Your Favorite API</a></dd>
+            	<dt>Sat 22 April 2017</dt>
+            	<dd><a href="../codechallenge15_review.html">Code Challenge 15 - Create a Simple Flask App - Review</a></dd>
+            	<dt>Mon 17 April 2017</dt>
+            	<dd><a href="../codechallenge15.html">Code Challenge 15 - Create a Simple Flask App</a></dd>
+            	<dt>Sat 15 April 2017</dt>
+            	<dd><a href="../codechallenge14_review.html">Code Challenge 14 - Write DRY Code With Decorators - Review</a></dd>
+            	<dt>Mon 10 April 2017</dt>
+            	<dd><a href="../codechallenge14.html">Code Challenge 14 - Write DRY Code With Decorators</a></dd>
+            	<dt>Sat 08 April 2017</dt>
+            	<dd><a href="../codechallenge13_review.html">Code Challenge 13 - Highest Rated Movie Directors - Review</a></dd>
+            	<dt>Mon 03 April 2017</dt>
+            	<dd><a href="../codechallenge13.html">Code Challenge 13 - Highest Rated Movie Directors</a></dd>
+            	<dt>Sat 01 April 2017</dt>
+            	<dd><a href="../codechallenge12_review.html">Code Challenge 12 - Build a Tic-tac-toe Game - Review</a></dd>
+            	<dt>Mon 27 March 2017</dt>
+            	<dd><a href="../codechallenge12.html">Code Challenge 12 - Build a Tic-tac-toe Game</a></dd>
+            	<dt>Sat 25 March 2017</dt>
+            	<dd><a href="../codechallenge11_review.html">Code Challenge 11 - Generators for Fun and Profit - Review</a></dd>
+            	<dt>Mon 20 March 2017</dt>
+            	<dd><a href="../codechallenge11.html">Code Challenge 11 - Generators for Fun and Profit</a></dd>
+            	<dt>Sat 18 March 2017</dt>
+            	<dd><a href="../codechallenge10_review.html">Code Challenge 10 - Build a Hangman Game - Review</a></dd>
+            	<dt>Mon 13 March 2017</dt>
+            	<dd><a href="../codechallenge10.html">Code Challenge 10 - Build a Hangman Game</a></dd>
+            	<dt>Sat 11 March 2017</dt>
+            	<dd><a href="../codechallenge09_review.html">Code Challenge 09 - The With Statement and Context Managers - Review</a></dd>
+            	<dt>Mon 06 March 2017</dt>
+            	<dd><a href="../codechallenge09.html">Code Challenge 09 - The With Statement and Context Managers</a></dd>
+            	<dt>Sun 05 March 2017</dt>
+            	<dd><a href="../codechallenge08_review.html">Code Challenge 08 - House Inventory Tracker - Review</a></dd>
+            	<dt>Mon 27 February 2017</dt>
+            	<dd><a href="../codechallenge08.html">Code Challenge 08 - House Inventory Tracker</a></dd>
+            	<dt>Sun 26 February 2017</dt>
+            	<dd><a href="../codechallenge07_review.html">Code Challenge 07 - Twitter Sentiment Analysis - Review</a></dd>
+            	<dt>Mon 20 February 2017</dt>
+            	<dd><a href="../codechallenge07.html">Code Challenge 07 - Twitter Sentiment Analysis</a></dd>
+            	<dt>Fri 17 February 2017</dt>
+            	<dd><a href="../codechallenge06_review.html">Code Challenge 06 - PyPI 100K Packages Prediction - Review</a></dd>
+            	<dt>Mon 13 February 2017</dt>
+            	<dd><a href="../codechallenge06.html">Code Challenge 06 - PyPI 100K Packages Prediction</a></dd>
+            	<dt>Fri 10 February 2017</dt>
+            	<dd><a href="../codechallenge05_review.html">Code Challenge 05 - Twitter data analysis Part 2: Similar Tweeters - Review</a></dd>
+            	<dt>Mon 06 February 2017</dt>
+            	<dd><a href="../codechallenge05.html">Code Challenge 05 - Twitter data analysis Part 2: Similar Tweeters</a></dd>
+            	<dt>Fri 03 February 2017</dt>
+            	<dd><a href="../codechallenge04_review.html">Code Challenge 04 - Twitter data analysis Part 1: Getting Data - Review</a></dd>
+            	<dt>Mon 30 January 2017</dt>
+            	<dd><a href="../codechallenge04.html">Code Challenge 04 - Twitter data analysis Part 1: Getting Data</a></dd>
+            	<dt>Fri 27 January 2017</dt>
+            	<dd><a href="../codechallenge03_review.html">Code Challenge 03 - PyBites Blog Tag Analysis - Review</a></dd>
+            	<dt>Mon 23 January 2017</dt>
+            	<dd><a href="../codechallenge03.html">Code Challenge 03 - PyBites Blog Tag Analysis</a></dd>
+            	<dt>Fri 20 January 2017</dt>
+            	<dd><a href="../codechallenge02_review.html">Code Challenge 02 - Word Values Part II - A Simple Game - Review</a></dd>
+            	<dt>Mon 16 January 2017</dt>
+            	<dd><a href="../codechallenge02.html">Code Challenge 02 - Word Values Part II - A Simple Game</a></dd>
+            	<dt>Fri 13 January 2017</dt>
+            	<dd><a href="../codechallenge01_review.html">Code Challenge 01 - Word Values Part I - Review</a></dd>
+            	<dt>Mon 09 January 2017</dt>
+            	<dd><a href="../codechallenge01.html">Code Challenge 01 - Word Values Part I</a></dd>
+            	<dt>Thu 05 January 2017</dt>
+            	<dd><a href="../challenge_pilot_codereview.html">Code Challenge Pilot - code review</a></dd>
+            	<dt>Wed 04 January 2017</dt>
+            	<dd><a href="../js_time_scraper_ch.html">Code Challenge Pilot - calculate total time JS course</a></dd>
+            </dl>
+        </div>
     </div>
+        <!-- /Content --> 
 
-
-  </aside>
-  <main>
-
-
-
-
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge25_review.html">Code Challenge 25 - Notification Service of Now Playing and Upcoming Movies - Review</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 03 July 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/movies.html">movies</a>,              <a href="https://pybit.es/tag/series.html">series</a>,              <a href="https://pybit.es/tag/digest.html">digest</a>,              <a href="https://pybit.es/tag/email.html">email</a>,              <a href="https://pybit.es/tag/themoviedb.html">themoviedb</a>,              <a href="https://pybit.es/tag/apis.html">apis</a>,              <a href="https://pybit.es/tag/argparse.html">argparse</a>,              <a href="https://pybit.es/tag/requests.html">requests</a>,              <a href="https://pybit.es/tag/mailgun.html">mailgun</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>In this article we review last week's <a href="http://pybit.es/codechallenge25.html">Notification Service of Now Playing and Upcoming Movies</a> code challenge.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge25_review.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge25.html">Code Challenge 25 - Notification Service of Now Playing and Upcoming Movies</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 26 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/movies.html">movies</a>,              <a href="https://pybit.es/tag/series.html">series</a>,              <a href="https://pybit.es/tag/digest.html">digest</a>,              <a href="https://pybit.es/tag/email.html">email</a>,              <a href="https://pybit.es/tag/themoviedb.html">themoviedb</a>,              <a href="https://pybit.es/tag/imdb.html">imdb</a>,              <a href="https://pybit.es/tag/omdb.html">omdb</a>,              <a href="https://pybit.es/tag/apis.html">apis</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>Hi Pythonistas, a new week, a new 'bite' of Python coding! What movies are in theaters now or just came out on your favorite streaming service? What are upcoming movies, when will they be released? Can I keep track of all new humor movies? Or what about that specific actor or director? Having a notification service around movies seems an interesting, fun and useful code challenge to us.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge25.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge24_review.html">Code Challenge 24 - Use Dunder / Special Methods to Enrich a Class - Review</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 26 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/dunders.html">dunders</a>,              <a href="https://pybit.es/tag/special-methods.html">special methods</a>,              <a href="https://pybit.es/tag/magic-methods.html">magic methods</a>,              <a href="https://pybit.es/tag/classes.html">classes</a>,              <a href="https://pybit.es/tag/polymorphism.html">polymorphism</a>,              <a href="https://pybit.es/tag/operator-overloading.html">operator overloading</a>,              <a href="https://pybit.es/tag/guest.html">guest</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>In this article we review last week's <a href="http://pybit.es/codechallenge24.html">Use Dunder / Special Methods to Enrich a Class</a> code challenge.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge24_review.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge24.html">Code Challenge 24 - Use Dunder / Special Methods to Enrich a Class</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Tue 20 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/dunders.html">dunders</a>,              <a href="https://pybit.es/tag/special-methods.html">special methods</a>,              <a href="https://pybit.es/tag/magic-methods.html">magic methods</a>,              <a href="https://pybit.es/tag/classes.html">classes</a>,              <a href="https://pybit.es/tag/polymorphism.html">polymorphism</a>,              <a href="https://pybit.es/tag/operator-overloading.html">operator overloading</a>,              <a href="https://pybit.es/tag/guest.html">guest</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>Hi Pythonistas, a new week, a new 'bite' of Python coding! We wrote an article for Dan Bader's Python blog: <a href="https://dbader.org/blog/python-dunder-methods">Enriching Your Python Classes With Dunder (Magic, Special) Methods</a>. We hope you like it. To put dunders into practice we dedicate this week's code challenge to it.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge24.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge23_review.html">Code Challenge 23 - Challenge Estimated Time API - Review</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Sun 18 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/apis.html">APIs</a>,              <a href="https://pybit.es/tag/github.html">Github</a>,              <a href="https://pybit.es/tag/pygithub.html">PyGithub</a>,              <a href="https://pybit.es/tag/pr-template.html">PR template</a>,              <a href="https://pybit.es/tag/tracking.html">tracking</a>,              <a href="https://pybit.es/tag/meta.html">meta</a>,              <a href="https://pybit.es/tag/data.html">data</a>,              <a href="https://pybit.es/tag/platform.html">platform</a>,              <a href="https://pybit.es/tag/packaging.html">packaging</a>,              <a href="https://pybit.es/tag/peewee.html">peewee</a>,              <a href="https://pybit.es/tag/click.html">click</a>,              <a href="https://pybit.es/tag/maya.html">maya</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>In this article we review last week's <a href="http://pybit.es/codechallenge23.html">Challenge Estimated Time API</a>. This was a cool challenge and we implemented it using Github's awesome platform and <a href="https://developer.github.com/v3/">API</a>.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge23_review.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge23.html">Code Challenge 23 - Challenge Estimated Time API</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Tue 13 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/apis.html">APIs</a>,              <a href="https://pybit.es/tag/github.html">Github</a>,              <a href="https://pybit.es/tag/slack.html">Slack</a>,              <a href="https://pybit.es/tag/flask.html">Flask</a>,              <a href="https://pybit.es/tag/tracking.html">tracking</a>,              <a href="https://pybit.es/tag/meta.html">meta</a>,              <a href="https://pybit.es/tag/data.html">data</a>,              <a href="https://pybit.es/tag/platform.html">platform</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>Hi Pythonistas, a new week, a new 'bite' of Python coding! This week we will give you the opportunity to enhance our challenge platform by creating a simple API to track how much time our challenges take (and possibly other metadata).</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge23.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge22_review.html">Code Challenge 22 - Packt Free Ebook Web Scraper - Review</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 12 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/webscraping.html">webscraping</a>,              <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>,              <a href="https://pybit.es/tag/selenium.html">Selenium</a>,              <a href="https://pybit.es/tag/packt.html">Packt</a>,              <a href="https://pybit.es/tag/pybonacci.html">Pybonacci</a>,              <a href="https://pybit.es/tag/ebooks.html">ebooks</a>,              <a href="https://pybit.es/tag/community.html">community</a>,              <a href="https://pybit.es/tag/automation.html">automation</a>,              <a href="https://pybit.es/tag/sponsoring.html">sponsoring</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>In this article we review last week's <a href="http://pybit.es/codechallenge22.html">Packt free ebook code challenge</a>. We really scratched our own itch building both a notification service and an ebook download manager.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge22_review.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge22.html">Code Challenge 22 - Packt Free Ebook Web Scraper</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 05 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/webscraping.html">webscraping</a>,              <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>,              <a href="https://pybit.es/tag/selenium.html">Selenium</a>,              <a href="https://pybit.es/tag/packt.html">Packt</a>,              <a href="https://pybit.es/tag/pybonacci.html">Pybonacci</a>,              <a href="https://pybit.es/tag/ebooks.html">ebooks</a>,              <a href="https://pybit.es/tag/community.html">community</a>,              <a href="https://pybit.es/tag/automation.html">automation</a>,              <a href="https://pybit.es/tag/sponsoring.html">sponsoring</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>Hi Pythonistas, a new week, a new 'bite' of Python coding! This week we will do some web scraping of Packt's daily free ebook, sending out daily notifications. This week we even have a unique opportunity to sponsor the Python Community, read on ... and happy coding!</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge22.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge21_review.html">Code Challenge 21 - Electricity Cost Calculation App - Review</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 05 June 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/calculation.html">calculation</a>,              <a href="https://pybit.es/tag/electricity.html">electricity</a>,              <a href="https://pybit.es/tag/flask.html">Flask</a>,              <a href="https://pybit.es/tag/django.html">Django</a>,              <a href="https://pybit.es/tag/cli.html">cli</a>,              <a href="https://pybit.es/tag/data.html">data</a>,              <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>,              <a href="https://pybit.es/tag/python-anywhere.html">Python Anywhere</a>,              <a href="https://pybit.es/tag/pythonista-3.html">Pythonista 3</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>In this article we review this week's <a href="http://pybit.es/codechallenge21.html">code challenge #21</a> for which we got some nice PRs.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge21_review.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/codechallenge21.html">Code Challenge 21 - Electricity Cost Calculation App</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/pybites.html">PyBites</a> on Mon 29 May 2017 in <a href="https://pybit.es/category/challenges.html">Challenges</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>,              <a href="https://pybit.es/tag/calculation.html">calculation</a>,              <a href="https://pybit.es/tag/math.html">math</a>,              <a href="https://pybit.es/tag/electricity.html">electricity</a>,              <a href="https://pybit.es/tag/beginner.html">beginner</a>,              <a href="https://pybit.es/tag/gui.html">GUI</a>,              <a href="https://pybit.es/tag/tkinter.html">TkInter</a>,              <a href="https://pybit.es/tag/flask.html">Flask</a>,              <a href="https://pybit.es/tag/newquote.html">newquote</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>Hi Pythonistas, a new week, a new 'bite' of Python coding! This week we will get you to create a simple app to calculate the monetary cost of using an electrical device. Enjoy!</p>
-      <br>
-      <a class="btn" href="https://pybit.es/codechallenge21.html">    Continue reading
-</a>
-  </div>
-</article>
-
-  <div class="pagination">
-    <a class="btn" href="https://pybit.es/category/challenges5.html">
-      <i class="fa fa-angle-left"></i>     Older Posts
-
-    </a>
-    <a class="btn float-right" href="https://pybit.es/category/challenges3.html">
-          Newer Posts
- <i class="fa fa-angle-right"></i>
-    </a>
-  </div>
-
-
-
-
-    <footer>
-<p>&copy; pybites </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
-</p>    </footer>
-  </main>
-
-<!-- Google Analytics -->
-<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89294245-1', 'auto');
-  ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
-
-	<script>window.twttr = (function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0],
-		t = window.twttr || {};
-	if (d.getElementById(id)) return t;
-	js = d.createElement(s);
-	js.id = id;
-	js.src = "https://platform.twitter.com/widgets.js";
-	fjs.parentNode.insertBefore(js, fjs);
-	t._e = [];
-	t.ready = function(f) {
-		t._e.push(f);
-	};
-	return t;
-	}(document, "script", "twitter-wjs"));</script>
-
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-	
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
-  	<!-- search input field or archive pages -->
-  	<script src="https://pybit.es/theme/scripts/base.js" type="text/javascript"></script>
-
-
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Blog",
-  "name": " PyBites ",
-  "url" : "https://pybit.es",
-  "image": "https://pybit.es/theme/img/profile.png",
-  "description": "A Community that Masters Python through Code Challenges"
-}
-</script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
-</body>
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="../pages/community.html">Community</a></li>
+                            <li><a href="..https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+                            <li><a href="../pages/search.html">Search</a></li>
+                            <li><a href="../pages/privacy-policy.html">Privacy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="/archives.html" target="_blank">Twitter</a></li>
+                            <li><a href="http://facebook.com/pybites/" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
 </html>

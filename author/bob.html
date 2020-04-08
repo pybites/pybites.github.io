@@ -1,399 +1,280 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta name="google-site-verification" content="lyiNqmFUtae2FGps4eCalBloZekygEIfjiV8tSPrjMY" />
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content=" Bob">
+        <meta name="keywords" content="">
+        <link rel="icon" href="../favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/style.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/pygments/github.min.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/ribbons.css">
-  <link rel="stylesheet" type="text/css" href="https://pybit.es/theme/stylesheet/custom.css">
+        <title> Bob - PyBites</title>
 
-    <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Atom">
+        <!-- Stylesheets -->
+        <link href="../theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
 
-    <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites RSS">
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <!-- /RSS Feeds -->
 
-    <link rel="shortcut icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="https://pybit.es/favicon.ico" type="image/x-icon">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="" />
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-
-    <meta name="author" content="pybites" />
-    <meta name="description" content="A Community that Masters Python through Code Challenges" />
-<meta property="og:site_name" content="PyBites"/>
-<meta property="og:type" content="blog"/>
-<meta property="og:title" content="PyBites"/>
-<meta property="og:description" content="A Community that Masters Python through Code Challenges"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://pybit.es"/>
-<meta property="og:image" content="https://pybit.es/theme/img/profile.png">
-
-  <title>PyBites &ndash;     Posts by Bob
-:</title>
-
-
-</head>
-<body>
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
 
 
-  <!-- change ribbon color based on topic -->
-  <div class="ribbon right
-      default
-  ">
-    <a href="https://codechalleng.es/via/pybites" target="_blank">Click here to code!</a>
-  </div>
+    </head>
 
-  <!-- change aside color based on topic -->
-    <aside class='default'>
-  
-    <div>
-      <a href="https://pybit.es">
-          <img src="https://pybit.es/theme/img/profile.png" alt="PyBites" title="PyBites">
-      </a>
-      <h1><a href="https://pybit.es">PyBites</a></h1>
+    <body>
 
-<h2 id="sitesubtitle">A Community that Masters Python through Code Challenges</h2>
-      <nav>
-        <ul class="list">
-          <li><a href="/pages/articles.html">Articles</a></li>
-          <li><a href="/pages/challenges.html">Blog Challenges</a></li>
-          <li><a href="https://codechalleng.es/">Python Exercises</a></li>
-          <li><a href="https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
-          <li><a href="/pages/community.html">Join our Slack</a></li>
-          <li><a href="/pages/search.html">Search</a></li>
-        </ul>
-      </nav>
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/circuit-bg.png'); background-position: center; ">
 
-      <div id='mc-dark'>
-<!-- Begin MailChimp Signup Form -->
-<hr class="softDivider">
-<div id="mc_embed_signup">
-<form action="//pybit.us14.list-manage.com/subscribe/post?u=822043293f280259d4b8d2a3e&amp;id=ac7e2eb9ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-    
-<div class="mc-field-group">
-  <p><a href='http://us14.campaign-archive1.com/home/?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef'>Join our community</a> and grab our <i>Become a Better Python Developer</i> cheat sheet. Learn Python. Receive bonus material. Challenge yourself! (<a href="https://pybit.es/pages/privacy-policy">Privacy Policy</a>)</p>
-    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
-</div>
-    <div id="mce-responses" class="clear">
-        <div class="response" id="mce-error-response" style="display:none"></div>
-        <div class="response" id="mce-success-response" style="display:none"></div>
-    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_822043293f280259d4b8d2a3e_ac7e2eb9ef" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Join Us" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="../"><img class="mr20" src="../images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="../">Home</a>
+                                <a href="../archives.html">Blog</a>
+                                <a  href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="../pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title text-uppercase">Bob</h1>
+                      <div class="header-underline"></div>
+                      <p class="header-subtitle header-subtitle-homepage"></p>
+                  </div>
+              </div>
+        </div>
     </div>
-</form>
-</div>
-<!--End mc_embed_signup-->                  </div>
+            <!-- /Header -->
 
-      <hr class="softDivider">
+        </div>
+        <!-- /Header -->
 
-      <div id="ninjaWidget">
-        <a href="https://codechalleng.es/via/pybites" target="_blank"><img src="https://codechalleng.es/static/img/honors/ninja_widget.png" alt="start earning PyBites Ninja Belts"></a>
-      </div>
-        
-      <ul class="social">
-        <li><a href="https://pybit.es/feeds/all.rss.xml" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/rss.png' alt='Our RSS Feed'></a></li>
-        <li><a href="https://twitter.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/twitter.png' alt='Follow us on Twitter'></a></li>
-        <li><a href="https://github.com/pybites/" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/github.png' alt='Follow us on Github'></a></li>
-        <li><a href="https://instagram.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/instagram.png' alt='Follow us on Instagram'></a></li>
-        <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/youtube.png' alt='Follow us on Youtube'></a></li>
-        <li><a href="https://www.facebook.com/pybites" target="_blank"><img src='https://pybit.es/theme/img/socialmedia/facebook.png' alt='Follow us on Facebook'></a></li>
-      </ul>
 
-      <br>
-      <script src="https://apis.google.com/js/platform.js"></script>
-
-	
+        <!-- Content -->
+    <div class="archive-container">
+        <div class="container content archive">
+            <h2><a href="../author/bob.html"></a></h2>
+            <dl class="dl-horizontal">
+            	<dt>Mon 06 April 2020</dt>
+            	<dd><a href="../developer-tools.html">Effective Developers Leverage Their Toolset</a></dd>
+            	<dt>Mon 23 March 2020</dt>
+            	<dd><a href="../simple-productivity.html">Productivity Mondays - a Simple yet Effective System</a></dd>
+            	<dt>Thu 19 March 2020</dt>
+            	<dd><a href="../python-learning-mistakes.html">4 Common Mistakes When Learning Python and Programming</a></dd>
+            	<dt>Wed 18 March 2020</dt>
+            	<dd><a href="../pytest-timeout.html">How to Debug a Hanging Test Using pytest</a></dd>
+            	<dt>Mon 16 March 2020</dt>
+            	<dd><a href="../adam-grant.html">Productivity Mondays - Tips from Adam Grant</a></dd>
+            	<dt>Mon 02 March 2020</dt>
+            	<dd><a href="../consistency.html">Productivity Mondays - What Can You Do Consistently This Week?</a></dd>
+            	<dt>Mon 24 February 2020</dt>
+            	<dd><a href="../deep-work.html">Productivity Mondays - Are You Producing Enough Value? 5 Tips to Boost Your Deep Work</a></dd>
+            	<dt>Mon 17 February 2020</dt>
+            	<dd><a href="../small-hacks.html">Productivity Mondays - 5 tips that will boost your performance</a></dd>
+            	<dt>Wed 12 February 2020</dt>
+            	<dd><a href="../python-mentoring-session.html">The Pythonic Fast Lane, Digest of a 30 Min Mentoring Session</a></dd>
+            	<dt>Mon 10 February 2020</dt>
+            	<dd><a href="../80-20.html">Productivity Mondays - How to Instantly Save 2-3 Hours a Day</a></dd>
+            	<dt>Mon 18 November 2019</dt>
+            	<dd><a href="../launch-pytest-bites.html">You can now hone your testing / pytest skills on our platform</a></dd>
+            	<dt>Wed 09 October 2019</dt>
+            	<dd><a href="../pycones-2019.html">PyCon ES 2019 Alicante Highlights</a></dd>
+            	<dt>Wed 08 May 2019</dt>
+            	<dd><a href="../django-zipfiles.html">How to Create and Serve Zipfiles from Django</a></dd>
+            	<dt>Tue 05 March 2019</dt>
+            	<dd><a href="../django-rest-tips-api-digital-ocean.html">Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean</a></dd>
+            	<dt>Tue 26 February 2019</dt>
+            	<dd><a href="../python-tips-carbon-selenium.html">Generating Beautiful Code Snippets with Carbon and Selenium</a></dd>
+            	<dt>Tue 19 February 2019</dt>
+            	<dd><a href="../selenium-headless-on-heroku.html">How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku</a></dd>
+            	<dt>Fri 30 November 2018</dt>
+            	<dd><a href="../python-dateutil.html">3 Cool Things You Can do With the dateutil Module</a></dd>
+            	<dt>Thu 22 November 2018</dt>
+            	<dd><a href="../selenium-pytest-and-django.html">How to Test Your Django App with Selenium and pytest</a></dd>
+            	<dt>Tue 13 November 2018</dt>
+            	<dd><a href="../github-api-collections-defaultdict.html">Automating PyBites Review Post Using Github API and collections.defaultdict</a></dd>
+            	<dt>Sun 23 September 2018</dt>
+            	<dd><a href="../career-development-programmers.html">Career Development for Programmers</a></dd>
+            	<dt>Sat 14 July 2018</dt>
+            	<dd><a href="../nested-data-structure-exercise.html">Watch Me Code - Solving Bite 21. Query a Nested Data Structure</a></dd>
+            	<dt>Thu 07 June 2018</dt>
+            	<dd><a href="../pytest-coding-100-tests.html">Enough pytest to be Dangerous, 10 Things I Learned Writing Tests for 100 Python (Bites of Py) Exercises</a></dd>
+            	<dt>Thu 15 March 2018</dt>
+            	<dd><a href="../pytest-fixtures.html">All You Need to Know to Start Using Fixtures in Your pytest Code</a></dd>
+            	<dt>Sat 11 November 2017</dt>
+            	<dd><a href="../alicante-pychallengeday.html">5 Things we Learned Co-hosting a Live Code Challenge Workshop</a></dd>
+            	<dt>Wed 25 October 2017</dt>
+            	<dd><a href="../python-cookiecutter.html">Bootstrap Your Next Python Project With Cookiecutter</a></dd>
+            	<dt>Tue 24 October 2017</dt>
+            	<dd><a href="../pdb-debugger.html">How to Use Pdb to Debug Your Code</a></dd>
+            	<dt>Fri 20 October 2017</dt>
+            	<dd><a href="../decorators-by-example.html">Learning Python Decorators by Example</a></dd>
+            	<dt>Mon 25 September 2017</dt>
+            	<dd><a href="../pytest-book.html">Python Testing With Pytest</a></dd>
+            	<dt>Tue 12 September 2017</dt>
+            	<dd><a href="../python-openpyxl.html">PyBites Module of the Week: Openpyxl - Automate Excel!</a></dd>
+            	<dt>Wed 30 August 2017</dt>
+            	<dd><a href="../bettercodehub.html">Improve the Quality of Your Code with Better Code Hub</a></dd>
+            	<dt>Sun 20 August 2017</dt>
+            	<dd><a href="../selenium-requests-automation.html">Fully Automate Login and Banner Generation with Selenium, Requests and Click</a></dd>
+            	<dt>Sat 19 August 2017</dt>
+            	<dd><a href="../pillow-banner-flask.html">Making a Banner Generator With Pillow and Flask</a></dd>
+            	<dt>Fri 11 August 2017</dt>
+            	<dd><a href="../pillow-banner-image.html">Using Pillow to Create Nice Banners For Your Site</a></dd>
+            	<dt>Sat 05 August 2017</dt>
+            	<dd><a href="../django-registration-app.html">A Step by Step Guide to Implementing and Deploying Two-Phase Registration in Django</a></dd>
+            	<dt>Sun 23 July 2017</dt>
+            	<dd><a href="../django-python-anywhere.html">Deploying a Django App to PythonAnywhere</a></dd>
+            	<dt>Mon 17 July 2017</dt>
+            	<dd><a href="../learning-django.html">First Steps Learning Django: PyPlanet Article Sharer App</a></dd>
+            	<dt>Sat 01 July 2017</dt>
+            	<dd><a href="../python-packaging.html">From Script to Project - Packaging Your Code in Python</a></dd>
+            	<dt>Sun 25 June 2017</dt>
+            	<dd><a href="../slack-karma-bot.html">Building a Karma Bot with Python and the Slack API</a></dd>
+            	<dt>Sat 17 June 2017</dt>
+            	<dd><a href="../twitter-api-geodata-mocking.html">Parsing Twitter Geo Data and Mocking API Calls by Example</a></dd>
+            	<dt>Thu 08 June 2017</dt>
+            	<dd><a href="../pandas-parse-html-table.html">Next Time I Will Use Pandas to Parse Html Tables</a></dd>
+            	<dt>Wed 31 May 2017</dt>
+            	<dd><a href="../property-decorator.html">OOP Beyond the Basics: Using Properties for Encapsulation, Computation and Refactoring</a></dd>
+            	<dt>Wed 24 May 2017</dt>
+            	<dd><a href="../pycon-2017.html">PyCon 2017 - Digest, Impressions, Reflection</a></dd>
+            	<dt>Thu 11 May 2017</dt>
+            	<dd><a href="../flask-sqlalchemy-bday-app.html">Building a Simple Birthday App with Flask-SQLAlchemy</a></dd>
+            	<dt>Tue 25 April 2017</dt>
+            	<dd><a href="../twitter-monitor-slack-notify.html">How to Write a Simple Slack Bot to Monitor Your Brand on Twitter</a></dd>
+            	<dt>Thu 20 April 2017</dt>
+            	<dd><a href="../flask-simple-weather-app.html">Simple Flask app to compare the weather of 2 cities</a></dd>
+            	<dt>Tue 11 April 2017</dt>
+            	<dd><a href="../decorator-optional-argument.html">How to Write a Decorator with an Optional Argument?</a></dd>
+            	<dt>Wed 05 April 2017</dt>
+            	<dd><a href="../100days-autotweet.html">How we Automated our 100DaysOfCode Daily Tweet</a></dd>
+            	<dt>Tue 04 April 2017</dt>
+            	<dd><a href="../simple-chatbot.html">How to Build a Simple Slack Bot</a></dd>
+            	<dt>Tue 28 March 2017</dt>
+            	<dd><a href="../vim-tricks.html">5 Vim Tricks to Speed up Your Python Development</a></dd>
+            	<dt>Wed 22 March 2017</dt>
+            	<dd><a href="../python-porting.html">Best Practices for Compatible Python 2 and 3 Code</a></dd>
+            	<dt>Wed 15 March 2017</dt>
+            	<dd><a href="../mastering-regex.html">10 Tips to Get More out of Your Regexes</a></dd>
+            	<dt>Tue 14 March 2017</dt>
+            	<dd><a href="../requests-cache.html">PyBites Module of the Week - Requests-cache for Repeated API Calls</a></dd>
+            	<dt>Fri 10 March 2017</dt>
+            	<dd><a href="../flask-api-part2.html">Simple API Part 2 - Building a Deep Work Logger with Flask, Slack and Google Docs</a></dd>
+            	<dt>Tue 07 March 2017</dt>
+            	<dd><a href="../mutability.html">Don't let mutability of compound objects fool you!</a></dd>
+            	<dt>Fri 03 March 2017</dt>
+            	<dd><a href="../simple-flask-api.html">How To Build a Simple API with Flask and Unit Test it</a></dd>
+            	<dt>Tue 21 February 2017</dt>
+            	<dd><a href="../faster-python.html">5 tips to speed up your Python code</a></dd>
+            	<dt>Wed 08 February 2017</dt>
+            	<dd><a href="../matplotlib-starter.html">Visualizing website and social media metrics with matplotlib [notebook]</a></dd>
+            	<dt>Tue 31 January 2017</dt>
+            	<dd><a href="../pytricks-review.html">Python Tricks book review</a></dd>
+            	<dt>Wed 25 January 2017</dt>
+            	<dd><a href="../python-data-model.html">Python's data model by example</a></dd>
+            	<dt>Tue 24 January 2017</dt>
+            	<dd><a href="../oop-primer.html">Everything is an Object, Python OOP primer</a></dd>
+            	<dt>Wed 18 January 2017</dt>
+            	<dd><a href="../error_handling.html">Errors should never pass silently</a></dd>
+            	<dt>Thu 12 January 2017</dt>
+            	<dd><a href="../itertools-examples.html">5 cool things you can do with itertools</a></dd>
+            	<dt>Tue 10 January 2017</dt>
+            	<dd><a href="../beautiful-python.html">Beautiful, idiomatic Python</a></dd>
+            	<dt>Thu 05 January 2017</dt>
+            	<dd><a href="../challenge_pilot_codereview.html">Code Challenge Pilot - code review</a></dd>
+            	<dt>Tue 03 January 2017</dt>
+            	<dd><a href="../grokking_algorithms.html">A great book that makes algorithms accessible</a></dd>
+            	<dt>Mon 02 January 2017</dt>
+            	<dd><a href="../pep8.html">5 min guide to PEP8</a></dd>
+            	<dt>Sat 31 December 2016</dt>
+            	<dd><a href="../3.6_new.html">3.6 new features</a></dd>
+            	<dt>Thu 29 December 2016</dt>
+            	<dd><a href="../automate-twitter.html">Automate Tweeting: how to build a Twitterbot</a></dd>
+            	<dt>Wed 28 December 2016</dt>
+            	<dd><a href="../py-mistakes.html">Learning from Python mistakes</a></dd>
+            	<dt>Tue 27 December 2016</dt>
+            	<dd><a href="../kindle-json-to-html.html">How to create a nice-looking HTML page of your Kindle book highlights (notes)</a></dd>
+            	<dt>Sun 25 December 2016</dt>
+            	<dd><a href="../zip-and-ship.html">Zip and ship, make an executable zipfile of your py project</a></dd>
+            	<dt>Sat 24 December 2016</dt>
+            	<dd><a href="../blog-digest.html">Get a weekly digest from a Pelican blog</a></dd>
+            	<dt>Fri 23 December 2016</dt>
+            	<dd><a href="../py-articles-books2016.html">2016 py articles and useful books</a></dd>
+            	<dt>Wed 21 December 2016</dt>
+            	<dd><a href="../collections-deque.html">Read the stdlib: deque</a></dd>
+            </dl>
+        </div>
     </div>
+        <!-- /Content --> 
 
-
-  </aside>
-  <main>
-
-
-
-
-<article>
-  <header>
-    <h2><a href="https://pybit.es/developer-tools.html">Effective Developers Leverage Their Toolset</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 06 April 2020 in <a href="https://pybit.es/category/productivity.html">Productivity</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/tools.html">tools</a>,              <a href="https://pybit.es/tag/ag.html">ag</a>,              <a href="https://pybit.es/tag/vim.html">vim</a>,              <a href="https://pybit.es/tag/unix.html">unix</a>,              <a href="https://pybit.es/tag/kindle.html">kindle</a>,              <a href="https://pybit.es/tag/shell.html">shell</a>,              <a href="https://pybit.es/tag/perl.html">perl</a>,              <a href="https://pybit.es/tag/bookcision.html">bookcision</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>Last week I did a couple of shared screen sessions debugging and teaching. I paused and reflected on the tools I used and how I sharpened my sword over the years.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/developer-tools.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/simple-productivity.html">Productivity Mondays - a Simple yet Effective System</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 23 March 2020 in <a href="https://pybit.es/category/leadership.html">Leadership</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/productivity.html">productivity</a>,              <a href="https://pybit.es/tag/time-management.html">time management</a>,              <a href="https://pybit.es/tag/sales.html">sales</a>,              <a href="https://pybit.es/tag/chet-holmes.html">Chet Holmes</a>,              <a href="https://pybit.es/tag/procrastination.html">procrastination</a>,              <a href="https://pybit.es/tag/focus.html">focus</a>,              <a href="https://pybit.es/tag/planning.html">planning</a>,              <a href="https://pybit.es/tag/parkinsons-law.html">Parkinson's law</a>,              <a href="https://pybit.es/tag/brian-tracy.html">Brian Tracy</a>,              <a href="https://pybit.es/tag/email.html">email</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>There is just too much stuff out there when it comes to being more productive. I am reading The <a href="https://www.amazon.com/Ultimate-Sales-Machine-Turbocharge-Relentless-ebook/dp/B000SMQGLC">Ultimate Sales Machine (Chet Holmes)</a> and it offers what is probably the most concise time management system I have seen so far.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/simple-productivity.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/python-learning-mistakes.html">4 Common Mistakes When Learning Python and Programming</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Thu 19 March 2020 in <a href="https://pybit.es/category/learning.html">Learning</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/python.html">python</a>,              <a href="https://pybit.es/tag/software.html">software</a>,              <a href="https://pybit.es/tag/developer.html">developer</a>,              <a href="https://pybit.es/tag/pythonic.html">pythonic</a>,              <a href="https://pybit.es/tag/design.html">design</a>,              <a href="https://pybit.es/tag/career.html">career</a>,              <a href="https://pybit.es/tag/productivity.html">productivity</a>,              <a href="https://pybit.es/tag/comfort-zone.html">comfort zone</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>How are you progressing with your Python? What could be holding you back? I gave it some thought and identified 4 issues we commonly see that hold people back from becoming a proficient Pythonista and programmer.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/python-learning-mistakes.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/pytest-timeout.html">How to Debug a Hanging Test Using pytest</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Wed 18 March 2020 in <a href="https://pybit.es/category/testing.html">Testing</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/testing.html">testing</a>,              <a href="https://pybit.es/tag/debugging.html">debugging</a>,              <a href="https://pybit.es/tag/pytest.html">pytest</a>,              <a href="https://pybit.es/tag/pytest-timeout.html">pytest-timeout</a>,              <a href="https://pybit.es/tag/apis.html">APIs</a>,              <a href="https://pybit.es/tag/tricks.html">tricks</a>,              <a href="https://pybit.es/tag/learning.html">learning</a>,              <a href="https://pybit.es/tag/requests.html">requests</a>,              <a href="https://pybit.es/tag/pip.html">pip</a>,              <a href="https://pybit.es/tag/time.html">time</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>Today a wanted to share a neat trick that might save you some headache: debugging a hanging test.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/pytest-timeout.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/adam-grant.html">Productivity Mondays - Tips from Adam Grant</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 16 March 2020 in <a href="https://pybit.es/category/leadership.html">Leadership</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/productivity.html">productivity</a>,              <a href="https://pybit.es/tag/motivation.html">motivation</a>,              <a href="https://pybit.es/tag/email.html">email</a>,              <a href="https://pybit.es/tag/maker-schedule.html">maker schedule</a>,              <a href="https://pybit.es/tag/timferriss.html">timferriss</a>,              <a href="https://pybit.es/tag/time-management.html">time management</a>,              <a href="https://pybit.es/tag/attention.html">attention</a>,              <a href="https://pybit.es/tag/uncomfortable.html">uncomfortable</a>,              <a href="https://pybit.es/tag/career.html">career</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>In this week's post a quick digest of Adam Grant's interview on the Tim Ferriss podcast.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/adam-grant.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/consistency.html">Productivity Mondays - What Can You Do Consistently This Week?</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 02 March 2020 in <a href="https://pybit.es/category/leadership.html">Leadership</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/productivity.html">productivity</a>,              <a href="https://pybit.es/tag/lead.html">lead</a>,              <a href="https://pybit.es/tag/lag.html">lag</a>,              <a href="https://pybit.es/tag/lagging-indicators.html">lagging indicators</a>,              <a href="https://pybit.es/tag/leading-indicators.html">leading indicators</a>,              <a href="https://pybit.es/tag/performance.html">performance</a>,              <a href="https://pybit.es/tag/exercise.html">exercise</a>,              <a href="https://pybit.es/tag/confidence.html">confidence</a>,              <a href="https://pybit.es/tag/control.html">control</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>Last week I learned about lagging and leading indicators and why it's important to focus on the latter.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/consistency.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/deep-work.html">Productivity Mondays - Are You Producing Enough Value? 5 Tips to Boost Your Deep Work</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 24 February 2020 in <a href="https://pybit.es/category/leadership.html">Leadership</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/productivity.html">productivity</a>,              <a href="https://pybit.es/tag/focus.html">focus</a>,              <a href="https://pybit.es/tag/deep-work.html">deep work</a>,              <a href="https://pybit.es/tag/distraction.html">distraction</a>,              <a href="https://pybit.es/tag/procrastination.html">procrastination</a>,              <a href="https://pybit.es/tag/mindset.html">mindset</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>Here is another edition of Productivity Mondays geared towards getting you closer towards your goals. This weekend I picked up <a href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692">Deep work</a> again. Every time I read it is a revelation. The better you manage your time, the more successful you will become. It all comes down to the amount of value you can produce. And for that deep work is essential.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/deep-work.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/small-hacks.html">Productivity Mondays - 5 tips that will boost your performance</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 17 February 2020 in <a href="https://pybit.es/category/leadership.html">Leadership</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/productivity.html">productivity</a>,              <a href="https://pybit.es/tag/career.html">career</a>,              <a href="https://pybit.es/tag/follow-up.html">follow up</a>,              <a href="https://pybit.es/tag/time-audit.html">time audit</a>,              <a href="https://pybit.es/tag/mindset.html">mindset</a>,              <a href="https://pybit.es/tag/email.html">email</a>,              <a href="https://pybit.es/tag/ask.html">ask</a>,              <a href="https://pybit.es/tag/procrastination.html">procrastination</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>The following things are relatively easy to do, but also easy not to do. Do them consistently and they can change your career and life.</p>
-      <br>
-      <a class="btn" href="https://pybit.es/small-hacks.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/python-mentoring-session.html">The Pythonic Fast Lane, Digest of a 30 Min Mentoring Session</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Wed 12 February 2020 in <a href="https://pybit.es/category/coaching.html">Coaching</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/mentoring.html">mentoring</a>,              <a href="https://pybit.es/tag/developer-mindset.html">developer mindset</a>,              <a href="https://pybit.es/tag/requests.html">requests</a>,              <a href="https://pybit.es/tag/apis.html">APIs</a>,              <a href="https://pybit.es/tag/environment-variables.html">environment variables</a>,              <a href="https://pybit.es/tag/kwargs.html">kwargs</a>,              <a href="https://pybit.es/tag/f-strings.html">f-strings</a>,              <a href="https://pybit.es/tag/pdb.html">pdb</a>
-        &#8226; 3 min read
-    </p>
-  </header>
-  <div>
-      <p>The other day I had an awesome mentoring session with a beginner Pythonista, amazing what 30 min of screen sharing can do. Read on to learn more ...</p>
-      <br>
-      <a class="btn" href="https://pybit.es/python-mentoring-session.html">    Continue reading
-</a>
-  </div>
-  <hr />
-</article>
-<article>
-  <header>
-    <h2><a href="https://pybit.es/80-20.html">Productivity Mondays - How to Instantly Save 2-3 Hours a Day</a></h2>
-    <p>
-          Posted by <a href="https://pybit.es/author/bob.html">Bob</a> on Mon 10 February 2020 in <a href="https://pybit.es/category/leadership.html">Leadership</a>
-
-
-          &#8226;     Tagged with
-
-              <a href="https://pybit.es/tag/productivity.html">productivity</a>,              <a href="https://pybit.es/tag/pareto.html">Pareto</a>,              <a href="https://pybit.es/tag/parkinsons-law.html">Parkinson's law</a>,              <a href="https://pybit.es/tag/8020.html">80/20</a>,              <a href="https://pybit.es/tag/4hww.html">4hww</a>,              <a href="https://pybit.es/tag/ferriss.html">Ferriss</a>,              <a href="https://pybit.es/tag/efficient.html">efficient</a>,              <a href="https://pybit.es/tag/effective.html">effective</a>
-        &#8226; 2 min read
-    </p>
-  </header>
-  <div>
-      <p>imagine what an extra 2-3 hours a day can give you. Reading consistently for an hour a day in your field can change your career for the better. An hour of Python coding a day can land you a developer job over time. What about spending more time with your family?</p>
-      <br>
-      <a class="btn" href="https://pybit.es/80-20.html">    Continue reading
-</a>
-  </div>
-</article>
-
-  <div class="pagination">
-    <a class="btn" href="https://pybit.es/author/bob2.html">
-      <i class="fa fa-angle-left"></i>     Older Posts
-
-    </a>
-  </div>
-
-
-
-
-    <footer>
-<p>&copy; pybites </p>
-<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
-</p>    </footer>
-  </main>
-
-<!-- Google Analytics -->
-<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89294245-1', 'auto');
-  ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
-
-	<script>window.twttr = (function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0],
-		t = window.twttr || {};
-	if (d.getElementById(id)) return t;
-	js = d.createElement(s);
-	js.id = id;
-	js.src = "https://platform.twitter.com/widgets.js";
-	fjs.parentNode.insertBefore(js, fjs);
-	t._e = [];
-	t.ready = function(f) {
-		t._e.push(f);
-	};
-	return t;
-	}(document, "script", "twitter-wjs"));</script>
-
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-	
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
-  	<!-- search input field or archive pages -->
-  	<script src="https://pybit.es/theme/scripts/base.js" type="text/javascript"></script>
-
-
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Blog",
-  "name": " PyBites ",
-  "url" : "https://pybit.es",
-  "image": "https://pybit.es/theme/img/profile.png",
-  "description": "A Community that Masters Python through Code Challenges"
-}
-</script>
-
-  <script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='4262b3df2bb8820b75b4c7e09ef53c07d4d5376a3c0c6070d2fc19815019fc50';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
-
-</body>
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="../pages/community.html">Community</a></li>
+                            <li><a href="..https://training.talkpython.fm/courses/explore_100days_web/100-days-of-web-in-python">#100DaysOfCode</a></li>
+                            <li><a href="../pages/search.html">Search</a></li>
+                            <li><a href="../pages/privacy-policy.html">Privacy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="/archives.html" target="_blank">Twitter</a></li>
+                            <li><a href="http://facebook.com/pybites/" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
 </html>
