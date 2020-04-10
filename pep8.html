@@ -157,10 +157,10 @@
 </li>
 <li>
 <p>Use docstrings, they are a great aid for auto-documenting your project with tools like <a href="http://www.sphinx-doc.org/en/1.5.1/">Sphinx</a>. Here is the <a href="https://www.python.org/dev/peps/pep-0257/">recommended syntax</a>: </p>
-<div class="highlight"><pre><span></span>&quot;&quot;&quot;Multi-line docstrings consist of a summary line just like a one-line docstring
+<div class="highlight"><pre><span></span><span class="ss">&quot;&quot;&quot;Multi-line docstrings consist of a summary line just like a one-line docstring</span>
 
-Followed by a blank line, followed by a more elaborate description. 
-&quot;&quot;&quot;
+<span class="ss">Followed by a blank line, followed by a more elaborate description. </span>
+<span class="ss">&quot;&quot;&quot;</span>
 </pre></div>
 
 
@@ -216,7 +216,7 @@ digest.py:54:80: E501 line too long <span class="o">(</span><span class="m">83</
 <p>Another tool is <a href="https://pypi.python.org/pypi/flake8">flake8</a> which is "a wrapper around these tools: PyFlakes, pycodestyle and Ned Batchelder’s McCabe script". It also has a nice <a href="https://github.com/nvie/vim-flake8">integration in Vim</a>: it runs the checks and presents them in a split window with line numbers, pretty convenient! </p>
 <p><img alt="flake 8 inside vim" src="./images/flake8_vim.png"></p>
 <p>Btw I got this split window pressing ,f which I find easier on a Mac than F7, you can create a shortcut like this in your .vimrc:</p>
-<div class="highlight"><pre><span></span>autocmd FileType python map &lt;buffer&gt; ,f :call Flake8()&lt;CR&gt;
+<div class="highlight"><pre><span></span><span class="n">autocmd</span> <span class="n">FileType</span> <span class="n">python</span> <span class="k">map</span> <span class="o">&lt;</span><span class="n">buffer</span><span class="o">&gt;</span> <span class="p">,</span><span class="n">f</span> <span class="p">:</span><span class="k">call</span> <span class="n">Flake8</span><span class="p">()</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
 </pre></div>
 
 

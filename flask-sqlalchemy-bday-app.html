@@ -99,21 +99,21 @@
 <ul>
 <li>
 <p>First I defined a simple model in <a href="https://github.com/pybites/bday-app/blob/master/model.py">model.py</a>: </p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
+<div class="highlight"><pre><span></span>...
 
-<span class="kr">class</span> <span class="nx">Birthday</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Model</span><span class="p">)</span><span class="o">:</span>
-    <span class="nx">id</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Integer</span><span class="p">,</span> <span class="nx">primary_key</span><span class="o">=</span><span class="nx">True</span><span class="p">)</span>
-    <span class="nx">name</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nb">String</span><span class="p">(</span><span class="mi">120</span><span class="p">))</span>
-    <span class="nx">bday</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">DateTime</span><span class="p">)</span>
-    <span class="nx">notify</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Column</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nb">Boolean</span><span class="p">)</span>
+<span class="nv">class</span> <span class="nv">Birthday</span><span class="ss">(</span><span class="nv">db</span>.<span class="nv">Model</span><span class="ss">)</span>:
+    <span class="nv">id</span> <span class="o">=</span> <span class="nv">db</span>.<span class="nv">Column</span><span class="ss">(</span><span class="nv">db</span>.<span class="nv">Integer</span>, <span class="nv">primary_key</span><span class="o">=</span><span class="nv">True</span><span class="ss">)</span>
+    <span class="nv">name</span> <span class="o">=</span> <span class="nv">db</span>.<span class="nv">Column</span><span class="ss">(</span><span class="nv">db</span>.<span class="nv">String</span><span class="ss">(</span><span class="mi">120</span><span class="ss">))</span>
+    <span class="nv">bday</span> <span class="o">=</span> <span class="nv">db</span>.<span class="nv">Column</span><span class="ss">(</span><span class="nv">db</span>.<span class="nv">DateTime</span><span class="ss">)</span>
+    <span class="nv">notify</span> <span class="o">=</span> <span class="nv">db</span>.<span class="nv">Column</span><span class="ss">(</span><span class="nv">db</span>.<span class="nv">Boolean</span><span class="ss">)</span>
 
-    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">bday</span><span class="p">,</span> <span class="nx">notify</span><span class="o">=</span><span class="nx">False</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">bday</span> <span class="o">=</span> <span class="nx">bday</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">notify</span> <span class="o">=</span> <span class="nx">notify</span>
+    <span class="nv">def</span> <span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">name</span>, <span class="nv">bday</span>, <span class="nv">notify</span><span class="o">=</span><span class="nv">False</span><span class="ss">)</span>:
+        <span class="nv">self</span>.<span class="nv">name</span> <span class="o">=</span> <span class="nv">name</span>
+        <span class="nv">self</span>.<span class="nv">bday</span> <span class="o">=</span> <span class="nv">bday</span>
+        <span class="nv">self</span>.<span class="nv">notify</span> <span class="o">=</span> <span class="nv">notify</span>
 
-    <span class="nx">def</span> <span class="nx">__repr__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;Birthday %r %r %r&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">bday</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">notify</span><span class="p">)</span>
+    <span class="nv">def</span> <span class="nv">__repr__</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="s">&lt;Birthday %r %r %r&gt;</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="ss">(</span><span class="nv">self</span>.<span class="nv">name</span>, <span class="nv">self</span>.<span class="nv">bday</span>, <span class="nv">self</span>.<span class="nv">notify</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -121,8 +121,8 @@
 </li>
 <li>
 <p>If model.py is run as standalone script (not imported) it recreates the DB:</p>
-<div class="highlight"><pre><span></span>db.drop_all()
-db.create_all()
+<div class="highlight"><pre><span></span><span class="n">db</span><span class="p">.</span><span class="n">drop_all</span><span class="p">()</span>
+<span class="n">db</span><span class="p">.</span><span class="n">create_all</span><span class="p">()</span>
 </pre></div>
 
 
@@ -151,23 +151,23 @@ db.create_all()
 <ul>
 <li>
 <p>Upcoming n days:</p>
-<div class="highlight"><pre><span></span>@app.route(&#39;/&#39;)
+<div class="highlight"><pre><span></span>@<span class="nv">app</span>.<span class="nv">route</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">/</span><span class="s1">&#39;</span><span class="ss">)</span>
 ...
-start = datetime.now()
-end = start + timedelta(days=UPCOMING_DAYS)
-bdays = Birthday.query.filter(Birthday.bday &lt;= end).filter(Birthday.bday &gt;= start)
+<span class="nv">start</span> <span class="o">=</span> <span class="nv">datetime</span>.<span class="nv">now</span><span class="ss">()</span>
+<span class="k">end</span> <span class="o">=</span> <span class="nv">start</span> <span class="o">+</span> <span class="nv">timedelta</span><span class="ss">(</span><span class="nv">days</span><span class="o">=</span><span class="nv">UPCOMING_DAYS</span><span class="ss">)</span>
+<span class="nv">bdays</span> <span class="o">=</span> <span class="nv">Birthday</span>.<span class="nv">query</span>.<span class="nv">filter</span><span class="ss">(</span><span class="nv">Birthday</span>.<span class="nv">bday</span> <span class="o">&lt;=</span> <span class="k">end</span><span class="ss">)</span>.<span class="nv">filter</span><span class="ss">(</span><span class="nv">Birthday</span>.<span class="nv">bday</span> <span class="o">&gt;=</span> <span class="nv">start</span><span class="ss">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>How to get all birthdays of month n (<a href="http://stackoverflow.com/questions/36155332/how-to-get-the-first-day-and-last-day-of-current-month-in-python">see SO</a>). The SQLAlchemy query is the same:</p>
-<div class="highlight"><pre><span></span>@app.route(&#39;/&lt;int:month&gt;&#39;)
+<div class="highlight"><pre><span></span>@<span class="nv">app</span>.<span class="nv">route</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">/&lt;int:month&gt;</span><span class="s1">&#39;</span><span class="ss">)</span>
 ...
-_, num_days = calendar.monthrange(THIS_YEAR, month)
-start = date(THIS_YEAR, month, 1)
-end = date(THIS_YEAR, month, num_days)
-bdays = Birthday.query.filter(Birthday.bday &lt;= end).filter(Birthday.bday &gt;= start)
+<span class="nv">_</span>, <span class="nv">num_days</span> <span class="o">=</span> <span class="nv">calendar</span>.<span class="nv">monthrange</span><span class="ss">(</span><span class="nv">THIS_YEAR</span>, <span class="nv">month</span><span class="ss">)</span>
+<span class="nv">start</span> <span class="o">=</span> <span class="nv">date</span><span class="ss">(</span><span class="nv">THIS_YEAR</span>, <span class="nv">month</span>, <span class="mi">1</span><span class="ss">)</span>
+<span class="k">end</span> <span class="o">=</span> <span class="nv">date</span><span class="ss">(</span><span class="nv">THIS_YEAR</span>, <span class="nv">month</span>, <span class="nv">num_days</span><span class="ss">)</span>
+<span class="nv">bdays</span> <span class="o">=</span> <span class="nv">Birthday</span>.<span class="nv">query</span>.<span class="nv">filter</span><span class="ss">(</span><span class="nv">Birthday</span>.<span class="nv">bday</span> <span class="o">&lt;=</span> <span class="k">end</span><span class="ss">)</span>.<span class="nv">filter</span><span class="ss">(</span><span class="nv">Birthday</span>.<span class="nv">bday</span> <span class="o">&gt;=</span> <span class="nv">start</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -179,7 +179,7 @@ bdays = Birthday.query.filter(Birthday.bday &lt;= end).filter(Birthday.bday &gt;
 <p><img alt="bday app upcoming" src="./images/bday-app1.png"></p>
 <p><img alt="bday app for a particular month" src="./images/bday-app2.png"></p>
 <p>You can use the calendar module to get the month name for a month int:</p>
-<div class="highlight"><pre><span></span>month_name = calendar.month_name[month]
+<div class="highlight"><pre><span></span><span class="n">month_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calendar</span><span class="p">.</span><span class="n">month_name</span><span class="o">[</span><span class="n">month</span><span class="o">]</span><span class="w"></span>
 </pre></div>
 
 

@@ -125,14 +125,14 @@
 <p>Run <code>pytest</code> and: <code>2 passed in 0.03s</code> - all good.</p>
 <p>Now let's emulate a hanging test by adding a sleep of 60 seconds in <code>call_api</code></p>
 <p>Oops:</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac test-debug]$ pytest
-===================================================================== test session starts ======================================================================
-platform darwin -- Python 3.8.0, pytest-5.4.1, py-1.8.1, pluggy-0.13.1
-rootdir: /Users/bobbelderbos/code/test-debug
-plugins: timeout-1.3.4
-collected 2 items
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac test-debug</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pytest</span><span class="w"></span>
+<span class="o">=====================================================================</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="o">======================================================================</span><span class="w"></span>
+<span class="n">platform</span><span class="w"> </span><span class="n">darwin</span><span class="w"> </span><span class="c1">-- Python 3.8.0, pytest-5.4.1, py-1.8.1, pluggy-0.13.1</span>
+<span class="nl">rootdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">bobbelderbos</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">debug</span><span class="w"></span>
+<span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">timeout</span><span class="o">-</span><span class="mf">1.3.4</span><span class="w"></span>
+<span class="n">collected</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">items</span><span class="w"></span>
 
-test_script.py . (hangs here)
+<span class="n">test_script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">(</span><span class="n">hangs</span><span class="w"> </span><span class="n">here</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
@@ -140,31 +140,31 @@ test_script.py . (hangs here)
 <p>Even with 1 or 2 minutes delay, you need to fix it. Tests need to be fast, because you will constantly run them to refactor and adding new features.</p>
 <h2>Debugging timeouts</h2>
 <p>I discovered a neat plugin for this: <a href="https://pypi.org/project/pytest-timeout/">pytest-timeout</a>. With your virtualenv enabled:</p>
-<div class="highlight"><pre><span></span>pip install pytest-timeout
+<div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">timeout</span>
 </pre></div>
 
 
 <p>Let's use it:</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac test-debug]$ pytest --timeout=3
-test_script.py .F                                                                                                                                        [100%]
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac test-debug</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="c1">--timeout=3</span>
+<span class="n">test_script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">.</span><span class="n">F</span><span class="w">                                                                                                                                        </span><span class="o">[</span><span class="n">100%</span><span class="o">]</span><span class="w"></span>
 
-=========================================================================== FAILURES ===========================================================================
-________________________________________________________________________ test_call_api _________________________________________________________________________
+<span class="o">===========================================================================</span><span class="w"> </span><span class="n">FAILURES</span><span class="w"> </span><span class="o">===========================================================================</span><span class="w"></span>
+<span class="n">________________________________________________________________________</span><span class="w"> </span><span class="n">test_call_api</span><span class="w"> </span><span class="n">_________________________________________________________________________</span><span class="w"></span>
 
-def test_call_api():
-&gt;       resp = call_api()
+<span class="n">def</span><span class="w"> </span><span class="n">test_call_api</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w">       </span><span class="n">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">call_api</span><span class="p">()</span><span class="w"></span>
 
-test_script.py:10:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+<span class="n">test_script</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="mi">10</span><span class="err">:</span><span class="w"></span>
+<span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w"></span>
 
-def call_api():
-&gt;       sleep(60)
-E       Failed: Timeout &gt;3.0s
+<span class="n">def</span><span class="w"> </span><span class="n">call_api</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w">       </span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"></span>
+<span class="n">E</span><span class="w">       </span><span class="nl">Failed</span><span class="p">:</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="o">&gt;</span><span class="mf">3.0</span><span class="n">s</span><span class="w"></span>
 
-script.py:5: Failed
-=================================================================== short test summary info ====================================================================
-FAILED test_script.py::test_call_api - Failed: Timeout &gt;3.0s
-================================================================= 1 failed, 1 passed in 3.07s
+<span class="n">script</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="mi">5</span><span class="err">:</span><span class="w"> </span><span class="n">Failed</span><span class="w"></span>
+<span class="o">===================================================================</span><span class="w"> </span><span class="n">short</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">summary</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">====================================================================</span><span class="w"></span>
+<span class="n">FAILED</span><span class="w"> </span><span class="n">test_script</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="err">:</span><span class="n">test_call_api</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nl">Failed</span><span class="p">:</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="o">&gt;</span><span class="mf">3.0</span><span class="n">s</span><span class="w"></span>
+<span class="o">=================================================================</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">failed</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mf">3.07</span><span class="n">s</span><span class="w"></span>
 </pre></div>
 
 
@@ -189,43 +189,43 @@ FAILED test_script.py::test_call_api - Failed: Timeout &gt;3.0s
 </li>
 </ul>
 <p>And ... boom!</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac test-debug]$ pytest --timeout=3
-===================================================================== test session starts ======================================================================
-platform darwin -- Python 3.8.0, pytest-5.4.1, py-1.8.1, pluggy-0.13.1
-rootdir: /Users/bobbelderbos/code/test-debug
-plugins: timeout-1.3.4
-timeout: 3.0s
-timeout method: signal
-timeout func_only: False
-collected 2 items
+<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">test</span><span class="o">-</span><span class="nv">debug</span>]$ <span class="nv">pytest</span> <span class="o">--</span><span class="nb">timeout</span><span class="o">=</span><span class="mi">3</span>
+<span class="o">=====================================================================</span> <span class="nv">test</span> <span class="nv">session</span> <span class="nv">starts</span> <span class="o">======================================================================</span>
+<span class="nv">platform</span> <span class="nv">darwin</span> <span class="o">--</span> <span class="nv">Python</span> <span class="mi">3</span>.<span class="mi">8</span>.<span class="mi">0</span>, <span class="nv">pytest</span><span class="o">-</span><span class="mi">5</span>.<span class="mi">4</span>.<span class="mi">1</span>, <span class="nv">py</span><span class="o">-</span><span class="mi">1</span>.<span class="mi">8</span>.<span class="mi">1</span>, <span class="nv">pluggy</span><span class="o">-</span><span class="mi">0</span>.<span class="mi">13</span>.<span class="mi">1</span>
+<span class="nv">rootdir</span>: <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bobbelderbos</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">test</span><span class="o">-</span><span class="nv">debug</span>
+<span class="nv">plugins</span>: <span class="nb">timeout</span><span class="o">-</span><span class="mi">1</span>.<span class="mi">3</span>.<span class="mi">4</span>
+<span class="nb">timeout</span>: <span class="mi">3</span>.<span class="mi">0</span><span class="nv">s</span>
+<span class="nb">timeout</span> <span class="nv">method</span>: <span class="nv">signal</span>
+<span class="nb">timeout</span> <span class="nv">func_only</span>: <span class="nv">False</span>
+<span class="nv">collected</span> <span class="mi">2</span> <span class="nv">items</span>
 
-test_script.py .F                                                                                                                                        [100%]
+<span class="nv">test_script</span>.<span class="nv">py</span> .<span class="nv">F</span>                                                                                                                                        [<span class="mi">100</span><span class="o">%</span>]
 
-=========================================================================== FAILURES ===========================================================================
-________________________________________________________________________ test_call_api _________________________________________________________________________
+<span class="o">===========================================================================</span> <span class="nv">FAILURES</span> <span class="o">===========================================================================</span>
+<span class="nv">________________________________________________________________________</span> <span class="nv">test_call_api</span> <span class="nv">_________________________________________________________________________</span>
 
-    def test_call_api():
-&gt;       resp = call_api()
+    <span class="nv">def</span> <span class="nv">test_call_api</span><span class="ss">()</span>:
+<span class="o">&gt;</span>       <span class="nv">resp</span> <span class="o">=</span> <span class="nv">call_api</span><span class="ss">()</span>
 
-test_script.py:10:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-script.py:5: in call_api
-    requests.get(&#39;https://pybit.es&#39;)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+<span class="nv">test_script</span>.<span class="nv">py</span>:<span class="mi">10</span>:
+<span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span>
+<span class="nv">script</span>.<span class="nv">py</span>:<span class="mi">5</span>: <span class="nv">in</span> <span class="nv">call_api</span>
+    <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">https://pybit.es</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span> <span class="nv">_</span>
 
-url = &#39;https://pybit.es&#39;, params = None, kwargs = {}
+<span class="nv">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">https://pybit.es</span><span class="s1">&#39;</span>, <span class="nb">params</span> <span class="o">=</span> <span class="nv">None</span>, <span class="nv">kwargs</span> <span class="o">=</span> {}
 
-    def get(url, params=None, **kwargs):
-        r&quot;&quot;&quot;Sends a GET request.
+    <span class="nv">def</span> <span class="nv">get</span><span class="ss">(</span><span class="nv">url</span>, <span class="nb">params</span><span class="o">=</span><span class="nv">None</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>:
+        <span class="nv">r</span><span class="s2">&quot;&quot;&quot;</span><span class="s">Sends a GET request.</span>
 
-        :param url: URL for the new :class:`Request` object.
-        :param params: (optional) Dictionary or bytes to be sent in the query string for the :class:`Request`.
-        :param \*\*kwargs: Optional arguments that ``request`` takes.
-        :return: :class:`Response &lt;Response&gt;` object
-        :rtype: requests.Response
-        &quot;&quot;&quot;
-&gt;       time.sleep(60)
-E       Failed: Timeout &gt;3.0s
+        <span class="nl">:param</span> <span class="nv">url</span>: <span class="nv">URL</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">new</span> :<span class="nv">class</span>:`<span class="nv">Request</span>` <span class="nv">object</span>.
+        :<span class="nv">param</span> <span class="nb">params</span>: <span class="ss">(</span><span class="nv">optional</span><span class="ss">)</span> <span class="nv">Dictionary</span> <span class="nv">or</span> <span class="nv">bytes</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">sent</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">query</span> <span class="nv">string</span> <span class="k">for</span> <span class="nv">the</span> :<span class="nv">class</span>:`<span class="nv">Request</span>`.
+        :<span class="nv">param</span> \<span class="o">*</span>\<span class="o">*</span><span class="nv">kwargs</span>: <span class="nv">Optional</span> <span class="nv">arguments</span> <span class="nv">that</span> ``<span class="nv">request</span>`` <span class="nv">takes</span>.
+        :<span class="k">return</span>: :<span class="nv">class</span>:`<span class="nv">Response</span> <span class="o">&lt;</span><span class="nv">Response</span><span class="o">&gt;</span>` <span class="nv">object</span>
+        :<span class="nv">rtype</span>: <span class="nv">requests</span>.<span class="nv">Response</span>
+        <span class="s2">&quot;&quot;&quot;</span>
+<span class="o">&gt;</span>       <span class="nv">time</span>.<span class="nv">sleep</span><span class="ss">(</span><span class="mi">60</span><span class="ss">)</span>
+<span class="nv">E</span>       <span class="nv">Failed</span>: <span class="nb">Timeout</span> <span class="o">&gt;</span><span class="mi">3</span>.<span class="mi">0</span><span class="nv">s</span>
 </pre></div>
 
 
@@ -234,35 +234,35 @@ E       Failed: Timeout &gt;3.0s
 <p>Sometimes the issue is really nested and <code>pytest-timeout</code> might not be that smart. </p>
 <p>In that case you can swap the default <code>signal</code> of the <code>--timeout_method</code> flag for <code>thread</code> and it will dump a complete stacktrace!</p>
 <p>This can be very useful for debugging:</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac test-debug]$ pytest --timeout=3 --timeout_method=thread
-===================================================================== test session starts ======================================================================
-platform darwin -- Python 3.8.0, pytest-5.4.1, py-1.8.1, pluggy-0.13.1
-rootdir: /Users/bobbelderbos/code/test-debug
-plugins: timeout-1.3.4
-timeout: 3.0s
-timeout method: thread &lt;== using &quot;thread now&quot;
-timeout func_only: False
-collected 2 items
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac test-debug</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="c1">--timeout=3 --timeout_method=thread</span>
+<span class="o">=====================================================================</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="o">======================================================================</span><span class="w"></span>
+<span class="n">platform</span><span class="w"> </span><span class="n">darwin</span><span class="w"> </span><span class="c1">-- Python 3.8.0, pytest-5.4.1, py-1.8.1, pluggy-0.13.1</span>
+<span class="nl">rootdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">bobbelderbos</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">debug</span><span class="w"></span>
+<span class="nl">plugins</span><span class="p">:</span><span class="w"> </span><span class="n">timeout</span><span class="o">-</span><span class="mf">1.3.4</span><span class="w"></span>
+<span class="nl">timeout</span><span class="p">:</span><span class="w"> </span><span class="mf">3.0</span><span class="n">s</span><span class="w"></span>
+<span class="n">timeout</span><span class="w"> </span><span class="k">method</span><span class="err">:</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="o">&lt;==</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="ss">&quot;thread now&quot;</span><span class="w"></span>
+<span class="n">timeout</span><span class="w"> </span><span class="nl">func_only</span><span class="p">:</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
+<span class="n">collected</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">items</span><span class="w"></span>
 
-test_script.py .
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<span class="n">test_script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="o">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="w"></span>
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Stack of MainThread (4523748800) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-...
-many calls
-...
+<span class="o">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">MainThread</span><span class="w"> </span><span class="p">(</span><span class="mi">4523748800</span><span class="p">)</span><span class="w"> </span><span class="o">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="n">many</span><span class="w"> </span><span class="n">calls</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
 
-File &quot;/Users/bobbelderbos/code/test-debug/venv/lib/python3.8/site-packages/_pytest/python.py&quot;, line 184, in pytest_pyfunc_call
-    result = testfunction(**testargs)
-File &quot;/Users/bobbelderbos/code/test-debug/test_script.py&quot;, line 10, in test_call_api
-    resp = call_api()
-File &quot;/Users/bobbelderbos/code/test-debug/script.py&quot;, line 5, in call_api
-    requests.get(&#39;https://pybit.es&#39;)
-File &quot;/Users/bobbelderbos/Downloads/requests.org/requests/api.py&quot;, line 71, in get &lt;== external module
-    time.sleep(60)
+<span class="k">File</span><span class="w"> </span><span class="ss">&quot;/Users/bobbelderbos/code/test-debug/venv/lib/python3.8/site-packages/_pytest/python.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">184</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">pytest_pyfunc_call</span><span class="w"></span>
+<span class="w">    </span><span class="k">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testfunction</span><span class="p">(</span><span class="o">**</span><span class="n">testargs</span><span class="p">)</span><span class="w"></span>
+<span class="k">File</span><span class="w"> </span><span class="ss">&quot;/Users/bobbelderbos/code/test-debug/test_script.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">test_call_api</span><span class="w"></span>
+<span class="w">    </span><span class="n">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">call_api</span><span class="p">()</span><span class="w"></span>
+<span class="k">File</span><span class="w"> </span><span class="ss">&quot;/Users/bobbelderbos/code/test-debug/script.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">call_api</span><span class="w"></span>
+<span class="w">    </span><span class="n">requests</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s1">&#39;https://pybit.es&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="k">File</span><span class="w"> </span><span class="ss">&quot;/Users/bobbelderbos/Downloads/requests.org/requests/api.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">71</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="o">&lt;==</span><span class="w"> </span><span class="k">external</span><span class="w"> </span><span class="k">module</span><span class="w"></span>
+<span class="w">    </span><span class="nc">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"></span>
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-(venv) [bobbelderbos@imac test-debug]$
+<span class="o">+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="w"> </span><span class="n">Timeout</span><span class="w"> </span><span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac test-debug</span><span class="o">]</span><span class="err">$</span><span class="w"></span>
 </pre></div>
 
 
