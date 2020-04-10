@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="&gt;&gt;&gt; import this The Zen of Python, by Tim Peters Explicit is better than implicit. ... Errors should never pass silently. Anti-Patterns This is a great read: The Little Book of Python...">
         <meta name="keywords" content="anti-patterns, cleancode, error handling, exceptions, Zen of Python">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Errors should never pass silently - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Errors should never pass silently</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Wed 18 January 2017,  <a href="./category/best-practices.html">Best practices</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Wed 18 January 2017,  <a href="https://pybit.es/category/best-practices.html">Best practices</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/anti-patterns.html">anti-patterns</a>, <a href="./tag/cleancode.html">cleancode</a>, <a href="./tag/error-handling.html">error handling</a>, <a href="./tag/exceptions.html">exceptions</a>, <a href="./tag/zen-of-python.html">Zen of Python</a>                      </p>
+<a href="https://pybit.es/tag/anti-patterns.html">anti-patterns</a>, <a href="https://pybit.es/tag/cleancode.html">cleancode</a>, <a href="https://pybit.es/tag/error-handling.html">error handling</a>, <a href="https://pybit.es/tag/exceptions.html">exceptions</a>, <a href="https://pybit.es/tag/zen-of-python.html">Zen of Python</a>                      </p>
                   </div>
               </div>
         </div>
@@ -134,46 +134,46 @@
 <p>The worst offender though is the combination of both. This means that we are willingly catching any error although we are absolutely not prepared for it and we also don’t do anything about it.</p>
 </blockquote>
 <p>So this violates the two Zen aphorisms above. You always want to catch errors explicitly:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">try</span><span class="p">:</span>
-<span class="p">...</span>     <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
-<span class="p">...</span> <span class="k">except</span> <span class="n">ZeroDivisionError</span><span class="p">:</span>
-<span class="p">...</span>     <span class="n">print</span><span class="p">(</span><span class="s1">&#39;cannot divide by 0&#39;</span><span class="p">)</span>
-<span class="p">...</span> 
-<span class="n">cannot</span> <span class="n">divide</span> <span class="k">by</span> <span class="mi">0</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; try:
+...     1/0
+... except ZeroDivisionError:
+...     print(&#39;cannot divide by 0&#39;)
+... 
+cannot divide by 0
 </pre></div>
 
 
 <p>You can use else and finally with a try/except as shown in this toy example:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">a</span>, <span class="nv">b</span>, <span class="nv">c</span> <span class="o">=</span> <span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">try</span>:
-...     <span class="nv">a</span><span class="o">/</span><span class="nv">b</span>
-... <span class="nv">except</span> <span class="nv">ZeroDivisionError</span>:
-...     <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">cannot divide by 0</span><span class="s1">&#39;</span><span class="ss">)</span>
-... <span class="k">else</span>:
-...     <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">division was ok</span><span class="s1">&#39;</span><span class="ss">)</span>
-... <span class="nv">finally</span>:
-...     <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">this always runs</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; a, b, c = 1, 2, 0
+&gt;&gt;&gt; try:
+...     a/b
+... except ZeroDivisionError:
+...     print(&#39;cannot divide by 0&#39;)
+... else:
+...     print(&#39;division was ok&#39;)
+... finally:
+...     print(&#39;this always runs&#39;)
 ... 
-<span class="mi">0</span>.<span class="mi">5</span>
-<span class="nv">division</span> <span class="nv">was</span> <span class="nv">ok</span>
-<span class="nv">this</span> <span class="nv">always</span> <span class="nv">runs</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">try</span>:
-...     <span class="nv">b</span><span class="o">/</span><span class="nv">c</span>
-... <span class="nv">except</span> <span class="nv">ZeroDivisionError</span>:
-...     <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">cannot divide by 0</span><span class="s1">&#39;</span><span class="ss">)</span>
-... <span class="k">else</span>:
-...     <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">division was ok</span><span class="s1">&#39;</span><span class="ss">)</span>
-... <span class="nv">finally</span>:
-...     <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">this always runs</span><span class="s1">&#39;</span><span class="ss">)</span>
+0.5
+division was ok
+this always runs
+&gt;&gt;&gt; try:
+...     b/c
+... except ZeroDivisionError:
+...     print(&#39;cannot divide by 0&#39;)
+... else:
+...     print(&#39;division was ok&#39;)
+... finally:
+...     print(&#39;this always runs&#39;)
 ... 
-<span class="nv">cannot</span> <span class="nv">divide</span> <span class="nv">by</span> <span class="mi">0</span>
-<span class="nv">this</span> <span class="nv">always</span> <span class="nv">runs</span>
+cannot divide by 0
+this always runs
 </pre></div>
 
 
 <p>One thing to watch out for is <a href="http://docs.quantifiedcode.com/python-anti-patterns/correctness/bad_except_clauses_order.html">except clause order</a> if you have more than one: always go from more specific to more generic (bottom to top in the inheritance chain), for example:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">ZeroDivisionError</span><span class="p">.</span><span class="n">__mro__</span>
-<span class="p">(</span><span class="o">&lt;</span><span class="k">class</span> <span class="s1">&#39;ZeroDivisionError&#39;</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="k">class</span> <span class="s1">&#39;ArithmeticError&#39;</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="k">class</span> <span class="s1">&#39;Exception&#39;</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="k">class</span> <span class="s1">&#39;BaseException&#39;</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="k">class</span> <span class="s1">&#39;object&#39;</span><span class="o">&gt;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; ZeroDivisionError.__mro__
+(&lt;class &#39;ZeroDivisionError&#39;&gt;, &lt;class &#39;ArithmeticError&#39;&gt;, &lt;class &#39;Exception&#39;&gt;, &lt;class &#39;BaseException&#39;&gt;, &lt;class &#39;object&#39;&gt;)
 </pre></div>
 
 
@@ -181,53 +181,53 @@
 <h3>Asking for permission instead of forgiveness</h3>
 <p>It becomes even more important because <a href="http://docs.quantifiedcode.com/python-anti-patterns/readability/asking_for_permission_instead_of_forgiveness_when_working_with_files.html">the Python community uses an EAFP (easier to ask for forgiveness than permission) coding style</a>.</p>
 <p>I have done this a lot:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">exists</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">file.txt</span><span class="s2">&quot;</span><span class="ss">)</span>:
+<div class="highlight"><pre><span></span>if os.path.exists(&quot;file.txt&quot;):
 </pre></div>
 
 
 <p>But the Pythonic way to do it is:</p>
-<div class="highlight"><pre><span></span><span class="nv">try</span>:
-    # <span class="nv">assume</span> <span class="nv">the</span> <span class="nv">file</span> <span class="nv">is</span> <span class="nv">there</span>
-    <span class="nv">os</span>.<span class="k">unlink</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">file.txt</span><span class="s2">&quot;</span><span class="ss">)</span>
-<span class="nv">except</span> <span class="nv">OSError</span>:
-    # <span class="k">if</span> <span class="nv">not</span>, <span class="nv">handle</span> <span class="nv">the</span> <span class="ss">(</span><span class="nv">explicit</span><span class="ss">)</span> <span class="nv">error</span>
+<div class="highlight"><pre><span></span>try:
+    # assume the file is there
+    os.unlink(&quot;file.txt&quot;)
+except OSError:
+    # if not, handle the (explicit) error
 </pre></div>
 
 
 <p>Hence, more reason to manage exceptions well!</p>
 <h3>Custom exceptions</h3>
 <p>Another great way to make your code more readable and taking exceptions to the next level is to write your own. Sounds scary? It is actually pretty easy as <a href="https://dbader.org/blog/python-custom-exceptions">this great post shows</a>:</p>
-<div class="highlight"><pre><span></span><span class="nv">class</span> <span class="nv">NameTooShortError</span><span class="ss">(</span><span class="nv">ValueError</span><span class="ss">)</span>:
-    <span class="nv">pass</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">NameTooShortError</span><span class="p">(</span><span class="nx">ValueError</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">pass</span>
 
-<span class="nv">def</span> <span class="nv">validate</span><span class="ss">(</span><span class="nv">name</span><span class="ss">)</span>:
-    <span class="k">if</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">name</span><span class="ss">)</span> <span class="o">&lt;</span> <span class="mi">10</span>:
-        <span class="nv">raise</span> <span class="nv">NameTooShortError</span><span class="ss">(</span><span class="nv">name</span><span class="ss">)</span>
+<span class="nx">def</span> <span class="nx">validate</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="o">:</span>
+    <span class="k">if</span> <span class="nx">len</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">10</span>:
+        <span class="kt">raise</span> <span class="nx">NameTooShortError</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
 </pre></div>
 
 
 <p>A bit more involved (yet still easy to follow) example from <a href="https://github.com/tweepy/tweepy/blob/master/tweepy/error.py">tweepy</a>:</p>
-<div class="highlight"><pre><span></span><span class="nv">class</span> <span class="nv">TweepError</span><span class="ss">(</span><span class="nv">Exception</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Tweepy exception</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">TweepError</span><span class="p">(</span><span class="nx">Exception</span><span class="p">)</span><span class="o">:</span>
+    <span class="s2">&quot;&quot;&quot;Tweepy exception&quot;&quot;&quot;</span>
 
-    <span class="nv">def</span> <span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">reason</span>, <span class="nv">response</span><span class="o">=</span><span class="nv">None</span>, <span class="nv">api_code</span><span class="o">=</span><span class="nv">None</span><span class="ss">)</span>:
-        <span class="nv">self</span>.<span class="nv">reason</span> <span class="o">=</span> <span class="nv">six</span>.<span class="nv">text_type</span><span class="ss">(</span><span class="nv">reason</span><span class="ss">)</span>
-        <span class="nv">self</span>.<span class="nv">response</span> <span class="o">=</span> <span class="nv">response</span>
-        <span class="nv">self</span>.<span class="nv">api_code</span> <span class="o">=</span> <span class="nv">api_code</span>
-        <span class="nv">Exception</span>.<span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">reason</span><span class="ss">)</span>
+    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">reason</span><span class="p">,</span> <span class="nx">response</span><span class="o">=</span><span class="nx">None</span><span class="p">,</span> <span class="nx">api_code</span><span class="o">=</span><span class="nx">None</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">reason</span> <span class="o">=</span> <span class="nx">six</span><span class="p">.</span><span class="nx">text_type</span><span class="p">(</span><span class="nx">reason</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">response</span> <span class="o">=</span> <span class="nx">response</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">api_code</span> <span class="o">=</span> <span class="nx">api_code</span>
+        <span class="nx">Exception</span><span class="p">.</span><span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">reason</span><span class="p">)</span>
 
-    <span class="nv">def</span> <span class="nv">__str__</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">reason</span>
+    <span class="nx">def</span> <span class="nx">__str__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">reason</span>
 </pre></div>
 
 
 <p>Which we used in our <a href="https://github.com/pybites/blog_code/blob/master/twitter_bot/tweetbot.py">Twitter bot</a>:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">post_tweet</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
-    <span class="n">try</span><span class="p">:</span>
-        <span class="k">self</span><span class="p">.</span><span class="n">api</span><span class="p">.</span><span class="n">update_status</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
-        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;posted status {} to twitter&#39;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">status</span><span class="p">))</span>
-    <span class="k">except</span> <span class="n">TweepError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-        <span class="n">logging</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;tweepy update_status error: {}&#39;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+<div class="highlight"><pre><span></span>def post_tweet(self, status):
+    try:
+        self.api.update_status(status)
+        logging.debug(&#39;posted status {} to twitter&#39;.format(status))
+    except TweepError as err:
+        logging.error(&#39;tweepy update_status error: {}&#39;.format(err))
 </pre></div>
 
 
@@ -259,7 +259,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'error_handling.html';
-                var disqus_url = './error_handling.html';
+                var disqus_url = 'https://pybit.es/error_handling.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -279,10 +279,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

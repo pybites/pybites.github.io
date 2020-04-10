@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="There is an immense amount to be learned simply by tinkering with things. - Henry Ford Hey Pythonistas, In this new blog code challenge you are going to use selenium to automatically generate some...">
         <meta name="keywords" content="automation, challenges, code challenge, file handling, images, material design, selenium, web scraping, zipfile">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Code Challenge 63 - Automatically Generate Blog Featured Images - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge 63 - Automatically Generate Blog Featured Images</h1>
-                      <p class="header-date"> <a href="./author/pybites.html">PyBites</a>, Mon 02 September 2019,  <a href="./category/challenge.html">Challenge</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/pybites.html">PyBites</a>, Mon 02 September 2019,  <a href="https://pybit.es/category/challenge.html">Challenge</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/automation.html">automation</a>, <a href="./tag/challenges.html">challenges</a>, <a href="./tag/code-challenge.html">code challenge</a>, <a href="./tag/file-handling.html">file handling</a>, <a href="./tag/images.html">images</a>, <a href="./tag/material-design.html">material design</a>, <a href="./tag/selenium.html">selenium</a>, <a href="./tag/web-scraping.html">web scraping</a>, <a href="./tag/zipfile.html">zipfile</a>                      </p>
+<a href="https://pybit.es/tag/automation.html">automation</a>, <a href="https://pybit.es/tag/challenges.html">challenges</a>, <a href="https://pybit.es/tag/code-challenge.html">code challenge</a>, <a href="https://pybit.es/tag/file-handling.html">file handling</a>, <a href="https://pybit.es/tag/images.html">images</a>, <a href="https://pybit.es/tag/material-design.html">material design</a>, <a href="https://pybit.es/tag/selenium.html">selenium</a>, <a href="https://pybit.es/tag/web-scraping.html">web scraping</a>, <a href="https://pybit.es/tag/zipfile.html">zipfile</a>                      </p>
                   </div>
               </div>
         </div>
@@ -142,59 +142,59 @@
 </li>
 <li>
 <p>choose a picture from the auto-complete (<code>#bg1_url</code> ID field), or just fill in the field picking random ones from the 2 lists below (one per theme):</p>
-<div class="highlight"><pre><span></span><span class="n">featured_image</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="err">]#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">C1</span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="k">full</span><span class="o">|</span><span class="n">sort</span><span class="o">|</span><span class="n">sed</span><span class="w"> </span><span class="s1">&#39;s@\(.*\)@images/material/\1@g&#39;</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">black</span><span class="o">-</span><span class="n">blue_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">black</span><span class="o">-</span><span class="n">red_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">blue</span><span class="o">-</span><span class="n">black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">blue</span><span class="o">-</span><span class="n">brown_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">blue_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">blue</span><span class="o">-</span><span class="n">green_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">blue</span><span class="o">-</span><span class="n">lightblue</span><span class="o">-</span><span class="n">white_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">blue</span><span class="o">-</span><span class="n">white_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">blue</span><span class="o">-</span><span class="n">yellow_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">darkgreen</span><span class="o">-</span><span class="n">red</span><span class="o">-</span><span class="n">yellow_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">green</span><span class="o">-</span><span class="n">blue_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">green_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">green</span><span class="o">-</span><span class="n">red_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">orange</span><span class="o">-</span><span class="n">black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">orange</span><span class="o">-</span><span class="n">blue_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">purple</span><span class="o">-</span><span class="n">blue_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">purple</span><span class="o">-</span><span class="n">blue</span><span class="o">-</span><span class="n">red_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">purple</span><span class="o">-</span><span class="n">red</span><span class="o">-</span><span class="n">orange_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">purple</span><span class="o">-</span><span class="n">red</span><span class="o">-</span><span class="n">white_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">purple</span><span class="o">-</span><span class="n">yellow</span><span class="o">-</span><span class="n">white_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">red_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">red</span><span class="o">-</span><span class="n">green_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">white</span><span class="o">-</span><span class="n">blue_full</span><span class="p">.</span><span class="n">png</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">material</span><span class="o">/</span><span class="n">yellow</span><span class="o">-</span><span class="n">darkgrey</span><span class="o">-</span><span class="n">red_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
+<div class="highlight"><pre><span></span>featured_image/images/material]# ls -C1|grep full|sort|sed &#39;s@\(.*\)@images/material/\1@g&#39;
+images/material/black-blue_full.jpg
+images/material/black_full.jpg
+images/material/black-red_full.jpg
+images/material/blue-black_full.jpg
+images/material/blue-brown_full.png
+images/material/blue_full.jpg
+images/material/blue-green_full.png
+images/material/blue-lightblue-white_full.jpg
+images/material/blue-white_full.jpg
+images/material/blue-yellow_full.png
+images/material/darkgreen-red-yellow_full.png
+images/material/green-blue_full.jpg
+images/material/green_full.png
+images/material/green-red_full.jpg
+images/material/orange-black_full.jpg
+images/material/orange-blue_full.jpg
+images/material/purple-blue_full.jpg
+images/material/purple-blue-red_full.jpg
+images/material/purple-red-orange_full.png
+images/material/purple-red-white_full.png
+images/material/purple-yellow-white_full.png
+images/material/red_full.jpg
+images/material/red-green_full.jpg
+images/material/white-blue_full.png
+images/material/yellow-darkgrey-red_full.jpg
 
-<span class="n">featured_image</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="err">]#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">C1</span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="k">full</span><span class="o">|</span><span class="n">sort</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="o">|</span><span class="n">sed</span><span class="w"> </span><span class="s1">&#39;s@\(.*\)@images/bamboo/\1@g&#39;</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">1</span><span class="n">_green_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">2</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">3</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">4</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">5</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">6</span><span class="n">_white_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">7</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">8</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">9</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">10</span><span class="n">_green_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">11</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">12</span><span class="n">_black_olive_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">13</span><span class="n">_gray_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">14</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">15</span><span class="n">_green_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">16</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">17</span><span class="n">_green_white_olive_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">18</span><span class="n">_black_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">19</span><span class="n">_green_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">20</span><span class="n">_gray_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">21</span><span class="n">_silver_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">22</span><span class="n">_white_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">23</span><span class="n">_black_olive_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">24</span><span class="n">_white_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
-<span class="n">images</span><span class="o">/</span><span class="n">bamboo</span><span class="o">/</span><span class="mi">25</span><span class="n">_black_white_full</span><span class="p">.</span><span class="n">jpg</span><span class="w"></span>
+featured_image/images/bamboo]# ls -C1|grep full|sort -n|sed &#39;s@\(.*\)@images/bamboo/\1@g&#39;
+images/bamboo/1_green_full.jpg
+images/bamboo/2_black_full.jpg
+images/bamboo/3_black_full.jpg
+images/bamboo/4_black_full.jpg
+images/bamboo/5_black_full.jpg
+images/bamboo/6_white_black_full.jpg
+images/bamboo/7_black_full.jpg
+images/bamboo/8_black_full.jpg
+images/bamboo/9_black_full.jpg
+images/bamboo/10_green_full.jpg
+images/bamboo/11_black_full.jpg
+images/bamboo/12_black_olive_full.jpg
+images/bamboo/13_gray_full.jpg
+images/bamboo/14_black_full.jpg
+images/bamboo/15_green_full.jpg
+images/bamboo/16_black_full.jpg
+images/bamboo/17_green_white_olive_full.jpg
+images/bamboo/18_black_full.jpg
+images/bamboo/19_green_full.jpg
+images/bamboo/20_gray_full.jpg
+images/bamboo/21_silver_full.jpg
+images/bamboo/22_white_full.jpg
+images/bamboo/23_black_olive_full.jpg
+images/bamboo/24_white_full.jpg
+images/bamboo/25_black_white_full.jpg
 </pre></div>
 
 
@@ -233,7 +233,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'codechallenge63.html';
-                var disqus_url = './codechallenge63.html';
+                var disqus_url = 'https://pybit.es/codechallenge63.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -253,10 +253,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

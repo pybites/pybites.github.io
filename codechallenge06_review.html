@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="It&#39;s end of the week again so we review the code challenge of this week. It&#39;s never late to join, just fork our challenges repo and start coding. Possible solutions / learning 1. Moving average...">
         <meta name="keywords" content="code review, codechallenges, learning, matplotlib, numpy, prediction, pypi, scipy">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Code Challenge 06 - PyPI 100K Packages Prediction - Review - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge 06 - PyPI 100K Packages Prediction - Review</h1>
-                      <p class="header-date"> <a href="./author/pybites.html">PyBites</a>, Fri 17 February 2017,  <a href="./category/challenges.html">Challenges</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/pybites.html">PyBites</a>, Fri 17 February 2017,  <a href="https://pybit.es/category/challenges.html">Challenges</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/code-review.html">code review</a>, <a href="./tag/codechallenges.html">codechallenges</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/matplotlib.html">matplotlib</a>, <a href="./tag/numpy.html">numpy</a>, <a href="./tag/prediction.html">prediction</a>, <a href="./tag/pypi.html">pypi</a>, <a href="./tag/scipy.html">scipy</a>                      </p>
+<a href="https://pybit.es/tag/code-review.html">code review</a>, <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/matplotlib.html">matplotlib</a>, <a href="https://pybit.es/tag/numpy.html">numpy</a>, <a href="https://pybit.es/tag/prediction.html">prediction</a>, <a href="https://pybit.es/tag/pypi.html">pypi</a>, <a href="https://pybit.es/tag/scipy.html">scipy</a>                      </p>
                   </div>
               </div>
         </div>
@@ -113,38 +113,38 @@
 <h2>Possible solutions / learning</h2>
 <h3>1. Moving average using PyPI's RSS</h3>
 <p>My first approach was to take the <a href="https://pypi.python.org/pypi?%3Aaction=packages_rss">PyPI New RSS feed</a> and take the average of time between adding packages. The script is <a href="https://github.com/pybites/challenges/blob/solutions/06/pypi100k.py">here</a>. The problem though is that the RSS feed has only 40 items, not much data. However when I put it in a cronjob and left it running for a week I got pretty similar results: it will happen somewhere at the beginning of March:</p>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">grep</span> <span class="k">Result</span> <span class="n">pypi</span><span class="p">.</span><span class="n">log</span> <span class="o">|</span><span class="n">sed</span> <span class="s1">&#39;s/,.* \[Main.*: /   /g&#39;</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">09</span> <span class="mi">16</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">13</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span> <span class="mi">13</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">23</span><span class="p">.</span><span class="mi">701848</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">10</span> <span class="mi">15</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">03</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">26</span> <span class="mi">03</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">38</span><span class="p">.</span><span class="mi">528795</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">11</span> <span class="mi">15</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">03</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">09</span> <span class="mi">23</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">.</span><span class="mi">631885</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">12</span> <span class="mi">15</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">03</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">05</span> <span class="mi">22</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">50</span><span class="p">.</span><span class="mi">575452</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">13</span> <span class="mi">15</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">03</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span> <span class="mi">07</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">47</span><span class="p">.</span><span class="mi">599206</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">14</span> <span class="mi">15</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">03</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">21</span> <span class="mi">20</span><span class="p">:</span><span class="mi">41</span><span class="p">:</span><span class="mi">34</span><span class="p">.</span><span class="mi">775090</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">15</span> <span class="mi">15</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">03</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span> <span class="mi">00</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">30</span><span class="p">.</span><span class="mi">304754</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">16</span> <span class="mi">15</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">03</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">38</span><span class="p">.</span><span class="mi">659931</span>
-<span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">17</span> <span class="mi">08</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">33</span>   <span class="mi">2017</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span> <span class="mi">09</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">01</span><span class="p">.</span><span class="mi">360349</span>
+<div class="highlight"><pre><span></span># grep Result pypi.log |sed &#39;s/,.* \[Main.*: /   /g&#39;
+2017-02-09 16:09:13   2017-02-25 13:52:23.701848
+2017-02-10 15:57:03   2017-02-26 03:50:38.528795
+2017-02-11 15:57:03   2017-03-09 23:10:14.631885
+2017-02-12 15:57:03   2017-03-05 22:31:50.575452
+2017-02-13 15:57:03   2017-02-27 07:02:47.599206
+2017-02-14 15:57:03   2017-02-21 20:41:34.775090
+2017-02-15 15:57:03   2017-02-25 00:01:30.304754
+2017-02-16 15:57:03   2017-03-01 12:52:38.659931
+2017-02-17 08:00:33   2017-03-01 09:38:01.360349
 </pre></div>
 
 
 <p>Another source to use if you go this route is <a href="https://wiki.python.org/moin/PyPIXmlRpc">PyPI's XML-RPC methods</a>.</p>
 <h3>2. Using scipy.interpolate on Webarchive data</h3>
 <p>I was pointed to the <a href="http://web.archive.org/web/20131025235716/https://pypi.python.org/pypi">Web Archive</a> on <a href="https://www.reddit.com/r/learnpython/comments/5trx9z/challenge_when_does_pypi_reach_100k_packages/">Reddit</a>. This is how you get snapshots of the PyPI page over time == a set of date points and how many packages there were at each time.</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="o">-</span><span class="nv">m</span> <span class="nv">venv</span> <span class="nv">venv</span> <span class="o">&amp;&amp;</span> <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">activate</span>
-$ <span class="nv">pip</span> <span class="nv">install</span> <span class="nv">waybackpack</span>
-# <span class="nv">take</span> <span class="mi">4</span> <span class="nv">years</span> <span class="nv">of</span> <span class="nv">data</span> <span class="ss">(</span><span class="nv">half</span> <span class="nv">a</span> <span class="nv">GB</span>, <span class="nv">delete</span> <span class="nv">when</span> <span class="nv">done</span><span class="ss">)</span>
-$ <span class="nv">waybackpack</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">pypi</span>.<span class="nv">python</span>.<span class="nv">org</span><span class="o">/</span><span class="nv">pypi</span> <span class="o">-</span><span class="nv">d</span> <span class="nv">pypi</span><span class="o">-</span><span class="nv">snapshots</span> <span class="o">--</span><span class="nv">from</span><span class="o">-</span><span class="nv">date</span> <span class="mi">20130214</span> <span class="o">--</span><span class="nv">to</span><span class="o">-</span><span class="nv">date</span> <span class="mi">20170214</span>
-# <span class="nv">few</span> <span class="nv">days</span> <span class="nv">went</span> <span class="nv">by</span>, <span class="nv">adjusted</span> <span class="k">end</span> <span class="nv">date</span> <span class="nv">to</span> <span class="mi">20170217</span> <span class="nv">today</span>
+<div class="highlight"><pre><span></span>$ python -m venv venv <span class="err">&amp;&amp;</span> source venv/bin/activate
+$ pip install waybackpack
+# take 4 years of data (half a GB, delete when done)
+$ waybackpack https://pypi.python.org/pypi -d pypi-snapshots --from-date 20130214 --to-date 20170214
+# few days went by, adjusted end date to 20170217 today
 #
-# <span class="nv">prep</span> <span class="nv">the</span> <span class="nv">data</span>
-$ <span class="nv">cd</span> <span class="nv">pypi</span><span class="o">-</span><span class="nv">snapshots</span>
-# <span class="nv">sometimes</span> <span class="nv">unix</span> <span class="nv">is</span> <span class="nv">all</span> <span class="nv">you</span> <span class="nv">need</span> <span class="c1">;)</span>
-$ <span class="nv">find</span> . <span class="o">-</span><span class="nv">name</span> <span class="s1">&#39;</span><span class="s">pypi</span><span class="s1">&#39;</span><span class="o">|</span><span class="nv">xargs</span> <span class="nv">grep</span> <span class="s2">&quot;</span><span class="s">&lt;strong&gt;[0-9][0-9]*&lt;/strong&gt;</span><span class="s2">&quot;</span><span class="o">|</span> <span class="nv">perl</span> <span class="o">-</span><span class="nv">pe</span> <span class="s1">&#39;</span><span class="s">s/.*?(\d+)\/.*&lt;strong&gt;(\d+)&lt;\/strong&gt;/\1:\2/g</span><span class="s1">&#39;</span> <span class="o">&gt;</span> ..<span class="o">/</span><span class="nv">data</span>.<span class="nv">txt</span>
-$ <span class="nv">head</span> <span class="o">-</span><span class="mi">2</span> <span class="nv">data</span>.<span class="nv">txt</span>
-<span class="mi">20130214002304</span>:<span class="mi">28061</span>
-<span class="mi">20130216031420</span>:<span class="mi">28108</span>
-$ <span class="nv">tail</span> <span class="o">-</span><span class="mi">2</span> <span class="nv">data</span>.<span class="nv">txt</span>
-<span class="mi">20170215124232</span>:<span class="mi">98825</span>
-<span class="mi">20170216124236</span>:<span class="mi">98907</span>
+# prep the data
+$ cd pypi-snapshots
+# sometimes unix is all you need ;)
+$ find . -name &#39;pypi&#39;|xargs grep &quot;<span class="nt">&lt;strong&gt;</span>[0-9][0-9]*<span class="nt">&lt;/strong&gt;</span>&quot;| perl -pe &#39;s/.*?(\d+)\/.*<span class="nt">&lt;strong&gt;</span>(\d+)<span class="err">&lt;</span>\/strong&gt;/\1:\2/g&#39; &gt; ../data.txt
+$ head -2 data.txt
+20130214002304:28061
+20130216031420:28108
+$ tail -2 data.txt
+20170215124232:98825
+20170216124236:98907
 </pre></div>
 
 
@@ -152,7 +152,7 @@ $ <span class="nv">tail</span> <span class="o">-</span><span class="mi">2</span>
 <p>I made <a href="https://github.com/pybites/challenges/blob/solutions/06/pypi_pred_webarchive.ipynb">this notebook</a> with the analysis. I used <a href="https://docs.scipy.org/doc/scipy-0.18.1/reference/generated/scipy.interpolate.UnivariateSpline.html#scipy.interpolate.UnivariateSpline">scipy.interpolate - UnivariateSpline</a> to do the extrapolation, I found this <a href="http://stackoverflow.com/questions/2745329/how-to-make-scipy-interpolate-give-an-extrapolated-result-beyond-the-input-range">here</a> (Joma's answer).</p>
 <h2>My prediction</h2>
 <p>As you can see from the notebook I am getting: 1st of March 8:37 PM. First of the month, nice date. And consistent with the first method.</p>
-<p><img alt="the result" src="./images/pypi100k.png"></p>
+<p><img alt="the result" src="https://pybit.es/images/pypi100k.png"></p>
 <h2>Feedback</h2>
 <p>What was your solution? Feel free to share in the comments below.</p>
 <p>We hope you enjoy these challenges. Please provide us feedback if we can improve anything ...</p>
@@ -175,7 +175,7 @@ $ <span class="nv">tail</span> <span class="o">-</span><span class="mi">2</span>
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'codechallenge06_review.html';
-                var disqus_url = './codechallenge06_review.html';
+                var disqus_url = 'https://pybit.es/codechallenge06_review.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -195,10 +195,10 @@ $ <span class="nv">tail</span> <span class="o">-</span><span class="mi">2</span>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

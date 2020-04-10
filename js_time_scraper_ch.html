@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Bob and I thought it&#39;d be interesting to do some code challenges. That is, Bob specifies the challenge and I complete it. Bob then goes through my code and makes any necessary edits/improvements...">
         <meta name="keywords" content="beginners, code, codechallenges, learning, python">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Code Challenge Pilot - calculate total time JS course - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge Pilot - calculate total time JS course</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Wed 04 January 2017,  <a href="./category/challenges.html">Challenges</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Wed 04 January 2017,  <a href="https://pybit.es/category/challenges.html">Challenges</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/beginners.html">beginners</a>, <a href="./tag/code.html">code</a>, <a href="./tag/codechallenges.html">codechallenges</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/python.html">python</a>                      </p>
+<a href="https://pybit.es/tag/beginners.html">beginners</a>, <a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/python.html">python</a>                      </p>
                   </div>
               </div>
         </div>
@@ -141,29 +141,29 @@
 <ul>
 <li>The program could have easily been a single, huge block of code but I decided it was best to split each 'job' into a different function. There are 2 functions in total:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="o">#</span><span class="k">Read</span> <span class="k">in</span> <span class="n">the</span> <span class="n">HTML</span> <span class="n">file</span> <span class="k">and</span> <span class="k">search</span> <span class="n">it</span> <span class="k">using</span> <span class="n">my</span> <span class="n">time</span> <span class="n">regex</span>
-<span class="n">def</span> <span class="n">search_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>#Read in the HTML file and search it using my time regex
+def search_file(file)
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">Strip</span> <span class="k">out</span> <span class="n">the</span> <span class="n">brackets</span> <span class="k">and</span> <span class="n">the</span> <span class="n">colon</span> <span class="k">to</span> <span class="n">calculate</span> <span class="n">the</span> <span class="n">mins</span> <span class="k">and</span> <span class="n">seconds</span>
-<span class="n">def</span> <span class="n">time_calculation</span><span class="p">(</span><span class="n">durations</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>#Strip out the brackets and the colon to calculate the mins and seconds
+def time_calculation(durations)
 </pre></div>
 
 
 <ul>
 <li>Creating the time search regex. This was the real challenge for me! While I'd used regex before it was definitely a challenge to search for a time string. The complexity was in coding the regex to search for both single minutes and double digit minutes, eg: 7:43 and 10:43. (As the times are all within ()s on the page, it was easier to include the braces in the regex):</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="n">time_regex</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;\(\d+:\d+\)&#39;</span><span class="p">)</span> <span class="o">#</span><span class="n">Creating</span> <span class="n">the</span> <span class="n">regex</span>
+<div class="highlight"><pre><span></span>time_regex = re.compile(r&#39;\(\d+:\d+\)&#39;) #Creating the regex
 </pre></div>
 
 
 <ul>
 <li>Stripping away the unecessary bits so I could work with the raw numbers. I used the strip() and split() methods for this. Admittedly, I was stoked when I realised I could use them both in one line of code (it's the small wins). This was done within a for loop to iterate over the list created by the regex search:</li>
 </ul>
-<div class="highlight"><pre><span></span>#<span class="k">For</span> <span class="k">loop</span> <span class="nv">to</span> <span class="nv">strip</span> <span class="nv">brackets</span><span class="o">/</span><span class="nv">colon</span> <span class="nv">and</span> <span class="nv">assign</span> <span class="nv">the</span> <span class="nv">mins</span><span class="o">/</span><span class="nv">seconds</span>
-<span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">durations</span><span class="ss">))</span>:
-    <span class="nv">minutes</span>, <span class="nv">seconds</span> <span class="o">=</span> <span class="nv">durations</span>[<span class="nv">i</span>].<span class="nv">strip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">()</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">:</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>#For loop to strip brackets/colon and assign the mins/seconds
+for i in range(len(durations)):
+    minutes, seconds = durations[i].strip(&#39;()&#39;).split(&#39;:&#39;)
 </pre></div>
 
 
@@ -192,7 +192,7 @@ Tomorrow's post will be his feedback... go easy on me brother!</p>
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'js_time_scraper_ch.html';
-                var disqus_url = './js_time_scraper_ch.html';
+                var disqus_url = 'https://pybit.es/js_time_scraper_ch.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -212,10 +212,10 @@ Tomorrow's post will be his feedback... go easy on me brother!</p>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

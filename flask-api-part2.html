@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="After Simple API - part 1 a more practical app in this part 2 tutorial: a Deep Work logger integrating Google docs and Slack, including deployment of the app to Heroku. Sometimes you come across...">
         <meta name="keywords" content="APIs, commands, Flask, git, Google docs, Heroku, learning, productivity, pygsheets, Slack">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Simple API Part 2 - Building a Deep Work Logger with Flask, Slack and Google Docs - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Simple API Part 2 - Building a Deep Work Logger with Flask, Slack and Google Docs</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Fri 10 March 2017,  <a href="./category/flask.html">Flask</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Fri 10 March 2017,  <a href="https://pybit.es/category/flask.html">Flask</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/apis.html">APIs</a>, <a href="./tag/commands.html">commands</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/git.html">git</a>, <a href="./tag/google-docs.html">Google docs</a>, <a href="./tag/heroku.html">Heroku</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/productivity.html">productivity</a>, <a href="./tag/pygsheets.html">pygsheets</a>, <a href="./tag/slack.html">Slack</a>                      </p>
+<a href="https://pybit.es/tag/apis.html">APIs</a>, <a href="https://pybit.es/tag/commands.html">commands</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/git.html">git</a>, <a href="https://pybit.es/tag/google-docs.html">Google docs</a>, <a href="https://pybit.es/tag/heroku.html">Heroku</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/productivity.html">productivity</a>, <a href="https://pybit.es/tag/pygsheets.html">pygsheets</a>, <a href="https://pybit.es/tag/slack.html">Slack</a>                      </p>
                   </div>
               </div>
         </div>
@@ -115,10 +115,10 @@
 <h2>Design</h2>
 <p>So we have the API = Flask, the back-end = Google Docs. What about the interface? </p>
 <p>I wanted something for both laptop and mobile = Slack. Enter the <a href="https://api.slack.com/slash-commands">Slack API / Slash Commands</a>. I defined this super basic interface: </p>
-<div class="highlight"><pre><span></span><span class="o">/</span><span class="nv">dw</span> <span class="o">&lt;</span><span class="nv">time</span><span class="o">&gt;</span> <span class="ss">(</span><span class="o">&lt;</span><span class="nv">activity</span><span class="o">&gt;</span><span class="ss">)</span>
-<span class="o">-</span> <span class="o">/</span><span class="nv">dw</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">slack</span> <span class="nv">command</span>
-<span class="o">-</span> <span class="nv">time</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">an</span> <span class="nv">int</span> <span class="ss">(</span><span class="nv">hour</span><span class="ss">)</span> <span class="nv">or</span> <span class="nv">more</span> <span class="nv">specifically</span> <span class="nv">hh</span>:<span class="nv">mm</span>
-<span class="o">-</span> <span class="nv">activity</span> <span class="nv">is</span> <span class="nv">optional</span>, <span class="k">if</span> <span class="nv">not</span> <span class="nv">provided</span> <span class="nv">it</span> <span class="nv">defaults</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">channel</span>
+<div class="highlight"><pre><span></span>/dw &lt;time&gt; (&lt;activity&gt;)
+- /dw is the slack command
+- time can be an int (hour) or more specifically hh:mm
+- activity is optional, if not provided it defaults to the name of the channel
 </pre></div>
 
 
@@ -136,10 +136,10 @@
 </li>
 <li>
 <p>Deploying an app is a challenge in itself. For example how do you get the client_secret.json file in Heroku? I had to go with <a href="http://stackoverflow.com/questions/7908667/how-to-deploy-heroku-app-with-secret-yaml-configuration-file-without-committing">this (not ideal) workaround</a>.</p>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">put</span> <span class="n">client_secret</span><span class="p">.</span><span class="n">json</span> <span class="k">in</span> <span class="p">.</span><span class="n">gitignore</span> <span class="k">on</span> <span class="n">master</span>
-<span class="o">#</span> <span class="k">commit</span> <span class="n">it</span> <span class="k">to</span> <span class="n">secret</span><span class="o">-</span><span class="n">branch</span> <span class="n">you</span> <span class="n">keep</span> <span class="k">between</span> <span class="n">localhost</span> <span class="k">and</span> <span class="n">Heroku</span> <span class="p">(</span><span class="k">not</span> <span class="n">Github</span><span class="p">)</span>
-<span class="p">...</span>
-<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">secret</span><span class="o">-</span><span class="n">branch</span><span class="p">:</span><span class="n">master</span>
+<div class="highlight"><pre><span></span># put client_secret.json in .gitignore on master
+# commit it to secret-branch you keep between localhost and Heroku (not Github)
+...
+$ git push heroku secret-branch:master
 </pre></div>
 
 
@@ -154,16 +154,16 @@
 <li>You can set an Autocomplete help text which is useful to your team</li>
 <li>
 <p>This is the payload Slack sends to your API for consumption: </p>
-<div class="highlight"><pre><span></span><span class="n">token</span><span class="o">=</span><span class="n">xyz</span>
-<span class="n">team_id</span><span class="o">=</span><span class="n">T0001</span>
-<span class="n">team_domain</span><span class="o">=</span><span class="n">example</span>
-<span class="n">channel_id</span><span class="o">=</span><span class="n">C123</span>
-<span class="n">channel_name</span><span class="o">=</span><span class="n">deepwork</span>
-<span class="n">user_id</span><span class="o">=</span><span class="n">U123</span>
-<span class="n">user_name</span><span class="o">=</span><span class="n">bbelderbos</span>  <span class="o">-&gt;</span> <span class="n">cool</span><span class="p">:</span> <span class="n">the</span> <span class="n">app</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="k">by</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">team</span> <span class="k">on</span> <span class="n">Slack</span>
-<span class="n">command</span><span class="o">=/</span><span class="n">dw</span>
-<span class="nb">text</span><span class="o">=</span><span class="n">your_entered_text</span>
-<span class="n">response_url</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">hooks</span><span class="p">.</span><span class="n">slack</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">commands</span><span class="o">/</span><span class="mi">1234</span><span class="o">/</span><span class="mi">5678</span>
+<div class="highlight"><pre><span></span>token=xyz
+team_id=T0001
+team_domain=example
+channel_id=C123
+channel_name=deepwork
+user_id=U123
+user_name=bbelderbos  -&gt; cool: the app can be used by the whole team on Slack
+command=/dw
+text=your_entered_text
+response_url=https://hooks.slack.com/commands/1234/5678
 </pre></div>
 
 
@@ -173,7 +173,7 @@
 </li>
 </ul>
 <h2>The app in action</h2>
-<p><img alt="the complete flow" src="./images/slackapi.png"></p>
+<p><img alt="the complete flow" src="https://pybit.es/images/slackapi.png"></p>
 <h2>Lessons learned</h2>
 <ul>
 <li>
@@ -196,7 +196,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'flask-api-part2.html';
-                var disqus_url = './flask-api-part2.html';
+                var disqus_url = 'https://pybit.es/flask-api-part2.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -216,10 +216,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

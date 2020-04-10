@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Rodolfo recently joined our Code Challenges and built Disaster Attention Bot (DisAtBot), a chatbot that helps people affected by natural disasters. In this article he shows how he built this bot...">
         <meta name="keywords" content="bots, chatbots, code challenge, DisAtBot, guest, Mexico, opensource, Telegram">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>DisAtBot - How I Built a Chatbot With Telegram And Python - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">DisAtBot - How I Built a Chatbot With Telegram And Python</h1>
-                      <p class="header-date"> <a href="./author/rodolfo-ferro.html">Rodolfo Ferro</a>, Sun 10 December 2017,  <a href="./category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/rodolfo-ferro.html">Rodolfo Ferro</a>, Sun 10 December 2017,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/bots.html">bots</a>, <a href="./tag/chatbots.html">chatbots</a>, <a href="./tag/code-challenge.html">code challenge</a>, <a href="./tag/disatbot.html">DisAtBot</a>, <a href="./tag/guest.html">guest</a>, <a href="./tag/mexico.html">Mexico</a>, <a href="./tag/opensource.html">opensource</a>, <a href="./tag/telegram.html">Telegram</a>                      </p>
+<a href="https://pybit.es/tag/bots.html">bots</a>, <a href="https://pybit.es/tag/chatbots.html">chatbots</a>, <a href="https://pybit.es/tag/code-challenge.html">code challenge</a>, <a href="https://pybit.es/tag/disatbot.html">DisAtBot</a>, <a href="https://pybit.es/tag/guest.html">guest</a>, <a href="https://pybit.es/tag/mexico.html">Mexico</a>, <a href="https://pybit.es/tag/opensource.html">opensource</a>, <a href="https://pybit.es/tag/telegram.html">Telegram</a>                      </p>
                   </div>
               </div>
         </div>
@@ -127,7 +127,7 @@
 <li>The official repo: <a href="https://github.com/RodolfoFerro/DisAtBot">https://github.com/RodolfoFerro/DisAtBot</a></li>
 </ul>
 <p>The idea was to have a simple flow that allowed disaster reporting to be quick and easy. The general process of DisAtBot is as follows:</p>
-<p><img alt="disatbot flow" src="./images/disatbot-flow.png"></p>
+<p><img alt="disatbot flow" src="https://pybit.es/images/disatbot-flow.png"></p>
 <p>The idea is that any user can interact with the bot by selecting options from button menus in the conversation. This greatly speeds up incidents reporting.</p>
 <p>The next step would be opening a ticket which will be stored in a database, for the corresponding government instance/public organization/NGO/etc. to validate and send assistance. When no more help is needed, or the situation is under control, the ticket is closed.</p>
 <h2>Setup</h2>
@@ -192,7 +192,7 @@
 
 
 <p>As you can see, the <code>keyboard</code> variable is a list that contains the four buttons to be displayed. The layout can be set by nesting lists inside. In this case the <strong>Report</strong> and <strong>Map</strong> buttons are in the first row, while <strong>FAQ</strong> and <strong>About</strong> buttons are in the second row. This looks like:</p>
-<p><img alt="disatbot menu" src="./images/disatbot-menu.jpg"></p>
+<p><img alt="disatbot menu" src="https://pybit.es/images/disatbot-menu.jpg"></p>
 <p>Continuing with the code, a <code>ReplyMarkup</code> is needed to handle the button responses. It specifies the layout of the menu: if only one menu is displayed, if it needs to be resized, etc. </p>
 <p>A logger is used for the bot, and the <code>update.message.reply(...)</code> function is used to update the displayed text according to the response from the user. The <code>SET_STAT</code> variable returned in this function is a (predefined) integer to return the state at that time, and to follow the flow.</p>
 <p>We now understand the menu creation and handling. The reason of using buttons is that we want a quick interaction because the bot is used in an emergency situation.</p>
@@ -279,7 +279,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'guest-telegram-python-chatbot.html';
-                var disqus_url = './guest-telegram-python-chatbot.html';
+                var disqus_url = 'https://pybit.es/guest-telegram-python-chatbot.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -299,10 +299,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

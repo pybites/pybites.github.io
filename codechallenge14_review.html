@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="It&#39;s end of the week again so we review the code challenge of this week: Write DRY Code With Decorators. It&#39;s never late to join, just fork us and start coding. Our solution and learning Getting...">
         <meta name="keywords" content="codechallenges, decorators, design patterns, DRY, learning">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Code Challenge 14 - Write DRY Code With Decorators - Review - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge 14 - Write DRY Code With Decorators - Review</h1>
-                      <p class="header-date"> <a href="./author/pybites.html">PyBites</a>, Sat 15 April 2017,  <a href="./category/challenges.html">Challenges</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/pybites.html">PyBites</a>, Sat 15 April 2017,  <a href="https://pybit.es/category/challenges.html">Challenges</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/codechallenges.html">codechallenges</a>, <a href="./tag/decorators.html">decorators</a>, <a href="./tag/design-patterns.html">design patterns</a>, <a href="./tag/dry.html">DRY</a>, <a href="./tag/learning.html">learning</a>                      </p>
+<a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>, <a href="https://pybit.es/tag/decorators.html">decorators</a>, <a href="https://pybit.es/tag/design-patterns.html">design patterns</a>, <a href="https://pybit.es/tag/dry.html">DRY</a>, <a href="https://pybit.es/tag/learning.html">learning</a>                      </p>
                   </div>
               </div>
         </div>
@@ -119,9 +119,9 @@
 </li>
 <li>
 <p>As we sensed using optional arguments made the mute_exception more versatile. You can run it in various ways: </p>
-<div class="highlight"><pre><span></span><span class="nv">@mute_exception</span><span class="w">                                    </span><span class="err">#</span><span class="w"> </span><span class="nl">works</span><span class="p">:</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="n">provided</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">takes</span><span class="w"> </span><span class="n">defaults</span><span class="w"> </span><span class="p">(</span><span class="k">no</span><span class="w"> </span><span class="n">reraise</span><span class="p">,</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"></span>
-<span class="nv">@mute_exception</span><span class="p">(</span><span class="n">reraise</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="w">                      </span><span class="err">#</span><span class="w"> </span><span class="nl">works</span><span class="p">:</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">ZeroDivisionError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crash</span><span class="w"></span>
-<span class="nv">@mute_exception</span><span class="p">(</span><span class="n">reraise</span><span class="o">=</span><span class="k">False</span><span class="p">,</span><span class="w"> </span><span class="n">default_return</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="nl">works</span><span class="p">:</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">reraise</span><span class="w"> </span><span class="n">ZeroDivisionError</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">case</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@mute_exception                                    # works: no args provided = takes defaults (no reraise, returns None)
+@mute_exception(reraise=True)                      # works: raises the ZeroDivisionError = crash
+@mute_exception(reraise=False, default_return=0)   # works: does not reraise ZeroDivisionError and returns 0 in that case
 </pre></div>
 
 
@@ -152,13 +152,13 @@ div <span class="m">3</span>/0 <span class="o">=</span> <span class="m">0</span>
 
 
 <p>The program did not crash by the divide by 0, logging the exception:</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">tail</span> <span class="nv">decorators</span>.<span class="nv">log</span>
+<div class="highlight"><pre><span></span>$ tail decorators.log
 ...
 ...
-<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">36</span> <span class="nv">root</span>         <span class="nv">DEBUG</span>    <span class="nv">div</span> <span class="nv">called</span> <span class="k">for</span> <span class="nv">args</span> <span class="ss">(</span><span class="mi">1</span>, <span class="mi">4</span><span class="ss">)</span>
-<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">36</span> <span class="nv">root</span>         <span class="nv">DEBUG</span>    <span class="nv">div</span> <span class="nv">called</span> <span class="k">for</span> <span class="nv">args</span> <span class="ss">(</span><span class="mi">2</span>, <span class="mi">5</span><span class="ss">)</span>
-<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">37</span> <span class="nv">root</span>         <span class="nv">DEBUG</span>    <span class="nv">div</span> <span class="nv">called</span> <span class="k">for</span> <span class="nv">args</span> <span class="ss">(</span><span class="mi">3</span>, <span class="mi">0</span><span class="ss">)</span>
-<span class="mi">00</span>:<span class="mi">58</span>:<span class="mi">37</span> <span class="nv">root</span>         <span class="nv">ERROR</span>    <span class="nv">div</span> <span class="nv">raised</span> <span class="nv">exception</span> <span class="nv">ZeroDivisionError</span> <span class="k">for</span> <span class="nv">args</span>: <span class="ss">(</span><span class="mi">3</span>, <span class="mi">0</span><span class="ss">)</span>
+<span class="m">00</span>:58:36 root         DEBUG    div called <span class="k">for</span> args <span class="o">(</span><span class="m">1</span>, <span class="m">4</span><span class="o">)</span>
+<span class="m">00</span>:58:36 root         DEBUG    div called <span class="k">for</span> args <span class="o">(</span><span class="m">2</span>, <span class="m">5</span><span class="o">)</span>
+<span class="m">00</span>:58:37 root         DEBUG    div called <span class="k">for</span> args <span class="o">(</span><span class="m">3</span>, <span class="m">0</span><span class="o">)</span>
+<span class="m">00</span>:58:37 root         ERROR    div raised exception ZeroDivisionError <span class="k">for</span> args: <span class="o">(</span><span class="m">3</span>, <span class="m">0</span><span class="o">)</span>
 </pre></div>
 
 
@@ -178,7 +178,7 @@ div <span class="m">3</span>/0 <span class="o">=</span> <span class="m">0</span>
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'codechallenge14_review.html';
-                var disqus_url = './codechallenge14_review.html';
+                var disqus_url = 'https://pybit.es/codechallenge14_review.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -198,10 +198,10 @@ div <span class="m">3</span>/0 <span class="o">=</span> <span class="m">0</span>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

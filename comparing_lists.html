@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="I love finding new things, especially when they end up saving you a boat load of time and effort! I was looking for a way to compare two lists as the code I had seemed quite clunky. Surely there...">
         <meta name="keywords" content="beginners, bestpractices, cleancode, learning, python, pythonic, stdlib, tips">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Comparing Lists with Difflib - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Comparing Lists with Difflib</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Wed 08 March 2017,  <a href="./category/learning.html">Learning</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Wed 08 March 2017,  <a href="https://pybit.es/category/learning.html">Learning</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/beginners.html">beginners</a>, <a href="./tag/bestpractices.html">bestpractices</a>, <a href="./tag/cleancode.html">cleancode</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/python.html">python</a>, <a href="./tag/pythonic.html">pythonic</a>, <a href="./tag/stdlib.html">stdlib</a>, <a href="./tag/tips.html">tips</a>                      </p>
+<a href="https://pybit.es/tag/beginners.html">beginners</a>, <a href="https://pybit.es/tag/bestpractices.html">bestpractices</a>, <a href="https://pybit.es/tag/cleancode.html">cleancode</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/pythonic.html">pythonic</a>, <a href="https://pybit.es/tag/stdlib.html">stdlib</a>, <a href="https://pybit.es/tag/tips.html">tips</a>                      </p>
                   </div>
               </div>
         </div>
@@ -113,38 +113,38 @@
 <h2>The Julian Way</h2>
 <p>I'll show you how I was approaching the problem first. Don't judge me!</p>
 <p>First, the two blocks of text (made these lists up on the spot):</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">text1</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="s">Julian&#39;s to-do list:</span>
-<span class="mi">1</span>. <span class="nv">Be</span> <span class="nv">awesome</span>.
-<span class="mi">2</span>. <span class="nv">Pybites</span>.
-<span class="mi">3</span>. <span class="nv">Enjoy</span> <span class="nv">a</span> <span class="nv">beer</span>.<span class="s2">&quot;&quot;&quot;</span>
-<span class="o">&gt;&gt;&gt;</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">text2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="s">Bob&#39;s to-do list:</span>
-<span class="mi">1</span>. <span class="nv">Be</span> <span class="nv">awesome</span><span class="o">!</span>
-<span class="mi">2</span>. <span class="nv">PyBites</span>.
-<span class="mi">3</span>. <span class="nv">Enjoy</span> <span class="nv">a</span> <span class="nv">beer</span>.<span class="s2">&quot;&quot;&quot;</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; text1 = &quot;&quot;&quot;Julian&#39;s to-do list:
+1. Be awesome.
+2. Pybites.
+3. Enjoy a beer.&quot;&quot;&quot;
+&gt;&gt;&gt; 
+&gt;&gt;&gt; text2 = &quot;&quot;&quot;Bob&#39;s to-do list:
+1. Be awesome!
+2. PyBites.
+3. Enjoy a beer.&quot;&quot;&quot;
+&gt;&gt;&gt;
 </pre></div>
 
 
 <p>I then split the these blocks up into strings using <em>splitlines()</em>. This returns a list containing each line:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">text1_split</span> <span class="o">=</span> <span class="n">text1</span><span class="p">.</span><span class="n">splitlines</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">text2_split</span> <span class="o">=</span> <span class="n">text2</span><span class="p">.</span><span class="n">splitlines</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; text1_split = text1.splitlines()
+&gt;&gt;&gt; text2_split = text2.splitlines()
 </pre></div>
 
 
 <p>This is where I got stuck. I came up with a for loop that checked to see if items from the <em>text1_split</em> list were in the <em>text2_split</em> list. There's an if statement for the checking:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">text1_split</span>:
-    <span class="k">if</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">text2_split</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">&#39;%s&#39; is in both lists!</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>
-    <span class="k">else</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">&#39;%s&#39; is NOT in both lists!</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; for i in text1_split:
+    if i in text2_split:
+        print(&quot;&#39;%s&#39; is in both lists!&quot; % (i))
+    else:
+        print(&quot;&#39;%s&#39; is NOT in both lists!&quot; % (i))
 
 
-<span class="s1">&#39;</span><span class="s">Julian</span><span class="s1">&#39;</span><span class="nv">s</span> <span class="nv">to</span><span class="o">-</span><span class="k">do</span> <span class="nv">list</span>:<span class="s1">&#39;</span><span class="s"> is NOT in both lists!</span>
-<span class="s1">&#39;</span><span class="s">1. Be awesome.</span><span class="s1">&#39;</span> <span class="nv">is</span> <span class="nv">NOT</span> <span class="nv">in</span> <span class="nv">both</span> <span class="nv">lists</span><span class="o">!</span>
-<span class="s1">&#39;</span><span class="s">2. Pybites.</span><span class="s1">&#39;</span> <span class="nv">is</span> <span class="nv">NOT</span> <span class="nv">in</span> <span class="nv">both</span> <span class="nv">lists</span><span class="o">!</span>
-<span class="s1">&#39;</span><span class="s">3. Enjoy a beer.</span><span class="s1">&#39;</span> <span class="nv">is</span> <span class="nv">in</span> <span class="nv">both</span> <span class="nv">lists</span><span class="o">!</span>
-<span class="o">&gt;&gt;&gt;</span>
+&#39;Julian&#39;s to-do list:&#39; is NOT in both lists!
+&#39;1. Be awesome.&#39; is NOT in both lists!
+&#39;2. Pybites.&#39; is NOT in both lists!
+&#39;3. Enjoy a beer.&#39; is in both lists!
+&gt;&gt;&gt;
 </pre></div>
 
 
@@ -154,33 +154,33 @@ Enter difflib.</p>
 <h2>Difflib to the Rescue!</h2>
 <p>Before I show you the command, I'll just say that difflib is actually quite expansive, ie, there's a lot you can do with it. This post is just about the <em>Differ()</em> class.</p>
 <p>As before, you have to split the blocks of text into a list of strings/lines:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">text1_split</span> <span class="o">=</span> <span class="n">text1</span><span class="p">.</span><span class="n">splitlines</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">text2_split</span> <span class="o">=</span> <span class="n">text2</span><span class="p">.</span><span class="n">splitlines</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; text1_split = text1.splitlines()
+&gt;&gt;&gt; text2_split = text2.splitlines()
 </pre></div>
 
 
 <p>I then call <em>Differ().compare()</em> to do the comparison. I store the result of the command in the <em>diff</em> variable. Finally, I print the output, joining the lines with a new line to make it readable.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">diff</span> <span class="o">=</span> <span class="nv">difflib</span>.<span class="nv">Differ</span><span class="ss">()</span>.<span class="nv">compare</span><span class="ss">(</span><span class="nv">text1_split</span>, <span class="nv">text2_split</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">diff</span><span class="ss">))</span>
-<span class="o">-</span> <span class="nv">Julian</span><span class="s1">&#39;</span><span class="s">s to-do list:</span>
-? <span class="o">^^^^^^</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; diff = difflib.Differ().compare(text1_split, text2_split)
+&gt;&gt;&gt; print(&#39;\n&#39;.join(diff))
+- Julian&#39;s to-do list:
+? ^^^^^^
 
-<span class="o">+</span> <span class="nv">Bob</span><span class="s1">&#39;</span><span class="s">s to-do list:</span>
-? <span class="o">^^^</span>
++ Bob&#39;s to-do list:
+? ^^^
 
-<span class="o">-</span> <span class="mi">1</span>. <span class="nv">Be</span> <span class="nv">awesome</span>.
-?              <span class="o">^</span>
+- 1. Be awesome.
+?              ^
 
-<span class="o">+</span> <span class="mi">1</span>. <span class="nv">Be</span> <span class="nv">awesome</span><span class="o">!</span>
-?              <span class="o">^</span>
++ 1. Be awesome!
+?              ^
 
-<span class="o">-</span> <span class="mi">2</span>. <span class="nv">Pybites</span>.
-?      <span class="o">^</span>
+- 2. Pybites.
+?      ^
 
-<span class="o">+</span> <span class="mi">2</span>. <span class="nv">PyBites</span>.
-?      <span class="o">^</span>
++ 2. PyBites.
+?      ^
 
-  <span class="mi">3</span>. <span class="nv">Enjoy</span> <span class="nv">a</span> <span class="nv">beer</span>.
+  3. Enjoy a beer.
 </pre></div>
 
 
@@ -205,7 +205,7 @@ Enter difflib.</p>
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'comparing_lists.html';
-                var disqus_url = './comparing_lists.html';
+                var disqus_url = 'https://pybit.es/comparing_lists.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -225,10 +225,10 @@ Enter difflib.</p>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

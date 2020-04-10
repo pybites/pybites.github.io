@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="It&#39;s end of the week again so we review the code challenge of this week. It&#39;s never late to join, just fork our challenges repo and start coding. Learning Julian The simplicity of this challenge...">
         <meta name="keywords" content="APIs, code review, codechallenges, data structures, Flask, inventory, learning">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Code Challenge 08 - House Inventory Tracker - Review - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge 08 - House Inventory Tracker - Review</h1>
-                      <p class="header-date"> <a href="./author/pybites.html">PyBites</a>, Sun 05 March 2017,  <a href="./category/challenges.html">Challenges</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/pybites.html">PyBites</a>, Sun 05 March 2017,  <a href="https://pybit.es/category/challenges.html">Challenges</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/apis.html">APIs</a>, <a href="./tag/code-review.html">code review</a>, <a href="./tag/codechallenges.html">codechallenges</a>, <a href="./tag/data-structures.html">data structures</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/inventory.html">inventory</a>, <a href="./tag/learning.html">learning</a>                      </p>
+<a href="https://pybit.es/tag/apis.html">APIs</a>, <a href="https://pybit.es/tag/code-review.html">code review</a>, <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>, <a href="https://pybit.es/tag/data-structures.html">data structures</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/inventory.html">inventory</a>, <a href="https://pybit.es/tag/learning.html">learning</a>                      </p>
                   </div>
               </div>
         </div>
@@ -154,55 +154,55 @@ Maybe something to wrap in a validation class ...</p>
 <p>Nice constructs I could use: defaultdict, namedtuple and format printing.</p>
 <p>Before I would have mixed calculation and printing, now I isolating the summing in <em>calc_totals</em> function which makes it a bit cleaner. 
 See output below - I changed the NUM_ITEMS constant to 2 for shorter output (could make it a command line arg ...)</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">inventory_bob</span>.<span class="nv">py</span>
+<div class="highlight"><pre><span></span>$ python inventory_bob.py
 
-<span class="nv">Entering</span> <span class="nv">items</span> <span class="k">for</span> <span class="nv">room</span> <span class="nv">study</span>:
+Entering items <span class="k">for</span> room study:
 
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#1</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">monitor</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">200</span>
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#2</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">laptop</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">1000</span>
+* Item <span class="c1">#1:</span>
+- Enter the name of the item: monitor
+- Enter the value of the item: <span class="m">200</span>
+* Item <span class="c1">#2:</span>
+- Enter the name of the item: laptop
+- Enter the value of the item: <span class="m">1000</span>
 
-<span class="nv">Entering</span> <span class="nv">items</span> <span class="k">for</span> <span class="nv">room</span> <span class="nv">living_room</span>:
+Entering items <span class="k">for</span> room living_room:
 
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#1</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">sofa</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">600</span>
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#2</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">tv</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">500</span>
+* Item <span class="c1">#1:</span>
+- Enter the name of the item: sofa
+- Enter the value of the item: <span class="m">600</span>
+* Item <span class="c1">#2:</span>
+- Enter the name of the item: tv
+- Enter the value of the item: <span class="m">500</span>
 
-<span class="nv">Entering</span> <span class="nv">items</span> <span class="k">for</span> <span class="nv">room</span> <span class="nv">master_bedroom</span>:
+Entering items <span class="k">for</span> room master_bedroom:
 
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#1</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">bed</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">1000</span>
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#2</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">couch</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">400</span>
+* Item <span class="c1">#1:</span>
+- Enter the name of the item: bed
+- Enter the value of the item: <span class="m">1000</span>
+* Item <span class="c1">#2:</span>
+- Enter the name of the item: couch
+- Enter the value of the item: <span class="m">400</span>
 
-<span class="o">*</span> <span class="nv">Room</span>: <span class="nv">study</span>
-<span class="nv">monitor</span>        :   <span class="mi">200</span>
-<span class="nv">laptop</span>         :  <span class="mi">1000</span>
-<span class="o">--</span>
-<span class="nv">Subtotal</span>       :  <span class="mi">1200</span>
+* Room: study
+monitor        :   <span class="m">200</span>
+laptop         :  <span class="m">1000</span>
+--
+Subtotal       :  <span class="m">1200</span>
 
-<span class="o">*</span> <span class="nv">Room</span>: <span class="nv">living_room</span>
-<span class="nv">sofa</span>           :   <span class="mi">600</span>
-<span class="nv">tv</span>             :   <span class="mi">500</span>
-<span class="o">--</span>
-<span class="nv">Subtotal</span>       :  <span class="mi">1100</span>
+* Room: living_room
+sofa           :   <span class="m">600</span>
+tv             :   <span class="m">500</span>
+--
+Subtotal       :  <span class="m">1100</span>
 
-<span class="o">*</span> <span class="nv">Room</span>: <span class="nv">master_bedroom</span>
-<span class="nv">bed</span>            :  <span class="mi">1000</span>
-<span class="nv">couch</span>          :   <span class="mi">400</span>
-<span class="o">--</span>
-<span class="nv">Subtotal</span>       :  <span class="mi">1400</span>
+* Room: master_bedroom
+bed            :  <span class="m">1000</span>
+couch          :   <span class="m">400</span>
+--
+Subtotal       :  <span class="m">1400</span>
 
-<span class="o">----</span>
-<span class="nv">Total</span>          :  <span class="mi">3700</span>
+----
+Total          :  <span class="m">3700</span>
 </pre></div>
 
 
@@ -221,7 +221,7 @@ See output below - I changed the NUM_ITEMS constant to 2 for shorter output (cou
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'codechallenge08_review.html';
-                var disqus_url = './codechallenge08_review.html';
+                var disqus_url = 'https://pybit.es/codechallenge08_review.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -241,10 +241,10 @@ See output below - I changed the NUM_ITEMS constant to 2 for shorter output (cou
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

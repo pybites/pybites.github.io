@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In this article I show you a way to automatically tweet your #100DaysOfCode Challenge progress. This saves you some extra time to focus on the coding. Isn&#39;t that all what matters? This is day 007...">
         <meta name="keywords" content="100days, automation, logging, pytz, tools, tweepy, twitter">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>How we Automated our 100DaysOfCode Daily Tweet - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How we Automated our 100DaysOfCode Daily Tweet</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Wed 05 April 2017,  <a href="./category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Wed 05 April 2017,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/100days.html">100days</a>, <a href="./tag/automation.html">automation</a>, <a href="./tag/logging.html">logging</a>, <a href="./tag/pytz.html">pytz</a>, <a href="./tag/tools.html">tools</a>, <a href="./tag/tweepy.html">tweepy</a>, <a href="./tag/twitter.html">twitter</a>                      </p>
+<a href="https://pybit.es/tag/100days.html">100days</a>, <a href="https://pybit.es/tag/automation.html">automation</a>, <a href="https://pybit.es/tag/logging.html">logging</a>, <a href="https://pybit.es/tag/pytz.html">pytz</a>, <a href="https://pybit.es/tag/tools.html">tools</a>, <a href="https://pybit.es/tag/tweepy.html">tweepy</a>, <a href="https://pybit.es/tag/twitter.html">twitter</a>                      </p>
                   </div>
               </div>
         </div>
@@ -134,44 +134,44 @@
 </li>
 <li>
 <p>My server (see deployment below) runs on MT tz and I wanted to talk EMEA times. <a href="https://pypi.python.org/pypi/pytz">Pytz (World Timezone Definitions for Python)</a> to the rescue: it made working with timezones very easy: </p>
-<div class="highlight"><pre><span></span><span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="p">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Amsterdam&#39;</span><span class="p">)</span>
-<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
-<span class="k">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>  <span class="o">#</span> <span class="o">=</span> <span class="n">PyBites</span> <span class="mi">100</span> <span class="n">days</span> <span class="p">:)</span>
+<div class="highlight"><pre><span></span>tz = pytz.timezone(&#39;Europe/Amsterdam&#39;)
+now = datetime.datetime.now(tz)
+start = datetime.datetime(2017, 3, 29, tzinfo=tz)  # = PyBites 100 days :)
 </pre></div>
 
 
 </li>
 <li>
 <p>I define some constants in all capital letters with underscores separating words (PEP8). I start to like datetime: calculating dates is easy:</p>
-<div class="highlight"><pre><span></span><span class="n">CURRENT_CHALLENGE_DAY</span> <span class="o">=</span> <span class="n">str</span><span class="p">((</span><span class="n">now</span> <span class="o">-</span> <span class="k">start</span><span class="p">).</span><span class="n">days</span><span class="p">).</span><span class="n">zfill</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">LOG</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/pybites/100DaysOfCode/master/LOG.md&#39;</span>
-<span class="n">LOG_ENTRY</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;\[(?P&lt;title&gt;.*?)\]\((?P&lt;day&gt;\d+)\)&#39;</span><span class="p">)</span>
-<span class="n">REPO_URL</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/pybites/100DaysOfCode/tree/master/&#39;</span>
-<span class="n">TWEET_LEN</span> <span class="o">=</span> <span class="mi">140</span>
-<span class="n">TWEET_LINK_LEN</span> <span class="o">=</span> <span class="mi">23</span>
+<div class="highlight"><pre><span></span>CURRENT_CHALLENGE_DAY = str((now - start).days).zfill(3)
+LOG = &#39;https://raw.githubusercontent.com/pybites/100DaysOfCode/master/LOG.md&#39;
+LOG_ENTRY = re.compile(r&#39;\[(?P&lt;title&gt;.*?)\]\((?P&lt;day&gt;\d+)\)&#39;)
+REPO_URL = &#39;https://github.com/pybites/100DaysOfCode/tree/master/&#39;
+TWEET_LEN = 140
+TWEET_LINK_LEN = 23
 </pre></div>
 
 
 </li>
 <li>
 <p>Where would we be without requests? Here I get the LOG.md file from <a href="https://github.com/pybites/100DaysOfCode">our repo</a>, just a single line of code:</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_log</span><span class="ss">()</span>:
-    <span class="k">return</span> <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">LOG</span><span class="ss">)</span>.<span class="nv">text</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>def get_log():
+    return requests.get(LOG).text.split(&#39;\n&#39;)
 </pre></div>
 
 
 </li>
 <li>
 <p>I get the script title and day string from the line in LOG.md that matches the exact day string (today = '007'):</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_day_progress</span><span class="ss">(</span><span class="nv">html</span><span class="ss">)</span>:
-    <span class="nv">lines</span> <span class="o">=</span> [<span class="nv">line</span>.<span class="nv">strip</span><span class="ss">()</span>
-            <span class="k">for</span> <span class="nv">line</span> <span class="nv">in</span> <span class="nv">html</span>
-            <span class="k">if</span> <span class="nv">line</span>.<span class="nv">strip</span><span class="ss">()</span>]
+<div class="highlight"><pre><span></span>def get_day_progress(html):
+    lines = [line.strip()
+            for line in html
+            if line.strip()]
 
-    <span class="k">for</span> <span class="nv">line</span> <span class="nv">in</span> <span class="nv">lines</span>:
-        <span class="nv">day_entry</span> <span class="o">=</span> <span class="nv">line</span>.<span class="nv">strip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">|</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">|</span><span class="s1">&#39;</span><span class="ss">)</span>[<span class="mi">0</span>].<span class="nv">strip</span><span class="ss">()</span>
-        <span class="k">if</span> <span class="nv">day_entry</span> <span class="o">==</span> <span class="nv">CURRENT_CHALLENGE_DAY</span>:
-            <span class="k">return</span> <span class="nv">LOG_ENTRY</span>.<span class="nv">search</span><span class="ss">(</span><span class="nv">line</span><span class="ss">)</span>.<span class="nv">groupdict</span><span class="ss">()</span>
+    for line in lines:
+        day_entry = line.strip(&#39;|&#39;).split(&#39;|&#39;)[0].strip()
+        if day_entry == CURRENT_CHALLENGE_DAY:
+            return LOG_ENTRY.search(line).groupdict()
 </pre></div>
 
 
@@ -199,12 +199,12 @@
 </li>
 <li>
 <p>tweet_status() sends the tweet. We use the imported api object (from config.py) to send the tweet and we log an info if success, or error if any exception:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">tweet_status</span><span class="p">(</span><span class="n">tweet</span><span class="p">):</span>
-    <span class="n">try</span><span class="p">:</span>
-        <span class="n">api</span><span class="p">.</span><span class="n">update_status</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
-        <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Posted to Twitter&#39;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="k">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="n">logging</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error posting to Twitter: {}&#39;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">exc</span><span class="p">))</span>
+<div class="highlight"><pre><span></span>def tweet_status(tweet):
+    try:
+        api.update_status(tweet)
+        logging.info(&#39;Posted to Twitter&#39;)
+    except Exception as exc:
+        logging.error(&#39;Error posting to Twitter: {}&#39;.format(exc))
 </pre></div>
 
 
@@ -221,33 +221,33 @@
 </li>
 <li>
 <p>If test I use my local LOG file:</p>
-<div class="highlight"><pre><span></span>    <span class="k">if</span> <span class="nv">test</span>:
-        <span class="nv">log</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="k">basename</span><span class="ss">(</span><span class="nv">LOG</span><span class="ss">)</span>
-        <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">log</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
-            <span class="nv">html</span> <span class="o">=</span> <span class="nv">f</span>.<span class="nv">readlines</span><span class="ss">()</span>
-    <span class="k">else</span>:
-        <span class="nv">html</span> <span class="o">=</span> <span class="nv">get_log</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>    if test:
+        log = os.path.basename(LOG)
+        with open(log) as f:
+            html = f.readlines()
+    else:
+        html = get_log()
 </pre></div>
 
 
 </li>
 <li>
 <p>If for some reason I don't get a valid return from get_day_progress() I abort the script, logging the error:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">m</span> <span class="o">=</span> <span class="nv">get_day_progress</span><span class="ss">(</span><span class="nv">html</span><span class="ss">)</span>
-    <span class="k">if</span> <span class="nv">not</span> <span class="nv">m</span>:
-        <span class="nv">logging</span>.<span class="nv">error</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Error getting day progress from log</span><span class="s1">&#39;</span><span class="ss">)</span>
-        <span class="nv">sys</span>.<span class="k">exit</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>    m = get_day_progress(html)
+    if not m:
+        logging.error(&#39;Error getting day progress from log&#39;)
+        sys.exit(1)
 </pre></div>
 
 
 </li>
 <li>
 <p>I create the tweet. If dry run, I just log it, else it tweets automatically:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">tweet</span> <span class="o">=</span> <span class="nv">create_tweet</span><span class="ss">(</span><span class="nv">m</span><span class="ss">)</span>
-    <span class="k">if</span> <span class="nv">test</span>:
-        <span class="nv">logging</span>.<span class="nv">info</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Test: tweet to send: {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">tweet</span><span class="ss">))</span>
-    <span class="k">else</span>:
-        <span class="nv">tweet_status</span><span class="ss">(</span><span class="nv">tweet</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>    tweet = create_tweet(m)
+    if test:
+        logging.info(&#39;Test: tweet to send: {}&#39;.format(tweet))
+    else:
+        tweet_status(tweet)
 </pre></div>
 
 
@@ -263,7 +263,7 @@
 
 <h2>Result</h2>
 <p>What a coincidence: as I write this our <a href="https://twitter.com/pybites/status/849721815538712576">today's progress tweet just went out</a> :)</p>
-<p><img alt="my automated tweet" src="./images/auto-tweet.png"></p>
+<p><img alt="my automated tweet" src="https://pybit.es/images/auto-tweet.png"></p>
 <h2>Logging</h2>
 <p>The cool thing about the logging module is that you get the external packages' logging for free. When I look at the log I see a lot more than my script's logging:</p>
 <div class="highlight"><pre><span></span>$ vi 100day_autotweet.log
@@ -290,7 +290,7 @@ many more log entries ...
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = '100days-autotweet.html';
-                var disqus_url = './100days-autotweet.html';
+                var disqus_url = 'https://pybit.es/100days-autotweet.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -310,10 +310,10 @@ many more log entries ...
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

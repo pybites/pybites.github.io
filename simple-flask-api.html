@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="REST has gained lot of popularity and is virtually the default architectural style for designing and implementing RESTful web services. Wikipedia states: Representational state transfer (REST) or...">
         <meta name="keywords" content="APIs, curl, Flask, inventory, REST, testing, unittest">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>How To Build a Simple API with Flask and Unit Test it - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How To Build a Simple API with Flask and Unit Test it</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Fri 03 March 2017,  <a href="./category/flask.html">Flask</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Fri 03 March 2017,  <a href="https://pybit.es/category/flask.html">Flask</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/apis.html">APIs</a>, <a href="./tag/curl.html">curl</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/inventory.html">inventory</a>, <a href="./tag/rest.html">REST</a>, <a href="./tag/testing.html">testing</a>, <a href="./tag/unittest.html">unittest</a>                      </p>
+<a href="https://pybit.es/tag/apis.html">APIs</a>, <a href="https://pybit.es/tag/curl.html">curl</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/inventory.html">inventory</a>, <a href="https://pybit.es/tag/rest.html">REST</a>, <a href="https://pybit.es/tag/testing.html">testing</a>, <a href="https://pybit.es/tag/unittest.html">unittest</a>                      </p>
                   </div>
               </div>
         </div>
@@ -119,11 +119,11 @@
 <p>First <a href="http://pybit.es/the-beauty-of-virtualenv.html">create a virtualenv</a> and do pip install flask</p>
 <h2>API code and endpoints</h2>
 <p>To create a simple API you implement one or more <a href="http://www.restapitutorial.com/lessons/httpmethods.html">HTTP methods</a>, in this case the following endpoints:</p>
-<div class="highlight"><pre><span></span><span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;GET&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
-<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items/&lt;int:id&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;GET&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
-<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;POST&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
-<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items/&lt;int:id&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;PUT&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
-<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items/&lt;int:id&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;DELETE&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@app.route(&#39;/api/v1.0/items&#39;, methods=[&#39;GET&#39;])
+@app.route(&#39;/api/v1.0/items/&lt;int:id&gt;&#39;, methods=[&#39;GET&#39;])
+@app.route(&#39;/api/v1.0/items&#39;, methods=[&#39;POST&#39;])
+@app.route(&#39;/api/v1.0/items/&lt;int:id&gt;&#39;, methods=[&#39;PUT&#39;])
+@app.route(&#39;/api/v1.0/items/&lt;int:id&gt;&#39;, methods=[&#39;DELETE&#39;])
 </pre></div>
 
 
@@ -178,13 +178,13 @@ HTTP/1.0 <span class="m">201</span> CREATED
 <p>You can test response codes and of course see how the data (list of items in this case) changes after each request. </p>
 <p>The only challenge was the isolation of each unit test: I had to do copy the app.items to a backup variable in setUp (a <a href="https://docs.python.org/3.6/library/copy.html">deepcopy</a> to not leave references around) and pass it back in tearDown. Similarly for a DB back-end you would probably construct and drop a test table to have a clean slate for every test. </p>
 <p>The full unit tests are <a href="https://github.com/pybites/blog_code/blob/master/flaskapi/test_app.py">here</a>, summary:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">test_get_all</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
-<span class="n">def</span> <span class="n">test_get_one</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
-<span class="n">def</span> <span class="n">test_item_not_exist</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
-<span class="n">def</span> <span class="n">test_post</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
-<span class="n">def</span> <span class="n">test_update</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
-<span class="n">def</span> <span class="n">test_update_error</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
-<span class="n">def</span> <span class="n">test_delete</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
+<div class="highlight"><pre><span></span>def test_get_all(self): ...
+def test_get_one(self): ...
+def test_item_not_exist(self): ...
+def test_post(self): ...
+def test_update(self): ...
+def test_update_error(self): ...
+def test_delete(self): ...
 </pre></div>
 
 
@@ -203,7 +203,7 @@ HTTP/1.0 <span class="m">201</span> CREATED
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'simple-flask-api.html';
-                var disqus_url = './simple-flask-api.html';
+                var disqus_url = 'https://pybit.es/simple-flask-api.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -223,10 +223,10 @@ HTTP/1.0 <span class="m">201</span> CREATED
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

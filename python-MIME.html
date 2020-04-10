@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In my earlier post on sending basic emails with Python smtplib I outlined the bare minimum required to send an email with Python. While functional, it does however lack more advanced features...">
         <meta name="keywords" content="automation, code, email, MIME, pybites, python, tips, tricks">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Send Advanced Emails with Python MIME Submodules - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Send Advanced Emails with Python MIME Submodules</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Wed 01 February 2017,  <a href="./category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Wed 01 February 2017,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/automation.html">automation</a>, <a href="./tag/code.html">code</a>, <a href="./tag/email.html">email</a>, <a href="./tag/mime.html">MIME</a>, <a href="./tag/pybites.html">pybites</a>, <a href="./tag/python.html">python</a>, <a href="./tag/tips.html">tips</a>, <a href="./tag/tricks.html">tricks</a>                      </p>
+<a href="https://pybit.es/tag/automation.html">automation</a>, <a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/email.html">email</a>, <a href="https://pybit.es/tag/mime.html">MIME</a>, <a href="https://pybit.es/tag/pybites.html">pybites</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/tips.html">tips</a>, <a href="https://pybit.es/tag/tricks.html">tricks</a>                      </p>
                   </div>
               </div>
         </div>
@@ -130,12 +130,12 @@
 
 <h2>Data Entry</h2>
 <p>Next we'll add the missing header detail to the email. I aimed to make this as Pythonic as possible:</p>
-<div class="highlight"><pre><span></span><span class="n">from_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pybitesblog@gmail.com&#39;</span><span class="w"></span>
-<span class="n">to_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;</span><span class="o">]</span><span class="w"></span>
-<span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MIMEMultipart</span><span class="p">()</span><span class="w"></span>
-<span class="n">msg</span><span class="o">[</span><span class="n">&#39;From&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from_addr</span><span class="w"></span>
-<span class="n">msg</span><span class="o">[</span><span class="n">&#39;To&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;, &quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">to_addr</span><span class="p">)</span><span class="w"></span>
-<span class="n">msg</span><span class="o">[</span><span class="n">&#39;Subject&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Test Automation Email&#39;</span><span class="w"></span>
+<div class="highlight"><pre><span></span>from_addr = &#39;pybitesblog@gmail.com&#39;
+to_addr = [&#39;bob@rocks.com&#39;, &#39;julian_is@awesome.com&#39;]
+msg = MIMEMultipart()
+msg[&#39;From&#39;] = from_addr
+msg[&#39;To&#39;] = &quot;, &quot;.join(to_addr)
+msg[&#39;Subject&#39;] = &#39;Test Automation Email&#39;
 </pre></div>
 
 
@@ -161,37 +161,37 @@
 </li>
 </ol>
 <p>Now for the meat. Add the text for the body of your email and again add it to MIME:</p>
-<div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="ss">&quot;Hello Everyone!&quot;</span>
+<div class="highlight"><pre><span></span>body = &quot;Hello Everyone!&quot;
 
-<span class="n">msg</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">MIMEText</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="s1">&#39;plain&#39;</span><span class="p">))</span>
+msg.attach(MIMEText(body, &#39;plain&#39;))
 </pre></div>
 
 
 <p>I've added the data in the body variable to MIMEText in plain text format. You can specify HTML if you wish.</p>
 <h2>Send the Email</h2>
 <p>I'll be reusing the code from the simple email article here with a small addition. First the standard code:</p>
-<div class="highlight"><pre><span></span><span class="nv">smtp_server</span> <span class="o">=</span> <span class="nv">smtplib</span>.<span class="nv">SMTP</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">smtp.gmail.com</span><span class="s1">&#39;</span>, <span class="mi">587</span><span class="ss">)</span> #<span class="nv">Specify</span> <span class="nv">Gmail</span> <span class="nv">Mail</span> <span class="nv">server</span>
+<div class="highlight"><pre><span></span>smtp_server = smtplib.SMTP(&#39;smtp.gmail.com&#39;, 587) #Specify Gmail Mail server
 
-<span class="nv">smtp_server</span>.<span class="nv">ehlo</span><span class="ss">()</span> #<span class="k">Send</span> <span class="nv">mandatory</span> <span class="s1">&#39;</span><span class="s">hello</span><span class="s1">&#39;</span> <span class="nv">message</span> <span class="nv">to</span> <span class="nv">SMTP</span> <span class="nv">server</span>
+smtp_server.ehlo() #Send mandatory &#39;hello&#39; message to SMTP server
 
-<span class="nv">smtp_server</span>.<span class="nv">starttls</span><span class="ss">()</span> #<span class="nv">Start</span> <span class="nv">TLS</span> <span class="nv">Encryption</span> <span class="nv">as</span> <span class="nv">we</span><span class="s1">&#39;</span><span class="s">re not using SSL.</span>
+smtp_server.starttls() #Start TLS Encryption as we&#39;re not using SSL.
 
-#<span class="nv">Login</span> <span class="nv">to</span> <span class="nv">gmail</span>: <span class="nv">Account</span> <span class="o">|</span> <span class="nv">Password</span>
-<span class="nv">smtp_server</span>.<span class="nv">login</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s"> pybitesblog@gmail.com </span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s"> GMAIL APPLICATION PASSWORD </span><span class="s1">&#39;</span><span class="ss">)</span>
+#Login to gmail: Account | Password
+smtp_server.login(&#39; pybitesblog@gmail.com &#39;, &#39; GMAIL APPLICATION PASSWORD &#39;)
 </pre></div>
 
 
 <p>The additional code is in the sendmail function. We now need to specify the text that we're sending. That is, we take all of the data that was added to the MIMEMultipart function (<em>msg</em> variable) and we use it to populate the email:</p>
-<div class="highlight"><pre><span></span><span class="nb">text</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">as_string</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>text = msg.as_string()
 
-<span class="o">#</span><span class="n">Compile</span> <span class="n">email</span><span class="p">:</span> <span class="k">From</span><span class="p">,</span> <span class="k">To</span><span class="p">,</span> <span class="n">Email</span> <span class="n">body</span>
-<span class="n">smtp_server</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">from_addr</span><span class="p">,</span> <span class="n">to_addr</span><span class="p">,</span> <span class="nb">text</span><span class="p">)</span>
+#Compile email: From, To, Email body
+smtp_server.sendmail(from_addr, to_addr, text)
 </pre></div>
 
 
 <p>And finally, best practice, we close off the SMTP connection and in this case, print a message to indicate the email was sent:</p>
-<div class="highlight"><pre><span></span><span class="n">smtp_server</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
-<span class="n">print</span><span class="p">(</span><span class="s1">&#39;Email sent successfully&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>smtp_server.quit()
+print(&#39;Email sent successfully&#39;)
 </pre></div>
 
 
@@ -207,7 +207,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'python-MIME.html';
-                var disqus_url = './python-MIME.html';
+                var disqus_url = 'https://pybit.es/python-MIME.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -227,10 +227,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="We all know that the best way to learn anything is to just jump in and do it. You don’t learn to play the guitar by simply watching YouTube videos, you learn by playing every day, trying new songs...">
         <meta name="keywords" content="APIs, challenge, code, Flask, gmail, learning, motivation, programming, python, requests, resources, sqlite3, Warcraft">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Learn Python by Coding for Yourself - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Learn Python by Coding for Yourself</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Thu 27 April 2017,  <a href="./category/learning.html">Learning</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Thu 27 April 2017,  <a href="https://pybit.es/category/learning.html">Learning</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/apis.html">APIs</a>, <a href="./tag/challenge.html">challenge</a>, <a href="./tag/code.html">code</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/gmail.html">gmail</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/motivation.html">motivation</a>, <a href="./tag/programming.html">programming</a>, <a href="./tag/python.html">python</a>, <a href="./tag/requests.html">requests</a>, <a href="./tag/resources.html">resources</a>, <a href="./tag/sqlite3.html">sqlite3</a>, <a href="./tag/warcraft.html">Warcraft</a>                      </p>
+<a href="https://pybit.es/tag/apis.html">APIs</a>, <a href="https://pybit.es/tag/challenge.html">challenge</a>, <a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/gmail.html">gmail</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/motivation.html">motivation</a>, <a href="https://pybit.es/tag/programming.html">programming</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/requests.html">requests</a>, <a href="https://pybit.es/tag/resources.html">resources</a>, <a href="https://pybit.es/tag/sqlite3.html">sqlite3</a>, <a href="https://pybit.es/tag/warcraft.html">Warcraft</a>                      </p>
                   </div>
               </div>
         </div>
@@ -129,7 +129,7 @@
 <p>On the surface, my foray into the world of APIs was disastrous. Seriously. Dive a little deeper though and it’s honestly been one of the greatest Python learning experiences I’ve had.</p>
 <p>Being a World of Warcraft nerd, naturally the first API I looked into was the <a href="https://dev.battle.net/">Blizzard Warcraft API</a>. Needless to say, I had no idea what the heck I was doing. The documentation assumed a level of familiarity with APIs and clearly that wasn’t me.</p>
 <p>After hours of playing around, I was able to get the basics down and pull some meaningful (to me!) data from my player profile. The saddest part is that after all of that effort, the most “crucial” line of code for the API call was this:</p>
-<div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://us.api.battle.net/wow/character/%s/%s?fields=mounts&amp;locale=en_US&amp;apikey=%s&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">realm</span><span class="p">,</span> <span class="n">char_name</span><span class="p">,</span> <span class="n">API_KEY</span><span class="p">))</span>
+<div class="highlight"><pre><span></span>url = (&#39;https://us.api.battle.net/wow/character/%s/%s?fields=mounts&amp;locale=en_US&amp;apikey=%s&#39; % (realm, char_name, API_KEY))
 </pre></div>
 
 
@@ -156,8 +156,8 @@
 <li>I learned that each type of call to the API has its own set of options that allow you to filter the returned data. Seems obvious now…</li>
 <li>I had more practice trying to parse multi-tiered JSON output.</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">service</span><span class="p">.</span><span class="n">users</span><span class="p">().</span><span class="n">settings</span><span class="p">().</span><span class="n">filters</span><span class="p">().</span><span class="n">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s1">&#39;me&#39;</span><span class="p">).</span><span class="k">execute</span><span class="p">()</span>
-    <span class="n">pprint</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>results = service.users().settings().filters().list(userId=&#39;me&#39;).execute()
+    pprint(results)
 </pre></div>
 
 
@@ -200,7 +200,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'learn-by-doing.html';
-                var disqus_url = './learn-by-doing.html';
+                var disqus_url = 'https://pybit.es/learn-by-doing.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -220,10 +220,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

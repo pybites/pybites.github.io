@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Another week, another scary Python construct to tackle. Classes! I’m so glad we’re covering Object Oriented Programming in this week’s code challenge. Thanks to this challenge, I wrote my first...">
         <meta name="keywords" content="beginners, classes, code, learning, programming, python">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>How to Write a Python Class - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How to Write a Python Class</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Thu 25 May 2017,  <a href="./category/learning.html">Learning</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Thu 25 May 2017,  <a href="https://pybit.es/category/learning.html">Learning</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/beginners.html">beginners</a>, <a href="./tag/classes.html">classes</a>, <a href="./tag/code.html">code</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/programming.html">programming</a>, <a href="./tag/python.html">python</a>                      </p>
+<a href="https://pybit.es/tag/beginners.html">beginners</a>, <a href="https://pybit.es/tag/classes.html">classes</a>, <a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/programming.html">programming</a>, <a href="https://pybit.es/tag/python.html">python</a>                      </p>
                   </div>
               </div>
         </div>
@@ -123,14 +123,14 @@
 <p>The code for this example is <a href="https://github.com/pybites/100DaysOfCode/tree/master/054">here</a>.</p>
 <p>A person is as simple as it gets. We’re all people but we differ immensely. We’re different ages, different heights, weights, sexes, colours and so on. At the end of the day, we’re still people - which makes us a great Class use case!</p>
 <p>In the below code, I define a person class:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">Person</span>(<span class="n">object</span>):
-    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="nb">name</span>, <span class="n">age</span>, <span class="n">height</span>, <span class="n">weight</span>, <span class="n">gender</span>, <span class="n">job</span>):
-        <span class="k">self</span>.<span class="nb">name</span> = <span class="nb">name</span>
-        <span class="k">self</span>.<span class="n">age</span> = <span class="n">age</span>
-        <span class="k">self</span>.<span class="n">height</span> = <span class="n">height</span>
-        <span class="k">self</span>.<span class="n">weight</span> = <span class="n">weight</span>
-        <span class="k">self</span>.<span class="n">gender</span> = <span class="n">gender</span>
-        <span class="k">self</span>.<span class="n">job</span> = <span class="n">job</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">,</span> <span class="nx">height</span><span class="p">,</span> <span class="nx">weight</span><span class="p">,</span> <span class="nx">gender</span><span class="p">,</span> <span class="nx">job</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">height</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">weight</span> <span class="o">=</span> <span class="nx">weight</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">gender</span> <span class="o">=</span> <span class="nx">gender</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">job</span> <span class="o">=</span> <span class="nx">job</span>
 </pre></div>
 
 
@@ -153,15 +153,15 @@
 <h2>Creating A Person Object</h2>
 <p>At this point, we’ve defined a Person. A Person will have the attributes: <code>name</code>, <code>age</code>, <code>height</code>, <code>weight</code>, <code>gender</code>, <code>job</code>.</p>
 <p>Now let’s create that person!</p>
-<div class="highlight"><pre><span></span><span class="n">bob</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="ss">&quot;Bob&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="ss">&quot;Male&quot;</span><span class="p">,</span> <span class="ss">&quot;Professional Awesome Programmer Guy&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>bob = Person(&quot;Bob&quot;, 30, 180, 80, &quot;Male&quot;, &quot;Professional Awesome Programmer Guy&quot;)
 </pre></div>
 
 
 <p>Just like passing variables to a function, we pass the attributes to the Person Class. What we’re doing here is we’re assigning all of these details (in the order specified in the class) to the <code>bob</code> object.</p>
 <p>Yay! We just used the <code>Person</code> class to create <code>bob</code>! Creepy right?!</p>
 <p>We can then do funky things like:</p>
-<div class="highlight"><pre><span></span><span class="n">bob</span><span class="p">.</span><span class="n">age</span>
-<span class="mi">30</span>
+<div class="highlight"><pre><span></span>bob.age
+30
 </pre></div>
 
 
@@ -169,14 +169,14 @@
 <p><br></p>
 <h2>Creating Class Functions</h2>
 <p>If we want, we can also create some functions specific to this class that we can call to do the same thing. Here’s another way of getting <code>bob</code>’s job (this is specified in the class):</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_job</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="k">return</span> <span class="nv">self</span>.<span class="nv">job</span>
+<div class="highlight"><pre><span></span>def get_job(self):
+    return self.job
 </pre></div>
 
 
 <p>We then call this as such:</p>
-<div class="highlight"><pre><span></span><span class="n">bob</span><span class="p">.</span><span class="n">get_job</span><span class="p">()</span>
-<span class="n">Professional</span> <span class="n">Awesome</span> <span class="n">Programmer</span> <span class="n">Guy</span>
+<div class="highlight"><pre><span></span>bob.get_job()
+Professional Awesome Programmer Guy
 </pre></div>
 
 
@@ -184,15 +184,15 @@
 <p><br></p>
 <h2>Getting Funky with Class Functions</h2>
 <p>What’s something interesting we could do? This is where I came up with the idea of calculating a person’s BMI (Body Mass Index).</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">bmi</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="k">return</span> <span class="ss">(</span><span class="nv">self</span>.<span class="nv">weight</span> <span class="o">/</span> <span class="ss">((</span><span class="nv">self</span>.<span class="nv">height</span> <span class="o">/</span> <span class="mi">100</span><span class="ss">)</span> <span class="o">**</span> <span class="mi">2</span><span class="ss">))</span>
+<div class="highlight"><pre><span></span>def bmi(self):
+    return (self.weight / ((self.height / 100) ** 2))
 </pre></div>
 
 
 <p>BMI is calculated using the equation in the above: weight (kgs) divided by height in metres squared.</p>
 <p>Once a Person object has been created, we can then check what their BMI is as per the following:</p>
-<div class="highlight"><pre><span></span><span class="n">bob</span><span class="p">.</span><span class="n">bmi</span><span class="p">()</span>
-<span class="mi">24</span><span class="p">.</span><span class="mi">7</span>
+<div class="highlight"><pre><span></span>bob.bmi()
+24.7
 </pre></div>
 
 
@@ -218,7 +218,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'python-classes.html';
-                var disqus_url = './python-classes.html';
+                var disqus_url = 'https://pybit.es/python-classes.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -238,10 +238,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

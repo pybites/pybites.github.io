@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="If you work in data engineering, then the chance are high that you are using or have used Apache Airflow. This orchestration tool has become a firm favourite of many organisations. It was chosen...">
+        <meta name="keywords" content="Airflow, Apache, data">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+
+        <title>Introduction to Building Custom Apache Airflow Operators - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/data.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '204929054292880');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=204929054292880&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
+                                <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Introduction to Building Custom Apache Airflow Operators</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/christo-olivier.html">Christo Olivier</a>, Fri 10 April 2020,  <a href="https://pybit.es/category/data.html">Data</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/airflow.html">Airflow</a>, <a href="https://pybit.es/tag/apache.html">Apache</a>, <a href="https://pybit.es/tag/data.html">data</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>If you work in data engineering, then the chance are high that you are using or have used Apache Airflow.</p>
+<p>This orchestration tool has become a firm favourite of many organisations. It was chosen by Google when they were looking at an orchestration tool to include in their cloud offering <a href="https://cloud.google.com/composer/">Google Cloud Composer.</a></p>
+<p>Airflow comes with a ton of operators out of the box and even more community supplied ones. However, chances are that at some point you might think "it would be really great if I could have my own operator to do X".</p>
+<p>This post is to help give you a starting point for building you own custom Airflow operators in a structured and scalable way via <a href="https://airflow.apache.org/docs/stable/plugins.html">Airflow plugins.</a></p>
+<h2>Why extend via a plugin</h2>
+<p>There are mainly three options available to you when you run into a situation for which an existing <a href="https://airflow.apache.org/docs/stable/concepts.html#tasks">Operator</a> is not available:</p>
+<ol>
+<li>Write a custom Python function and call it via the PythonOperator.</li>
+<li>Call a Python application or external application via the BashOperator.</li>
+<li>Create a custom Operator that performs the functionality you require.</li>
+</ol>
+<p>Of the three methods only option 3 integrates into Airflow's core. It allows you to make use of all of the functionality Airflow provides.</p>
+<p>You will be able to remove your operator's logic from the code that defines your <a href="https://airflow.apache.org/docs/stable/concepts.html#dags">DAG,</a> ensuring you do not mix the logic of your data pipeline with the logic of the components that form its building blocks.</p>
+<p>Finally, it allows you to create a redistributable component that can be used by all of the Airflow instances across your organisation.</p>
+<hr>
+<h2>Logical components of a custom operator plugin</h2>
+<p>The Airflow documentation for <a href="https://airflow.apache.org/docs/stable/plugins.html">plugins</a> show that they can be used to do all sorts of customisation of Airflow. We will only be focusing on using them to build custom operators that you can then use as Tasks in your DAGs.</p>
+<p>The two main parts of a custom operator is the Hook and the Operator.</p>
+<h3>Hook</h3>
+<p>A <em>Hook</em> contains the logic required to perform actions against an API, service or interface of some system.</p>
+<p>It should not contain the logic of the operator itself but should expose methods that will then be used by the Operator in order to perform the actions it requires against the API, service or sustem interface that the operator is targeting.</p>
+<h3>Operator</h3>
+<p>An <em>Operator</em> contains all of the "business" logic of what will be a Task in one of your DAGs. This is the logic that deals with how your Task will behave and what actions it will perform.</p>
+<p>It should never communicate with the service, API or system interface directly but should always do that through the <em>hook</em>.</p>
+<p>Below is a simple diagram of the logical components.</p>
+<p><img alt="Logical diagram" src="images/airflow-logical-components-operator-plugin.png"></p>
+<p>By keeping the logic separated into these two components you will be able to build multiple Operators that all use the same Hook without duplicating the code needed to interact with the source system.</p>
+<p>Here is an example of what that would mean for a fictitious CRM plugin.</p>
+<p><img alt="CRM plugin diagram" src="images/airflow-crm-plugin.png"></p>
+<hr>
+<h2>The code structure for your plugin</h2>
+<p>If you have looked at the Airflow documentation you will see that there are two options structuring your code.</p>
+<ol>
+<li>The first option is to simply create a python module that contains all of the objects.</li>
+<li>The second option is to create a python package that contains modules and/or sub packages for the different objects.</li>
+</ol>
+<p>My personal preference is to use a python package for plugins. It allows me to separate the objects neatly into their own files and folders. This makes it easier to extend the plugin in future and also keeps the code neat and tidy.</p>
+<p>The Airflow documentation has a short section on creating plugins via a Python package. It specifies that you need to use the <code>setuptools entrypoint</code> system. This is not the only way. I prefer to use a simple Python package approach where the package folder gets copied to the Airflow <code>plugins</code> folder, just like you would if you used the single module approach.</p>
+<p>The folder structures I normally use depend on whether the plugin is simple or complex.</p>
+<p>The simple layout would look like this.</p>
+<div class="highlight"><pre><span></span>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/__init__.py
+&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/&lt;some_new&gt;_hook.py
+&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/&lt;some_new&gt;_operator.py
+</pre></div>
+
+
+<p>The complex layout would look like this.</p>
+<div class="highlight"><pre><span></span>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/__init__.py
+&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/hooks/__init__.py
+&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/hooks/&lt;some_new&gt;_hook.py
+&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/operators/__init__.py
+&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/operators/&lt;some_new&gt;_operator.py
+&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/operators/&lt;another_new&gt;_operator.py
+</pre></div>
+
+
+<p>So, for our fictitious CRM example the simple folder structure would look something like this.</p>
+<div class="highlight"><pre><span></span>CRMProject/crm_plugin/__init__.py
+CRMProject/crm_plugin/crm_hook.py
+CRMProject/crm_plugin/customer_operator.py
+</pre></div>
+
+
+<p>While the complex folder structure would look like this.</p>
+<div class="highlight"><pre><span></span>CRMProject/crm_plugin/__init__.py
+CRMProject/crm_plugin/hooks/__init__.py
+CRMProject/crm_plugin/hooks/crm_hook.py
+CRMProject/crm_plugin/operators/__init__.py
+CRMProject/crm_plugin/operators/customer_operator.py
+CRMProject/crm_plugin/operators/sync_operator.py
+</pre></div>
+
+
+<p>How do you decide between the two layout structures? I normally base that on the complexity of the package. The complexity comes down to the number of hooks and operators that it will contain and if they can be logically separated in some way, such as by the function they will perform.</p>
+<p>An example of a complex plugin would be if our CRM package contained operators for manipulating customers in the CRM system as well as operators for synchronizing the CRM system with a billing or other finance system.</p>
+<p>The moment you feel that it becomes difficult to manage the amount of code for your plugin then it might be time to consider the complex layout.</p>
+<p>Next let's look at the different Python objects that you will need to create.</p>
+<h2>The code of your plugin</h2>
+<p>All plugins must have a class that derives from the <code>airflow.plugins_manager.AirflowPlugin</code> class. This class references all of the objects you create and want to plug into Airflow. Without this class you simply will not have a plugin.</p>
+<p>You futher need classes for each of your hooks and operators.</p>
+<p>Hooks need to be derived from either the base hook class <code>airflow.hooks.base_hook.BaseHook</code> or one of the existing hooks that are built into airflow such as <code>airflow.hooks.dbapi_hook.DbApiHook</code>.</p>
+<p>Operators similarly need to derive at the very least from the base operator <code>airflow.operators.BaseOperator</code> class or one of the existing operator classes distributed with airflow such as <code>airflow.operators.bash_operator.BashOperator</code>.</p>
+<p>Keep in mind that you do not need to create your own hook in your plugin if one already exists that will fullfil your purpose. For example, if you are building custom operators for a control database running on Postgresql you can simply create your operators using the PostgresHook. There is no need in that instance to create your own hook to operate against Postgresql.</p>
+<p>Now that we have covered the code required by our plugin let's look at where these classes will be in our project structure and what they will contain.</p>
+<h3>AirflowPlugin class</h3>
+<p>Our <code>AirflowPlugin</code> derived class will be placed in the <code>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/__init__.py</code> file. Below is the content of the class for our fictitious CRM example.</p>
+<h4>Simple layout</h4>
+<div class="highlight"><pre><span></span><span class="c1"># CRMProject/crm_plugin/__init__.py</span>
+<span class="kn">from</span> <span class="nn">airflow.plugins_manager</span> <span class="kn">import</span> <span class="n">AirflowPlugin</span>
+<span class="kn">from</span> <span class="nn">crm_plugin.crm_hook</span> <span class="kn">import</span> <span class="n">CrmHook</span>
+<span class="kn">from</span> <span class="nn">crm_plugin.customer_operator</span> <span class="kn">import</span> <span class="n">CreateCustomerOperator</span><span class="p">,</span> <span class="n">DeleteCustomerOperator</span><span class="p">,</span> <span class="n">UpdateCustomerOperator</span>
+
+
+<span class="k">class</span> <span class="nc">AirflowCrmPlugin</span><span class="p">(</span><span class="n">AirflowPlugin</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;crm_plugin&quot;</span>  <span class="c1"># does not need to match the package name</span>
+    <span class="n">operators</span> <span class="o">=</span> <span class="p">[</span><span class="n">CreateCustomerOperator</span><span class="p">,</span> <span class="n">DeleteCustomerOperator</span><span class="p">,</span> <span class="n">UpdateCustomerOperator</span><span class="p">]</span>
+    <span class="n">sensors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">[</span><span class="n">CrmHook</span><span class="p">]</span>
+    <span class="n">executors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">macros</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">admin_views</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">flask_blueprints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">menu_links</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">appbuilder_views</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">appbuilder_menu_items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">global_operator_extra_links</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">operator_extra_links</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+
+
+<h4>Complex layout</h4>
+<div class="highlight"><pre><span></span><span class="c1"># CRMProject/crm_plugin/__init__.py</span>
+<span class="kn">from</span> <span class="nn">airflow.plugins_manager</span> <span class="kn">import</span> <span class="n">AirflowPlugin</span>
+<span class="kn">from</span> <span class="nn">crm_plugin.hooks.crm_hook</span> <span class="kn">import</span> <span class="n">CrmHook</span>
+<span class="kn">from</span> <span class="nn">crm_plugin.operators.customer_operator</span> <span class="kn">import</span> <span class="n">CreateCustomerOperator</span><span class="p">,</span> <span class="n">DeleteCustomerOperator</span><span class="p">,</span> <span class="n">UpdateCustomerOperator</span>
+<span class="kn">from</span> <span class="nn">crm_plugin.operators.sync_operator</span> <span class="kn">import</span> <span class="n">SyncCrmToBillingOperator</span>
+
+
+<span class="k">class</span> <span class="nc">AirflowCrmPlugin</span><span class="p">(</span><span class="n">AirflowPlugin</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;crm_plugin&quot;</span>  <span class="c1"># does not need to match the package name</span>
+    <span class="n">operators</span> <span class="o">=</span> <span class="p">[</span><span class="n">CreateCustomerOperator</span><span class="p">,</span> <span class="n">DeleteCustomerOperator</span><span class="p">,</span> <span class="n">UpdateCustomerOperator</span><span class="p">,</span> <span class="n">SyncCrmToBillingOperator</span><span class="p">]</span>
+    <span class="n">sensors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">[</span><span class="n">CrmHook</span><span class="p">]</span>
+    <span class="n">executors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">macros</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">admin_views</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">flask_blueprints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">menu_links</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">appbuilder_views</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">appbuilder_menu_items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">global_operator_extra_links</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">operator_extra_links</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+
+
+<p>Note the comment in both examples for the <code>name</code> attribute. The value of this attribute creates the namespace you will reference in your Airflow DAGs when importing the operators and hooks. It does not need to match the name of your package. I prefer to give it the same name as the package. This avoids any confusion when you receive errors in Airflow which would show the namespace instead of the package name in the stack trace. </p>
+<p>We will get into more detail about importing our operators and hooks in a later section.</p>
+<h3>Hook class(es)</h3>
+<p>Our <code>Hook</code> derived class will be stored in either the <code>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/&lt;some_new&gt;_hook.py</code> module or the <code>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/hooks/&lt;some_new&gt;_hook.py</code> module of the <code>hooks</code> sub-package. The code of the hook will not differ between the simple and complex layout.</p>
+<p>There are no required methods that your hook must implement. What it should do is provide a consitent set of methods that allow your operators to interact with the system or API it provides access to. An example of what our CRM hook could look like is presented below.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow.hooks.base_hook</span> <span class="kn">import</span> <span class="n">BaseHook</span>
+<span class="kn">from</span> <span class="nn">airflow.exceptions</span> <span class="kn">import</span> <span class="n">AirflowException</span>
+<span class="kn">from</span> <span class="nn">crm_sdk</span> <span class="kn">import</span> <span class="n">crm_api</span>  <span class="c1"># import external libraries to interact with target system</span>
+
+
+<span class="k">class</span> <span class="nc">CrmHook</span><span class="p">(</span><span class="n">BaseHook</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hook to interact with the ACME CRM System.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">insert_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Insert an object into the CRM system</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">update_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update an object into the CRM system</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">delete_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete an object into the CRM system</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">extract_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract an object into the CRM system</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># your code goes here</span>
+</pre></div>
+
+
+<p>Try and keep these methods to low level operations which can be combined in your operators to perform their higher-level functionality. Your hook should allow you to build multiple operators out of the methods it provides.</p>
+<h3>Operator class(es)</h3>
+<p>Our <code>Operator</code> derived classes will be stored either in the <code>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/&lt;some_new&gt;_operator.py</code> module or the <code>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/operators/&lt;some_new&gt;_operator.py</code> and <code>&lt;PROJECT NAME&gt;/&lt;PLUGIN NAME&gt;/operators/&lt;another_new&gt;_operator.py</code> modules of the <code>operators</code> sub-package. The code of the operators will not differ much between the simple and complex layout. The only difference would be the importing of the hook from the <code>hooks</code> sub-package in the complex layout or the <code>hooks</code> module in the simple layout.</p>
+<p>Operators require that you implement an <code>execute</code> method. This is the entry point into your operator for Airflow and it is called when the task in your DAG executes. The <code>execute</code> method also takes the <code>context</code> parameter as the first positional parameter after <code>self</code>. This allows the method to receive the execution context in which the task instance of the operator is executed in. This is useful when you want your operator to be able to make use of things such as xcoms.</p>
+<p>The <code>apply_defaults</code> decorator wraps the <code>__init__</code> method of the class which applies the DAG defaults, set in your DAG script, to the task instance of your operator at run time.</p>
+<p>There are also two important class attributes that we can set. These are <code>templated_fields</code> and <code>template_ext</code>. These two attributes are iterables that should contain the string values for the fields and/or file extensions that will allow templating with the jinja templating support in Airflow. More information on the templating support is available in the documentation <a href="https://airflow.apache.org/docs/stable/concepts.html#jinja-templating">here</a> and <a href="https://airflow.apache.org/docs/stable/macros.html">here</a>.</p>
+<p>An example of what one of our operator classes could look like is shown below.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow.exceptions</span> <span class="kn">import</span> <span class="n">AirflowException</span>
+<span class="kn">from</span> <span class="nn">airflow.operators</span> <span class="kn">import</span> <span class="n">BaseOperator</span>
+<span class="kn">from</span> <span class="nn">airflow.utils.decorators</span> <span class="kn">import</span> <span class="n">apply_defauls</span>
+
+<span class="kn">from</span> <span class="nn">crm_plugin.crm_hook</span> <span class="kn">import</span> <span class="n">CrmHook</span>
+
+
+<span class="k">class</span> <span class="nc">CreateCustomerOperator</span><span class="p">(</span><span class="n">BaseOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This operator creates a new customer in the ACME CRM System.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;first_contact_date&#39;</span><span class="p">,</span> <span class="s1">&#39;bulk_file&#39;</span><span class="p">]</span>
+    <span class="n">template_ext</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">]</span>
+
+    <span class="nd">@apply_defaults</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_contact_date</span><span class="p">,</span> <span class="n">bulk_file</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">_customer_exist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper method to check if a customer exist. Raises an exception if it does.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new customer in the CRM system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># your code goes here</span>
+</pre></div>
+
+
+<p>You can create as many methods in your class as you need in order to simplify you <code>execute</code> method. The same principles for good class design still counts here.</p>
+<p>One word of warning for operator classes is to avoid making any calls out to a service via a hook or any other code in the constructor of the class. Airflow scans the DAG folder periodically to load new DAG files and refresh existing ones. When this process runs the constructor of your operator classes are called for each task in each DAG file. You will thus be making unnecessary calls to those services which could fail or cause a slowdown of this refresh process.</p>
+<p>Instead rather create an empty attribute in the constructor which you then set to the object instance you require during the execution of the <code>execute</code> method. Below is an example of instantiating our hook in this way.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CreateCustomerOperator</span><span class="p">(</span><span class="n">BaseOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This operator creates a new customer in the ACME CRM System.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;first_contact_date&#39;</span><span class="p">,</span> <span class="s1">&#39;bulk_file&#39;</span><span class="p">]</span>
+    <span class="n">template_ext</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">]</span>
+
+    <span class="nd">@apply_defaults</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_contact_date</span><span class="p">,</span> <span class="n">bulk_file</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hook</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">_customer_exist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper method to check if a customer exists. Raises an exception if it does.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># your code goes here</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new customer in the CRM system.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hook</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hook</span> <span class="o">=</span> <span class="n">CrmHook</span><span class="p">()</span>
+        <span class="c1"># your code goes here</span>
+</pre></div>
+
+
+<hr>
+<h2>Deploying and using your plugin</h2>
+<p>Once you have completed work on your plugin all that is left for you to do is to copy your <code>&lt;PLUGIN NAME&gt;</code> package folder to the Airflow <code>plugins</code> folder. Airflow will pick the plugin up and it will become available to your DAGs.</p>
+<p>The location of the Airflow <code>plugins</code> folder can vary based on the configuration of your deployment. You can find the location by looking at the <code>plugins_folder</code> property in your deployment's configuration file or via the <em>configuration</em> view in the Airflow front end.</p>
+<p>If we copied the simple CRM plugin to our <code>plugins_folder</code> the folder structure would look like this.</p>
+<div class="highlight"><pre><span></span>&lt;plugins_folder&gt;/crm_plugin/__init__.py
+&lt;plugins_folder&gt;/crm_plugin/crm_hook.py
+&lt;plugins_folder&gt;/crm_plugin/customer_operator.py
+</pre></div>
+
+
+<p>In order to use your new plugin you will simply import your Operators and Hooks using the following statements.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow.hooks.</span><span class="o">&lt;</span><span class="n">AIRFLOWPLUGIN</span> <span class="n">NAME</span> <span class="n">ATTRIBUTE</span> <span class="n">VALUE</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="o">&lt;</span><span class="n">HOOKClass</span><span class="o">&gt;</span>
+<span class="kn">from</span> <span class="nn">airflow.operators.</span><span class="o">&lt;</span><span class="n">AIRFLOWPLUGIN</span> <span class="n">NAME</span> <span class="n">ATTRIBUTE</span> <span class="n">VALUE</span><span class="o">&gt;</span> <span class="kn">import</span> <span class="o">&lt;</span><span class="n">OperatorClass</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>Remember that value given to the <code>name</code> property of your <code>AirflowPlugin</code> derived class? We mentioned earlier that it will create the namespace from which we would need to import our classes. Our CRM example would thus look as follows.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow.hooks.crm_plugin</span> <span class="kn">import</span> <span class="n">CrmHook</span>
+<span class="kn">from</span> <span class="nn">airflow.operators.crm_plugin</span> <span class="kn">import</span> <span class="n">CreateCustomerOperator</span><span class="p">,</span> <span class="n">DeleteCustomerOperator</span><span class="p">,</span> <span class="n">UpdateCustomerOperator</span>
+</pre></div>
+
+
+<p>If we gave it a different value, say "acme_crm_plugin" then our imports would need to look like this.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow.hooks.acme_crm_plugin</span> <span class="kn">import</span> <span class="n">CrmHook</span>
+<span class="kn">from</span> <span class="nn">airflow.operators.acme_crm_plugin</span> <span class="kn">import</span> <span class="n">CreateCustomerOperator</span><span class="p">,</span> <span class="n">DeleteCustomerOperator</span><span class="p">,</span> <span class="n">UpdateCustomerOperator</span>
+</pre></div>
+
+
+<p>I mentioned previously that I avoid providing a value different to my package name to the <code>name</code> attribute. This is simply to avoid any confusion when you receive errors in Airflow and want to get to the correct code to fix based on a stack trace. Adding in unnecessary complexity is never a good thing from my experience. So try and keep thing as straight forward as possible with your plugins and the namespaces they will have once deployed.</p>
+<hr>
+<h2>Wrap-up</h2>
+<p>This post has touched on a lot of things, all of which will help you when starting out developing plugins for Apache Airflow.</p>
+<p>As with any technology there are many additional topics that we can go into more detail on. We have not looked in detail at the code that we can write in our classes or how we can go about creating tests for our plugins. We will leave those for future posts.</p>
+<p>The Airflow documentation is a great resource to gain additional knowledge. However, I have found looking at the source code for the many operators and hooks that are included with Airflow an invaluable education. This is the beauty of open source tools; you have all of the code available to you to investigate and learn from. When in doubt, peak under the hood and see how the magic is created!</p>
+<p>-- <a href="pages/guests.html#christoolivier">Christo</a></p>
+
+
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'introduction-airflow.html';
+                var disqus_url = 'https://pybit.es/introduction-airflow.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>

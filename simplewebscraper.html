@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="I absolutely loved the idea of web scraping when Bob explained what it was (it sounded so spy-like and hackery!). It did however sound like something that, coding-wise, was completely out of my...">
         <meta name="keywords" content="beautifulsoup, bs4, code, namedtuples, pybites, python, tips, tricks, webscraping">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Create a Simple Web Scraper with BeautifulSoup4 - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Create a Simple Web Scraper with BeautifulSoup4</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Wed 11 January 2017,  <a href="./category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Wed 11 January 2017,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/beautifulsoup.html">beautifulsoup</a>, <a href="./tag/bs4.html">bs4</a>, <a href="./tag/code.html">code</a>, <a href="./tag/namedtuples.html">namedtuples</a>, <a href="./tag/pybites.html">pybites</a>, <a href="./tag/python.html">python</a>, <a href="./tag/tips.html">tips</a>, <a href="./tag/tricks.html">tricks</a>, <a href="./tag/webscraping.html">webscraping</a>                      </p>
+<a href="https://pybit.es/tag/beautifulsoup.html">beautifulsoup</a>, <a href="https://pybit.es/tag/bs4.html">bs4</a>, <a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/namedtuples.html">namedtuples</a>, <a href="https://pybit.es/tag/pybites.html">pybites</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/tips.html">tips</a>, <a href="https://pybit.es/tag/tricks.html">tricks</a>, <a href="https://pybit.es/tag/webscraping.html">webscraping</a>                      </p>
                   </div>
               </div>
         </div>
@@ -120,10 +120,10 @@
 <li>Decide on the site to scrape.</li>
 <li><a href="http://pybit.es/the-beauty-of-virtualenv.html">Create a venv</a> to run all of this up in. I created a directory called "wowhead" for this and created the venv in that:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">pwd</span>
-<span class="n">wowhead</span>
-<span class="o">#</span> <span class="n">ls</span>
-<span class="n">venv</span>    <span class="n">wowhead_scraper</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span></span># pwd
+wowhead
+# ls
+venv    wowhead_scraper.py
 </pre></div>
 
 
@@ -138,12 +138,12 @@
 <ul>
 <li>After the initial code setup of importing modules and defining main, the first task is to grab a copy of the site's html file:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="nv">URL</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">http://www.wowhead.com</span><span class="s2">&quot;</span>
-<span class="nv">header_list</span> <span class="o">=</span> []
+<div class="highlight"><pre><span></span>URL = &quot;http://www.wowhead.com&quot;
+header_list = []
 
-<span class="nv">def</span> <span class="nv">main</span><span class="ss">()</span>:
-    <span class="nv">raw_site_page</span> <span class="o">=</span> <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">URL</span><span class="ss">)</span>
-    <span class="nv">raw_site_page</span>.<span class="nv">raise_for_status</span><span class="ss">()</span>  #<span class="nv">Confirm</span> <span class="nv">site</span> <span class="nv">was</span> <span class="nv">pulled</span>. <span class="nv">Error</span> <span class="k">if</span> <span class="nv">not</span>
+def main():
+    raw_site_page = requests.get(URL)
+    raw_site_page.raise_for_status()  #Confirm site was pulled. Error if not
 </pre></div>
 
 
@@ -152,7 +152,7 @@
 <ul>
 <li>Next, Beautiful Soup fun:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">bs4</span><span class="p">.</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">raw_site_page</span><span class="p">.</span><span class="nb">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>soup = bs4.BeautifulSoup(raw_site_page.text, &#39;html.parser&#39;)
 </pre></div>
 
 
@@ -160,9 +160,9 @@
 <ul>
 <li>Now the tricky part:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="nv">html_header_list</span> <span class="o">=</span> <span class="nv">soup</span>.<span class="nv">select</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">.heading-size-1</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">headers</span> <span class="nv">in</span> <span class="nv">html_header_list</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nv">headers</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>html_header_list = soup.select(&#39;.heading-size-1&#39;)
+    for headers in html_header_list:
+        print(headers)
 </pre></div>
 
 
@@ -181,9 +181,9 @@
 <ul>
 <li>We could use regex to strop the URLs out but BS4 makes it easier. We can grab just the plain text used within the CSS element using .getText():</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="nv">html_header_list</span> <span class="o">=</span> <span class="nv">soup</span>.<span class="nv">select</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">.heading-size-1</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">headers</span> <span class="nv">in</span> <span class="nv">html_header_list</span>:
-        <span class="nv">header_list</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">headers</span>.<span class="nv">getText</span><span class="ss">())</span>
+<div class="highlight"><pre><span></span>html_header_list = soup.select(&#39;.heading-size-1&#39;)
+    for headers in html_header_list:
+        header_list.append(headers.getText())
 </pre></div>
 
 
@@ -191,8 +191,8 @@
 <ul>
 <li>Now if we iterate over <em>header_list</em> we see just the data we want!</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">headers</span> <span class="nv">in</span> <span class="nv">header_list</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nv">headers</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>for headers in header_list:
+        print(headers)
 </pre></div>
 
 
@@ -232,7 +232,7 @@ $
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'simplewebscraper.html';
-                var disqus_url = './simplewebscraper.html';
+                var disqus_url = 'https://pybit.es/simplewebscraper.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -252,10 +252,10 @@ $
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

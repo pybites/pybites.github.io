@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="While seemingly &#34;simple&#34; to comprehend and use, functions can definitely be a bit of a hurdle to overcome when you&#39;re new to Python or programming in general. In this article I&#39;m going to break...">
         <meta name="keywords" content="beginners, code, functions, learning, programming, python">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Introduction to Python Functions - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Introduction to Python Functions</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Tue 11 February 2020,  <a href="./category/learning.html">Learning</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Tue 11 February 2020,  <a href="https://pybit.es/category/learning.html">Learning</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/beginners.html">beginners</a>, <a href="./tag/code.html">code</a>, <a href="./tag/functions.html">functions</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/programming.html">programming</a>, <a href="./tag/python.html">python</a>                      </p>
+<a href="https://pybit.es/tag/beginners.html">beginners</a>, <a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/functions.html">functions</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/programming.html">programming</a>, <a href="https://pybit.es/tag/python.html">python</a>                      </p>
                   </div>
               </div>
         </div>
@@ -129,11 +129,11 @@ In this article I'm going to break down what a function is and how you can use t
 <li>Turning off the water.</li>
 </ol>
 <p>If we were to write that in Python code it could look like this:</p>
-<div class="highlight"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned on the water.&quot;</span><span class="p">)</span>
-<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used shampoo.&quot;</span><span class="p">)</span>
-<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used soap.&quot;</span><span class="p">)</span>
-<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Rinsed off.&quot;</span><span class="p">)</span>
-<span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned off the water.&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>print(&quot;Turned on the water.&quot;)
+print(&quot;Used shampoo.&quot;)
+print(&quot;Used soap.&quot;)
+print(&quot;Rinsed off.&quot;)
+print(&quot;Turned off the water.&quot;)
 </pre></div>
 
 
@@ -142,12 +142,12 @@ In this article I'm going to break down what a function is and how you can use t
 <h2>Bring on the fun(ction)!</h2>
 <p>This is why functions are so amazing. We can take those five repetitive steps for taking a shower and wrap them up in a nice little ball to be called whenever needed.</p>
 <p>Here's what a function for taking a shower would look like:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">take_a_shower</span><span class="p">():</span>
-    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned on the water.&quot;</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used shampoo.&quot;</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Used soap.&quot;</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Rinsed off.&quot;</span><span class="p">)</span>
-    <span class="n">print</span><span class="p">(</span><span class="ss">&quot;Turned off the water.&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>def take_a_shower():
+    print(&quot;Turned on the water.&quot;)
+    print(&quot;Used shampoo.&quot;)
+    print(&quot;Used soap.&quot;)
+    print(&quot;Rinsed off.&quot;)
+    print(&quot;Turned off the water.&quot;)
 </pre></div>
 
 
@@ -161,15 +161,15 @@ In this article I'm going to break down what a function is and how you can use t
 <h2>Calling the function</h2>
 <p>We have a <code>take_a_shower</code> function that contains our steps. Now what?</p>
 <p>Well, any time a player chooses to take a shower, we can just <em>call</em> the <code>take_a_shower</code> function and it'll print out our actions for taking a shower. The way to call a function is to just use the function's name:</p>
-<div class="highlight"><pre><span></span><span class="n">take_a_shower</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>take_a_shower()
 </pre></div>
 
 
 <p>It makes more sense when you use it. We could add it to a game like this:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">player</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s">stinky</span><span class="s2">&quot;</span>:
-    <span class="nv">take_a_shower</span><span class="ss">()</span>
-<span class="k">else</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">You smell fantastic! Let&#39;s go eat some chocolate!</span><span class="s2">&quot;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>if player == &quot;stinky&quot;:
+    take_a_shower()
+else:
+    print(&quot;You smell fantastic! Let&#39;s go eat some chocolate!&quot;)
 </pre></div>
 
 
@@ -205,7 +205,7 @@ When the <code>take_a_shower</code> function is called, it <em>executes</em> the
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'python-functions.html';
-                var disqus_url = './python-functions.html';
+                var disqus_url = 'https://pybit.es/python-functions.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -225,10 +225,10 @@ When the <code>take_a_shower</code> function is called, it <em>executes</em> the
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

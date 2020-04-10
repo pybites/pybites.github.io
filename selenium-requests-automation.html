@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In part 3 of the PyBites Banner Generator article series I show you how to automatically generate a banner with Requests and Selenium. For both scripts I used Click to build the CLI interface. The...">
         <meta name="keywords" content="automation, Click, images, Pillow, PyBites Banner Generator, Requests, scraping, Selenium, selenium-requests, tools">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Fully Automate Login and Banner Generation with Selenium, Requests and Click - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Fully Automate Login and Banner Generation with Selenium, Requests and Click</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Sun 20 August 2017,  <a href="./category/modules.html">Modules</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Sun 20 August 2017,  <a href="https://pybit.es/category/modules.html">Modules</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/automation.html">automation</a>, <a href="./tag/click.html">Click</a>, <a href="./tag/images.html">images</a>, <a href="./tag/pillow.html">Pillow</a>, <a href="./tag/pybites-banner-generator.html">PyBites Banner Generator</a>, <a href="./tag/requests.html">Requests</a>, <a href="./tag/scraping.html">scraping</a>, <a href="./tag/selenium.html">Selenium</a>, <a href="./tag/selenium-requests.html">selenium-requests</a>, <a href="./tag/tools.html">tools</a>                      </p>
+<a href="https://pybit.es/tag/automation.html">automation</a>, <a href="https://pybit.es/tag/click.html">Click</a>, <a href="https://pybit.es/tag/images.html">images</a>, <a href="https://pybit.es/tag/pillow.html">Pillow</a>, <a href="https://pybit.es/tag/pybites-banner-generator.html">PyBites Banner Generator</a>, <a href="https://pybit.es/tag/requests.html">Requests</a>, <a href="https://pybit.es/tag/scraping.html">scraping</a>, <a href="https://pybit.es/tag/selenium.html">Selenium</a>, <a href="https://pybit.es/tag/selenium-requests.html">selenium-requests</a>, <a href="https://pybit.es/tag/tools.html">tools</a>                      </p>
                   </div>
               </div>
         </div>
@@ -117,16 +117,16 @@
 <ul>
 <li>
 <p>Posting to a page is easy, use requests' <code>Session</code> object passing it headers and a payload dict with user data (POST parameters):</p>
-<div class="highlight"><pre><span></span><span class="k">session</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="k">Session</span><span class="p">()</span>
-<span class="n">request</span> <span class="o">=</span> <span class="k">session</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">BANNER_APP</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">,</span> <span class="k">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>session = requests.Session()
+request = session.post(BANNER_APP, headers=HEADERS, data=payload)
 </pre></div>
 
 
 </li>
 <li>
 <p>As detailed  <a href="https://pybit.es/pillow-banner-flask.html">in part 2</a> the Flask app returns the generated png image upon form submission. With the POST request we are effectively submitting the form so the repsonse object holds the banner image. To retrieve it just write the <code>request.content</code> to a file. As the image is binary don't forget to use <code>wb</code>:</p>
-<div class="highlight"><pre><span></span><span class="k">with</span> <span class="k">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>with open(outfile, &#39;wb&#39;) as f:
+    f.write(request.content)
 </pre></div>
 
 
@@ -145,38 +145,38 @@
 <ul>
 <li>
 <p><code>click</code> is your friend to build robust CLI interfaces. For example the username and password can be retrieved from ENV variables with: </p>
-<div class="highlight"><pre><span></span><span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--username&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">envvar</span><span class="o">=</span><span class="s1">&#39;USERNAME&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--password&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">envvar</span><span class="o">=</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@click.option(&#39;-u&#39;, &#39;--username&#39;, envvar=&#39;USERNAME&#39;)
+@click.option(&#39;-p&#39;, &#39;--password&#39;, envvar=&#39;PASSWORD&#39;)
 </pre></div>
 
 
 <p>Want a choice list? No problem:</p>
-<div class="highlight"><pre><span></span><span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--logo&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="n">click</span><span class="p">.</span><span class="n">Choice</span><span class="p">(</span><span class="n">PYBITES_PILLARS</span><span class="p">))</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@click.option(&#39;-l&#39;, &#39;--logo&#39;, type=click.Choice(PYBITES_PILLARS))
 </pre></div>
 
 
 <p>Or a boolean field? Add this:</p>
-<div class="highlight"><pre><span></span><span class="nv">@click</span><span class="p">.</span><span class="k">option</span><span class="p">(</span><span class="s1">&#39;-b/-nb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;--background/--no-background&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="k">default</span><span class="o">=</span><span class="k">False</span><span class="p">,</span><span class="w"> </span><span class="n">prompt</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@click.option(&#39;-b/-nb&#39;, &#39;--background/--no-background&#39;,
+            default=False, prompt=True)
 </pre></div>
 
 
 </li>
 <li>
 <p>We wrap these user inputs (payload) in a data dict and we login to the site with a helper method:</p>
-<div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>driver = login(username, password)
 </pre></div>
 
 
 <p>To enter data and submit just find the element for which Selenium <a href="http://selenium-python.readthedocs.io/locating-elements.html">has quite a few helper methods</a> and use <code>send_keys</code>, then click the Login button (xpath only needed because the lack of HTML id/name attributes):</p>
-<div class="highlight"><pre><span></span><span class="n">username_field</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_name</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">username_field</span><span class="p">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">username</span><span class="p">)</span><span class="w"></span>
-<span class="n">password_field</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_name</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="n">password_field</span><span class="p">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">password</span><span class="p">)</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="nl">TODO</span><span class="p">:</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="n">id</span><span class="o">/</span><span class="n">name</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">button</span><span class="w"></span>
-<span class="n">btn_xpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;//button[contains(@class, &#39;pure-button-primary&#39;)]&quot;</span><span class="w"></span>
-<span class="n">login_btn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">btn_xpath</span><span class="p">)</span><span class="w"></span>
-<span class="n">login_btn</span><span class="p">.</span><span class="n">click</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span>username_field = driver.find_element_by_name(&#39;username&#39;)
+username_field.send_keys(username)
+password_field = driver.find_element_by_name(&#39;password&#39;)
+password_field.send_keys(password)
+# TODO: need html id/name on button
+btn_xpath = &quot;//button[contains(@class, &#39;pure-button-primary&#39;)]&quot;
+login_btn = driver.find_element_by_xpath(btn_xpath)
+login_btn.click()
 </pre></div>
 
 
@@ -184,12 +184,12 @@
 </li>
 <li>
 <p>As selenium-requests uses Requests under the hood, the POST request and response handling is identical to the first script:</p>
-<div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="n">BANNER_APP</span><span class="p">,</span> <span class="k">data</span><span class="o">=</span><span class="k">data</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>request = driver.request(&#39;POST&#39;, BANNER_APP, data=data)
 
-<span class="p">...</span>
+...
 
-<span class="k">with</span> <span class="k">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+with open(outfile, &#39;wb&#39;) as f:
+    f.write(request.content)
 </pre></div>
 
 
@@ -200,19 +200,19 @@
 </ul>
 <h2>Let's try it</h2>
 <p>This is Click's out-of-the-box niceness:</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">private_banner</span>.<span class="nv">py</span>  <span class="o">--</span><span class="nv">help</span>
-<span class="nv">Usage</span>: <span class="nv">private_banner</span>.<span class="nv">py</span> [<span class="nv">OPTIONS</span>]
+<div class="highlight"><pre><span></span>$ python private_banner.py  --help
+Usage: private_banner.py <span class="o">[</span>OPTIONS<span class="o">]</span>
 
-<span class="nv">Options</span>:
-<span class="o">-</span><span class="nv">n</span>, <span class="o">--</span><span class="nv">name</span> <span class="nv">TEXT</span>
-<span class="o">-</span><span class="nv">l</span>, <span class="o">--</span><span class="nv">logo</span> [<span class="nv">news</span><span class="o">|</span><span class="nv">challenge</span><span class="o">|</span><span class="nv">special</span><span class="o">|</span><span class="nv">article</span>]
-<span class="o">-</span><span class="nv">i</span>, <span class="o">--</span><span class="nv">image</span> <span class="nv">TEXT</span>
-<span class="o">-</span><span class="nv">t</span>, <span class="o">--</span><span class="nv">text</span> <span class="nv">TEXT</span>
-<span class="o">-</span><span class="nv">b</span>, <span class="o">--</span><span class="nv">background</span> <span class="o">/</span> <span class="o">-</span><span class="nv">nb</span>, <span class="o">--</span><span class="nv">no</span><span class="o">-</span><span class="nv">background</span>
-<span class="o">-</span><span class="nv">o</span>, <span class="o">--</span><span class="nv">outfile</span> <span class="nv">TEXT</span>
-<span class="o">-</span><span class="nv">u</span>, <span class="o">--</span><span class="nv">username</span> <span class="nv">TEXT</span>
-<span class="o">-</span><span class="nv">p</span>, <span class="o">--</span><span class="nv">password</span> <span class="nv">TEXT</span>
-<span class="o">--</span><span class="nv">help</span>                          <span class="k">Show</span> <span class="nv">this</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>.
+Options:
+-n, --name TEXT
+-l, --logo <span class="o">[</span>news<span class="p">|</span>challenge<span class="p">|</span>special<span class="p">|</span>article<span class="o">]</span>
+-i, --image TEXT
+-t, --text TEXT
+-b, --background / -nb, --no-background
+-o, --outfile TEXT
+-u, --username TEXT
+-p, --password TEXT
+--help                          Show this message and exit.
 </pre></div>
 
 
@@ -232,9 +232,9 @@
 
 
 <p>And voilà:</p>
-<p><img alt="resulting banner from command line" src="./images/selenium-requests-banner.png"></p>
+<p><img alt="resulting banner from command line" src="https://pybit.es/images/selenium-requests-banner.png"></p>
 <p>Going to the GUI we see that the image persisted in the DB:</p>
-<p><img alt="resulting banner from command line" src="./images/pybites-banner-persisted-db.png"></p>
+<p><img alt="resulting banner from command line" src="https://pybit.es/images/pybites-banner-persisted-db.png"></p>
 <p>Now imagine using this script to automatically generate 100 banners from a csv file, wouldn't that be cool?</p>
 <h2>Further reading</h2>
 <h3>PyBites Banner Generator</h3>
@@ -268,7 +268,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'selenium-requests-automation.html';
-                var disqus_url = './selenium-requests-automation.html';
+                var disqus_url = 'https://pybit.es/selenium-requests-automation.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -288,10 +288,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

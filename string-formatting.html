@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Formatting strings was one of the things that really hurt my head when I started learning Python. Everyone did it differently! After doing Michael Kennedy&#39;s Write Pythonic Code Like a Seasoned...">
         <meta name="keywords" content="beginners, bestpractices, cleancode, learning, python, pythonic, tips">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Pythonic String Formatting - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -71,13 +71,13 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Pythonic String Formatting</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Thu 02 March 2017,  <a href="./category/learning.html">Learning</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Thu 02 March 2017,  <a href="https://pybit.es/category/learning.html">Learning</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/beginners.html">beginners</a>, <a href="./tag/bestpractices.html">bestpractices</a>, <a href="./tag/cleancode.html">cleancode</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/python.html">python</a>, <a href="./tag/pythonic.html">pythonic</a>, <a href="./tag/tips.html">tips</a>                      </p>
+<a href="https://pybit.es/tag/beginners.html">beginners</a>, <a href="https://pybit.es/tag/bestpractices.html">bestpractices</a>, <a href="https://pybit.es/tag/cleancode.html">cleancode</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/pythonic.html">pythonic</a>, <a href="https://pybit.es/tag/tips.html">tips</a>                      </p>
                   </div>
               </div>
         </div>
@@ -113,19 +113,19 @@
 <p>After doing Michael Kennedy's <a href="http://pybit.es/pythonic-code-course-rewiew.html"><em>Write Pythonic Code Like a Seasoned Developer</em></a> course, I was inspired to write about the different ways you could format a string in Python. Mainly because the method we've all deemed <strong>wrong</strong> (or at least, "least Pythonic") is the way I started off doing it!</p>
 <h2>The Terribly Unpythonic Method</h2>
 <p>Okay let's get this out of the way first. Here's how I formatted a string when I first started:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">country</span> <span class="o">=</span> <span class="ss">&quot;Australia&quot;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">level</span> <span class="o">=</span> <span class="mi">11</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="ss">&quot;The awesomeness level of &quot;</span> <span class="o">+</span> <span class="n">country</span> <span class="o">+</span> <span class="ss">&quot; is &quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="k">level</span><span class="p">)</span> <span class="o">+</span> <span class="ss">&quot;.&quot;</span><span class="p">)</span>
-<span class="n">The</span> <span class="n">awesomeness</span> <span class="k">level</span> <span class="k">of</span> <span class="n">Australia</span> <span class="k">is</span> <span class="mi">11</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; country = &quot;Australia&quot;
+&gt;&gt;&gt; level = 11
+&gt;&gt;&gt;
+&gt;&gt;&gt; print(&quot;The awesomeness level of &quot; + country + &quot; is &quot; + str(level) + &quot;.&quot;)
+The awesomeness level of Australia is 11.
 </pre></div>
 
 
 <p>I'll be honest, I was just glad I could get text to print! It's pretty terrible isn't it? Having to display <em>level</em> as a string with <em>str()</em> sends shivers down my spine now.</p>
 <h2>Using the String Format Operator</h2>
 <p>When Bob first showed me code that contained the string format operator I could have died. Not because it was awesome but because as a newbie, I had no idea what the heck I was even reading! Using the same variables and types:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="ss">&quot;The awesomeness level of %s is %d.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="k">level</span><span class="p">))</span>
-<span class="n">The</span> <span class="n">awesomeness</span> <span class="k">level</span> <span class="k">of</span> <span class="n">Australia</span> <span class="k">is</span> <span class="mi">11</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;The awesomeness level of %s is %d.&quot; % (country, level))
+The awesomeness level of Australia is 11.
 </pre></div>
 
 
@@ -137,8 +137,8 @@
 <h2>Replacement Fields</h2>
 <p>This is my favourite one. Replacement fields!</p>
 <p>Replacement fields expand on the format operator by taking the thinking out of the equation (always a good thing for me!):</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="ss">&quot;The awesomeness level of {} is {}.&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="k">level</span><span class="p">))</span>
-<span class="n">The</span> <span class="n">awesomeness</span> <span class="k">level</span> <span class="k">of</span> <span class="n">Australia</span> <span class="k">is</span> <span class="mi">11</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;The awesomeness level of {} is {}.&quot;.format(country, level))
+The awesomeness level of Australia is 11.
 </pre></div>
 
 
@@ -147,8 +147,8 @@
 <p>Pythonic goodness!</p>
 <h2>Python 3.6 f-strings</h2>
 <p>f-strings were introduced <a href="http://pybit.es/3.6_new.html">in Python 3.6</a> and are pretty new to me but that doesn't stop them from being awesome! Check this out:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="ss">&quot;The awesomeness level of {country} is {level}.&quot;</span>
-<span class="s1">&#39;The awesomeness level of Australia is 11.&#39;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; f&quot;The awesomeness level of {country} is {level}.&quot;
+&#39;The awesomeness level of Australia is 11.&#39;
 </pre></div>
 
 
@@ -156,7 +156,7 @@
 <p>Even more Pythonic goodness!</p>
 <h2>Conclusion</h2>
 <p>Being quite new to Python means I'm more likely to use the latest and greatest method of formatting strings which actually makes things more difficult. I now want to go back through my old code and update it with the newer, more Pythonic methods.</p>
-<p><img alt="Pythonic string formatting summarized" src="./images/pythonic-string-formatting.png"></p>
+<p><img alt="Pythonic string formatting summarized" src="https://pybit.es/images/pythonic-string-formatting.png"></p>
 <hr>
 <p>I want to hear more about how other programmers format their output strings. It's a topic that's interested me purely because of the strong opinion out there!</p>
 <p>How do you do it?</p>
@@ -169,7 +169,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'string-formatting.html';
-                var disqus_url = './string-formatting.html';
+                var disqus_url = 'https://pybit.es/string-formatting.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -189,10 +189,10 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href=".https://codechalleng.es/100days/">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.eshttps://codechalleng.es/100days/">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>
