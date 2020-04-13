@@ -168,16 +168,16 @@
 </li>
 <li>
 <p>Write exceptions in a compatible way:</p>
-<div class="highlight"><pre><span></span># don&#39;t:
-except Exception, e:
-# do:
-except Exception as e:
-# or just:
-except Exception:
-# don&#39;t:
-raise ValueError, &#39;Invalid value&#39;
-# do:
-raise ValueError(&#39;Invalid value&#39;)
+<div class="highlight"><pre><span></span># <span class="nv">don</span><span class="s1">&#39;</span><span class="s">t:</span>
+<span class="nv">except</span> <span class="nv">Exception</span>, <span class="nv">e</span>:
+# <span class="k">do</span>:
+<span class="nv">except</span> <span class="nv">Exception</span> <span class="nv">as</span> <span class="nv">e</span>:
+# <span class="nv">or</span> <span class="nv">just</span>:
+<span class="nv">except</span> <span class="nv">Exception</span>:
+# <span class="nv">don</span><span class="s1">&#39;</span><span class="s">t:</span>
+<span class="nv">raise</span> <span class="nv">ValueError</span>, <span class="s1">&#39;</span><span class="s">Invalid value</span><span class="s1">&#39;</span>
+# <span class="k">do</span>:
+<span class="nv">raise</span> <span class="nv">ValueError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Invalid value</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 

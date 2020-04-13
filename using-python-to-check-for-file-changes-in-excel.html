@@ -160,50 +160,50 @@ Binary files a/Book3.xlsx and b/Book3.xlsx differ
 
 <h3>Use Pandas to compare</h3>
 <p>This is just a one liner, but is super powerful. Pandas DataFrames have a method to see if two frames are the same. So easy!</p>
-<div class="highlight"><pre><span></span>data_frame_same = df1.equals(df2)
+<div class="highlight"><pre><span></span><span class="n">data_frame_same</span> <span class="o">=</span> <span class="n">df1</span><span class="p">.</span><span class="k">equals</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
 </pre></div>
 
 
 <h3>Write out the differences if they exist:</h3>
 <p>First we specify where we're going to write out the differences to. We use <code>w+</code> because we'll be writing out to a file AND potentially appending, depending on differences that are found. The <code>f.truncate(0)</code> will clear out the file so that we get just the differences on this run. If we don't do this then we'll just append to the file over and over again ... and that can get confusing.</p>
-<div class="highlight"><pre><span></span>f.open(\\path\\to\\file\\to\\write\\differences.txt, &#39;w+&#39;)
-f.truncate(0)
+<div class="highlight"><pre><span></span><span class="n">f</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="err">\\</span><span class="n">path</span><span class="err">\\</span><span class="k">to</span><span class="err">\\</span><span class="n">file</span><span class="err">\\</span><span class="k">to</span><span class="err">\\</span><span class="k">write</span><span class="err">\\</span><span class="n">differences</span><span class="p">.</span><span class="n">txt</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="p">.</span><span class="k">truncate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Next, we check to see if there are any differences and if they are, we write a simple message to our text file from above:</p>
-<div class="highlight"><pre><span></span>if data_frame_same:
-    f.write(&#39;No differences detected&#39;)
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">data_frame_same</span>:
+    <span class="nv">f</span>.<span class="nv">write</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">No differences detected</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>If differences are found, then we loop through the lines of the file, finding the differences and and writing them to our file:</p>
-<div class="highlight"><pre><span></span><span class="k">else</span><span class="o">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s1">&#39;*** WARNING *** Differences Found\n\n&#39;</span><span class="o">)</span>
-    <span class="k">for</span> <span class="n">c</span> <span class="k">in</span> <span class="n">range</span><span class="o">(</span><span class="n">max</span><span class="o">(</span><span class="n">len</span><span class="o">(</span><span class="n">df1</span><span class="o">.</span><span class="na">columns</span><span class="o">),</span> <span class="n">len</span><span class="o">(</span><span class="n">df2</span><span class="o">.</span><span class="na">columns</span><span class="o">))):</span>
-        <span class="k">try</span><span class="o">:</span>
-            <span class="n">header1</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="na">columns</span><span class="o">[</span><span class="n">c</span><span class="o">].</span><span class="n">strip</span><span class="o">().</span><span class="n">lower</span><span class="o">().</span><span class="n">replace</span><span class="o">(</span><span class="s1">&#39;\n&#39;</span><span class="o">,</span> <span class="s1">&#39;&#39;</span><span class="o">)</span>
-            <span class="n">header2</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="na">columns</span><span class="o">[</span><span class="n">c</span><span class="o">].</span><span class="n">strip</span><span class="o">().</span><span class="n">lower</span><span class="o">().</span><span class="n">replace</span><span class="o">(</span><span class="s1">&#39;\n&#39;</span><span class="o">,</span> <span class="s1">&#39;&#39;</span><span class="o">)</span>
-            <span class="k">if</span> <span class="n">header1</span> <span class="o">==</span> <span class="n">header2</span><span class="o">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">f</span><span class="s1">&#39;Headers are the same: {header1}\n&#39;</span><span class="o">)</span>
-            <span class="k">else</span><span class="o">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">f</span><span class="s1">&#39;Difference Found: {header1} -&gt; {header2}\n&#39;</span><span class="o">)</span>
-        <span class="n">except</span><span class="o">:</span>
-            <span class="n">pass</span>
+<div class="highlight"><pre><span></span><span class="k">else</span>:
+    <span class="nv">f</span>.<span class="nv">write</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">*** WARNING *** Differences Found</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="k">for</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">max</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">df1</span>.<span class="nv">columns</span><span class="ss">)</span>, <span class="nv">len</span><span class="ss">(</span><span class="nv">df2</span>.<span class="nv">columns</span><span class="ss">)))</span>:
+        <span class="nv">try</span>:
+            <span class="nv">header1</span> <span class="o">=</span> <span class="nv">df1</span>.<span class="nv">columns</span>[<span class="nv">c</span>].<span class="nv">strip</span><span class="ss">()</span>.<span class="nv">lower</span><span class="ss">()</span>.<span class="nv">replace</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>, <span class="s1">&#39;&#39;</span><span class="ss">)</span>
+            <span class="nv">header2</span> <span class="o">=</span> <span class="nv">df2</span>.<span class="nv">columns</span>[<span class="nv">c</span>].<span class="nv">strip</span><span class="ss">()</span>.<span class="nv">lower</span><span class="ss">()</span>.<span class="nv">replace</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>, <span class="s1">&#39;&#39;</span><span class="ss">)</span>
+            <span class="k">if</span> <span class="nv">header1</span> <span class="o">==</span> <span class="nv">header2</span>:
+                <span class="nv">f</span>.<span class="nv">write</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Headers are the same: {header1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="ss">)</span>
+            <span class="k">else</span>:
+                <span class="nv">f</span>.<span class="nv">write</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">Difference Found: {header1} -&gt; {header2}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="ss">)</span>
+        <span class="nv">except</span>:
+            <span class="nv">pass</span>
 
-<span class="n">f</span><span class="o">.</span><span class="na">close</span><span class="o">()</span>
+<span class="nv">f</span>.<span class="nv">close</span><span class="ss">()</span>
 </pre></div>
 
 
 <p>The code above finds the largest column header list (the file may have had a new column added) and uses a <code>try/except</code> to let us get the max of that to loop over. </p>
 <p>Next, we check for differences between <code>header1</code> and <code>header2</code>. If they are the same, we just write that out, if they aren't, we indicate that <code>header1</code> was transformed to <code>header2</code></p>
 <p>A sample of the output when the column headers have changed is below:</p>
-<div class="highlight"><pre><span></span>*** WARNING *** Differences Found
+<div class="highlight"><pre><span></span><span class="o">***</span> <span class="n">WARNING</span> <span class="o">***</span> <span class="n">Differences</span> <span class="k">Found</span>
 
-Headers are the same: beneficiary first name
-...
-Difference Found: person who made the request -&gt; who made the request?
-...
+<span class="n">Headers</span> <span class="k">are</span> <span class="n">the</span> <span class="n">same</span><span class="p">:</span> <span class="n">beneficiary</span> <span class="k">first</span> <span class="n">name</span>
+<span class="p">...</span>
+<span class="n">Difference</span> <span class="k">Found</span><span class="p">:</span> <span class="n">person</span> <span class="n">who</span> <span class="n">made</span> <span class="n">the</span> <span class="n">request</span> <span class="o">-&gt;</span> <span class="n">who</span> <span class="n">made</span> <span class="n">the</span> <span class="n">request</span><span class="o">?</span>
+<span class="p">...</span>
 </pre></div>
 
 

@@ -113,23 +113,23 @@
 <p>First, for the uninitiated, what is a Generator? (If you’re already across Generators, feel free to skip this next part!).</p>
 <h2>What is a Generator?</h2>
 <p>Well, there’s actually not much to it. A generator is just a function that generates values specifically when called with <em>next()</em>. Take this absolutely simple generator for example:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; def num_gen():
-...     yield 1
-...     yield 2
-...     yield 3
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">num_gen</span><span class="ss">()</span>:
+...     <span class="nv">yield</span> <span class="mi">1</span>
+...     <span class="nv">yield</span> <span class="mi">2</span>
+...     <span class="nv">yield</span> <span class="mi">3</span>
 ... 
-&gt;&gt;&gt; 
-&gt;&gt;&gt; demo_gen = num_gen()
-&gt;&gt;&gt; next(demo_gen)
-1
-&gt;&gt;&gt; next(demo_gen)
-2
-&gt;&gt;&gt; next(demo_gen)
-3
-&gt;&gt;&gt; next(demo_gen)
-Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-StopIteration
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">demo_gen</span> <span class="o">=</span> <span class="nv">num_gen</span><span class="ss">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
+  <span class="nv">File</span> <span class="s2">&quot;</span><span class="s">&lt;stdin&gt;</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">1</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+<span class="nv">StopIteration</span>
 </pre></div>
 
 
@@ -159,55 +159,55 @@ StopIteration
 <p>Generators on the other hand get around the memory hogging by only loading the code into memory that’s returned by <em>yield</em>. That is, you’re not processing and storing the entire chunk of code/function in memory, just the next iteration you’re requesting with <em>next()</em>.</p>
 <h2>Using a For Loop in a Generator</h2>
 <p>You can use Generators in all sorts of ways. Here’s one that uses a For Loop to double the value of the number I throw into the generator. I can specify how many times the loop is going to run too:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; def double_nums(num, loops=5):
-...     for i in range(loops):
-...         num += num
-...         yield num
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">double_nums</span><span class="ss">(</span><span class="nv">num</span>, <span class="nv">loops</span><span class="o">=</span><span class="mi">5</span><span class="ss">)</span>:
+...     <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">loops</span><span class="ss">)</span>:
+...         <span class="nv">num</span> <span class="o">+=</span> <span class="nv">num</span>
+...         <span class="nv">yield</span> <span class="nv">num</span>
 ... 
-&gt;&gt;&gt; 
-&gt;&gt;&gt; demo_gen = double_nums(2)
-&gt;&gt;&gt; 
-&gt;&gt;&gt; next(demo_gen)
-4
-&gt;&gt;&gt; next(demo_gen)
-8
-&gt;&gt;&gt; next(demo_gen)
-16
-&gt;&gt;&gt; next(demo_gen)
-32
-&gt;&gt;&gt; next(demo_gen)
-64
-&gt;&gt;&gt; next(demo_gen)
-Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-StopIteration
-&gt;&gt;&gt;
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">demo_gen</span> <span class="o">=</span> <span class="nv">double_nums</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">8</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">16</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">32</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">64</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
+  <span class="nv">File</span> <span class="s2">&quot;</span><span class="s">&lt;stdin&gt;</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">1</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+<span class="nv">StopIteration</span>
+<span class="o">&gt;&gt;&gt;</span>
 </pre></div>
 
 
 <h2>Using a While Loop within a Generator</h2>
 <p>Now let’s say we want it to indefinitely double every number but only when we want to. The generator is necessary otherwise you’d run out memory and crash your machine.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; def num_gen(num):
-...     while True:
-...         num += num
-...         yield num
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">num_gen</span><span class="ss">(</span><span class="nv">num</span><span class="ss">)</span>:
+...     <span class="k">while</span> <span class="nv">True</span>:
+...         <span class="nv">num</span> <span class="o">+=</span> <span class="nv">num</span>
+...         <span class="nv">yield</span> <span class="nv">num</span>
 ... 
-&gt;&gt;&gt; 
-&gt;&gt;&gt; 
-&gt;&gt;&gt; demo_gen = num_gen(2)
-&gt;&gt;&gt; 
-&gt;&gt;&gt; next(demo_gen)
-4
-&gt;&gt;&gt; next(demo_gen)
-8
-&gt;&gt;&gt; next(demo_gen)
-16
-&gt;&gt;&gt; next(demo_gen)
-32
-&gt;&gt;&gt; next(demo_gen)
-64
-&gt;&gt;&gt; next(demo_gen)
-128
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">demo_gen</span> <span class="o">=</span> <span class="nv">num_gen</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span>
+<span class="o">&gt;&gt;&gt;</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">8</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">16</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">32</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">64</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">demo_gen</span><span class="ss">)</span>
+<span class="mi">128</span>
 …
 </pre></div>
 
@@ -218,9 +218,9 @@ StopIteration
 <ul>
 <li>
 <p>Get all permutations of a draw in a simple game:</p>
-<div class="highlight"><pre><span></span>def _get_permutations_draw(draw):
-    for i in range(1, 8):
-        yield from list(itertools.permutations(draw, i))
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">_get_permutations_draw</span><span class="ss">(</span><span class="nv">draw</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">1</span>, <span class="mi">8</span><span class="ss">)</span>:
+        <span class="nv">yield</span> <span class="nv">from</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">itertools</span>.<span class="nv">permutations</span><span class="ss">(</span><span class="nv">draw</span>, <span class="nv">i</span><span class="ss">))</span>
 </pre></div>
 
 
@@ -229,12 +229,12 @@ StopIteration
 </li>
 <li>
 <p>Get similar tags:</p>
-<div class="highlight"><pre><span></span>def get_similarities(tags):
-    for pair in product(tags, tags):
-        pair = tuple(sorted(pair))  
-        similarity = SequenceMatcher(None, *pair).ratio()
-        if SIMILAR &lt; similarity &lt; IDENTICAL:
-            yield pair
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_similarities</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">pair</span> <span class="nv">in</span> <span class="nv">product</span><span class="ss">(</span><span class="nv">tags</span>, <span class="nv">tags</span><span class="ss">)</span>:
+        <span class="nv">pair</span> <span class="o">=</span> <span class="nv">tuple</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">pair</span><span class="ss">))</span>  
+        <span class="nv">similarity</span> <span class="o">=</span> <span class="nv">SequenceMatcher</span><span class="ss">(</span><span class="nv">None</span>, <span class="o">*</span><span class="nv">pair</span><span class="ss">)</span>.<span class="nv">ratio</span><span class="ss">()</span>
+        <span class="k">if</span> <span class="nv">SIMILAR</span> <span class="o">&lt;</span> <span class="nv">similarity</span> <span class="o">&lt;</span> <span class="nv">IDENTICAL</span>:
+            <span class="nv">yield</span> <span class="nv">pair</span>
 </pre></div>
 
 
@@ -244,35 +244,35 @@ StopIteration
 <ul>
 <li>
 <p>A tweet pipeline:</p>
-<div class="highlight"><pre><span></span>def get_tweets(search):
-    for tweet in tweepy.Cursor(api.search,
-                            q=search,
-                            rpp=100,
-                            result_type=&quot;recent&quot;,
-                            include_entities=True,
-                            lang=&quot;en&quot;).items():
-        if not tweet.retweeted and &#39;RT @&#39; not in tweet.text:
-            yield tweet
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_tweets</span><span class="ss">(</span><span class="nv">search</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">tweet</span> <span class="nv">in</span> <span class="nv">tweepy</span>.<span class="nv">Cursor</span><span class="ss">(</span><span class="nv">api</span>.<span class="nv">search</span>,
+                            <span class="nv">q</span><span class="o">=</span><span class="nv">search</span>,
+                            <span class="nv">rpp</span><span class="o">=</span><span class="mi">100</span>,
+                            <span class="nv">result_type</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">recent</span><span class="s2">&quot;</span>,
+                            <span class="nv">include_entities</span><span class="o">=</span><span class="nv">True</span>,
+                            <span class="nv">lang</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">en</span><span class="s2">&quot;</span><span class="ss">)</span>.<span class="nv">items</span><span class="ss">()</span>:
+        <span class="k">if</span> <span class="nv">not</span> <span class="nv">tweet</span>.<span class="nv">retweeted</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">RT @</span><span class="s1">&#39;</span> <span class="nv">not</span> <span class="nv">in</span> <span class="nv">tweet</span>.<span class="nv">text</span>:
+            <span class="nv">yield</span> <span class="nv">tweet</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Get all our challenges repo's forks:</p>
-<div class="highlight"><pre><span></span>def get_forks():
-    page_num = 0
-    while True:
-        page_num += 1
-        url = FORK_URL + str(page_num)
-        response = requests.get(url)
-        d = response.json()
-        if not d:
-            return
-        for row in d:
-            url = row[&#39;html_url&#39;]
-            updated = row[&#39;updated_at&#39;]
-            pushed = row[&#39;pushed_at&#39;]
-            yield Fork(url, updated, pushed)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_forks</span><span class="ss">()</span>:
+    <span class="nv">page_num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="nv">True</span>:
+        <span class="nv">page_num</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nv">url</span> <span class="o">=</span> <span class="nv">FORK_URL</span> <span class="o">+</span> <span class="nv">str</span><span class="ss">(</span><span class="nv">page_num</span><span class="ss">)</span>
+        <span class="nv">response</span> <span class="o">=</span> <span class="nv">requests</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">url</span><span class="ss">)</span>
+        <span class="nv">d</span> <span class="o">=</span> <span class="nv">response</span>.<span class="nv">json</span><span class="ss">()</span>
+        <span class="k">if</span> <span class="nv">not</span> <span class="nv">d</span>:
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="nv">row</span> <span class="nv">in</span> <span class="nv">d</span>:
+            <span class="nv">url</span> <span class="o">=</span> <span class="nv">row</span>[<span class="s1">&#39;</span><span class="s">html_url</span><span class="s1">&#39;</span>]
+            <span class="nv">updated</span> <span class="o">=</span> <span class="nv">row</span>[<span class="s1">&#39;</span><span class="s">updated_at</span><span class="s1">&#39;</span>]
+            <span class="nv">pushed</span> <span class="o">=</span> <span class="nv">row</span>[<span class="s1">&#39;</span><span class="s">pushed_at</span><span class="s1">&#39;</span>]
+            <span class="nv">yield</span> <span class="nv">Fork</span><span class="ss">(</span><span class="nv">url</span>, <span class="nv">updated</span>, <span class="nv">pushed</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -284,45 +284,45 @@ StopIteration
 <p>A cool idea from here (that I’ll probably use for work now that I think about it!) would be to make a generator to create a list of node IP addresses to use with the ssh code.</p>
 <p>The catch would be the SSH authentication for each server if your credentials aren’t the same across your fleet.</p>
 <p>Simplistically but potentially it could look like this:</p>
-<div class="highlight"><pre><span></span>net = input(&#39;Input your IP net, e.g. 192.168.0&#39;)
+<div class="highlight"><pre><span></span><span class="nv">net</span> <span class="o">=</span> <span class="nv">input</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Input your IP net, e.g. 192.168.0</span><span class="s1">&#39;</span><span class="ss">)</span>
 
-# define the generator
-def get_nodes(net):
-    for i in range(1, 256):
-        yield &#39;{}.{}&#39;.format(net, i)
+# <span class="nv">define</span> <span class="nv">the</span> <span class="nv">generator</span>
+<span class="nv">def</span> <span class="nv">get_nodes</span><span class="ss">(</span><span class="nv">net</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">1</span>, <span class="mi">256</span><span class="ss">)</span>:
+        <span class="nv">yield</span> <span class="s1">&#39;</span><span class="s">{}.{}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">net</span>, <span class="nv">i</span><span class="ss">)</span>
 
-# consume it
-for node in get_nodes(net):
-    print(&#39;Checking IP {}&#39;.format(node))
-    try:
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(node, username=username, password=password)
-        ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(&#39;cat /etc/hostname&#39;)
-        yield ssh_stdout.readlines()
-    finally:
-        ssh.close()
+# <span class="nv">consume</span> <span class="nv">it</span>
+<span class="k">for</span> <span class="nv">node</span> <span class="nv">in</span> <span class="nv">get_nodes</span><span class="ss">(</span><span class="nv">net</span><span class="ss">)</span>:
+    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Checking IP {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">node</span><span class="ss">))</span>
+    <span class="nv">try</span>:
+        <span class="nv">ssh</span> <span class="o">=</span> <span class="nv">paramiko</span>.<span class="nv">SSHClient</span><span class="ss">()</span>
+        <span class="nv">ssh</span>.<span class="nv">set_missing_host_key_policy</span><span class="ss">(</span><span class="nv">paramiko</span>.<span class="nv">AutoAddPolicy</span><span class="ss">())</span>
+        <span class="nv">ssh</span>.<span class="k">connect</span><span class="ss">(</span><span class="nv">node</span>, <span class="nv">username</span><span class="o">=</span><span class="nv">username</span>, <span class="nv">password</span><span class="o">=</span><span class="nv">password</span><span class="ss">)</span>
+        <span class="nv">ssh_stdin</span>, <span class="nv">ssh_stdout</span>, <span class="nv">ssh_stderr</span> <span class="o">=</span> <span class="nv">ssh</span>.<span class="nv">exec_command</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">cat /etc/hostname</span><span class="s1">&#39;</span><span class="ss">)</span>
+        <span class="nv">yield</span> <span class="nv">ssh_stdout</span>.<span class="nv">readlines</span><span class="ss">()</span>
+    <span class="nv">finally</span>:
+        <span class="nv">ssh</span>.<span class="nv">close</span><span class="ss">()</span>
 
-    confirm = input(‘Do you want to continue? &#39;)
+    <span class="nv">confirm</span> <span class="o">=</span> <span class="nv">input</span><span class="ss">(</span>‘<span class="k">Do</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="k">continue</span>? <span class="s1">&#39;</span><span class="s">)</span>
     ...
 </pre></div>
 
 
 <p>Output (assuming 'net' was entered as 192.168.0):</p>
-<div class="highlight"><pre><span></span>Checking IP 192.168.0.1
--- output --
-Checking IP 192.168.0.2
--- output --
-Checking IP 192.168.0.3
--- output --
-...
-...
-Checking IP 192.168.0.253
--- output --
-Checking IP 192.168.0.254
--- output --
-Checking IP 192.168.0.255
--- output --
+<div class="highlight"><pre><span></span><span class="n">Checking</span> <span class="n">IP</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span>
+<span class="c1">-- output --</span>
+<span class="n">Checking</span> <span class="n">IP</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">2</span>
+<span class="c1">-- output --</span>
+<span class="n">Checking</span> <span class="n">IP</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">3</span>
+<span class="c1">-- output --</span>
+<span class="p">...</span>
+<span class="p">...</span>
+<span class="n">Checking</span> <span class="n">IP</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">253</span>
+<span class="c1">-- output --</span>
+<span class="n">Checking</span> <span class="n">IP</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">254</span>
+<span class="c1">-- output --</span>
+<span class="n">Checking</span> <span class="n">IP</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">255</span>
+<span class="c1">-- output --</span>
 </pre></div>
 
 

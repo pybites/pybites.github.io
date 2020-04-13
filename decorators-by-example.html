@@ -126,69 +126,69 @@
 <h2>Syntax</h2>
 <p>Python lets you decorate a function (or class) by the <code>@</code> symbol followed by the decorator.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span>@mydecorator
-def my_function(args):
-    ...
+<div class="highlight"><pre><span></span><span class="nv">@mydecorator</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">my_function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 </pre></div>
 
 
 <p>Note that this is the same as:</p>
-<div class="highlight"><pre><span></span>def my_function(args):
-    ...
-my_function = mydecorator(my_function)
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">my_function</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="p">...</span>
+<span class="n">my_function</span> <span class="o">=</span> <span class="n">mydecorator</span><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
 </pre></div>
 
 
 <p>The '@' syntactic sugar is more concise and easier to read though.</p>
 <p>Decorators can be stacked and will be run inside out:</p>
-<div class="highlight"><pre><span></span>@second_decorator
-@first_decorator
-def my_function(args):
-    ...
+<div class="highlight"><pre><span></span><span class="nv">@second_decorator</span><span class="w"></span>
+<span class="nv">@first_decorator</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">my_function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 </pre></div>
 
 
 <p>This can be quite confusing so I found a good example <a href="https://stackoverflow.com/a/739665">on SO</a>:</p>
-<div class="highlight"><pre><span></span>def makebold(fn):
-    def wrapped():
-        return &quot;<span class="nt">&lt;b&gt;</span>&quot; + fn() + &quot;<span class="nt">&lt;/b&gt;</span>&quot;
-    return wrapped
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">makebold</span><span class="ss">(</span><span class="nv">fn</span><span class="ss">)</span>:
+    <span class="nv">def</span> <span class="nv">wrapped</span><span class="ss">()</span>:
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="s">&lt;b&gt;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nv">fn</span><span class="ss">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="s">&lt;/b&gt;</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="nv">wrapped</span>
 
-def makeitalic(fn):
-    def wrapped():
-        return &quot;<span class="nt">&lt;i&gt;</span>&quot; + fn() + &quot;<span class="nt">&lt;/i&gt;</span>&quot;
-    return wrapped
+<span class="nv">def</span> <span class="nv">makeitalic</span><span class="ss">(</span><span class="nv">fn</span><span class="ss">)</span>:
+    <span class="nv">def</span> <span class="nv">wrapped</span><span class="ss">()</span>:
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="s">&lt;i&gt;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nv">fn</span><span class="ss">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="s">&lt;/i&gt;</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="nv">wrapped</span>
 
-@makebold
-@makeitalic
-def hello():
-    return &quot;hello world&quot;
+@<span class="nv">makebold</span>
+@<span class="nv">makeitalic</span>
+<span class="nv">def</span> <span class="nv">hello</span><span class="ss">()</span>:
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="s">hello world</span><span class="s2">&quot;</span>
 
-print hello()  ## returns &quot;<span class="nt">&lt;b&gt;&lt;i&gt;</span>hello world<span class="nt">&lt;/i&gt;&lt;/b&gt;</span>&quot;
+<span class="nv">print</span> <span class="nv">hello</span><span class="ss">()</span>  ## <span class="nv">returns</span> <span class="s2">&quot;</span><span class="s">&lt;b&gt;&lt;i&gt;hello world&lt;/i&gt;&lt;/b&gt;</span><span class="s2">&quot;</span>
 </pre></div>
 
 
 <p>(now you know why I put Russian dolls in the banner)</p>
 <p>What about passing arguments?</p>
 <p><a href="http://www.amazon.com/dp/1785886851/?tag=pyb0f-20">Expert Python</a> provides a nice commented snippet of the complete pattern:</p>
-<div class="highlight"><pre><span></span>def mydecorator(function):
-    def wrapped(*args, **kwargs):     
-        # do some stuff before the original
-        # function gets called
-        result = function(*args, **kwargs)
-        # do some stuff after function call and
-        # return the result
-        return result
-    # return wrapper as a decorated function
-    return wrapped
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">mydecorator</span><span class="ss">(</span><span class="nv">function</span><span class="ss">)</span>:
+    <span class="nv">def</span> <span class="nv">wrapped</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>:     
+        # <span class="k">do</span> <span class="nv">some</span> <span class="nv">stuff</span> <span class="nv">before</span> <span class="nv">the</span> <span class="nv">original</span>
+        # <span class="nv">function</span> <span class="nv">gets</span> <span class="nv">called</span>
+        <span class="nb">result</span> <span class="o">=</span> <span class="nv">function</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>
+        # <span class="k">do</span> <span class="nv">some</span> <span class="nv">stuff</span> <span class="nv">after</span> <span class="nv">function</span> <span class="k">call</span> <span class="nl">and</span>
+        # <span class="k">return</span> <span class="nv">the</span> <span class="nb">result</span>
+        <span class="k">return</span> <span class="nb">result</span>
+    # <span class="k">return</span> <span class="nv">wrapper</span> <span class="nv">as</span> <span class="nv">a</span> <span class="nv">decorated</span> <span class="nv">function</span>
+    <span class="k">return</span> <span class="nv">wrapped</span>
 </pre></div>
 
 
 <p>Make sure to add <a href="https://docs.python.org/3.7/library/functools.html#functools.wraps"><code>functools.wraps</code></a> decorator so the original name and docstring (metadata) are not lost, specially important when debugging:</p>
-<div class="highlight"><pre><span></span>def mydecorator(function):
-    @wraps(function)
-    def wrapped(*args, **kwargs):
-    ...
+<div class="highlight"><pre><span></span><span class="n">def</span><span class="w"> </span><span class="n">mydecorator</span><span class="p">(</span><span class="k">function</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="nv">@wraps</span><span class="p">(</span><span class="k">function</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 </pre></div>
 
 
@@ -196,24 +196,24 @@ print hello()  ## returns &quot;<span class="nt">&lt;b&gt;&lt;i&gt;</span>hello 
 <p>I went back to our code base and found two examples where we used decorators:</p>
 <h3>Caching</h3>
 <p>For our <a href="https://pybit.es/special-100days-of-code.html">100 Days of Code</a> I wrote a class to cache The Movie Database (TMDb) API responses (<a href="https://github.com/pybites/100DaysOfCode/tree/master/095">source</a>):</p>
-<div class="highlight"><pre><span></span>@store_results
-def get_items(self, obj_method):
-    ...
+<div class="highlight"><pre><span></span><span class="nv">@store_results</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">get_items</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">obj_method</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 </pre></div>
 
 
 <p><code>decorators.py</code></p>
-<div class="highlight"><pre><span></span>def store_results(f):
-    @wraps(f)
-    def wrapped(*args, **kwargs):
-        func_name = str(args[1]).lower()
-        kind = re.sub(r&#39;.*bound.*?\.(\S+) of.*&#39;, r&#39;\1&#39;, func_name)
-        print(kind)
-        resp = f(*args, **kwargs)
-        _store(kind, resp)
-        print(len(resp))
-        return resp
-    return wrapped
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">store_results</span><span class="ss">(</span><span class="nv">f</span><span class="ss">)</span>:
+    @<span class="nv">wraps</span><span class="ss">(</span><span class="nv">f</span><span class="ss">)</span>
+    <span class="nv">def</span> <span class="nv">wrapped</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>:
+        <span class="nv">func_name</span> <span class="o">=</span> <span class="nv">str</span><span class="ss">(</span><span class="nv">args</span>[<span class="mi">1</span>]<span class="ss">)</span>.<span class="nv">lower</span><span class="ss">()</span>
+        <span class="nv">kind</span> <span class="o">=</span> <span class="nv">re</span>.<span class="nv">sub</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">.*bound.*?\.(\S+) of.*</span><span class="s1">&#39;</span>, <span class="nv">r</span><span class="s1">&#39;</span><span class="s">\1</span><span class="s1">&#39;</span>, <span class="nv">func_name</span><span class="ss">)</span>
+        <span class="nv">print</span><span class="ss">(</span><span class="nv">kind</span><span class="ss">)</span>
+        <span class="nv">resp</span> <span class="o">=</span> <span class="nv">f</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>
+        <span class="nv">_store</span><span class="ss">(</span><span class="nv">kind</span>, <span class="nv">resp</span><span class="ss">)</span>
+        <span class="nv">print</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">resp</span><span class="ss">))</span>
+        <span class="k">return</span> <span class="nv">resp</span>
+    <span class="k">return</span> <span class="nv">wrapped</span>
 </pre></div>
 
 
@@ -225,29 +225,29 @@ def get_items(self, obj_method):
 <p>For Django checkout <a href="https://docs.djangoproject.com/en/1.11/ref/utils/#django.utils.functional.cached_property">cached_property</a> demo'd <a href="https://lincolnloop.com/blog/django-patterns-fat-models-and-cached_property/">here</a>. What's cool about it is that you can dramatically reduce making database calls improving your site's performance.</p>
 <h3>Access checking</h3>
 <p>In <a href="https://www.twilio.com/blog/2017/09/never-forget-friends-birthday-python-flask-twilio.html">Never Forget A Friend’s Birthday with Python, Flask and Twilio</a> I used a decorator to check login (<a href="https://github.com/pybites/bday-app/blob/master/app.py">source</a>):</p>
-<div class="highlight"><pre><span></span>def login_required(test):
-    &#39;&#39;&#39;From RealPython Flask course&#39;&#39;&#39;
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if &#39;logged_in&#39; in session:
-            return test(*args, **kwargs)
-        else:
-            flash(&#39;You need to log in first&#39;)
-            return redirect(url_for(&#39;login&#39;))
-    return wrap
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">login_required</span><span class="ss">(</span><span class="nv">test</span><span class="ss">)</span>:
+    <span class="s1">&#39;&#39;&#39;</span><span class="s">From RealPython Flask course</span><span class="s1">&#39;&#39;&#39;</span>
+    @<span class="nv">wraps</span><span class="ss">(</span><span class="nv">test</span><span class="ss">)</span>
+    <span class="nv">def</span> <span class="nv">wrap</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>:
+        <span class="k">if</span> <span class="s1">&#39;</span><span class="s">logged_in</span><span class="s1">&#39;</span> <span class="nv">in</span> <span class="nv">session</span>:
+            <span class="k">return</span> <span class="nv">test</span><span class="ss">(</span><span class="o">*</span><span class="nv">args</span>, <span class="o">**</span><span class="nv">kwargs</span><span class="ss">)</span>
+        <span class="k">else</span>:
+            <span class="nv">flash</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">You need to log in first</span><span class="s1">&#39;</span><span class="ss">)</span>
+            <span class="k">return</span> <span class="nv">redirect</span><span class="ss">(</span><span class="nv">url_for</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">login</span><span class="s1">&#39;</span><span class="ss">))</span>
+    <span class="k">return</span> <span class="nv">wrap</span>
 </pre></div>
 
 
 <p>A similar example can be found <a href="http://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/">here</a>.</p>
 <p>Distinguishing between public and private endpoints just takes one line of extra code. It's a nice way of abstracting away the access implementation so it does not clutter and distract from writing the main Flask code:</p>
-<div class="highlight"><pre><span></span>@app.route(&#39;/login&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])
-def login():
-    ...
+<div class="highlight"><pre><span></span><span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;GET&#39;, &#39;POST&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">login</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 
-@app.route(&#39;/&#39;)
-@login_required
-def index():
-    ...
+<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="nv">@login_required</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="k">index</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">...</span><span class="w"></span>
 </pre></div>
 
 
