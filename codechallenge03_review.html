@@ -126,67 +126,67 @@
 </li>
 <li>
 <p>We define constants at the top. We use maketrans to easily extend replacing multiple characters in the future:</p>
-<div class="highlight"><pre><span></span><span class="n">REPLACE_CHARS</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
-<span class="n">IDENTICAL</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span>
-<span class="n">TOP_NUMBER</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">RSS_FEED</span> <span class="o">=</span> <span class="s1">&#39;rss.xml&#39;</span>
-<span class="k">SIMILAR</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">87</span>
+<div class="highlight"><pre><span></span>REPLACE_CHARS = str.maketrans(&#39;-&#39;, &#39; &#39;)
+IDENTICAL = 1.0
+TOP_NUMBER = 10
+RSS_FEED = &#39;rss.xml&#39;
+SIMILAR = 0.87
 </pre></div>
 
 
 </li>
 <li>
 <p>We used a regular expression to show that you can. A better way would be to use a PyPI package like feedparser or BeautifulSoup (see further down). </p>
-<div class="highlight"><pre><span></span><span class="nv">TAG_HTML</span> <span class="o">=</span> <span class="nv">re</span>.<span class="nv">compile</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">&lt;category&gt;([^&lt;]+)&lt;/category&gt;</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>TAG_HTML = re.compile(r&#39;<span class="nt">&lt;category&gt;</span>([^<span class="err">&lt;</span>]+)<span class="nt">&lt;/category&gt;</span>&#39;)
 
-<span class="nv">def</span> <span class="nv">get_tags</span><span class="ss">()</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Find all tags (TAG_HTML) in RSS_FEED.</span>
-    <span class="nv">Replace</span> <span class="nv">dash</span> <span class="nv">with</span> <span class="nv">whitespace</span> <span class="ss">(</span><span class="nv">REPLACE_CHARS</span><span class="ss">)</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">RSS_FEED</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
-        <span class="nv">tags</span> <span class="o">=</span> <span class="nv">TAG_HTML</span>.<span class="nv">findall</span><span class="ss">(</span><span class="nv">f</span>.<span class="nv">read</span><span class="ss">()</span>.<span class="nv">lower</span><span class="ss">())</span>
-    <span class="k">return</span> [<span class="nv">tag</span>.<span class="nv">translate</span><span class="ss">(</span><span class="nv">REPLACE_CHARS</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">tag</span> <span class="nv">in</span> <span class="nv">tags</span>]
+def get_tags():
+    &quot;&quot;&quot;Find all tags (TAG_HTML) in RSS_FEED.
+    Replace dash with whitespace (REPLACE_CHARS)&quot;&quot;&quot;
+    with open(RSS_FEED) as f:
+        tags = TAG_HTML.findall(f.read().lower())
+    return [tag.translate(REPLACE_CHARS) for tag in tags]
 </pre></div>
 
 
 </li>
 <li>
 <p>For everything counting related you really want to use collections.Counter and its most_common method</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_top_tags</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Get the TOP_NUMBER of most common tags</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nv">Counter</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">)</span>.<span class="nv">most_common</span><span class="ss">(</span><span class="nv">TOP_NUMBER</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>def get_top_tags(tags):
+    &quot;&quot;&quot;Get the TOP_NUMBER of most common tags&quot;&quot;&quot;
+    return Counter(tags).most_common(TOP_NUMBER)
 </pre></div>
 
 
 </li>
 <li>
 <p>For similarities we were going to read up on <a href="http://www.nltk.org/">NLTK</a> but stdlib has difflib.SequenceMatcher which makes this very easy (found <a href="http://stackoverflow.com/questions/17388213/find-the-similarity-percent-between-two-strings">on Stackoverflow</a>). We gained quite some performance first matching the first char between tags, but this assumes the first char is always the same. If you don't want that, take that check out. We use itertools.product instead of a double for loop. Lastly yield makes get_similarities a generator which we find more Pythonic.</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_similarities</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Find set of tags pairs with similarity ratio of &gt; SIMILAR</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="nv">pair</span> <span class="nv">in</span> <span class="nv">product</span><span class="ss">(</span><span class="nv">tags</span>, <span class="nv">tags</span><span class="ss">)</span>:
-        # <span class="nv">performance</span> <span class="nv">enhancements</span> <span class="mi">1</span>.<span class="mi">992</span><span class="nv">s</span> <span class="o">-&gt;</span> <span class="mi">0</span>.<span class="mi">144</span><span class="nv">s</span>
-        <span class="k">if</span> <span class="nv">pair</span>[<span class="mi">0</span>][<span class="mi">0</span>] <span class="o">!=</span> <span class="nv">pair</span>[<span class="mi">1</span>][<span class="mi">0</span>]:
-            <span class="k">continue</span>
-        <span class="nv">pair</span> <span class="o">=</span> <span class="nv">tuple</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">pair</span><span class="ss">))</span>  # <span class="nv">set</span> <span class="nv">needs</span> <span class="nv">hashable</span> <span class="nv">type</span>
-        <span class="nv">similarity</span> <span class="o">=</span> <span class="nv">SequenceMatcher</span><span class="ss">(</span><span class="nv">None</span>, <span class="o">*</span><span class="nv">pair</span><span class="ss">)</span>.<span class="nv">ratio</span><span class="ss">()</span>
-        <span class="k">if</span> <span class="nv">SIMILAR</span> <span class="o">&lt;</span> <span class="nv">similarity</span> <span class="o">&lt;</span> <span class="nv">IDENTICAL</span>:
-            <span class="nv">yield</span> <span class="nv">pair</span>
+<div class="highlight"><pre><span></span>def get_similarities(tags):
+    &quot;&quot;&quot;Find set of tags pairs with similarity ratio of &gt; SIMILAR&quot;&quot;&quot;
+    for pair in product(tags, tags):
+        # performance enhancements 1.992s -&gt; 0.144s
+        if pair[0][0] != pair[1][0]:
+            continue
+        pair = tuple(sorted(pair))  # set needs hashable type
+        similarity = SequenceMatcher(None, *pair).ratio()
+        if SIMILAR &lt; similarity &lt; IDENTICAL:
+            yield pair
 </pre></div>
 
 
 </li>
 <li>
 <p>The calling code was given, printing it here for completeness:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s">__main__</span><span class="s2">&quot;</span>:
-    <span class="nv">tags</span> <span class="o">=</span> <span class="nv">get_tags</span><span class="ss">()</span>
-    <span class="nv">top_tags</span> <span class="o">=</span> <span class="nv">get_top_tags</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">)</span>
-    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">* Top {} tags:</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">TOP_NUMBER</span><span class="ss">))</span>
-    <span class="k">for</span> <span class="nv">tag</span>, <span class="nv">count</span> <span class="nv">in</span> <span class="nv">top_tags</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">{:&lt;20} {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">tag</span>, <span class="nv">count</span><span class="ss">))</span>
-    <span class="nv">similar_tags</span> <span class="o">=</span> <span class="nv">dict</span><span class="ss">(</span><span class="nv">get_similarities</span><span class="ss">(</span><span class="nv">tags</span><span class="ss">))</span>
-    <span class="nv">print</span><span class="ss">()</span>
-    <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">* Similar tags:</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">singular</span>, <span class="nv">plural</span> <span class="nv">in</span> <span class="nv">similar_tags</span>.<span class="nv">items</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">{:&lt;20} {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">singular</span>, <span class="nv">plural</span><span class="ss">))</span>
+<div class="highlight"><pre><span></span>if __name__ == &quot;__main__&quot;:
+    tags = get_tags()
+    top_tags = get_top_tags(tags)
+    print(&#39;* Top {} tags:&#39;.format(TOP_NUMBER))
+    for tag, count in top_tags:
+        print(&#39;{:&lt;20} {}&#39;.format(tag, count))
+    similar_tags = dict(get_similarities(tags))
+    print()
+    print(&#39;* Similar tags:&#39;)
+    for singular, plural in similar_tags.items():
+        print(&#39;{:&lt;20} {}&#39;.format(singular, plural))
 </pre></div>
 
 
