@@ -126,35 +126,35 @@
 
 
 <p>If you already forked it <a href="https://help.github.com/articles/syncing-a-fork/">sync it</a>:</p>
-<div class="highlight"><pre><span></span># <span class="nv">assuming</span> <span class="nv">using</span> <span class="nv">ssh</span> <span class="nv">key</span>
-$ <span class="nv">git</span> <span class="nv">remote</span> <span class="nv">add</span> <span class="nv">upstream</span> <span class="nv">git</span>@<span class="nv">github</span>.<span class="nv">com</span>:<span class="nv">pybites</span><span class="o">/</span><span class="nv">challenges</span>.<span class="nv">git</span> 
-$ <span class="nv">git</span> <span class="nv">fetch</span> <span class="nv">upstream</span>
-# <span class="k">if</span> <span class="nv">not</span> <span class="nv">on</span> <span class="nv">master</span>: 
-$ <span class="nv">git</span> <span class="nv">checkout</span> <span class="nv">master</span> 
-$ <span class="nv">git</span> <span class="nv">merge</span> <span class="nv">upstream</span><span class="o">/</span><span class="nv">master</span>
+<div class="highlight"><pre><span></span># assuming using ssh key
+$ git remote add upstream git@github.com:pybites/challenges.git 
+$ git fetch upstream
+# if not on master: 
+$ git checkout master 
+$ git merge upstream/master
 </pre></div>
 
 
 <h3>Setup virtual environment and install requirements</h3>
-<div class="highlight"><pre><span></span>$ <span class="nv">cd</span> <span class="mi">04</span>
-$ <span class="nv">python3</span> <span class="o">-</span><span class="nv">m</span> <span class="nv">venv</span> <span class="nv">venv</span>
-# <span class="o">=</span> <span class="nv">py3</span> <span class="ss">(</span><span class="nv">might</span> <span class="nv">need</span> <span class="nv">virtualenv</span> <span class="k">for</span> <span class="nv">py2</span> <span class="nv">env</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="m">04</span>
+$ python3 -m venv venv
+<span class="c1"># = py3 (might need virtualenv for py2 env)</span>
 
-$ <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">activate</span> 
-# <span class="nv">install</span> <span class="nv">tweepy</span> <span class="ss">(</span><span class="nv">and</span> <span class="nv">its</span> <span class="nv">depencencies</span><span class="ss">)</span>
-$ <span class="nv">pip</span> <span class="nv">install</span> <span class="o">-</span><span class="nv">r</span> <span class="nv">requirements</span>.<span class="nv">txt</span>
+$ <span class="nb">source</span> venv/bin/activate 
+<span class="c1"># install tweepy (and its depencencies)</span>
+$ pip install -r requirements.txt
 
-# <span class="k">if</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">use</span> <span class="nv">another</span> <span class="nv">package</span> <span class="nv">like</span> <span class="nv">twython</span>, <span class="nv">feel</span> <span class="nv">free</span> <span class="nv">to</span> <span class="k">do</span> <span class="nv">so</span>
+<span class="c1"># if you want to use another package like twython, feel free to do so</span>
 
-# <span class="nv">get</span> <span class="nv">your</span> <span class="nv">API</span> <span class="nv">keys</span> <span class="nv">from</span> <span class="nv">Twitter</span> <span class="o">-</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">apps</span>.<span class="nv">twitter</span>.<span class="nv">com</span> 
-$ <span class="nv">cp</span> <span class="nv">config</span><span class="o">-</span><span class="nv">template</span>.<span class="nv">py</span> <span class="nv">config</span>.<span class="nv">py</span>
-# <span class="nv">paste</span> <span class="nv">the</span> <span class="nv">keys</span> <span class="nv">in</span> <span class="nv">config</span>.<span class="nv">py</span>
+<span class="c1"># get your API keys from Twitter - https://apps.twitter.com </span>
+$ cp config-template.py config.py
+<span class="c1"># paste the keys in config.py</span>
 
-# <span class="nv">choose</span> <span class="nv">a</span> <span class="nv">template</span>
-$ <span class="nv">cp</span> <span class="nv">usertweets</span><span class="o">-</span><span class="nv">help</span>.<span class="nv">py</span> <span class="nv">usertweets</span>.<span class="nv">py</span>
-# <span class="nv">or</span> 
-$ <span class="nv">cp</span> <span class="nv">usertweets</span><span class="o">-</span><span class="nv">nohelp</span>.<span class="nv">py</span> <span class="nv">usertweets</span>.<span class="nv">py</span>
-# <span class="nv">code</span>
+<span class="c1"># choose a template</span>
+$ cp usertweets-help.py usertweets.py
+<span class="c1"># or </span>
+$ cp usertweets-nohelp.py usertweets.py
+<span class="c1"># code</span>
 </pre></div>
 
 

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="In this article you will learn how to setup a project in GitHub and to use boards to organize you issues using agile methods. We all have been there, long lists of issues overwhelming our brain....">
+        <meta name="keywords" content="agile, automation, Github, GitLab, KanBan, productivity, projects">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+
+        <title>Use Github to Manage Your Projects in an Agile Way - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/tools.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '204929054292880');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=204929054292880&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://pybit.es/images/github-board.png'); background-position: center; ">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
+                                <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="http://pybites.mykajabi.com" target="_blank">Members</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Use Github to Manage Your Projects in an Agile Way</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/robin-beer.html">Robin Beer</a>, Sun 19 April 2020,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/agile.html">agile</a>, <a href="https://pybit.es/tag/automation.html">automation</a>, <a href="https://pybit.es/tag/github.html">Github</a>, <a href="https://pybit.es/tag/gitlab.html">GitLab</a>, <a href="https://pybit.es/tag/kanban.html">KanBan</a>, <a href="https://pybit.es/tag/productivity.html">productivity</a>, <a href="https://pybit.es/tag/projects.html">projects</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>In this article you will learn how to setup a project in GitHub and to use boards to organize you issues using agile methods.</p>
+<p>We all have been there, long lists of issues overwhelming our brain.</p>
+<p>Wouldn't it be great to organize these issues in a way that simplifies priorization and illustrates progress without having to copy the same issues to Trello?</p>
+<p>There is! With <code>GitHub projects</code> you can set up boards and use agile methods such as KanBan or Scrum. Let's dive into it!</p>
+<h2>Initialization of a GitHub project</h2>
+<p>First, we create a new GitHub repository to show the process from scratch. If you already have a repository, you can jump to the next paragraph.</p>
+<p>First, click on the "+" on the upper right next to your GitHub profile icon to create a new repository:</p>
+<p><img src="images/gh-projects/2020-04-14-22-05-07.png" alt="new repo" style="width: 300px;"></p>
+<p>Fill in the form, for example with the title and description that I used to create this article:</p>
+<p><img alt="Empty GitHub repository" src="https://pybit.es/images/gh-projects/2020-04-14-22-02-41.png"></p>
+<p>Subsequently, create some dummy issues that describe different tasks that you have to work on.</p>
+<p><img alt="Issue Creation on GitHub" src="https://pybit.es/images/gh-projects/2020-04-14-22-07-58.png"></p>
+<p>If you don't want to create those issues yourself, you might also want to fork the <a href="https://github.com/Zaubeerer/github_board_tutorial">github_board_tutorial</a> that I created for the purpose of this article. Your issue list might look like the following:</p>
+<p><img alt="GitHub issue list" src="https://pybit.es/images/gh-projects/2020-04-14-22-16-40.png"></p>
+<p>GitHub even suggests to try out <code>project boards</code>. But how?</p>
+<h2>Creation of new projects</h2>
+<p>In GitHub, one needs to first create a <code>project</code> to subsequently create a <code>project board</code>. Therefore, click on the <code>Try it now!</code> button or on <code>Projects</code> and subsequently on <code>New project</code>.</p>
+<p>The following window should open:</p>
+<p><img alt="GitHub New Project" src="https://pybit.es/images/gh-projects/2020-04-14-22-21-59.png"></p>
+<p>Fill in some creative names, or stay with these great suggestions.</p>
+<h2>Creation of project boards</h2>
+<p>Congratulations, by creating the first <code>project</code>, you automatically created a <code>project board</code>. It's empty though, so let's populate it.</p>
+<p>Therefore, you first have to <code>Add a column</code>. I suggest to use the following <code>columns</code>:</p>
+<ul>
+<li>
+<p><code>Backlog</code>: All new issues land here</p>
+</li>
+<li>
+<p><code>To Do</code>: Issues that are planned to be worked on soon</p>
+</li>
+<li>
+<p><code>In Progress</code>: Issues that are actively being worked on</p>
+</li>
+<li>
+<p><code>Waiting for Feedback</code>: Issues that require feedback, to decide whether they are completed</p>
+</li>
+<li>
+<p><code>Done</code>: completed issues</p>
+</li>
+</ul>
+<p>These <code>columns</code> intuitively visualize the progress of the issues. You can just create them for now and ignore the automation, which we will set up later.</p>
+<p>After having created the <code>columns</code>, your <code>project board</code> should look similar to the following image:</p>
+<p><img alt="Empty Project Board" src="https://pybit.es/images/gh-projects/2020-04-14-22-33-18.png"></p>
+<p>But there are still no issues... :(</p>
+<h2>Issue allocation to (several) projects</h2>
+<p>GitHub enables many-to-many relationships between issues and projects. That means, one issue can be attributed to several projects and of course, one project can have infinite (?) issues.</p>
+<p>To add issues to this <code>project</code>, you have two options:</p>
+<ol>
+<li>Click on <code>+ Add cards</code> and drag and drop the issues to the respective <code>columns</code>:</li>
+</ol>
+<p><img alt="Issue allocation to project columns from project board" src="https://pybit.es/images/gh-projects/2020-04-14-22-40-33.png"></p>
+<ol>
+<li>Open the issues view, open the issues that you want to add to the project in a new tab and click on the settings icon next to <code>Projects</code> to select the project you want this issue to be added to:</li>
+</ol>
+<p><img alt="Issue allocation to projects from issues board" src="https://pybit.es/images/gh-projects/2020-04-14-22-38-22.png"></p>
+<p>You might have noticed, that the second step did not add the issues to a <code>column</code> yet. You still have to drag and drop it as mentioned in step 1. Or, do you?</p>
+<h2>Further useful functionalities</h2>
+<p>GitHub allows you to <strong>automate</strong> some of the steps described above, to <strong>create labels</strong>, and to <strong>filter the issues</strong> in the <code>project board</code>. Let's check out these additional functionalities, that are really useful in everyday project management.</p>
+<h3>Manage automation of columns</h3>
+<p>First let's <code>manage automation</code> of the <code>Backlog</code> column:</p>
+<p><img src="images/gh-projects/2020-04-14-22-44-25.png" alt="manage automation" style="width: 300px;"></p>
+<p>Choose <code>To Do</code>, check the shown check boxes as visualized below, and <code>Update automation</code>:</p>
+<p><img src="images/gh-projects/2020-04-14-22-45-46.png" alt="manage automation: backlog" style="width: 300px;"></p>
+<p>Now, if you go back to the issues view and assign the issue to the project, the issue will be automatically added to the <code>Backlog</code> column.</p>
+<p>Similarly, <code>Update automation</code> for the <code>column "Done"</code>, such that merged PRs and closed issues are automatically added to the <code>column "Done"</code>. Additionally, you might want to add automation to the <code>column "In Progress"</code>, if issues or PRs are reopened.</p>
+<h3>Create issue labels</h3>
+<p>To visualize priority implicitly, the issues can be sorted according to their priority (high position = high priority) within their <code>columns</code>.</p>
+<p>Additionally, issue labels can be created to visualize priority explicitly. Therefore, click on one of the issue titles and in the sidebar that opens to the right, click on the settings icon in <code>Labels</code> and type in <code>high priority</code>.</p>
+<p>Now, you should be able to <code>Create new label "high priority"</code>. Alternatively, you can <code>Edit labels</code>.</p>
+<p><img src="images/gh-projects/2020-04-14-23-00-41.png" alt="create new label" style="width: 300px;"></p>
+<p>Now, your project board might already look more colorful - and more neat. 👌🏻</p>
+<p><img alt="Project view with labels" src="https://pybit.es/images/gh-projects/2020-04-14-23-05-55.png"></p>
+<h3>Filter project board view</h3>
+<p>Another useful functionality, once the project board gets busy, is to filter the issues.</p>
+<p>For example, you might want to see all issues assigned to you or to a specific milestone. Or all issues, that have high priority. Therefore, click on the search field <code>Filter cards</code> and type in exactly <code>label:"high priority"</code>, such that the project board should change as follows:</p>
+<p><img alt="Filtered project view" src="https://pybit.es/images/gh-projects/2020-04-14-23-08-26.png"></p>
+<h2>Summary &amp; Conclusion</h2>
+<p>In this article, we have checked out how to use GitHub's <code>project boards</code> to organize your issues into <code>columns</code>.</p>
+<p>Therefore, we have created <code>projects</code> and assigned the issues to several projects. Using the columns <code>Backlog</code>, <code>To Do</code>, <code>In Progress</code>, <code>Waiting for Feedback</code> and <code>Done</code>, we can now intuitively visualize the progress of the issues.</p>
+<p>Additionally, we can visualize the priority of the issues implicitly using the position (highest = highest priority) as well as explicitly using labels <code>high priority</code> and <code>low priority</code>.</p>
+<p>Furthermore, we have <code>managed automation</code> to automatically move issues to <code>Backlog</code> when they are added to the project and <code>Done</code> when they are closed.</p>
+<p>What are you waiting for? Get back control over all the open issues and manage them using <code>GitHub projects</code>!</p>
+<p>Whether you use the <code>project board</code> with <a href="https://www.scrum.org/resources/what-is-scrum">Scrum</a> or <a href="https://www.atlassian.com/agile/kanban">KanBan</a>, it will simplify priorization and visualization of progress.</p>
+<p>This can also be a game changer in communicating workload and available ressources with your colleagues, your mentors or your boss.</p>
+<hr>
+<p>You like the idea of issue organization into boards, but are using GitLab?</p>
+<p>Check out <a href="https://www.robin-beer.de/">my blog</a>, instructions for GitLab will follow soon!</p>
+<p>Cheers! </p>
+<p>-- <a href="pages/guests.html#robinbeer">Robin</a></p>
+
+
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'github-projects.html';
+                var disqus_url = 'https://pybit.es/github-projects.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>

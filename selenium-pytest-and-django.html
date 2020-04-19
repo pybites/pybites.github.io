@@ -129,40 +129,40 @@ selenium
 
 
 <p>I am going to use a test user account and need to access the DB (which we see in a bit) so I set the following environment variables in my <code>venv/bin/activate</code>:</p>
-<div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">DB_HOST</span><span class="o">=</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span>
-<span class="n">export</span> <span class="n">DB_PORT</span><span class="o">=</span><span class="mi">5432</span>
-<span class="n">export</span> <span class="n">DB_NAME</span><span class="o">=</span>
-<span class="n">export</span> <span class="n">DB_USER</span><span class="o">=</span>
-<span class="n">export</span> <span class="n">DB_PASSWORD</span><span class="o">=</span>
-<span class="n">export</span> <span class="n">USER_NAME</span><span class="o">=</span><span class="n">Github</span> <span class="k">user</span>
-<span class="n">export</span> <span class="n">USER_PASSWORD</span><span class="o">=</span>
+<div class="highlight"><pre><span></span>export DB_HOST=0.0.0.0
+export DB_PORT=5432
+export DB_NAME=
+export DB_USER=
+export DB_PASSWORD=
+export USER_NAME=Github user
+export USER_PASSWORD=
 </pre></div>
 
 
 <p>I also <code>unset</code> these in the <code>deactivate</code> function of <code>venv/bin/activate</code> so they don't linger around when I leave the virtual env, a trick I learned when writing <a href="https://realpython.com/building-a-simple-web-app-with-bottle-sqlalchemy-twitter-api/">Building a Simple Web App With Bottle, SQLAlchemy, and the Twitter API</a>:</p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="p">...</span>
-<span class="n">deactivate</span> <span class="p">()</span> <span class="err">{</span>
-    <span class="p">...</span>
-    <span class="p">...</span>
-    <span class="n">unset</span> <span class="n">DB_HOST</span>
-    <span class="n">unset</span> <span class="n">DB_PORT</span>
-    <span class="n">unset</span> <span class="n">DB_NAME</span>
-    <span class="n">unset</span> <span class="n">DB_USER</span>
-    <span class="n">unset</span> <span class="n">DB_PASSWORD</span>
-    <span class="n">unset</span> <span class="n">USER_NAME</span>
-    <span class="n">unset</span> <span class="n">USER_PASSWORD</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span>...
+...
+deactivate () {
+    ...
+    ...
+    unset DB_HOST
+    unset DB_PORT
+    unset DB_NAME
+    unset DB_USER
+    unset DB_PASSWORD
+    unset USER_NAME
+    unset USER_PASSWORD
+}
 </pre></div>
 
 
 <h2>pytest setup</h2>
 <p>Next let's create a <code>pytest.ini</code> file to set the <code>DJANGO_SETTINGS_MODULE</code> environment variable to point to Django's configuration file, by default <code>settings.py</code> inside the main app:</p>
-<div class="highlight"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">pytest</span><span class="p">.</span><span class="n">ini</span><span class="w"></span>
-<span class="o">[</span><span class="n">pytest</span><span class="o">]</span><span class="w"></span>
-<span class="n">DJANGO_SETTINGS_MODULE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mysite</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">settings</span><span class="w"></span>
-<span class="err">#</span><span class="w"> </span><span class="c1">-- recommended but optional:</span>
-<span class="n">python_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tests</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">test_</span><span class="o">*</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">*</span><span class="n">_tests</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<div class="highlight"><pre><span></span>$ cat pytest.ini
+<span class="o">[</span>pytest<span class="o">]</span>
+<span class="nv">DJANGO_SETTINGS_MODULE</span> <span class="o">=</span> mysite.core.settings
+<span class="c1"># -- recommended but optional:</span>
+<span class="nv">python_files</span> <span class="o">=</span> tests.py test_*.py *_tests.py
 </pre></div>
 
 
@@ -215,14 +215,14 @@ selenium
 
 
 <p>I load in my user from the corresponding env variables:</p>
-<div class="highlight"><pre><span></span><span class="n">USER_NAME</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;USER_NAME&#39;</span><span class="p">]</span>
-<span class="n">USER_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;USER_PASSWORD&#39;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span>USER_NAME = os.environ[&#39;USER_NAME&#39;]
+USER_PASSWORD = os.environ[&#39;USER_PASSWORD&#39;]
 </pre></div>
 
 
 <p>And I define a helper function to convert a <code>datetime</code> to an uppercase 3-char month string (SEP/OCT/NOV), we see why in a bit ...</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">dt</span><span class="ss">)</span>:
-    <span class="k">return</span> <span class="nv">dt</span>.<span class="nv">strftime</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">%b</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">upper</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>def _make_3char_monthname(dt):
+    return dt.strftime(&#39;%b&#39;).upper()
 </pre></div>
 
 
@@ -233,11 +233,11 @@ selenium
 <blockquote>
 <p>pytest supports execution of fixture specific finalization code when the fixture goes out of scope. By using a yield statement instead of return, all the code after the yield statement serves as the teardown code <a href="https://docs.pytest.org/en/latest/fixture.html#fixture-finalization-executing-teardown-code">docs</a></p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="nv">@pytest</span><span class="p">.</span><span class="n">fixture</span><span class="p">(</span><span class="k">scope</span><span class="o">=</span><span class="ss">&quot;module&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">driver</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">webdriver</span><span class="p">.</span><span class="n">Chrome</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">yield</span><span class="w"> </span><span class="n">driver</span><span class="w"></span>
-<span class="w">    </span><span class="n">driver</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@pytest.fixture(scope=&quot;module&quot;)
+def driver():
+    driver = webdriver.Chrome()
+    yield driver
+    driver.quit()
 </pre></div>
 
 
@@ -245,10 +245,10 @@ selenium
 <h3>Test the logged out homepage</h3>
 <p>Next a <em>hello world</em> Selenium test: <code>driver.get(HOMEPAGE)</code> reaches out to the platform's homepage and it just checks if the title is as expected. Here is the logged out homepage:</p>
 <p><img alt="homepage logged out" src="https://pybit.es/images/homepage-loggedout.png"></p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">test_loggedout_homepage</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
-    <span class="n">driver</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">HOMEPAGE</span><span class="p">)</span>
-    <span class="n">expected</span> <span class="o">=</span> <span class="ss">&quot;PyBites Code Challenges | Hone Your Python Skills&quot;</span>
-    <span class="n">assert</span> <span class="n">driver</span><span class="p">.</span><span class="n">title</span> <span class="o">==</span> <span class="n">expected</span>
+<div class="highlight"><pre><span></span>def test_loggedout_homepage(driver):
+    driver.get(HOMEPAGE)
+    expected = &quot;PyBites Code Challenges | Hone Your Python Skills&quot;
+    assert driver.title == expected
 </pre></div>
 
 
@@ -267,80 +267,80 @@ selenium
 </ol>
 <h3>DB fixture and login</h3>
 <p>As I am going to access my DB for steps 4. and 5. I need to decorate my new test function with <code>pytest-django</code>'s predefined <code>@pytest.mark.django_db</code> fixture. This will then (magically) reference my <code>django_db_setup</code> in <code>conftest.py</code> (this took me some trial and error).</p>
-<div class="highlight"><pre><span></span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">django_db</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">test_loggedin_dashboard</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span>@pytest.mark.django_db
+def test_loggedin_dashboard(driver):
+    ...
 </pre></div>
 
 
 <p>First I go to <code>HOMEPAGE</code> again and login using the <em>Sign In With Github</em> button. First I located the image and clicked it:</p>
-<div class="highlight"><pre><span></span><span class="w">    </span><span class="n">driver</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">HOMEPAGE</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">login_btn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;//a[img/@src=&quot;/static/img/ghlogin.png&quot;]&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">login_btn</span><span class="p">).</span><span class="n">click</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span>    driver.get(HOMEPAGE)
+    login_btn = &#39;//a[img/@src=&quot;/static/img/ghlogin.png&quot;]&#39;
+    driver.find_element_by_xpath(login_btn).click()
 </pre></div>
 
 
 <p>But we fixed that on the platform setting a class attribute on the login button: <code>class="ghLoginBtn"</code> (not an <code>id</code> because sometimes there are two buttons and <code>id</code> attributes should be unique).</p>
 <p>So now I can just do:</p>
-<div class="highlight"><pre><span></span>    <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="s1">&#39;ghLoginBtn&#39;</span><span class="p">).</span><span class="n">click</span><span class="p">()</span>
+<div class="highlight"><pre><span></span>    driver.find_element_by_class_name(&#39;ghLoginBtn&#39;).click()
 </pre></div>
 
 
 <p>This takes me to the Github login page and I can login using Selenium's <code>send_keys</code> method. Note the extra return key:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">driver</span>.<span class="nv">find_element_by_name</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">login</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">send_keys</span><span class="ss">(</span><span class="nv">USER_NAME</span><span class="ss">)</span>
-    <span class="nv">driver</span>.<span class="nv">find_element_by_name</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">password</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">send_keys</span><span class="ss">(</span><span class="nv">USER_PASSWORD</span> <span class="o">+</span> <span class="nv">Keys</span>.<span class="k">RETURN</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>    driver.find_element_by_name(&#39;login&#39;).send_keys(USER_NAME)
+    driver.find_element_by_name(&#39;password&#39;).send_keys(USER_PASSWORD + Keys.RETURN)
 </pre></div>
 
 
 <h3>Finding elements</h3>
 <p>I use Selenium's <code>find_elements_by_tag_name</code> to find all <code>h2</code> elements (note the <strong>s</strong> in <em>elements</em> which gets  you a list of all), then I check if the expected headers are in there:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">h2s</span> <span class="o">=</span> [<span class="nv">h2</span>.<span class="nv">text</span> <span class="k">for</span> <span class="nv">h2</span> <span class="nv">in</span> <span class="nv">driver</span>.<span class="nv">find_elements_by_tag_name</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">h2</span><span class="s1">&#39;</span><span class="ss">)</span>]
-    <span class="nv">expected</span> <span class="o">=</span> [<span class="nv">f</span><span class="s1">&#39;</span><span class="s">Happy Coding, {USER_NAME}!</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">PyBites Platform Updates [all]</span><span class="s1">&#39;</span>,
-                <span class="s1">&#39;</span><span class="s">PyBites Ninjas (score ≥ 50)</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">Become a better Pythonista!</span><span class="s1">&#39;</span>,
-                <span class="s1">&#39;</span><span class="s">Keep Calm and Code in Python!    SHARE ON TWITTER</span><span class="s1">&#39;</span>]
-    <span class="k">for</span> <span class="nv">header</span> <span class="nv">in</span> <span class="nv">expected</span>:
-        <span class="nv">assert</span> <span class="nv">header</span> <span class="nv">in</span> <span class="nv">h2s</span>, <span class="nv">f</span><span class="s1">&#39;</span><span class="s">{header} not in h2 headers</span><span class="s1">&#39;</span>
+<div class="highlight"><pre><span></span>    h2s = [h2.text for h2 in driver.find_elements_by_tag_name(&#39;h2&#39;)]
+    expected = [f&#39;Happy Coding, {USER_NAME}!&#39;, &#39;PyBites Platform Updates [all]&#39;,
+                &#39;PyBites Ninjas (score ≥ 50)&#39;, &#39;Become a better Pythonista!&#39;,
+                &#39;Keep Calm and Code in Python!    SHARE ON TWITTER&#39;]
+    for header in expected:
+        assert header in h2s, f&#39;{header} not in h2 headers&#39;
 </pre></div>
 
 
 <h3>Assert calendar headers and a CSS class</h3>
 <p>You want to learn about <code>dateutil</code>'s <code>relativedelta</code>. I use it here because <code>datetime</code>'s <code>timedelta</code> does not have a delta of months. Here I calculate the last 3 months, at the time of this writing NOV-, OCT-, and SEP 2018. I then check if these are in the <code>h2</code> headers:  </p>
-<div class="highlight"><pre><span></span>    # <span class="nv">calendar</span> <span class="o">/</span> <span class="nv">coding</span> <span class="nv">streak</span> <span class="nv">feature</span>
-    <span class="nv">this_month</span> <span class="o">=</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">TODAY</span><span class="ss">)</span>
-    <span class="nv">last_month</span> <span class="o">=</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">TODAY</span><span class="o">-</span><span class="nv">relativedelta</span><span class="ss">(</span><span class="nv">months</span><span class="o">=+</span><span class="mi">1</span><span class="ss">))</span>
-    <span class="nv">two_months_ago</span> <span class="o">=</span> <span class="nv">_make_3char_monthname</span><span class="ss">(</span><span class="nv">TODAY</span><span class="o">-</span><span class="nv">relativedelta</span><span class="ss">(</span><span class="nv">months</span><span class="o">=+</span><span class="mi">2</span><span class="ss">))</span>
-    <span class="k">for</span> <span class="nv">month</span> <span class="nv">in</span> <span class="ss">(</span><span class="nv">this_month</span>, <span class="nv">last_month</span>, <span class="nv">two_months_ago</span><span class="ss">)</span>:
-        <span class="nv">month_year</span> <span class="o">=</span> <span class="nv">f</span><span class="s1">&#39;</span><span class="s">{month} {TODAY.year}</span><span class="s1">&#39;</span>
-        <span class="nv">assert</span> <span class="nv">month_year</span> <span class="nv">in</span> <span class="nv">h2s</span>, <span class="nv">f</span><span class="s1">&#39;</span><span class="s">{month_year} not in h2 headers</span><span class="s1">&#39;</span>
+<div class="highlight"><pre><span></span>    # calendar / coding streak feature
+    this_month = _make_3char_monthname(TODAY)
+    last_month = _make_3char_monthname(TODAY-relativedelta(months=+1))
+    two_months_ago = _make_3char_monthname(TODAY-relativedelta(months=+2))
+    for month in (this_month, last_month, two_months_ago):
+        month_year = f&#39;{month} {TODAY.year}&#39;
+        assert month_year in h2s, f&#39;{month_year} not in h2 headers&#39;
 </pre></div>
 
 
 <p>Only one day should be marked with the <em>today</em> css class, we can use Selenium's <code>find_elements_by_class_name</code>:</p>
-<div class="highlight"><pre><span></span>    <span class="o">#</span> <span class="k">only</span> <span class="k">current</span> <span class="nb">date</span> <span class="k">is</span> <span class="n">marked</span> <span class="n">active</span>
-    <span class="n">assert</span> <span class="n">len</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">find_elements_by_class_name</span><span class="p">(</span><span class="s1">&#39;today&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span>
+<div class="highlight"><pre><span></span>    # only current date is marked active
+    assert len(driver.find_elements_by_class_name(&#39;today&#39;)) == 1
 </pre></div>
 
 
 <h3>Inspect links</h3>
 <p>Selenium has a powerful <code>find_elements_by_xpath</code> method that lets me grab all links from the page like so:</p>
-<div class="highlight"><pre><span></span>    # <span class="k">next</span> <span class="nv">test</span> <span class="k">if</span> <span class="nv">all</span> <span class="nv">bite</span> <span class="nv">and</span> <span class="nv">challenge</span> <span class="nv">links</span> <span class="nv">are</span> <span class="nv">present</span>
-    <span class="nv">all_links</span> <span class="o">=</span> <span class="nv">driver</span>.<span class="nv">find_elements_by_xpath</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">//a[@href]</span><span class="s2">&quot;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>    # next test if all bite and challenge links are present
+    all_links = driver.find_elements_by_xpath(&quot;//a[@href]&quot;)
 </pre></div>
 
 
 <p>Then I check how many Bites we have in the database and match the link using a regex in a <em>list comprehension</em>:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">expected_num_bites</span> <span class="o">=</span> <span class="nv">Bite</span>.<span class="nv">objects</span>.<span class="nv">filter</span><span class="ss">(</span><span class="nv">published</span><span class="o">=</span><span class="nv">True</span><span class="ss">)</span>.<span class="nv">count</span><span class="ss">()</span>
-    <span class="nv">actual_num_bites</span> <span class="o">=</span> <span class="nv">len</span><span class="ss">(</span>[<span class="nv">link</span> <span class="k">for</span> <span class="nv">link</span> <span class="nv">in</span> <span class="nv">all_links</span>
-                            <span class="k">if</span> <span class="nv">re</span>.<span class="nv">match</span><span class="ss">(</span><span class="nv">r</span><span class="s1">&#39;</span><span class="s">^Bite \d+\..*</span><span class="s1">&#39;</span>,  # <span class="nv">no</span> <span class="nv">class</span> <span class="nv">in</span> <span class="nv">html</span> <span class="nv">anchors</span> :<span class="ss">(</span>
-                                        <span class="nv">link</span>.<span class="nv">text</span><span class="ss">)</span>]<span class="ss">)</span>
-    <span class="nv">assert</span> <span class="nv">actual_num_bites</span> <span class="o">==</span> <span class="nv">expected_num_bites</span>
+<div class="highlight"><pre><span></span>    expected_num_bites = Bite.objects.filter(published=True).count()
+    actual_num_bites = len([link for link in all_links
+                            if re.match(r&#39;^Bite \d+\..*&#39;,  # no class in html anchors :(
+                                        link.text)])
+    assert actual_num_bites == expected_num_bites
 </pre></div>
 
 
 <p>Ditto for Challenges but I don't need the regex because they conveniently have a class name of <em>challengeTitle</em> so I can again use Selenium's <code>find_elements_by_class_name</code>:</p>
-<div class="highlight"><pre><span></span>    <span class="n">expected_num_challenges</span> <span class="o">=</span> <span class="n">Challenge</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">published</span><span class="o">=</span><span class="k">True</span><span class="p">).</span><span class="k">count</span><span class="p">()</span>
-    <span class="n">challenge_titles</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_elements_by_class_name</span><span class="p">(</span><span class="s1">&#39;challengeTitle&#39;</span><span class="p">)</span>
-    <span class="n">assert</span> <span class="n">len</span><span class="p">(</span><span class="n">challenge_titles</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_num_challenges</span>
+<div class="highlight"><pre><span></span>    expected_num_challenges = Challenge.objects.filter(published=True).count()
+    challenge_titles = driver.find_elements_by_class_name(&#39;challengeTitle&#39;)
+    assert len(challenge_titles) == expected_num_challenges
 </pre></div>
 
 
