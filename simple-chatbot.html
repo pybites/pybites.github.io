@@ -127,20 +127,20 @@
 </blockquote>
 <h2>Getting ready</h2>
 <p>Read <a href="https://api.slack.com/bot-users">here</a> about Bot Users, you need to <a href="https://my.slack.com/services/new/bot">create a new bot user</a> first. This will give you an API Token. Keep this private! I added mine to .bashrc to keep it out of version control. I retrieve it like this:</p>
-<div class="highlight"><pre><span></span>slack_client = SlackClient(os.environ.get(&#39;SLACK_BOT_TOKEN&#39;))
+<div class="highlight"><pre><span></span><span class="n">slack_client</span> <span class="o">=</span> <span class="n">SlackClient</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s1">&#39;SLACK_BOT_TOKEN&#39;</span><span class="p">))</span>
 </pre></div>
 
 
 <p>Secondly you need to pip install slackclient, I also used <a href="https://github.com/pybites/slackbot/blob/master/requirements.txt">some other modules</a>.</p>
 <p>I took the <a href="https://github.com/pybites/slackbot/blob/master/starterbot.py">starterbot code</a> I found in this excellent article: <a href="https://www.fullstackpython.com/blog/build-first-slack-bot-python.html">How to Build Your First Slack Bot with Python</a>. This made it a lot easier because it catered for all the initial setup, listening for mentions of the bot, intercepting targeted messages.</p>
 <p>Only thing you have to do is to <a href="https://github.com/pybites/slackbot/blob/master/get_botid.py">get the BOT ID</a> and store it in your login script (in my case .bashrc):</p>
-<div class="highlight"><pre><span></span>$ python get_botid.py
-Bot ID <span class="k">for</span> <span class="s1">&#39;pybitesbot&#39;</span> is XYZ
+<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">get_botid</span>.<span class="nv">py</span>
+<span class="nv">Bot</span> <span class="nv">ID</span> <span class="k">for</span> <span class="s1">&#39;</span><span class="s">pybitesbot</span><span class="s1">&#39;</span> <span class="nv">is</span> <span class="nv">XYZ</span>
 
-<span class="c1"># .bashrc</span>
-<span class="nb">export</span> <span class="nv">SLACK_BOT_TOKEN</span><span class="o">=</span>ABC      <span class="c1"># first step</span>
-<span class="nb">export</span> <span class="nv">BOT_ID</span><span class="o">=</span>XYZ               <span class="c1"># as retrieved from previous command</span>
-<span class="nb">export</span> <span class="nv">WEATHER_API</span><span class="o">=</span><span class="m">123</span>          <span class="c1"># used for one of the command scripts, see below</span>
+# .<span class="nv">bashrc</span>
+<span class="nv">export</span> <span class="nv">SLACK_BOT_TOKEN</span><span class="o">=</span><span class="nv">ABC</span>      # <span class="nv">first</span> <span class="nv">step</span>
+<span class="nv">export</span> <span class="nv">BOT_ID</span><span class="o">=</span><span class="nv">XYZ</span>               # <span class="nv">as</span> <span class="nv">retrieved</span> <span class="nv">from</span> <span class="nv">previous</span> <span class="nv">command</span>
+<span class="nv">export</span> <span class="nv">WEATHER_API</span><span class="o">=</span><span class="mi">123</span>          # <span class="nv">used</span> <span class="k">for</span> <span class="nv">one</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">command</span> <span class="nv">scripts</span>, <span class="nv">see</span> <span class="nv">below</span>
 </pre></div>
 
 
@@ -161,61 +161,61 @@ Bot ID <span class="k">for</span> <span class="s1">&#39;pybitesbot&#39;</span> i
 
 
 <p>I then overwrote the (provided) handle_command function to have the bot respond to various commands.</p>
-<div class="highlight"><pre><span></span>def handle_command(cmd, channel):
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">handle_command</span><span class="ss">(</span><span class="nv">cmd</span>, <span class="nv">channel</span><span class="ss">)</span>:
 
-    cmd = cmd.split()
-    cmd, args = cmd[0], cmd[1:]
+    <span class="nv">cmd</span> <span class="o">=</span> <span class="nv">cmd</span>.<span class="nv">split</span><span class="ss">()</span>
+    <span class="nv">cmd</span>, <span class="nv">args</span> <span class="o">=</span> <span class="nv">cmd</span>[<span class="mi">0</span>], <span class="nv">cmd</span>[<span class="mi">1</span>:]
 
-    if cmd in COMMANDS:
-        if args:
-            response = COMMANDS[cmd](*args)
-        else:
-            response = COMMANDS[cmd]()
-    else:
-        response = (&#39;Not sure what you mean? &#39;
-            &#39;I can help you with these commands:\n&#39;
-            &#39;{}&#39;.format(&#39;\n&#39;.join(cmd_names)))
+    <span class="k">if</span> <span class="nv">cmd</span> <span class="nv">in</span> <span class="nv">COMMANDS</span>:
+        <span class="k">if</span> <span class="nv">args</span>:
+            <span class="nv">response</span> <span class="o">=</span> <span class="nv">COMMANDS</span>[<span class="nv">cmd</span>]<span class="ss">(</span><span class="o">*</span><span class="nv">args</span><span class="ss">)</span>
+        <span class="k">else</span>:
+            <span class="nv">response</span> <span class="o">=</span> <span class="nv">COMMANDS</span>[<span class="nv">cmd</span>]<span class="ss">()</span>
+    <span class="k">else</span>:
+        <span class="nv">response</span> <span class="o">=</span> <span class="ss">(</span><span class="s1">&#39;</span><span class="s">Not sure what you mean? </span><span class="s1">&#39;</span>
+            <span class="s1">&#39;</span><span class="s">I can help you with these commands:</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;</span><span class="s">{}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">cmd_names</span><span class="ss">)))</span>
 
-    slack_client.api_call(&quot;chat.postMessage&quot;, channel=channel,
-                        text=response, as_user=True)
+    <span class="nv">slack_client</span>.<span class="nv">api_call</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">chat.postMessage</span><span class="s2">&quot;</span>, <span class="nv">channel</span><span class="o">=</span><span class="nv">channel</span>,
+                        <span class="nv">text</span><span class="o">=</span><span class="nv">response</span>, <span class="nv">as_user</span><span class="o">=</span><span class="nv">True</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>Lastly under main this starts the loop:</p>
-<div class="highlight"><pre><span></span>if slack_client.rtm_connect():
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">slack_client</span>.<span class="nv">rtm_connect</span><span class="ss">()</span>:
     ...
 </pre></div>
 
 
 <h2>Deployment</h2>
 <p>And that's it for the code. On my server I run the bot with nohup to keep it running:</p>
-<div class="highlight"><pre><span></span>nohup python3 pybitesbot.py &amp;
+<div class="highlight"><pre><span></span><span class="n">nohup</span> <span class="n">python3</span> <span class="n">pybitesbot</span><span class="p">.</span><span class="n">py</span> <span class="o">&amp;</span>
 </pre></div>
 
 
 <p>Update: I found an issue where the bot stopped working, so I added <a href="">a little script</a> (based on this <a href="http://stackoverflow.com/a/697064/1128469">SO answer</a>) to respawn it:</p>
-<div class="highlight"><pre><span></span>$ cat slackbot.sh
-<span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/bin/python3/bin/python3.5 pybitesbot.py&quot;</span>
-<span class="k">until</span> <span class="nv">$cmd</span><span class="p">;</span> <span class="k">do</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Slack bot crashed with exit code </span><span class="nv">$?</span><span class="s2">.  Respawning..&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
-    sleep <span class="m">1</span>
-<span class="k">done</span>
+<div class="highlight"><pre><span></span>$ <span class="nv">cat</span> <span class="nv">slackbot</span>.<span class="nv">sh</span>
+<span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">$HOME/bin/python3/bin/python3.5 pybitesbot.py</span><span class="s2">&quot;</span>
+<span class="k">until</span> <span class="mh">$c</span><span class="nv">md</span><span class="c1">; do</span>
+    <span class="nv">echo</span> <span class="s2">&quot;</span><span class="s">Slack bot crashed with exit code $?.  Respawning..</span><span class="s2">&quot;</span> <span class="o">&gt;&amp;</span><span class="mi">2</span>
+    <span class="nv">sleep</span> <span class="mi">1</span>
+<span class="nv">done</span>
 
-$ ./slackbot.sh
-StarterBot connected and running!
+$ .<span class="o">/</span><span class="nv">slackbot</span>.<span class="nv">sh</span>
+<span class="nv">StarterBot</span> <span class="nv">connected</span> <span class="nv">and</span> <span class="nv">running</span><span class="o">!</span>
 
-... pressing ctrl + c
+... <span class="nv">pressing</span> <span class="nv">ctrl</span> <span class="o">+</span> <span class="nv">c</span>
 
-^CTraceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-File <span class="s2">&quot;pybitesbot.py&quot;</span>, line <span class="m">44</span>, in &lt;module&gt;
-    time.sleep<span class="o">(</span>READ_WEBSOCKET_DELAY<span class="o">)</span>
-    KeyboardInterrupt
+<span class="o">^</span><span class="nv">CTraceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
+<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">pybitesbot.py</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">44</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+    <span class="nv">time</span>.<span class="nv">sleep</span><span class="ss">(</span><span class="nv">READ_WEBSOCKET_DELAY</span><span class="ss">)</span>
+    <span class="nv">KeyboardInterrupt</span>
 
-    Slack bot crashed with <span class="nb">exit</span> code <span class="m">1</span>.  Respawning..   <span class="o">=</span>&gt; thanks <span class="k">for</span> the shell script
-    StarterBot connected and running!
+    <span class="nv">Slack</span> <span class="nv">bot</span> <span class="nv">crashed</span> <span class="nv">with</span> <span class="k">exit</span> <span class="nv">code</span> <span class="mi">1</span>.  <span class="nv">Respawning</span>..   <span class="o">=&gt;</span> <span class="nv">thanks</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">shell</span> <span class="nv">script</span>
+    <span class="nv">StarterBot</span> <span class="nv">connected</span> <span class="nv">and</span> <span class="nv">running</span><span class="o">!</span>
 
-<span class="c1"># that was for demo, I still use nohup to leave the shell</span>
-$ nohup slackbot.sh  <span class="p">&amp;</span>
+# <span class="nv">that</span> <span class="nv">was</span> <span class="k">for</span> <span class="nv">demo</span>, <span class="nv">I</span> <span class="nv">still</span> <span class="nv">use</span> <span class="nv">nohup</span> <span class="nv">to</span> <span class="nv">leave</span> <span class="nv">the</span> <span class="nv">shell</span>
+$ <span class="nv">nohup</span> <span class="nv">slackbot</span>.<span class="nv">sh</span>  <span class="o">&amp;</span>
 </pre></div>
 
 

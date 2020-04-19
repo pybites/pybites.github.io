@@ -124,11 +124,11 @@
 <p>First <a href="http://pybit.es/the-beauty-of-virtualenv.html">create a virtualenv</a> and do pip install flask</p>
 <h2>API code and endpoints</h2>
 <p>To create a simple API you implement one or more <a href="http://www.restapitutorial.com/lessons/httpmethods.html">HTTP methods</a>, in this case the following endpoints:</p>
-<div class="highlight"><pre><span></span>@app.route(&#39;/api/v1.0/items&#39;, methods=[&#39;GET&#39;])
-@app.route(&#39;/api/v1.0/items/&lt;int:id&gt;&#39;, methods=[&#39;GET&#39;])
-@app.route(&#39;/api/v1.0/items&#39;, methods=[&#39;POST&#39;])
-@app.route(&#39;/api/v1.0/items/&lt;int:id&gt;&#39;, methods=[&#39;PUT&#39;])
-@app.route(&#39;/api/v1.0/items/&lt;int:id&gt;&#39;, methods=[&#39;DELETE&#39;])
+<div class="highlight"><pre><span></span><span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;GET&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items/&lt;int:id&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;GET&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;POST&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items/&lt;int:id&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;PUT&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="nv">@app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/v1.0/items/&lt;int:id&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">methods</span><span class="o">=[</span><span class="n">&#39;DELETE&#39;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
@@ -183,13 +183,13 @@ HTTP/1.0 <span class="m">201</span> CREATED
 <p>You can test response codes and of course see how the data (list of items in this case) changes after each request. </p>
 <p>The only challenge was the isolation of each unit test: I had to do copy the app.items to a backup variable in setUp (a <a href="https://docs.python.org/3.6/library/copy.html">deepcopy</a> to not leave references around) and pass it back in tearDown. Similarly for a DB back-end you would probably construct and drop a test table to have a clean slate for every test. </p>
 <p>The full unit tests are <a href="https://github.com/pybites/blog_code/blob/master/flaskapi/test_app.py">here</a>, summary:</p>
-<div class="highlight"><pre><span></span>def test_get_all(self): ...
-def test_get_one(self): ...
-def test_item_not_exist(self): ...
-def test_post(self): ...
-def test_update(self): ...
-def test_update_error(self): ...
-def test_delete(self): ...
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">test_get_all</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
+<span class="n">def</span> <span class="n">test_get_one</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
+<span class="n">def</span> <span class="n">test_item_not_exist</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
+<span class="n">def</span> <span class="n">test_post</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
+<span class="n">def</span> <span class="n">test_update</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
+<span class="n">def</span> <span class="n">test_update_error</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
+<span class="n">def</span> <span class="n">test_delete</span><span class="p">(</span><span class="k">self</span><span class="p">):</span> <span class="p">...</span>
 </pre></div>
 
 

@@ -196,15 +196,15 @@
 
 <p>Yes it's silly and the bug is obvious, but the goal is to show pdb.</p>
 <p>As you see I already set the breakpoint. When I run this code it drops into the debugger. It shows me the next line to be executed:</p>
-<div class="highlight"><pre><span></span>&gt; /Users/bbelderb/code/sum.py(11)&lt;module&gt;()
--&gt; for val in values:
-(Pdb)
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">sum</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">11</span><span class="ss">)</span><span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="k">for</span> <span class="nv">val</span> <span class="nv">in</span> <span class="nv">values</span>:
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>I can print variables:</p>
-<div class="highlight"><pre><span></span>(Pdb) values
-range(1, 11)
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Pdb</span><span class="p">)</span> <span class="k">values</span>
+<span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 </pre></div>
 
 
@@ -243,30 +243,30 @@ range(1, 11)
 
 
 <p>You can move the breakpoint to the function but as it is little code I just use <strong>s</strong>(tep):</p>
-<div class="highlight"><pre><span></span>&gt; /Users/bbelderb/code/sum.py(11)&lt;module&gt;()
--&gt; for val in values:
-(Pdb) n
-&gt; /Users/bbelderb/code/sum.py(12)&lt;module&gt;()
--&gt; val = sum(val, 1)
-(Pdb) s
---Call--
-&gt; /Users/bbelderb/code/sum.py(1)sum()
--&gt; def sum(val1, val2):
-(Pdb) s
-&gt; /Users/bbelderb/code/sum.py(2)sum()
--&gt; val2 = 0
-(Pdb) s
-&gt; /Users/bbelderb/code/sum.py(3)sum()
--&gt; newval = val1 + val2
-(Pdb) val1
-3
-(Pdb) val2
-0
-(Pdb) n
-&gt; /Users/bbelderb/code/sum.py(4)sum()
--&gt; return newval
-(Pdb) newval
-3
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">sum</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">11</span><span class="ss">)</span><span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="k">for</span> <span class="nv">val</span> <span class="nv">in</span> <span class="nv">values</span>:
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">n</span>
+<span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">sum</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">12</span><span class="ss">)</span><span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="nv">val</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">val</span>, <span class="mi">1</span><span class="ss">)</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">s</span>
+<span class="o">--</span><span class="nv">Call</span><span class="o">--</span>
+<span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">sum</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span><span class="nv">sum</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="nv">def</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">val1</span>, <span class="nv">val2</span><span class="ss">)</span>:
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">s</span>
+<span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">sum</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span><span class="nv">sum</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="nv">val2</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">s</span>
+<span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">sum</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">3</span><span class="ss">)</span><span class="nv">sum</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="nv">newval</span> <span class="o">=</span> <span class="nv">val1</span> <span class="o">+</span> <span class="nv">val2</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">val1</span>
+<span class="mi">3</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">val2</span>
+<span class="mi">0</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">n</span>
+<span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">sum</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">4</span><span class="ss">)</span><span class="nv">sum</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="k">return</span> <span class="nv">newval</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">newval</span>
+<span class="mi">3</span>
 </pre></div>
 
 
@@ -310,46 +310,46 @@ range(1, 11)
 
 
 <p>The leads to weird results:</p>
-<div class="highlight"><pre><span></span>Bus number: 1906
-- Latitude: 41.9041748046875
-- Longitude: -87.63142395019531
-- Direction: North Bound
-Bus number: 1932
-- Latitude: 41.968283335367836
-- Longitude: South Bound
-- Direction: -87.66738806830512
-Bus number: 1910
-- Latitude: -87.67295837402344
-- Longitude: 42.01838684082031
-- Direction: North Bound
+<div class="highlight"><pre><span></span><span class="n">Bus</span> <span class="nb">number</span><span class="p">:</span> <span class="mi">1906</span>
+<span class="o">-</span> <span class="n">Latitude</span><span class="p">:</span> <span class="mi">41</span><span class="p">.</span><span class="mi">9041748046875</span>
+<span class="o">-</span> <span class="n">Longitude</span><span class="p">:</span> <span class="o">-</span><span class="mi">87</span><span class="p">.</span><span class="mi">63142395019531</span>
+<span class="o">-</span> <span class="n">Direction</span><span class="p">:</span> <span class="n">North</span> <span class="n">Bound</span>
+<span class="n">Bus</span> <span class="nb">number</span><span class="p">:</span> <span class="mi">1932</span>
+<span class="o">-</span> <span class="n">Latitude</span><span class="p">:</span> <span class="mi">41</span><span class="p">.</span><span class="mi">968283335367836</span>
+<span class="o">-</span> <span class="n">Longitude</span><span class="p">:</span> <span class="n">South</span> <span class="n">Bound</span>
+<span class="o">-</span> <span class="n">Direction</span><span class="p">:</span> <span class="o">-</span><span class="mi">87</span><span class="p">.</span><span class="mi">66738806830512</span>
+<span class="n">Bus</span> <span class="nb">number</span><span class="p">:</span> <span class="mi">1910</span>
+<span class="o">-</span> <span class="n">Latitude</span><span class="p">:</span> <span class="o">-</span><span class="mi">87</span><span class="p">.</span><span class="mi">67295837402344</span>
+<span class="o">-</span> <span class="n">Longitude</span><span class="p">:</span> <span class="mi">42</span><span class="p">.</span><span class="mi">01838684082031</span>
+<span class="o">-</span> <span class="n">Direction</span><span class="p">:</span> <span class="n">North</span> <span class="n">Bound</span>
 </pre></div>
 
 
 <p>This is again a pretty simple use case for pdb:</p>
-<div class="highlight"><pre><span></span>&gt; /Users/bbelderb/code/debug.py(14)getbuses()
--&gt; for bus in doc.findall(&#39;bus&#39;):
-(Pdb) n
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">debug</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">14</span><span class="ss">)</span><span class="nv">getbuses</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="k">for</span> <span class="nv">bus</span> <span class="nv">in</span> <span class="nv">doc</span>.<span class="nv">findall</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">bus</span><span class="s1">&#39;</span><span class="ss">)</span>:
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">n</span>
 ...
-&gt; /Users/bbelderb/code/debug.py(19)getbuses()
--&gt; running_buses[idbus] = {lat, lon, direction}
-(Pdb) idbus
-1906
-(Pdb) lat
-41.90836715698242
-(Pdb) lon
--87.63148498535156
-(Pdb) direction
-&#39;North Bound&#39;
-(Pdb) n
+<span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">debug</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">19</span><span class="ss">)</span><span class="nv">getbuses</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="nv">running_buses</span>[<span class="nv">idbus</span>] <span class="o">=</span> {<span class="nv">lat</span>, <span class="nv">lon</span>, <span class="nv">direction</span>}
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">idbus</span>
+<span class="mi">1906</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">lat</span>
+<span class="mi">41</span>.<span class="mi">90836715698242</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">lon</span>
+<span class="o">-</span><span class="mi">87</span>.<span class="mi">63148498535156</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">direction</span>
+<span class="s1">&#39;</span><span class="s">North Bound</span><span class="s1">&#39;</span>
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">n</span>
 </pre></div>
 
 
 <p>The variables seem correct, but if I print the data structure I see they appear in a different order: </p>
-<div class="highlight"><pre><span></span>&gt; /Users/bbelderb/code/debug.py(14)getbuses()
--&gt; for bus in doc.findall(&#39;bus&#39;):
-(Pdb) running_buses
-{1906: {&#39;North Bound&#39;, 41.90836715698242, -87.63148498535156}}
-(Pdb)
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderb</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">debug</span>.<span class="nv">py</span><span class="ss">(</span><span class="mi">14</span><span class="ss">)</span><span class="nv">getbuses</span><span class="ss">()</span>
+<span class="o">-&gt;</span> <span class="k">for</span> <span class="nv">bus</span> <span class="nv">in</span> <span class="nv">doc</span>.<span class="nv">findall</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">bus</span><span class="s1">&#39;</span><span class="ss">)</span>:
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span> <span class="nv">running_buses</span>
+{<span class="mi">1906</span>: {<span class="s1">&#39;</span><span class="s">North Bound</span><span class="s1">&#39;</span>, <span class="mi">41</span>.<span class="mi">90836715698242</span>, <span class="o">-</span><span class="mi">87</span>.<span class="mi">63148498535156</span>}}
+<span class="ss">(</span><span class="nv">Pdb</span><span class="ss">)</span>
 </pre></div>
 
 
