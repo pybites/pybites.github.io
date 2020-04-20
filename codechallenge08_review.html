@@ -81,7 +81,7 @@
                                 <a  href="https://pybit.es/">Home</a>
                                 <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="http://pybites.mykajabi.com" target="_blank">Members</a>
+                                <a href="http://pybites.mykajabi.com/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
@@ -159,55 +159,55 @@ Maybe something to wrap in a validation class ...</p>
 <p>Nice constructs I could use: defaultdict, namedtuple and format printing.</p>
 <p>Before I would have mixed calculation and printing, now I isolating the summing in <em>calc_totals</em> function which makes it a bit cleaner. 
 See output below - I changed the NUM_ITEMS constant to 2 for shorter output (could make it a command line arg ...)</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">python</span> <span class="nv">inventory_bob</span>.<span class="nv">py</span>
+<div class="highlight"><pre><span></span>$ python inventory_bob.py
 
-<span class="nv">Entering</span> <span class="nv">items</span> <span class="k">for</span> <span class="nv">room</span> <span class="nv">study</span>:
+Entering items <span class="k">for</span> room study:
 
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#1</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">monitor</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">200</span>
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#2</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">laptop</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">1000</span>
+* Item <span class="c1">#1:</span>
+- Enter the name of the item: monitor
+- Enter the value of the item: <span class="m">200</span>
+* Item <span class="c1">#2:</span>
+- Enter the name of the item: laptop
+- Enter the value of the item: <span class="m">1000</span>
 
-<span class="nv">Entering</span> <span class="nv">items</span> <span class="k">for</span> <span class="nv">room</span> <span class="nv">living_room</span>:
+Entering items <span class="k">for</span> room living_room:
 
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#1</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">sofa</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">600</span>
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#2</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">tv</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">500</span>
+* Item <span class="c1">#1:</span>
+- Enter the name of the item: sofa
+- Enter the value of the item: <span class="m">600</span>
+* Item <span class="c1">#2:</span>
+- Enter the name of the item: tv
+- Enter the value of the item: <span class="m">500</span>
 
-<span class="nv">Entering</span> <span class="nv">items</span> <span class="k">for</span> <span class="nv">room</span> <span class="nv">master_bedroom</span>:
+Entering items <span class="k">for</span> room master_bedroom:
 
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#1</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">bed</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">1000</span>
-<span class="o">*</span> <span class="nv">Item</span> <span class="sc">#2</span>:
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="nv">couch</span>
-<span class="o">-</span> <span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">item</span>: <span class="mi">400</span>
+* Item <span class="c1">#1:</span>
+- Enter the name of the item: bed
+- Enter the value of the item: <span class="m">1000</span>
+* Item <span class="c1">#2:</span>
+- Enter the name of the item: couch
+- Enter the value of the item: <span class="m">400</span>
 
-<span class="o">*</span> <span class="nv">Room</span>: <span class="nv">study</span>
-<span class="nv">monitor</span>        :   <span class="mi">200</span>
-<span class="nv">laptop</span>         :  <span class="mi">1000</span>
-<span class="o">--</span>
-<span class="nv">Subtotal</span>       :  <span class="mi">1200</span>
+* Room: study
+monitor        :   <span class="m">200</span>
+laptop         :  <span class="m">1000</span>
+--
+Subtotal       :  <span class="m">1200</span>
 
-<span class="o">*</span> <span class="nv">Room</span>: <span class="nv">living_room</span>
-<span class="nv">sofa</span>           :   <span class="mi">600</span>
-<span class="nv">tv</span>             :   <span class="mi">500</span>
-<span class="o">--</span>
-<span class="nv">Subtotal</span>       :  <span class="mi">1100</span>
+* Room: living_room
+sofa           :   <span class="m">600</span>
+tv             :   <span class="m">500</span>
+--
+Subtotal       :  <span class="m">1100</span>
 
-<span class="o">*</span> <span class="nv">Room</span>: <span class="nv">master_bedroom</span>
-<span class="nv">bed</span>            :  <span class="mi">1000</span>
-<span class="nv">couch</span>          :   <span class="mi">400</span>
-<span class="o">--</span>
-<span class="nv">Subtotal</span>       :  <span class="mi">1400</span>
+* Room: master_bedroom
+bed            :  <span class="m">1000</span>
+couch          :   <span class="m">400</span>
+--
+Subtotal       :  <span class="m">1400</span>
 
-<span class="o">----</span>
-<span class="nv">Total</span>          :  <span class="mi">3700</span>
+----
+Total          :  <span class="m">3700</span>
 </pre></div>
 
 

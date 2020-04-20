@@ -81,7 +81,7 @@
                                 <a  href="https://pybit.es/">Home</a>
                                 <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="http://pybites.mykajabi.com" target="_blank">Members</a>
+                                <a href="http://pybites.mykajabi.com/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
@@ -161,13 +161,13 @@
 <p>In this context you also want to abstract common code into setup/teardown code, which pytest offers via <em>fixtures</em>  (see more under 8). For some Bites we needed to pull in an input text file (AWS Lambda runs in its own sandbox). This is an example of something you'd make sure you do once for a set of tests. </p>
 <h2>5. Test coverage</h2>
 <p>Since teaching a lesson on pytest in our <a href="https://talkpython.fm/100days?s=pybites">100 Days of Code course</a> I discovered <a href="https://pypi.org/project/pytest-cov/"><em>coverage</em></a> and made this alias in my <em>.vimrc</em> to simply check it with one keystroke:</p>
-<div class="highlight"><pre><span></span>    <span class="n">nmap</span> <span class="p">,</span><span class="n">t</span> <span class="p">:</span><span class="n">w</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span><span class="p">:</span><span class="o">!</span><span class="n">pytest</span> <span class="o">-</span><span class="n">s</span> <span class="c1">--cov-report term-missing --cov=&#39;.&#39;&lt;CR&gt;</span>
+<div class="highlight"><pre><span></span>    nmap ,t :w&lt;CR&gt;:!pytest -s --cov-report term-missing --cov=&#39;.&#39;&lt;CR&gt;
 </pre></div>
 
 
 <p>You have to install this plugin for it to work:</p>
-<div class="highlight"><pre><span></span>    <span class="o">#</span> <span class="n">enable</span> <span class="n">venv</span> <span class="p">(</span><span class="n">TODO</span><span class="p">:</span> <span class="n">switch</span> <span class="k">to</span> <span class="n">pipenv</span><span class="p">)</span>
-    <span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">cov</span>
+<div class="highlight"><pre><span></span>    # enable venv (TODO: switch to pipenv)
+    $ pip install pytest-cov
 </pre></div>
 
 
@@ -204,30 +204,30 @@
 <p>Let's look at a practical example: <a href="https://codechalleng.es/bites/5">Bite 5. Parse a list of names</a>, and let me only focus on the first function (the Bite has 3). Note you would probably write more code between each step, but just to show how the tests may guide you:</p>
 <p>Running the template code without adding any code it shows:</p>
 <p>Code:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">NAMES</span> <span class="o">=</span> [<span class="s1">&#39;</span><span class="s">arnold schwarzenegger</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">alec baldwin</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">bob belderbos</span><span class="s1">&#39;</span>,
-            <span class="s1">&#39;</span><span class="s">julian sequeira</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">sandra bullock</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">keanu reeves</span><span class="s1">&#39;</span>,
-            <span class="s1">&#39;</span><span class="s">julbob pybites</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">bob belderbos</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">julian sequeira</span><span class="s1">&#39;</span>,
-            <span class="s1">&#39;</span><span class="s">al pacino</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">brad pitt</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">matt damon</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">brad pitt</span><span class="s1">&#39;</span>]
+<div class="highlight"><pre><span></span>    NAMES = [&#39;arnold schwarzenegger&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;,
+            &#39;julian sequeira&#39;, &#39;sandra bullock&#39;, &#39;keanu reeves&#39;,
+            &#39;julbob pybites&#39;, &#39;bob belderbos&#39;, &#39;julian sequeira&#39;,
+            &#39;al pacino&#39;, &#39;brad pitt&#39;, &#39;matt damon&#39;, &#39;brad pitt&#39;]
 
-    <span class="nv">def</span> <span class="nv">dedup_and_title_case_names</span><span class="ss">(</span><span class="nv">names</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span><span class="s">Should return a list of names, each name appears only once</span><span class="s2">&quot;&quot;&quot;</span>
-        <span class="nv">pass</span>
+    def dedup_and_title_case_names(names):
+        &quot;&quot;&quot;Should return a list of names, each name appears only once&quot;&quot;&quot;
+        pass
 </pre></div>
 
 
 <p>Test output:</p>
-<div class="highlight"><pre><span></span>    <span class="o">===================================</span> <span class="nv">FAILURES</span> <span class="o">===================================</span>
-    <span class="nv">_______________________</span> <span class="nv">test_dedup_and_title_case_names</span> <span class="nv">________________________</span>
+<div class="highlight"><pre><span></span>    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
 
-        <span class="nv">def</span> <span class="nv">test_dedup_and_title_case_names</span><span class="ss">()</span>:
-            <span class="nv">names</span> <span class="o">=</span> <span class="nv">dedup_and_title_case_names</span><span class="ss">(</span><span class="nv">NAMES</span><span class="ss">)</span>
-    <span class="o">&gt;</span>       <span class="nv">assert</span> <span class="nv">names</span>.<span class="nv">count</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Bob Belderbos</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="nv">E</span>       <span class="nv">AttributeError</span>: <span class="s1">&#39;</span><span class="s">NoneType</span><span class="s1">&#39;</span> <span class="nv">object</span> <span class="nv">has</span> <span class="nv">no</span> <span class="nv">attribute</span> <span class="s1">&#39;</span><span class="s">count</span><span class="s1">&#39;</span>
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &gt;       assert names.count(&#39;Bob Belderbos&#39;) == 1
+    E       AttributeError: &#39;NoneType&#39; object has no attribute &#39;count&#39;
 
-    <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">test_names</span>.<span class="nv">py</span>:<span class="mi">7</span>: <span class="nv">AttributeError</span>
+    /tmp/test_names.py:7: AttributeError
     ...
     ...
-    <span class="nv">output</span> <span class="k">for</span> <span class="nv">other</span> <span class="nv">tests</span> <span class="o">-</span> <span class="nv">note</span> <span class="nv">how</span> <span class="nv">a</span> <span class="nv">test</span> <span class="nv">per</span> <span class="nv">function</span> <span class="nv">makes</span> <span class="nv">it</span> <span class="nv">easier</span> <span class="nv">to</span> <span class="nv">focus</span> <span class="nv">on</span> <span class="nv">one</span> <span class="nv">thing</span> <span class="nv">at</span> <span class="nv">a</span> <span class="nv">time</span><span class="o">!</span>
+    output for other tests - note how a test per function makes it easier to focus on one thing at a time!
     ...
     ...
 </pre></div>
@@ -235,73 +235,73 @@
 
 <p><code>dedup_and_title_case_names</code> does not return anything, let's return the <code>NAMES</code> list (as passed in as argument):</p>
 <p>Code:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">def</span> <span class="nv">dedup_and_title_case_names</span><span class="ss">(</span><span class="nv">names</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span><span class="s">Should return a list of names, each name appears only once</span><span class="s2">&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nv">names</span>
+<div class="highlight"><pre><span></span>    def dedup_and_title_case_names(names):
+        &quot;&quot;&quot;Should return a list of names, each name appears only once&quot;&quot;&quot;
+        return names
 </pre></div>
 
 
 <p>Test output:</p>
-<div class="highlight"><pre><span></span>    <span class="o">===================================</span> <span class="n">FAILURES</span> <span class="o">===================================</span>
-    <span class="n">_______________________</span> <span class="n">test_dedup_and_title_case_names</span> <span class="n">________________________</span>
+<div class="highlight"><pre><span></span>    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
 
-        <span class="n">def</span> <span class="n">test_dedup_and_title_case_names</span><span class="p">():</span>
-            <span class="k">names</span> <span class="o">=</span> <span class="n">dedup_and_title_case_names</span><span class="p">(</span><span class="k">NAMES</span><span class="p">)</span>
-    <span class="o">&gt;</span>       <span class="n">assert</span> <span class="k">names</span><span class="p">.</span><span class="k">count</span><span class="p">(</span><span class="s1">&#39;Bob Belderbos&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="n">E</span>       <span class="n">AssertionError</span><span class="p">:</span> <span class="n">assert</span> <span class="mi">0</span> <span class="o">==</span> <span class="mi">1</span>
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &gt;       assert names.count(&#39;Bob Belderbos&#39;) == 1
+    E       AssertionError: assert 0 == 1
 </pre></div>
 
 
 <p>OK now I don't assert the amount of names and that is because the original <code>NAMES</code> list passed in is still lowercase:</p>
 <p>So let's address that next in <code>dedup_and_title_case_names</code>:</p>
 <p>Code:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">def</span> <span class="nv">dedup_and_title_case_names</span><span class="ss">(</span><span class="nv">names</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span><span class="s">Should return a list of names, each name appears only once</span><span class="s2">&quot;&quot;&quot;</span>
-        <span class="k">return</span> [<span class="nv">name</span>.<span class="nv">title</span><span class="ss">()</span> <span class="k">for</span> <span class="nv">name</span> <span class="nv">in</span> <span class="nv">NAMES</span>]
+<div class="highlight"><pre><span></span>    def dedup_and_title_case_names(names):
+        &quot;&quot;&quot;Should return a list of names, each name appears only once&quot;&quot;&quot;
+        return [name.title() for name in NAMES]
 </pre></div>
 
 
 <p>Test output:</p>
-<div class="highlight"><pre><span></span>    <span class="o">===================================</span> <span class="n">FAILURES</span> <span class="o">===================================</span>
-    <span class="n">_______________________</span> <span class="n">test_dedup_and_title_case_names</span> <span class="n">________________________</span>
+<div class="highlight"><pre><span></span>    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
 
-        <span class="n">def</span> <span class="n">test_dedup_and_title_case_names</span><span class="p">():</span>
-            <span class="k">names</span> <span class="o">=</span> <span class="n">dedup_and_title_case_names</span><span class="p">(</span><span class="k">NAMES</span><span class="p">)</span>
-    <span class="o">&gt;</span>       <span class="n">assert</span> <span class="k">names</span><span class="p">.</span><span class="k">count</span><span class="p">(</span><span class="s1">&#39;Bob Belderbos&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="n">E</span>       <span class="n">AssertionError</span><span class="p">:</span> <span class="n">assert</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span>
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &gt;       assert names.count(&#39;Bob Belderbos&#39;) == 1
+    E       AssertionError: assert 2 == 1
 </pre></div>
 
 
 <p>OK so I have my name in there twice now, it should be once. Let's have the list only contain unique names using a set:</p>
 <p>Code:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">def</span> <span class="nv">dedup_and_title_case_names</span><span class="ss">(</span><span class="nv">names</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span><span class="s">Should return a list of names, each name appears only once</span><span class="s2">&quot;&quot;&quot;</span>
-        <span class="k">return</span> {<span class="nv">name</span>.<span class="nv">title</span><span class="ss">()</span> <span class="k">for</span> <span class="nv">name</span> <span class="nv">in</span> <span class="nv">NAMES</span>}
+<div class="highlight"><pre><span></span>    def dedup_and_title_case_names(names):
+        &quot;&quot;&quot;Should return a list of names, each name appears only once&quot;&quot;&quot;
+        return {name.title() for name in NAMES}
 </pre></div>
 
 
 <p>Test output:</p>
-<div class="highlight"><pre><span></span>    <span class="o">===================================</span> <span class="n">FAILURES</span> <span class="o">===================================</span>
-    <span class="n">_______________________</span> <span class="n">test_dedup_and_title_case_names</span> <span class="n">________________________</span>
+<div class="highlight"><pre><span></span>    =================================== FAILURES ===================================
+    _______________________ test_dedup_and_title_case_names ________________________
 
-        <span class="n">def</span> <span class="n">test_dedup_and_title_case_names</span><span class="p">():</span>
-            <span class="k">names</span> <span class="o">=</span> <span class="n">dedup_and_title_case_names</span><span class="p">(</span><span class="k">NAMES</span><span class="p">)</span>
-    <span class="o">&gt;</span>       <span class="n">assert</span> <span class="k">names</span><span class="p">.</span><span class="k">count</span><span class="p">(</span><span class="s1">&#39;Bob Belderbos&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-    <span class="n">E</span>       <span class="n">AttributeError</span><span class="p">:</span> <span class="s1">&#39;set&#39;</span> <span class="k">object</span> <span class="n">has</span> <span class="k">no</span> <span class="n">attribute</span> <span class="s1">&#39;count&#39;</span>
+        def test_dedup_and_title_case_names():
+            names = dedup_and_title_case_names(NAMES)
+    &gt;       assert names.count(&#39;Bob Belderbos&#39;) == 1
+    E       AttributeError: &#39;set&#39; object has no attribute &#39;count&#39;
 </pre></div>
 
 
 <p>Oops! That's right, the <em>docstring</em> already said it should return a list, fair enough:</p>
-<div class="highlight"><pre><span></span>    <span class="nv">def</span> <span class="nv">dedup_and_title_case_names</span><span class="ss">(</span><span class="nv">names</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span><span class="s">Should return a list of names, each name appears only once</span><span class="s2">&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nv">list</span><span class="ss">(</span>{<span class="nv">name</span>.<span class="nv">title</span><span class="ss">()</span> <span class="k">for</span> <span class="nv">name</span> <span class="nv">in</span> <span class="nv">NAMES</span>}<span class="ss">)</span>
+<div class="highlight"><pre><span></span>    def dedup_and_title_case_names(names):
+        &quot;&quot;&quot;Should return a list of names, each name appears only once&quot;&quot;&quot;
+        return list({name.title() for name in NAMES})
 </pre></div>
 
 
 <p>That works, I have a pass (dot) and the test is not under <code>FAILURES</code> anymore:</p>
-<div class="highlight"><pre><span></span>    ..<span class="o">/</span>..<span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">test_names</span>.<span class="nv">py</span> .<span class="nv">FF</span>
+<div class="highlight"><pre><span></span>    ../../tmp/test_names.py .FF
 
-    ... <span class="nv">other</span> <span class="mi">2</span> <span class="nv">tests</span> <span class="nv">still</span> <span class="nv">to</span> <span class="nv">pass</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">other</span> <span class="mi">2</span> <span class="nv">functions</span> <span class="k">for</span> <span class="nv">this</span> <span class="nv">Bite</span> ...
+    ... other 2 tests still to pass for the other 2 functions for this Bite ...
 </pre></div>
 
 
@@ -314,56 +314,56 @@
 <p>Teaching pytest in our <a href="https://talkpython.fm/100days?s=pybites">100 Days of Code course</a>, I got to the end of +/- 40 min dense video section without addressing them (WTF?). So I wrote <a href="https://pybit.es/pytest-fixtures.html">this article about fixtures</a>.</p>
 <p>Fixtures are awesome, basically any time you want to do some (repetitive) setup/teardown for a (set of) tests you want to use them.</p>
 <p>In <a href="https://codechalleng.es/bites/99/">Bite 99. Write an infinite sequence generator</a> for example we test a sequence generator and we want a fresh instance before each test ... easy:</p>
-<div class="highlight"><pre><span></span>@<span class="nv">pytest</span>.<span class="nv">fixture</span>
-<span class="nv">def</span> <span class="nv">gen</span><span class="ss">()</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Return a fresh new generator object for each test</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nv">sequence_generator</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>@pytest.fixture
+def gen():
+    &quot;&quot;&quot;Return a fresh new generator object for each test&quot;&quot;&quot;
+    return sequence_generator()
 </pre></div>
 
 
 <p>You can then access this fixture by passing it as argument to the test functions:</p>
-<div class="highlight"><pre><span></span>    <span class="n">def</span> <span class="n">test_first_ten_first_round</span><span class="p">(</span><span class="n">gen</span><span class="p">):</span>
-        <span class="p">...</span>
-    <span class="n">def</span> <span class="n">test_first_ten_second_round</span><span class="p">(</span><span class="n">gen</span><span class="p">):</span>
-        <span class="p">...</span>
-    <span class="n">def</span> <span class="n">test_last_ten_third_round</span><span class="p">(</span><span class="n">gen</span><span class="p">):</span>
-        <span class="p">...</span>
+<div class="highlight"><pre><span></span>    def test_first_ten_first_round(gen):
+        ...
+    def test_first_ten_second_round(gen):
+        ...
+    def test_last_ten_third_round(gen):
+        ...
 </pre></div>
 
 
 <p>If you want to share the generator between tests, you can just give it a scope argument:</p>
-<div class="highlight"><pre><span></span>@<span class="nv">pytest</span>.<span class="nv">fixture</span>
-<span class="nv">def</span> <span class="nv">gen</span><span class="ss">(</span><span class="nv">scope</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">module</span><span class="s2">&quot;</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Return a fresh new generator object for each test</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nv">sequence_generator</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>@pytest.fixture
+def gen(scope=&quot;module&quot;):
+    &quot;&quot;&quot;Return a fresh new generator object for each test&quot;&quot;&quot;
+    return sequence_generator()
 </pre></div>
 
 
 <p>You probably don't want to do that for this code (remember: make tests independent), but you could have database setup code that persists across a bunch of tests for example.</p>
 <h2>9. Handle repetitive tests with parametrize</h2>
 <p>The <code>pytest.mark.parametrize</code> decorator elegantly handles repetitive tests, for example to test an Uno card deck (<a href="https://codechalleng.es/bites/60/">Bite 60. Create a deck of Uno cards</a>):</p>
-<div class="highlight"><pre><span></span><span class="w">    </span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">parametrize</span><span class="p">(</span><span class="ss">&quot;suit, count&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n"></span>
-<span class="n">        (&#39;Red&#39;, 25),</span>
-<span class="n">        (&#39;Green&#39;, 25),</span>
-<span class="n">        (&#39;Yellow&#39;, 25),</span>
-<span class="n">        (&#39;Blue&#39;, 25),</span>
-<span class="n">        (None, 8),  # wild cards don&#39;t have an associated suit</span>
-<span class="n">    </span><span class="o">]</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">test_create_uno_deck_suit_distribution</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span><span class="w"> </span><span class="n">suit</span><span class="p">,</span><span class="w"> </span><span class="nf">count</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">assert</span><span class="w"> </span><span class="n">_count_suits</span><span class="p">(</span><span class="n">deck</span><span class="p">,</span><span class="w"> </span><span class="n">suit</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nf">count</span><span class="w"></span>
+<div class="highlight"><pre><span></span>    @pytest.mark.parametrize(&quot;suit, count&quot;, [
+        (&#39;Red&#39;, 25),
+        (&#39;Green&#39;, 25),
+        (&#39;Yellow&#39;, 25),
+        (&#39;Blue&#39;, 25),
+        (None, 8),  # wild cards don&#39;t have an associated suit
+    ])
+    def test_create_uno_deck_suit_distribution(deck, suit, count):
+        assert _count_suits(deck, suit) == count
 </pre></div>
 
 
 <p>Not only is this readable, it splits every tuple into a test, showing a dot in the output:</p>
-<div class="highlight"><pre><span></span><span class="w">    </span><span class="o">[</span><span class="n">bbelderb@macbook 60 (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="n">test_uno</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="err">:</span><span class="n">test_create_uno_deck_suit_distribution</span><span class="w"></span>
-<span class="w">    </span><span class="o">====================================</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="o">====================================</span><span class="w"></span>
-<span class="w">    </span><span class="n">platform</span><span class="w"> </span><span class="n">darwin</span><span class="w"> </span><span class="c1">-- Python 3.6.1, pytest-3.0.7, py-1.4.33, pluggy-0.4.0</span>
-<span class="w">    </span><span class="nl">rootdir</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">bbelderb</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">bites_of_py</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="w"> </span><span class="nl">inifile</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">collected</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="n">items</span><span class="w"></span>
+<div class="highlight"><pre><span></span>    [bbelderb@macbook 60 (master)]$ pytest test_uno.py::test_create_uno_deck_suit_distribution
+    ==================================== test session starts ====================================
+    platform darwin -- Python 3.6.1, pytest-3.0.7, py-1.4.33, pluggy-0.4.0
+    rootdir: /Users/bbelderb/code/bites_of_py/60, inifile:
+    collected 25 items
 
-<span class="w">    </span><span class="n">test_uno</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="p">.....</span><span class="w"></span>
+    test_uno.py .....
 
-<span class="w">    </span><span class="o">=================================</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mf">0.03</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="o">==================================</span><span class="w"></span>
+    ================================= 5 passed in 0.03 seconds ==================================
 </pre></div>
 
 

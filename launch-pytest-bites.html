@@ -81,7 +81,7 @@
                                 <a  href="https://pybit.es/">Home</a>
                                 <a  href="https://pybit.es/archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="http://pybites.mykajabi.com" target="_blank">Members</a>
+                                <a href="http://pybites.mykajabi.com/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
                     </div>
                 </div>
@@ -125,94 +125,94 @@
 <p>MutPy is a mutation testing tool for Python 3.3+ source code. MutPy supports standard unittest module, generates YAML/HTML reports and has colorful output. It applies mutation on AST level. You could boost your mutation testing process with high order mutations (HOM) and code coverage analysis.</p>
 </blockquote>
 <p>Here we run it manually on <a href="https://codechalleng.es/bites/5/">Bite 05</a>:</p>
-<div class="highlight"><pre><span></span>    $ <span class="nv">mut</span>.<span class="nv">py</span> <span class="o">-</span><span class="nv">h</span>
-    <span class="nv">usage</span>: <span class="nv">mut</span>.<span class="nv">py</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">--</span><span class="nv">version</span>] [<span class="o">--</span><span class="nv">target</span> <span class="nv">TARGET</span> [<span class="nv">TARGET</span> ...]]
-                [<span class="o">--</span><span class="nv">unit</span><span class="o">-</span><span class="nv">test</span> <span class="nv">UNIT_TEST</span> [<span class="nv">UNIT_TEST</span> ...]] [<span class="o">--</span><span class="nv">runner</span> <span class="nv">RUNNER</span>]
-                [<span class="o">--</span><span class="nv">report</span> <span class="nv">REPORT_FILE</span>] [<span class="o">--</span><span class="nv">report</span><span class="o">-</span><span class="nv">html</span> <span class="nv">DIR_NAME</span>]
-                [<span class="o">--</span><span class="nb">timeout</span><span class="o">-</span><span class="nv">factor</span> <span class="nv">TIMEOUT_FACTOR</span>] [<span class="o">--</span><span class="k">show</span><span class="o">-</span><span class="nv">mutants</span>] [<span class="o">--</span><span class="nv">quiet</span>]
-                [<span class="o">--</span><span class="nv">debug</span>] [<span class="o">--</span><span class="nv">colored</span><span class="o">-</span><span class="nv">output</span>] [<span class="o">--</span><span class="nv">disable</span><span class="o">-</span><span class="nv">stdout</span>]
-                [<span class="o">--</span><span class="nv">experimental</span><span class="o">-</span><span class="nv">operators</span>] [<span class="o">--</span><span class="nv">operator</span> <span class="nv">OPERATOR</span> [<span class="nv">OPERATOR</span> ...]]
-                [<span class="o">--</span><span class="nv">disable</span><span class="o">-</span><span class="nv">operator</span> <span class="nv">OPERATOR</span> [<span class="nv">OPERATOR</span> ...]] [<span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">operators</span>]
-                [<span class="o">--</span><span class="nv">path</span> <span class="nv">DIR</span>] [<span class="o">--</span><span class="nv">percentage</span> <span class="nv">PERCENTAGE</span>] [<span class="o">--</span><span class="nv">coverage</span>]
-                [<span class="o">--</span><span class="nv">order</span> <span class="nv">ORDER</span>] [<span class="o">--</span><span class="nv">hom</span><span class="o">-</span><span class="nv">strategy</span> <span class="nv">HOM_STRATEGY</span>]
-                [<span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">hom</span><span class="o">-</span><span class="nv">strategies</span>] [<span class="o">--</span><span class="nv">mutation</span><span class="o">-</span><span class="nv">number</span> <span class="nv">MUTATION_NUMBER</span>]
+<div class="highlight"><pre><span></span>    $ mut.py -h
+    usage: mut.py [-h] [--version] [--target TARGET [TARGET ...]]
+                [--unit-test UNIT_TEST [UNIT_TEST ...]] [--runner RUNNER]
+                [--report REPORT_FILE] [--report-html DIR_NAME]
+                [--timeout-factor TIMEOUT_FACTOR] [--show-mutants] [--quiet]
+                [--debug] [--colored-output] [--disable-stdout]
+                [--experimental-operators] [--operator OPERATOR [OPERATOR ...]]
+                [--disable-operator OPERATOR [OPERATOR ...]] [--list-operators]
+                [--path DIR] [--percentage PERCENTAGE] [--coverage]
+                [--order ORDER] [--hom-strategy HOM_STRATEGY]
+                [--list-hom-strategies] [--mutation-number MUTATION_NUMBER]
 
-    $ <span class="nv">mut</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">target</span> <span class="nv">names</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">unit</span><span class="o">-</span><span class="nv">test</span> <span class="nv">test_names</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">runner</span> <span class="nv">pytest</span> <span class="o">--</span><span class="nv">coverage</span>
-    [<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutation</span> <span class="nv">process</span>:
-    <span class="o">-</span> <span class="nv">targets</span>: <span class="nv">names</span>.<span class="nv">py</span>
-    <span class="o">-</span> <span class="nv">tests</span>: <span class="nv">test_names</span>.<span class="nv">py</span>
-    [<span class="o">*</span>] <span class="mi">6</span> <span class="nv">tests</span> <span class="nv">passed</span>:
-    <span class="o">-</span> <span class="nv">test_names</span> [<span class="mi">0</span>.<span class="mi">37057</span> <span class="nv">s</span>]
-    [<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutants</span> <span class="nv">generation</span> <span class="nv">and</span> <span class="nv">execution</span>:
-    <span class="o">-</span> [#   <span class="mi">1</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">13190</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">2</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09615</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">3</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09483</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">4</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09546</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#   <span class="mi">5</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09294</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">6</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09068</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">7</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">08975</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">8</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09013</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#   <span class="mi">9</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">12359</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">10</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09420</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">11</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09482</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">12</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09506</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">13</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09875</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">14</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09385</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">15</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09451</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">16</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09528</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">17</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09253</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">18</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09329</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">19</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09638</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">20</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09449</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">21</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09480</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">22</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09092</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">23</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09388</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">24</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09356</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">25</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09271</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">26</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09341</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_dedup_and_title_case_names</span>
-    <span class="o">-</span> [#  <span class="mi">27</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">09397</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_sort_by_surname_desc</span>
-    <span class="o">-</span> [#  <span class="mi">28</span>] <span class="nv">CRP</span> <span class="nv">names</span>: [<span class="mi">0</span>.<span class="mi">10249</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_names</span>.<span class="nv">py</span>::<span class="nv">test_shortest_first_name</span>
-    [<span class="o">*</span>] <span class="nv">Mutation</span> <span class="nv">score</span> [<span class="mi">8</span>.<span class="mi">05135</span> <span class="nv">s</span>]: <span class="mi">100</span>.<span class="mi">0</span><span class="o">%</span>
-    <span class="o">-</span> <span class="nv">all</span>: <span class="mi">28</span>
-    <span class="o">-</span> <span class="nv">killed</span>: <span class="mi">28</span> <span class="ss">(</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    <span class="o">-</span> <span class="nv">survived</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    <span class="o">-</span> <span class="nv">incompetent</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    <span class="o">-</span> <span class="nb">timeout</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
-    [<span class="o">*</span>] <span class="nv">Coverage</span>: <span class="mi">113</span> <span class="nv">of</span> <span class="mi">113</span> <span class="nv">AST</span> <span class="nv">nodes</span> <span class="ss">(</span><span class="mi">100</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
+    $ mut.py --target names.py --unit-test test_names.py --runner pytest --coverage
+    [*] Start mutation process:
+    - targets: names.py
+    - tests: test_names.py
+    [*] 6 tests passed:
+    - test_names [0.37057 s]
+    [*] Start mutants generation and execution:
+    - [#   1] CRP names: [0.13190 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   2] CRP names: [0.09615 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   3] CRP names: [0.09483 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   4] CRP names: [0.09546 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   5] CRP names: [0.09294 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   6] CRP names: [0.09068 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   7] CRP names: [0.08975 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   8] CRP names: [0.09013 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#   9] CRP names: [0.12359 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  10] CRP names: [0.09420 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  11] CRP names: [0.09482 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  12] CRP names: [0.09506 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  13] CRP names: [0.09875 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  14] CRP names: [0.09385 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  15] CRP names: [0.09451 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  16] CRP names: [0.09528 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  17] CRP names: [0.09253 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  18] CRP names: [0.09329 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  19] CRP names: [0.09638 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  20] CRP names: [0.09449 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  21] CRP names: [0.09480 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  22] CRP names: [0.09092 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  23] CRP names: [0.09388 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  24] CRP names: [0.09356 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  25] CRP names: [0.09271 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  26] CRP names: [0.09341 s] killed by test_names.py::test_dedup_and_title_case_names
+    - [#  27] CRP names: [0.09397 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#  28] CRP names: [0.10249 s] killed by test_names.py::test_shortest_first_name
+    [*] Mutation score [8.05135 s]: 100.0%
+    - all: 28
+    - killed: 28 (100.0%)
+    - survived: 0 (0.0%)
+    - incompetent: 0 (0.0%)
+    - timeout: 0 (0.0%)
+    [*] Coverage: 113 of 113 AST nodes (100.0%)
 </pre></div>
 
 
 <p>To see the mutations it tried, run it with the <code>-m</code> switch (<strong>update</strong>: we dropped the <code>--coverage</code> switch in favor of <code>pytest-cov</code>, more below ...):</p>
-<div class="highlight"><pre><span></span>    <span class="err">$</span> <span class="n">mut</span><span class="p">.</span><span class="n">py</span> <span class="c1">--target names.py --unit-test test_names.py --runner pytest --coverage -m</span>
-    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="k">Start</span> <span class="n">mutation</span> <span class="n">process</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">targets</span><span class="p">:</span> <span class="k">names</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">-</span> <span class="n">tests</span><span class="p">:</span> <span class="n">test_names</span><span class="p">.</span><span class="n">py</span>
-    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="mi">6</span> <span class="n">tests</span> <span class="n">passed</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">test_names</span> <span class="p">[</span><span class="mi">0</span><span class="p">.</span><span class="mi">32475</span> <span class="n">s</span><span class="p">]</span>
-    <span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="k">Start</span> <span class="n">mutants</span> <span class="n">generation</span> <span class="k">and</span> <span class="n">execution</span><span class="p">:</span>
-    <span class="o">-</span> <span class="p">[</span><span class="o">#</span>   <span class="mi">1</span><span class="p">]</span> <span class="n">CRP</span> <span class="k">names</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="o">-</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;arnold schwarzenegger&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="o">+</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mutpy&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">2</span><span class="p">:</span>     <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="s1">&#39;sandra bullock&#39;</span><span class="p">,</span> <span class="s1">&#39;keanu reeves&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">3</span><span class="p">:</span>     <span class="s1">&#39;julbob pybites&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">4</span><span class="p">:</span>     <span class="s1">&#39;al pacino&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">,</span> <span class="s1">&#39;matt damon&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">]</span>
-    <span class="mi">5</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">.</span><span class="mi">10319</span> <span class="n">s</span><span class="p">]</span> <span class="n">killed</span> <span class="k">by</span> <span class="n">test_names</span><span class="p">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_sort_by_surname_desc</span>
-    <span class="o">-</span> <span class="p">[</span><span class="o">#</span>   <span class="mi">2</span><span class="p">]</span> <span class="n">CRP</span> <span class="k">names</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="o">-</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;arnold schwarzenegger&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="o">+</span>  <span class="mi">1</span><span class="p">:</span> <span class="k">NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;alec baldwin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">2</span><span class="p">:</span>     <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="s1">&#39;sandra bullock&#39;</span><span class="p">,</span> <span class="s1">&#39;keanu reeves&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">3</span><span class="p">:</span>     <span class="s1">&#39;julbob pybites&#39;</span><span class="p">,</span> <span class="s1">&#39;bob belderbos&#39;</span><span class="p">,</span> <span class="s1">&#39;julian sequeira&#39;</span><span class="p">,</span> <span class="err">\</span>
-    <span class="mi">4</span><span class="p">:</span>     <span class="s1">&#39;al pacino&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">,</span> <span class="s1">&#39;matt damon&#39;</span><span class="p">,</span> <span class="s1">&#39;brad pitt&#39;</span><span class="p">]</span>
-    <span class="mi">5</span><span class="p">:</span>
-    <span class="c1">--------------------------------------------------------------------------------</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">.</span><span class="mi">09149</span> <span class="n">s</span><span class="p">]</span> <span class="n">killed</span> <span class="k">by</span> <span class="n">test_names</span><span class="p">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_sort_by_surname_desc</span>
-    <span class="p">...</span>
-    <span class="p">...</span> <span class="n">many</span> <span class="k">more</span> <span class="p">...</span>
-    <span class="p">...</span>
+<div class="highlight"><pre><span></span>    $ mut.py --target names.py --unit-test test_names.py --runner pytest --coverage -m
+    [*] Start mutation process:
+    - targets: names.py
+    - tests: test_names.py
+    [*] 6 tests passed:
+    - test_names [0.32475 s]
+    [*] Start mutants generation and execution:
+    - [#   1] CRP names:
+    --------------------------------------------------------------------------------
+    -  1: NAMES = [&#39;arnold schwarzenegger&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    +  1: NAMES = [&#39;mutpy&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    2:     &#39;julian sequeira&#39;, &#39;sandra bullock&#39;, &#39;keanu reeves&#39;, \
+    3:     &#39;julbob pybites&#39;, &#39;bob belderbos&#39;, &#39;julian sequeira&#39;, \
+    4:     &#39;al pacino&#39;, &#39;brad pitt&#39;, &#39;matt damon&#39;, &#39;brad pitt&#39;]
+    5:
+    --------------------------------------------------------------------------------
+    [0.10319 s] killed by test_names.py::test_sort_by_surname_desc
+    - [#   2] CRP names:
+    --------------------------------------------------------------------------------
+    -  1: NAMES = [&#39;arnold schwarzenegger&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    +  1: NAMES = [&#39;&#39;, &#39;alec baldwin&#39;, &#39;bob belderbos&#39;, \
+    2:     &#39;julian sequeira&#39;, &#39;sandra bullock&#39;, &#39;keanu reeves&#39;, \
+    3:     &#39;julbob pybites&#39;, &#39;bob belderbos&#39;, &#39;julian sequeira&#39;, \
+    4:     &#39;al pacino&#39;, &#39;brad pitt&#39;, &#39;matt damon&#39;, &#39;brad pitt&#39;]
+    5:
+    --------------------------------------------------------------------------------
+    [0.09149 s] killed by test_names.py::test_sort_by_surname_desc
+    ...
+    ... many more ...
+    ...
 </pre></div>
 
 
