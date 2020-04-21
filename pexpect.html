@@ -136,7 +136,7 @@ We automate these by telling pexpect what to expect from the application and the
 
 
 <p>You can see that I’m literally telling pexpect what <em>it</em> should see when it initiates the first ssh command. I want pexpect to log into this box for me so I’ll need it to pass on my password (never hardcode your password into a script!):</p>
-<div class="highlight"><pre><span></span><span class="n">pexpect</span><span class="p">.</span><span class="n">sendline</span><span class="p">(</span><span class="err">‘</span><span class="n">password</span><span class="err">’</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>pexpect.sendline(‘password’)
 </pre></div>
 
 

@@ -121,54 +121,54 @@
 <h2>Create an IPv4 or IPv6 address</h2>
 <p>The ipaddress module allows you to automatically create an IPv4 or IPv6 address without having to specify the type of address.</p>
 <p>Just call .ip_address on ipaddress to let the modules figure it out for you:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">ipaddress</span><span class="p">.</span><span class="n">ip_address</span><span class="p">(</span><span class="s1">&#39;192.168.0.1&#39;</span><span class="p">)</span>
-<span class="n">IPv4Address</span><span class="p">(</span><span class="s1">&#39;192.168.0.1’)</span>
-<span class="s1">&gt;&gt;&gt;</span>
-<span class="s1">&gt;&gt;&gt; ipaddress.ip_address(&#39;</span><span class="n">fe80</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">:</span><span class="n">f8ff</span><span class="p">:</span><span class="n">fe21</span><span class="p">:</span><span class="mi">67</span><span class="n">cf</span><span class="s1">&#39;)</span>
-<span class="s1">IPv6Address(&#39;</span><span class="n">fe80</span><span class="p">::</span><span class="mi">200</span><span class="p">:</span><span class="n">f8ff</span><span class="p">:</span><span class="n">fe21</span><span class="p">:</span><span class="mi">67</span><span class="n">cf</span><span class="err">&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; ipaddress.ip_address(&#39;192.168.0.1&#39;)
+IPv4Address(&#39;192.168.0.1’)
+&gt;&gt;&gt;
+&gt;&gt;&gt; ipaddress.ip_address(&#39;fe80:0:0:0:200:f8ff:fe21:67cf&#39;)
+IPv6Address(&#39;fe80::200:f8ff:fe21:67cf&#39;)
+&gt;&gt;&gt;
 </pre></div>
 
 
 <p>Super simple!</p>
 <h2>Defining your host interface</h2>
 <p>To describe your particular host interface on a network, you call .ip_interface. Note that this uses the now normal notation: ‘192.168.0.1/24’.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">ipaddress</span><span class="p">.</span><span class="n">ip_interface</span><span class="p">(</span><span class="s1">&#39;192.168.0.1/24&#39;</span><span class="p">)</span>
-<span class="n">IPv4Interface</span><span class="p">(</span><span class="s1">&#39;192.168.0.1/24&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; ipaddress.ip_interface(&#39;192.168.0.1/24&#39;)
+IPv4Interface(&#39;192.168.0.1/24&#39;)
+&gt;&gt;&gt;
 </pre></div>
 
 
 <h2>Checking your ipaddress object</h2>
 <p>Now, as Python rocks, we can then assign these values to an object/variable and play with them:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="o">#</span><span class="k">Is</span> <span class="n">it</span> <span class="n">IPv4</span> <span class="k">or</span> <span class="n">IPv6</span><span class="o">?</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ip</span> <span class="o">=</span> <span class="n">ipaddress</span><span class="p">.</span><span class="n">ip_address</span><span class="p">(</span><span class="err">‘</span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="err">’</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">ip</span><span class="p">.</span><span class="k">version</span>
-<span class="mi">4</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; #Is it IPv4 or IPv6?
+&gt;&gt;&gt; ip = ipaddress.ip_address(‘192.168.0.1’)
+&gt;&gt;&gt; ip.version
+4
+&gt;&gt;&gt;
 </pre></div>
 
 
 <h2>What’s the netmask?</h2>
 <p>I hate trying to remember netmasks and how the differing notations match up. I tend to stick with the loveable IP format of 255.255.255.0 whereas others I know love to use the hate-filled 192.168.0.1/24 method. (There, I said it!).</p>
 <p>Now I never have to plug my netmasks into a shady online calculator again:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">net0</span>
-<span class="n">IPv4Network</span><span class="p">(</span><span class="s1">&#39;192.168.0.0/24&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">net0</span><span class="p">.</span><span class="n">netmask</span>
-<span class="n">IPv4Address</span><span class="p">(</span><span class="s1">&#39;255.255.255.0&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; net0
+IPv4Network(&#39;192.168.0.0/24&#39;)
+&gt;&gt;&gt; net0.netmask
+IPv4Address(&#39;255.255.255.0&#39;)
+&gt;&gt;&gt;
 </pre></div>
 
 
 <p>Kaloo Kalay!</p>
 <h2>Defining and checking a network</h2>
 <p>You can also define an entire network as per the following. I’ll show you why this is awesome in a second:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> #<span class="nv">Define</span> <span class="nv">the</span> <span class="nv">network</span> <span class="nv">first</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">net0</span> <span class="o">=</span> <span class="nv">ipaddress</span>.<span class="nv">ip_network</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">192.168.0.0/24</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> #<span class="nv">Now</span> <span class="nv">check</span> <span class="nv">to</span> <span class="nv">see</span> <span class="nv">how</span> <span class="nv">many</span> <span class="nv">addresses</span> <span class="nv">are</span> <span class="nv">valid</span> <span class="k">for</span> <span class="nv">this</span> <span class="nv">network</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">net0</span>.<span class="nv">num_addresses</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">256</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; #Define the network first
+&gt;&gt;&gt; net0 = ipaddress.ip_network(&#39;192.168.0.0/24&#39;)
+&gt;&gt;&gt;
+&gt;&gt;&gt; #Now check to see how many addresses are valid for this network
+&gt;&gt;&gt; net0.num_addresses
+&gt;&gt;&gt; 256
 </pre></div>
 
 
@@ -183,46 +183,46 @@
 </li>
 </ol>
 <p>Here’s how the ipaddress module shows me some love:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">net0</span> <span class="o">=</span> <span class="nv">ipaddress</span>.<span class="nv">ip_network</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">192.168.0.0/24</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">net0</span>.<span class="nv">hosts</span><span class="ss">()</span>:
-...     <span class="nv">print</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; net0 = ipaddress.ip_network(&#39;192.168.0.0/24&#39;)
+&gt;&gt;&gt; 
+&gt;&gt;&gt; for i in net0.hosts():
+...     print(i)
 ... 
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">1</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">2</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">3</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">4</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">5</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">6</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">7</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">8</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">9</span>
-<span class="o">&lt;</span><span class="nv">snip</span><span class="o">&gt;</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">253</span>
-<span class="mi">192</span>.<span class="mi">168</span>.<span class="mi">0</span>.<span class="mi">254</span>
-<span class="o">&gt;&gt;&gt;</span>
+192.168.0.1
+192.168.0.2
+192.168.0.3
+192.168.0.4
+192.168.0.5
+192.168.0.6
+192.168.0.7
+192.168.0.8
+192.168.0.9
+&lt;snip&gt;
+192.168.0.253
+192.168.0.254
+&gt;&gt;&gt;
 </pre></div>
 
 
 <p><em>Drool</em></p>
 <p>Or we can pop net0.hosts() (a generator) into a list and manipulate it as we see fit:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">iplist</span> <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">net0</span><span class="p">.</span><span class="n">hosts</span><span class="p">())</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="s1">&#39;Bob can take IP {iplist[57]}&#39;</span>
-<span class="s1">&#39;Bob can take IP 192.168.0.58&#39;</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; iplist = list(net0.hosts())
+&gt;&gt;&gt;
+&gt;&gt;&gt; f&#39;Bob can take IP {iplist[57]}&#39;
+&#39;Bob can take IP 192.168.0.58&#39;
+&gt;&gt;&gt;
 </pre></div>
 
 
 <h2>Playing nice with other modules</h2>
 <p>As you play around with the ipaddress module you’ll find that the objects won’t play nice with other modules until converted to strings or integers. As per <a href="https://docs.python.org/3/library/ipaddress.html#conversion-to-strings-and-integers">Section 21.28.2.2</a> on the official Python documentation.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">ip</span> <span class="o">=</span> <span class="n">ipaddress</span><span class="p">.</span><span class="n">ip_address</span><span class="p">(</span><span class="s1">&#39;192.168.0.1&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
-<span class="s1">&#39;192.168.0.1&#39;</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
-<span class="mi">3232235521</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; ip = ipaddress.ip_address(&#39;192.168.0.1&#39;)
+&gt;&gt;&gt; str(ip)
+&#39;192.168.0.1&#39;
+&gt;&gt;&gt;
+&gt;&gt;&gt; int(ip)
+3232235521
+&gt;&gt;&gt;
 </pre></div>
 
 
