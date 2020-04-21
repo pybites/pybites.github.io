@@ -118,10 +118,10 @@
 <p>For loops in particular took me by surprise.</p>
 <h2>For Loop in C</h2>
 <p>It's worth showing how I/we wrote for loops prior to reaching Pylightenment (ha!):</p>
-<div class="highlight"><pre><span></span>demo_list = [];
+<div class="highlight"><pre><span></span><span class="nv">demo_list</span> <span class="o">=</span> []<span class="c1">;</span>
 
-for(int i = 0; i &lt; 10; i++){
-    printf(demo_list[i]);
+<span class="k">for</span><span class="ss">(</span><span class="nv">int</span> <span class="nv">i</span> <span class="o">=</span> <span class="mi">0</span><span class="c1">; i &lt; 10; i++){</span>
+    <span class="nv">printf</span><span class="ss">(</span><span class="nv">demo_list</span>[<span class="nv">i</span>]<span class="ss">)</span><span class="c1">;</span>
 }
 </pre></div>
 
@@ -131,8 +131,8 @@ The concept however, is that we have a counter, <em>i</em>, that will allow the 
 <p>I always found this tricky because you had to get your counter values right. There was always so much room to mess up by being off by one. Furthermore, you'd have to know how many items are in <em>demo_list</em> in order to list out the entire list. Getting around this would then add further complication and possibly more lines of code.</p>
 <h2>For Loop in Python</h2>
 <p>On the other hand, Python doesn't use a counter whatsoever. It simply iterates over the entire object until finished. Here's the same code in Python:</p>
-<div class="highlight"><pre><span></span>for item in demo_list:
-    print(item)
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">item</span> <span class="nv">in</span> <span class="nv">demo_list</span>:
+    <span class="nv">print</span><span class="ss">(</span><span class="nv">item</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -153,89 +153,89 @@ The concept however, is that we have a counter, <em>i</em>, that will allow the 
 <p>This list was taken from an incredibly detailed and interesting <a href="https://www.youtube.com/watch?v=o5gByn3RKFI">training video</a> by Luciano Ramalho.</p>
 <h2>The Iteration Protocol</h2>
 <p>This is how a for loop works internally, it catches the StopIteration for you:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; name = &#39;Julian&#39;
-&gt;&gt;&gt; name.__iter__
-&lt;method-wrapper &#39;__iter__&#39; of str object at 0x102a85848&gt;
-&gt;&gt;&gt; it = name.__iter__()
-&gt;&gt;&gt; next(it)
-&#39;J&#39;
-&gt;&gt;&gt; next(it)
-&#39;u&#39;
-&gt;&gt;&gt; next(it)
-&#39;l&#39;
-&gt;&gt;&gt; next(it)
-&#39;i&#39;
-&gt;&gt;&gt; next(it)
-&#39;a&#39;
-&gt;&gt;&gt; next(it)
-&#39;n&#39;
-&gt;&gt;&gt; next(it)
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-StopIteration
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">Julian</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">name</span>.<span class="nv">__iter__</span>
+<span class="o">&lt;</span><span class="nv">method</span><span class="o">-</span><span class="nv">wrapper</span> <span class="s1">&#39;</span><span class="s">__iter__</span><span class="s1">&#39;</span> <span class="nv">of</span> <span class="nv">str</span> <span class="nv">object</span> <span class="nv">at</span> <span class="mi">0</span><span class="nv">x102a85848</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">it</span> <span class="o">=</span> <span class="nv">name</span>.<span class="nv">__iter__</span><span class="ss">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">it</span><span class="ss">)</span>
+<span class="s1">&#39;</span><span class="s">J</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">it</span><span class="ss">)</span>
+<span class="s1">&#39;</span><span class="s">u</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">it</span><span class="ss">)</span>
+<span class="s1">&#39;</span><span class="s">l</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">it</span><span class="ss">)</span>
+<span class="s1">&#39;</span><span class="s">i</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">it</span><span class="ss">)</span>
+<span class="s1">&#39;</span><span class="s">a</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">it</span><span class="ss">)</span>
+<span class="s1">&#39;</span><span class="s">n</span><span class="s1">&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">next</span><span class="ss">(</span><span class="nv">it</span><span class="ss">)</span>
+<span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
+<span class="nv">File</span> <span class="s2">&quot;</span><span class="s">&lt;stdin&gt;</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">1</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+<span class="nv">StopIteration</span>
 </pre></div>
 
 
 <p>The __iter__ method is what makes an object iterable. You can use that in your own classes, for example:</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Challenge</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span><span class="o">:</span>
-    <span class="kt">number</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight"><pre><span></span><span class="nv">class</span> <span class="nv">Challenge</span><span class="ss">(</span><span class="nv">object</span><span class="ss">)</span>:
+    <span class="nv">number</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">users</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">users</span> <span class="o">=</span> <span class="nx">users</span>
-        <span class="nx">Challenge</span><span class="p">.</span><span class="kt">number</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="nv">def</span> <span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">name</span>, <span class="nv">users</span><span class="ss">)</span>:
+        <span class="nv">self</span>.<span class="nv">name</span> <span class="o">=</span> <span class="nv">name</span>
+        <span class="nv">self</span>.<span class="nv">users</span> <span class="o">=</span> <span class="nv">users</span>
+        <span class="nv">Challenge</span>.<span class="nv">number</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    <span class="nx">def</span> <span class="nx">__str__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">num</span> <span class="o">=</span> <span class="nx">str</span><span class="p">(</span><span class="nx">Challenge</span><span class="p">.</span><span class="kt">number</span><span class="p">).</span><span class="nx">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s1">&#39;Challenge {}: {}&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+    <span class="nv">def</span> <span class="nv">__str__</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="nv">num</span> <span class="o">=</span> <span class="nv">str</span><span class="ss">(</span><span class="nv">Challenge</span>.<span class="nv">number</span><span class="ss">)</span>.<span class="nv">zfill</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="s">Challenge {}: {}</span><span class="s1">&#39;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">num</span>, <span class="nv">self</span>.<span class="nv">name</span><span class="ss">)</span>
 
-    <span class="nx">def</span> <span class="nx">__iter__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="s2">&quot;&quot;&quot;Make the object iterable&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="nx">usr</span> <span class="k">in</span> <span class="nx">self.users</span>:
-            <span class="kt">yield</span> <span class="nx">usr</span>
+    <span class="nv">def</span> <span class="nv">__iter__</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="s2">&quot;&quot;&quot;</span><span class="s">Make the object iterable</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="nv">usr</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">users</span>:
+            <span class="nv">yield</span> <span class="nv">usr</span>
 
-<span class="err">#</span> <span class="nx">now</span> <span class="nx">use</span> <span class="nx">it</span>:
-<span class="kt">users</span> <span class="o">=</span> <span class="s1">&#39;tim&#39;</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="s1">&#39;victor&#39;</span><span class="p">,</span> <span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="s1">&#39;henk&#39;</span>
-<span class="nx">ch01</span> <span class="o">=</span> <span class="nx">Challenge</span><span class="p">(</span><span class="s1">&#39;wordvalue&#39;</span><span class="p">,</span> <span class="nx">users</span><span class="p">)</span>
-<span class="nx">print</span><span class="p">(</span><span class="nx">ch01</span><span class="p">)</span>
-<span class="nx">Challenge</span> <span class="nx">01</span>: <span class="kt">wordvalue</span>
-<span class="k">for</span> <span class="nx">usr</span> <span class="k">in</span> <span class="nx">ch01</span>:
-    <span class="kt">print</span><span class="p">(</span><span class="nx">usr</span><span class="p">)</span>
-<span class="nx">tim</span>
-<span class="nx">bob</span>
-<span class="nx">victor</span>
-<span class="nx">julian</span>
-<span class="nx">henk</span>
+# <span class="nv">now</span> <span class="nv">use</span> <span class="nv">it</span>:
+<span class="nv">users</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">tim</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">victor</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">henk</span><span class="s1">&#39;</span>
+<span class="nv">ch01</span> <span class="o">=</span> <span class="nv">Challenge</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">wordvalue</span><span class="s1">&#39;</span>, <span class="nv">users</span><span class="ss">)</span>
+<span class="nv">print</span><span class="ss">(</span><span class="nv">ch01</span><span class="ss">)</span>
+<span class="nv">Challenge</span> <span class="mi">01</span>: <span class="nv">wordvalue</span>
+<span class="k">for</span> <span class="nv">usr</span> <span class="nv">in</span> <span class="nv">ch01</span>:
+    <span class="nv">print</span><span class="ss">(</span><span class="nv">usr</span><span class="ss">)</span>
+<span class="nv">tim</span>
+<span class="nv">bob</span>
+<span class="nv">victor</span>
+<span class="nv">julian</span>
+<span class="nv">henk</span>
 
-<span class="nx">users2</span> <span class="o">=</span> <span class="s1">&#39;tim&#39;</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="s1">&#39;sam&#39;</span><span class="p">,</span> <span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="s1">&#39;maria&#39;</span> 
-<span class="nx">ch02</span> <span class="o">=</span> <span class="nx">Challenge</span><span class="p">(</span><span class="s1">&#39;wordvalue part II&#39;</span><span class="p">,</span> <span class="nx">users2</span><span class="p">)</span>
+<span class="nv">users2</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">tim</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">sam</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">maria</span><span class="s1">&#39;</span> 
+<span class="nv">ch02</span> <span class="o">=</span> <span class="nv">Challenge</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">wordvalue part II</span><span class="s1">&#39;</span>, <span class="nv">users2</span><span class="ss">)</span>
 
-<span class="nx">print</span><span class="p">(</span><span class="nx">ch02</span><span class="p">)</span>
-<span class="nx">Challenge</span> <span class="nx">02</span>: <span class="kt">wordvalue</span> <span class="nx">part</span> <span class="nx">II</span>
+<span class="nv">print</span><span class="ss">(</span><span class="nv">ch02</span><span class="ss">)</span>
+<span class="nv">Challenge</span> <span class="mi">02</span>: <span class="nv">wordvalue</span> <span class="nv">part</span> <span class="nv">II</span>
 
-<span class="k">for</span> <span class="nx">usr</span> <span class="k">in</span> <span class="nx">ch02</span>:
-    <span class="kt">print</span><span class="p">(</span><span class="nx">usr</span><span class="p">)</span>
-<span class="nx">tim</span>
-<span class="nx">bob</span>
-<span class="nx">sam</span>
-<span class="nx">julian</span>
-<span class="nx">maria</span>
+<span class="k">for</span> <span class="nv">usr</span> <span class="nv">in</span> <span class="nv">ch02</span>:
+    <span class="nv">print</span><span class="ss">(</span><span class="nv">usr</span><span class="ss">)</span>
+<span class="nv">tim</span>
+<span class="nv">bob</span>
+<span class="nv">sam</span>
+<span class="nv">julian</span>
+<span class="nv">maria</span>
 </pre></div>
 
 
 <h2>Iteration Fun - Parallel Assignment</h2>
 <p>The simplicity and flexibility of Python iteration makes it pretty satisfying and fun to use.</p>
 <p>One of my favourites is Parallel Assignment:</p>
-<div class="highlight"><pre><span></span>awesomeness_levels = [(&#39;Bob&#39;, 8), (&#39;Julian&#39;, 11), (&#39;PyBites&#39;, 3)]
+<div class="highlight"><pre><span></span><span class="nv">awesomeness_levels</span> <span class="o">=</span> [<span class="ss">(</span><span class="s1">&#39;</span><span class="s">Bob</span><span class="s1">&#39;</span>, <span class="mi">8</span><span class="ss">)</span>, <span class="ss">(</span><span class="s1">&#39;</span><span class="s">Julian</span><span class="s1">&#39;</span>, <span class="mi">11</span><span class="ss">)</span>, <span class="ss">(</span><span class="s1">&#39;</span><span class="s">PyBites</span><span class="s1">&#39;</span>, <span class="mi">3</span><span class="ss">)</span>]
 
-for name, level in awesomeness_levels:
-    print(name + &#39;: &#39; + str(level))
+<span class="k">for</span> <span class="nv">name</span>, <span class="nv">level</span> <span class="nv">in</span> <span class="nv">awesomeness_levels</span>:
+    <span class="nv">print</span><span class="ss">(</span><span class="nv">name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="s">: </span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nv">str</span><span class="ss">(</span><span class="nv">level</span><span class="ss">))</span>
 
-Bob: 8
-Julian: 11
-PyBites: 3
+<span class="nv">Bob</span>: <span class="mi">8</span>
+<span class="nv">Julian</span>: <span class="mi">11</span>
+<span class="nv">PyBites</span>: <span class="mi">3</span>
 
-# I turned it up to eleven!
+# <span class="nv">I</span> <span class="nv">turned</span> <span class="nv">it</span> <span class="nv">up</span> <span class="nv">to</span> <span class="nv">eleven</span><span class="o">!</span>
 </pre></div>
 
 

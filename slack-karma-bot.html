@@ -119,15 +119,15 @@
 <h2>Setup</h2>
 <p>This exercise is similar to our <a href="https://pybit.es/simple-chatbot.html">How to Build a Simple Slack Bot</a> article. First you create a bot user and get an API_KEY from Slack. </p>
 <p>The bot user needs to be defined as ID so you need to retrieve it for which I made a helper script:</p>
-<div class="highlight"><pre><span></span>$ python3 -m utils.get_botid
-Bot ID <span class="k">for</span> <span class="s1">&#39;karmabot&#39;</span> is xyz
+<div class="highlight"><pre><span></span>$ <span class="nv">python3</span> <span class="o">-</span><span class="nv">m</span> <span class="nv">utils</span>.<span class="nv">get_botid</span>
+<span class="nv">Bot</span> <span class="nv">ID</span> <span class="k">for</span> <span class="s1">&#39;</span><span class="s">karmabot</span><span class="s1">&#39;</span> <span class="nv">is</span> <span class="nv">xyz</span>
 </pre></div>
 
 
 <p>(This calls the get_botid.py script in the utils package. More on packaging next week ...)</p>
 <p>Then I stored the following two env variables in my <code>bashrc</code>:</p>
-<div class="highlight"><pre><span></span>export SLACK_KARMA_BOTUSER=xyz
-export SLACK_KARMA_TOKEN=super-secret
+<div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SLACK_KARMA_BOTUSER</span><span class="o">=</span><span class="n">xyz</span>
+<span class="n">export</span> <span class="n">SLACK_KARMA_TOKEN</span><span class="o">=</span><span class="n">super</span><span class="o">-</span><span class="n">secret</span>
 </pre></div>
 
 
@@ -144,12 +144,12 @@ export SLACK_KARMA_TOKEN=super-secret
 </li>
 <li>
 <p>One of my favorite regex methods <code>findall</code> checks each new message for potential karma actions:</p>
-<div class="highlight"><pre><span></span>karma_changes = KARMA_ACTION.findall(text)
+<div class="highlight"><pre><span></span><span class="n">karma_changes</span> <span class="o">=</span> <span class="n">KARMA_ACTION</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="nb">text</span><span class="p">)</span>
 </pre></div>
 
 
 <p>where: </p>
-<div class="highlight"><pre><span></span>KARMA_ACTION = re.compile(r&#39;(?:^| )(\S{2,}?)\s?([\+\-]{2,})&#39;)
+<div class="highlight"><pre><span></span><span class="n">KARMA_ACTION</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;(?:^| )(\S{2,}?)\s?([\+\-]{2,})&#39;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -182,8 +182,8 @@ export SLACK_KARMA_TOKEN=super-secret
 
 
 <p>... and is backed up every minute with:</p>
-<div class="highlight"><pre><span></span>def _save_cache():
-    pickle.dump(karmas, open(KARMA_CACHE, &quot;wb&quot;))
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">_save_cache</span><span class="p">():</span>
+    <span class="n">pickle</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">karmas</span><span class="p">,</span> <span class="k">open</span><span class="p">(</span><span class="n">KARMA_CACHE</span><span class="p">,</span> <span class="ss">&quot;wb&quot;</span><span class="p">))</span>
 </pre></div>
 
 
