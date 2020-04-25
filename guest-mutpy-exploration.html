@@ -175,43 +175,43 @@
 </ul>
 <p>The first two sections are fairly self-explanatory, and for the most part you won't need to look at them. So, we'll focus on the third and fourth sections.</p>
 <p>Here's an example of Mut.py's output from a partially-completed <a href="https://codechalleng.es/bites/241/">Bite 241</a>:</p>
-<div class="highlight"><pre><span></span><span class="o">===</span> <span class="mi">2</span>. <span class="nv">MutPy</span> <span class="nv">output</span> <span class="o">===</span>
-<span class="o">===</span> $ <span class="nv">mut</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">target</span> <span class="nv">numbers_to_dec</span> <span class="o">--</span><span class="nv">unit</span><span class="o">-</span><span class="nv">test</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span> <span class="o">--</span><span class="nv">runner</span> <span class="nv">pytest</span> <span class="o">-</span><span class="nv">m</span> <span class="o">===</span>
+<div class="highlight"><pre><span></span>=== 2. MutPy output ===
+=== $ mut.py --target numbers_to_dec --unit-test test_numbers_to_dec.py --runner pytest -m ===
 
-[<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutation</span> <span class="nv">process</span>:
-   <span class="o">-</span> <span class="nv">targets</span>: <span class="nv">numbers_to_dec</span>
-   <span class="o">-</span> <span class="nv">tests</span>: <span class="o">/</span><span class="nv">tmp</span><span class="o">/</span><span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>
-[<span class="o">*</span>] <span class="mi">3</span> <span class="nv">tests</span> <span class="nv">passed</span>:
-   <span class="o">-</span> <span class="nv">test_numbers_to_dec</span> [<span class="mi">0</span>.<span class="mi">32171</span> <span class="nv">s</span>]
-[<span class="o">*</span>] <span class="nv">Start</span> <span class="nv">mutants</span> <span class="nv">generation</span> <span class="nv">and</span> <span class="nv">execution</span>:
-   <span class="o">-</span> [#   <span class="mi">1</span>] <span class="nv">COD</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11618</span> <span class="nv">s</span>] <span class="nv">incompetent</span>
-   <span class="o">-</span> [#   <span class="mi">2</span>] <span class="nv">COD</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11565</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_out_of_range</span>
-   <span class="o">-</span> [#   <span class="mi">3</span>] <span class="nv">COI</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11298</span> <span class="nv">s</span>] <span class="nv">incompetent</span>
-   <span class="o">-</span> [#   <span class="mi">4</span>] <span class="nv">COI</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11256</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_out_of_range</span>
-   <span class="o">-</span> [#   <span class="mi">5</span>] <span class="nv">COI</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11287</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_out_of_range</span>
-   <span class="o">-</span> [#   <span class="mi">6</span>] <span class="nv">CRP</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11643</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_correct</span>
-   <span class="o">-</span> [#   <span class="mi">7</span>] <span class="nv">CRP</span> <span class="nv">numbers_to_dec</span>: 
-<span class="o">--------------------------------------------------------------------------------</span>
-  <span class="mi">14</span>:     <span class="s2">&quot;&quot;&quot;</span>
-  <span class="mi">15</span>:     <span class="k">for</span> <span class="nv">num</span> <span class="nv">in</span> <span class="nv">nums</span>:
-  <span class="mi">16</span>:         <span class="k">if</span> <span class="ss">(</span><span class="nv">isinstance</span><span class="ss">(</span><span class="nv">num</span>, <span class="nv">bool</span><span class="ss">)</span> <span class="nv">or</span> <span class="nv">not</span> <span class="ss">(</span><span class="nv">isinstance</span><span class="ss">(</span><span class="nv">num</span>, <span class="nv">int</span><span class="ss">)))</span>:
-  <span class="mi">17</span>:             <span class="nv">raise</span> <span class="nv">TypeError</span>
-<span class="o">-</span> <span class="mi">18</span>:         <span class="nv">elif</span> <span class="nv">not</span> <span class="ss">(</span><span class="nv">num</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">0</span>, <span class="mi">10</span><span class="ss">))</span>:
-<span class="o">+</span> <span class="mi">18</span>:         <span class="nv">elif</span> <span class="nv">not</span> <span class="ss">(</span><span class="nv">num</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">0</span>, <span class="mi">11</span><span class="ss">))</span>:
-  <span class="mi">19</span>:             <span class="nv">raise</span> <span class="nv">ValueError</span>
-  <span class="mi">20</span>:
-  <span class="mi">21</span>:     <span class="k">return</span> <span class="nv">int</span><span class="ss">(</span><span class="s1">&#39;&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">map</span><span class="ss">(</span><span class="nv">str</span>, <span class="nv">nums</span><span class="ss">)))</span>
-<span class="o">--------------------------------------------------------------------------------</span>
-[<span class="mi">0</span>.<span class="mi">11324</span> <span class="nv">s</span>] <span class="nv">survived</span>
+[*] Start mutation process:
+   - targets: numbers_to_dec
+   - tests: /tmp/test_numbers_to_dec.py
+[*] 3 tests passed:
+   - test_numbers_to_dec [0.32171 s]
+[*] Start mutants generation and execution:
+   - [#   1] COD numbers_to_dec: [0.11618 s] incompetent
+   - [#   2] COD numbers_to_dec: [0.11565 s] killed by test_numbers_to_dec.py::test_out_of_range
+   - [#   3] COI numbers_to_dec: [0.11298 s] incompetent
+   - [#   4] COI numbers_to_dec: [0.11256 s] killed by test_numbers_to_dec.py::test_out_of_range
+   - [#   5] COI numbers_to_dec: [0.11287 s] killed by test_numbers_to_dec.py::test_out_of_range
+   - [#   6] CRP numbers_to_dec: [0.11643 s] killed by test_numbers_to_dec.py::test_correct
+   - [#   7] CRP numbers_to_dec: 
+--------------------------------------------------------------------------------
+  14:     &quot;&quot;&quot;
+  15:     for num in nums:
+  16:         if (isinstance(num, bool) or not (isinstance(num, int))):
+  17:             raise TypeError
+- 18:         elif not (num in range(0, 10)):
++ 18:         elif not (num in range(0, 11)):
+  19:             raise ValueError
+  20:
+  21:     return int(&#39;&#39;.join(map(str, nums)))
+--------------------------------------------------------------------------------
+[0.11324 s] survived
 
-   <span class="o">-</span> [#   <span class="mi">8</span>] <span class="nv">CRP</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">13675</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_correct</span>
-   <span class="o">-</span> [#   <span class="mi">9</span>] <span class="nv">LCR</span> <span class="nv">numbers_to_dec</span>: [<span class="mi">0</span>.<span class="mi">11509</span> <span class="nv">s</span>] <span class="nv">killed</span> <span class="nv">by</span> <span class="nv">test_numbers_to_dec</span>.<span class="nv">py</span>::<span class="nv">test_wrong_type</span>
-[<span class="o">*</span>] <span class="nv">Mutation</span> <span class="nv">score</span> [<span class="mi">1</span>.<span class="mi">50227</span> <span class="nv">s</span>]: <span class="mi">85</span>.<span class="mi">7</span><span class="o">%</span>
-   <span class="o">-</span> <span class="nv">all</span>: <span class="mi">9</span>
-   <span class="o">-</span> <span class="nv">killed</span>: <span class="mi">6</span> <span class="ss">(</span><span class="mi">66</span>.<span class="mi">7</span><span class="o">%</span><span class="ss">)</span>
-   <span class="o">-</span> <span class="nv">survived</span>: <span class="mi">1</span> <span class="ss">(</span><span class="mi">11</span>.<span class="mi">1</span><span class="o">%</span><span class="ss">)</span>
-   <span class="o">-</span> <span class="nv">incompetent</span>: <span class="mi">2</span> <span class="ss">(</span><span class="mi">22</span>.<span class="mi">2</span><span class="o">%</span><span class="ss">)</span>
-   <span class="o">-</span> <span class="nb">timeout</span>: <span class="mi">0</span> <span class="ss">(</span><span class="mi">0</span>.<span class="mi">0</span><span class="o">%</span><span class="ss">)</span>
+   - [#   8] CRP numbers_to_dec: [0.13675 s] killed by test_numbers_to_dec.py::test_correct
+   - [#   9] LCR numbers_to_dec: [0.11509 s] killed by test_numbers_to_dec.py::test_wrong_type
+[*] Mutation score [1.50227 s]: 85.7%
+   - all: 9
+   - killed: 6 (66.7%)
+   - survived: 1 (11.1%)
+   - incompetent: 2 (22.2%)
+   - timeout: 0 (0.0%)
 </pre></div>
 
 
