@@ -118,13 +118,15 @@
 <p>In this article I will give you some insights that will get you clarity on this.</p>
 <p>Classes are incredibly useful and robust, but you need to know when to use them. Here are some considerations.</p>
 <h2>1. You need to keep state</h2>
-<p>For example, if you need to manage a bunch of students and grades, or when you build a game (e.g. <a href="https://github.com/pybites/challenges/blob/solutions/10/hangman-pb.py">we used a class for Hangman</a>). Basically, when you have data and behavior (= variables and methods), you would use a class.</p>
-<p>Again, games make for good practice for OOP. For example, try to to create a card game (<a href="https://codechalleng.es/challenges/20/">and submit it here</a>).</p>
+<p>For example, if you need to manage a bunch of students and grades, or when you build a game that keeps track of attempts, score etc (<a href="https://github.com/pybites/challenges/blob/solutions/10/hangman-pb.py">Hangman example</a>).</p>
+<p>Basically, when you have data and behavior (= variables and methods) that go together, you would use a class.</p>
 <h2>2. Bigger projects - classes favor code organization and reusability</h2>
 <p>I often use the example of a <code>Report</code> class. You can have a base class with shared attributes like report name, location and rows. But when you go into specifics like formats (xml, json, html), you could override a <code>generate_report</code> method in the subclass.</p>
-<p>Or think about animals. Mammals would be the base class (hair or fur, warm-blooded, young born alive, mammary glands and complex brain).</p>
-<p>Herbivores and carnivores are more <em>specific</em> animals, so they inherit from their base class, but add individual details to the mix (here being vegetarian or not).</p>
-<p>As you see, this hierarchy leads to better organization and less duplication of your code. And you can more easily extend it.</p>
+<p>Or think about <a href="https://en.wikipedia.org/wiki/Vehicle">vehicles</a>:</p>
+<blockquote>
+<p>Vehicles include wagons, bicycles, motor vehicles (motorcycles, cars, trucks, buses), railed vehicles (trains, trams), watercraft (ships, boats), amphibious vehicles (screw-propelled vehicle, hovercraft), aircraft (airplanes, helicopters) and spacecraft (<a href="https://en.wikipedia.org/wiki/Vehicle">Wikipedia</a>)</p>
+</blockquote>
+<p>When you see hierarchies like this, using classes leads to better code organization, less duplication, and reusable code.</p>
 <p>This becomes specially powerful if you have hundreds of subclasses and you need to make a fundamental change. You can make a single change in the base class (parent) and all child classes pick up the change (keeping things DRY).</p>
 <p><em>Note</em>: although I like inheritance, composition is often preferred because it is more flexible. When I get to a real world use case, I will write another article about it ...</p>
 <h2>3. Encapsulation</h2>
@@ -172,6 +174,9 @@
 </li>
 <li>
 <p>Once you get past the basics, read my article about Python's magic / special methods: <a href="https://dbader.org/blog/python-dunder-methods">Enriching Your Python Classes With Dunder (Magic, Special) Methods</a></p>
+</li>
+<li>
+<p>As we said before, games make for good OOP practice. Try to to create a card game (<a href="https://codechalleng.es/challenges/20/">and submit it here</a>).</p>
 </li>
 </ol>
 <p>Comment your wins below in the comments and hope to see you in the forums <a href="https://codechalleng.es">on our platform</a> ...</p>
