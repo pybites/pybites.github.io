@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Have you ever wondered why there are mutable and immutable in Python? Have you ever encountered this error in Python? &gt;&gt;&gt; s = &#39;hello&#39; &gt;&gt;&gt; s[0] = &#39;H&#39; Traceback (most recent call last): File...">
-        <meta name="keywords" content="data integrity, functional programming, immutable, javascript, lists, mutable, react, strings">
+        <meta name="description" content="Have you ever wondered why there are mutable and immutable types in Python? Have you ever encountered this error in Python? &gt;&gt;&gt; s = &#39;hello&#39; &gt;&gt;&gt; s[0] = &#39;H&#39; Traceback (most recent call last): File...">
+        <meta name="keywords" content="data integrity, functional programming, immutable, javascript, lists, mutable, react, strings, types">
         <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Mutable vs Immutable Data Types in Python - PyBites</title>
@@ -69,7 +69,7 @@
     <body>
 
         <!-- Header -->
-    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://pybit.es/images/locked.jpg'); background-position: center; ">
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://pybit.es/images/ripple.jpg'); background-position: center; ">
 
             <!-- Static navbar -->
             <div class="container">
@@ -100,7 +100,7 @@
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/data-integrity.html">data integrity</a>, <a href="https://pybit.es/tag/functional-programming.html">functional programming</a>, <a href="https://pybit.es/tag/immutable.html">immutable</a>, <a href="https://pybit.es/tag/javascript.html">javascript</a>, <a href="https://pybit.es/tag/lists.html">lists</a>, <a href="https://pybit.es/tag/mutable.html">mutable</a>, <a href="https://pybit.es/tag/react.html">react</a>, <a href="https://pybit.es/tag/strings.html">strings</a>                      </p>
+<a href="https://pybit.es/tag/data-integrity.html">data integrity</a>, <a href="https://pybit.es/tag/functional-programming.html">functional programming</a>, <a href="https://pybit.es/tag/immutable.html">immutable</a>, <a href="https://pybit.es/tag/javascript.html">javascript</a>, <a href="https://pybit.es/tag/lists.html">lists</a>, <a href="https://pybit.es/tag/mutable.html">mutable</a>, <a href="https://pybit.es/tag/react.html">react</a>, <a href="https://pybit.es/tag/strings.html">strings</a>, <a href="https://pybit.es/tag/types.html">types</a>                      </p>
                   </div>
               </div>
         </div>
@@ -114,51 +114,48 @@
 
         <!-- Content -->
     <div class="container content">
-        <p>Have you ever wondered why there are mutable and immutable in Python?</p>
+        <p>Have you ever wondered why there are mutable and immutable types in Python?</p>
 <p>Have you ever encountered this error in Python?</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
-&gt;&gt;&gt; s[0] = &#39;H&#39;
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-TypeError: &#39;str&#39; object does not support item assignment
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="k">call</span> <span class="k">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="n">TypeError</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="k">object</span> <span class="n">does</span> <span class="k">not</span> <span class="n">support</span> <span class="n">item</span> <span class="k">assignment</span>
 </pre></div>
 
 
-<p>In this article I give you some practical examples and show you some of the advantages of using immutable types. </p>
+<p>In this article I will give you some practical examples and show you some of the advantages of using immutable types. </p>
 <h2>Types</h2>
 <p>As per Python's <a href="https://docs.python.org/3/reference/datamodel.html#objects-values-and-types">language reference's Data model section</a>:</p>
 <blockquote>
-<p>The value of some objects can change. Objects whose value can change are said to be mutable; objects whose value is unchangeable once they are created are called immutable ... An object’s mutability is determined by its type; for instance, numbers, strings and tuples are immutable, while dictionaries and lists are mutable.</p>
+<p>The value of some objects can change. Objects whose value can change are said to be <strong>mutable</strong>; objects whose value is unchangeable once they are created are called <strong>immutable</strong> ... An object’s mutability is determined by its type; for instance, numbers, strings and tuples are immutable, while dictionaries and lists are mutable.</p>
 </blockquote>
 <p>Let's look at some examples.</p>
 <h2>String building</h2>
 <p>When I started Python I was not too concerned with string concatenations. I would have long chains of string building code of:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>s = 'hello'
-s += 'world'
-s += ...</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;world&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+=</span> <span class="p">...</span>
+</pre></div>
+
+
 <p>However if we look at the <code>id</code>s of <code>s</code> after each concatenation we discover:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
-&gt;&gt;&gt; id(s)
-4341555696
-&gt;&gt;&gt; s += &#39;world&#39;
-&gt;&gt;&gt; id(s)
-4341545584  =&gt; new object created!
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="mi">4341555696</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;world&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="mi">4341545584</span>  <span class="o">=&gt;</span> <span class="k">new</span> <span class="k">object</span> <span class="n">created</span><span class="o">!</span>
 </pre></div>
 
 
 <p>This is not efficient. So here you want to use a mutable type:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; l = [&#39;hello&#39;]
-&gt;&gt;&gt; id(l)
-4341463496
-&gt;&gt;&gt; l.append(&#39;world&#39;)
-&gt;&gt;&gt; id(l)
-4341463496  =&gt; same object
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="mi">4341463496</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;world&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="mi">4341463496</span>  <span class="o">=&gt;</span> <span class="n">same</span> <span class="k">object</span>
 </pre></div>
 
 
@@ -168,48 +165,48 @@ s += ...</p>
 <h2>Immutability</h2>
 <p>Another advantage of immutables is the guarantee that these objects will never change.</p>
 <p>Mutable types have a risk of being unexpectedly modified anywhere in your program:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; l
-[&#39;hello&#39;, &#39;world&#39;]
-&gt;&gt;&gt; ll = l  # somewhere a shallow copy was made
-&gt;&gt;&gt; l[0] = &#39;spam&#39;
-&gt;&gt;&gt; l
-[&#39;spam&#39;, &#39;world&#39;]
-&gt;&gt;&gt; ll
-[&#39;spam&#39;, &#39;world&#39;]  # oops!
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">l</span>
+<span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ll</span> <span class="o">=</span> <span class="n">l</span>  <span class="o">#</span> <span class="n">somewhere</span> <span class="n">a</span> <span class="n">shallow</span> <span class="k">copy</span> <span class="n">was</span> <span class="n">made</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;spam&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span>
+<span class="p">[</span><span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ll</span>
+<span class="p">[</span><span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>  <span class="o">#</span> <span class="n">oops</span><span class="o">!</span>
 </pre></div>
 
 
 <p>Or here are some more insidious problems:</p>
 <ul>
 <li>
-<p><a href="https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments">mutable default arguments</a>, a common <a href="https://docs.quantifiedcode.com/python-anti-patterns/correctness/mutable_default_value_as_argument.html">anti-pattern</a></p>
+<p><a href="https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments">Mutable default arguments</a>, a common <a href="https://docs.quantifiedcode.com/python-anti-patterns/correctness/mutable_default_value_as_argument.html">anti-pattern</a></p>
 </li>
 <li>
-<p><a href="https://pybit.es/mutability.html">compound objects</a></p>
+<p><a href="https://pybit.es/mutability.html">Compound objects</a></p>
 </li>
 <li>
-<p>multiple threads modiying an object (although <a href="https://www.oreilly.com/content/python-cookbook-concurrency/">you can use <em>locking</em></a>)</p>
+<p>Multiple threads modifying an object (although <a href="https://www.oreilly.com/content/python-cookbook-concurrency/">you can use <em>locking</em></a>)</p>
 </li>
 <li>
-<p>mutable objects / shared state (OOP) can lead to race conditions (<a href="https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0">example given here</a>)</p>
+<p>Mutable objects / shared state (OOP) can lead to race conditions (<a href="https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0">example given here</a>)</p>
 </li>
 </ul>
 <p>Further reading: <a href="https://hackernoon.com/5-benefits-of-immutable-objects-worth-considering-for-your-next-project-f98e7e85b6ac">5 Benefits of Immutable Objects Worth Considering for Your Next Project</a></p>
 <h2>Grain of salt</h2>
 <p>Notice that <em>immutable</em> is sometimes not 100% guaranteed. For instance, you can have a tuple with a list inside of it:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; a = (1, [2, 3], 4)
-&gt;&gt;&gt; a[0] = 2
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-TypeError: &#39;tuple&#39; object does not support item assignment
-&gt;&gt;&gt; a[1].append(3.5)
-&gt;&gt;&gt; a
-(1, [2, 3, 3.5], 4)
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="k">call</span> <span class="k">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="n">TypeError</span><span class="p">:</span> <span class="s1">&#39;tuple&#39;</span> <span class="k">object</span> <span class="n">does</span> <span class="k">not</span> <span class="n">support</span> <span class="n">item</span> <span class="k">assignment</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Not 100% immutable. Just something to be wary of.</p>
-<h2>React</h2>
+<h2>React &amp; functional programming</h2>
 <p>Huh? Yes, let's move onto JS for a bit. If you want to learn more about the paradigms of immutability and functional programming it's interesting <a href="https://blog.logrocket.com/immutability-in-react-ebe55253a1cc">to look at React</a>:</p>
 <blockquote>
 <p>It’s easier to test if two objects are equal if they are immutable and React takes advantage of this concept to make some performance optimizations.</p>
@@ -219,10 +216,10 @@ TypeError: &#39;tuple&#39; object does not support item assignment
 <p>Functional code tends to be more concise, more predictable, and easier to test than imperative or object oriented code — but if you’re unfamiliar with it and the common patterns associated with it, functional code can also seem a lot more dense, and the related literature can be impenetrable to newcomers.</p>
 </blockquote>
 <hr>
-<p>Although we went a bit wider than just Python, I hope this makes you think about mutable vs immutable and what it means for the code you read and write.</p>
-<p>(Photo by Masaaki Komori on Unsplash)</p>
+<p>I hope this makes you think about mutable vs immutable and what it means for your code ...</p>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
+<p>(Cover photo by Linus Nylund on Unsplash)</p>
 
 
     <div class="comments">

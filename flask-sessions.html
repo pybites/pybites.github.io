@@ -131,7 +131,7 @@
 <h2>Code Me Up!</h2>
 <p>The thing that surprised me was how simple it was. Coding wise, you use the object in exactly the same way you’d use a normal variable. It still has to abide by normal global/local rules in your code too.</p>
 <p>To assign the hourly wage to a <code>session</code> object I did this:</p>
-<div class="highlight"><pre><span></span>session[&#39;wage&#39;] = float(request.form.get(&#39;wage&#39;))
+<div class="highlight"><pre><span></span><span class="k">session</span><span class="p">[</span><span class="s1">&#39;wage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s1">&#39;wage&#39;</span><span class="p">))</span>
 </pre></div>
 
 
@@ -142,7 +142,7 @@
 <p>I know all of this sounds a lot like cookies. It should. Flask <code>session</code> objects exist on top of standard cookies. All that’s different is that the cookie is locked down with a secret key.</p>
 <p>This does not mean the data is private! The cookie data is visible but <strong>cannot be modified unless you have the secret key</strong>.</p>
 <p>This secret key needs to be accessible to your app code. You’d preferably make it an environment variable that isn’t accessible to the outside world. I made mine as complex as possible:</p>
-<div class="highlight"><pre><span></span>app.secret_key = &quot;Test_Secret_Key&quot;
+<div class="highlight"><pre><span></span><span class="n">app</span><span class="p">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="ss">&quot;Test_Secret_Key&quot;</span>
 </pre></div>
 
 
@@ -150,26 +150,26 @@
 <p><br></p>
 <h2>The Pay Calc App Use Case</h2>
 <p>In my Pay Calculator App, I create the <code>wage</code> session object in my index ‘/‘ route:</p>
-<div class="highlight"><pre><span></span>@app.route(&#39;/&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])
-def index():    
-    if request.method == &#39;POST&#39; and &#39;wage&#39; in request.form:
-        session[&#39;wage&#39;] = float(request.form.get(&#39;wage&#39;))
-        return redirect(url_for(&#39;pay_calc&#39;))
-    return render_template(&quot;index.html&quot;)
+<div class="highlight"><pre><span></span>@<span class="nv">app</span>.<span class="nv">route</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">/</span><span class="s1">&#39;</span>, <span class="nv">methods</span><span class="o">=</span>[<span class="s1">&#39;</span><span class="s">GET</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">POST</span><span class="s1">&#39;</span>]<span class="ss">)</span>
+<span class="nv">def</span> <span class="nv">index</span><span class="ss">()</span>:    
+    <span class="k">if</span> <span class="nv">request</span>.<span class="nv">method</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">POST</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">wage</span><span class="s1">&#39;</span> <span class="nv">in</span> <span class="nv">request</span>.<span class="nv">form</span>:
+        <span class="nv">session</span>[<span class="s1">&#39;</span><span class="s">wage</span><span class="s1">&#39;</span>] <span class="o">=</span> <span class="nv">float</span><span class="ss">(</span><span class="nv">request</span>.<span class="nv">form</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">wage</span><span class="s1">&#39;</span><span class="ss">))</span>
+        <span class="k">return</span> <span class="nv">redirect</span><span class="ss">(</span><span class="nv">url_for</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">pay_calc</span><span class="s1">&#39;</span><span class="ss">))</span>
+    <span class="k">return</span> <span class="nv">render_template</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">index.html</span><span class="s2">&quot;</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>What you’ll notice is that <code>wage</code> is created and then returned in the <code>redirect</code> to the page associated with the <code>pay_calc</code> function.</p>
 <p>This essentially makes it available to the second page of the app.</p>
 <p>I then check for it in the code for the second page:</p>
-<div class="highlight"><pre><span></span>@app.route(&#39;/pay&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])
-def pay_calc():
-    pay = &#39;&#39;
-    if request.method == &#39;POST&#39; and &#39;hours&#39; in request.form and &#39;wage&#39; in session:
-        hours = float(request.form.get(&#39;hours&#39;))
-        pay = calc_wage(session[&#39;wage&#39;], hours)
-    return render_template(&quot;pay_calc.html&quot;,
-                            pay=pay)
+<div class="highlight"><pre><span></span>@<span class="nv">app</span>.<span class="nv">route</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">/pay</span><span class="s1">&#39;</span>, <span class="nv">methods</span><span class="o">=</span>[<span class="s1">&#39;</span><span class="s">GET</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">POST</span><span class="s1">&#39;</span>]<span class="ss">)</span>
+<span class="nv">def</span> <span class="nv">pay_calc</span><span class="ss">()</span>:
+    <span class="nv">pay</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="nv">request</span>.<span class="nv">method</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">POST</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">hours</span><span class="s1">&#39;</span> <span class="nv">in</span> <span class="nv">request</span>.<span class="nv">form</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">wage</span><span class="s1">&#39;</span> <span class="nv">in</span> <span class="nv">session</span>:
+        <span class="nv">hours</span> <span class="o">=</span> <span class="nv">float</span><span class="ss">(</span><span class="nv">request</span>.<span class="nv">form</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hours</span><span class="s1">&#39;</span><span class="ss">))</span>
+        <span class="nv">pay</span> <span class="o">=</span> <span class="nv">calc_wage</span><span class="ss">(</span><span class="nv">session</span>[<span class="s1">&#39;</span><span class="s">wage</span><span class="s1">&#39;</span>], <span class="nv">hours</span><span class="ss">)</span>
+    <span class="k">return</span> <span class="nv">render_template</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">pay_calc.html</span><span class="s2">&quot;</span>,
+                            <span class="nv">pay</span><span class="o">=</span><span class="nv">pay</span><span class="ss">)</span>
 </pre></div>
 
 
