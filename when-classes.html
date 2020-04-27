@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="When people come to Python one of the things they struggle with is OOP (Object Oriented Programming). Not so much the syntax of classes, but more when and when not to use them. If that&#39;s you, read...">
+        <meta name="keywords" content="classes, clean code, data model, design, DRY, functions, games, inheritance, OOP">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+
+        <title>When to Write Classes in Python And Why it Matters - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/concepts.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '204929054292880');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=204929054292880&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://pybit.es/images/blueprint.jpg'); background-position: center; ">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
+                                <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">When to Write Classes in Python And Why it Matters</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Sat 25 April 2020,  <a href="https://pybit.es/category/concepts.html">Concepts</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/classes.html">classes</a>, <a href="https://pybit.es/tag/clean-code.html">clean code</a>, <a href="https://pybit.es/tag/data-model.html">data model</a>, <a href="https://pybit.es/tag/design.html">design</a>, <a href="https://pybit.es/tag/dry.html">DRY</a>, <a href="https://pybit.es/tag/functions.html">functions</a>, <a href="https://pybit.es/tag/games.html">games</a>, <a href="https://pybit.es/tag/inheritance.html">inheritance</a>, <a href="https://pybit.es/tag/oop.html">OOP</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>When people come to Python one of the things they struggle with is OOP (Object Oriented Programming). Not so much the syntax of classes, but more when and when not to use them. If that's you, read on.</p>
+<p>In this article I will give you some insights that will get you clarity on this.</p>
+<p>Classes are incredibly useful and robust, but you need to know when to use them. Here are some considerations.</p>
+<h2>1. You need to keep state</h2>
+<p>For example, if you need to manage a bunch of students and grades, or when you build a game that keeps track of attempts, score, etc (<a href="https://github.com/pybites/challenges/blob/solutions/10/hangman-pb.py">Hangman example</a>).</p>
+<p>Basically, when you have data and behavior (= variables and methods) that go together, you would use a class.</p>
+<h2>2. Bigger projects - classes favor code organization and reusability</h2>
+<p>I often use the example of a <code>Report</code> class. You can have a base class with shared attributes like report name, location and rows. But when you go into specifics like formats (xml, json, html), you could override a <code>generate_report</code> method in the subclass.</p>
+<p>Or think about <a href="https://en.wikipedia.org/wiki/Vehicle">vehicles</a>:</p>
+<blockquote>
+<p>Vehicles include wagons, bicycles, motor vehicles (motorcycles, cars, trucks, buses), railed vehicles (trains, trams), watercraft (ships, boats), amphibious vehicles (screw-propelled vehicle, hovercraft), aircraft (airplanes, helicopters) and spacecraft.</p>
+</blockquote>
+<p>When you see hierarchies like this, using classes leads to better code organization, less duplication, and reusable code.</p>
+<p>This becomes specially powerful if you have hundreds of subclasses and you need to make a fundamental change. You can make a single change in the base class (parent) and all child classes pick up the change (keeping things DRY).</p>
+<p><em>Note</em>: although I like inheritance, composition is often preferred because it is more flexible. When I get to a real world use case, I will write another article about it ...</p>
+<h2>3. Encapsulation</h2>
+<p>You can separate internal vs external interfaces, hiding implementation details. You can better isolate or protect your data, giving consumers of our classes only certain access rights (think API design).</p>
+<p>It's like driving a car and not having to know about the mechanics. When I start my car, I can just operate with the common interface I know and should operate with: gas, brake, clutch, steering wheel, etc. I don't have to know how the engine works.</p>
+<p>Your classes can hide this complexity from the consumer as well, which makes your code easier to understand (elegant).</p>
+<p>Another key benefit of this is that all related data is grouped together. It's nice to talk about <code>person.name</code>, <code>person.age</code>, <code>person.height</code>, etc. Imagine having to keep all this similar data in separate variables, it'll get messy and unmaintainable very quickly.</p>
+<h3>Enforcing a contract</h3>
+<p>We gave an example <a href="https://pybit.es/oop-primer.html">here</a> of <em>Abstract base classes (ABCs)</em> which let you force derived classes to implement certain behaviors.</p>
+<p>By applying <a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod">the <code>abstractmethod</code> decorator</a> to a method in your base class, you force subclasses to implement this method.</p>
+<h2>BONUS: Better understanding of Python</h2>
+<p>Everything in Python is an object. Understanding classes and objects makes you better prepared to use Python's data model and full feature set, which will lead to cleaner and more "pythonic" code.</p>
+<blockquote>
+<p>... the Python data model, and it describes the API that you can use to make your own objects play well with the most idiomatic language features. You can think of the data model as a description of Python as a framework. It formalizes the interfaces of the building blocks of the language itself, such as sequences, iterators, functions, classes, context managers, and so on. - <a href="https://www.oreilly.com/library/view/fluent-python/9781491946237/ch01.html">Fluent Python</a></p>
+</blockquote>
+<p>Lastly, a lot of important design patterns are drawn from OOP, just Google "object oriented design patterns", even if you don't use classes day to day, you will read a lot of code that has them!</p>
+<p>(Funny trivia: <a href="https://codechalleng.es/bites/271/">today we extracted classes from standard library modules</a>.)</p>
+<hr>
+<h2>Main takeaway</h2>
+<p>Classes are great if you <strong>need to keep state</strong>, because they containerize data (variables) and behavior (methods) that act on that data and should logically be grouped together.</p>
+<p>This leads to code that is better organized (cleaner) and easier to reuse.</p>
+<h3>Avoid classes</h3>
+<p>With that said, OOP is not always the best solution. Here are some thoughts when to avoid classes:</p>
+<ol>
+<li>
+<p>The most straightforward reason is if your class has just a constructor and one method. Then just use a function (and watch this great talk: <a href="https://www.youtube.com/watch?v=o9pEzgHorH0">Stop writing classes</a>)</p>
+</li>
+<li>
+<p>Small (one off) command line scripts probably don't need classes.</p>
+</li>
+<li>
+<p>If you can accomplish the same with <a href="https://pybit.es/codechallenge09.html">a context manager</a> or <a href="https://pybit.es/generators.html">a generator</a>, this might be cleaner and "Pythonic".</p>
+</li>
+</ol>
+<hr>
+<p>I hope this helps you decide when to use classes and when not.</p>
+<p>Regardless you should have them in your arsenal.</p>
+<p>And there is no better way to learn more about them through some of our resources:</p>
+<ol>
+<li>
+<p>Check out our articles: <a href="https://pybit.es/python-classes.html">How to Write a Python Class</a> and <a href="https://pybit.es/python-subclasses.html">How to Write a Python Subclass</a>.</p>
+</li>
+<li>
+<p>Don't spend more than 10-15 min on it though. The best way to learn is to ACTUALLY CODE! So <a href="https://codechalleng.es/bites/paths/oop">start our OOP learning path</a> today and start to write classes / code OOP.</p>
+</li>
+<li>
+<p>Once you get past the basics, read my article about Python's magic / special methods: <a href="https://dbader.org/blog/python-dunder-methods">Enriching Your Python Classes With Dunder (Magic, Special) Methods</a></p>
+</li>
+<li>
+<p>As we said before, games make for good OOP practice. Try to to create a card game (<a href="https://codechalleng.es/challenges/20/">and submit it here</a>).</p>
+</li>
+</ol>
+<p>Comment your wins below in the comments and hope to see you in the forums <a href="https://codechalleng.es">on our platform</a> ...</p>
+<p>-- Bob</p>
+<p>(Photo by Daniel McCullough on Unsplash)</p>
+
+
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'when-classes.html';
+                var disqus_url = 'https://pybit.es/when-classes.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>

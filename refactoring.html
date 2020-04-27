@@ -145,65 +145,65 @@
 <h2>Refactoring Examples</h2>
 <p>Okay finally, here we go! Here are some specific lines of the code I revisited and refactored this week. Don’t judge me!</p>
 <h3>Unnecessary Code in a for Loop</h3>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">durations</span><span class="ss">))</span>:
+<div class="highlight"><pre><span></span>for i in range(len(durations)):
 </pre></div>
 
 
 <p>I found code where I was using <code>range</code> and <code>len</code> to get the limit of my <code>for</code> loop. It’s a simple one but something I was used to doing with C type programming. Thanks to Python’s awesomeness, I changed it to:</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">durations</span>:
+<div class="highlight"><pre><span></span>for i in durations:
 </pre></div>
 
 
 <p><br></p>
 <h3>String Formatting Woes</h3>
-<div class="highlight"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="s1">&#39;The course takes &#39;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">total_hours</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; hours to complete.&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>print(&#39;The course takes &#39; + str(total_hours) + &#39; hours to complete.&#39;)
 </pre></div>
 
 
 <p>Ouch! Again, a simple fix and most definitely a remnant from having learned other languages. Refactored!</p>
-<div class="highlight"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="err">‘</span><span class="n">The</span> <span class="n">course</span> <span class="n">takes</span> <span class="err">{}</span> <span class="n">hours</span> <span class="k">to</span> <span class="n">complete</span><span class="err">’</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_hours</span><span class="p">))</span>
+<div class="highlight"><pre><span></span>print(‘The course takes {} hours to complete’.format(total_hours))
 </pre></div>
 
 
 <p><br></p>
 <h3>camelCasing</h3>
 <p>I found a heap of variables and functions written in camel case. <em>shudder</em>. They’ll no longer be a problem.</p>
-<div class="highlight"><pre><span></span><span class="n">quotesListDoc</span>
-<span class="n">userInput</span>
-<span class="n">quotesList</span>
-<span class="n">currentTime</span>
+<div class="highlight"><pre><span></span>quotesListDoc
+userInput
+quotesList
+currentTime
 </pre></div>
 
 
 <p><br></p>
 <h3>Manually opening and closing</h3>
 <p>While not particularly terrible, I found it was much more Pythonic to use a <code>with</code> statement to handle the opening and closing of a text file.</p>
-<div class="highlight"><pre><span></span><span class="nv">quotesListDoc</span> <span class="o">=</span> <span class="nv">open</span><span class="ss">(</span>“<span class="nv">list</span>.<span class="nv">txt</span><span class="s2">&quot;</span><span class="s">, </span><span class="s2">&quot;</span><span class="nv">a</span><span class="s2">&quot;</span><span class="s">)</span>
-<span class="nv">quotesListDoc</span>.<span class="nv">write</span><span class="ss">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nv">time</span>.<span class="nv">strftime</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">%c</span><span class="s2">&quot;</span><span class="ss">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">KIDQUOTES</span><span class="ss">))</span>:
-        <span class="nv">quotesListDoc</span>.<span class="nv">write</span><span class="ss">(</span><span class="nv">KIDQUOTES</span>[<span class="nv">i</span>] <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">quotesListDoc</span>.<span class="nv">close</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>quotesListDoc = open(“list.txt&quot;, &quot;a&quot;)
+quotesListDoc.write(&#39;\n&#39; + time.strftime(&quot;%c&quot;) + &#39;\n&#39;)
+    for i in range(len(KIDQUOTES)):
+        quotesListDoc.write(KIDQUOTES[i] + &#39;\n&#39;)
+quotesListDoc.close()
 </pre></div>
 
 
 <p>I’ll just refactor the whole damn thing.</p>
-<div class="highlight"><pre><span></span><span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span>‘<span class="nv">list</span>.<span class="nv">txt</span>’, ‘<span class="nv">a</span>’<span class="ss">)</span> <span class="nv">as</span> <span class="nv">quotes_doc</span>:
-    <span class="nv">quotes_doc</span>.<span class="nv">write</span><span class="ss">(</span>‘\<span class="nv">n</span>’ <span class="o">+</span> <span class="nv">time</span>.<span class="nv">strftime</span><span class="ss">(</span>“<span class="o">%</span><span class="nv">c</span>”<span class="ss">)</span> <span class="o">+</span> ‘\<span class="nv">n</span>’<span class="ss">)</span>
-    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">quotes</span>:
-        <span class="nv">quotes_doc</span>.<span class="nv">write</span><span class="ss">(</span><span class="nv">quotes</span>[<span class="nv">i</span>] <span class="o">+</span> ‘\<span class="nv">n</span>’<span class="ss">)</span>
+<div class="highlight"><pre><span></span>with open(‘list.txt’, ‘a’) as quotes_doc:
+    quotes_doc.write(‘\n’ + time.strftime(“%c”) + ‘\n’)
+    for i in quotes:
+        quotes_doc.write(quotes[i] + ‘\n’)
 </pre></div>
 
 
 <p><br></p>
 <h3>Including print in input()</h3>
 <p>I had a nasty habit of using print() to write my question or statement when I was asking for input().</p>
-<div class="highlight"><pre><span></span><span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Hit Y to continue or N to add another issue. Y/N</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">userInput</span> <span class="o">=</span> <span class="nv">input</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>print(&#39;Hit Y to continue or N to add another issue. Y/N&#39;)
+userInput = input()
 </pre></div>
 
 
 <p>Refactor!</p>
-<div class="highlight"><pre><span></span><span class="nv">user_input</span> <span class="o">=</span> <span class="nv">input</span><span class="ss">(</span>‘<span class="nv">Hit</span> <span class="nv">Y</span> <span class="nv">to</span> <span class="k">continue</span> <span class="nv">or</span> <span class="nv">N</span> <span class="nv">to</span> <span class="nv">add</span> <span class="nv">another</span> <span class="nv">issue</span>. <span class="nv">Y</span><span class="o">/</span><span class="nv">N</span>: ‘<span class="ss">)</span>
+<div class="highlight"><pre><span></span>user_input = input(‘Hit Y to continue or N to add another issue. Y/N: ‘)
 </pre></div>
 
 
