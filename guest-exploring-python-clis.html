@@ -354,9 +354,9 @@ function argument list. <code>Typer</code> <a href="https://en.wikipedia.org/wik
 resulting in code that's easier to read and maintain.</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">typer</span>
 
-<span class="n">typer</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 
-<span class="nd">@typer.command</span><span class="p">()</span>
+<span class="nd">@app.command</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">echo</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;My Cool Program</span>
 
@@ -365,7 +365,7 @@ resulting in code that's easier to read and maintain.</p>
     <span class="k">print</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">typer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">app</span><span class="p">()</span>
 </pre></div>
 
 
