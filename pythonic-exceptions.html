@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Error handling in Python can be simplified by following these 7 tips. 1. Explicit is better than implicit try + except is all it takes Optionally you can use the else block (try worked, no...">
+        <meta name="description" content="Error handling in Python can be simplified by following these 7 tips. 1. Explicit is better than implicit This is basic exception clause breakdown in Python: try: ... except ...: # handle...">
         <meta name="keywords" content="anti-patterns, best practices, EAFP, exception handling, exceptions, pitfalls">
         <link rel="icon" href="https://pybit.es/favicon.ico">
 
-        <title>Pythonic Exception Handling - PyBites</title>
+        <title>7 Tips to Improve Your Error Handling in Python - PyBites</title>
 
         <!-- Stylesheets -->
         <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
@@ -95,7 +95,7 @@
         <div class="row">
               <div class="col-lg-12">
                   <div class="header-content">
-                      <h1 class="header-title">Pythonic Exception Handling</h1>
+                      <h1 class="header-title">7 Tips to Improve Your Error Handling in Python</h1>
                       <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Wed 06 May 2020,  <a href="https://pybit.es/category/concepts.html">Concepts</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
@@ -117,12 +117,25 @@
     <div class="container content">
         <p>Error handling in Python can be simplified by following these 7 tips.</p>
 <h2>1. Explicit is better than implicit</h2>
-<p><code>try</code> + <code>except</code> is all it takes</p>
-<p>Optionally you can use the <code>else</code> block (try worked, no exception handling happened) and <code>finally</code> (cleanup, runs regardless of try working/failing). However it's better to use a context manager (<code>with</code> statement) for the latter.</p>
-<p>But with freedom comes responsibility. A bare <code>try except:</code> might cause you headaches debugging. So name your exceptions specificly.</p>
+<p>This is basic exception clause breakdown in Python:</p>
+<div class="highlight"><pre><span></span><span class="nv">try</span>:
+    ...
+<span class="nv">except</span> ...:
+    # <span class="nv">handle</span> <span class="nv">exception</span>
+<span class="nv">except</span> ...:
+    # <span class="nv">handle</span> <span class="nv">another</span> <span class="nv">exception</span>
+<span class="ss">(</span><span class="nv">optionally</span><span class="ss">)</span>
+<span class="k">else</span>:
+    # <span class="nv">code</span> <span class="k">if</span> <span class="nv">no</span> <span class="nv">exception</span> <span class="nv">was</span> <span class="nv">hit</span>
+<span class="nv">finally</span>:
+    # <span class="nv">cleanup</span> <span class="nv">code</span>, <span class="nv">always</span> <span class="nv">executes</span>
+</pre></div>
+
+
+<p>So <code>try</code> + <code>except</code> is all it takes, but with freedom comes responsibility. A bare <code>try except:</code> might cause you headaches debugging. So name your exceptions specificly.</p>
 <p>Note that order matters here. Address more specific exceptions before more general ones. If you put <code>Exception</code> before <code>ZeroDivisionError</code> for example, it will become a catch-all.</p>
 <h2>2. Flat is better than nested</h2>
-<p><code>raise</code> is a great way to avoid unnecessary indenting in your code.</p>
+<p>Raising an exception (using <code>raise</code>) is a great way to avoid unnecessary indenting in your code.</p>
 <p>Take one of our Bites. Right off the bat we raise an exception if the input doesn't make sense:</p>
 <div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">pretty_date</span><span class="ss">(</span><span class="nv">date</span><span class="ss">)</span>:
     <span class="s2">&quot;&quot;&quot;</span><span class="s">Receives a datetime object and converts/returns a readable string</span><span class="s2">&quot;&quot;&quot;</span>
@@ -131,31 +144,6 @@
 </pre></div>
 
 
-<p>Of course it's useless to reraise the same exception unless you want to do something specifically:</p>
-<div class="highlight"><pre><span></span><span class="nv">try</span>:
-    ...
-<span class="nv">except</span> <span class="nv">Exception</span> <span class="nv">as</span> <span class="nv">e</span>:
-    # <span class="nv">reraise</span> <span class="nv">ok</span> <span class="k">if</span> <span class="nv">we</span> <span class="k">do</span> <span class="nv">additonal</span> <span class="nv">stuff</span> <span class="nv">here</span> <span class="nv">like</span> <span class="nv">logging</span>
-    <span class="nv">raise</span>
-</pre></div>
-
-
-<p>An <a href="https://twitter.com/pybites/status/1181951225291530241">exception handling trick</a> in this context: <code>from None</code> suppresses the trace back so the user only sees the exception raised:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">def</span> <span class="n">x</span><span class="p">():</span>
-<span class="p">...</span>     <span class="n">try</span><span class="p">:</span>
-<span class="p">...</span>             <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
-<span class="p">...</span>     <span class="k">except</span> <span class="n">ZeroDivisionError</span><span class="p">:</span>
-<span class="p">...</span>             <span class="n">raise</span> <span class="k">Exception</span><span class="p">(</span><span class="ss">&quot;Bad at math&quot;</span><span class="p">)</span> <span class="k">from</span> <span class="k">None</span>
-<span class="p">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">()</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="k">call</span> <span class="k">last</span><span class="p">):</span>
-<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">5</span><span class="p">,</span> <span class="k">in</span> <span class="n">x</span>
-<span class="k">Exception</span><span class="p">:</span> <span class="n">Bad</span> <span class="k">at</span> <span class="n">math</span>
-</pre></div>
-
-
-<p>(Thanks <a href="https://pybit.es/pages/guests.html#erikoshaughnessy">Erik</a> / found in Mario Corchero's great talk: <a href="https://www.youtube.com/watch?v=V2fGAv2R5j8">Exceptional Exceptions - How to properly raise, handle and create them</a>).</p>
 <h2>3. Write custom exceptions</h2>
 <p>This is literally all it takes:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">NoInternetConnection</span>(<span class="nb">Exception</span>):
@@ -172,15 +160,31 @@
 <p>Generally, the only times you should be defining your own exceptions are when you have a specific case where raising a custom exception would be more appropriate than raising a existing Python exception.</p>
 </blockquote>
 <h2>4. Keep your try/except blocks narrow</h2>
-<p>Handling too many exceptions is a red flag. Reducing the amount of code in your <code>try</code> block limits this temptation, which reduces the amount of error handling code you'll need.</p>
-<h2>5. Pythonic code</h2>
-<p>Instead of excessive condition checking (aka <em>look before you leap</em>), it's more common (idiomatic) in Python to just <em>try</em> things and catch the corresponding exceptions (aka <a href="https://pybit.es/error_handling.html"><em>it's easier to ask forgiveness than permission</em></a>).</p>
+<p>Because handling too many exceptions is a red flag.</p>
+<p>Reducing the amount of code in your <code>try</code> block limits this temptation, which reduces the amount of error handling code you'll need.</p>
+<h2>5. Actually use them</h2>
+<p>Instead of excessive condition checking (aka <em>look before you leap</em>), it's <a href="https://docs.python.org/3.4/glossary.html"><em>easier to ask for forgiveness than permission</em> (EAFP)</a>.</p>
+<p>As we showed in <a href="https://pybit.es/error_handling.html">our previous exception handling article</a> instead of checking:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">exists</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">file.txt</span><span class="s2">&quot;</span><span class="ss">)</span>:
+    ...
+</pre></div>
+
+
+<p>It's more idiomatic (<em>pythonic</em>) to just <em>try</em> things and catch the corresponding exception(s):</p>
+<div class="highlight"><pre><span></span><span class="nv">try</span>:
+    # <span class="nv">assume</span> <span class="nv">the</span> <span class="nv">file</span> <span class="nv">is</span> <span class="nv">there</span>
+    <span class="nv">os</span>.<span class="k">unlink</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">file.txt</span><span class="s2">&quot;</span><span class="ss">)</span>
+<span class="nv">except</span> <span class="nv">OSError</span>:
+    # <span class="k">if</span> <span class="nv">not</span>, <span class="nv">handle</span> <span class="nv">the</span> <span class="nv">exception</span>
+</pre></div>
+
+
 <h2>6. Verbose logging</h2>
 <p>Be verbose in your logging. As stated <a href="https://stackoverflow.com/a/5191885">here</a> can use <a href="https://docs.python.org/3/library/logging.html#logging.Logger.exception"><code>logger.exception</code></a> to log the stack trace alongside the error message.</p>
 <h2>7. Rely on tools (remote environments)</h2>
 <p>We can have perfect exception handling, but sometimes something slips through the cracks. You can use a tool like <a href="https://sentry.io/welcome/">Sentry</a> to send you an email when a user hits an unexpected error and doesn't tell you about it. Not only will you know right away, you will also get the full stacktrace which greatly helps fixing the issue.</p>
-<p>I hope this helps. What have you learned dealing with exceptions in Python? Share you insights in the comments below.</p>
 <hr>
+<p>I hope this helps. What have you learned dealing with exceptions in Python? Share you insights in the comments below.</p>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
 
