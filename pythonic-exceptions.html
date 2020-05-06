@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Error handling in Python can be simplified by following these 7 tips. 1. Explicit is better than implicit This is basic exception clause breakdown in Python: try: ... except ...: # handle...">
+        <meta name="description" content="Proper error handling can make your Python code simpler, more readable, and idiomatic. Here are 7 tips to help you. 1. Explicit is better than implicit Exceptions in Python have the following...">
         <meta name="keywords" content="anti-patterns, best practices, EAFP, exception handling, exceptions, pitfalls">
         <link rel="icon" href="https://pybit.es/favicon.ico">
 
@@ -115,16 +115,26 @@
 
         <!-- Content -->
     <div class="container content">
-        <p>Error handling in Python can be simplified by following these 7 tips.</p>
+        <p>Proper error handling can make your Python code simpler, more readable, and idiomatic. Here are 7 tips to help you.</p>
 <h2>1. Explicit is better than implicit</h2>
-<p>This is basic exception clause breakdown in Python:</p>
-<div class="highlight"><pre><span></span><span class="nv">try</span>:
-    ...
-<span class="nv">except</span> ...:
-    # <span class="nv">handle</span> <span class="nv">exception</span>
-<span class="nv">except</span> ...:
-    # <span class="nv">handle</span> <span class="nv">another</span> <span class="nv">exception</span>
-<span class="ss">(</span><span class="nv">optionally</span><span class="ss">)</span>
+<p>Exceptions in Python have the following clauses:</p>
+<ul>
+<li>
+<p>Required:</p>
+<div class="highlight"><pre><span></span><span class="n">try</span><span class="p">:</span>
+    <span class="p">...</span>
+<span class="k">except</span> <span class="p">...:</span>
+    <span class="o">#</span> <span class="n">handle</span> <span class="k">exception</span>
+<span class="k">except</span> <span class="p">...:</span>
+    <span class="o">#</span> <span class="n">handle</span> <span class="n">another</span> <span class="k">exception</span>
+<span class="p">...</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>And optionally after the except clauses:</p>
+<div class="highlight"><pre><span></span>...
 <span class="k">else</span>:
     # <span class="nv">code</span> <span class="k">if</span> <span class="nv">no</span> <span class="nv">exception</span> <span class="nv">was</span> <span class="nv">hit</span>
 <span class="nv">finally</span>:
@@ -132,6 +142,8 @@
 </pre></div>
 
 
+</li>
+</ul>
 <p>So <code>try</code> + <code>except</code> is all it takes, but with freedom comes responsibility. A bare <code>try except:</code> might cause you headaches debugging. So name your exceptions specificly.</p>
 <p>Note that order matters here. Address more specific exceptions before more general ones. If you put <code>Exception</code> before <code>ZeroDivisionError</code> for example, it will become a catch-all.</p>
 <h2>2. Flat is better than nested</h2>
