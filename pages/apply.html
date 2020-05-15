@@ -113,10 +113,23 @@
 <p>Do you want to impress people with your <strong>unique portfolio</strong>?</p>
 <p>Get your name on an <strong>open source project</strong>?</p>
 <p>Become one of those linchpins who has <strong>complete control</strong> over their career?</p>
-<div class="vimeo-space" style="padding: 56.25% 0 0 0; position: relative;"><iframe src="https://player.vimeo.com/video/392926929" style="height: 100%; left: 0; position: absolute; top: 0; width: 100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+<div id="introVideo"></div>
 
-<p><br>
-What took us many years to figure out, we have now distilled in a <em>fastlane</em> that gets clients results in a few months, some even in a matter of weeks.</p>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const redirected = urlParams.get('redirected');
+if(!redirected){
+    let html = '<div class="vimeo-space" ';
+    html += 'style="padding: 56.25% 0 0 0; position: relative;">';
+    html += '<iframe src="https://player.vimeo.com/video/392926929" ';
+    html += 'style="height: 100%; left: 0; position: absolute; top: 0; width: 100%;" ';
+    html += 'frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>';
+    html += '</iframe></div><br>';
+    document.getElementById('introVideo').innerHTML = html;
+}
+</script>
+
+<p>What took us many years to figure out, we have now distilled in a <em>fastlane</em> that gets clients results in a few months, some even in a matter of weeks.</p>
 <p>You don't have to go at it alone, start leveraging our experience by getting on a call with us.</p>
 <p>By the way, this is <strong>NOT</strong> a sales call, this is a FREE <strong>strategy session</strong> in which you will gain <strong>clarity</strong> in your career. We are passionate about giving you some <strong>valuable insights</strong> we earned over time leveraging our careers using software.</p>
 <h2>Book Your Private Python Career Consult With Bob &amp; Julian Now!</h2>
