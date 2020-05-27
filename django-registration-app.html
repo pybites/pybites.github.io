@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Two-phase registration, consisting of initial signup followed by a confirmation/activation email is a common piece for any web app. In this article I will guide you through setting this up in...">
         <meta name="keywords" content="100DaysOfDjango, Django, Django-registration, Gmail, guide, learning, Postgres, registration, SQLite, tutorial, virtualenv">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>A Step by Step Guide to Implementing and Deploying Two-Phase Registration in Django - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">A Step by Step Guide to Implementing and Deploying Two-Phase Registration in Django</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Sat 05 August 2017,  <a href="https://pybit.es/category/django.html">Django</a></p>
+                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Sat 05 August 2017,  <a href="./category/django.html">Django</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/100daysofdjango.html">100DaysOfDjango</a>, <a href="https://pybit.es/tag/django.html">Django</a>, <a href="https://pybit.es/tag/django-registration.html">Django-registration</a>, <a href="https://pybit.es/tag/gmail.html">Gmail</a>, <a href="https://pybit.es/tag/guide.html">guide</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/postgres.html">Postgres</a>, <a href="https://pybit.es/tag/registration.html">registration</a>, <a href="https://pybit.es/tag/sqlite.html">SQLite</a>, <a href="https://pybit.es/tag/tutorial.html">tutorial</a>, <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>                      </p>
+<a href="./tag/100daysofdjango.html">100DaysOfDjango</a>, <a href="./tag/django.html">Django</a>, <a href="./tag/django-registration.html">Django-registration</a>, <a href="./tag/gmail.html">Gmail</a>, <a href="./tag/guide.html">guide</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/postgres.html">Postgres</a>, <a href="./tag/registration.html">registration</a>, <a href="./tag/sqlite.html">SQLite</a>, <a href="./tag/tutorial.html">tutorial</a>, <a href="./tag/virtualenv.html">virtualenv</a>                      </p>
                   </div>
               </div>
         </div>
@@ -517,17 +524,17 @@ base.html    registration
 
 
 <p>You should see this:</p>
-<p><img alt="runserver app index template" src="https://pybit.es/images/django-reg-helloworld.png"></p>
+<p><img alt="runserver app index template" src="./images/django-reg-helloworld.png"></p>
 <p>Click on the <em>sign up here</em> link, you should see a sign up form. One thing that does not seem right is the validation messages being visible all the time. I will fix and post here ...</p>
-<p><img alt="sign up form" src="https://pybit.es/images/django-reg-reg-form.png"></p>
+<p><img alt="sign up form" src="./images/django-reg-reg-form.png"></p>
 <p>Enter your username, email and password and click Submit:</p>
-<p><img alt="register, email will be send" src="https://pybit.es/images/django-reg-reg-link-follow.png"></p>
+<p><img alt="register, email will be send" src="./images/django-reg-reg-link-follow.png"></p>
 <p>If all is setup correctly (env vars, gmail prep) You should get an email:</p>
-<p><img alt="confirmation link" src="https://pybit.es/images/django-reg-email.png"></p>
+<p><img alt="confirmation link" src="./images/django-reg-email.png"></p>
 <p>Click on the link and your account should be activated:</p>
-<p><img alt="runserver app index template" src="https://pybit.es/images/django-reg-reg-link-follow.png"></p>
+<p><img alt="runserver app index template" src="./images/django-reg-reg-link-follow.png"></p>
 <p>You can now login and you should see the logged in page:</p>
-<p><img alt="registed and activated account" src="https://pybit.es/images/django-reg-registered-and-activated.png"></p>
+<p><img alt="registed and activated account" src="./images/django-reg-registered-and-activated.png"></p>
 <p>TODO: have the user be logged automatically upon activation of account.</p>
 <h2>Commit to version control</h2>
 <p>Normally I would be make granular commits as we go but I wanted to focus on Django.</p>
@@ -688,7 +695,7 @@ heroku    https://git.heroku.com/bobregistration.git (push)
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'django-registration-app.html';
-                var disqus_url = 'https://pybit.es/django-registration-app.html';
+                var disqus_url = './django-registration-app.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -708,11 +715,11 @@ heroku    https://git.heroku.com/bobregistration.git (push)
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

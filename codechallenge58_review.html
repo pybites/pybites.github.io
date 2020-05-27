@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In this article we review our PCC58 - Analyze Podcast Transcripts with NLTK - Part I code challenge. Community Pull Requests It has been a while but we&#39;re all caught up: we merged in 40+ Pull...">
         <meta name="keywords" content="challenges, CLI applications, code challenge, collections, Counter, data mining, data science, datetime, defaultdict, dictionary comprehensions, f-strings, feedparser, Flask, iterators, itertools, JSON, list comprehensions, namedtuple, NLTK, OrderedDict, podcast, pomodoro, praw, regex, requests, SequenceMatcher, splitlines, sqlite3, talk python, text parsing, timedelta, XML">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Code Challenge 58 - Analyze Podcast Transcripts with NLTK - Part I - Review - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge 58 - Analyze Podcast Transcripts with NLTK - Part I - Review</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/pybites.html">PyBites</a>, Mon 07 January 2019,  <a href="https://pybit.es/category/challenges.html">Challenges</a></p>
+                      <p class="header-date"> <a href="./author/pybites.html">PyBites</a>, Mon 07 January 2019,  <a href="./category/challenges.html">Challenges</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/challenges.html">challenges</a>, <a href="https://pybit.es/tag/cli-applications.html">CLI applications</a>, <a href="https://pybit.es/tag/code-challenge.html">code challenge</a>, <a href="https://pybit.es/tag/collections.html">collections</a>, <a href="https://pybit.es/tag/counter.html">Counter</a>, <a href="https://pybit.es/tag/data-mining.html">data mining</a>, <a href="https://pybit.es/tag/data-science.html">data science</a>, <a href="https://pybit.es/tag/datetime.html">datetime</a>, <a href="https://pybit.es/tag/defaultdict.html">defaultdict</a>, <a href="https://pybit.es/tag/dictionary-comprehensions.html">dictionary comprehensions</a>, <a href="https://pybit.es/tag/f-strings.html">f-strings</a>, <a href="https://pybit.es/tag/feedparser.html">feedparser</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/iterators.html">iterators</a>, <a href="https://pybit.es/tag/itertools.html">itertools</a>, <a href="https://pybit.es/tag/json.html">JSON</a>, <a href="https://pybit.es/tag/list-comprehensions.html">list comprehensions</a>, <a href="https://pybit.es/tag/namedtuple.html">namedtuple</a>, <a href="https://pybit.es/tag/nltk.html">NLTK</a>, <a href="https://pybit.es/tag/ordereddict.html">OrderedDict</a>, <a href="https://pybit.es/tag/podcast.html">podcast</a>, <a href="https://pybit.es/tag/pomodoro.html">pomodoro</a>, <a href="https://pybit.es/tag/praw.html">praw</a>, <a href="https://pybit.es/tag/regex.html">regex</a>, <a href="https://pybit.es/tag/requests.html">requests</a>, <a href="https://pybit.es/tag/sequencematcher.html">SequenceMatcher</a>, <a href="https://pybit.es/tag/splitlines.html">splitlines</a>, <a href="https://pybit.es/tag/sqlite3.html">sqlite3</a>, <a href="https://pybit.es/tag/talk-python.html">talk python</a>, <a href="https://pybit.es/tag/text-parsing.html">text parsing</a>, <a href="https://pybit.es/tag/timedelta.html">timedelta</a>, <a href="https://pybit.es/tag/xml.html">XML</a>                      </p>
+<a href="./tag/challenges.html">challenges</a>, <a href="./tag/cli-applications.html">CLI applications</a>, <a href="./tag/code-challenge.html">code challenge</a>, <a href="./tag/collections.html">collections</a>, <a href="./tag/counter.html">Counter</a>, <a href="./tag/data-mining.html">data mining</a>, <a href="./tag/data-science.html">data science</a>, <a href="./tag/datetime.html">datetime</a>, <a href="./tag/defaultdict.html">defaultdict</a>, <a href="./tag/dictionary-comprehensions.html">dictionary comprehensions</a>, <a href="./tag/f-strings.html">f-strings</a>, <a href="./tag/feedparser.html">feedparser</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/iterators.html">iterators</a>, <a href="./tag/itertools.html">itertools</a>, <a href="./tag/json.html">JSON</a>, <a href="./tag/list-comprehensions.html">list comprehensions</a>, <a href="./tag/namedtuple.html">namedtuple</a>, <a href="./tag/nltk.html">NLTK</a>, <a href="./tag/ordereddict.html">OrderedDict</a>, <a href="./tag/podcast.html">podcast</a>, <a href="./tag/pomodoro.html">pomodoro</a>, <a href="./tag/praw.html">praw</a>, <a href="./tag/regex.html">regex</a>, <a href="./tag/requests.html">requests</a>, <a href="./tag/sequencematcher.html">SequenceMatcher</a>, <a href="./tag/splitlines.html">splitlines</a>, <a href="./tag/sqlite3.html">sqlite3</a>, <a href="./tag/talk-python.html">talk python</a>, <a href="./tag/text-parsing.html">text parsing</a>, <a href="./tag/timedelta.html">timedelta</a>, <a href="./tag/xml.html">XML</a>                      </p>
                   </div>
               </div>
         </div>
@@ -292,7 +299,7 @@ remote: Total <span class="m">504</span> <span class="o">(</span>delta <span cla
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'codechallenge58_review.html';
-                var disqus_url = 'https://pybit.es/codechallenge58_review.html';
+                var disqus_url = './codechallenge58_review.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -312,11 +319,11 @@ remote: Total <span class="m">504</span> <span class="o">(</span>delta <span cla
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

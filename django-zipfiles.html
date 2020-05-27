@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it...">
         <meta name="keywords" content="admin, archive, DB, Django, migrations, request, response, snippets, sqlite3, virtualenv, zipfile">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>How to Create and Serve Zipfiles from Django - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How to Create and Serve Zipfiles from Django</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Wed 08 May 2019,  <a href="https://pybit.es/category/django.html">Django</a></p>
+                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Wed 08 May 2019,  <a href="./category/django.html">Django</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/admin.html">admin</a>, <a href="https://pybit.es/tag/archive.html">archive</a>, <a href="https://pybit.es/tag/db.html">DB</a>, <a href="https://pybit.es/tag/django.html">Django</a>, <a href="https://pybit.es/tag/migrations.html">migrations</a>, <a href="https://pybit.es/tag/request.html">request</a>, <a href="https://pybit.es/tag/response.html">response</a>, <a href="https://pybit.es/tag/snippets.html">snippets</a>, <a href="https://pybit.es/tag/sqlite3.html">sqlite3</a>, <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>, <a href="https://pybit.es/tag/zipfile.html">zipfile</a>                      </p>
+<a href="./tag/admin.html">admin</a>, <a href="./tag/archive.html">archive</a>, <a href="./tag/db.html">DB</a>, <a href="./tag/django.html">Django</a>, <a href="./tag/migrations.html">migrations</a>, <a href="./tag/request.html">request</a>, <a href="./tag/response.html">response</a>, <a href="./tag/snippets.html">snippets</a>, <a href="./tag/sqlite3.html">sqlite3</a>, <a href="./tag/virtualenv.html">virtualenv</a>, <a href="./tag/zipfile.html">zipfile</a>                      </p>
                   </div>
               </div>
         </div>
@@ -311,12 +318,12 @@ Quit the server with CONTROL-C.
 
 
 <p>Now I can access <code>http://localhost:8000/admin</code> and login with the superuser I created earlier. At this point we should see the new model:</p>
-<p><img alt="new model in admin" src="https://pybit.es/images/django-zip/admin.png"></p>
+<p><img alt="new model in admin" src="./images/django-zip/admin.png"></p>
 <p>Let's add some small code snippets from <a href="https://codechalleng.es/tips">our tips page</a>:</p>
-<p><img alt="3 snippets added" src="https://pybit.es/images/django-zip/3-snippets.png"></p>
-<p><img alt="adding snippet 1" src="https://pybit.es/images/django-zip/snippet1.png"></p>
-<p><img alt="adding snippet 2" src="https://pybit.es/images/django-zip/snippet2.png"></p>
-<p><img alt="adding snippet 3" src="https://pybit.es/images/django-zip/snippet3.png"></p>
+<p><img alt="3 snippets added" src="./images/django-zip/3-snippets.png"></p>
+<p><img alt="adding snippet 1" src="./images/django-zip/snippet1.png"></p>
+<p><img alt="adding snippet 2" src="./images/django-zip/snippet2.png"></p>
+<p><img alt="adding snippet 3" src="./images/django-zip/snippet3.png"></p>
 <h2>Serving up a zipfile</h2>
 <p>Now let's create a zipfile with all the code snippets stored in the DB. We do this in the <code>download</code> view we stubbed out earlier:</p>
 <p>archive/views.py</p>
@@ -361,7 +368,7 @@ Quit the server with CONTROL-C.
 
 <p>We use Django's <code>HttpResponse</code> object which we have to give a <code>Content-Disposition</code> attribute. To directly serve up the resulting zipfile, not writing it to disk, I use <code>zipfile</code>'s <code>writestr</code>. Getting the snippets from Django's ORM is as easy as: <code>Script.objects.all()</code>. I also added a <em>README</em> file.</p>
 <p>Now visit the download endpoint: http://localhost:8000/download -&gt; a zipfile should automatically download to your desktop:</p>
-<p><img alt="download the zipfile" src="https://pybit.es/images/django-zip/download-endpoint.png"></p>
+<p><img alt="download the zipfile" src="./images/django-zip/download-endpoint.png"></p>
 <p>Let's see if it worked by unzipping the obtained zipfile into a tmp directory:</p>
 <div class="highlight"><pre><span></span>[bbelderbos@imac Downloads]$ mkdir tmp
 [bbelderbos@imac Downloads]$ mv pybites_codesnippets.zip tmp
@@ -418,7 +425,7 @@ print(dict(zip(names, ages)))
 <p>The full code for this blog post is <a href="https://github.com/pybites/blog_code/tree/master/django-archive">in our blog code repo</a>.</p>
 <hr>
 <p>If you saved some code for Bite exercises <a href="http://codechalleng.es">on our platform</a> you can check out this feature scrolling to the bottom of <a href="http://codechalleng.es/settings">the settings page</a>:</p>
-<p><img alt="the new platform code zip export button" src="https://pybit.es/images/django-zip/platform-export.png"></p>
+<p><img alt="the new platform code zip export button" src="./images/django-zip/platform-export.png"></p>
 <p>I hope this was useful and let us know if there are other Django related topics you'd like to see covered here ...</p>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
@@ -429,7 +436,7 @@ print(dict(zip(names, ages)))
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'django-zipfiles.html';
-                var disqus_url = 'https://pybit.es/django-zipfiles.html';
+                var disqus_url = './django-zipfiles.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -449,11 +456,11 @@ print(dict(zip(names, ages)))
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

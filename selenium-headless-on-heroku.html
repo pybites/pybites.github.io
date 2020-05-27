@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Ever wondered how you scrape hidden (or JS generated) HTML? Selenium is your friend. Ever wondered how to run it without a browser popping up? Use headless mode. How would you run it remotely? Use...">
         <meta name="keywords" content="argparse, automation, BeautifulSoup, books, buildpacks, environment variables, git, headless, Heroku, namedtuple, Packt, parsing, requests, Scheduler, Selenium, Slack, tweepy">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How to Parse Hidden HTML With Selenium Headless Mode and Deploy it to Heroku</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Tue 19 February 2019,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Tue 19 February 2019,  <a href="./category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/argparse.html">argparse</a>, <a href="https://pybit.es/tag/automation.html">automation</a>, <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>, <a href="https://pybit.es/tag/books.html">books</a>, <a href="https://pybit.es/tag/buildpacks.html">buildpacks</a>, <a href="https://pybit.es/tag/environment-variables.html">environment variables</a>, <a href="https://pybit.es/tag/git.html">git</a>, <a href="https://pybit.es/tag/headless.html">headless</a>, <a href="https://pybit.es/tag/heroku.html">Heroku</a>, <a href="https://pybit.es/tag/namedtuple.html">namedtuple</a>, <a href="https://pybit.es/tag/packt.html">Packt</a>, <a href="https://pybit.es/tag/parsing.html">parsing</a>, <a href="https://pybit.es/tag/requests.html">requests</a>, <a href="https://pybit.es/tag/scheduler.html">Scheduler</a>, <a href="https://pybit.es/tag/selenium.html">Selenium</a>, <a href="https://pybit.es/tag/slack.html">Slack</a>, <a href="https://pybit.es/tag/tweepy.html">tweepy</a>                      </p>
+<a href="./tag/argparse.html">argparse</a>, <a href="./tag/automation.html">automation</a>, <a href="./tag/beautifulsoup.html">BeautifulSoup</a>, <a href="./tag/books.html">books</a>, <a href="./tag/buildpacks.html">buildpacks</a>, <a href="./tag/environment-variables.html">environment variables</a>, <a href="./tag/git.html">git</a>, <a href="./tag/headless.html">headless</a>, <a href="./tag/heroku.html">Heroku</a>, <a href="./tag/namedtuple.html">namedtuple</a>, <a href="./tag/packt.html">Packt</a>, <a href="./tag/parsing.html">parsing</a>, <a href="./tag/requests.html">requests</a>, <a href="./tag/scheduler.html">Scheduler</a>, <a href="./tag/selenium.html">Selenium</a>, <a href="./tag/slack.html">Slack</a>, <a href="./tag/tweepy.html">tweepy</a>                      </p>
                   </div>
               </div>
         </div>
@@ -121,14 +128,14 @@
 <p>Packt has this awesome <a href="https://www.packtpub.com/packt/offers/free-learning">Free Learning campaign</a>: a free ebook a day. It even includes video these days. Thank you Packt!</p>
 <p>We had a nice daily notification posting into our <a href="https://join.slack.com/t/pybites/shared_invite/enQtNDAxODc0MjEyODM2LTNiZjljNTI2NGJiNWI0MTRkNjY4YzQ1ZWU4MmQzNWQyN2Q4ZTQzMTk0NzkyZTRmMThlNmQzYTk5Y2Y5ZDM4NDU">Slack #books channel</a>, until it started posting empty messages. Oops!</p>
 <p>The page still works:</p>
-<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning1.png"></p>
+<p><img alt="page works" src="./images/selenium-headless-heroku/packt-freelearning1.png"></p>
 <p>However looking at the HTML it changed:</p>
-<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning2.png"></p>
+<p><img alt="page works" src="./images/selenium-headless-heroku/packt-freelearning2.png"></p>
 <h3>2. Where is the HTML?!</h3>
 <p>... wait that title string surely was on the page, no? Let's do an inspect:</p>
-<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning3.png"></p>
+<p><img alt="page works" src="./images/selenium-headless-heroku/packt-freelearning3.png"></p>
 <p>Let's look for the class:</p>
-<p><img alt="page works" src="https://pybit.es/images/selenium-headless-heroku/packt-freelearning4.png"></p>
+<p><img alt="page works" src="./images/selenium-headless-heroku/packt-freelearning4.png"></p>
 <p>OK is this content generated by JS? I verified our <a href="https://github.com/pybites/packt_pytweet">Packt PyTweet</a> BeautifulSoup code and indeed it came up empty. But wait what was that testing tool <a href="https://pybit.es/selenium-pytest-and-django.html">I played with the other day</a>?</p>
 <h3>3. Selenium to the rescue</h3>
 <p><a href="https://selenium-python.readthedocs.io/">Selenium</a> seemed to have no issues finding these "hidden" CSS classes!</p>
@@ -190,12 +197,12 @@ $ heroku buildpacks:add heroku/google-chrome
 
 <p>(see all Heroku's buildpacks <a href="https://github.com/heroku?utf8=%E2%9C%93&amp;q=buildpack&amp;type=&amp;language=">here</a>)</p>
 <p>So I ended up with 3 buildpacks!</p>
-<p><img alt="I ended up with 3 buildpacks" src="https://pybit.es/images/selenium-headless-heroku/buildpacks.png"></p>
+<p><img alt="I ended up with 3 buildpacks" src="./images/selenium-headless-heroku/buildpacks.png"></p>
 <p>(ignore <em>secure-beach</em>, I was playing around ...)</p>
 <p>And upon the next <code>git push heroku master</code> it got really busy installing Chrome :)</p>
-<p><img alt="installing Chrome" src="https://pybit.es/images/selenium-headless-heroku/installing-chrome.png"></p>
+<p><img alt="installing Chrome" src="./images/selenium-headless-heroku/installing-chrome.png"></p>
 <p>That in and by itself was still not enough:</p>
-<p><img alt="path not found" src="https://pybit.es/images/selenium-headless-heroku/chromedriver-not-found.png"></p>
+<p><img alt="path not found" src="./images/selenium-headless-heroku/chromedriver-not-found.png"></p>
 <h3>6. Deploy to Heroku part II - setting env variables</h3>
 <p>To let Selenium know where to find the <code>chromedriver</code> and <code>Chrome</code> binaries, I had to define 2 environment variables. Compare how they look locally (to isolate them, I set them in my <code>venv/bin/activate</code> script):</p>
 <div class="highlight"><pre><span></span>export CHROME_DRIVER=/Users/bbelderbos/bin/chromedriver
@@ -204,15 +211,15 @@ export GOOGLE_CHROME_BIN=&quot;/Applications/Google Chrome.app/Contents/MacOS/Go
 
 
 <p>vs. remotely on Heroku (hence why we call them <em>environment</em> variables):</p>
-<p><img alt="Heroku env variables" src="https://pybit.es/images/selenium-headless-heroku/env-variables.png"></p>
+<p><img alt="Heroku env variables" src="./images/selenium-headless-heroku/env-variables.png"></p>
 <p>After setting those in the heroku.com GUI they show up when entering in the Heroku shell (run: <code>heroku run bash</code>) and like magic the script started to work!</p>
-<p><img alt="working script with env variables" src="https://pybit.es/images/selenium-headless-heroku/it-works.png"></p>
+<p><img alt="working script with env variables" src="./images/selenium-headless-heroku/it-works.png"></p>
 <hr>
 <h2>Part II - sharing is caring</h2>
 <p>Awesome! Let's indulge in a moment of celebration: not only did we manage to scrape "hidden" HTML (was that even possible?!), what's even more mindblowing to me is that we also got Selenium to run without opening a Browser window (also known as <em>headless</em> mode) in the cloud!</p>
 <p>This gave us the possibility to run our script on a remote server == automation <em>for fun and profit</em> :)</p>
 <p>Well back up a bit there ... not much "profit" if it only spits out something to stdout never to be seen again unless you like consuming <code>heroku logs</code> ...</p>
-<p><img alt="ok ok the &quot;heroku logs&quot; command does show the outputs" src="https://pybit.es/images/selenium-headless-heroku/heroku-logs.png"></p>
+<p><img alt="ok ok the &quot;heroku logs&quot; command does show the outputs" src="./images/selenium-headless-heroku/heroku-logs.png"></p>
 <p>So let's do something more interesting ...</p>
 <h3>7. Auto-posting to Twitter</h3>
 <p>First you need to make a Twitter app via <a href="https://developer.twitter.com/en/docs.html">its API</a>. Then set the required keys and tokens as environment variables:</p>
@@ -299,15 +306,15 @@ optional arguments:
 
 <h3>10. Deploy to Heroku part III - use the Scheduler addon</h3>
 <p>Finally I wanted to have this script auto-post the daily Free Learning resource to Twitter and Slack automatically. Enter the free <a href="https://devcenter.heroku.com/articles/scheduler">Heroku Scheduler addon</a> which you can add under the "Resources" tab of your app via Heroku's GUI:</p>
-<p><img alt="Heroku Scheduler is awesome" src="https://pybit.es/images/selenium-headless-heroku/heroku-scheduler.png"></p>
+<p><img alt="Heroku Scheduler is awesome" src="./images/selenium-headless-heroku/heroku-scheduler.png"></p>
 <p>We can just specify the script and command line switches, just as if we ran it locally. The dependencies and environment variables are already loaded in the app sandbox when this executes! Let's notify early in the morning (my local time):</p>
-<p><img alt="cronjob scheduled!" src="https://pybit.es/images/selenium-headless-heroku/cronjob-scheduled.png"></p>
+<p><img alt="cronjob scheduled!" src="./images/selenium-headless-heroku/cronjob-scheduled.png"></p>
 <h2>Result</h2>
-<p><img alt="I love it when a plan comes together!" src="https://pybit.es/images/selenium-headless-heroku/plan-comes-together.png"></p>
+<p><img alt="I love it when a plan comes together!" src="./images/selenium-headless-heroku/plan-comes-together.png"></p>
 <p>Voilà: this morning I saw this auto-posted to my Twitter:</p>
-<p><img alt="post to Twitter" src="https://pybit.es/images/selenium-headless-heroku/post-to-twitter.png"></p>
+<p><img alt="post to Twitter" src="./images/selenium-headless-heroku/post-to-twitter.png"></p>
 <p>And this in our #books Slack channel:</p>
-<p><img alt="post to Slack" src="https://pybit.es/images/selenium-headless-heroku/post-to-slack.png"></p>
+<p><img alt="post to Slack" src="./images/selenium-headless-heroku/post-to-slack.png"></p>
 <h2>Conclusion</h2>
 <p>This was a fun exercise! Not only did it solve a pressing need of keeping our Slack community up2date about Packt's awesome deal, along the way I learned:</p>
 <ul>
@@ -331,7 +338,7 @@ optional arguments:
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'selenium-headless-on-heroku.html';
-                var disqus_url = 'https://pybit.es/selenium-headless-on-heroku.html';
+                var disqus_url = './selenium-headless-on-heroku.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -351,11 +358,11 @@ optional arguments:
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

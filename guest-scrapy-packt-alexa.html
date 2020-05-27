@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="I have a love of the goodies that you get as part of the developer rewards from submitting Alexa skills to Amazon. Another thing that I also love is the fact that Packt gives away a free book....">
         <meta name="keywords" content="Alexa, books, guest, Packt, Scrapy, web scraping">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Pushing the Packt "free book of the day" to the world with Scrapy and Alexa - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Pushing the Packt "free book of the day" to the world with Scrapy and Alexa</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/rhys-powell.html">Rhys Powell</a>, Thu 31 May 2018,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="./author/rhys-powell.html">Rhys Powell</a>, Thu 31 May 2018,  <a href="./category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/alexa.html">Alexa</a>, <a href="https://pybit.es/tag/books.html">books</a>, <a href="https://pybit.es/tag/guest.html">guest</a>, <a href="https://pybit.es/tag/packt.html">Packt</a>, <a href="https://pybit.es/tag/scrapy.html">Scrapy</a>, <a href="https://pybit.es/tag/web-scraping.html">web scraping</a>                      </p>
+<a href="./tag/alexa.html">Alexa</a>, <a href="./tag/books.html">books</a>, <a href="./tag/guest.html">guest</a>, <a href="./tag/packt.html">Packt</a>, <a href="./tag/scrapy.html">Scrapy</a>, <a href="./tag/web-scraping.html">web scraping</a>                      </p>
                   </div>
               </div>
         </div>
@@ -140,7 +147,7 @@ This post covers the build of the core code. To see the alexa and deployment sec
 
 
 <p><code>name</code> has to be set as the name of the spider, the <code>url</code> was updated to point to the free learning page and set the response to print out:</p>
-<p><img alt="scrapy code" src="https://pybit.es/images/scrapy-code.png"></p>
+<p><img alt="scrapy code" src="./images/scrapy-code.png"></p>
 <p>The response was exactly what I was looking for:</p>
 <div class="highlight"><pre><span></span>2018-05-24 07:59:26 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://www.packtpub.com/packt/offers/free-learning&gt; (referer: None)
 &lt;200 https://www.packtpub.com/packt/offers/free-learning&gt;
@@ -149,7 +156,7 @@ This post covers the build of the core code. To see the alexa and deployment sec
 
 <h2>Scraping the Page</h2>
 <p>With the ability to finally grab the page data, the next step is to open the page in a browser. I use Chrome, opening the developer tools I can inspect the page html.</p>
-<p><img alt="chrome inspection" src="https://pybit.es/images/scrapy-chromeconsole.png"></p>
+<p><img alt="chrome inspection" src="./images/scrapy-chromeconsole.png"></p>
 <p>From this it’s easy to see that the piece of information that we are after, the book title, is wrapped with in the class <code>dotd-title</code>. Now the work begins to get the information out of the response data. </p>
 <p>Scrapy gives you the choice of three methods of querying the data: css, xpath and re, with css or xpath being the standard methods. Once again the documentation is quite extensive and should be read through to give an idea of what can be done. An additional tool that Scrapy provides is a shell:</p>
 <div class="highlight"><pre><span></span>(venv) ➜  packt_free_learning git:(master) ✗ scrapy shell &#39;https://www.packtpub.com/packt/offers/free-learning&#39;
@@ -295,7 +302,7 @@ This post covers the build of the core code. To see the alexa and deployment sec
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'guest-scrapy-packt-alexa.html';
-                var disqus_url = 'https://pybit.es/guest-scrapy-packt-alexa.html';
+                var disqus_url = './guest-scrapy-packt-alexa.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -315,11 +322,11 @@ This post covers the build of the core code. To see the alexa and deployment sec
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

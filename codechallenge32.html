@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Life is about facing new challenges - Kostya Tszyu Hi Pythonistas, a new week, a new &#39;bite&#39; of Python goodness. As anticipated this week we dedicate a challenge to Selenium testing. We think this...">
         <meta name="keywords" content="100DaysOfDjango, codechallenges, Django, Selenium, Testing">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Code Challenge 32 - Test a Simple Django App With Selenium - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge 32 - Test a Simple Django App With Selenium</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/pybites.html">PyBites</a>, Tue 15 August 2017,  <a href="https://pybit.es/category/challenge.html">Challenge</a></p>
+                      <p class="header-date"> <a href="./author/pybites.html">PyBites</a>, Tue 15 August 2017,  <a href="./category/challenge.html">Challenge</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/100daysofdjango.html">100DaysOfDjango</a>, <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>, <a href="https://pybit.es/tag/django.html">Django</a>, <a href="https://pybit.es/tag/selenium.html">Selenium</a>, <a href="https://pybit.es/tag/testing.html">Testing</a>                      </p>
+<a href="./tag/100daysofdjango.html">100DaysOfDjango</a>, <a href="./tag/codechallenges.html">codechallenges</a>, <a href="./tag/django.html">Django</a>, <a href="./tag/selenium.html">Selenium</a>, <a href="./tag/testing.html">Testing</a>                      </p>
                   </div>
               </div>
         </div>
@@ -125,31 +132,31 @@
 <ol>
 <li>
 <p>Go to the <a href="http://pyplanet.herokuapp.com/">http://pyplanet.herokuapp.com/</a>. The header should say <em>PyBites 100 Days of Django</em>. The navbar has Login and Home links. The first link in the <code>main</code> div is <em>PyPlanet Article Sharer App</em>:</p>
-<p><img alt="test the home page" src="https://pybit.es/images/selenium-challenge1.png"></p>
+<p><img alt="test the home page" src="./images/selenium-challenge1.png"></p>
 </li>
 <li>
 <p>Click on the <em>PyPlanet Article Sharer App</em> link and test the page contains a <code>table</code> with a <code>th</code> (table header) containing the word <em>Title</em>. This app watches the PyPlanet feed so the titles change every day so that is hard test. What we can test though is if the table contains 100 entries (<code>tr</code>).</p>
-<p><img alt="home page" src="https://pybit.es/images/selenium-challenge2.png"></p>
+<p><img alt="home page" src="./images/selenium-challenge2.png"></p>
 </li>
 <li>
 <p>Go to an article and check there is only a <em>Go back</em> button (logged out view). Check if the header link at the top is the same as the link you clicked on, in this example: <em>Martin Fitzpatrick: KropBot: Multiplayer Internet-controlled robot</em>. The <em>Go back</em> should redirect back to <a href="http://pyplanet.herokuapp.com/pyplanet/">the app's home page</a>.</p>
-<p><img alt="home page" src="https://pybit.es/images/selenium-challenge3.png"></p>
+<p><img alt="home page" src="./images/selenium-challenge3.png"></p>
 </li>
 <li>
 <p>Using Selenium click <em>Login</em> and login with user: guest / password: changeme - then click the blue <em>Login</em> button:</p>
-<p><img alt="home page" src="https://pybit.es/images/selenium-challenge4.png"></p>
+<p><img alt="home page" src="./images/selenium-challenge4.png"></p>
 </li>
 <li>
 <p>Check you are redirected back to <a href="http://pyplanet.herokuapp.com/">100Days home</a> and if navigation contains <em>Welcome back, guest!</em> and Logout and Home links:</p>
-<p><img alt="home page" src="https://pybit.es/images/selenium-challenge5.png"></p>
+<p><img alt="home page" src="./images/selenium-challenge5.png"></p>
 </li>
 <li>
 <p>Going back to the article link (3.), check that you now have a <em>Tweet this</em> button alongside the <em>Go back</em> button. Optionally you can check the link of the <em>Tweet this</em> button (extra check: PyBites entries have <em>New PyBites Article</em> prepended).</p>
-<p><img alt="home page" src="https://pybit.es/images/selenium-challenge6.png"></p>
+<p><img alt="home page" src="./images/selenium-challenge6.png"></p>
 </li>
 <li>
 <p>Finally logout with Selenium and check for <em>See you!</em> and <em>You have been successfully logged out.</em>, <em>logout</em> in the URL, and navbar links are Login and Home again:</p>
-<p><img alt="home page" src="https://pybit.es/images/selenium-challenge7.png"></p>
+<p><img alt="home page" src="./images/selenium-challenge7.png"></p>
 </li>
 </ol>
 <p>By the way, if you don't like this app or want to test a Flask app (or other web framework), be our guest. Just mention it in your PR submission.</p>
@@ -199,7 +206,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'codechallenge32.html';
-                var disqus_url = 'https://pybit.es/codechallenge32.html';
+                var disqus_url = './codechallenge32.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -219,11 +226,11 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In this article we review last week&#39;s Challenge Estimated Time API. This was a cool challenge and we implemented it using Github&#39;s awesome platform and API. More than just parsing data This...">
         <meta name="keywords" content="APIs, click, codechallenges, data, Github, maya, meta, packaging, peewee, platform, PR template, PyGithub, tracking">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Code Challenge 23 - Challenge Estimated Time API - Review - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Code Challenge 23 - Challenge Estimated Time API - Review</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/pybites.html">PyBites</a>, Sun 18 June 2017,  <a href="https://pybit.es/category/challenges.html">Challenges</a></p>
+                      <p class="header-date"> <a href="./author/pybites.html">PyBites</a>, Sun 18 June 2017,  <a href="./category/challenges.html">Challenges</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/apis.html">APIs</a>, <a href="https://pybit.es/tag/click.html">click</a>, <a href="https://pybit.es/tag/codechallenges.html">codechallenges</a>, <a href="https://pybit.es/tag/data.html">data</a>, <a href="https://pybit.es/tag/github.html">Github</a>, <a href="https://pybit.es/tag/maya.html">maya</a>, <a href="https://pybit.es/tag/meta.html">meta</a>, <a href="https://pybit.es/tag/packaging.html">packaging</a>, <a href="https://pybit.es/tag/peewee.html">peewee</a>, <a href="https://pybit.es/tag/platform.html">platform</a>, <a href="https://pybit.es/tag/pr-template.html">PR template</a>, <a href="https://pybit.es/tag/pygithub.html">PyGithub</a>, <a href="https://pybit.es/tag/tracking.html">tracking</a>                      </p>
+<a href="./tag/apis.html">APIs</a>, <a href="./tag/click.html">click</a>, <a href="./tag/codechallenges.html">codechallenges</a>, <a href="./tag/data.html">data</a>, <a href="./tag/github.html">Github</a>, <a href="./tag/maya.html">maya</a>, <a href="./tag/meta.html">meta</a>, <a href="./tag/packaging.html">packaging</a>, <a href="./tag/peewee.html">peewee</a>, <a href="./tag/platform.html">platform</a>, <a href="./tag/pr-template.html">PR template</a>, <a href="./tag/pygithub.html">PyGithub</a>, <a href="./tag/tracking.html">tracking</a>                      </p>
                   </div>
               </div>
         </div>
@@ -127,10 +134,10 @@
 </ol>
 <p>The first point took us a bit of brainstorming, but we stumbled upon <a href="https://help.github.com/articles/creating-a-pull-request-template-for-your-repository/">Github's PR template methodology</a> we <a href="https://github.com/pybites/challenges/commit/614b080a16da0b53187ebc93fd95239d18621c68">happily embraced</a> (yeah "Simple is better than complex").</p>
 <p>The cool thing about this is that it puts the template in the comment field when you want to submit a PR:</p>
-<p><img alt="PR template upon PR" src="https://pybit.es/images/pr-template1.png"></p>
+<p><img alt="PR template upon PR" src="./images/pr-template1.png"></p>
 <p>Of course you can just nuke the template, but we think this is the best we can get: the folks that do PRs are probably in the best position to provide input on these metrics. Secondly if you provide a Google doc a click is an extra step. Doing it this way it's part of the process you're already following.</p>
 <p>Example of a filled in template in the PR submission: </p>
-<p><img alt="PR template filled in" src="https://pybit.es/images/pr-template2.png"></p>
+<p><img alt="PR template filled in" src="./images/pr-template2.png"></p>
 <h3>Github API</h3>
 <p>For interacting with the Github API we used the <a href="https://github.com/PyGithub/PyGithub">PyGithub</a> package which made this pretty easy (although it took some inspection of the various GH API endpoint objects to get to the relevant data).</p>
 <p>The code: in <a href="https://github.com/pybites/challenges/blob/community/23/bbelderbos/challenge_stats.py">challenge_stats.py</a> we get <a href="https://github.com/pybites/challenges">our challenges repo</a> object with <code>get_challenge_repo</code>. From that we parse out the submissions with <code>get_submissions</code> in which we loop through all PRs: <code>for pr in challenge_repo.get_pulls('all')</code>. </p>
@@ -176,7 +183,7 @@ defaultdict<span class="o">(</span>&lt;class <span class="s1">&#39;dict&#39;</sp
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'codechallenge23_review.html';
-                var disqus_url = 'https://pybit.es/codechallenge23_review.html';
+                var disqus_url = './codechallenge23_review.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -196,11 +203,11 @@ defaultdict<span class="o">(</span>&lt;class <span class="s1">&#39;dict&#39;</sp
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

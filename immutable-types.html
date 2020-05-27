@@ -4,14 +4,15 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Have you ever wondered why there are mutable and immutable in Python? Have you ever encountered this error in Python? &gt;&gt;&gt; s = &#39;hello&#39; &gt;&gt;&gt; s[0] = &#39;H&#39; Traceback (most recent call last): File...">
-        <meta name="keywords" content="data integrity, functional programming, immutable, javascript, lists, mutable, react, strings">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <meta name="description" content="Have you ever wondered why there are mutable and immutable types in Python? Have you ever encountered this error in Python? &gt;&gt;&gt; s = &#39;hello&#39; &gt;&gt;&gt; s[0] = &#39;H&#39; Traceback (most recent call last): File...">
+        <meta name="keywords" content="data integrity, functional programming, immutable, javascript, lists, mutable, react, strings, types">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Mutable vs Immutable Data Types in Python - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -69,20 +70,26 @@
     <body>
 
         <!-- Header -->
-    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://pybit.es/images/locked.jpg'); background-position: center; ">
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('./images/ripple.jpg'); background-position: center; ">
 
             <!-- Static navbar -->
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Mutable vs Immutable Data Types in Python</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Mon 27 April 2020,  <a href="https://pybit.es/category/concepts.html">Concepts</a></p>
+                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Mon 27 April 2020,  <a href="./category/concepts.html">Concepts</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/data-integrity.html">data integrity</a>, <a href="https://pybit.es/tag/functional-programming.html">functional programming</a>, <a href="https://pybit.es/tag/immutable.html">immutable</a>, <a href="https://pybit.es/tag/javascript.html">javascript</a>, <a href="https://pybit.es/tag/lists.html">lists</a>, <a href="https://pybit.es/tag/mutable.html">mutable</a>, <a href="https://pybit.es/tag/react.html">react</a>, <a href="https://pybit.es/tag/strings.html">strings</a>                      </p>
+<a href="./tag/data-integrity.html">data integrity</a>, <a href="./tag/functional-programming.html">functional programming</a>, <a href="./tag/immutable.html">immutable</a>, <a href="./tag/javascript.html">javascript</a>, <a href="./tag/lists.html">lists</a>, <a href="./tag/mutable.html">mutable</a>, <a href="./tag/react.html">react</a>, <a href="./tag/strings.html">strings</a>, <a href="./tag/types.html">types</a>                      </p>
                   </div>
               </div>
         </div>
@@ -114,7 +121,7 @@
 
         <!-- Content -->
     <div class="container content">
-        <p>Have you ever wondered why there are mutable and immutable in Python?</p>
+        <p>Have you ever wondered why there are mutable and immutable types in Python?</p>
 <p>Have you ever encountered this error in Python?</p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
 &gt;&gt;&gt; s[0] = &#39;H&#39;
@@ -124,24 +131,21 @@ TypeError: &#39;str&#39; object does not support item assignment
 </pre></div>
 
 
-<p>In this article I give you some practical examples and show you some of the advantages of using immutable types. </p>
+<p>In this article I will give you some practical examples and show you some of the advantages of using immutable types. </p>
 <h2>Types</h2>
 <p>As per Python's <a href="https://docs.python.org/3/reference/datamodel.html#objects-values-and-types">language reference's Data model section</a>:</p>
 <blockquote>
-<p>The value of some objects can change. Objects whose value can change are said to be mutable; objects whose value is unchangeable once they are created are called immutable ... An object’s mutability is determined by its type; for instance, numbers, strings and tuples are immutable, while dictionaries and lists are mutable.</p>
+<p>The value of some objects can change. Objects whose value can change are said to be <strong>mutable</strong>; objects whose value is unchangeable once they are created are called <strong>immutable</strong> ... An object’s mutability is determined by its type; for instance, numbers, strings and tuples are immutable, while dictionaries and lists are mutable.</p>
 </blockquote>
 <p>Let's look at some examples.</p>
 <h2>String building</h2>
 <p>When I started Python I was not too concerned with string concatenations. I would have long chains of string building code of:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>s = 'hello'
-s += 'world'
-s += ...</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
+&gt;&gt;&gt; s += &#39;world&#39;
+&gt;&gt;&gt; s += ...
+</pre></div>
+
+
 <p>However if we look at the <code>id</code>s of <code>s</code> after each concatenation we discover:</p>
 <div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
 &gt;&gt;&gt; id(s)
@@ -164,7 +168,7 @@ s += ...</p>
 
 <p>Lists are cheaper here, because you can change the size of this type of object on the fly.</p>
 <p>On the other hand, the size of immutable types is known in memory from the start, which makes them quicker to access.</p>
-<p>This can really add up as <a href="https://www.youtube.com/watch?v=FUJf-eEF1GY">Michael Kennedy's shows here featuring __slots__</a>.</p>
+<p>This can really add up as <a href="https://www.youtube.com/watch?v=FUJf-eEF1GY">Michael Kennedy shows here featuring __slots__</a>.</p>
 <h2>Immutability</h2>
 <p>Another advantage of immutables is the guarantee that these objects will never change.</p>
 <p>Mutable types have a risk of being unexpectedly modified anywhere in your program:</p>
@@ -182,16 +186,16 @@ s += ...</p>
 <p>Or here are some more insidious problems:</p>
 <ul>
 <li>
-<p><a href="https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments">mutable default arguments</a>, a common <a href="https://docs.quantifiedcode.com/python-anti-patterns/correctness/mutable_default_value_as_argument.html">anti-pattern</a></p>
+<p><a href="https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments">Mutable default arguments</a>, a common <a href="https://docs.quantifiedcode.com/python-anti-patterns/correctness/mutable_default_value_as_argument.html">anti-pattern</a></p>
 </li>
 <li>
-<p><a href="https://pybit.es/mutability.html">compound objects</a></p>
+<p><a href="https://pybit.es/mutability.html">Compound objects</a></p>
 </li>
 <li>
-<p>multiple threads modiying an object (although <a href="https://www.oreilly.com/content/python-cookbook-concurrency/">you can use <em>locking</em></a>)</p>
+<p>Multiple threads modifying an object (although <a href="https://www.oreilly.com/content/python-cookbook-concurrency/">you can use <em>locking</em></a>)</p>
 </li>
 <li>
-<p>mutable objects / shared state (OOP) can lead to race conditions (<a href="https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0">example given here</a>)</p>
+<p>Mutable objects / shared state (OOP) can lead to race conditions (<a href="https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0">example given here</a>)</p>
 </li>
 </ul>
 <p>Further reading: <a href="https://hackernoon.com/5-benefits-of-immutable-objects-worth-considering-for-your-next-project-f98e7e85b6ac">5 Benefits of Immutable Objects Worth Considering for Your Next Project</a></p>
@@ -209,7 +213,7 @@ TypeError: &#39;tuple&#39; object does not support item assignment
 
 
 <p>Not 100% immutable. Just something to be wary of.</p>
-<h2>React</h2>
+<h2>React &amp; functional programming</h2>
 <p>Huh? Yes, let's move onto JS for a bit. If you want to learn more about the paradigms of immutability and functional programming it's interesting <a href="https://blog.logrocket.com/immutability-in-react-ebe55253a1cc">to look at React</a>:</p>
 <blockquote>
 <p>It’s easier to test if two objects are equal if they are immutable and React takes advantage of this concept to make some performance optimizations.</p>
@@ -219,10 +223,10 @@ TypeError: &#39;tuple&#39; object does not support item assignment
 <p>Functional code tends to be more concise, more predictable, and easier to test than imperative or object oriented code — but if you’re unfamiliar with it and the common patterns associated with it, functional code can also seem a lot more dense, and the related literature can be impenetrable to newcomers.</p>
 </blockquote>
 <hr>
-<p>Although we went a bit wider than just Python, I hope this makes you think about mutable vs immutable and what it means for the code you read and write.</p>
-<p>(Photo by Masaaki Komori on Unsplash)</p>
+<p>I hope this makes you think about mutable vs immutable and what it means for your code ...</p>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
+<p>(Cover photo by Linus Nylund on Unsplash)</p>
 
 
     <div class="comments">
@@ -230,7 +234,7 @@ TypeError: &#39;tuple&#39; object does not support item assignment
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'immutable-types.html';
-                var disqus_url = 'https://pybit.es/immutable-types.html';
+                var disqus_url = './immutable-types.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -250,11 +254,11 @@ TypeError: &#39;tuple&#39; object does not support item assignment
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

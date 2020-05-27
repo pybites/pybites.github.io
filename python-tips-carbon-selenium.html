@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Did you notice our Python tips lately? They looks more sexy, don&#39;t they? That&#39;s thanks to Carbon which lets you create beautiful images of your source code. As much as I love its interface though,...">
         <meta name="keywords" content="automation, BeautifulSoup, carbon, collections, pprint, random, requests, Selenium, tips, urllib">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Generating Beautiful Code Snippets with Carbon and Selenium - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Generating Beautiful Code Snippets with Carbon and Selenium</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Tue 26 February 2019,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Tue 26 February 2019,  <a href="./category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/automation.html">automation</a>, <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>, <a href="https://pybit.es/tag/carbon.html">carbon</a>, <a href="https://pybit.es/tag/collections.html">collections</a>, <a href="https://pybit.es/tag/pprint.html">pprint</a>, <a href="https://pybit.es/tag/random.html">random</a>, <a href="https://pybit.es/tag/requests.html">requests</a>, <a href="https://pybit.es/tag/selenium.html">Selenium</a>, <a href="https://pybit.es/tag/tips.html">tips</a>, <a href="https://pybit.es/tag/urllib.html">urllib</a>                      </p>
+<a href="./tag/automation.html">automation</a>, <a href="./tag/beautifulsoup.html">BeautifulSoup</a>, <a href="./tag/carbon.html">carbon</a>, <a href="./tag/collections.html">collections</a>, <a href="./tag/pprint.html">pprint</a>, <a href="./tag/random.html">random</a>, <a href="./tag/requests.html">requests</a>, <a href="./tag/selenium.html">Selenium</a>, <a href="./tag/tips.html">tips</a>, <a href="./tag/urllib.html">urllib</a>                      </p>
                   </div>
               </div>
         </div>
@@ -135,12 +142,12 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 
 <h2>Introducing our Platform Tips</h2>
 <p>At the time of this writing we have <a href="https://codechalleng.es/tips">92 tips on our platform</a>:</p>
-<p><img alt="pybites tips page" src="https://pybit.es/images/selenium-carbon/pybites-tips.png"></p>
+<p><img alt="pybites tips page" src="./images/selenium-carbon/pybites-tips.png"></p>
 <p>Let's inspect the tip html we need to parse with BeautifulSoup:</p>
-<p><img alt="html of each tip" src="https://pybit.es/images/selenium-carbon/tip-html.png"></p>
+<p><img alt="html of each tip" src="./images/selenium-carbon/tip-html.png"></p>
 <p>Each tip is wrapped in a <code>tr</code> where the tip text is in a <code>blockquote</code> and the code in <code>pre</code> tags.</p>
 <p>We also want to know if a tip has already been shared out by inspecting the Twitter link. In this example it has <em>pybites/status</em> which means we did.</p>
-<p><img alt="check if there is a twitter link href" src="https://pybit.es/images/selenium-carbon/twitter-href.png"></p>
+<p><img alt="check if there is a twitter link href" src="./images/selenium-carbon/twitter-href.png"></p>
 <hr>
 <p>By the way, I didn't realize it at the time of coding this, but we did make an <a href="https://codechalleng.es/api/tips/">API GET endpoint</a> some time ago. If there is an API it's preferred to use that to retrieve data. However knowing <code>BeautifulSoup</code> might come in handy too :)</p>
 <p>I will do a follow-up post how to convert this into a Tips API ...</p>
@@ -323,18 +330,18 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 
 
 <p>Let's see if this works using <code>pprint</code>:</p>
-<p><img alt="adding a pprint" src="https://pybit.es/images/selenium-carbon/add-pprint.png"></p>
+<p><img alt="adding a pprint" src="./images/selenium-carbon/add-pprint.png"></p>
 <p>Running this it outputs:</p>
-<p><img alt="getting a tips dict" src="https://pybit.es/images/selenium-carbon/tips-dict.png"></p>
+<p><img alt="getting a tips dict" src="./images/selenium-carbon/tips-dict.png"></p>
 <p>Great. Let's make a carbon image next.</p>
 <h2>Beautiful images of your source code</h2>
 <p>Meet <a href="https://carbon.now.sh/">carbon</a>:</p>
-<p><img alt="carbon home" src="https://pybit.es/images/selenium-carbon/carbon-home.png"></p>
+<p><img alt="carbon home" src="./images/selenium-carbon/carbon-home.png"></p>
 <p>It allows you to add code, choose a language and configure other settings, then generate the image and/or tweet it out. It's really nice!</p>
 <p>While playing with the interface I found that clicking the <em>Tweet</em> button it would generate a shareable picture hosted on Twitter. For example clicking the <em>Tweet</em> button I get this popup:</p>
-<p><img alt="clicking tweet button" src="https://pybit.es/images/selenium-carbon/clicking-tweet-button.png"></p>
+<p><img alt="clicking tweet button" src="./images/selenium-carbon/clicking-tweet-button.png"></p>
 <p>And that Twitter link shows the generated code snippet image:</p>
-<p><img alt="resulting carbon image" src="https://pybit.es/images/selenium-carbon/resulting-carbon-image.png"></p>
+<p><img alt="resulting carbon image" src="./images/selenium-carbon/resulting-carbon-image.png"></p>
 <p>We can automate this using Selenium to click the <em>Tweet</em> button, capturing the generated image link. This is why I defined the <code>TWEET_BTN_CLASS</code> constant which is the class set on this button.</p>
 <h2>Use Selenium to create tip code image</h2>
 <p>Let's write the second function <code>get_carbon_image</code>:</p>
@@ -424,7 +431,7 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'python-tips-carbon-selenium.html';
-                var disqus_url = 'https://pybit.es/python-tips-carbon-selenium.html';
+                var disqus_url = './python-tips-carbon-selenium.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -444,11 +451,11 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In this guest post Dante tells us about his Wisdom of the Ages app he built for PyBites code challenge 16 (reviewed here). The best way to learn Python is to build something and we are proud of...">
         <meta name="keywords" content="API, challenges, code review, flask, forismatic, guest, learning, quotes, requests, wikipedia">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Learning Python by Building a Wisdom Quotes App - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Learning Python by Building a Wisdom Quotes App</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/dante-septem.html">Dante Septem</a>, Tue 09 May 2017,  <a href="https://pybit.es/category/learning.html">Learning</a></p>
+                      <p class="header-date"> <a href="./author/dante-septem.html">Dante Septem</a>, Tue 09 May 2017,  <a href="./category/learning.html">Learning</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/api.html">API</a>, <a href="https://pybit.es/tag/challenges.html">challenges</a>, <a href="https://pybit.es/tag/code-review.html">code review</a>, <a href="https://pybit.es/tag/flask.html">flask</a>, <a href="https://pybit.es/tag/forismatic.html">forismatic</a>, <a href="https://pybit.es/tag/guest.html">guest</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/quotes.html">quotes</a>, <a href="https://pybit.es/tag/requests.html">requests</a>, <a href="https://pybit.es/tag/wikipedia.html">wikipedia</a>                      </p>
+<a href="./tag/api.html">API</a>, <a href="./tag/challenges.html">challenges</a>, <a href="./tag/code-review.html">code review</a>, <a href="./tag/flask.html">flask</a>, <a href="./tag/forismatic.html">forismatic</a>, <a href="./tag/guest.html">guest</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/quotes.html">quotes</a>, <a href="./tag/requests.html">requests</a>, <a href="./tag/wikipedia.html">wikipedia</a>                      </p>
                   </div>
               </div>
         </div>
@@ -137,7 +144,7 @@
 </ul>
 <h2>Making it pretty</h2>
 <p>Done with the 'insides' of my machine, I wanted to make it look pretty on the outside too, so I used my google-fu to search for bootstrap templates and themes, found one I liked (<a href="https://bootstraptaste.com/free-one-page-bootstrap-template-amoeba/">Amoeba</a>) and after cutting down all the things I didn't need and downloading a favicon, my first iteration of <a href="https://github.com/pybites/challenges/tree/community/16/dseptem"><strong>Wisdom of the Ages</strong></a> was finished:</p>
-<p><img alt="wisdom of ages design" src="https://pybit.es/images/pcc16_dseptem2.png"></p>
+<p><img alt="wisdom of ages design" src="./images/pcc16_dseptem2.png"></p>
 <h2>Experimenting</h2>
 <p>But I wanted more! Recently I had heard about a Python module called <a href="https://github.com/r0x0r/pywebview">pywebview</a>, which displays a barebones browser as an application to the user. I figured I could make the user of my script choose between the 'embedded' simple view of the website flask created and her own browser, but eventually dropped the functionality because it made everything more complicated (I even had to use threading to run code after starting the flask app website) with no real benefit.</p>
 <h2>Refactoring</h2>
@@ -154,7 +161,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'guest-learning-apis.html';
-                var disqus_url = 'https://pybit.es/guest-learning-apis.html';
+                var disqus_url = './guest-learning-apis.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -174,11 +181,11 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

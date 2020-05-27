@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In this article I will show you how to build a simple API for our growing collection of Python tips: First we make a simple Django app, defining the model. Next we use Django REST Framework to...">
         <meta name="keywords" content="APIs, BeautifulSoup, curl, deployment, Digital Ocean, Django, Django Commands, Django REST Framework, Gunicorn, Linux, Nginx, postgres, Postman, requests, SSH, tips">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Building a Python Tips API with Django REST Framework and Deploying it to Digital Ocean</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Tue 05 March 2019,  <a href="https://pybit.es/category/django.html">Django</a></p>
+                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Tue 05 March 2019,  <a href="./category/django.html">Django</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/apis.html">APIs</a>, <a href="https://pybit.es/tag/beautifulsoup.html">BeautifulSoup</a>, <a href="https://pybit.es/tag/curl.html">curl</a>, <a href="https://pybit.es/tag/deployment.html">deployment</a>, <a href="https://pybit.es/tag/digital-ocean.html">Digital Ocean</a>, <a href="https://pybit.es/tag/django.html">Django</a>, <a href="https://pybit.es/tag/django-commands.html">Django Commands</a>, <a href="https://pybit.es/tag/django-rest-framework.html">Django REST Framework</a>, <a href="https://pybit.es/tag/gunicorn.html">Gunicorn</a>, <a href="https://pybit.es/tag/linux.html">Linux</a>, <a href="https://pybit.es/tag/nginx.html">Nginx</a>, <a href="https://pybit.es/tag/postgres.html">postgres</a>, <a href="https://pybit.es/tag/postman.html">Postman</a>, <a href="https://pybit.es/tag/requests.html">requests</a>, <a href="https://pybit.es/tag/ssh.html">SSH</a>, <a href="https://pybit.es/tag/tips.html">tips</a>                      </p>
+<a href="./tag/apis.html">APIs</a>, <a href="./tag/beautifulsoup.html">BeautifulSoup</a>, <a href="./tag/curl.html">curl</a>, <a href="./tag/deployment.html">deployment</a>, <a href="./tag/digital-ocean.html">Digital Ocean</a>, <a href="./tag/django.html">Django</a>, <a href="./tag/django-commands.html">Django Commands</a>, <a href="./tag/django-rest-framework.html">Django REST Framework</a>, <a href="./tag/gunicorn.html">Gunicorn</a>, <a href="./tag/linux.html">Linux</a>, <a href="./tag/nginx.html">Nginx</a>, <a href="./tag/postgres.html">postgres</a>, <a href="./tag/postman.html">Postman</a>, <a href="./tag/requests.html">requests</a>, <a href="./tag/ssh.html">SSH</a>, <a href="./tag/tips.html">tips</a>                      </p>
                   </div>
               </div>
         </div>
@@ -210,7 +217,7 @@ export DEBUG=True
 
 <h3>The model</h3>
 <p>Looking at the original model on our platform we see the following fields:</p>
-<p><img alt="design" src="https://pybit.es/images/django-rest-digital-ocean/design.png"></p>
+<p><img alt="design" src="./images/django-rest-digital-ocean/design.png"></p>
 <p>As we saw <a href="https://pybit.es/python-tips-carbon-selenium.html">last time</a> the <code>share_link</code> is to be populated by an admin when we share out a tip with a nice <a href="https://carbon.now.sh">carbon</a> image.</p>
 <p>Let's build our model <code>tips/models.py</code> using these fields. </p>
 <p>I am also creating an <code>Author</code> model to store Twitter and Slack handles from future contributing users. The former to give credit when we share their tips on Twitter, the latter to store the author of the tip when we start receiving them from Slack (next article).</p>
@@ -301,8 +308,8 @@ Superuser created successfully.
 
 
 <p>Great: that created both a <code>User</code> and an <code>Author</code> instance in our DB. I am using <a href="https://sqlitebrowser.org">DB Browser for SQLite</a> to query my local DB here:</p>
-<p><img alt="auth user" src="https://pybit.es/images/django-rest-digital-ocean/auth_user.png"></p>
-<p><img alt="tips author" src="https://pybit.es/images/django-rest-digital-ocean/tips_author.png"></p>
+<p><img alt="auth user" src="./images/django-rest-digital-ocean/auth_user.png"></p>
+<p><img alt="tips author" src="./images/django-rest-digital-ocean/tips_author.png"></p>
 <h2>Import Tips from our Platform</h2>
 <p>Next we want to retrieve the tips <a href="https://codechalleng.es/tips">currently on our platform</a> so I coded up a <a href="https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/">Django command</a> to parse them and save them to our new tips Database. </p>
 <div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ cd tips/
@@ -387,8 +394,8 @@ Done: 92 tips imported
 </pre></div>
 
 
-<p><img alt="tips imported" src="https://pybit.es/images/django-rest-digital-ocean/import.png"></p>
-<p><img alt="a single tip" src="https://pybit.es/images/django-rest-digital-ocean/import2.png"></p>
+<p><img alt="tips imported" src="./images/django-rest-digital-ocean/import.png"></p>
+<p><img alt="a single tip" src="./images/django-rest-digital-ocean/import2.png"></p>
 <p>Awesome: we have our tips in the DB and you now know how to write a Django Command! Just extend <code>BaseCommand</code>, implement <code>handle</code> and save the script in a subdirectory called <code>management/commands</code> in your app folder.</p>
 <h2>Build an API with Django REST Framework</h2>
 <p>Let's build the API next. We already added <code>rest_framework</code> to <code>INSTALLED_APPS</code>. Let's also set the <a href="https://www.django-rest-framework.org/api-guide/permissions/">permissions</a> to <code>DjangoModelPermissionsOrAnonReadOnly</code> which seems to match what we want:</p>
@@ -537,20 +544,20 @@ Starting development server at http://127.0.0.1:8000/
 <h3>Postman</h3>
 <p><em>Postman Simplifies API Development</em>. You can download it <a href="https://www.getpostman.com/">here</a>.</p>
 <p>Get all tips:</p>
-<p><img alt="get all tips" src="https://pybit.es/images/django-rest-digital-ocean/postman-get-all.png"></p>
+<p><img alt="get all tips" src="./images/django-rest-digital-ocean/postman-get-all.png"></p>
 <p>Get a single tip:</p>
-<p><img alt="get single tip" src="https://pybit.es/images/django-rest-digital-ocean/postman-get-one.png"></p>
+<p><img alt="get single tip" src="./images/django-rest-digital-ocean/postman-get-one.png"></p>
 <p>Verify I cannot post without login:</p>
-<p><img alt="cannot post" src="https://pybit.es/images/django-rest-digital-ocean/postman-post.png"></p>
+<p><img alt="cannot post" src="./images/django-rest-digital-ocean/postman-post.png"></p>
 <h3>Django REST Framework</h3>
 <p>Django REST provides a really nice browser interface to play with our new API:</p>
-<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser1.png"></p>
+<p><img alt="Django rest front-end" src="./images/django-rest-digital-ocean/django-rest-browser1.png"></p>
 <p>As I am an <em>anonymous</em> user I don't see any edit options:</p>
-<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser2.png"></p>
+<p><img alt="Django rest front-end" src="./images/django-rest-digital-ocean/django-rest-browser2.png"></p>
 <p>When I log in as my <em>superuser</em> though, a form and delete button show up:</p>
-<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser3.png"></p>
+<p><img alt="Django rest front-end" src="./images/django-rest-digital-ocean/django-rest-browser3.png"></p>
 <p>Navigating back to the root of the API, I can also <code>POST</code> a new tip now that I am logged in:</p>
-<p><img alt="Django rest front-end" src="https://pybit.es/images/django-rest-digital-ocean/django-rest-browser4.png"></p>
+<p><img alt="Django rest front-end" src="./images/django-rest-digital-ocean/django-rest-browser4.png"></p>
 <h3>Tests</h3>
 <p>Ideally we'd write some tests at this point to future-proof any changes we have to make to our API. I leave that as an exercise (challenge) for the reader though. You can PR your code for this challenge <a href="https://codechalleng.es/challenges/39/">here</a>. We did a similar exercise <a href="https://pybit.es/simple-flask-api.html">here</a>.</p>
 <hr>
@@ -558,10 +565,10 @@ Starting development server at http://127.0.0.1:8000/
 <p>I got 100 bucks credit for free via <a href="https://pythonbytes.fm/">Python Bytes</a> - nice, thanks!</p>
 <h3>Fresh install</h3>
 <p>My first attempt (cause <em>programmers are supposed to be lazy</em>, right?!) was to go with the <a href="https://www.digitalocean.com/docs/one-clicks/django/">Django One-Click Application</a>:</p>
-<p><img alt="Django droplet" src="https://pybit.es/images/django-rest-digital-ocean/django-droplet1.png"></p>
-<p><img alt="Django droplet" src="https://pybit.es/images/django-rest-digital-ocean/django-droplet2.png"></p>
+<p><img alt="Django droplet" src="./images/django-rest-digital-ocean/django-droplet1.png"></p>
+<p><img alt="Django droplet" src="./images/django-rest-digital-ocean/django-droplet2.png"></p>
 <p>However the <a href="https://packages.ubuntu.com/bionic/python-django">latest Django from APT</a> is 1.11 at this time and our API uses Django 2.x so let's set everything up from scratch using a fresh Ubuntu 18.04 server instance. Not only do we get it exactly as we want, it's also a nice learning exercise!</p>
-<p><img alt="new Ubuntu instance" src="https://pybit.es/images/django-rest-digital-ocean/ubuntu1804.png"></p>
+<p><img alt="new Ubuntu instance" src="./images/django-rest-digital-ocean/ubuntu1804.png"></p>
 <h3>SSH access and keys</h3>
 <p>First hurdle you might find is not being able to SSH in as root (I should have remembered this from my old SunOS days ...):</p>
 <div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">ssh</span> <span class="n">root</span><span class="mf">@159.203.186.209</span>
@@ -813,7 +820,7 @@ Quit the server with CONTROL-C.
 
 
 <p>Browsing to <code>http://159.203.186.209:8000/api/</code> we see:</p>
-<p><img alt="api from dev server" src="https://pybit.es/images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
+<p><img alt="api from dev server" src="./images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
 <p>Awesome! Well, actually first I got a permission error because I only had <em>localhost</em> in <code>ALLOWED_HOSTS</code> so make sure you add your own IP. Again in this case that is <code>159.203.186.209</code>.</p>
 <h3>Gunicorn</h3>
 <p>Now let's use Gunicorn. First test it manually:</p>
@@ -947,7 +954,7 @@ Quit the server with CONTROL-C.
 
 <p>... which I could resolve using <a href="https://stackoverflow.com/a/42084804">this workaround</a>, but it was overshadowed by the Gunicorn ENV variable issue I described earlier, so not sure if this would have been a stopper.</p>
 <p>And voilà: we have our PyBites API hosted on Digital Ocean!</p>
-<p><img alt="API on Digital Ocean" src="https://pybit.es/images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
+<p><img alt="API on Digital Ocean" src="./images/django-rest-digital-ocean/remote-api-dev-server.png"></p>
 <h2>Conclusion</h2>
 <p>This was a fun exercise! We managed to turn PyBites Tips into its own service hosted in the cloud!</p>
 <p>The only challenge was <code>gunicorn</code> not picking up environment variables from a file, but we got around that and it all works nicely now ...</p>
@@ -964,7 +971,7 @@ Quit the server with CONTROL-C.
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'django-rest-tips-api-digital-ocean.html';
-                var disqus_url = 'https://pybit.es/django-rest-tips-api-digital-ocean.html';
+                var disqus_url = './django-rest-tips-api-digital-ocean.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -984,11 +991,11 @@ Quit the server with CONTROL-C.
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

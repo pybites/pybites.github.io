@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In this article I will show you how to test a Django app with pytest and Selenium. We will test our CodeChalleng.es platform comparing the logged out homepage vs the logged in dashboard. We will...">
         <meta name="keywords" content="dateutil, django, fixtures, platform, pytest, selenium">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <link rel="icon" href="./favicon.ico">
 
         <title>How to Test Your Django App with Selenium and pytest - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/all.min.css" rel="stylesheet">
+        <link href="./theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -75,14 +76,20 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
+                        <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+    <p>Hello World!</p>
+  </div>
+</div>
+                                <a  href="./">Home</a>
+                                <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
                 </div>
             </div>
@@ -95,12 +102,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How to Test Your Django App with Selenium and pytest</h1>
-                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Thu 22 November 2018,  <a href="https://pybit.es/category/testing.html">Testing</a></p>
+                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Thu 22 November 2018,  <a href="./category/testing.html">Testing</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/dateutil.html">dateutil</a>, <a href="https://pybit.es/tag/django.html">django</a>, <a href="https://pybit.es/tag/fixtures.html">fixtures</a>, <a href="https://pybit.es/tag/platform.html">platform</a>, <a href="https://pybit.es/tag/pytest.html">pytest</a>, <a href="https://pybit.es/tag/selenium.html">selenium</a>                      </p>
+<a href="./tag/dateutil.html">dateutil</a>, <a href="./tag/django.html">django</a>, <a href="./tag/fixtures.html">fixtures</a>, <a href="./tag/platform.html">platform</a>, <a href="./tag/pytest.html">pytest</a>, <a href="./tag/selenium.html">selenium</a>                      </p>
                   </div>
               </div>
         </div>
@@ -244,7 +251,7 @@ def driver():
 <p>Generators are awesome!</p>
 <h3>Test the logged out homepage</h3>
 <p>Next a <em>hello world</em> Selenium test: <code>driver.get(HOMEPAGE)</code> reaches out to the platform's homepage and it just checks if the title is as expected. Here is the logged out homepage:</p>
-<p><img alt="homepage logged out" src="https://pybit.es/images/homepage-loggedout.png"></p>
+<p><img alt="homepage logged out" src="./images/homepage-loggedout.png"></p>
 <div class="highlight"><pre><span></span>def test_loggedout_homepage(driver):
     driver.get(HOMEPAGE)
     expected = &quot;PyBites Code Challenges | Hone Your Python Skills&quot;
@@ -256,7 +263,7 @@ def driver():
 <p><strong>Note</strong> I am using <code>localhost</code> for <code>HOMEPAGE</code> here so prior to this I started my Django app server in a second terminal tab: <code>python manage.py runserver</code>!</p>
 <h3>Test the logged in dashboard</h3>
 <p>Let's do something more interesting. Here is the <a href="https://codechalleng.es">CodeChalleng.es</a> dashboard of my test user:</p>
-<p><img alt="homepage logged in" src="https://pybit.es/images/homepage-loggedin.png"></p>
+<p><img alt="homepage logged in" src="./images/homepage-loggedin.png"></p>
 <p>Let's see if we can test the following:</p>
 <ol>
 <li>The <code>h2</code> headers are as expected.</li>
@@ -361,7 +368,7 @@ def test_loggedin_dashboard(driver):
 <p>And with that I hope this gave you a feel how you can test your Django app with <code>pytest</code> and <code>selenium</code>.</p>
 <h3>The final (stripped down) code</h3>
 <p>And the result:</p>
-<p><img alt="pytest selenium result" src="https://pybit.es/images/pytest-selenium-result.png"></p>
+<p><img alt="pytest selenium result" src="./images/pytest-selenium-result.png"></p>
 <p>Check out a simplified version <a href="https://github.com/pybites/blog_code/tree/master/selenium">here</a>. I took out the Django requirement omitting the last two (DB) checks. No more Django <code>runserver</code> made me change the <code>HOMEPAGE</code> constant to use the live site instead of <em>localhost</em>.</p>
 <h3>Your turn!</h3>
 <p>Up for a challenge? We have a dedicated Django + Selenium Code Challenge available on our platform: <a href="https://codechalleng.es/challenges/32/">PCC32 - Test a Simple Django App With Selenium</a>. </p>
@@ -385,7 +392,7 @@ def test_loggedin_dashboard(driver):
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'selenium-pytest-and-django.html';
-                var disqus_url = 'https://pybit.es/selenium-pytest-and-django.html';
+                var disqus_url = './selenium-pytest-and-django.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -405,11 +412,11 @@ def test_loggedin_dashboard(driver):
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
-                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
-                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
-                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="./pages/guests.html">Authors</a></li>
+                            <li><a href="./pages/community.html">Community</a></li>
+                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="./pages/search.html">Search</a></li>
+                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>
