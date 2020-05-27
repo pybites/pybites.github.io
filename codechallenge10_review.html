@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -128,9 +129,9 @@
 <ul>
 <li>
 <p>We used a class to keep state. We used two lists for secret and guessed_word. Looking at it now self.secret_word should probably be a tuple (inmutable). Handling non-ASCII in the constructor made the rest easier:</p>
-<div class="highlight"><pre><span></span>self.secret_word = list(word.lower())
-self.guessed_word = [PLACEHOLDER if c in ASCII else c
-                    for c in self.secret_word]
+<div class="highlight"><pre><span></span><span class="nv">self</span>.<span class="nv">secret_word</span> <span class="o">=</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">word</span>.<span class="nv">lower</span><span class="ss">())</span>
+<span class="nv">self</span>.<span class="nv">guessed_word</span> <span class="o">=</span> [<span class="nv">PLACEHOLDER</span> <span class="k">if</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">ASCII</span> <span class="k">else</span> <span class="nv">c</span>
+                    <span class="k">for</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">secret_word</span>]
 </pre></div>
 
 

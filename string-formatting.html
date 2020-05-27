@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -125,19 +126,19 @@
 <p>After doing Michael Kennedy's <a href="http://pybit.es/pythonic-code-course-rewiew.html"><em>Write Pythonic Code Like a Seasoned Developer</em></a> course, I was inspired to write about the different ways you could format a string in Python. Mainly because the method we've all deemed <strong>wrong</strong> (or at least, "least Pythonic") is the way I started off doing it!</p>
 <h2>The Terribly Unpythonic Method</h2>
 <p>Okay let's get this out of the way first. Here's how I formatted a string when I first started:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; country = &quot;Australia&quot;
-&gt;&gt;&gt; level = 11
-&gt;&gt;&gt;
-&gt;&gt;&gt; print(&quot;The awesomeness level of &quot; + country + &quot; is &quot; + str(level) + &quot;.&quot;)
-The awesomeness level of Australia is 11.
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">country</span> <span class="o">=</span> <span class="ss">&quot;Australia&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">level</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="ss">&quot;The awesomeness level of &quot;</span> <span class="o">+</span> <span class="n">country</span> <span class="o">+</span> <span class="ss">&quot; is &quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="k">level</span><span class="p">)</span> <span class="o">+</span> <span class="ss">&quot;.&quot;</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">awesomeness</span> <span class="k">level</span> <span class="k">of</span> <span class="n">Australia</span> <span class="k">is</span> <span class="mi">11</span><span class="p">.</span>
 </pre></div>
 
 
 <p>I'll be honest, I was just glad I could get text to print! It's pretty terrible isn't it? Having to display <em>level</em> as a string with <em>str()</em> sends shivers down my spine now.</p>
 <h2>Using the String Format Operator</h2>
 <p>When Bob first showed me code that contained the string format operator I could have died. Not because it was awesome but because as a newbie, I had no idea what the heck I was even reading! Using the same variables and types:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;The awesomeness level of %s is %d.&quot; % (country, level))
-The awesomeness level of Australia is 11.
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="ss">&quot;The awesomeness level of %s is %d.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="k">level</span><span class="p">))</span>
+<span class="n">The</span> <span class="n">awesomeness</span> <span class="k">level</span> <span class="k">of</span> <span class="n">Australia</span> <span class="k">is</span> <span class="mi">11</span><span class="p">.</span>
 </pre></div>
 
 
@@ -149,8 +150,8 @@ The awesomeness level of Australia is 11.
 <h2>Replacement Fields</h2>
 <p>This is my favourite one. Replacement fields!</p>
 <p>Replacement fields expand on the format operator by taking the thinking out of the equation (always a good thing for me!):</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;The awesomeness level of {} is {}.&quot;.format(country, level))
-The awesomeness level of Australia is 11.
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="ss">&quot;The awesomeness level of {} is {}.&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="k">level</span><span class="p">))</span>
+<span class="n">The</span> <span class="n">awesomeness</span> <span class="k">level</span> <span class="k">of</span> <span class="n">Australia</span> <span class="k">is</span> <span class="mi">11</span><span class="p">.</span>
 </pre></div>
 
 
@@ -159,8 +160,8 @@ The awesomeness level of Australia is 11.
 <p>Pythonic goodness!</p>
 <h2>Python 3.6 f-strings</h2>
 <p>f-strings were introduced <a href="http://pybit.es/3.6_new.html">in Python 3.6</a> and are pretty new to me but that doesn't stop them from being awesome! Check this out:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; f&quot;The awesomeness level of {country} is {level}.&quot;
-&#39;The awesomeness level of Australia is 11.&#39;
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="ss">&quot;The awesomeness level of {country} is {level}.&quot;</span>
+<span class="s1">&#39;The awesomeness level of Australia is 11.&#39;</span>
 </pre></div>
 
 

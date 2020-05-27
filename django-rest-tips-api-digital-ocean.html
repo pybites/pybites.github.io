@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -139,36 +140,36 @@
 <li><code>psycopg2</code> and <code>gunicorn</code> for deployment on <a href="https://www.digitalocean.com/">Digital Ocean</a>.</li>
 </ul>
 <p>So here we go:</p>
-<div class="highlight"><pre><span></span>[bobbelderbos@imac code]$ mkdir tips_api &amp;&amp; cd $_
-[bobbelderbos@imac tips_api]$ alias pvenv
-alias pvenv=&#39;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7 -m venv venv &amp;&amp; source venv/bin/activate&#39;
-[bobbelderbos@imac tips_api]$ pvenv
-(venv) [bobbelderbos@imac tips_api]$ python -V
-Python 3.7.0
-(venv) [bobbelderbos@imac tips_api]$ pip install -r requirements.txt
-...
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="n">bobbelderbos@imac code</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="n">tips_api</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="err">$</span><span class="n">_</span><span class="w"></span>
+<span class="o">[</span><span class="n">bobbelderbos@imac tips_api</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="k">alias</span><span class="w"> </span><span class="n">pvenv</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">pvenv</span><span class="o">=</span><span class="s1">&#39;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7 -m venv venv &amp;&amp; source venv/bin/activate&#39;</span><span class="w"></span>
+<span class="o">[</span><span class="n">bobbelderbos@imac tips_api</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pvenv</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">V</span><span class="w"></span>
+<span class="n">Python</span><span class="w"> </span><span class="mf">3.7.0</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">requirements</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
 </pre></div>
 
 
 <p>Let's set the following 2 environment variables as referenced in Django's <code>settings.py</code> file later on:</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ deactivate
-[bobbelderbos@imac tips_api (master)]$ vi venv/bin/activate
-...
-export SECRET_KEY=&#39;some-secret-string&#39;
-export DEBUG=True
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">deactivate</span><span class="w"></span>
+<span class="o">[</span><span class="n">bobbelderbos@imac tips_api (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">vi</span><span class="w"> </span><span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">SECRET_KEY</span><span class="o">=</span><span class="s1">&#39;some-secret-string&#39;</span><span class="w"></span>
+<span class="n">export</span><span class="w"> </span><span class="n">DEBUG</span><span class="o">=</span><span class="k">True</span><span class="w"></span>
 </pre></div>
 
 
 <p>Then activate the venv:</p>
-<div class="highlight"><pre><span></span>[bobbelderbos@imac tips_api (master)]$ source venv/bin/activate
-(venv) [bobbelderbos@imac tips_api (master)]$
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api (master)</span><span class="o">]</span><span class="err">$</span><span class="w"></span>
 </pre></div>
 
 
 <p>It's also important to set <code>ALLOWED_HOSTS</code>, but as we will see later I have it default to localhost which is fine for my local env.</p>
 <h2>Create a Django project and app</h2>
 <p>Let's make a Django project in the current directory (<code>.</code>):</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api]$ django-admin.py startproject tips .
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">django</span><span class="o">-</span><span class="k">admin</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">startproject</span><span class="w"> </span><span class="n">tips</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
 
 
@@ -188,30 +189,30 @@ export DEBUG=True
 
 
 <p>And let's make our api <em>app</em> to keep it isolated from the rest:</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api]$ django-admin.py startapp api
-(venv) [bobbelderbos@imac tips_api]$ tree -I venv
-.
-├── api
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── migrations
-│   │   └── __init__.py
-│   ├── models.py
-│   ├── tests.py
-│   └── views.py
-...
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">django</span><span class="o">-</span><span class="k">admin</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">startapp</span><span class="w"> </span><span class="n">api</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">-</span><span class="n">I</span><span class="w"> </span><span class="n">venv</span><span class="w"></span>
+<span class="p">.</span><span class="w"></span>
+<span class="err">├──</span><span class="w"> </span><span class="n">api</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">__init__</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="k">admin</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">apps</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">migrations</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">__init__</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">models</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">tests</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">views</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
 </pre></div>
 
 
 <p>Lastly we need to tell Django about both apps in <code>tips/settings.py</code> -&gt; <code>INSTALLED_APPS</code>. We also add <code>rest_framework</code> here for later use:</p>
-<div class="highlight"><pre><span></span>INSTALLED_APPS = [
-    ...
-    &#39;rest_framework&#39;,
-    ...
-    &#39;tips&#39;,
-    &#39;api&#39;,
-]
+<div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="s1">&#39;rest_framework&#39;</span><span class="p">,</span>
+    <span class="p">...</span>
+    <span class="s1">&#39;tips&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;api&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 </pre></div>
 
 
@@ -268,32 +269,32 @@ export DEBUG=True
 <p>This is one way to extend Django's <code>User</code> model which I learned about <a href="https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html">here</a>. </p>
 <p>Now it's time to make the migration files and migrate (sync) the two new models to the database.</p>
 <p>As it's the first time we call <code>migrate</code> all models that come with Django out of the box, get synced to the DB as well. I am using the default <code>sqlite3</code> DB for now, but I should probably change that to Postgres to mirror deployment to Digital Ocean.</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py makemigrations tips
-Migrations for &#39;tips&#39;:
-tips/migrations/0001_initial.py
-    - Create model Author
-    - Create model Tip
+<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">tips_api</span> <span class="ss">(</span><span class="nv">master</span><span class="ss">)</span>]$ <span class="nv">python</span> <span class="nv">manage</span>.<span class="nv">py</span> <span class="nv">makemigrations</span> <span class="nv">tips</span>
+<span class="nv">Migrations</span> <span class="k">for</span> <span class="s1">&#39;</span><span class="s">tips</span><span class="s1">&#39;</span>:
+<span class="nv">tips</span><span class="o">/</span><span class="nv">migrations</span><span class="o">/</span><span class="mi">0001</span><span class="nv">_initial</span>.<span class="nv">py</span>
+    <span class="o">-</span> <span class="nv">Create</span> <span class="nv">model</span> <span class="nv">Author</span>
+    <span class="o">-</span> <span class="nv">Create</span> <span class="nv">model</span> <span class="nv">Tip</span>
 
-(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py migrate
-Operations to perform:
-Apply all migrations: admin, auth, contenttypes, sessions, tips
-Running migrations:
-Applying contenttypes.0001_initial... OK
-Applying auth.0001_initial... OK
-Applying admin.0001_initial... OK
-Applying admin.0002_logentry_remove_auto_add... OK
-Applying admin.0003_logentry_add_action_flag_choices... OK
-Applying contenttypes.0002_remove_content_type_name... OK
-Applying auth.0002_alter_permission_name_max_length... OK
-Applying auth.0003_alter_user_email_max_length... OK
-Applying auth.0004_alter_user_username_opts... OK
-Applying auth.0005_alter_user_last_login_null... OK
-Applying auth.0006_require_contenttypes_0002... OK
-Applying auth.0007_alter_validators_add_error_messages... OK
-Applying auth.0008_alter_user_username_max_length... OK
-Applying auth.0009_alter_user_last_name_max_length... OK
-Applying sessions.0001_initial... OK
-Applying tips.0001_initial... OK
+<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">tips_api</span> <span class="ss">(</span><span class="nv">master</span><span class="ss">)</span>]$ <span class="nv">python</span> <span class="nv">manage</span>.<span class="nv">py</span> <span class="nv">migrate</span>
+<span class="nv">Operations</span> <span class="nv">to</span> <span class="nv">perform</span>:
+<span class="nv">Apply</span> <span class="nv">all</span> <span class="nv">migrations</span>: <span class="nv">admin</span>, <span class="nv">auth</span>, <span class="nv">contenttypes</span>, <span class="nv">sessions</span>, <span class="nv">tips</span>
+<span class="nv">Running</span> <span class="nv">migrations</span>:
+<span class="nv">Applying</span> <span class="nv">contenttypes</span>.<span class="mi">0001</span><span class="nv">_initial</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0001</span><span class="nv">_initial</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">admin</span>.<span class="mi">0001</span><span class="nv">_initial</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">admin</span>.<span class="mi">0002</span><span class="nv">_logentry_remove_auto_add</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">admin</span>.<span class="mi">0003</span><span class="nv">_logentry_add_action_flag_choices</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">contenttypes</span>.<span class="mi">0002</span><span class="nv">_remove_content_type_name</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0002</span><span class="nv">_alter_permission_name_max_length</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0003</span><span class="nv">_alter_user_email_max_length</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0004</span><span class="nv">_alter_user_username_opts</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0005</span><span class="nv">_alter_user_last_login_null</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0006</span><span class="nv">_require_contenttypes_0002</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0007</span><span class="nv">_alter_validators_add_error_messages</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0008</span><span class="nv">_alter_user_username_max_length</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">auth</span>.<span class="mi">0009</span><span class="nv">_alter_user_last_name_max_length</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">sessions</span>.<span class="mi">0001</span><span class="nv">_initial</span>... <span class="nv">OK</span>
+<span class="nv">Applying</span> <span class="nv">tips</span>.<span class="mi">0001</span><span class="nv">_initial</span>... <span class="nv">OK</span>
 </pre></div>
 
 
@@ -312,10 +313,10 @@ Superuser created successfully.
 <p><img alt="tips author" src="./images/django-rest-digital-ocean/tips_author.png"></p>
 <h2>Import Tips from our Platform</h2>
 <p>Next we want to retrieve the tips <a href="https://codechalleng.es/tips">currently on our platform</a> so I coded up a <a href="https://docs.djangoproject.com/en/2.1/howto/custom-management-commands/">Django command</a> to parse them and save them to our new tips Database. </p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ cd tips/
-(venv) [bobbelderbos@imac tips (master)]$ mkdir -p management/commands
-(venv) [bobbelderbos@imac tips (master)]$ cd $_
-(venv) [bobbelderbos@imac commands (master)]$ vi sync_tips.py
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">tips</span><span class="o">/</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">management</span><span class="o">/</span><span class="n">commands</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="err">$</span><span class="n">_</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac commands (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">vi</span><span class="w"> </span><span class="n">sync_tips</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
 </pre></div>
 
 
@@ -389,8 +390,8 @@ Superuser created successfully.
 <p>However I found it nicer to make it work like an update script, in case the platform gets new tips in the interim. Calling the script again should just insert the newer tips.</p>
 <p>For that reason I went with Django's handy <code>Tip.objects.get_or_create</code> which will create the tip if nothing matches the <code>kwargs</code> passed in, otherwise it will return the object (which I ignore using <code>_</code>). This way it will only create a tip if not already in the DB. </p>
 <p>Let's run this:</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py sync_tips
-Done: 92 tips imported
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">sync_tips</span><span class="w"></span>
+<span class="nl">Done</span><span class="p">:</span><span class="w"> </span><span class="mi">92</span><span class="w"> </span><span class="n">tips</span><span class="w"> </span><span class="n">imported</span><span class="w"></span>
 </pre></div>
 
 
@@ -403,11 +404,11 @@ Done: 92 tips imported
 <p>Similar to <code>DjangoModelPermissions</code> (permission class ties into Django's standard <code>django.contrib.auth</code> model permissions), but also allows unauthenticated users to have read-only access to the API.</p>
 </blockquote>
 <p>In <code>tips/settings.py</code> I am adding the <code>REST_FRAMEWORK dict</code>, setting <code>DEFAULT_PERMISSION_CLASSES</code>:</p>
-<div class="highlight"><pre><span></span>REST_FRAMEWORK = {
-    # Use Django&#39;s standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    &#39;DEFAULT_PERMISSION_CLASSES&#39;: [
-        &#39;rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly&#39;
+<div class="highlight"><pre><span></span><span class="nv">REST_FRAMEWORK</span> <span class="o">=</span> {
+    # <span class="nv">Use</span> <span class="nv">Django</span><span class="s1">&#39;</span><span class="s">s standard `django.contrib.auth` permissions,</span>
+    # <span class="nv">or</span> <span class="nv">allow</span> <span class="nv">read</span><span class="o">-</span><span class="nv">only</span> <span class="nv">access</span> <span class="k">for</span> <span class="nv">unauthenticated</span> <span class="nv">users</span>.
+    <span class="s1">&#39;</span><span class="s">DEFAULT_PERMISSION_CLASSES</span><span class="s1">&#39;</span>: [
+        <span class="s1">&#39;</span><span class="s">rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly</span><span class="s1">&#39;</span>
     ]
 }
 </pre></div>
@@ -496,9 +497,9 @@ Done: 92 tips imported
 
 
 <p><code>obj.user</code> refers to the <code>ForeignKey</code> we defined on the <code>Tip</code> model:</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Tip</span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Model</span><span class="p">)</span><span class="o">:</span>
-    <span class="p">...</span>
-    <span class="nx">user</span> <span class="o">=</span> <span class="nx">models</span><span class="p">.</span><span class="nx">ForeignKey</span><span class="p">(</span><span class="nx">User</span><span class="p">,</span> <span class="nx">on_delete</span><span class="o">=</span><span class="nx">models</span><span class="p">.</span><span class="nx">CASCADE</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">Tip</span>(<span class="n">models</span>.<span class="n">Model</span>):
+    ...
+    <span class="n">user</span> = <span class="n">models</span>.<span class="n">ForeignKey</span>(<span class="n">User</span>, <span class="n">on_delete</span>=<span class="n">models</span>.<span class="n">CASCADE</span>)
 </pre></div>
 
 
@@ -526,9 +527,9 @@ Done: 92 tips imported
 
 
 <p>And that's it! Let's launch the server and check out our new API next ...</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ python manage.py runserver
-...
-Starting development server at http://127.0.0.1:8000/
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac tips_api (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">runserver</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="n">Starting</span><span class="w"> </span><span class="n">development</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="err">:</span><span class="mi">8000</span><span class="o">/</span><span class="w"></span>
 </pre></div>
 
 
@@ -536,8 +537,8 @@ Starting development server at http://127.0.0.1:8000/
 <p>We can consume our API with various tools:</p>
 <h3><code>curl</code></h3>
 <p>Nice and easy:</p>
-<div class="highlight"><pre><span></span>[bobbelderbos@imac ~]$ curl http://127.0.0.1:8000/api/4
-{&quot;tip&quot;:&quot;Q: difference between __str__ and __repr__ in #Python? A: \&quot;My rule of thumb:  __repr__ is for developers, __str__ is for customers.\&quot; (Ned Batchelder on SO)&quot;,&quot;code&quot;:null,&quot;link&quot;:&quot;https://stackoverflow.com/a/1438297&quot;,&quot;user&quot;:1,&quot;approved&quot;:true,&quot;share_link&quot;:null}
+<div class="highlight"><pre><span></span>[<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="o">~</span>]$ <span class="nv">curl</span> <span class="nv">http</span>:<span class="o">//</span><span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span>:<span class="mi">8000</span><span class="o">/</span><span class="nv">api</span><span class="o">/</span><span class="mi">4</span>
+{<span class="s2">&quot;</span><span class="s">tip</span><span class="s2">&quot;</span>:<span class="s2">&quot;</span><span class="s">Q: difference between __str__ and __repr__ in #Python? A: \</span><span class="s2">&quot;</span><span class="nv">My</span> <span class="nv">rule</span> <span class="nv">of</span> <span class="nv">thumb</span>:  <span class="nv">__repr__</span> <span class="nv">is</span> <span class="k">for</span> <span class="nv">developers</span>, <span class="nv">__str__</span> <span class="nv">is</span> <span class="k">for</span> <span class="nv">customers</span>.\<span class="s2">&quot;</span><span class="s"> (Ned Batchelder on SO)</span><span class="s2">&quot;</span>,<span class="s2">&quot;</span><span class="s">code</span><span class="s2">&quot;</span>:<span class="nv">null</span>,<span class="s2">&quot;</span><span class="s">link</span><span class="s2">&quot;</span>:<span class="s2">&quot;</span><span class="s">https://stackoverflow.com/a/1438297</span><span class="s2">&quot;</span>,<span class="s2">&quot;</span><span class="s">user</span><span class="s2">&quot;</span>:<span class="mi">1</span>,<span class="s2">&quot;</span><span class="s">approved</span><span class="s2">&quot;</span>:<span class="nv">true</span>,<span class="s2">&quot;</span><span class="s">share_link</span><span class="s2">&quot;</span>:<span class="nv">null</span>}
 </pre></div>
 
 
@@ -579,68 +580,68 @@ Starting development server at http://127.0.0.1:8000/
 <p><code>PermitRootLogin</code> was already set to <code>yes</code> in <code>/etc/ssh/sshd_config</code>, but I also had to set <code>PasswordAuthentication</code> to <code>yes</code> opening a Console session from Digital Ocean's BUI, followed by a <code>sudo service ssh restart</code>. Now I was able to SSH in as root.</p>
 <p>I <a href="https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/to-account/">uploaded a SSH public key</a> to Digital Ocean's account page and had it added to the droplet upon creaton. This populated <code>~/.ssh/authorized_keys</code> with my public key.</p>
 <p>Locally I then made an alias in <code>.ssh/config</code> to be able to login using the alias <code>ssh dioc</code>:</p>
-<div class="highlight"><pre><span></span>Host dioc
-HostName 159.203.186.209
-User root
-IdentityFile ~/.ssh/DO
+<div class="highlight"><pre><span></span><span class="nv">Host</span> <span class="nv">dioc</span>
+<span class="nv">HostName</span> <span class="mi">159</span>.<span class="mi">203</span>.<span class="mi">186</span>.<span class="mi">209</span>
+<span class="nv">User</span> <span class="nv">root</span>
+<span class="nv">IdentityFile</span> <span class="o">~/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="k">DO</span>
 </pre></div>
 
 
 <p>(Where <code>/.ssh/DO</code> is my private key stored locally.)</p>
 <h3>Upgrade</h3>
 <p>Best practice is to first upgrade the OS because it was behind on important security fixes. This required a reboot:</p>
-<div class="highlight"><pre><span></span>root@ubuntu-s-1vcpu-1gb-nyc1-01:~# apt-get update &amp;&amp; apt-get -y upgrade
-root@ubuntu-s-1vcpu-1gb-nyc1-01:~# reboot
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="k">get</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="k">get</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">upgrade</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">reboot</span><span class="w"></span>
 </pre></div>
 
 
 <p>Logging in again I followed Digital Ocean's <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04">Initial Server Setup with Ubuntu 18.04</a> creating a user: <code>adduser bob</code> and granting <code>sudo</code> rights: <code>usermod -aG sudo bob</code></p>
 <h3>Firewall</h3>
 <p>Next I enabled the firewall:</p>
-<div class="highlight"><pre><span></span>root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw app list
-Available applications:
-OpenSSH
-root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw allow OpenSSH
-Rules updated
-Rules updated (v6)
-root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw enable
-Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
-Firewall is active and enabled on system startup
-root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ufw status
-Status: active
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">ufw</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="n">list</span><span class="w"></span>
+<span class="n">Available</span><span class="w"> </span><span class="nl">applications</span><span class="p">:</span><span class="w"></span>
+<span class="n">OpenSSH</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">ufw</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="n">OpenSSH</span><span class="w"></span>
+<span class="n">Rules</span><span class="w"> </span><span class="n">updated</span><span class="w"></span>
+<span class="n">Rules</span><span class="w"> </span><span class="n">updated</span><span class="w"> </span><span class="p">(</span><span class="n">v6</span><span class="p">)</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">ufw</span><span class="w"> </span><span class="n">enable</span><span class="w"></span>
+<span class="n">Command</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">disrupt</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="n">connections</span><span class="p">.</span><span class="w"> </span><span class="n">Proceed</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">operation</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">|</span><span class="n">n</span><span class="p">)</span><span class="vm">?</span><span class="w"> </span><span class="n">y</span><span class="w"></span>
+<span class="n">Firewall</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">enabled</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="n">startup</span><span class="w"></span>
+<span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">ufw</span><span class="w"> </span><span class="n">status</span><span class="w"></span>
+<span class="nl">Status</span><span class="p">:</span><span class="w"> </span><span class="n">active</span><span class="w"></span>
 
-To                         Action      From
---                         ------      ----
-OpenSSH                    ALLOW       Anywhere
-OpenSSH (v6)               ALLOW       Anywhere (v6)
+<span class="k">To</span><span class="w">                         </span><span class="k">Action</span><span class="w">      </span><span class="k">From</span><span class="w"></span>
+<span class="c1">--                         ------      ----</span>
+<span class="n">OpenSSH</span><span class="w">                    </span><span class="n">ALLOW</span><span class="w">       </span><span class="n">Anywhere</span><span class="w"></span>
+<span class="n">OpenSSH</span><span class="w"> </span><span class="p">(</span><span class="n">v6</span><span class="p">)</span><span class="w">               </span><span class="n">ALLOW</span><span class="w">       </span><span class="n">Anywhere</span><span class="w"> </span><span class="p">(</span><span class="n">v6</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 
 <h3>SSH part II</h3>
 <p>Next I made sure my new user (<code>bob</code>) could login as well.</p>
 <p>As I use SSH keys for logging in as root, I copied over the <code>.ssh</code> folder to my new user's home folder using <code>rsync</code>:</p>
-<div class="highlight"><pre><span></span>root@ubuntu-s-1vcpu-1gb-nyc1-01:~# rsync --archive --chown=bob:bob ~/.ssh /home/bob
-root@ubuntu-s-1vcpu-1gb-nyc1-01:~# ls -l  /home/bob/.ssh/authorized_keys
--rw------- 1 bob bob 410 Mar  3 07:40 /home/bob/.ssh/authorized_keys
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">rsync</span><span class="w"> </span><span class="c1">--archive --chown=bob:bob ~/.ssh /home/bob</span>
+<span class="n">root</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~</span><span class="err">#</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w">  </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">bob</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">authorized_keys</span><span class="w"></span>
+<span class="o">-</span><span class="n">rw</span><span class="c1">------- 1 bob bob 410 Mar  3 07:40 /home/bob/.ssh/authorized_keys</span>
 </pre></div>
 
 
 <p>And locally I made a new SSH shortcut in <code>.ssh/config</code>:</p>
-<div class="highlight"><pre><span></span>Host diocu
-HostName 159.203.186.209
-User bob
-IdentityFile ~/.ssh/DO
+<div class="highlight"><pre><span></span><span class="nv">Host</span> <span class="nv">diocu</span>
+<span class="nv">HostName</span> <span class="mi">159</span>.<span class="mi">203</span>.<span class="mi">186</span>.<span class="mi">209</span>
+<span class="nv">User</span> <span class="nv">bob</span>
+<span class="nv">IdentityFile</span> <span class="o">~/</span>.<span class="nv">ssh</span><span class="o">/</span><span class="k">DO</span>
 </pre></div>
 
 
 <p>At this point <code>bob</code> could SSH in using the alias <code>ssh diocu</code>:</p>
-<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac tips_api (master)]$ ssh diocu
-Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-45-generic x86_64)
+<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">tips_api</span> <span class="ss">(</span><span class="nv">master</span><span class="ss">)</span>]$ <span class="nv">ssh</span> <span class="nv">diocu</span>
+<span class="nv">Welcome</span> <span class="nv">to</span> <span class="nv">Ubuntu</span> <span class="mi">18</span>.<span class="mi">04</span>.<span class="mi">2</span> <span class="nv">LTS</span> <span class="ss">(</span><span class="nv">GNU</span><span class="o">/</span><span class="nv">Linux</span> <span class="mi">4</span>.<span class="mi">15</span>.<span class="mi">0</span><span class="o">-</span><span class="mi">45</span><span class="o">-</span><span class="nv">generic</span> <span class="nv">x86_64</span><span class="ss">)</span>
 ...
-To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.
-See &quot;man sudo_root&quot; for details.
+<span class="nv">To</span> <span class="nv">run</span> <span class="nv">a</span> <span class="nv">command</span> <span class="nv">as</span> <span class="nv">administrator</span> <span class="ss">(</span><span class="nv">user</span> <span class="s2">&quot;</span><span class="s">root</span><span class="s2">&quot;</span><span class="ss">)</span>, <span class="nv">use</span> <span class="s2">&quot;</span><span class="s">sudo &lt;command&gt;</span><span class="s2">&quot;</span>.
+<span class="nv">See</span> <span class="s2">&quot;</span><span class="s">man sudo_root</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="nv">details</span>.
 
-bob@ubuntu-s-1vcpu-1gb-nyc1-01:~$
+<span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~</span>$
 </pre></div>
 
 
@@ -649,36 +650,36 @@ bob@ubuntu-s-1vcpu-1gb-nyc1-01:~$
 <p>What follows is mostly the same as the steps outlined in that guide, but through the lens of me doing it for our API. </p>
 <h3>Python 3</h3>
 <p>First we need to install the following packages, upgrade <code>pip</code> and grab <code>virtualenv</code>. Note I logged in as <code>bob</code> so any <em>admin</em> commands need to be preceded by <code>sudo</code>:</p>
-<div class="highlight"><pre><span></span>sudo apt update
-sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl
-sudo -H pip3 install --upgrade pip
-sudo -H pip3 install virtualenv
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="k">update</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">libpq</span><span class="o">-</span><span class="n">dev</span> <span class="n">postgresql</span> <span class="n">postgresql</span><span class="o">-</span><span class="n">contrib</span> <span class="n">nginx</span> <span class="n">curl</span>
+<span class="n">sudo</span> <span class="o">-</span><span class="n">H</span> <span class="n">pip3</span> <span class="n">install</span> <span class="c1">--upgrade pip</span>
+<span class="n">sudo</span> <span class="o">-</span><span class="n">H</span> <span class="n">pip3</span> <span class="n">install</span> <span class="n">virtualenv</span>
 </pre></div>
 
 
 <h3>Database</h3>
 <p>We want to use a postgres DB and user:</p>
-<div class="highlight"><pre><span></span>sudo -u postgres psql
-postgres=# CREATE DATABASE tips;
-CREATE DATABASE
-postgres=# CREATE USER pybites WITH PASSWORD &#39;something-secure&#39;;
-CREATE ROLE
-postgres=# ALTER ROLE pybites SET client_encoding TO &#39;utf8&#39;;
-ALTER ROLE
-postgres=# ALTER ROLE pybites SET default_transaction_isolation TO &#39;read committed&#39;;
-ALTER ROLE
-postgres=# ALTER ROLE pybites SET timezone TO &#39;UTC&#39;;
-ALTER ROLE
-postgres=# GRANT ALL PRIVILEGES ON DATABASE tips TO pybites;
-GRANT
-postgres=# \q
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">-</span><span class="n">u</span> <span class="n">postgres</span> <span class="n">psql</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">tips</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">DATABASE</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="n">pybites</span> <span class="k">WITH</span> <span class="n">PASSWORD</span> <span class="s1">&#39;something-secure&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">ROLE</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">ALTER</span> <span class="k">ROLE</span> <span class="n">pybites</span> <span class="k">SET</span> <span class="n">client_encoding</span> <span class="k">TO</span> <span class="s1">&#39;utf8&#39;</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">ROLE</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">ALTER</span> <span class="k">ROLE</span> <span class="n">pybites</span> <span class="k">SET</span> <span class="n">default_transaction_isolation</span> <span class="k">TO</span> <span class="s1">&#39;read committed&#39;</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">ROLE</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">ALTER</span> <span class="k">ROLE</span> <span class="n">pybites</span> <span class="k">SET</span> <span class="n">timezone</span> <span class="k">TO</span> <span class="s1">&#39;UTC&#39;</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">ROLE</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="k">DATABASE</span> <span class="n">tips</span> <span class="k">TO</span> <span class="n">pybites</span><span class="p">;</span>
+<span class="k">GRANT</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="err">\</span><span class="n">q</span>
 </pre></div>
 
 
 <h3>Pull in the Django API code</h3>
 <p>Not part of the guide, but at this point I pulled in our code from Github saving it to my <code>$HOME</code> folder:</p>
-<div class="highlight"><pre><span></span>git clone https://github.com/pybites/tips_api
-cd tips_api
+<div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">pybites</span><span class="o">/</span><span class="n">tips_api</span>
+<span class="n">cd</span> <span class="n">tips_api</span>
 </pre></div>
 
 
@@ -699,16 +700,16 @@ $ <span class="nb">source</span> venv/bin/activate
 
 
 <p>These are referenced in Django's <code>tips/settings.py</code> with sensible defaults if omitted:</p>
-<div class="highlight"><pre><span></span>ALLOWED_HOSTS = os.environ.get(&#39;ALLOWED_HOSTS&#39;, &#39;localhost&#39;).split(&#39;, &#39;)
+<div class="highlight"><pre><span></span><span class="nv">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">environ</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">ALLOWED_HOSTS</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">localhost</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">, </span><span class="s1">&#39;</span><span class="ss">)</span>
 ...
-DATABASES = {
-    &#39;default&#39;: {
-        &#39;ENGINE&#39;: os.environ.get(&#39;DB_ENGINE&#39;, &#39;django.db.backends.sqlite3&#39;),  # default sqlite3 if desired
-        &#39;NAME&#39;: os.environ.get(&#39;DB_NAME&#39;, os.path.join(BASE_DIR, &#39;db.sqlite3&#39;)),
-        &#39;USER&#39;: os.environ.get(&#39;DB_USER&#39;, &#39;&#39;),
-        &#39;PASSWORD&#39;: os.environ.get(&#39;DB_PASSWORD&#39;, &#39;&#39;),
-        &#39;HOST&#39;: os.environ.get(&#39;DB_HOST&#39;, &#39;localhost&#39;),
-        &#39;PORT&#39;: os.environ.get(&#39;DB_PORT&#39;, &#39;&#39;),  # can leave empty on Digital Ocean
+<span class="nv">DATABASES</span> <span class="o">=</span> {
+    <span class="s1">&#39;</span><span class="s">default</span><span class="s1">&#39;</span>: {
+        <span class="s1">&#39;</span><span class="s">ENGINE</span><span class="s1">&#39;</span>: <span class="nv">os</span>.<span class="nv">environ</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DB_ENGINE</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">django.db.backends.sqlite3</span><span class="s1">&#39;</span><span class="ss">)</span>,  # <span class="nv">default</span> <span class="nv">sqlite3</span> <span class="k">if</span> <span class="nv">desired</span>
+        <span class="s1">&#39;</span><span class="s">NAME</span><span class="s1">&#39;</span>: <span class="nv">os</span>.<span class="nv">environ</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DB_NAME</span><span class="s1">&#39;</span>, <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">BASE_DIR</span>, <span class="s1">&#39;</span><span class="s">db.sqlite3</span><span class="s1">&#39;</span><span class="ss">))</span>,
+        <span class="s1">&#39;</span><span class="s">USER</span><span class="s1">&#39;</span>: <span class="nv">os</span>.<span class="nv">environ</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DB_USER</span><span class="s1">&#39;</span>, <span class="s1">&#39;&#39;</span><span class="ss">)</span>,
+        <span class="s1">&#39;</span><span class="s">PASSWORD</span><span class="s1">&#39;</span>: <span class="nv">os</span>.<span class="nv">environ</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DB_PASSWORD</span><span class="s1">&#39;</span>, <span class="s1">&#39;&#39;</span><span class="ss">)</span>,
+        <span class="s1">&#39;</span><span class="s">HOST</span><span class="s1">&#39;</span>: <span class="nv">os</span>.<span class="nv">environ</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DB_HOST</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">localhost</span><span class="s1">&#39;</span><span class="ss">)</span>,
+        <span class="s1">&#39;</span><span class="s">PORT</span><span class="s1">&#39;</span>: <span class="nv">os</span>.<span class="nv">environ</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">DB_PORT</span><span class="s1">&#39;</span>, <span class="s1">&#39;&#39;</span><span class="ss">)</span>,  # <span class="nv">can</span> <span class="nv">leave</span> <span class="nv">empty</span> <span class="nv">on</span> <span class="nv">Digital</span> <span class="nv">Ocean</span>
     }
 }
 </pre></div>
@@ -716,57 +717,57 @@ DATABASES = {
 
 <h3>Dependencies</h3>
 <p>With my venv enabled let's install the dependencies:</p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ pip install -r requirements.txt
-...
-(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ pip freeze
-beautifulsoup4==4.7.1
-bs4==0.0.1
-certifi==2018.11.29
-chardet==3.0.4
-Django==2.1.7
-djangorestframework==3.9.1
-gunicorn==19.9.0
-idna==2.8
-psycopg2==2.7.7
-psycopg2-binary==2.7.7
-pytz==2018.9
-requests==2.21.0
-soupsieve==1.8
-urllib3==1.24.1
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">requirements</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">freeze</span><span class="w"></span>
+<span class="n">beautifulsoup4</span><span class="o">==</span><span class="mf">4.7.1</span><span class="w"></span>
+<span class="n">bs4</span><span class="o">==</span><span class="mf">0.0.1</span><span class="w"></span>
+<span class="n">certifi</span><span class="o">==</span><span class="mf">2018.11.29</span><span class="w"></span>
+<span class="n">chardet</span><span class="o">==</span><span class="mf">3.0.4</span><span class="w"></span>
+<span class="n">Django</span><span class="o">==</span><span class="mf">2.1.7</span><span class="w"></span>
+<span class="n">djangorestframework</span><span class="o">==</span><span class="mf">3.9.1</span><span class="w"></span>
+<span class="n">gunicorn</span><span class="o">==</span><span class="mf">19.9.0</span><span class="w"></span>
+<span class="n">idna</span><span class="o">==</span><span class="mf">2.8</span><span class="w"></span>
+<span class="n">psycopg2</span><span class="o">==</span><span class="mf">2.7.7</span><span class="w"></span>
+<span class="n">psycopg2</span><span class="o">-</span><span class="nc">binary</span><span class="o">==</span><span class="mf">2.7.7</span><span class="w"></span>
+<span class="n">pytz</span><span class="o">==</span><span class="mf">2018.9</span><span class="w"></span>
+<span class="n">requests</span><span class="o">==</span><span class="mf">2.21.0</span><span class="w"></span>
+<span class="n">soupsieve</span><span class="o">==</span><span class="mf">1.8</span><span class="w"></span>
+<span class="n">urllib3</span><span class="o">==</span><span class="mf">1.24.1</span><span class="w"></span>
 </pre></div>
 
 
 <h3>Static files</h3>
 <p>To support static file handling by Nginx we need to set the following two constants in <code>tips/settings.py</code>:</p>
-<div class="highlight"><pre><span></span>STATIC_URL = &#39;/static/&#39;
-STATIC_ROOT = os.path.join(BASE_DIR, &#39;static/&#39;)
+<div class="highlight"><pre><span></span><span class="n">STATIC_URL</span> <span class="o">=</span> <span class="s1">&#39;/static/&#39;</span>
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;static/&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <h3>Sync the DB</h3>
 <p>Next we sync the models/migrations to the newly created postgres DB:</p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py migrate
-Operations to perform:
-Apply all migrations: admin, auth, contenttypes, sessions, tips
-Running migrations:
-Applying contenttypes.0001_initial... OK
-Applying auth.0001_initial... OK
-Applying admin.0001_initial... OK
-Applying admin.0002_logentry_remove_auto_add... OK
-Applying admin.0003_logentry_add_action_flag_choices... OK
-Applying contenttypes.0002_remove_content_type_name... OK
-Applying auth.0002_alter_permission_name_max_length... OK
-Applying auth.0003_alter_user_email_max_length... OK
-Applying auth.0004_alter_user_username_opts... OK
-Applying auth.0005_alter_user_last_login_null... OK
-Applying auth.0006_require_contenttypes_0002... OK
-Applying auth.0007_alter_validators_add_error_messages... OK
-Applying auth.0008_alter_user_username_max_length... OK
-Applying auth.0009_alter_user_last_name_max_length... OK
-Applying sessions.0001_initial... OK
-Applying tips.0001_initial... OK
-Applying tips.0002_auto_20190302_1958... OK
-Applying tips.0003_auto_20190302_2011... OK
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">migrate</span><span class="w"></span>
+<span class="n">Operations</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nl">perform</span><span class="p">:</span><span class="w"></span>
+<span class="n">Apply</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="nl">migrations</span><span class="p">:</span><span class="w"> </span><span class="k">admin</span><span class="p">,</span><span class="w"> </span><span class="n">auth</span><span class="p">,</span><span class="w"> </span><span class="n">contenttypes</span><span class="p">,</span><span class="w"> </span><span class="n">sessions</span><span class="p">,</span><span class="w"> </span><span class="n">tips</span><span class="w"></span>
+<span class="n">Running</span><span class="w"> </span><span class="nl">migrations</span><span class="p">:</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">contenttypes</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="k">admin</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="k">admin</span><span class="mf">.0002</span><span class="n">_logentry_remove_auto_add</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="k">admin</span><span class="mf">.0003</span><span class="n">_logentry_add_action_flag_choices</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">contenttypes</span><span class="mf">.0002</span><span class="n">_remove_content_type_name</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0002</span><span class="n">_alter_permission_name_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0003</span><span class="n">_alter_user_email_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0004</span><span class="n">_alter_user_username_opts</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0005</span><span class="n">_alter_user_last_login_null</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0006</span><span class="n">_require_contenttypes_0002</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0007</span><span class="n">_alter_validators_add_error_messages</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0008</span><span class="n">_alter_user_username_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0009</span><span class="n">_alter_user_last_name_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">sessions</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">tips</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">tips</span><span class="mf">.0002</span><span class="n">_auto_20190302_1958</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<span class="n">Applying</span><span class="w"> </span><span class="n">tips</span><span class="mf">.0003</span><span class="n">_auto_20190302_2011</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
 </pre></div>
 
 
@@ -774,48 +775,48 @@ Applying tips.0003_auto_20190302_2011... OK
 <p>Note that Django migrations are committed to source code so I did not have to generate them (<code>makemigrations</code>) again!</p>
 <h3>Superuser</h3>
 <p>Let's create our <code>pybites</code> admin to pull in our existing tips:</p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py createsuperuser
-Username (leave blank to use &#39;bob&#39;): pybites
-Email address:
-Password:
-Password (again):
-Superuser created successfully.
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">createsuperuser</span><span class="w"></span>
+<span class="n">Username</span><span class="w"> </span><span class="p">(</span><span class="n">leave</span><span class="w"> </span><span class="n">blank</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="s1">&#39;bob&#39;</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">pybites</span><span class="w"></span>
+<span class="n">Email</span><span class="w"> </span><span class="nl">address</span><span class="p">:</span><span class="w"></span>
+<span class="nl">Password</span><span class="p">:</span><span class="w"></span>
+<span class="n">Password</span><span class="w"> </span><span class="p">(</span><span class="n">again</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="n">Superuser</span><span class="w"> </span><span class="n">created</span><span class="w"> </span><span class="n">successfully</span><span class="p">.</span><span class="w"></span>
 </pre></div>
 
 
 <p>And import the tips from our platform:</p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py sync_tips
-Done: 92 tips imported
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">sync_tips</span><span class="w"></span>
+<span class="nl">Done</span><span class="p">:</span><span class="w"> </span><span class="mi">92</span><span class="w"> </span><span class="n">tips</span><span class="w"> </span><span class="n">imported</span><span class="w"></span>
 </pre></div>
 
 
 <p>Perfect. Let's collect the static files (<em>but it's an API?</em> you might ask ... well, Django's Admin back-end and Django REST Framework's browser UI use quite a few static files!)</p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py collectstatic
-155 static files copied to &#39;/home/bob/tips_api/static&#39;.
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">collectstatic</span><span class="w"></span>
+<span class="mi">155</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">copied</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;/home/bob/tips_api/static&#39;</span><span class="p">.</span><span class="w"></span>
 
-(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ ls static/
-admin  rest_framework
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="k">static</span><span class="o">/</span><span class="w"></span>
+<span class="k">admin</span><span class="w">  </span><span class="n">rest_framework</span><span class="w"></span>
 </pre></div>
 
 
 <h3>Dev server</h3>
 <p>To run the development server have the firewall grant access to port 8000:</p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo ufw allow 8000
-[sudo] password for bob:
-Rule added
-Rule added (v6)
+<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> <span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~/</span><span class="nv">tips_api</span>$ <span class="nv">sudo</span> <span class="nv">ufw</span> <span class="nv">allow</span> <span class="mi">8000</span>
+[<span class="nv">sudo</span>] <span class="nv">password</span> <span class="k">for</span> <span class="nv">bob</span>:
+<span class="nv">Rule</span> <span class="nv">added</span>
+<span class="nv">Rule</span> <span class="nv">added</span> <span class="ss">(</span><span class="nv">v6</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>And now we can run the development server: </p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ python manage.py runserver 0.0.0.0:8000
-Performing system checks...
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">runserver</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="err">:</span><span class="mi">8000</span><span class="w"></span>
+<span class="n">Performing</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="n">checks</span><span class="p">...</span><span class="w"></span>
 
-System check identified no issues (0 silenced).
-March 04, 2019 - 09:05:00
-Django version 2.1.7, using settings &#39;tips.settings&#39;
-Starting development server at http://0.0.0.0:8000/
-Quit the server with CONTROL-C.
+<span class="k">System</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="n">issues</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="n">silenced</span><span class="p">).</span><span class="w"></span>
+<span class="n">March</span><span class="w"> </span><span class="mi">04</span><span class="p">,</span><span class="w"> </span><span class="mi">2019</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">05</span><span class="err">:</span><span class="mi">00</span><span class="w"></span>
+<span class="n">Django</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mf">2.1.7</span><span class="p">,</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">settings</span><span class="w"> </span><span class="s1">&#39;tips.settings&#39;</span><span class="w"></span>
+<span class="n">Starting</span><span class="w"> </span><span class="n">development</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="mf">0.0.0.0</span><span class="err">:</span><span class="mi">8000</span><span class="o">/</span><span class="w"></span>
+<span class="n">Quit</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">CONTROL</span><span class="o">-</span><span class="n">C</span><span class="p">.</span><span class="w"></span>
 </pre></div>
 
 
@@ -824,11 +825,11 @@ Quit the server with CONTROL-C.
 <p>Awesome! Well, actually first I got a permission error because I only had <em>localhost</em> in <code>ALLOWED_HOSTS</code> so make sure you add your own IP. Again in this case that is <code>159.203.186.209</code>.</p>
 <h3>Gunicorn</h3>
 <p>Now let's use Gunicorn. First test it manually:</p>
-<div class="highlight"><pre><span></span>(venv) bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ gunicorn --bind 0.0.0.0:8000 tips.wsgi
-[2019-03-04 09:11:10 +0000] [16579] [INFO] Starting gunicorn 19.9.0
-[2019-03-04 09:11:10 +0000] [16579] [INFO] Listening at: http://0.0.0.0:8000 (16579)
-[2019-03-04 09:11:10 +0000] [16579] [INFO] Using worker: sync
-[2019-03-04 09:11:10 +0000] [16582] [INFO] Booting worker with pid: 16582
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">gunicorn</span><span class="w"> </span><span class="c1">--bind 0.0.0.0:8000 tips.wsgi</span>
+<span class="o">[</span><span class="n">2019-03-04 09:11:10 +0000</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">16579</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="n">Starting</span><span class="w"> </span><span class="n">gunicorn</span><span class="w"> </span><span class="mf">19.9.0</span><span class="w"></span>
+<span class="o">[</span><span class="n">2019-03-04 09:11:10 +0000</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">16579</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="n">Listening</span><span class="w"> </span><span class="k">at</span><span class="err">:</span><span class="w"> </span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="mf">0.0.0.0</span><span class="err">:</span><span class="mi">8000</span><span class="w"> </span><span class="p">(</span><span class="mi">16579</span><span class="p">)</span><span class="w"></span>
+<span class="o">[</span><span class="n">2019-03-04 09:11:10 +0000</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">16579</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="nl">worker</span><span class="p">:</span><span class="w"> </span><span class="n">sync</span><span class="w"></span>
+<span class="o">[</span><span class="n">2019-03-04 09:11:10 +0000</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">16582</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">INFO</span><span class="o">]</span><span class="w"> </span><span class="n">Booting</span><span class="w"> </span><span class="n">worker</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="nl">pid</span><span class="p">:</span><span class="w"> </span><span class="mi">16582</span><span class="w"></span>
 </pre></div>
 
 
@@ -836,7 +837,7 @@ Quit the server with CONTROL-C.
 <blockquote>
 <p>The Gunicorn socket will be created at boot and will listen for connections. When a connection occurs, systemd will automatically start the Gunicorn process to handle the connection.</p>
 </blockquote>
-<div class="highlight"><pre><span></span>bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.socket
+<div class="highlight"><pre><span></span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">vi</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"></span>
 </pre></div>
 
 
@@ -853,7 +854,7 @@ Quit the server with CONTROL-C.
 
 
 <p>Then create a <code>gunicorn.service</code>:</p>
-<div class="highlight"><pre><span></span>bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo vi /etc/systemd/system/gunicorn.service
+<div class="highlight"><pre><span></span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">vi</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">service</span><span class="w"></span>
 </pre></div>
 
 
@@ -889,66 +890,66 @@ Quit the server with CONTROL-C.
 <p>As per <a href="https://www.digitalocean.com/community/questions/gunicorn-service-can-t-read-environment-variables">this thread</a> I tried <code>EnvironmentFile=/home/bob/.env</code> copying the variables from <code>venv/bin/activate</code> (argh). Even that did not work.</p>
 <p>So I ended up with adding them with multiple <code>-e</code> flags making it less DRY, although as all runs through <code>gunicorn</code> we might just ditch them from <code>venv/bin/activate</code> altogether.</p>
 <p>To set this in motion:</p>
-<div class="highlight"><pre><span></span><span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">systemctl</span> <span class="nt">start</span> <span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span>
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">systemctl</span> <span class="nt">enable</span> <span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span>
-<span class="nt">Created</span> <span class="nt">symlink</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">systemd</span><span class="o">/</span><span class="nt">system</span><span class="o">/</span><span class="nt">sockets</span><span class="p">.</span><span class="nc">target</span><span class="p">.</span><span class="nc">wants</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span> <span class="err">→</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">systemd</span><span class="o">/</span><span class="nt">system</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span><span class="o">.</span>
+<div class="highlight"><pre><span></span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"></span>
+<span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"></span>
+<span class="n">Created</span><span class="w"> </span><span class="n">symlink</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="n">sockets</span><span class="p">.</span><span class="n">target</span><span class="p">.</span><span class="n">wants</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="w"></span>
 
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">systemctl</span> <span class="nt">status</span> <span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span>
-<span class="nt">Failed</span> <span class="nt">to</span> <span class="nt">dump</span> <span class="nt">process</span> <span class="nt">list</span><span class="o">,</span> <span class="nt">ignoring</span><span class="o">:</span> <span class="nt">No</span> <span class="nt">such</span> <span class="nt">file</span> <span class="nt">or</span> <span class="nt">directory</span>
-<span class="err">●</span> <span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span> <span class="nt">-</span> <span class="nt">gunicorn</span> <span class="nt">socket</span>
-<span class="nt">Loaded</span><span class="o">:</span> <span class="nt">loaded</span> <span class="o">(/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">systemd</span><span class="o">/</span><span class="nt">system</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span><span class="p">;</span> <span class="nt">enabled</span><span class="p">;</span> <span class="nt">vendor</span> <span class="nt">preset</span><span class="o">:</span> <span class="nt">enabled</span><span class="o">)</span>
-<span class="nt">Active</span><span class="o">:</span> <span class="nt">active</span> <span class="o">(</span><span class="nt">listening</span><span class="o">)</span> <span class="nt">since</span> <span class="nt">Mon</span> <span class="nt">2019-03-04</span> <span class="nt">09</span><span class="p">:</span><span class="nd">18</span><span class="p">:</span><span class="nd">06</span> <span class="nt">UTC</span><span class="p">;</span> <span class="nt">21s</span> <span class="nt">ago</span>
-<span class="nt">Listen</span><span class="o">:</span> <span class="o">/</span><span class="nt">run</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">sock</span> <span class="o">(</span><span class="nt">Stream</span><span class="o">)</span>
-<span class="nt">CGroup</span><span class="o">:</span> <span class="o">/</span><span class="nt">system</span><span class="p">.</span><span class="nc">slice</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">socket</span>
+<span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"></span>
+<span class="n">Failed</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">dump</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="n">list</span><span class="p">,</span><span class="w"> </span><span class="nl">ignoring</span><span class="p">:</span><span class="w"> </span><span class="k">No</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">directory</span><span class="w"></span>
+<span class="err">●</span><span class="w"> </span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">gunicorn</span><span class="w"> </span><span class="n">socket</span><span class="w"></span>
+<span class="nl">Loaded</span><span class="p">:</span><span class="w"> </span><span class="n">loaded</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="k">system</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="p">;</span><span class="w"> </span><span class="n">enabled</span><span class="p">;</span><span class="w"> </span><span class="n">vendor</span><span class="w"> </span><span class="nl">preset</span><span class="p">:</span><span class="w"> </span><span class="n">enabled</span><span class="p">)</span><span class="w"></span>
+<span class="nl">Active</span><span class="p">:</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="p">(</span><span class="n">listening</span><span class="p">)</span><span class="w"> </span><span class="n">since</span><span class="w"> </span><span class="n">Mon</span><span class="w"> </span><span class="mi">2019</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">04</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">18</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="n">UTC</span><span class="p">;</span><span class="w"> </span><span class="mi">21</span><span class="n">s</span><span class="w"> </span><span class="n">ago</span><span class="w"></span>
+<span class="nl">Listen</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">sock</span><span class="w"> </span><span class="p">(</span><span class="n">Stream</span><span class="p">)</span><span class="w"></span>
+<span class="nl">CGroup</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="k">system</span><span class="p">.</span><span class="n">slice</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"></span>
 
-<span class="nt">Mar</span> <span class="nt">04</span> <span class="nt">09</span><span class="p">:</span><span class="nd">18</span><span class="p">:</span><span class="nd">06</span> <span class="nt">ubuntu-s-1vcpu-1gb-nyc1-01</span> <span class="nt">systemd</span><span class="cp">[</span><span class="mi">1</span><span class="cp">]</span><span class="o">:</span> <span class="nt">Listening</span> <span class="nt">on</span> <span class="nt">gunicorn</span> <span class="nt">socket</span><span class="o">.</span>
+<span class="n">Mar</span><span class="w"> </span><span class="mi">04</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">18</span><span class="err">:</span><span class="mi">06</span><span class="w"> </span><span class="n">ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="w"> </span><span class="n">systemd</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="err">:</span><span class="w"> </span><span class="n">Listening</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">gunicorn</span><span class="w"> </span><span class="n">socket</span><span class="p">.</span><span class="w"></span>
 
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">file</span> <span class="o">/</span><span class="nt">run</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">sock</span>
-<span class="o">/</span><span class="nt">run</span><span class="o">/</span><span class="nt">gunicorn</span><span class="p">.</span><span class="nc">sock</span><span class="o">:</span> <span class="nt">socket</span>
+<span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="n">sock</span><span class="w"></span>
+<span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">gunicorn</span><span class="p">.</span><span class="nl">sock</span><span class="p">:</span><span class="w"> </span><span class="n">socket</span><span class="w"></span>
 </pre></div>
 
 
 <p>By the way, when troubleshooting these kind of issues and when making changes to your <code>gunicorn</code> config, remember to restart both the <code>daemon</code> and the <code>gunicorn</code> service:</p>
-<div class="highlight"><pre><span></span>bob@ubuntu-s-1vcpu-1gb-nyc1-01:~/tips_api$ sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart gunicorn.socket gunicorn.service
+<div class="highlight"><pre><span></span><span class="n">bob</span><span class="nv">@ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span><span class="err">:</span><span class="o">~/</span><span class="n">tips_api</span><span class="err">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">daemon</span><span class="o">-</span><span class="n">reload</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">restart</span><span class="w"> </span><span class="n">gunicorn</span><span class="p">.</span><span class="n">socket</span><span class="w"> </span><span class="n">gunicorn</span><span class="p">.</span><span class="n">service</span><span class="w"></span>
 </pre></div>
 
 
 <h3>Nginx</h3>
 <p>As per <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04">Digital Ocean's guide</a> I needed to do the following to get Nginx running:</p>
-<div class="highlight"><pre><span></span><span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">vi</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">sites-available</span><span class="o">/</span><span class="nt">tips_api</span>
+<div class="highlight"><pre><span></span><span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~/</span><span class="nv">tips_api</span>$ <span class="nv">sudo</span> <span class="nv">vi</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">sites</span><span class="o">-</span><span class="nv">available</span><span class="o">/</span><span class="nv">tips_api</span>
 
-<span class="nt">server</span> <span class="p">{</span>
-    <span class="nt">listen</span> <span class="nt">80</span><span class="o">;</span>
-    <span class="nt">server_name</span> <span class="nt">159</span><span class="p">.</span><span class="nc">203</span><span class="p">.</span><span class="nc">186</span><span class="p">.</span><span class="nc">209</span><span class="o">;</span>
+<span class="nv">server</span> {
+    <span class="nv">listen</span> <span class="mi">80</span><span class="c1">;</span>
+    <span class="nv">server_name</span> <span class="mi">159</span>.<span class="mi">203</span>.<span class="mi">186</span>.<span class="mi">209</span><span class="c1">;</span>
 
-    <span class="nt">location</span> <span class="o">=</span> <span class="o">/</span><span class="nt">favicon</span><span class="p">.</span><span class="nc">ico</span> <span class="p">{</span> <span class="err">access_log</span> <span class="err">off</span><span class="p">;</span> <span class="err">log_not_found</span> <span class="err">off</span><span class="p">;</span> <span class="p">}</span>
-    <span class="nt">location</span> <span class="o">/</span><span class="nt">static</span><span class="o">/</span> <span class="p">{</span>
-        <span class="err">root</span> <span class="err">/home/bob/tips_api</span><span class="p">;</span>
-    <span class="p">}</span>
+    <span class="nv">location</span> <span class="o">=</span> <span class="o">/</span><span class="nv">favicon</span>.<span class="nv">ico</span> { <span class="nv">access_log</span> <span class="nv">off</span><span class="c1">; log_not_found off; }</span>
+    <span class="nv">location</span> <span class="o">/</span><span class="nv">static</span><span class="o">/</span> {
+        <span class="nv">root</span> <span class="o">/</span><span class="nv">home</span><span class="o">/</span><span class="nv">bob</span><span class="o">/</span><span class="nv">tips_api</span><span class="c1">;</span>
+    }
 
-    <span class="nt">location</span> <span class="o">/</span> <span class="p">{</span>
-        <span class="err">include</span> <span class="err">proxy_params</span><span class="p">;</span>
-        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">unix</span><span class="o">:/</span><span class="n">run</span><span class="o">/</span><span class="n">gunicorn</span><span class="o">.</span><span class="n">sock</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    <span class="nv">location</span> <span class="o">/</span> {
+        <span class="k">include</span> <span class="nv">proxy_params</span><span class="c1">;</span>
+        <span class="nv">proxy_pass</span> <span class="nv">http</span>:<span class="o">//</span><span class="nv">unix</span>:<span class="o">/</span><span class="nv">run</span><span class="o">/</span><span class="nv">gunicorn</span>.<span class="nv">sock</span><span class="c1">;</span>
+    }
+}
 
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">ln</span> <span class="nt">-s</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">sites-available</span><span class="o">/</span><span class="nt">tips_api</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">sites-enabled</span>
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">nginx</span> <span class="nt">-t</span>
-<span class="nt">nginx</span><span class="o">:</span> <span class="nt">the</span> <span class="nt">configuration</span> <span class="nt">file</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">nginx</span><span class="p">.</span><span class="nc">conf</span> <span class="nt">syntax</span> <span class="nt">is</span> <span class="nt">ok</span>
-<span class="nt">nginx</span><span class="o">:</span> <span class="nt">configuration</span> <span class="nt">file</span> <span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">nginx</span><span class="p">.</span><span class="nc">conf</span> <span class="nt">test</span> <span class="nt">is</span> <span class="nt">successful</span>
+<span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~/</span><span class="nv">tips_api</span>$ <span class="nv">sudo</span> <span class="nv">ln</span> <span class="o">-</span><span class="nv">s</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">sites</span><span class="o">-</span><span class="nv">available</span><span class="o">/</span><span class="nv">tips_api</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">sites</span><span class="o">-</span><span class="nv">enabled</span>
+<span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~/</span><span class="nv">tips_api</span>$ <span class="nv">sudo</span> <span class="nv">nginx</span> <span class="o">-</span><span class="nv">t</span>
+<span class="nv">nginx</span>: <span class="nv">the</span> <span class="nv">configuration</span> <span class="nv">file</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">nginx</span>.<span class="nv">conf</span> <span class="nv">syntax</span> <span class="nv">is</span> <span class="nv">ok</span>
+<span class="nv">nginx</span>: <span class="nv">configuration</span> <span class="nv">file</span> <span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">nginx</span><span class="o">/</span><span class="nv">nginx</span>.<span class="nv">conf</span> <span class="nv">test</span> <span class="nv">is</span> <span class="nv">successful</span>
 
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">systemctl</span> <span class="nt">restart</span> <span class="nt">nginx</span>
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">ufw</span> <span class="nt">delete</span> <span class="nt">allow</span> <span class="nt">8000</span>
-<span class="nt">Rule</span> <span class="nt">deleted</span>
-<span class="nt">Rule</span> <span class="nt">deleted</span> <span class="o">(</span><span class="nt">v6</span><span class="o">)</span>
-<span class="nt">bob</span><span class="p">@</span><span class="k">ubuntu-s-1vcpu-1gb-nyc1-01</span><span class="o">:~/</span><span class="nt">tips_api</span><span class="o">$</span> <span class="nt">sudo</span> <span class="nt">ufw</span> <span class="nt">allow</span> <span class="s1">&#39;Nginx Full&#39;</span>
-<span class="nt">Rule</span> <span class="nt">added</span>
-<span class="nt">Rule</span> <span class="nt">added</span> <span class="o">(</span><span class="nt">v6</span><span class="o">)</span>
+<span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~/</span><span class="nv">tips_api</span>$ <span class="nv">sudo</span> <span class="nv">systemctl</span> <span class="nv">restart</span> <span class="nv">nginx</span>
+<span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~/</span><span class="nv">tips_api</span>$ <span class="nv">sudo</span> <span class="nv">ufw</span> <span class="nv">delete</span> <span class="nv">allow</span> <span class="mi">8000</span>
+<span class="nv">Rule</span> <span class="nv">deleted</span>
+<span class="nv">Rule</span> <span class="nv">deleted</span> <span class="ss">(</span><span class="nv">v6</span><span class="ss">)</span>
+<span class="nv">bob</span>@<span class="nv">ubuntu</span><span class="o">-</span><span class="nv">s</span><span class="o">-</span><span class="mi">1</span><span class="nv">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="nv">gb</span><span class="o">-</span><span class="nv">nyc1</span><span class="o">-</span><span class="mi">01</span>:<span class="o">~/</span><span class="nv">tips_api</span>$ <span class="nv">sudo</span> <span class="nv">ufw</span> <span class="nv">allow</span> <span class="s1">&#39;</span><span class="s">Nginx Full</span><span class="s1">&#39;</span>
+<span class="nv">Rule</span> <span class="nv">added</span>
+<span class="nv">Rule</span> <span class="nv">added</span> <span class="ss">(</span><span class="nv">v6</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>I ran into a weird error after this:</p>
-<div class="highlight"><pre><span></span>Mar 04 10:06:18 ubuntu-s-1vcpu-1gb-nyc1-01 systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid argument
+<div class="highlight"><pre><span></span><span class="n">Mar</span> <span class="mi">04</span> <span class="mi">10</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">18</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">s</span><span class="o">-</span><span class="mi">1</span><span class="n">vcpu</span><span class="o">-</span><span class="mi">1</span><span class="n">gb</span><span class="o">-</span><span class="n">nyc1</span><span class="o">-</span><span class="mi">01</span> <span class="n">systemd</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">nginx</span><span class="p">.</span><span class="n">service</span><span class="p">:</span> <span class="n">Failed</span> <span class="k">to</span> <span class="n">parse</span> <span class="n">PID</span> <span class="k">from</span> <span class="n">file</span> <span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">nginx</span><span class="p">.</span><span class="n">pid</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">argument</span>
 </pre></div>
 
 

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="I got some feedback related to Bite 243 recently. Since that&#39;s a testing bite, it means working with pytest and specifically checking for exceptions with pytest.raises(). The comment got me to...">
+        <meta name="keywords" content="contextmanagers, guest, pybites, pytest, testing">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+
+        <title>Assertions About Exceptions With pytest.raises() - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/testing.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '204929054292880');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=204929054292880&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a  href="https://pybit.es/">Home</a>
+                                <a  href="https://pybit.es/archives.html">Blog</a>
+                                <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
+                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
+                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Assertions About Exceptions With pytest.raises()</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/aj-kerrigan.html">AJ Kerrigan</a>, Mon 18 May 2020,  <a href="https://pybit.es/category/testing.html">Testing</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/contextmanagers.html">contextmanagers</a>, <a href="https://pybit.es/tag/guest.html">guest</a>, <a href="https://pybit.es/tag/pybites.html">pybites</a>, <a href="https://pybit.es/tag/pytest.html">pytest</a>, <a href="https://pybit.es/tag/testing.html">testing</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>I got some feedback related to <a href="https://codechalleng.es/bites/243/">Bite 243</a> recently. Since that's a <a href="https://pybit.es/launch-pytest-bites.html">testing bite</a>, it means working with <a href="https://docs.pytest.org">pytest</a> and specifically checking for exceptions with <code>pytest.raises()</code>. The comment got me to look at this handy feature of pytest with fresh eyes, and it seemed like a trip worth sharing!</p>
+<h3><code>pytest.raises()</code> as a Context Manager</h3>
+<p>We can uses <code>pytest.raises()</code> to assert that a block of code raises a specific exception. Have a look at this sample from the <a href="https://docs.pytest.org/en/latest/assert.html#assertions-about-expected-exceptions">pytest documentation</a>:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_recursion_depth</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">excinfo</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+            <span class="n">f</span><span class="p">()</span>
+
+        <span class="n">f</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="s2">&quot;maximum recursion&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">excinfo</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Is that test reasonably clear? I think so. But see how that <code>assert</code> is outside the <code>with</code> block? The first time I saw that sort of assertion, it felt odd to me. After all, my first exposure to the <code>with</code> statement was opening files:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;my_delicious_file.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+
+
+<p>When we get comfortable using <code>open()</code> in a <a href="https://docs.python.org/2.5/whatsnew/pep-343.html">with</a> block like that, we pick up some lessons about context manager behavior. Context managers are good! They handle runtime context like opening and closing a file for us, sweeping details under the rug as any respectable abstraction should. As long as we only touch <code>f</code> inside that <code>with</code> block, our lives are long and happy. We probably don't try to access <code>f</code> <em>outside</em> the block, and if we do things go awry since the file is closed. <code>f</code> is effectively dead to us once we leave that block.</p>
+<p>I didn't realize how much I had internalized that subtle lesson until the first time I saw examples of <code>pytest.raises</code>. It felt wrong to use <code>excinfo</code> after the <code>with</code> block, but when you think about it, that's the only way it can work. We're testing for an <em>exception</em> after all - once an exception happens we get booted out of that block. The pytest docs explain this well in a note <a href="https://docs.pytest.org/en/latest/reference.html#pytest-raises">here</a>:</p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>When using pytest.raises as a context manager, it’s worthwhile to note that normal context manager rules apply and that the exception raised must be the final line in the scope of the context manager. Lines of code after that, within the scope of the context manager will not be executed. For example:</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc_info</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+<span class="o">...</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;value must be &lt;= 10&quot;</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">assert</span> <span class="n">exc_info</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="ne">ValueError</span>  <span class="c1"># this will not execute</span>
+</pre></div>
+
+
+<blockquote>
+<p>Instead, the following approach must be taken (note the difference in scope):</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc_info</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+<span class="o">...</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;value must be &lt;= 10&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">exc_info</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="ne">ValueError</span>
+</pre></div>
+
+
+<h3>Under the Covers</h3>
+<p>What I didn't think about until recently is how the <code>open()</code>-style context manager and the <code>pytest.raises()</code> style are mirror-world opposites:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>open('file.txt') as f</th>
+<th>pytest.raises(ValueError) as excinfo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inside <code>with</code></td>
+<td><code>f</code> is useful</td>
+<td><code>excinfo</code> is present but useless (empty placeholder)</td>
+</tr>
+<tr>
+<td>outside <code>with</code></td>
+<td><code>f</code> is present but useless (file closed)</td>
+<td><code>excinfo</code> has exception details</td>
+</tr>
+</tbody>
+</table>
+<p><br /></p>
+<p>How does this work under the covers? As the <a href="https://docs.python.org/3/reference/datamodel.html#context-managers">Python documentation</a> notes, entering a <code>with</code> block invokes a context manager's <code>__enter__</code> method and leaving it invokes <code>__exit__</code>. <a href="https://github.com/pytest-dev/pytest/blob/efada09da2a01b55206801568b3427a38acc153a/src/_pytest/python_api.py#L716-L726">Check out</a> what happens when the context manager gets created, and what happens inside <code>__enter__</code>: </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">expected_exception</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Type[_E]&quot;</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Type[_E]&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">match_expr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Pattern&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="o">...</span> <span class="n">snip</span> <span class="o">...</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># type: Optional[_pytest._code.ExceptionInfo[_E]]</span>
+
+<span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_pytest</span><span class="o">.</span><span class="n">_code</span><span class="o">.</span><span class="n">ExceptionInfo</span><span class="p">[</span><span class="n">_E</span><span class="p">]:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span> <span class="o">=</span> <span class="n">_pytest</span><span class="o">.</span><span class="n">_code</span><span class="o">.</span><span class="n">ExceptionInfo</span><span class="o">.</span><span class="n">for_later</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span>
+</pre></div>
+
+
+<p>So that <code>excinfo</code> attribute starts empty - good, there's no exception yet! But in a nod to clarity, it gets a placeholder <code>ExceptionInfo</code> value thanks to a <code>for_later()</code> method! <code>Explicit is better than implicit</code> indeed!</p>
+<p>So what happens <a href="https://github.com/pytest-dev/pytest/blob/efada09da2a01b55206801568b3427a38acc153a/src/_pytest/python_api.py#L732-L751">later</a> when we leave the <code>with</code> block?</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Type[BaseException]&quot;</span><span class="p">],</span>
+        <span class="n">exc_val</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
+        <span class="n">exc_tb</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TracebackType</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="o">...</span> <span class="n">snip</span> <span class="o">...</span>
+        <span class="n">exc_info</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Type[_E]&quot;</span><span class="p">,</span> <span class="n">_E</span><span class="p">,</span> <span class="n">TracebackType</span><span class="p">],</span> <span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span><span class="o">.</span><span class="n">fill_unfilled</span><span class="p">(</span><span class="n">exc_info</span><span class="p">)</span>
+        <span class="o">...</span> <span class="n">snip</span> <span class="o">...</span>
+</pre></div>
+
+
+<p>Pytest checks for the presence and type of an exception, and then it delivers on its <code>for_later()</code> promise by filling in <code>self.excinfo</code>.</p>
+<h3>A Summary in Three Parts</h3>
+<p>With all that background out of the way, we can see the three-act play of <code>excinfo</code>'s life - from nothing, to empty, to filled:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># type: Optional[_pytest._code.ExceptionInfo[_E]]</span>
+
+<span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span> <span class="o">=</span> <span class="n">_pytest</span><span class="o">.</span><span class="n">_code</span><span class="o">.</span><span class="n">ExceptionInfo</span><span class="o">.</span><span class="n">for_later</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span>
+
+<span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">excinfo</span><span class="o">.</span><span class="n">fill_unfilled</span><span class="p">(</span><span class="n">exc_info</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Which shows up in our test code as:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">excinfo</span><span class="p">:</span>  <span class="c1"># excinfo: None</span>
+    <span class="c1"># excinfo: Empty</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+        <span class="n">f</span><span class="p">()</span>
+
+    <span class="n">f</span><span class="p">()</span>
+<span class="c1"># excinfo: Filled</span>
+<span class="k">assert</span> <span class="s2">&quot;maximum recursion&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">excinfo</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And that's a beautiful thing!</p>
+<p>-- <a href="pages/guests.html#ajkerrigan">AJ</a></p>
+<h3>References</h3>
+<p><a href="https://docs.python.org/3/reference/datamodel.html#context-managers">With Statement Context Managers (python docs)</a>
+<a href="https://docs.pytest.org/en/latest/reference.html#pytest-raises">pytest.raises (pytest docs)</a>
+<a href="https://docs.pytest.org/en/latest/assert.html#assertraises">Assertions about excepted exceptions (pytest docs)</a>
+<a href="https://www.python.org/dev/peps/pep-0343/">PEP 343 - The "with" statement</a></p>
+
+
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'guest-pytest-raises.html';
+                var disqus_url = 'https://pybit.es/guest-pytest-raises.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                            <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:info@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>

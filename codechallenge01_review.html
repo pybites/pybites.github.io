@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -133,8 +134,8 @@ The concept was simple enough and I had a decent idea as to how I was going to w
 <p>As a newbie programmer, having to almost "restrict" my code to work with the unittest was quite difficult.
 Furthermore, working with the external data.py file also added a little complexity. I'm definitely used to having all data and variables located in the local file I'm working on.</p>
 <p>Probably the biggest pain point was trying to work with the LETTER_SCORES dict:</p>
-<div class="highlight"><pre><span></span>LETTER_SCORES = {letter: score for score, letters in scrabble_scores
-                              for letter in letters.split()}
+<div class="highlight"><pre><span></span><span class="nv">LETTER_SCORES</span> <span class="o">=</span> {<span class="nv">letter</span>: <span class="nv">score</span> <span class="k">for</span> <span class="nv">score</span>, <span class="nv">letters</span> <span class="nv">in</span> <span class="nv">scrabble_scores</span>
+                              <span class="k">for</span> <span class="nv">letter</span> <span class="nv">in</span> <span class="nv">letters</span>.<span class="nv">split</span><span class="ss">()</span>}
 </pre></div>
 
 
@@ -150,16 +151,16 @@ Furthermore, working with the external data.py file also added a little complexi
 <p>This was a good exercise. As Julian said we might leave out unittests next time to make it less stringent and make up other requirements like max LOC. We also will provide two template files: beginner (more hand-holding) and advanced (almost blank file). You will see it on Monday ...</p>
 <p>My code is <a href="https://github.com/bbelderbos/challenges/tree/solutions/01">here</a>. Some comments:</p>
 <h4>load_words()</h4>
-<div class="highlight"><pre><span></span>def load_words():
-    with open(DICTIONARY) as f:
-        return [word.strip() for word in f.read().split()]
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">load_words</span><span class="ss">()</span>:
+    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">DICTIONARY</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
+        <span class="k">return</span> [<span class="nv">word</span>.<span class="nv">strip</span><span class="ss">()</span> <span class="k">for</span> <span class="nv">word</span> <span class="nv">in</span> <span class="nv">f</span>.<span class="nv">read</span><span class="ss">()</span>.<span class="nv">split</span><span class="ss">()</span>]
 </pre></div>
 
 
 <p>Yes, "with" is the way to go to open files. Initially I had return f.read().split() but then I saw the comment of <a href="http://pybit.es/codechallenge01.html">sesh00</a>: he used a list comprehension to make sure each word had whitespace stripped which is a good approach.</p>
 <h4>calc_word_value(word)</h4>
-<div class="highlight"><pre><span></span>def calc_word_value(word):
-    return sum(LETTER_SCORES.get(char.upper(), 0) for char in word)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">calc_word_value</span><span class="ss">(</span><span class="nv">word</span><span class="ss">)</span>:
+    <span class="k">return</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">LETTER_SCORES</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">char</span>.<span class="nv">upper</span><span class="ss">()</span>, <span class="mi">0</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">char</span> <span class="nv">in</span> <span class="nv">word</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -180,25 +181,25 @@ Furthermore, working with the external data.py file also added a little complexi
 
 
 <p>For another more verbose (cleaner?) way to write this see <a href="https://github.com/jrjames83/pybit-es-01/blob/master/01%20Scrabble%20Solution.ipynb">here</a>:</p>
-<div class="highlight"><pre><span></span>scores = [LETTER_SCORES[letter] for letter in letters 
-            if letter in LETTER_SCORES.keys()]
+<div class="highlight"><pre><span></span><span class="nv">scores</span> <span class="o">=</span> [<span class="nv">LETTER_SCORES</span>[<span class="nv">letter</span>] <span class="k">for</span> <span class="nv">letter</span> <span class="nv">in</span> <span class="nv">letters</span> 
+            <span class="k">if</span> <span class="nv">letter</span> <span class="nv">in</span> <span class="nv">LETTER_SCORES</span>.<span class="nv">keys</span><span class="ss">()</span>]
 </pre></div>
 
 
 <p>Then I use sum() to add up all letter values. You can give it a list comprehension but also a generator which is best practice (lazy loading):</p>
-<div class="highlight"><pre><span></span># sum with list comprehension
-&gt;&gt;&gt; sum([LETTER_SCORES.get(c.upper(), 0) for c in word])
-31
-# or with a generator, just drop the []
-&gt;&gt;&gt; sum(LETTER_SCORES.get(c.upper(), 0) for c in word)
-31
+<div class="highlight"><pre><span></span># <span class="nv">sum</span> <span class="nv">with</span> <span class="nv">list</span> <span class="nv">comprehension</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">sum</span><span class="ss">(</span>[<span class="nv">LETTER_SCORES</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">c</span>.<span class="nv">upper</span><span class="ss">()</span>, <span class="mi">0</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">word</span>]<span class="ss">)</span>
+<span class="mi">31</span>
+# <span class="nv">or</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">generator</span>, <span class="nv">just</span> <span class="nv">drop</span> <span class="nv">the</span> []
+<span class="o">&gt;&gt;&gt;</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">LETTER_SCORES</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">c</span>.<span class="nv">upper</span><span class="ss">()</span>, <span class="mi">0</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">word</span><span class="ss">)</span>
+<span class="mi">31</span>
 </pre></div>
 
 
 <p>Of course you can totally write just a for loop and sum to a total variable. And as a beginner I encourage you to actually do this to get a feel for how an iterator works internally.</p>
 <h4>max_word_value(words)</h4>
-<div class="highlight"><pre><span></span>def max_word_value(words=None):
-    return max(words or load_words(), key=lambda w: calc_word_value(w))
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">max_word_value</span><span class="ss">(</span><span class="nv">words</span><span class="o">=</span><span class="nv">None</span><span class="ss">)</span>:
+    <span class="k">return</span> <span class="nv">max</span><span class="ss">(</span><span class="nv">words</span> <span class="nv">or</span> <span class="nv">load_words</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">lambda</span> <span class="nv">w</span>: <span class="nv">calc_word_value</span><span class="ss">(</span><span class="nv">w</span><span class="ss">))</span>
 </pre></div>
 
 
@@ -215,16 +216,16 @@ Furthermore, working with the external data.py file also added a little complexi
 <p>In this case I don't want to max on for example len of word, but on the word value, so we re-use calc_word_value() here. For more details on this I recommend reading <a href="https://dbader.org/blog/python-min-max-and-nested-lists">this great article</a>.</p>
 <hr>
 <p><strong>Update 16th of Oct 2018:</strong> this code got outdated, we later <a href="https://github.com/pybites/challenges/blob/solutions/01/wordvalue.py">updated the solution</a> to not use the lambda (thanks for the reminder comment =º.º=) because it is redundant here:</p>
-<div class="highlight"><pre><span></span>def max_word_value(words=None):
-    if words is None:
-            words = load_words()
-        return max(words, key=calc_word_value)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">max_word_value</span><span class="ss">(</span><span class="nv">words</span><span class="o">=</span><span class="nv">None</span><span class="ss">)</span>:
+    <span class="k">if</span> <span class="nv">words</span> <span class="nv">is</span> <span class="nv">None</span>:
+            <span class="nv">words</span> <span class="o">=</span> <span class="nv">load_words</span><span class="ss">()</span>
+        <span class="k">return</span> <span class="nv">max</span><span class="ss">(</span><span class="nv">words</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">calc_word_value</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>And even shorter is using this one-liner:</p>
-<div class="highlight"><pre><span></span>def max_word_value(words=None):
-    return max(words or load_words(), key=calc_word_value)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">max_word_value</span><span class="ss">(</span><span class="nv">words</span><span class="o">=</span><span class="nv">None</span><span class="ss">)</span>:
+    <span class="k">return</span> <span class="nv">max</span><span class="ss">(</span><span class="nv">words</span> <span class="nv">or</span> <span class="nv">load_words</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">calc_word_value</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -236,7 +237,7 @@ Furthermore, working with the external data.py file also added a little complexi
 </li>
 <li>
 <p><a href="https://github.com/ukaratay/challenges/blob/master/01/wordvalue.py">ukaratay solution</a> is also similar, but he uses upper() on the word = 1 call instead my multiple calls for each char = better. Tiny details but they matter when you add them up and when things scale.</p>
-<div class="highlight"><pre><span></span>return sum(LETTER_SCORES.get(char, 0) for char in word.upper())
+<div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">LETTER_SCORES</span>.<span class="nv">get</span><span class="ss">(</span><span class="nv">char</span>, <span class="mi">0</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">char</span> <span class="nv">in</span> <span class="nv">word</span>.<span class="nv">upper</span><span class="ss">())</span>
 </pre></div>
 
 

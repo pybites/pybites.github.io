@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -143,7 +144,7 @@ We automate these by telling pexpect what to expect from the application and the
 
 
 <p>You can see that I’m literally telling pexpect what <em>it</em> should see when it initiates the first ssh command. I want pexpect to log into this box for me so I’ll need it to pass on my password (never hardcode your password into a script!):</p>
-<div class="highlight"><pre><span></span>pexpect.sendline(‘password’)
+<div class="highlight"><pre><span></span><span class="n">pexpect</span><span class="p">.</span><span class="n">sendline</span><span class="p">(</span><span class="err">‘</span><span class="n">password</span><span class="err">’</span><span class="p">)</span>
 </pre></div>
 
 

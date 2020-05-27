@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -128,57 +129,57 @@
 <ul>
 <li>
 <p>First we had the user interface like this: </p>
-<div class="highlight"><pre><span></span>def input_word(draw):
-    while True:
-        word = input(&#39;Form a valid word: &#39;).upper()
-        if not set(word) &lt; set(draw):
-            print(&#39;One or more characters not in draw, try again&#39;)
-            continue
-        elif not word.lower() in DICTIONARY:
-            print(&#39;Not a valid dictionary word, try again&#39;)
-            continue
-        return word
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">input_word</span><span class="ss">(</span><span class="nv">draw</span><span class="ss">)</span>:
+    <span class="k">while</span> <span class="nv">True</span>:
+        <span class="nv">word</span> <span class="o">=</span> <span class="nv">input</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Form a valid word: </span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">upper</span><span class="ss">()</span>
+        <span class="k">if</span> <span class="nv">not</span> <span class="nv">set</span><span class="ss">(</span><span class="nv">word</span><span class="ss">)</span> <span class="o">&lt;</span> <span class="nv">set</span><span class="ss">(</span><span class="nv">draw</span><span class="ss">)</span>:
+            <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">One or more characters not in draw, try again</span><span class="s1">&#39;</span><span class="ss">)</span>
+            <span class="k">continue</span>
+        <span class="nv">elif</span> <span class="nv">not</span> <span class="nv">word</span>.<span class="nv">lower</span><span class="ss">()</span> <span class="nv">in</span> <span class="nv">DICTIONARY</span>:
+            <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Not a valid dictionary word, try again</span><span class="s1">&#39;</span><span class="ss">)</span>
+            <span class="k">continue</span>
+        <span class="k">return</span> <span class="nv">word</span>
 </pre></div>
 
 
 <p>But after learning about <a href="http://pybit.es/error_handling.html">EAFP (easier to ask for forgiveness than permission)</a> we thought it was more Pythonic to use exceptions. There was also a bug in the first check above (see comments, great learning!)</p>
-<div class="highlight"><pre><span></span>def input_word(draw):
-    while True:
-        word = input(&#39;Form a valid word: &#39;).upper()
-        try:
-            return _validation(word, draw)
-        except ValueError as e:
-            print(e)
-            continue
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">input_word</span><span class="ss">(</span><span class="nv">draw</span><span class="ss">)</span>:
+    <span class="k">while</span> <span class="nv">True</span>:
+        <span class="nv">word</span> <span class="o">=</span> <span class="nv">input</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Form a valid word: </span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">upper</span><span class="ss">()</span>
+        <span class="nv">try</span>:
+            <span class="k">return</span> <span class="nv">_validation</span><span class="ss">(</span><span class="nv">word</span>, <span class="nv">draw</span><span class="ss">)</span>
+        <span class="nv">except</span> <span class="nv">ValueError</span> <span class="nv">as</span> <span class="nv">e</span>:
+            <span class="nv">print</span><span class="ss">(</span><span class="nv">e</span><span class="ss">)</span>
+            <span class="k">continue</span>
 
-def _validation(word, draw):
-    # thanks Durmus
-    for char in word.upper():
-        if char in draw:
-            draw.remove(char)
-        else:
-        raise ValueError(&quot;{} is not a valid word!&quot;.format(word))
-    if not word.lower() in DICTIONARY:
-        raise ValueError(&#39;Not a valid dictionary word, try again&#39;)
-    return word
+<span class="nv">def</span> <span class="nv">_validation</span><span class="ss">(</span><span class="nv">word</span>, <span class="nv">draw</span><span class="ss">)</span>:
+    # <span class="nv">thanks</span> <span class="nv">Durmus</span>
+    <span class="k">for</span> <span class="nv">char</span> <span class="nv">in</span> <span class="nv">word</span>.<span class="nv">upper</span><span class="ss">()</span>:
+        <span class="k">if</span> <span class="nv">char</span> <span class="nv">in</span> <span class="nv">draw</span>:
+            <span class="nv">draw</span>.<span class="nv">remove</span><span class="ss">(</span><span class="nv">char</span><span class="ss">)</span>
+        <span class="k">else</span>:
+        <span class="nv">raise</span> <span class="nv">ValueError</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">{} is not a valid word!</span><span class="s2">&quot;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">word</span><span class="ss">))</span>
+    <span class="k">if</span> <span class="nv">not</span> <span class="nv">word</span>.<span class="nv">lower</span><span class="ss">()</span> <span class="nv">in</span> <span class="nv">DICTIONARY</span>:
+        <span class="nv">raise</span> <span class="nv">ValueError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Not a valid dictionary word, try again</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="k">return</span> <span class="nv">word</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>random.sample makes it easy to get n number of random letters in one go: </p>
-<div class="highlight"><pre><span></span>def draw_letters():
-    return random.sample(POUCH, NUM_LETTERS)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">draw_letters</span><span class="ss">()</span>:
+    <span class="k">return</span> <span class="k">random</span>.<span class="nv">sample</span><span class="ss">(</span><span class="nv">POUCH</span>, <span class="nv">NUM_LETTERS</span><span class="ss">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>get_possible_dict_words - the hardest part. To get all possible letter combinations from the letter draw, you need itertools.permutations, not combinations, because order does matter: </p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; len(list(itertools.combinations(letters, 2)))
-21
-&gt;&gt;&gt; len(list(itertools.permutations(letters, 2)))
-42
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">len</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">itertools</span><span class="p">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">letters</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="mi">21</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">len</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">itertools</span><span class="p">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">letters</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="mi">42</span>
 </pre></div>
 
 
@@ -186,17 +187,17 @@ def _validation(word, draw):
 </li>
 <li>
 <p>First the helper generator to do the work:</p>
-<div class="highlight"><pre><span></span>def _get_permutations_draw(draw):
-    for i in range(1, 8):
-        yield from list(itertools.permutations(draw, i))  # &gt;= 3.3
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">_get_permutations_draw</span><span class="ss">(</span><span class="nv">draw</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">1</span>, <span class="mi">8</span><span class="ss">)</span>:
+        <span class="nv">yield</span> <span class="nv">from</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">itertools</span>.<span class="nv">permutations</span><span class="ss">(</span><span class="nv">draw</span>, <span class="nv">i</span><span class="ss">))</span>  # <span class="o">&gt;=</span> <span class="mi">3</span>.<span class="mi">3</span>
 </pre></div>
 
 
 <p>This creates all permutation of 1, 2, 3, 4, 5, 6, and 7 letters.</p>
 <p>We store all those in permutations and then use a set operation again to get all valid dictionary words:</p>
-<div class="highlight"><pre><span></span>def get_possible_dict_words(draw):
-    permutations = [&#39;&#39;.join(word).lower() for word in _get_permutations_draw(draw)]
-    return set(permutations) &amp; set(DICTIONARY)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_possible_dict_words</span><span class="ss">(</span><span class="nv">draw</span><span class="ss">)</span>:
+    <span class="nv">permutations</span> <span class="o">=</span> [<span class="s1">&#39;&#39;</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">word</span><span class="ss">)</span>.<span class="nv">lower</span><span class="ss">()</span> <span class="k">for</span> <span class="nv">word</span> <span class="nv">in</span> <span class="nv">_get_permutations_draw</span><span class="ss">(</span><span class="nv">draw</span><span class="ss">)</span>]
+    <span class="k">return</span> <span class="nv">set</span><span class="ss">(</span><span class="nv">permutations</span><span class="ss">)</span> <span class="o">&amp;</span> <span class="nv">set</span><span class="ss">(</span><span class="nv">DICTIONARY</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -216,34 +217,34 @@ OK
 
 
 <h2>Its fun (addictive?) to play :)</h2>
-<div class="highlight"><pre><span></span>[bbelderb@macbook 02 (master)]$ python game.py 
-Letters drawn: T, I, I, G, T, T, L
-Form a valid word: tig
-Word chosen: TIG (value: 4)
-Optimal word possible: gilt (value: 5)
-You scored: 80.0
-[bbelderb@macbook 02 (master)]$ python game.py 
-Letters drawn: O, N, V, R, A, Z, H
-Form a valid word: zar
-Word chosen: ZAR (value: 12)
-Optimal word possible: zonar (value: 14)
-You scored: 85.7
-[bbelderb@macbook 02 (master)]$ python game.py 
-Letters drawn: E, P, A, E, I, O, A
-Form a valid word: pi
-Word chosen: PI (value: 4)
-Optimal word possible: apio (value: 6)
-You scored: 66.7
-[bbelderb@macbook 02 (master)]$ python game.py 
-Letters drawn: B, R, C, O, O, E, O
-Form a valid word: broc
-Not a valid dictionary word, try again
-Form a valid word: f
-One or more characters not in draw, try again
-Form a valid word: bore
-Word chosen: BORE (value: 6)
-Optimal word possible: boce (value: 8)
-You scored: 75.0
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="n">bbelderb@macbook 02 (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">game</span><span class="p">.</span><span class="n">py</span><span class="w"> </span>
+<span class="n">Letters</span><span class="w"> </span><span class="nl">drawn</span><span class="p">:</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="n">G</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="w"></span>
+<span class="n">Form</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"> </span><span class="n">tig</span><span class="w"></span>
+<span class="n">Word</span><span class="w"> </span><span class="nl">chosen</span><span class="p">:</span><span class="w"> </span><span class="n">TIG</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+<span class="n">Optimal</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="nl">possible</span><span class="p">:</span><span class="w"> </span><span class="n">gilt</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
+<span class="n">You</span><span class="w"> </span><span class="nl">scored</span><span class="p">:</span><span class="w"> </span><span class="mf">80.0</span><span class="w"></span>
+<span class="o">[</span><span class="n">bbelderb@macbook 02 (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">game</span><span class="p">.</span><span class="n">py</span><span class="w"> </span>
+<span class="n">Letters</span><span class="w"> </span><span class="nl">drawn</span><span class="p">:</span><span class="w"> </span><span class="n">O</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">Z</span><span class="p">,</span><span class="w"> </span><span class="n">H</span><span class="w"></span>
+<span class="n">Form</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"> </span><span class="n">zar</span><span class="w"></span>
+<span class="n">Word</span><span class="w"> </span><span class="nl">chosen</span><span class="p">:</span><span class="w"> </span><span class="n">ZAR</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"></span>
+<span class="n">Optimal</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="nl">possible</span><span class="p">:</span><span class="w"> </span><span class="n">zonar</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">14</span><span class="p">)</span><span class="w"></span>
+<span class="n">You</span><span class="w"> </span><span class="nl">scored</span><span class="p">:</span><span class="w"> </span><span class="mf">85.7</span><span class="w"></span>
+<span class="o">[</span><span class="n">bbelderb@macbook 02 (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">game</span><span class="p">.</span><span class="n">py</span><span class="w"> </span>
+<span class="n">Letters</span><span class="w"> </span><span class="nl">drawn</span><span class="p">:</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">I</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="w"></span>
+<span class="n">Form</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"> </span><span class="nf">pi</span><span class="w"></span>
+<span class="n">Word</span><span class="w"> </span><span class="nl">chosen</span><span class="p">:</span><span class="w"> </span><span class="nf">PI</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+<span class="n">Optimal</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="nl">possible</span><span class="p">:</span><span class="w"> </span><span class="n">apio</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"></span>
+<span class="n">You</span><span class="w"> </span><span class="nl">scored</span><span class="p">:</span><span class="w"> </span><span class="mf">66.7</span><span class="w"></span>
+<span class="o">[</span><span class="n">bbelderb@macbook 02 (master)</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">game</span><span class="p">.</span><span class="n">py</span><span class="w"> </span>
+<span class="n">Letters</span><span class="w"> </span><span class="nl">drawn</span><span class="p">:</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">O</span><span class="w"></span>
+<span class="n">Form</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"> </span><span class="n">broc</span><span class="w"></span>
+<span class="ow">Not</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="k">dictionary</span><span class="w"> </span><span class="n">word</span><span class="p">,</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">again</span><span class="w"></span>
+<span class="n">Form</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="n">One</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">characters</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">draw</span><span class="p">,</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">again</span><span class="w"></span>
+<span class="n">Form</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="nl">word</span><span class="p">:</span><span class="w"> </span><span class="n">bore</span><span class="w"></span>
+<span class="n">Word</span><span class="w"> </span><span class="nl">chosen</span><span class="p">:</span><span class="w"> </span><span class="n">BORE</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"></span>
+<span class="n">Optimal</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="nl">possible</span><span class="p">:</span><span class="w"> </span><span class="n">boce</span><span class="w"> </span><span class="p">(</span><span class="k">value</span><span class="err">:</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"></span>
+<span class="n">You</span><span class="w"> </span><span class="nl">scored</span><span class="p">:</span><span class="w"> </span><span class="mf">75.0</span><span class="w"></span>
 </pre></div>
 
 

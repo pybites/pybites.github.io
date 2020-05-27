@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -149,8 +150,8 @@ This post covers the build of the core code. To see the alexa and deployment sec
 <p><code>name</code> has to be set as the name of the spider, the <code>url</code> was updated to point to the free learning page and set the response to print out:</p>
 <p><img alt="scrapy code" src="./images/scrapy-code.png"></p>
 <p>The response was exactly what I was looking for:</p>
-<div class="highlight"><pre><span></span>2018-05-24 07:59:26 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://www.packtpub.com/packt/offers/free-learning&gt; (referer: None)
-&lt;200 https://www.packtpub.com/packt/offers/free-learning&gt;
+<div class="highlight"><pre><span></span><span class="mi">2018</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">24</span> <span class="mi">07</span><span class="p">:</span><span class="mi">59</span><span class="p">:</span><span class="mi">26</span> <span class="p">[</span><span class="n">scrapy</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">engine</span><span class="p">]</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">Crawled</span> <span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="o">&lt;</span><span class="k">GET</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">packtpub</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">packt</span><span class="o">/</span><span class="n">offers</span><span class="o">/</span><span class="k">free</span><span class="o">-</span><span class="n">learning</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">referer</span><span class="p">:</span> <span class="k">None</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="mi">200</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">packtpub</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">packt</span><span class="o">/</span><span class="n">offers</span><span class="o">/</span><span class="k">free</span><span class="o">-</span><span class="n">learning</span><span class="o">&gt;</span>
 </pre></div>
 
 
@@ -159,25 +160,25 @@ This post covers the build of the core code. To see the alexa and deployment sec
 <p><img alt="chrome inspection" src="./images/scrapy-chromeconsole.png"></p>
 <p>From this it’s easy to see that the piece of information that we are after, the book title, is wrapped with in the class <code>dotd-title</code>. Now the work begins to get the information out of the response data. </p>
 <p>Scrapy gives you the choice of three methods of querying the data: css, xpath and re, with css or xpath being the standard methods. Once again the documentation is quite extensive and should be read through to give an idea of what can be done. An additional tool that Scrapy provides is a shell:</p>
-<div class="highlight"><pre><span></span>(venv) ➜  packt_free_learning git:(master) ✗ scrapy shell &#39;https://www.packtpub.com/packt/offers/free-learning&#39;
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">➜</span>  <span class="n">packt_free_learning</span> <span class="n">git</span><span class="p">:(</span><span class="n">master</span><span class="p">)</span> <span class="err">✗</span> <span class="n">scrapy</span> <span class="n">shell</span> <span class="s1">&#39;https://www.packtpub.com/packt/offers/free-learning&#39;</span>
 </pre></div>
 
 
 <p>Running the above, processes the spider as it would normally but opens you into a python shell and provides the following objects and information:</p>
-<div class="highlight"><pre><span></span>2018-05-24 09:20:58 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://www.packtpub.com/packt/offers/free-learning&gt; (referer: None)
-[s] Available Scrapy objects:
-[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
-[s]   crawler    &lt;scrapy.crawler.Crawler object at 0x10a3bad30&gt;
-[s]   item       {}
-[s]   request    &lt;GET https://www.packtpub.com/packt/offers/free-learning&gt;
-[s]   response   &lt;200 https://www.packtpub.com/packt/offers/free-learning&gt;
-[s]   settings   &lt;scrapy.settings.Settings object at 0x10b1c9710&gt;
-[s]   spider     &lt;DefaultSpider &#39;default&#39; at 0x10b5684e0&gt;
-[s] Useful shortcuts:
-[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)
-[s]   fetch(req)                  Fetch a scrapy.Request and update local objects
-[s]   shelp()           Shell help (print this help)
-[s]   view(response)    View response in a browser
+<div class="highlight"><pre><span></span><span class="mi">2018</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">24</span><span class="w"> </span><span class="mi">09</span><span class="err">:</span><span class="mi">20</span><span class="err">:</span><span class="mi">58</span><span class="w"> </span><span class="o">[</span><span class="n">scrapy.core.engine</span><span class="o">]</span><span class="w"> </span><span class="nl">DEBUG</span><span class="p">:</span><span class="w"> </span><span class="n">Crawled</span><span class="w"> </span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="k">GET</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">packtpub</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">packt</span><span class="o">/</span><span class="n">offers</span><span class="o">/</span><span class="k">free</span><span class="o">-</span><span class="n">learning</span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="nl">referer</span><span class="p">:</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w"> </span><span class="n">Available</span><span class="w"> </span><span class="n">Scrapy</span><span class="w"> </span><span class="nl">objects</span><span class="p">:</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">scrapy</span><span class="w">     </span><span class="n">scrapy</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="p">(</span><span class="k">contains</span><span class="w"> </span><span class="n">scrapy</span><span class="p">.</span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">scrapy</span><span class="p">.</span><span class="n">Selector</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="p">)</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">crawler</span><span class="w">    </span><span class="o">&lt;</span><span class="n">scrapy</span><span class="p">.</span><span class="n">crawler</span><span class="p">.</span><span class="n">Crawler</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mh">0x10a3bad30</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">item</span><span class="w">       </span><span class="err">{}</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">request</span><span class="w">    </span><span class="o">&lt;</span><span class="k">GET</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">packtpub</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">packt</span><span class="o">/</span><span class="n">offers</span><span class="o">/</span><span class="k">free</span><span class="o">-</span><span class="n">learning</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">response</span><span class="w">   </span><span class="o">&lt;</span><span class="mi">200</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">packtpub</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">packt</span><span class="o">/</span><span class="n">offers</span><span class="o">/</span><span class="k">free</span><span class="o">-</span><span class="n">learning</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">settings</span><span class="w">   </span><span class="o">&lt;</span><span class="n">scrapy</span><span class="p">.</span><span class="n">settings</span><span class="p">.</span><span class="n">Settings</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mh">0x10b1c9710</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">spider</span><span class="w">     </span><span class="o">&lt;</span><span class="n">DefaultSpider</span><span class="w"> </span><span class="s1">&#39;default&#39;</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mh">0x10b5684e0</span><span class="o">&gt;</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w"> </span><span class="n">Useful</span><span class="w"> </span><span class="nl">shortcuts</span><span class="p">:</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="k">fetch</span><span class="p">(</span><span class="n">url</span><span class="o">[</span><span class="n">, redirect=True</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="k">Fetch</span><span class="w"> </span><span class="n">URL</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">objects</span><span class="w"> </span><span class="p">(</span><span class="k">by</span><span class="w"> </span><span class="k">default</span><span class="p">,</span><span class="w"> </span><span class="n">redirects</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">followed</span><span class="p">)</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="k">fetch</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="w">                  </span><span class="k">Fetch</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">scrapy</span><span class="p">.</span><span class="n">Request</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">objects</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="n">shelp</span><span class="p">()</span><span class="w">           </span><span class="n">Shell</span><span class="w"> </span><span class="n">help</span><span class="w"> </span><span class="p">(</span><span class="k">print</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">help</span><span class="p">)</span><span class="w"></span>
+<span class="o">[</span><span class="n">s</span><span class="o">]</span><span class="w">   </span><span class="k">view</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="w">    </span><span class="k">View</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">browser</span><span class="w"></span>
 </pre></div>
 
 
@@ -186,56 +187,56 @@ This post covers the build of the core code. To see the alexa and deployment sec
 </blockquote>
 <p>I will leave you, reader, to play with your own site and work out the selectors.</p>
 <p>After much toiling and playing, the fog of how it worked cleared and there was a very simple xpath that gave me what I wanted</p>
-<div class="highlight"><pre><span></span>response.xpath(
-           &#39;normalize-space(//div[@class=&quot;dotd-title&quot;])&#39;
-           ).extract()[0]
+<div class="highlight"><pre><span></span><span class="nv">response</span>.<span class="nv">xpath</span><span class="ss">(</span>
+           <span class="s1">&#39;</span><span class="s">normalize-space(//div[@class=&quot;dotd-title&quot;])</span><span class="s1">&#39;</span>
+           <span class="ss">)</span>.<span class="nv">extract</span><span class="ss">()</span>[<span class="mi">0</span>]
 
-//div[@class=”dotd-title”].extract() 
+<span class="o">//</span><span class="nv">div</span>[@<span class="nv">class</span><span class="o">=</span>”<span class="nv">dotd</span><span class="o">-</span><span class="nv">title</span>”].<span class="nv">extract</span><span class="ss">()</span> 
 
- returns 
+ <span class="nv">returns</span> 
 
-[&#39;<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;dotd-title&quot;</span><span class="nt">&gt;</span>\n\t\t\t\t\t\t\t<span class="nt">&lt;h2&gt;</span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPython for Secret Agents\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class="nt">&lt;/h2&gt;</span>\n\t\t\t\t\t\t<span class="nt">&lt;/div&gt;</span>&#39;]
+[<span class="s1">&#39;</span><span class="s">&lt;div class=&quot;dotd-title&quot;&gt;</span><span class="se">\n\t\t\t\t\t\t\t</span><span class="s">&lt;h2&gt;</span><span class="se">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span><span class="s">Python for Secret Agents</span><span class="se">\t\t\t\t\t\t\t\t\t\t\t\t\t\t</span><span class="s">&lt;/h2&gt;</span><span class="se">\n\t\t\t\t\t\t</span><span class="s">&lt;/div&gt;</span><span class="s1">&#39;</span>]
 </pre></div>
 
 
 <p>This shows scrapy returning an array of items that match. In this case, only one. It also pulls everything associated with that div, the css div identifier and all of the white space that is seen on the inspection shown above. The use of xpaths <code>normalize-space</code>
  clears the class and all of the whitespace away just leaving the text.</p>
-<div class="highlight"><pre><span></span>&#39;Python for Secret Agents&#39;
+<div class="highlight"><pre><span></span><span class="s1">&#39;</span><span class="s">Python for Secret Agents</span><span class="s1">&#39;</span>
 </pre></div>
 
 
 <h2>Pushing the data</h2>
 <p>As this was to be used by Alexa and for the Flash Briefing system it needs to be read as an rss feed in a specific format. As this is a simple feed, one item only, using a library was a bit overkill but as this was always going to run on python 3.6 I could pull f strings out of the bag.</p>
-<div class="highlight"><pre><span></span>file_text = f&#39;&#39;&#39; {{
- &quot;uid&quot;: &quot;urn:uuid:{uuid.uuid4()}&quot;,
- &quot;updateDate&quot;: &quot;{time.strftime(&quot;%Y-%m-%dT%H:%M:%SZ&quot;)}&quot;,
- &quot;titleText&quot;: &quot;Packt free learning ebook for today&quot;,
- &quot;mainText&quot;: &quot;{title}.&quot;,
- &quot;redirectionUrl&quot;: &quot;https://www.packtpub.com/packt/offers/free-learning&quot;
-}}&#39;&#39;&#39;
+<div class="highlight"><pre><span></span><span class="nv">file_text</span> <span class="o">=</span> <span class="nv">f</span><span class="s1">&#39;&#39;&#39;</span><span class="s"> {{</span>
+ <span class="s2">&quot;</span><span class="s">uid</span><span class="s2">&quot;</span>: <span class="s2">&quot;</span><span class="s">urn:uuid:{uuid.uuid4()}</span><span class="s2">&quot;</span>,
+ <span class="s2">&quot;</span><span class="s">updateDate</span><span class="s2">&quot;</span>: <span class="s2">&quot;</span><span class="s">{time.strftime(</span><span class="s2">&quot;</span><span class="o">%</span><span class="nv">Y</span><span class="o">-%</span><span class="nv">m</span><span class="o">-%</span><span class="nv">dT</span><span class="o">%</span><span class="nv">H</span>:<span class="o">%</span><span class="nv">M</span>:<span class="o">%</span><span class="nv">SZ</span><span class="s2">&quot;</span><span class="s">)}</span><span class="s2">&quot;</span>,
+ <span class="s2">&quot;</span><span class="s">titleText</span><span class="s2">&quot;</span>: <span class="s2">&quot;</span><span class="s">Packt free learning ebook for today</span><span class="s2">&quot;</span>,
+ <span class="s2">&quot;</span><span class="s">mainText</span><span class="s2">&quot;</span>: <span class="s2">&quot;</span><span class="s">{title}.</span><span class="s2">&quot;</span>,
+ <span class="s2">&quot;</span><span class="s">redirectionUrl</span><span class="s2">&quot;</span>: <span class="s2">&quot;</span><span class="s">https://www.packtpub.com/packt/offers/free-learning</span><span class="s2">&quot;</span>
+}}<span class="s1">&#39;&#39;&#39;</span>
 </pre></div>
 
 
 <p>Using f strings allows you to evaluate code or even previously set variables. If you haven't yet played with them, I would recommend that you take a look as they can make things so much easier. With the file text set it is fairly simple using the Boto3 library to upload to S3.</p>
-<div class="highlight"><pre><span></span>s3_client = boto3.client(
-           &#39;s3&#39;,
-           aws_access_key_id=AWS_ACCESS_KEY,
-           aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-           region_name=&#39;us-east-1&#39;
-       )
-       with open(&#39;feed.json&#39;, &#39;w&#39;) as f:
-           f.write(file_text)
+<div class="highlight"><pre><span></span><span class="n">s3_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="n">client</span><span class="p">(</span>
+           <span class="s1">&#39;s3&#39;</span><span class="p">,</span>
+           <span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">AWS_ACCESS_KEY</span><span class="p">,</span>
+           <span class="n">aws_secret_access_key</span><span class="o">=</span><span class="n">AWS_SECRET_ACCESS_KEY</span><span class="p">,</span>
+           <span class="n">region_name</span><span class="o">=</span><span class="s1">&#39;us-east-1&#39;</span>
+       <span class="p">)</span>
+       <span class="k">with</span> <span class="k">open</span><span class="p">(</span><span class="s1">&#39;feed.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+           <span class="n">f</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">file_text</span><span class="p">)</span>
 
-       # Upload the file to S3
-       response = s3_client.put_object(
-           ACL=&#39;public-read&#39;,
-           Bucket=&#39;packt-free-learning&#39;,
-           Key=&#39;feed.json&#39;,
-           Body=file_text,
-           ContentEncoding=&#39;utf-8&#39;,
-           ContentType=&#39;application/json&#39;,
-           StorageClass=&#39;REDUCED_REDUNDANCY&#39;
-           )
+       <span class="o">#</span> <span class="n">Upload</span> <span class="n">the</span> <span class="n">file</span> <span class="k">to</span> <span class="n">S3</span>
+       <span class="n">response</span> <span class="o">=</span> <span class="n">s3_client</span><span class="p">.</span><span class="n">put_object</span><span class="p">(</span>
+           <span class="n">ACL</span><span class="o">=</span><span class="s1">&#39;public-read&#39;</span><span class="p">,</span>
+           <span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;packt-free-learning&#39;</span><span class="p">,</span>
+           <span class="k">Key</span><span class="o">=</span><span class="s1">&#39;feed.json&#39;</span><span class="p">,</span>
+           <span class="n">Body</span><span class="o">=</span><span class="n">file_text</span><span class="p">,</span>
+           <span class="n">ContentEncoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
+           <span class="n">ContentType</span><span class="o">=</span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+           <span class="n">StorageClass</span><span class="o">=</span><span class="s1">&#39;REDUCED_REDUNDANCY&#39;</span>
+           <span class="p">)</span>
 </pre></div>
 
 
@@ -243,7 +244,7 @@ This post covers the build of the core code. To see the alexa and deployment sec
 <p>Happy with the fact I could now grab the data and push it somewhere for Alexa to consume, as my devoted users wouldn’t want to miss their daily update, I needed to make sure that I would be alerted to any issues. At the time I had just listened to a <a href="https://pythonbytes.fm/">Python Bytes podcast</a> where they had mentioned a package named <a href="https://github.com/notifiers/notifiers">notifiers</a> and this seemed like a great time to test it out.</p>
 <p>For me, doing ops, I live in Slack for most of the day, so that as a platform to send alerts to looked like the best option. The integration required the enabling of the webhooks, a simple app install on the Slack side, then using that app create a specific url to push the data to.</p>
 <p>First steps were to define some errors I would likely get that I would be able to see if it was caused by a programming error, the script getting blocked or something on the AWS side.</p>
-<div class="highlight"><pre><span></span>handle_httpstatus_list = [401, 403, 404, 408, 500, 502, 503, 504]
+<div class="highlight"><pre><span></span><span class="n">handle_httpstatus_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">401</span><span class="p">,</span> <span class="mi">403</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">408</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">]</span>
 </pre></div>
 
 
@@ -254,36 +255,36 @@ This post covers the build of the core code. To see the alexa and deployment sec
 
 <p>Sets up our ability to call one of the applications that notifiers supports. Not to tie them together.</p>
 <p>404 would give an indication that they have moved the page:</p>
-<div class="highlight"><pre><span></span>if response.status == 404:
-           slack.notify(webhook_url=hook, message=&#39;404 URL is not good&#39;)
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">response</span>.<span class="nv">status</span> <span class="o">==</span> <span class="mi">404</span>:
+           <span class="nv">slack</span>.<span class="nv">notify</span><span class="ss">(</span><span class="nv">webhook_url</span><span class="o">=</span><span class="nv">hook</span>, <span class="nv">message</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">404 URL is not good</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
 <p>402 and 403 might indicate that we were now getting blocked:</p>
-<div class="highlight"><pre><span></span>elif response.status == 401 or response.status == 403:
-           slack.notify(
-               webhook_url=hook,
-               message=&#39;We might have been blocked status &#39;
-               + str(response.status)
-               )
+<div class="highlight"><pre><span></span><span class="n">elif</span> <span class="n">response</span><span class="p">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">401</span> <span class="k">or</span> <span class="n">response</span><span class="p">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">403</span><span class="p">:</span>
+           <span class="n">slack</span><span class="p">.</span><span class="k">notify</span><span class="p">(</span>
+               <span class="n">webhook_url</span><span class="o">=</span><span class="n">hook</span><span class="p">,</span>
+               <span class="n">message</span><span class="o">=</span><span class="s1">&#39;We might have been blocked status &#39;</span>
+               <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
+               <span class="p">)</span>
 </pre></div>
 
 
 <p>408 and any of the 500s that are being trapped are likely to be a transient error so wait and try again:</p>
-<div class="highlight"><pre><span></span><span class="k">else</span><span class="o">:</span>
-               <span class="n">slack</span><span class="o">.</span><span class="na">notify</span><span class="o">(</span>
-                   <span class="n">webhook_url</span><span class="o">=</span><span class="n">hook</span><span class="o">,</span>
-                   <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Warning connection type errors. Error number &#39;</span>
-                   <span class="o">+</span> <span class="n">str</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">status</span><span class="o">)</span>
-                   <span class="o">+</span> <span class="s1">&#39; count &#39;</span>
-                   <span class="o">+</span> <span class="n">str</span><span class="o">(</span><span class="n">count</span><span class="o">)</span>
-                   <span class="o">)</span>
-               <span class="n">time</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">300</span><span class="o">)</span>
-               <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-               <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">4</span><span class="o">:</span>
-                   <span class="n">exit</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-               <span class="k">else</span><span class="o">:</span>
-                   <span class="n">self</span><span class="o">.</span><span class="na">start_requests</span><span class="o">()</span>
+<div class="highlight"><pre><span></span><span class="k">else</span>:
+               <span class="nv">slack</span>.<span class="nv">notify</span><span class="ss">(</span>
+                   <span class="nv">webhook_url</span><span class="o">=</span><span class="nv">hook</span>,
+                   <span class="nv">message</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">Warning connection type errors. Error number </span><span class="s1">&#39;</span>
+                   <span class="o">+</span> <span class="nv">str</span><span class="ss">(</span><span class="nv">response</span>.<span class="nv">status</span><span class="ss">)</span>
+                   <span class="o">+</span> <span class="s1">&#39;</span><span class="s"> count </span><span class="s1">&#39;</span>
+                   <span class="o">+</span> <span class="nv">str</span><span class="ss">(</span><span class="nv">count</span><span class="ss">)</span>
+                   <span class="ss">)</span>
+               <span class="nv">time</span>.<span class="nv">sleep</span><span class="ss">(</span><span class="mi">300</span><span class="ss">)</span>
+               <span class="nv">count</span> <span class="o">+=</span> <span class="mi">1</span>
+               <span class="k">if</span> <span class="nv">count</span> <span class="o">==</span> <span class="mi">4</span>:
+                   <span class="k">exit</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
+               <span class="k">else</span>:
+                   <span class="nv">self</span>.<span class="nv">start_requests</span><span class="ss">()</span>
 </pre></div>
 
 

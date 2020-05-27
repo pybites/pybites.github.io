@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -127,30 +128,30 @@
 <p>Out of Date: Pelican now allows us to have a single repo for the source files <em>and</em> the generated HTML/output files. There's no longer a need to have two separate repos. This will need to be confirmed with the PyBites use case before updaitng the steps in this document.</p>
 </blockquote>
 <h2>PyBites install guide</h2>
-<div class="highlight"><pre><span></span># we have a src, output and theme (Flex) repo, use --recursive to get all
-$ git clone --recursive https://github.com/pybites/pybites.github.io-src pybites
-$ cd pybites
+<div class="highlight"><pre><span></span># <span class="nv">we</span> <span class="nv">have</span> <span class="nv">a</span> <span class="nv">src</span>, <span class="nv">output</span> <span class="nv">and</span> <span class="nv">theme</span> <span class="ss">(</span><span class="nv">Flex</span><span class="ss">)</span> <span class="nv">repo</span>, <span class="nv">use</span> <span class="o">--</span><span class="nv">recursive</span> <span class="nv">to</span> <span class="nv">get</span> <span class="nv">all</span>
+$ <span class="nv">git</span> <span class="nv">clone</span> <span class="o">--</span><span class="nv">recursive</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">github</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">pybites</span><span class="o">/</span><span class="nv">pybites</span>.<span class="nv">github</span>.<span class="nv">io</span><span class="o">-</span><span class="nv">src</span> <span class="nv">pybites</span>
+$ <span class="nv">cd</span> <span class="nv">pybites</span>
 
-# set up env and install dependencies
-$ virtualenv venv (might need: virtualenv -p python3 venv)
-$ source venv/bin/activate
-$ pip install -r requirements.txt
+# <span class="nv">set</span> <span class="nv">up</span> <span class="nv">env</span> <span class="nv">and</span> <span class="nv">install</span> <span class="nv">dependencies</span>
+$ <span class="nv">virtualenv</span> <span class="nv">venv</span> <span class="ss">(</span><span class="nv">might</span> <span class="nv">need</span>: <span class="nv">virtualenv</span> <span class="o">-</span><span class="nv">p</span> <span class="nv">python3</span> <span class="nv">venv</span><span class="ss">)</span>
+$ <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">activate</span>
+$ <span class="nv">pip</span> <span class="nv">install</span> <span class="o">-</span><span class="nv">r</span> <span class="nv">requirements</span>.<span class="nv">txt</span>
 
-# add some content
-$ cd content
-$ vi new-blog-post.md ; wq!
+# <span class="nv">add</span> <span class="nv">some</span> <span class="nv">content</span>
+$ <span class="nv">cd</span> <span class="nv">content</span>
+$ <span class="nv">vi</span> <span class="nv">new</span><span class="o">-</span><span class="nv">blog</span><span class="o">-</span><span class="nv">post</span>.<span class="nv">md</span> <span class="c1">; wq!</span>
 
-# check changes on localhost
-$ cd ..
-$ make html &amp;&amp; make serve
+# <span class="nv">check</span> <span class="nv">changes</span> <span class="nv">on</span> <span class="nv">localhost</span>
+$ <span class="nv">cd</span> ..
+$ <span class="nv">make</span> <span class="nv">html</span> <span class="o">&amp;&amp;</span> <span class="nv">make</span> <span class="nv">serve</span>
 
-# push this new content to the parent -src repo
-$ git add . 
-$ git commit -m &quot;my new blog post&quot;
-$ git push
+# <span class="nv">push</span> <span class="nv">this</span> <span class="nv">new</span> <span class="nv">content</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">parent</span> <span class="o">-</span><span class="nv">src</span> <span class="nv">repo</span>
+$ <span class="nv">git</span> <span class="nv">add</span> . 
+$ <span class="nv">git</span> <span class="nv">commit</span> <span class="o">-</span><span class="nv">m</span> <span class="s2">&quot;</span><span class="s">my new blog post</span><span class="s2">&quot;</span>
+$ <span class="nv">git</span> <span class="nv">push</span>
 
-# push the static blog change to the child -io repo
-# wait: this is a duplicate step, I don&#39;t like duplication!
+# <span class="nv">push</span> <span class="nv">the</span> <span class="nv">static</span> <span class="nv">blog</span> <span class="nv">change</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">child</span> <span class="o">-</span><span class="nv">io</span> <span class="nv">repo</span>
+# <span class="k">wait</span>: <span class="nv">this</span> <span class="nv">is</span> <span class="nv">a</span> <span class="nv">duplicate</span> <span class="nv">step</span>, <span class="nv">I</span> <span class="nv">don</span><span class="s1">&#39;</span><span class="s">t like duplication!</span>
 # ...
 </pre></div>
 

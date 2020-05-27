@@ -88,6 +88,7 @@
                                 <a  href="./">Home</a>
                                 <a  href="./archives.html">Blog</a>
                                 <a href="https://codechalleng.es" target="_blank">Platform</a>
+                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
                                 <a href="https://members.pybit.es/login" target="_blank">Members</a>
                                 <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
                     </div>
@@ -153,29 +154,29 @@
 <ul>
 <li>The program could have easily been a single, huge block of code but I decided it was best to split each 'job' into a different function. There are 2 functions in total:</li>
 </ul>
-<div class="highlight"><pre><span></span>#Read in the HTML file and search it using my time regex
-def search_file(file)
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="k">Read</span> <span class="k">in</span> <span class="n">the</span> <span class="n">HTML</span> <span class="n">file</span> <span class="k">and</span> <span class="k">search</span> <span class="n">it</span> <span class="k">using</span> <span class="n">my</span> <span class="n">time</span> <span class="n">regex</span>
+<span class="n">def</span> <span class="n">search_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span></span>#Strip out the brackets and the colon to calculate the mins and seconds
-def time_calculation(durations)
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">Strip</span> <span class="k">out</span> <span class="n">the</span> <span class="n">brackets</span> <span class="k">and</span> <span class="n">the</span> <span class="n">colon</span> <span class="k">to</span> <span class="n">calculate</span> <span class="n">the</span> <span class="n">mins</span> <span class="k">and</span> <span class="n">seconds</span>
+<span class="n">def</span> <span class="n">time_calculation</span><span class="p">(</span><span class="n">durations</span><span class="p">)</span>
 </pre></div>
 
 
 <ul>
 <li>Creating the time search regex. This was the real challenge for me! While I'd used regex before it was definitely a challenge to search for a time string. The complexity was in coding the regex to search for both single minutes and double digit minutes, eg: 7:43 and 10:43. (As the times are all within ()s on the page, it was easier to include the braces in the regex):</li>
 </ul>
-<div class="highlight"><pre><span></span>time_regex = re.compile(r&#39;\(\d+:\d+\)&#39;) #Creating the regex
+<div class="highlight"><pre><span></span><span class="n">time_regex</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">compile</span><span class="p">(</span><span class="n">r</span><span class="s1">&#39;\(\d+:\d+\)&#39;</span><span class="p">)</span> <span class="o">#</span><span class="n">Creating</span> <span class="n">the</span> <span class="n">regex</span>
 </pre></div>
 
 
 <ul>
 <li>Stripping away the unecessary bits so I could work with the raw numbers. I used the strip() and split() methods for this. Admittedly, I was stoked when I realised I could use them both in one line of code (it's the small wins). This was done within a for loop to iterate over the list created by the regex search:</li>
 </ul>
-<div class="highlight"><pre><span></span>#For loop to strip brackets/colon and assign the mins/seconds
-for i in range(len(durations)):
-    minutes, seconds = durations[i].strip(&#39;()&#39;).split(&#39;:&#39;)
+<div class="highlight"><pre><span></span>#<span class="k">For</span> <span class="k">loop</span> <span class="nv">to</span> <span class="nv">strip</span> <span class="nv">brackets</span><span class="o">/</span><span class="nv">colon</span> <span class="nv">and</span> <span class="nv">assign</span> <span class="nv">the</span> <span class="nv">mins</span><span class="o">/</span><span class="nv">seconds</span>
+<span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">durations</span><span class="ss">))</span>:
+    <span class="nv">minutes</span>, <span class="nv">seconds</span> <span class="o">=</span> <span class="nv">durations</span>[<span class="nv">i</span>].<span class="nv">strip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">()</span><span class="s1">&#39;</span><span class="ss">)</span>.<span class="nv">split</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">:</span><span class="s1">&#39;</span><span class="ss">)</span>
 </pre></div>
 
 
