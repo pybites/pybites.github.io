@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Ever heard of a Python virtualenv? No? Neither had I, until I discovered them while following a video course on Python Flask. A virtualenv (AKA venv) is essentially a Virtual Machine (VM) or...">
         <meta name="keywords" content="pip, python, venv, virtualenv">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>The Beauty of Python Virtualenvs - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">The Beauty of Python Virtualenvs</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Thu 22 December 2016,  <a href="./category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Thu 22 December 2016,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/pip.html">pip</a>, <a href="./tag/python.html">python</a>, <a href="./tag/venv.html">venv</a>, <a href="./tag/virtualenv.html">virtualenv</a>                      </p>
+<a href="https://pybit.es/tag/pip.html">pip</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/venv.html">venv</a>, <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>                      </p>
                   </div>
               </div>
         </div>
@@ -130,16 +167,16 @@ Best practice would be to create a venv within your project and use it to run yo
 <h2>Step by Step</h2>
 <p>Let's create a venv called "awesome-test". You'd preferably run the following commands in your project root dir:</p>
 <h3>Unix Commands</h3>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
-<span class="o">#</span> <span class="n">ls</span>
-<span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
+<div class="highlight"><pre><span></span># python3 -m venv awesome-test
+# ls
+awesome-test
 </pre></div>
 
 
 <h3>Windows Commands</h3>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
-<span class="o">#</span> <span class="n">dir</span>
-<span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
+<div class="highlight"><pre><span></span># python -m venv awesome-test
+# dir
+awesome-test
 </pre></div>
 
 
@@ -149,34 +186,34 @@ Best practice would be to create a venv within your project and use it to run yo
 <p>The next step is to activate the venv.
 Activating the venv puts you into a standalone Python instance that has pretty much nothing installed by default:</p>
 <h3>Unix Commands</h3>
-<div class="highlight"><pre><span></span># <span class="nv">cd</span> <span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span>
-# <span class="nv">ls</span>
-<span class="nv">bin</span>     <span class="k">include</span>     <span class="nv">lib</span>     <span class="nv">pyvenv</span>.<span class="nv">cfg</span>
+<div class="highlight"><pre><span></span># cd awesome-test
+# ls
+bin     include     lib     pyvenv.cfg
 #
-# <span class="nv">source</span> <span class="nv">bin</span><span class="o">/</span><span class="nv">activate</span>
-<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> #
-<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> # <span class="nv">echo</span> <span class="nv">YAY</span><span class="o">!</span>
-<span class="nv">YAY</span><span class="o">!</span>
+# source bin/activate
+(awesome-test) #
+(awesome-test) # echo YAY!
+YAY!
 </pre></div>
 
 
 <h3>Windows Commands</h3>
-<div class="highlight"><pre><span></span># <span class="nv">cd</span> <span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span>
-# <span class="nv">dir</span>
-<span class="k">Include</span><span class="o">/</span>    <span class="nv">Lib</span><span class="o">/</span>    <span class="nv">pyvenv</span>.<span class="nv">cfg</span>  <span class="nv">Scripts</span><span class="o">/</span>
-# <span class="nv">Scripts</span>\<span class="nv">activate</span>
-<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> #
-<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> # <span class="nv">echo</span> <span class="nv">YAY</span><span class="o">!</span>
-<span class="nv">YAY</span><span class="o">!</span>
+<div class="highlight"><pre><span></span># cd awesome-test
+# dir
+Include/    Lib/    pyvenv.cfg  Scripts/
+# Scripts\activate
+(awesome-test) #
+(awesome-test) # echo YAY!
+YAY!
 </pre></div>
 
 
 <p>The <em>(awesome-test)</em> tag preceding your shell prompt indicates you're now in the venv.
 Now list out the modules installed in this python instance:</p>
-<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">pip</span> <span class="n">list</span>
-<span class="n">pip</span> <span class="p">(</span><span class="mi">9</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">setuptools</span> <span class="p">(</span><span class="mi">28</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
-<span class="o">#</span>
+<div class="highlight"><pre><span></span># pip list
+pip (9.0.1)
+setuptools (28.8.0)
+#
 </pre></div>
 
 
@@ -184,14 +221,14 @@ Now list out the modules installed in this python instance:</p>
 <p>You can now play around and install whatever the heck you want without having to worry about corrupting or screwing up your primary environment. All modules installed in this venv will remain local to the venv.</p>
 <p>When you're done using the venv you then exit (deactivate) it using the deactivate command:</p>
 <h3>Unix Command</h3>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">awesome</span><span class="o">-</span><span class="n">test</span><span class="p">)</span> <span class="o">#</span> <span class="n">deactivate</span>
-<span class="o">#</span> 
+<div class="highlight"><pre><span></span>(awesome-test) # deactivate
+# 
 </pre></div>
 
 
 <h3>Windows Command</h3>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">awesome</span><span class="o">-</span><span class="n">test</span><span class="p">)</span> <span class="o">#</span> <span class="n">Scripts</span><span class="err">\</span><span class="n">deactivate</span>
-<span class="o">#</span>
+<div class="highlight"><pre><span></span>(awesome-test) # Scripts\deactivate
+#
 </pre></div>
 
 
@@ -210,7 +247,7 @@ Now list out the modules installed in this python instance:</p>
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'the-beauty-of-virtualenv.html';
-                var disqus_url = './the-beauty-of-virtualenv.html';
+                var disqus_url = 'https://pybit.es/the-beauty-of-virtualenv.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -230,11 +267,11 @@ Now list out the modules installed in this python instance:</p>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

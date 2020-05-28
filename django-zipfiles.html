@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it...">
         <meta name="keywords" content="admin, archive, DB, Django, migrations, request, response, snippets, sqlite3, virtualenv, zipfile">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>How to Create and Serve Zipfiles from Django - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How to Create and Serve Zipfiles from Django</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Wed 08 May 2019,  <a href="./category/django.html">Django</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Wed 08 May 2019,  <a href="https://pybit.es/category/django.html">Django</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/admin.html">admin</a>, <a href="./tag/archive.html">archive</a>, <a href="./tag/db.html">DB</a>, <a href="./tag/django.html">Django</a>, <a href="./tag/migrations.html">migrations</a>, <a href="./tag/request.html">request</a>, <a href="./tag/response.html">response</a>, <a href="./tag/snippets.html">snippets</a>, <a href="./tag/sqlite3.html">sqlite3</a>, <a href="./tag/virtualenv.html">virtualenv</a>, <a href="./tag/zipfile.html">zipfile</a>                      </p>
+<a href="https://pybit.es/tag/admin.html">admin</a>, <a href="https://pybit.es/tag/archive.html">archive</a>, <a href="https://pybit.es/tag/db.html">DB</a>, <a href="https://pybit.es/tag/django.html">Django</a>, <a href="https://pybit.es/tag/migrations.html">migrations</a>, <a href="https://pybit.es/tag/request.html">request</a>, <a href="https://pybit.es/tag/response.html">response</a>, <a href="https://pybit.es/tag/snippets.html">snippets</a>, <a href="https://pybit.es/tag/sqlite3.html">sqlite3</a>, <a href="https://pybit.es/tag/virtualenv.html">virtualenv</a>, <a href="https://pybit.es/tag/zipfile.html">zipfile</a>                      </p>
                   </div>
               </div>
         </div>
@@ -125,88 +162,88 @@
         <p>We added support <a href="https://codechalleng.es">to our platfom</a> for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ...</p>
 <h2>Setup</h2>
 <p>First we make a virtual env, set a secret key in our venv and install Django:</p>
-<div class="highlight"><pre><span></span><span class="o">[</span><span class="n">bobbelderbos@imac code</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="n">django</span><span class="o">-</span><span class="n">archive</span><span class="w"></span>
-<span class="o">[</span><span class="n">bobbelderbos@imac code</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="err">$</span><span class="n">_</span><span class="w"></span>
-<span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python3</span><span class="mf">.7</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">venv</span><span class="w"> </span><span class="n">venv</span><span class="w"></span>
-<span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="ss">&quot;export SECRET_KEY=&#39;abc123.;#&#39;&quot;</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span><span class="w"></span>
-<span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span><span class="w"></span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">django</span><span class="w"></span>
-<span class="n">Collecting</span><span class="w"> </span><span class="n">django</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
-<span class="n">Successfully</span><span class="w"> </span><span class="n">installed</span><span class="w"> </span><span class="n">django</span><span class="o">-</span><span class="mf">2.2</span><span class="w"> </span><span class="n">pytz</span><span class="o">-</span><span class="mf">2019.1</span><span class="w"> </span><span class="n">sqlparse</span><span class="o">-</span><span class="mf">0.3.0</span><span class="w"></span>
+<div class="highlight"><pre><span></span>[bobbelderbos@imac code]$ mkdir django-archive
+[bobbelderbos@imac code]$ cd $_
+[bobbelderbos@imac django-archive]$ python3.7 -m venv venv
+[bobbelderbos@imac django-archive]$ echo &quot;export SECRET_KEY=&#39;abc123.;#&#39;&quot; &gt;&gt; venv/bin/activate
+[bobbelderbos@imac django-archive]$ source venv/bin/activate
+(venv) [bobbelderbos@imac django-archive]$ pip install django
+Collecting django
+...
+Successfully installed django-2.2 pytz-2019.1 sqlparse-0.3.0
 </pre></div>
 
 
 <p>Now let's create a project and app in Django. Don't forget the extra dot in the <code>startproject</code> command to not create an extra subdirectory.</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">django</span><span class="o">-</span><span class="k">admin</span><span class="w"> </span><span class="n">startproject</span><span class="w"> </span><span class="n">snippets</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">django</span><span class="o">-</span><span class="k">admin</span><span class="w"> </span><span class="n">startapp</span><span class="w"> </span><span class="n">archive</span><span class="w"></span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
-<span class="p">.</span><span class="w"></span>
-<span class="err">├──</span><span class="w"> </span><span class="n">archive</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">__init__</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="k">admin</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">apps</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">migrations</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">models</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">tests</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">views</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">├──</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">├──</span><span class="w"> </span><span class="n">snippets</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">__init__</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">settings</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">urls</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">wsgi</span><span class="p">.</span><span class="n">py</span><span class="w"></span>
-<span class="err">└──</span><span class="w"> </span><span class="n">venv</span><span class="w"></span>
-<span class="w">    </span><span class="p">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ django-admin startproject snippets .
+(venv) [bobbelderbos@imac django-archive]$ django-admin startapp archive
+(venv) [bobbelderbos@imac django-archive]$ tree -L 2
+.
+├── archive
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── manage.py
+├── snippets
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── venv
+    ...
 </pre></div>
 
 
 <p>Make sure we add the new app to Django's config:</p>
 <p>snippets/settings.py</p>
-<div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">...</span>
-    <span class="o">#</span> <span class="n">own</span> <span class="n">apps</span>
-    <span class="s1">&#39;archive&#39;</span><span class="p">,</span>
-<span class="p">]</span>
+<div class="highlight"><pre><span></span>INSTALLED_APPS = [
+    ...
+    # own apps
+    &#39;archive&#39;,
+]
 </pre></div>
 
 
 <p>While here, let's also load the secret key from our venv (<code>venv/bin/activate</code>) as defined earlier:</p>
-<div class="highlight"><pre><span></span><span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span>SECRET_KEY = os.environ[&#39;SECRET_KEY&#39;]
 </pre></div>
 
 
 <p>Lastly let's sync the pending migrations to our default sqlite DB and create a superuser to access Django's admin back-end:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">migrate</span><span class="w"></span>
-<span class="n">Operations</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nl">perform</span><span class="p">:</span><span class="w"></span>
-<span class="n">Apply</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="nl">migrations</span><span class="p">:</span><span class="w"> </span><span class="k">admin</span><span class="p">,</span><span class="w"> </span><span class="n">auth</span><span class="p">,</span><span class="w"> </span><span class="n">contenttypes</span><span class="p">,</span><span class="w"> </span><span class="n">sessions</span><span class="w"></span>
-<span class="n">Running</span><span class="w"> </span><span class="nl">migrations</span><span class="p">:</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">contenttypes</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="k">admin</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="k">admin</span><span class="mf">.0002</span><span class="n">_logentry_remove_auto_add</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="k">admin</span><span class="mf">.0003</span><span class="n">_logentry_add_action_flag_choices</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">contenttypes</span><span class="mf">.0002</span><span class="n">_remove_content_type_name</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0002</span><span class="n">_alter_permission_name_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0003</span><span class="n">_alter_user_email_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0004</span><span class="n">_alter_user_username_opts</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0005</span><span class="n">_alter_user_last_login_null</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0006</span><span class="n">_require_contenttypes_0002</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0007</span><span class="n">_alter_validators_add_error_messages</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0008</span><span class="n">_alter_user_username_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0009</span><span class="n">_alter_user_last_name_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0010</span><span class="n">_alter_group_name_max_length</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">auth</span><span class="mf">.0011</span><span class="n">_update_proxy_permissions</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
-<span class="n">Applying</span><span class="w"> </span><span class="n">sessions</span><span class="mf">.0001</span><span class="n">_initial</span><span class="p">...</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+Applying contenttypes.0001_initial... OK
+Applying auth.0001_initial... OK
+Applying admin.0001_initial... OK
+Applying admin.0002_logentry_remove_auto_add... OK
+Applying admin.0003_logentry_add_action_flag_choices... OK
+Applying contenttypes.0002_remove_content_type_name... OK
+Applying auth.0002_alter_permission_name_max_length... OK
+Applying auth.0003_alter_user_email_max_length... OK
+Applying auth.0004_alter_user_username_opts... OK
+Applying auth.0005_alter_user_last_login_null... OK
+Applying auth.0006_require_contenttypes_0002... OK
+Applying auth.0007_alter_validators_add_error_messages... OK
+Applying auth.0008_alter_user_username_max_length... OK
+Applying auth.0009_alter_user_last_name_max_length... OK
+Applying auth.0010_alter_group_name_max_length... OK
+Applying auth.0011_update_proxy_permissions... OK
+Applying sessions.0001_initial... OK
 
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac django-archive</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">manage</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="n">createsuperuser</span><span class="w"></span>
-<span class="n">Username</span><span class="w"> </span><span class="p">(</span><span class="n">leave</span><span class="w"> </span><span class="n">blank</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="s1">&#39;bobbelderbos&#39;</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">bob</span><span class="w"></span>
-<span class="n">Email</span><span class="w"> </span><span class="nl">address</span><span class="p">:</span><span class="w"></span>
-<span class="nl">Password</span><span class="p">:</span><span class="w"></span>
-<span class="n">Password</span><span class="w"> </span><span class="p">(</span><span class="n">again</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="n">This</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">too</span><span class="w"> </span><span class="n">short</span><span class="p">.</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">contain</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">least</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="n">characters</span><span class="p">.</span><span class="w"></span>
-<span class="n">Bypass</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="n">validation</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">anyway</span><span class="vm">?</span><span class="w"> </span><span class="o">[</span><span class="n">y/N</span><span class="o">]</span><span class="err">:</span><span class="w"> </span><span class="n">y</span><span class="w"></span>
-<span class="n">Superuser</span><span class="w"> </span><span class="n">created</span><span class="w"> </span><span class="n">successfully</span><span class="p">.</span><span class="w"></span>
+(venv) [bobbelderbos@imac django-archive]$ python manage.py createsuperuser
+Username (leave blank to use &#39;bobbelderbos&#39;): bob
+Email address:
+Password:
+Password (again):
+This password is too short. It must contain at least 8 characters.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
 </pre></div>
 
 
@@ -259,33 +296,33 @@
 <p>We inherit all goodness from Django's <code>Model</code> class. The <code>added</code> datetime gets automatically populated upon insert. Defining a <code>__str__</code> on the class makes it easier to inspect the objects when debugging (or in Django's interactive shell). And we can use the inner <code>Meta</code> class to set further behaviors, in this case let's show most recently added snippets first. </p>
 <p>Now we have to commit ("migrate") this model to the DB which is easy using Django's <code>manage.py</code>. However first we need to stub out the <code>download</code> function we defined in <code>archive/urls.py</code>, otherwise we get: <code>AttributeError: module 'archive.views' has no attribute 'download'</code> upon migration. Add this code to <code>archive/views.py</code>:</p>
 <p>archive/views.py</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">download</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="n">pass</span>
+<div class="highlight"><pre><span></span>def download(request):
+    pass
 </pre></div>
 
 
 <p>Now it should work:</p>
-<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">django</span><span class="o">-</span><span class="nv">archive</span>]$ <span class="nv">python</span> <span class="nv">manage</span>.<span class="nv">py</span> <span class="nv">makemigrations</span>
-<span class="nv">Migrations</span> <span class="k">for</span> <span class="s1">&#39;</span><span class="s">archive</span><span class="s1">&#39;</span>:
-<span class="nv">archive</span><span class="o">/</span><span class="nv">migrations</span><span class="o">/</span><span class="mi">0001</span><span class="nv">_initial</span>.<span class="nv">py</span>
-    <span class="o">-</span> <span class="nv">Create</span> <span class="nv">model</span> <span class="nv">Script</span>
-<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">django</span><span class="o">-</span><span class="nv">archive</span>]$ <span class="nv">python</span> <span class="nv">manage</span>.<span class="nv">py</span> <span class="nv">migrate</span>
-<span class="nv">Operations</span> <span class="nv">to</span> <span class="nv">perform</span>:
-<span class="nv">Apply</span> <span class="nv">all</span> <span class="nv">migrations</span>: <span class="nv">admin</span>, <span class="nv">archive</span>, <span class="nv">auth</span>, <span class="nv">contenttypes</span>, <span class="nv">sessions</span>
-<span class="nv">Running</span> <span class="nv">migrations</span>:
-<span class="nv">Applying</span> <span class="nv">archive</span>.<span class="mi">0001</span><span class="nv">_initial</span>... <span class="nv">OK</span>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ python manage.py makemigrations
+Migrations for &#39;archive&#39;:
+archive/migrations/0001_initial.py
+    - Create model Script
+(venv) [bobbelderbos@imac django-archive]$ python manage.py migrate
+Operations to perform:
+Apply all migrations: admin, archive, auth, contenttypes, sessions
+Running migrations:
+Applying archive.0001_initial... OK
 </pre></div>
 
 
 <p>I am just using the default <code>sqlite</code> DB, we can use schema to see what <code>migrate</code> created:</p>
-<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bobbelderbos</span>@<span class="nv">imac</span> <span class="nv">django</span><span class="o">-</span><span class="nv">archive</span>]$ <span class="nv">sqlite3</span> <span class="nv">db</span>.<span class="nv">sqlite3</span>
-<span class="nv">SQLite</span> <span class="nv">version</span> <span class="mi">3</span>.<span class="mi">24</span>.<span class="mi">0</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">04</span> <span class="mi">19</span>:<span class="mi">24</span>:<span class="mi">41</span>
-<span class="nv">Enter</span> <span class="s2">&quot;</span><span class="s">.help</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="nv">usage</span> <span class="nv">hints</span>.
-<span class="nv">sqlite</span><span class="o">&gt;</span> .<span class="nv">table</span>
-... <span class="nv">other</span> <span class="nv">tables</span> ...
-<span class="nv">archive_script</span>              <span class="o">&lt;==</span> <span class="nv">our</span> <span class="nv">new</span> <span class="nv">table</span>
-<span class="nv">sqlite</span><span class="o">&gt;</span> .<span class="nv">schema</span>  <span class="nv">archive_script</span>
-<span class="nv">CREATE</span> <span class="nv">TABLE</span> <span class="k">IF</span> <span class="nv">NOT</span> <span class="nv">EXISTS</span> <span class="s2">&quot;</span><span class="s">archive_script</span><span class="s2">&quot;</span> <span class="ss">(</span><span class="s2">&quot;</span><span class="s">id</span><span class="s2">&quot;</span> <span class="nv">integer</span> <span class="nv">NOT</span> <span class="nv">NULL</span> <span class="nv">PRIMARY</span> <span class="nv">KEY</span> <span class="nv">AUTOINCREMENT</span>, <span class="s2">&quot;</span><span class="s">name</span><span class="s2">&quot;</span> <span class="nv">varchar</span><span class="ss">(</span><span class="mi">100</span><span class="ss">)</span> <span class="nv">NOT</span> <span class="nv">NULL</span>, <span class="s2">&quot;</span><span class="s">code</span><span class="s2">&quot;</span> <span class="nv">text</span> <span class="nv">NOT</span> <span class="nv">NULL</span>, <span class="s2">&quot;</span><span class="s">added</span><span class="s2">&quot;</span> <span class="nv">datetime</span> <span class="nv">NOT</span> <span class="nv">NULL</span><span class="ss">)</span><span class="c1">;</span>
+<div class="highlight"><pre><span></span>(venv) [bobbelderbos@imac django-archive]$ sqlite3 db.sqlite3
+SQLite version 3.24.0 2018-06-04 19:24:41
+Enter &quot;.help&quot; for usage hints.
+sqlite&gt; .table
+... other tables ...
+archive_script              &lt;== our new table
+sqlite&gt; .schema  archive_script
+CREATE TABLE IF NOT EXISTS &quot;archive_script&quot; (&quot;id&quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, &quot;name&quot; varchar(100) NOT NULL, &quot;code&quot; text NOT NULL, &quot;added&quot; datetime NOT NULL);
 </pre></div>
 
 
@@ -304,27 +341,27 @@
 
 
 <p>Now let's spin up the dev server. As I leave it running in the foreground I use a second terminal:</p>
-<div class="highlight"><pre><span></span>$ <span class="nv">cd</span> <span class="o">/</span><span class="nv">Users</span><span class="o">/</span><span class="nv">bbelderbos</span><span class="o">/</span><span class="nv">code</span><span class="o">/</span><span class="nv">django</span><span class="o">-</span><span class="nv">archive</span>
-$ <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">activate</span>
-<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> [<span class="nv">bbelderbos</span>@<span class="nv">imac</span> <span class="nv">django</span><span class="o">-</span><span class="nv">archive</span>]$ <span class="nv">python</span> <span class="nv">manage</span>.<span class="nv">py</span> <span class="nv">runserver</span>
-<span class="nv">Watching</span> <span class="k">for</span> <span class="nv">file</span> <span class="nv">changes</span> <span class="nv">with</span> <span class="nv">StatReloader</span>
-<span class="nv">Performing</span> <span class="nv">system</span> <span class="nv">checks</span>...
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /Users/bbelderbos/code/django-archive
+$ <span class="nb">source</span> venv/bin/activate
+<span class="o">(</span>venv<span class="o">)</span> <span class="o">[</span>bbelderbos@imac django-archive<span class="o">]</span>$ python manage.py runserver
+Watching <span class="k">for</span> file changes with StatReloader
+Performing system checks...
 
-<span class="nv">System</span> <span class="nv">check</span> <span class="nv">identified</span> <span class="nv">no</span> <span class="nv">issues</span> <span class="ss">(</span><span class="mi">0</span> <span class="nv">silenced</span><span class="ss">)</span>.
-<span class="nv">May</span> <span class="mi">08</span>, <span class="mi">2019</span> <span class="o">-</span> <span class="mi">02</span>:<span class="mi">17</span>:<span class="mi">32</span>
-<span class="nv">Django</span> <span class="nv">version</span> <span class="mi">2</span>.<span class="mi">2</span>, <span class="nv">using</span> <span class="nv">settings</span> <span class="s1">&#39;</span><span class="s">snippets.settings</span><span class="s1">&#39;</span>
-<span class="nv">Starting</span> <span class="nv">development</span> <span class="nv">server</span> <span class="nv">at</span> <span class="nv">http</span>:<span class="o">//</span><span class="mi">127</span>.<span class="mi">0</span>.<span class="mi">0</span>.<span class="mi">1</span>:<span class="mi">8000</span><span class="o">/</span>
-<span class="nv">Quit</span> <span class="nv">the</span> <span class="nv">server</span> <span class="nv">with</span> <span class="nv">CONTROL</span><span class="o">-</span><span class="nv">C</span>.
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+May <span class="m">08</span>, <span class="m">2019</span> - <span class="m">02</span>:17:32
+Django version <span class="m">2</span>.2, using settings <span class="s1">&#39;snippets.settings&#39;</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
 </pre></div>
 
 
 <p>Now I can access <code>http://localhost:8000/admin</code> and login with the superuser I created earlier. At this point we should see the new model:</p>
-<p><img alt="new model in admin" src="./images/django-zip/admin.png"></p>
+<p><img alt="new model in admin" src="https://pybit.es/images/django-zip/admin.png"></p>
 <p>Let's add some small code snippets from <a href="https://codechalleng.es/tips">our tips page</a>:</p>
-<p><img alt="3 snippets added" src="./images/django-zip/3-snippets.png"></p>
-<p><img alt="adding snippet 1" src="./images/django-zip/snippet1.png"></p>
-<p><img alt="adding snippet 2" src="./images/django-zip/snippet2.png"></p>
-<p><img alt="adding snippet 3" src="./images/django-zip/snippet3.png"></p>
+<p><img alt="3 snippets added" src="https://pybit.es/images/django-zip/3-snippets.png"></p>
+<p><img alt="adding snippet 1" src="https://pybit.es/images/django-zip/snippet1.png"></p>
+<p><img alt="adding snippet 2" src="https://pybit.es/images/django-zip/snippet2.png"></p>
+<p><img alt="adding snippet 3" src="https://pybit.es/images/django-zip/snippet3.png"></p>
 <h2>Serving up a zipfile</h2>
 <p>Now let's create a zipfile with all the code snippets stored in the DB. We do this in the <code>download</code> view we stubbed out earlier:</p>
 <p>archive/views.py</p>
@@ -369,41 +406,41 @@ $ <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</
 
 <p>We use Django's <code>HttpResponse</code> object which we have to give a <code>Content-Disposition</code> attribute. To directly serve up the resulting zipfile, not writing it to disk, I use <code>zipfile</code>'s <code>writestr</code>. Getting the snippets from Django's ORM is as easy as: <code>Script.objects.all()</code>. I also added a <em>README</em> file.</p>
 <p>Now visit the download endpoint: http://localhost:8000/download -&gt; a zipfile should automatically download to your desktop:</p>
-<p><img alt="download the zipfile" src="./images/django-zip/download-endpoint.png"></p>
+<p><img alt="download the zipfile" src="https://pybit.es/images/django-zip/download-endpoint.png"></p>
 <p>Let's see if it worked by unzipping the obtained zipfile into a tmp directory:</p>
-<div class="highlight"><pre><span></span>[<span class="nv">bbelderbos</span>@<span class="nv">imac</span> <span class="nv">Downloads</span>]$ <span class="nv">mkdir</span> <span class="nv">tmp</span>
-[<span class="nv">bbelderbos</span>@<span class="nv">imac</span> <span class="nv">Downloads</span>]$ <span class="nv">mv</span> <span class="nv">pybites_codesnippets</span>.<span class="nv">zip</span> <span class="nv">tmp</span>
-[<span class="nv">bbelderbos</span>@<span class="nv">imac</span> <span class="nv">Downloads</span>]$ <span class="nv">cd</span> <span class="nv">tmp</span>
-[<span class="nv">bbelderbos</span>@<span class="nv">imac</span> <span class="nv">tmp</span>]$ <span class="nv">unzip</span> <span class="nv">pybites_codesnippets</span>.<span class="nv">zip</span>
-<span class="nv">Archive</span>:  <span class="nv">pybites_codesnippets</span>.<span class="nv">zip</span>
-<span class="nv">extracting</span>: <span class="nv">README</span>.<span class="nv">md</span>
-<span class="nv">extracting</span>: <span class="nv">flatten</span>.<span class="nv">py</span>
-<span class="nv">extracting</span>: <span class="nv">zipping</span>.<span class="nv">py</span>
-<span class="nv">extracting</span>: <span class="nv">enumerate</span>.<span class="nv">py</span>
+<div class="highlight"><pre><span></span>[bbelderbos@imac Downloads]$ mkdir tmp
+[bbelderbos@imac Downloads]$ mv pybites_codesnippets.zip tmp
+[bbelderbos@imac Downloads]$ cd tmp
+[bbelderbos@imac tmp]$ unzip pybites_codesnippets.zip
+Archive:  pybites_codesnippets.zip
+extracting: README.md
+extracting: flatten.py
+extracting: zipping.py
+extracting: enumerate.py
 
-[<span class="nv">bbelderbos</span>@<span class="nv">imac</span> <span class="nv">tmp</span>]$ <span class="nv">cat</span> <span class="nv">README</span>.<span class="nv">md</span>
+[bbelderbos@imac tmp]$ cat README.md
 
-## <span class="nv">PyBites</span> <span class="nv">Code</span> <span class="nv">Snippet</span> <span class="nv">Archive</span>
+## PyBites Code Snippet Archive
 
-<span class="nv">Here</span> <span class="nv">is</span> <span class="nv">a</span> <span class="nv">zipfile</span> <span class="nv">with</span> <span class="nv">some</span> <span class="nv">useful</span> <span class="nv">code</span> <span class="nv">snippets</span>.
+Here is a zipfile with some useful code snippets.
 
-<span class="nv">Produced</span> <span class="k">for</span> <span class="nv">blog</span> <span class="nv">post</span> <span class="nv">https</span>:<span class="o">//</span><span class="nv">pybit</span>.<span class="nv">es</span><span class="o">/</span><span class="nv">django</span><span class="o">-</span><span class="nv">zipfile</span>
+Produced for blog post https://pybit.es/django-zipfile
 
-<span class="nv">Keep</span> <span class="nv">calm</span> <span class="nv">and</span> <span class="nv">code</span> <span class="nv">in</span> <span class="nv">Python</span><span class="o">!</span>
+Keep calm and code in Python!
 
-[<span class="nv">bbelderbos</span>@<span class="nv">imac</span> <span class="nv">tmp</span>]$ <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="o">*</span><span class="nv">py</span><span class="c1">; do echo &quot;== $i ==&quot;; cat $i; echo ; done</span>
-<span class="o">==</span> <span class="nv">enumerate</span>.<span class="nv">py</span> <span class="o">==</span>
-<span class="nv">names</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">bob julian tim sara</span><span class="s1">&#39;</span>.<span class="nv">split</span><span class="ss">()</span>
-<span class="k">for</span> <span class="nv">i</span>, <span class="nv">name</span> <span class="nv">in</span> <span class="nv">enumerate</span><span class="ss">(</span><span class="nv">names</span>, <span class="mi">1</span><span class="ss">)</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">i</span>, <span class="nv">name</span><span class="ss">)</span>
-<span class="o">==</span> <span class="nv">flatten</span>.<span class="nv">py</span> <span class="o">==</span>
-<span class="nv">list_of_lists</span> <span class="o">=</span> [[<span class="mi">1</span>, <span class="mi">2</span>], [<span class="mi">3</span>], [<span class="mi">4</span>, <span class="mi">5</span>], [<span class="mi">6</span>, <span class="mi">7</span>, <span class="mi">8</span>]]
-<span class="nv">flattened</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">list_of_lists</span>, []<span class="ss">)</span>
-<span class="nv">print</span><span class="ss">(</span><span class="nv">flattened</span><span class="ss">)</span>
-<span class="o">==</span> <span class="nv">zipping</span>.<span class="nv">py</span> <span class="o">==</span>
-<span class="nv">names</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">bob julian tim sara</span><span class="s1">&#39;</span>.<span class="nv">split</span><span class="ss">()</span>
-<span class="nv">ages</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">11 22 33 44</span><span class="s1">&#39;</span>.<span class="nv">split</span><span class="ss">()</span>
-<span class="nv">print</span><span class="ss">(</span><span class="nv">dict</span><span class="ss">(</span><span class="nv">zip</span><span class="ss">(</span><span class="nv">names</span>, <span class="nv">ages</span><span class="ss">)))</span>
+[bbelderbos@imac tmp]$ for i in *py; do echo &quot;== $i ==&quot;; cat $i; echo ; done
+== enumerate.py ==
+names = &#39;bob julian tim sara&#39;.split()
+for i, name in enumerate(names, 1):
+    print(i, name)
+== flatten.py ==
+list_of_lists = [[1, 2], [3], [4, 5], [6, 7, 8]]
+flattened = sum(list_of_lists, [])
+print(flattened)
+== zipping.py ==
+names = &#39;bob julian tim sara&#39;.split()
+ages = &#39;11 22 33 44&#39;.split()
+print(dict(zip(names, ages)))
 </pre></div>
 
 
@@ -426,7 +463,7 @@ $ <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</
 <p>The full code for this blog post is <a href="https://github.com/pybites/blog_code/tree/master/django-archive">in our blog code repo</a>.</p>
 <hr>
 <p>If you saved some code for Bite exercises <a href="http://codechalleng.es">on our platform</a> you can check out this feature scrolling to the bottom of <a href="http://codechalleng.es/settings">the settings page</a>:</p>
-<p><img alt="the new platform code zip export button" src="./images/django-zip/platform-export.png"></p>
+<p><img alt="the new platform code zip export button" src="https://pybit.es/images/django-zip/platform-export.png"></p>
 <p>I hope this was useful and let us know if there are other Django related topics you'd like to see covered here ...</p>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
@@ -437,7 +474,7 @@ $ <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'django-zipfiles.html';
-                var disqus_url = './django-zipfiles.html';
+                var disqus_url = 'https://pybit.es/django-zipfiles.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -457,11 +494,11 @@ $ <span class="nv">source</span> <span class="nv">venv</span><span class="o">/</
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

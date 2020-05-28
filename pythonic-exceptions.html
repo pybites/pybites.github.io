@@ -12,6 +12,7 @@
 
         <!-- Stylesheets -->
         <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -78,12 +79,55 @@
                         <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
-                                <a  href="https://pybit.es/">Home</a>
-                                <a  href="https://pybit.es/archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="https://pybit.es/pages/apply.html">Apply</a>
+
+                        <div class="dropdown">
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -121,13 +165,13 @@
 <ul>
 <li>
 <p>Required:</p>
-<div class="highlight"><pre><span></span><span class="n">try</span><span class="p">:</span>
-    <span class="p">...</span>
-<span class="k">except</span> <span class="p">...:</span>
-    <span class="o">#</span> <span class="n">handle</span> <span class="k">exception</span>
-<span class="k">except</span> <span class="p">...:</span>
-    <span class="o">#</span> <span class="n">handle</span> <span class="n">another</span> <span class="k">exception</span>
-<span class="p">...</span>
+<div class="highlight"><pre><span></span>try:
+    ...
+except ...:
+    # handle exception
+except ...:
+    # handle another exception
+...
 </pre></div>
 
 
@@ -135,10 +179,10 @@
 <li>
 <p>And optionally after the except clauses:</p>
 <div class="highlight"><pre><span></span>...
-<span class="k">else</span>:
-    # <span class="nv">code</span> <span class="k">if</span> <span class="nv">no</span> <span class="nv">exception</span> <span class="nv">was</span> <span class="nv">hit</span>
-<span class="nv">finally</span>:
-    # <span class="nv">cleanup</span> <span class="nv">code</span>, <span class="nv">always</span> <span class="nv">executes</span>
+else:
+    # code if no exception was hit
+finally:
+    # cleanup code, always executes
 </pre></div>
 
 
@@ -149,17 +193,17 @@
 <h2>2. Flat is better than nested</h2>
 <p>Raising an exception (using <code>raise</code>) is a great way to avoid unnecessary indenting in your code.</p>
 <p>Take one of our Bites. Right off the bat we raise an exception if the input doesn't make sense:</p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">pretty_date</span><span class="ss">(</span><span class="nv">date</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">Receives a datetime object and converts/returns a readable string</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nv">not</span> <span class="nv">isinstance</span><span class="ss">(</span><span class="nv">date</span>, <span class="nv">datetime</span><span class="ss">)</span> <span class="nv">or</span> <span class="nv">date</span> <span class="o">&gt;</span> <span class="nv">NOW</span>:
-        <span class="nv">raise</span> <span class="nv">ValueError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">expecting past date</span><span class="s1">&#39;</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>def pretty_date(date):
+    &quot;&quot;&quot;Receives a datetime object and converts/returns a readable string&quot;&quot;&quot;
+    if not isinstance(date, datetime) or date &gt; NOW:
+        raise ValueError(&#39;expecting past date&#39;)
 </pre></div>
 
 
 <h2>3. Write custom exceptions</h2>
 <p>This is literally all it takes:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">NoInternetConnection</span>(<span class="nb">Exception</span>):
-    <span class="s">&quot;&quot;&quot;Exception raised when there is no internet&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">NoInternetConnection</span><span class="p">(</span><span class="nx">Exception</span><span class="p">)</span><span class="o">:</span>
+    <span class="s2">&quot;&quot;&quot;Exception raised when there is no internet&quot;&quot;&quot;</span>
 </pre></div>
 
 
@@ -177,17 +221,17 @@
 <h2>5. Actually use them</h2>
 <p>Instead of excessive condition checking (aka <em>look before you leap</em>), it's <a href="https://docs.python.org/3.4/glossary.html"><em>easier to ask for forgiveness than permission</em> (EAFP)</a>.</p>
 <p>As we showed in <a href="https://pybit.es/error_handling.html">our previous exception handling article</a> instead of checking:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">exists</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">file.txt</span><span class="s2">&quot;</span><span class="ss">)</span>:
+<div class="highlight"><pre><span></span>if os.path.exists(&quot;file.txt&quot;):
     ...
 </pre></div>
 
 
 <p>It's more idiomatic (<em>pythonic</em>) to just <em>try</em> things and catch the corresponding exception(s):</p>
-<div class="highlight"><pre><span></span><span class="nv">try</span>:
-    # <span class="nv">assume</span> <span class="nv">the</span> <span class="nv">file</span> <span class="nv">is</span> <span class="nv">there</span>
-    <span class="nv">os</span>.<span class="k">unlink</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">file.txt</span><span class="s2">&quot;</span><span class="ss">)</span>
-<span class="nv">except</span> <span class="nv">OSError</span>:
-    # <span class="k">if</span> <span class="nv">not</span>, <span class="nv">handle</span> <span class="nv">the</span> <span class="nv">exception</span>
+<div class="highlight"><pre><span></span>try:
+    # assume the file is there
+    os.unlink(&quot;file.txt&quot;)
+except OSError:
+    # if not, handle the exception
 </pre></div>
 
 

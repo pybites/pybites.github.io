@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="I’ll come clean. When it comes to Python datetime, I’m a shocker! I always struggle with the whole formatting side of things. This week, I discovered the Pendulum Package and I swear I heard...">
         <meta name="keywords" content="code, datetime, pendulum, pybites, python, pytz, timezones, tips">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>PyBites Module of the Week - Pendulum - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">PyBites Module of the Week - Pendulum</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Sat 24 June 2017,  <a href="./category/modules.html">Modules</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Sat 24 June 2017,  <a href="https://pybit.es/category/modules.html">Modules</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/code.html">code</a>, <a href="./tag/datetime.html">datetime</a>, <a href="./tag/pendulum.html">pendulum</a>, <a href="./tag/pybites.html">pybites</a>, <a href="./tag/python.html">python</a>, <a href="./tag/pytz.html">pytz</a>, <a href="./tag/timezones.html">timezones</a>, <a href="./tag/tips.html">tips</a>                      </p>
+<a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/datetime.html">datetime</a>, <a href="https://pybit.es/tag/pendulum.html">pendulum</a>, <a href="https://pybit.es/tag/pybites.html">pybites</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/pytz.html">pytz</a>, <a href="https://pybit.es/tag/timezones.html">timezones</a>, <a href="https://pybit.es/tag/tips.html">tips</a>                      </p>
                   </div>
               </div>
         </div>
@@ -134,21 +171,21 @@
 <p><br></p>
 <h2>My Favourite Uses</h2>
 <p>The first thing I’ll point out is that Pendulum has a wonderfully simplistic way of describing what each function does. Take the following for example:</p>
-<div class="highlight"><pre><span></span><span class="n">now</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">print</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
-<span class="s1">&#39;2016-06-28T16:51:45.978473-05:00&#39;</span>
+<div class="highlight"><pre><span></span>now = pendulum.now()
+print(now)
+&#39;2016-06-28T16:51:45.978473-05:00&#39;
 
-<span class="n">today</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">today</span><span class="p">()</span>
-<span class="n">print</span><span class="p">(</span><span class="n">today</span><span class="p">)</span>
-<span class="s1">&#39;2016-06-28T00:00:00-05:00&#39;</span>
+today = pendulum.today()
+print(today)
+&#39;2016-06-28T00:00:00-05:00&#39;
 
-<span class="n">tomorrow</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">tomorrow</span><span class="p">(</span><span class="s1">&#39;Europe/London&#39;</span><span class="p">)</span>
-<span class="n">print</span><span class="p">(</span><span class="n">tomorrow</span><span class="p">)</span>
-<span class="s1">&#39;2016-06-29T00:00:00+01:00&#39;</span>
+tomorrow = pendulum.tomorrow(&#39;Europe/London&#39;)
+print(tomorrow)
+&#39;2016-06-29T00:00:00+01:00&#39;
 
-<span class="n">yesterday</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">yesterday</span><span class="p">()</span>
-<span class="n">print</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span>
-<span class="s1">&#39;2016-06-27T00:00:00-05:00&#39;</span>
+yesterday = pendulum.yesterday()
+print(yesterday)
+&#39;2016-06-27T00:00:00-05:00&#39;
 </pre></div>
 
 
@@ -156,22 +193,22 @@
 <p>On top of that, you can even specify the timezone of the place you want to know the time of, thus the <code>.tomorrow(‘Europe/London’)</code> line.</p>
 <p><br></p>
 <p>My absolute favourite Pendulum feature is this:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">to_datetime_string</span><span class="p">()</span>
-<span class="s1">&#39;2017-06-24 09:35:38&#39;</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">pendulum</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">to_day_datetime_string</span><span class="p">()</span>
-<span class="err">&#39;</span><span class="n">Sat</span><span class="p">,</span> <span class="n">Jun</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">2017</span> <span class="mi">09</span><span class="p">:</span><span class="mi">36</span> <span class="n">AM</span><span class="err">’</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; pendulum.now().to_datetime_string()
+&#39;2017-06-24 09:35:38&#39;
+&gt;&gt;&gt;
+&gt;&gt;&gt; pendulum.now().to_day_datetime_string()
+&#39;Sat, Jun 24, 2017 09:36 AM’
+&gt;&gt;&gt;
 </pre></div>
 
 
 <p>Pendulum has a brilliant set of formatting options for datetime results. No longer do I need to use the convoluted and hard to remember <code>strftime</code> type formatting method (%D %M %Y). Pendulum will do it all for me! Mmmm.</p>
 <p><br>
 On top of all of this, I feel like date comparisons, calculations and timezone manipulation has also been made easier. For example, you can create a Pendulum instance with a specified timezone and time, then change the timezone for it on the fly with ease:</p>
-<div class="highlight"><pre><span></span><span class="n">in_paris</span> <span class="o">=</span> <span class="n">pendulum</span><span class="p">.</span><span class="k">create</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;Europe/Paris&#39;</span><span class="p">)</span>
-<span class="s1">&#39;2016-08-07T22:24:30+02:00&#39;</span>
-<span class="n">in_paris</span><span class="p">.</span><span class="n">in_timezone</span><span class="p">(</span><span class="s1">&#39;America/New_York&#39;</span><span class="p">)</span>
-<span class="s1">&#39;2016-08-07T16:24:30-04:00&#39;</span>
+<div class="highlight"><pre><span></span>in_paris = pendulum.create(2016, 8, 7, 22, 24, 30, tz=&#39;Europe/Paris&#39;)
+&#39;2016-08-07T22:24:30+02:00&#39;
+in_paris.in_timezone(&#39;America/New_York&#39;)
+&#39;2016-08-07T16:24:30-04:00&#39;
 </pre></div>
 
 
@@ -191,7 +228,7 @@ There are even more advanced functions when it comes to calculations (addition a
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'pendulum.html';
-                var disqus_url = './pendulum.html';
+                var disqus_url = 'https://pybit.es/pendulum.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -211,11 +248,11 @@ There are even more advanced functions when it comes to calculations (addition a
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

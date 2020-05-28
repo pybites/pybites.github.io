@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Some nice things coming out of our 100DaysOfCode Challenge. You seemed to like this one so I decided to do an article on it. In this post I show you how to build a simple Flask app to compare the...">
         <meta name="keywords" content="API, CSS, deploy, Flask, Heroku, Jinja, learning, OpenWeatherMap, pytz, weather">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Simple Flask app to compare the weather of 2 cities - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Simple Flask app to compare the weather of 2 cities</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Thu 20 April 2017,  <a href="./category/flask.html">Flask</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Thu 20 April 2017,  <a href="https://pybit.es/category/flask.html">Flask</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/api.html">API</a>, <a href="./tag/css.html">CSS</a>, <a href="./tag/deploy.html">deploy</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/heroku.html">Heroku</a>, <a href="./tag/jinja.html">Jinja</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/openweathermap.html">OpenWeatherMap</a>, <a href="./tag/pytz.html">pytz</a>, <a href="./tag/weather.html">weather</a>                      </p>
+<a href="https://pybit.es/tag/api.html">API</a>, <a href="https://pybit.es/tag/css.html">CSS</a>, <a href="https://pybit.es/tag/deploy.html">deploy</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/heroku.html">Heroku</a>, <a href="https://pybit.es/tag/jinja.html">Jinja</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/openweathermap.html">OpenWeatherMap</a>, <a href="https://pybit.es/tag/pytz.html">pytz</a>, <a href="https://pybit.es/tag/weather.html">weather</a>                      </p>
                   </div>
               </div>
         </div>
@@ -124,7 +161,7 @@
     <div class="container content">
         <p>Some nice things coming out of our <a href="http://pybit.es/special-100days.html">100DaysOfCode Challenge</a>. You seemed to like <a href="https://twitter.com/pybites/status/851896144594583552">this one</a> so I decided to do an article on it.</p>
 <p>In this post I show you how to build a simple Flask app to compare the weather of 2 cities using the <a href="https://openweathermap.org">OpenWeatherMap API</a>. Maybe this aids you in solving <a href="http://pybit.es/codechallenge15.html">this week's challenge</a>. </p>
-<p><img alt="Our simple Flask app" src="./images/weather-app.png"></p>
+<p><img alt="Our simple Flask app" src="https://pybit.es/images/weather-app.png"></p>
 <h2>Step by step</h2>
 <p>The full code is <a href="https://github.com/pybites/weather_compare">here</a>. We deployed the app <a href="http://weathercompare.herokuapp.com/">here</a>.</p>
 <ul>
@@ -162,10 +199,10 @@ $ pip install -r requirements.txt
 </li>
 <li>
 <p>With these helpers the <a href="https://github.com/pybites/weather_compare/blob/master/app.py">main app</a> becomes pretty lean (just 32 LOC). I only use the root (/) path for both view and POST. If POST, I get the 2 cities from the form with request.form.get, I query the API for both cities appending the results to data. If data does not have 2 items we set the error variable. All the data gets passed to the weather html template with this: </p>
-<div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">render_template</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">weather.html</span><span class="s2">&quot;</span>,
-                    <span class="nv">data</span><span class="o">=</span><span class="nv">data</span>,
-                    <span class="nv">error</span><span class="o">=</span><span class="nv">error</span>,
-                    <span class="nv">time</span><span class="o">=</span><span class="nv">get_local_time</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>return render_template(&quot;weather.html&quot;,
+                    data=data,
+                    error=error,
+                    time=get_local_time)
 </pre></div>
 
 
@@ -280,7 +317,7 @@ $ pip install -r requirements.txt
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'flask-simple-weather-app.html';
-                var disqus_url = './flask-simple-weather-app.html';
+                var disqus_url = 'https://pybit.es/flask-simple-weather-app.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -300,11 +337,11 @@ $ pip install -r requirements.txt
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

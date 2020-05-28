@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="In this article I share my learning of the property decorator coding a simple Account class. I think it&#39;s an unmissable tool in your (Python) OOP toolkit. What is a property? I found this good...">
         <meta name="keywords" content="2vs3, computation, decorators, dunder, encapsulation, getter, oop, property, pytest, refactoring, setter">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>OOP Beyond the Basics: Using Properties for Encapsulation, Computation and Refactoring - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">OOP Beyond the Basics: Using Properties for Encapsulation, Computation and Refactoring</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Wed 31 May 2017,  <a href="./category/concepts.html">Concepts</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Wed 31 May 2017,  <a href="https://pybit.es/category/concepts.html">Concepts</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/2vs3.html">2vs3</a>, <a href="./tag/computation.html">computation</a>, <a href="./tag/decorators.html">decorators</a>, <a href="./tag/dunder.html">dunder</a>, <a href="./tag/encapsulation.html">encapsulation</a>, <a href="./tag/getter.html">getter</a>, <a href="./tag/oop.html">oop</a>, <a href="./tag/property.html">property</a>, <a href="./tag/pytest.html">pytest</a>, <a href="./tag/refactoring.html">refactoring</a>, <a href="./tag/setter.html">setter</a>                      </p>
+<a href="https://pybit.es/tag/2vs3.html">2vs3</a>, <a href="https://pybit.es/tag/computation.html">computation</a>, <a href="https://pybit.es/tag/decorators.html">decorators</a>, <a href="https://pybit.es/tag/dunder.html">dunder</a>, <a href="https://pybit.es/tag/encapsulation.html">encapsulation</a>, <a href="https://pybit.es/tag/getter.html">getter</a>, <a href="https://pybit.es/tag/oop.html">oop</a>, <a href="https://pybit.es/tag/property.html">property</a>, <a href="https://pybit.es/tag/pytest.html">pytest</a>, <a href="https://pybit.es/tag/refactoring.html">refactoring</a>, <a href="https://pybit.es/tag/setter.html">setter</a>                      </p>
                   </div>
               </div>
         </div>
@@ -130,48 +167,48 @@
 </blockquote>
 <h2>A simple Account class</h2>
 <p>Lets define a simple account class (full code is <a href="https://github.com/pybites/100DaysOfCode/blob/master/063/account.py">here</a>):</p>
-<div class="highlight"><pre><span></span><span class="nv">class</span> <span class="nv">Account</span>:
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">Account</span>:
 
-    <span class="nv">def</span> <span class="nv">__init__</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">owner</span>, <span class="nv">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="ss">)</span>:
-        <span class="nv">self</span>.<span class="nv">owner</span> <span class="o">=</span> <span class="nv">owner</span>.<span class="nv">title</span><span class="ss">()</span>
-        <span class="nv">self</span>.<span class="nv">start_balance</span> <span class="o">=</span> <span class="nv">start_balance</span>
-        <span class="nv">self</span>.<span class="nv">_transactions</span> <span class="o">=</span> []
+    <span class="kt">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">owner</span> <span class="o">=</span> <span class="nx">owner</span><span class="p">.</span><span class="nx">title</span><span class="p">()</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">start_balance</span> <span class="o">=</span> <span class="nx">start_balance</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">_transactions</span> <span class="o">=</span> <span class="p">[]</span>
 
-    # <span class="nv">first</span> <span class="nv">property</span> <span class="nv">use</span> <span class="nv">case</span>: <span class="nv">computed</span> <span class="nv">attributes</span>
+    <span class="err">#</span> <span class="nx">first</span> <span class="nx">property</span> <span class="nx">use</span> <span class="k">case</span><span class="o">:</span> <span class="nx">computed</span> <span class="nx">attributes</span>
 
-    @<span class="nv">property</span>
-    <span class="nv">def</span> <span class="nv">balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="nv">tt</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">t</span>.<span class="nv">amount</span> <span class="k">for</span> <span class="nv">t</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">_transactions</span><span class="ss">)</span>
-        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_start_balance</span> <span class="o">+</span> <span class="nv">tt</span>
+    <span class="kd">@property</span>
+    <span class="nx">def</span> <span class="nx">balance</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">tt</span> <span class="o">=</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">amount</span> <span class="k">for</span> <span class="nx">t</span> <span class="k">in</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_transactions</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_start_balance</span> <span class="o">+</span> <span class="nx">tt</span>
 
-    # <span class="nv">second</span> <span class="nv">property</span> <span class="nv">use</span> <span class="nv">case</span>: <span class="nv">encapsulation</span>
+    <span class="err">#</span> <span class="nx">second</span> <span class="nx">property</span> <span class="nx">use</span> <span class="k">case</span><span class="o">:</span> <span class="nx">encapsulation</span>
 
-    @<span class="nv">property</span>
-    <span class="nv">def</span> <span class="nv">start_balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_start_balance</span>
+    <span class="kd">@property</span>
+    <span class="nx">def</span> <span class="nx">start_balance</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_start_balance</span>
 
-    @<span class="nv">start_balance</span>.<span class="nv">setter</span>
-    <span class="nv">def</span> <span class="nv">start_balance</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">balance</span><span class="ss">)</span>:
-        <span class="k">if</span> <span class="nv">not</span> <span class="nv">isinstance</span><span class="ss">(</span><span class="nv">balance</span>, <span class="nv">int</span><span class="ss">)</span>:
-            <span class="nv">raise</span> <span class="nv">TypeError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Start balance needs to be int</span><span class="s1">&#39;</span><span class="ss">)</span>
-        <span class="k">if</span> <span class="nv">balance</span> <span class="o">&lt;</span> <span class="mi">0</span>:
-            <span class="nv">raise</span> <span class="nv">ValueError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Start balance cannot be negative</span><span class="s1">&#39;</span><span class="ss">)</span>
-        <span class="nv">self</span>.<span class="nv">_start_balance</span> <span class="o">=</span> <span class="nv">balance</span>
+    <span class="kd">@start_balance</span><span class="p">.</span><span class="nx">setter</span>
+    <span class="nx">def</span> <span class="nx">start_balance</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">balance</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">if</span> <span class="nx">not</span> <span class="nx">isinstance</span><span class="p">(</span><span class="nx">balance</span><span class="p">,</span> <span class="kr">int</span><span class="p">)</span><span class="o">:</span>
+            <span class="nx">raise</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s1">&#39;Start balance needs to be int&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">balance</span> <span class="o">&lt;</span> <span class="nx">0</span>:
+            <span class="kt">raise</span> <span class="nx">ValueError</span><span class="p">(</span><span class="s1">&#39;Start balance cannot be negative&#39;</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">_start_balance</span> <span class="o">=</span> <span class="nx">balance</span>
 
-    @<span class="nv">start_balance</span>.<span class="nv">deleter</span>
-    <span class="nv">def</span> <span class="nv">start_balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="nv">raise</span> <span class="nv">AttributeError</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Cannot delete start_balance attr</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="kd">@start_balance</span><span class="p">.</span><span class="nx">deleter</span>
+    <span class="nx">def</span> <span class="nx">start_balance</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">raise</span> <span class="nx">AttributeError</span><span class="p">(</span><span class="s1">&#39;Cannot delete start_balance attr&#39;</span><span class="p">)</span>
 
-    # ... <span class="nv">more</span> <span class="nv">stuff</span> <span class="nv">to</span> <span class="nv">manage</span> <span class="nv">transactions</span>, <span class="nv">not</span> <span class="nv">related</span> <span class="nv">to</span> <span class="nv">properties</span> ...
+    <span class="err">#</span> <span class="p">...</span> <span class="nx">more</span> <span class="nx">stuff</span> <span class="nx">to</span> <span class="nx">manage</span> <span class="nx">transactions</span><span class="p">,</span> <span class="nx">not</span> <span class="nx">related</span> <span class="nx">to</span> <span class="nx">properties</span> <span class="p">...</span>
 
 
-<span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
-    <span class="nv">acc</span> <span class="o">=</span> <span class="nv">Account</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">Bob</span><span class="s1">&#39;</span>, <span class="mi">100</span><span class="ss">)</span>
-    <span class="nv">acc</span> <span class="o">+=</span> <span class="mi">25</span>  # <span class="nv">using</span> <span class="nv">__iadd__</span> 
-    <span class="nv">acc</span> <span class="o">-=</span> <span class="mi">100</span> # <span class="nv">using</span> <span class="nv">__isub__</span>
-    <span class="nv">acc</span> <span class="o">+=</span> <span class="mi">50</span>
-    <span class="nv">acc</span> <span class="o">-=</span> <span class="mi">10</span>
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">acc</span><span class="ss">)</span>  # <span class="nv">spending</span> <span class="nv">too</span> <span class="nv">much</span><span class="o">!</span> :<span class="ss">)</span>
+<span class="k">if</span> <span class="nx">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="o">:</span>
+    <span class="nx">acc</span> <span class="o">=</span> <span class="nx">Account</span><span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nx">acc</span> <span class="o">+=</span> <span class="mi">25</span>  <span class="err">#</span> <span class="nx">using</span> <span class="nx">__iadd__</span> 
+    <span class="nx">acc</span> <span class="o">-=</span> <span class="mi">100</span> <span class="err">#</span> <span class="nx">using</span> <span class="nx">__isub__</span>
+    <span class="nx">acc</span> <span class="o">+=</span> <span class="mi">50</span>
+    <span class="nx">acc</span> <span class="o">-=</span> <span class="mi">10</span>
+    <span class="nx">print</span><span class="p">(</span><span class="nx">acc</span><span class="p">)</span>  <span class="err">#</span> <span class="nx">spending</span> <span class="nx">too</span> <span class="nx">much</span><span class="o">!</span> <span class="o">:</span><span class="p">)</span>
 </pre></div>
 
 
@@ -205,9 +242,9 @@
 
 <p>A useful insight I picked up from Powerful Python is to use the setter also in the constructor by NOT using the underscore. Here you see why:</p>
 <p>NOT:</p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">__init__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="k">owner</span><span class="p">,</span> <span class="n">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">self</span><span class="p">.</span><span class="k">owner</span> <span class="o">=</span> <span class="k">owner</span><span class="p">.</span><span class="n">title</span><span class="p">()</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">_start_balance</span> <span class="o">=</span> <span class="n">start_balance</span>
+<div class="highlight"><pre><span></span>def __init__(self, owner, start_balance=0):
+    self.owner = owner.title()
+    self._start_balance = start_balance
 </pre></div>
 
 
@@ -219,9 +256,9 @@
 
 
 <p>Use: </p>
-<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">__init__</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="k">owner</span><span class="p">,</span> <span class="n">start_balance</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">self</span><span class="p">.</span><span class="k">owner</span> <span class="o">=</span> <span class="k">owner</span><span class="p">.</span><span class="n">title</span><span class="p">()</span>
-    <span class="k">self</span><span class="p">.</span><span class="n">start_balance</span> <span class="o">=</span> <span class="n">start_balance</span>
+<div class="highlight"><pre><span></span>def __init__(self, owner, start_balance=0):
+    self.owner = owner.title()
+    self.start_balance = start_balance
 </pre></div>
 
 
@@ -231,36 +268,36 @@
 <blockquote>
 <p>Properties can also be a way to define computed attributes. These are attributes that are not actually stored, but computed on demand.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">Account</span><span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">+=</span> <span class="mi">25</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">-=</span> <span class="mi">100</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">+=</span> <span class="mi">50</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">-=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">balance</span>
-<span class="mi">65</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span> <span class="o">+=</span> <span class="mi">135</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">balance</span>
-<span class="mi">200</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; acc = Account(&#39;bob&#39;, 100)
+&gt;&gt;&gt; acc += 25
+&gt;&gt;&gt; acc -= 100
+&gt;&gt;&gt; acc += 50
+&gt;&gt;&gt; acc -= 10
+&gt;&gt;&gt; acc.balance
+65
+&gt;&gt;&gt; acc += 135
+&gt;&gt;&gt; acc.balance
+200
 </pre></div>
 
 
 <p>acc.balance corresponds to this code which is calculated on the fly: </p>
-<div class="highlight"><pre><span></span>@<span class="nv">property</span>
-<span class="nv">def</span> <span class="nv">balance</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-    <span class="nv">tt</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">t</span>.<span class="nv">amount</span> <span class="k">for</span> <span class="nv">t</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">_transactions</span><span class="ss">)</span>
-    <span class="k">return</span> <span class="nv">self</span>.<span class="nv">_start_balance</span> <span class="o">+</span> <span class="nv">tt</span>
+<div class="highlight"><pre><span></span>@property
+def balance(self):
+    tt = sum(t.amount for t in self._transactions)
+    return self._start_balance + tt
 </pre></div>
 
 
 <p>Yes you can also implement this as:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">get_balance</span><span class="p">()</span>
-<span class="mi">65</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; acc.get_balance()
+65
 </pre></div>
 
 
 <p>... but this is much nicer:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">acc</span><span class="p">.</span><span class="n">balance</span>
-<span class="mi">65</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; acc.balance
+65
 </pre></div>
 
 
@@ -294,7 +331,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'property-decorator.html';
-                var disqus_url = './property-decorator.html';
+                var disqus_url = 'https://pybit.es/property-decorator.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -314,11 +351,11 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

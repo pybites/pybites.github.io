@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Dicts are awesome, even for a beginner like me. What isn&#39;t so awesome is trying to figure out how to list out their contents for the first time! Lists are easy enough but how on earth do you list...">
         <meta name="keywords" content="code, data structures, dicts, pybites, python, tips, tricks">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>How to Order Dict Output in Python - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How to Order Dict Output in Python</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Thu 16 February 2017,  <a href="./category/tips.html">Tips</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Thu 16 February 2017,  <a href="https://pybit.es/category/tips.html">Tips</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/code.html">code</a>, <a href="./tag/data-structures.html">data structures</a>, <a href="./tag/dicts.html">dicts</a>, <a href="./tag/pybites.html">pybites</a>, <a href="./tag/python.html">python</a>, <a href="./tag/tips.html">tips</a>, <a href="./tag/tricks.html">tricks</a>                      </p>
+<a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/data-structures.html">data structures</a>, <a href="https://pybit.es/tag/dicts.html">dicts</a>, <a href="https://pybit.es/tag/pybites.html">pybites</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/tips.html">tips</a>, <a href="https://pybit.es/tag/tricks.html">tricks</a>                      </p>
                   </div>
               </div>
         </div>
@@ -129,17 +166,17 @@
 <p>Disclaimer: I'm not having a mid-life crisis. I'm quite aware that I'm no longer 20.</p>
 <p>Disclaimer 2: I'm being generous when I say Bob is 23. Sorry Bob!</p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">ages</span> <span class="o">=</span> {<span class="s1">&#39;</span><span class="s">julian</span><span class="s1">&#39;</span>: <span class="mi">20</span>, <span class="s1">&#39;</span><span class="s">bob</span><span class="s1">&#39;</span>: <span class="mi">23</span>, <span class="s1">&#39;</span><span class="s">zack</span><span class="s1">&#39;</span>: <span class="mi">3</span>, <span class="s1">&#39;</span><span class="s">anthony</span><span class="s1">&#39;</span>: <span class="mi">95</span>, <span class="s1">&#39;</span><span class="s">daniel</span><span class="s1">&#39;</span>: <span class="mi">41</span>}
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">ages</span>.<span class="nv">items</span><span class="ss">()</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>, <span class="nv">v</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; ages = {&#39;julian&#39;: 20, &#39;bob&#39;: 23, &#39;zack&#39;: 3, &#39;anthony&#39;: 95, &#39;daniel&#39;: 41}
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in ages.items():
+    print(k, v)
 
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="o">&gt;&gt;&gt;</span>
+julian 20
+bob 23
+zack 3
+anthony 95
+daniel 41
+&gt;&gt;&gt;
 </pre></div>
 
 
@@ -163,8 +200,8 @@
 </blockquote>
 <p>The previous output is great but what if I wanted to print the <em>ages</em> data in alphabetical order? Not only do I need to sort it by the letter but also make sure I point my sorting method at the <strong>key</strong> in the dict. I can do this with a lambda!</p>
 <p>First, let's sort it alphabetically with the help of a lambda:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">[(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[0])
+[(&#39;anthony&#39;, 95), (&#39;bob&#39;, 23), (&#39;daniel&#39;, 41), (&#39;julian&#39;, 20), (&#39;zack&#39;, 3)]
 </pre></div>
 
 
@@ -189,21 +226,21 @@
 <h2>Sorting the Output in Numerical Order</h2>
 <p>Now for the flip side. What if I wanted to sort it in numerical order which would be by the <strong>value</strong> in this case?</p>
 <p>Identical as the above sort with one tiny change:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">[(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[1])
+[(&#39;zack&#39;, 3), (&#39;julian&#39;, 20), (&#39;bob&#39;, 23), (&#39;daniel&#39;, 41), (&#39;anthony&#39;, 95)]
 </pre></div>
 
 
 <p>Yep! All we do is change the lambda x function to point at position <em>x[1]</em>, the value.</p>
 <h2>Sorting in Reverse!</h2>
 <p>Sorting that output in reverse is quite simple as well. We use the <em>reverse</em> flag that <em>sorted()</em> so handily supports:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="o">#</span><span class="n">Reverse</span><span class="o">/</span><span class="n">Descending</span> <span class="n">Name</span> <span class="n">Sort</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
-<span class="p">[(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">)]</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="o">#</span><span class="n">Reverse</span><span class="o">/</span><span class="n">Descending</span> <span class="n">Age</span> <span class="n">Sort</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
-<span class="p">[(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; #Reverse/Descending Name Sort
+&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[0], reverse=True)
+[(&#39;zack&#39;, 3), (&#39;julian&#39;, 20), (&#39;daniel&#39;, 41), (&#39;bob&#39;, 23), (&#39;anthony&#39;, 95)]
+&gt;&gt;&gt;
+&gt;&gt;&gt; #Reverse/Descending Age Sort
+&gt;&gt;&gt; sorted(ages.items(), key=lambda x: x[1], reverse=True)
+[(&#39;anthony&#39;, 95), (&#39;daniel&#39;, 41), (&#39;bob&#39;, 23), (&#39;julian&#39;, 20), (&#39;zack&#39;, 3)]
 </pre></div>
 
 
@@ -212,37 +249,37 @@
 <p>The thing is, it's a lot harder and less Pythonic to print the output of a dict as a list, then iterate over that to get our friendlier <em>print()</em> output.</p>
 <p>It'd be much better to iterate over the output like we did at the start of this post but to do that, our <em>sorted()</em> output would need to be a dict. How do we do that if we know <em>sorted()</em> always returns a list?</p>
 <p>Easy!</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">dict</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<span class="err">{</span><span class="s1">&#39;anthony&#39;</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;daniel&#39;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span> <span class="s1">&#39;julian&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;zack&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="err">}</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; dict(sorted(ages.items(), key=lambda x: x[0]))
+{&#39;anthony&#39;: 95, &#39;bob&#39;: 23, &#39;daniel&#39;: 41, &#39;julian&#39;: 20, &#39;zack&#39;: 3}
 </pre></div>
 
 
 <p>We simply call dict on the output of <em>sorted()</em>. How cool is that? The output is now a dict!</p>
 <h2>Printing the Final Result</h2>
 <p>The moment of truth. Let's print the sorted dict output:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">alpha</span> <span class="o">=</span> <span class="nv">dict</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">ages</span>.<span class="nv">items</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">lambda</span> <span class="nv">x</span>: <span class="nv">x</span>[<span class="mi">0</span>]<span class="ss">))</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">alpha</span>.<span class="nv">items</span><span class="ss">()</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>, <span class="nv">v</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; alpha = dict(sorted(ages.items(), key=lambda x: x[0]))
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in alpha.items():
+    print(k, v)
 
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">num</span> <span class="o">=</span> <span class="nv">dict</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">ages</span>.<span class="nv">items</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">lambda</span> <span class="nv">x</span>: <span class="nv">x</span>[<span class="mi">1</span>]<span class="ss">))</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">num</span>.<span class="nv">items</span><span class="ss">()</span>:
-    <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>, <span class="nv">v</span><span class="ss">)</span>
+anthony 95
+bob 23
+daniel 41
+julian 20
+zack 3
+&gt;&gt;&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; num = dict(sorted(ages.items(), key=lambda x: x[1]))
+&gt;&gt;&gt;
+&gt;&gt;&gt; for k, v in num.items():
+    print(k, v)
 
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="o">&gt;&gt;&gt;</span>
+zack 3
+julian 20
+bob 23
+daniel 41
+anthony 95
+&gt;&gt;&gt;
 </pre></div>
 
 
@@ -278,10 +315,10 @@
 </blockquote>
 <h2>Bonus: Substituting the Lambda for Readability</h2>
 <p>We <em>could</em> leave things as they are but let's make this a little more readable by storing the lambda function in a variable:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">get_alpha</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">get_alpha</span><span class="p">)</span>
-<span class="p">[(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; get_alpha = lambda x: x[0]
+&gt;&gt;&gt;
+&gt;&gt;&gt; sorted(ages.items(), key=get_alpha)
+[(&#39;anthony&#39;, 95), (&#39;bob&#39;, 23), (&#39;daniel&#39;, 41), (&#39;julian&#39;, 20), (&#39;zack&#39;, 3)]
 </pre></div>
 
 
@@ -289,14 +326,14 @@
 <h2>Bonus: Printing the Highest/Lowest Dict Item</h2>
 <p>Okay this is way out of scope for this post but I got playing and figured I'd add it in for good measure.</p>
 <p>What if I wanted to list out the oldest chap in this list? Well, we don't need to sort anything, we just need to know the <em>max</em> number/age right? (For readability, I'm substituting the <strong>value</strong> lambda from the previous examples with <em>get_num</em>).</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">max</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">get_num</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;anthony&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; max(ages.items(), key=get_num)
+(&#39;anthony&#39;, 95)
 </pre></div>
 
 
 <p>We can also pull the youngest/lowest entry:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">min</span><span class="p">(</span><span class="n">ages</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="k">key</span><span class="o">=</span><span class="n">get_num</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;zack&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; min(ages.items(), key=get_num)
+(&#39;zack&#39;, 3)
 </pre></div>
 
 
@@ -304,31 +341,31 @@
 <p>Okay last one, I swear!</p>
 <p>Why don't we put all of this into a function that we can call easily at any time? I mean, it'd be nice to have the ability to reuse this code on any dict we want to sort alphabetically or numerically right?</p>
 <p>Keep in mind the below is assuming the dict key is the string we're sorting by. If we tried to give it a dict where the key was a number and the value was a string it would sort it by the key/number.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">alpha_sort</span><span class="ss">(</span><span class="nv">some_dict</span><span class="ss">)</span>:
-...     <span class="nv">alpha</span> <span class="o">=</span> <span class="nv">OrderedDict</span><span class="ss">(</span><span class="nv">sorted</span><span class="ss">(</span><span class="nv">some_dict</span>.<span class="nv">items</span><span class="ss">()</span>, <span class="nv">key</span><span class="o">=</span><span class="nv">lambda</span> <span class="nv">x</span>: <span class="nv">x</span>[<span class="mi">0</span>]<span class="ss">))</span>
-...     <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">alpha</span>.<span class="nv">items</span><span class="ss">()</span>:
-...         <span class="nv">print</span><span class="ss">(</span><span class="nv">k</span>,<span class="nv">v</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def alpha_sort(some_dict):
+...     alpha = OrderedDict(sorted(some_dict.items(), key=lambda x: x[0]))
+...     for k, v in alpha.items():
+...         print(k,v)
 ... 
-<span class="o">&gt;&gt;&gt;</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">alpha_sort</span><span class="ss">(</span><span class="nv">ages</span><span class="ss">)</span>
-<span class="nv">anthony</span> <span class="mi">95</span>
-<span class="nv">bob</span> <span class="mi">23</span>
-<span class="nv">daniel</span> <span class="mi">41</span>
-<span class="nv">julian</span> <span class="mi">20</span>
-<span class="nv">zack</span> <span class="mi">3</span>
-<span class="o">&gt;&gt;&gt;</span>
+&gt;&gt;&gt; 
+&gt;&gt;&gt; alpha_sort(ages)
+anthony 95
+bob 23
+daniel 41
+julian 20
+zack 3
+&gt;&gt;&gt;
 </pre></div>
 
 
 <p>We can then use this same <em>alpha_sort</em> function on any similarly constructed dict we want!</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="o">#</span><span class="n">Top</span> <span class="mi">5</span> <span class="n">pet</span> <span class="n">peeves</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">alpha_sort</span><span class="p">(</span><span class="n">pet_peeves</span><span class="p">)</span>
-<span class="n">Bad</span> <span class="n">Drivers</span> <span class="mi">2</span>
-<span class="n">Laziness</span> <span class="mi">3</span>
-<span class="n">Predictable</span> <span class="n">TV</span> <span class="n">Shows</span> <span class="mi">4</span>
-<span class="n">Rude</span> <span class="n">People</span> <span class="mi">1</span>
-<span class="n">Telemarketers</span> <span class="mi">5</span>
-<span class="o">&gt;&gt;&gt;</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; #Top 5 pet peeves
+&gt;&gt;&gt; alpha_sort(pet_peeves)
+Bad Drivers 2
+Laziness 3
+Predictable TV Shows 4
+Rude People 1
+Telemarketers 5
+&gt;&gt;&gt;
 </pre></div>
 
 
@@ -356,7 +393,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'dict-ordering.html';
-                var disqus_url = './dict-ordering.html';
+                var disqus_url = 'https://pybit.es/dict-ordering.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -376,11 +413,11 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

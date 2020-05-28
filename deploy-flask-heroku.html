@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Something I’ve always wanted to do since I first started working in IT was make my own application and have it running on the internet/intranet somewhere. It took years (procrastination yo!) but...">
         <meta name="keywords" content="beginner, code, Flask, Heroku, learning, python, sessions">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Step-by-Step Guide on Deploying a Simple Flask App to Heroku - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Step-by-Step Guide on Deploying a Simple Flask App to Heroku</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Fri 21 July 2017,  <a href="./category/flask.html">Flask</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Fri 21 July 2017,  <a href="https://pybit.es/category/flask.html">Flask</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/beginner.html">beginner</a>, <a href="./tag/code.html">code</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/heroku.html">Heroku</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/python.html">python</a>, <a href="./tag/sessions.html">sessions</a>                      </p>
+<a href="https://pybit.es/tag/beginner.html">beginner</a>, <a href="https://pybit.es/tag/code.html">code</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/heroku.html">Heroku</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/sessions.html">sessions</a>                      </p>
                   </div>
               </div>
         </div>
@@ -148,8 +185,8 @@ $ git init
 
 <p><br>
 4. We need to install <code>gunicorn</code>. This is a Python web server for UNIX based OS’s. It's required to have it in your code venv in order to launch the Flask app on Heroku. Initialise the virtualenv in your dir and install it.</p>
-<div class="highlight"><pre><span></span><span class="n">flaskapps</span><span class="o">/</span><span class="n">timezone_printer$</span> <span class="k">source</span> <span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span>
-<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="n">flaskapps</span><span class="o">/</span><span class="n">timezone_printer$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">gunicorn</span>
+<div class="highlight"><pre><span></span>flaskapps/timezone_printer$ source venv/bin/activate
+(venv)flaskapps/timezone_printer$ pip install gunicorn
 </pre></div>
 
 
@@ -159,7 +196,7 @@ $ git init
 </blockquote>
 <p><br>
 5. Next, if you haven't done so already, create your requirements.txt file. Heroku relies on the <code>requirements.txt</code> file to exist in order to deploy your app. When you deploy Heroku uses pip and requirements.txt to install everything required to run your app:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="err">$</span> <span class="n">pip</span> <span class="k">freeze</span> <span class="o">&gt;</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+<div class="highlight"><pre><span></span>(venv)$ pip freeze &gt; requirements.txt
 </pre></div>
 
 
@@ -282,8 +319,8 @@ Scaling dynos... <span class="k">done</span>, now running web at <span class="m"
 2. Check to see if you have any other Heroku dynos running with <code>heroku ps</code>. It'll also tell you how many hours you have left of your quota. Handy if you're on the free tier!</p>
 <p><br>
 3. If you find an error in your logs relating to the IP address being in use, it may be the Flask app code itself. I found that in one of my older Flask apps I hadn't included the below line of code which resulted in Heroku failing to launch the app:</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">__main__</span><span class="s1">&#39;</span>:
-    <span class="nv">app</span>.<span class="nv">run</span><span class="ss">()</span>
+<div class="highlight"><pre><span></span>if __name__ == &#39;__main__&#39;:
+    app.run()
 </pre></div>
 
 
@@ -302,7 +339,7 @@ Scaling dynos... <span class="k">done</span>, now running web at <span class="m"
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'deploy-flask-heroku.html';
-                var disqus_url = './deploy-flask-heroku.html';
+                var disqus_url = 'https://pybit.es/deploy-flask-heroku.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -322,11 +359,11 @@ Scaling dynos... <span class="k">done</span>, now running web at <span class="m"
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

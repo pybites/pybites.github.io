@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Kindle notes I was looking at an effective way to organize my Kindle highlights. I started looking at parsing the Kindle&#39;s My Clippings.txt file. However I had not much luck with existing PyPi...">
         <meta name="keywords" content="bookcision, books, generators, html, json, kindle, Template strings">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>How to create a nice-looking HTML page of your Kindle book highlights (notes) - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">How to create a nice-looking HTML page of your Kindle book highlights (notes)</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Tue 27 December 2016,  <a href="./category/tools.html">Tools</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Tue 27 December 2016,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/bookcision.html">bookcision</a>, <a href="./tag/books.html">books</a>, <a href="./tag/generators.html">generators</a>, <a href="./tag/html.html">html</a>, <a href="./tag/json.html">json</a>, <a href="./tag/kindle.html">kindle</a>, <a href="./tag/template-strings.html">Template strings</a>                      </p>
+<a href="https://pybit.es/tag/bookcision.html">bookcision</a>, <a href="https://pybit.es/tag/books.html">books</a>, <a href="https://pybit.es/tag/generators.html">generators</a>, <a href="https://pybit.es/tag/html.html">html</a>, <a href="https://pybit.es/tag/json.html">json</a>, <a href="https://pybit.es/tag/kindle.html">kindle</a>, <a href="https://pybit.es/tag/template-strings.html">Template strings</a>                      </p>
                   </div>
               </div>
         </div>
@@ -134,23 +171,23 @@
 <ul>
 <li>
 <p>Use json.loads(fh) to convert JSON into dict: </p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">load_json</span><span class="ss">(</span><span class="nv">json_file</span><span class="ss">)</span>:
-    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">json_file</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
-        <span class="k">return</span> <span class="nv">json</span>.<span class="nv">loads</span><span class="ss">(</span><span class="nv">f</span>.<span class="nv">read</span><span class="ss">())</span>
+<div class="highlight"><pre><span></span>def load_json(json_file):
+    with open(json_file) as f:
+        return json.loads(f.read())
 </pre></div>
 
 
 </li>
 <li>
 <p><a href="https://docs.python.org/2/library/string.html#template-strings">Template strings</a>: in <a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/templates.py">templates.py</a> PAGE defines the whole page, I use embedded CSS to make this a standalone solution. QUOTE defines a list item (highlight). Variables are defined with $ so: $title, $author, etc. In the <a href="https://github.com/pybites/blog_code/blob/master/kindle_notes/kindle_json2html.py">main script</a> I can substitute these variable placeholders with a dict: </p>
-<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_highlights</span><span class="ss">(</span><span class="nv">highlights</span><span class="ss">)</span>:
-    <span class="k">for</span> <span class="nv">hl</span> <span class="nv">in</span> <span class="nv">highlights</span>:
-        <span class="nv">yield</span> <span class="nv">QUOTE</span>.<span class="nv">safe_substitute</span><span class="ss">(</span>{
-            <span class="s1">&#39;</span><span class="s">text</span><span class="s1">&#39;</span> : <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">text</span><span class="s1">&#39;</span>],
-            <span class="s1">&#39;</span><span class="s">note</span><span class="s1">&#39;</span> : <span class="s1">&#39;</span><span class="s"> / note: </span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">note</span><span class="s1">&#39;</span>] <span class="k">if</span> <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">note</span><span class="s1">&#39;</span>] <span class="k">else</span> <span class="s1">&#39;&#39;</span>,
-            <span class="s1">&#39;</span><span class="s">url</span><span class="s1">&#39;</span> : <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">location</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">url</span><span class="s1">&#39;</span>],
-            <span class="s1">&#39;</span><span class="s">location</span><span class="s1">&#39;</span>: <span class="nv">hl</span>[<span class="s1">&#39;</span><span class="s">location</span><span class="s1">&#39;</span>][<span class="s1">&#39;</span><span class="s">value</span><span class="s1">&#39;</span>],
-        }<span class="ss">)</span>
+<div class="highlight"><pre><span></span>def get_highlights(highlights):
+    for hl in highlights:
+        yield QUOTE.safe_substitute({
+            &#39;text&#39; : hl[&#39;text&#39;],
+            &#39;note&#39; : &#39; / note: &#39; + hl[&#39;note&#39;] if hl[&#39;note&#39;] else &#39;&#39;,
+            &#39;url&#39; : hl[&#39;location&#39;][&#39;url&#39;],
+            &#39;location&#39;: hl[&#39;location&#39;][&#39;value&#39;],
+        })
 </pre></div>
 
 
@@ -160,17 +197,17 @@
 <ul>
 <li>
 <p>Use list() to consume all generator's values in one go: </p>
-<div class="highlight"><pre><span></span><span class="n">highlights</span> <span class="o">=</span> <span class="n">get_highlights</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="s1">&#39;highlights&#39;</span><span class="p">])</span>
-<span class="p">...</span>
-<span class="p">...</span>
-    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;\n&#39;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">highlights</span><span class="p">)),</span>
+<div class="highlight"><pre><span></span>highlights = get_highlights(content[&#39;highlights&#39;])
+...
+...
+    &#39;content&#39;: &#39;\n&#39;.join(list(highlights)),
 </pre></div>
 
 
 </li>
 <li>
 <p>You can give the script one or more JSON files simply by using a slice on sys.argv:</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">json_file</span> <span class="nv">in</span> <span class="nv">sys</span>.<span class="nv">argv</span>[<span class="mi">1</span>:]:
+<div class="highlight"><pre><span></span>for json_file in sys.argv[1:]:
     ...
 </pre></div>
 
@@ -193,7 +230,7 @@ the-circle.html created
 </ul>
 <h2>Example</h2>
 <p>Here is what an output looks like:</p>
-<p><img alt="resulting html page" src="./images/example-book-html.png"></p>
+<p><img alt="resulting html page" src="https://pybit.es/images/example-book-html.png"></p>
 <p>As the HTML contains everything you can just copy it to your blog, <a href="http://bobbelderbos.com/books/ego-is-the-enemy.html">example</a>.</p>
 <hr>
 <p>Keep Calm and Code in Python!</p>
@@ -206,7 +243,7 @@ the-circle.html created
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'kindle-json-to-html.html';
-                var disqus_url = './kindle-json-to-html.html';
+                var disqus_url = 'https://pybit.es/kindle-json-to-html.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -226,11 +263,11 @@ the-circle.html created
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

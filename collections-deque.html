@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Deque From the stdlib docs: Deques support thread-safe, memory efficient appends and pops from either side of the deque with approximately the same O(1) performance in either direction....">
         <meta name="keywords" content="collections, data structures, deque, performance, stdlib">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Read the stdlib: deque - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Read the stdlib: deque</h1>
-                      <p class="header-date"> <a href="./author/bob.html">Bob</a>, Wed 21 December 2016,  <a href="./category/data.html">Data</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Wed 21 December 2016,  <a href="https://pybit.es/category/data.html">Data</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/collections.html">collections</a>, <a href="./tag/data-structures.html">data structures</a>, <a href="./tag/deque.html">deque</a>, <a href="./tag/performance.html">performance</a>, <a href="./tag/stdlib.html">stdlib</a>                      </p>
+<a href="https://pybit.es/tag/collections.html">collections</a>, <a href="https://pybit.es/tag/data-structures.html">data structures</a>, <a href="https://pybit.es/tag/deque.html">deque</a>, <a href="https://pybit.es/tag/performance.html">performance</a>, <a href="https://pybit.es/tag/stdlib.html">stdlib</a>                      </p>
                   </div>
               </div>
         </div>
@@ -130,11 +167,11 @@
 <p>Coincidence: I was brainstorming how to rotate letters and independently I found the solution reading about deque later in the evening (see further down).</p>
 <h2>Rotate without deque</h2>
 <p>One solution I found on Google / Stackoverflow shows a reasonable way to go:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nv">def</span> <span class="nv">rotate</span><span class="ss">(</span><span class="nv">strg</span>,<span class="nv">n</span><span class="ss">)</span>:
-...     <span class="k">return</span> <span class="nv">strg</span>[<span class="nv">n</span>:] <span class="o">+</span> <span class="nv">strg</span>[:<span class="nv">n</span>]
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; def rotate(strg,n):
+...     return strg[n:] + strg[:n]
 ... 
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">assert</span><span class="ss">(</span><span class="nv">rotate</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello</span><span class="s1">&#39;</span>, <span class="mi">2</span><span class="ss">)</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">llohe</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nv">assert</span><span class="ss">(</span><span class="nv">rotate</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello</span><span class="s1">&#39;</span>, <span class="o">-</span><span class="mi">2</span><span class="ss">)</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="s">lohel</span><span class="s1">&#39;</span><span class="ss">)</span>
+&gt;&gt;&gt; assert(rotate(&#39;hello&#39;, 2) == &#39;llohe&#39;)
+&gt;&gt;&gt; assert(rotate(&#39;hello&#39;, -2) == &#39;lohel&#39;)
 </pre></div>
 
 
@@ -148,22 +185,22 @@
 <blockquote>
 <p>Rotate the deque n steps to the right. If n is negative, rotate to the left.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
-<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">])</span>
-<span class="o">#</span> <span class="mi">2</span> <span class="k">to</span> <span class="k">left</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
-<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">])</span>
-<span class="o">#</span> <span class="k">reset</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
-<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">])</span>
-<span class="o">#</span> <span class="mi">2</span> <span class="k">to</span> <span class="k">right</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
-<span class="n">deque</span><span class="p">([</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
+&gt;&gt;&gt; d = deque(s)
+&gt;&gt;&gt; d
+deque([&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;])
+# 2 to left
+&gt;&gt;&gt; d.rotate(-2)
+&gt;&gt;&gt; d
+deque([&#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;])
+# reset
+&gt;&gt;&gt; d.rotate(2)
+&gt;&gt;&gt; d
+deque([&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;])
+# 2 to right
+&gt;&gt;&gt; d.rotate(2)
+&gt;&gt;&gt; d
+deque([&#39;l&#39;, &#39;o&#39;, &#39;h&#39;, &#39;e&#39;, &#39;l&#39;])
 </pre></div>
 
 
@@ -178,7 +215,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'collections-deque.html';
-                var disqus_url = './collections-deque.html';
+                var disqus_url = 'https://pybit.es/collections-deque.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -198,11 +235,11 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>

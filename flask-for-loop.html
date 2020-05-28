@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Thanks to the 100 Days of Code Challenge, this week I took the plunge and dove into Python Flask. It’s not the easiest beast to tame but once you wrap your head around it, it’s not so bad! One of...">
         <meta name="keywords" content="decorators, Flask, learning, loops, python, tutorial">
-        <link rel="icon" href="./favicon.ico">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Flask for Loops - Printing Dict Data - PyBites</title>
 
         <!-- Stylesheets -->
-        <link href="./theme/css/all.min.css" rel="stylesheet">
-        <link href="./theme/css/style.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
@@ -76,21 +76,58 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="./"><img class="mr20" src="./images/logo.png" alt="logo"></a>
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
                     </div>
                     <div class="nav pull-right">
+
                         <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-    <p>Hello World!</p>
-  </div>
-</div>
-                                <a  href="./">Home</a>
-                                <a  href="./archives.html">Blog</a>
-                                <a href="https://codechalleng.es" target="_blank">Platform</a>
-                                <a href="https://pybit.es/pages/community.html" target="_blank">Community</a>
-                                <a href="https://members.pybit.es/login" target="_blank">Members</a>
-                                <a  style="background-color: #ba9926!important; border-radius: 5px;" href="./pages/apply.html">Apply</a>
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:info@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -103,12 +140,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Flask for Loops - Printing Dict Data</h1>
-                      <p class="header-date"> <a href="./author/julian.html">Julian</a>, Thu 06 April 2017,  <a href="./category/flask.html">Flask</a></p>
+                      <p class="header-date"> <a href="https://pybit.es/author/julian.html">Julian</a>, Thu 06 April 2017,  <a href="https://pybit.es/category/flask.html">Flask</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="./tag/decorators.html">decorators</a>, <a href="./tag/flask.html">Flask</a>, <a href="./tag/learning.html">learning</a>, <a href="./tag/loops.html">loops</a>, <a href="./tag/python.html">python</a>, <a href="./tag/tutorial.html">tutorial</a>                      </p>
+<a href="https://pybit.es/tag/decorators.html">decorators</a>, <a href="https://pybit.es/tag/flask.html">Flask</a>, <a href="https://pybit.es/tag/learning.html">learning</a>, <a href="https://pybit.es/tag/loops.html">loops</a>, <a href="https://pybit.es/tag/python.html">python</a>, <a href="https://pybit.es/tag/tutorial.html">tutorial</a>                      </p>
                   </div>
               </div>
         </div>
@@ -130,10 +167,10 @@
 <ul>
 <li>I decided I wanted to print out a dict of birthdays. You can see I’ve created a route to a page called ‘birthdays’. The function associated with this decorator contains the dict we want to display.</li>
 </ul>
-<div class="highlight"><pre><span></span>@<span class="nv">app</span>.<span class="nv">route</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">/birthdays</span><span class="s2">&quot;</span><span class="ss">)</span>
-<span class="nv">def</span> <span class="nv">birthdays</span><span class="ss">()</span>:
-    <span class="nv">dates</span> <span class="o">=</span> {<span class="s2">&quot;</span><span class="s">Julian</span><span class="s2">&quot;</span>: <span class="mi">25</span>, <span class="s2">&quot;</span><span class="s">Bob</span><span class="s2">&quot;</span>: <span class="mi">26</span>, <span class="s2">&quot;</span><span class="s">Dan</span><span class="s2">&quot;</span>: <span class="mi">47</span>, <span class="s2">&quot;</span><span class="s">Cornelius</span><span class="s2">&quot;</span>: <span class="mi">3</span>}
-    <span class="k">return</span> <span class="nv">render_template</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">birthdays.html</span><span class="s2">&quot;</span>, <span class="nv">dates</span><span class="o">=</span><span class="nv">dates</span><span class="ss">)</span>
+<div class="highlight"><pre><span></span>@app.route(&quot;/birthdays&quot;)
+def birthdays():
+    dates = {&quot;Julian&quot;: 25, &quot;Bob&quot;: 26, &quot;Dan&quot;: 47, &quot;Cornelius&quot;: 3}
+    return render_template(&quot;birthdays.html&quot;, dates=dates)
 </pre></div>
 
 
@@ -160,7 +197,7 @@
 </ul>
 <div class="highlight"><pre><span></span><span class="na">.thick-border</span> <span class="err">{</span>
         <span class="nl">border:</span> <span class="err">3</span><span class="nf">px</span> <span class="no">solid</span> <span class="no">black</span><span class="c">;</span>
-        <span class="nl">border-collapse:</span> <span class="nf">collapse</span><span class="c">;</span>
+        <span class="no">border-collapse</span><span class="p">:</span> <span class="no">collapse</span><span class="c">;</span>
 <span class="err">}</span>
 </pre></div>
 
@@ -189,7 +226,7 @@
 <p>To print out the contents of the dict, we can use a for loop. The idea of the for loop stays the same, it’s just spread out across multiple lines and wrapped in HTML. First we start with the opening of the for loop.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span>{<span class="o">%</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">dates</span>.<span class="nv">items</span><span class="ss">()</span> <span class="o">%</span>}
+<div class="highlight"><pre><span></span>{% for k, v in dates.items() %}
 </pre></div>
 
 
@@ -211,7 +248,7 @@
 <p>We then have to close off the for loop with one last bit of special Flask code.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><span class="err">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="err">}</span>
+<div class="highlight"><pre><span></span>{% endfor %}
 </pre></div>
 
 
@@ -219,25 +256,25 @@
 <ul>
 <li>This is what the code for the table should look like.</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nv">table</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">centered thick-border</span><span class="s2">&quot;</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nv">tr</span><span class="o">&gt;</span>
-                <span class="o">&lt;</span><span class="nv">th</span><span class="o">&gt;</span><span class="nv">First</span> <span class="nv">name</span><span class="o">&lt;/</span><span class="nv">th</span><span class="o">&gt;</span>
-                <span class="o">&lt;</span><span class="nv">th</span><span class="o">&gt;</span><span class="nv">Age</span><span class="o">&lt;/</span><span class="nv">th</span><span class="o">&gt;</span>
-        <span class="o">&lt;/</span><span class="nv">tr</span><span class="o">&gt;</span>
-        {<span class="o">%</span> <span class="k">for</span> <span class="nv">k</span>, <span class="nv">v</span> <span class="nv">in</span> <span class="nv">dates</span>.<span class="nv">items</span><span class="ss">()</span> <span class="o">%</span>}
-                <span class="o">&lt;</span><span class="nv">tr</span><span class="o">&gt;</span>
-                        <span class="o">&lt;</span><span class="nv">td</span><span class="o">&gt;</span>{{ <span class="nv">k</span> }}<span class="o">&lt;/</span><span class="nv">td</span><span class="o">&gt;</span>
-                        <span class="o">&lt;</span><span class="nv">td</span><span class="o">&gt;</span>{{ <span class="nv">v</span> }}<span class="o">&lt;/</span><span class="nv">td</span><span class="o">&gt;</span>
-                <span class="o">&lt;/</span><span class="nv">tr</span><span class="o">&gt;</span>
-        {<span class="o">%</span> <span class="nv">endfor</span> <span class="o">%</span>}
-<span class="o">&lt;/</span><span class="nv">table</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">&quot;centered thick-border&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;th&gt;</span>First name<span class="nt">&lt;/th&gt;</span>
+                <span class="nt">&lt;th&gt;</span>Age<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">k</span><span class="o">,</span> <span class="nv">v</span> <span class="k">in</span> <span class="nv">dates.items</span><span class="o">()</span> <span class="cp">%}</span>
+                <span class="nt">&lt;tr&gt;</span>
+                        <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">k</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
+                        <span class="nt">&lt;td&gt;</span><span class="cp">{{</span> <span class="nv">v</span> <span class="cp">}}</span><span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;/tr&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="nt">&lt;/table&gt;</span>
 </pre></div>
 
 
 <ul>
 <li>Here’s what the web page will look like.</li>
 </ul>
-<p><img alt="Table populated by Python dict code" src="./images/flask-bday-table.png"></p>
+<p><img alt="Table populated by Python dict code" src="https://pybit.es/images/flask-bday-table.png"></p>
 <ul>
 <li>The beauty is that you can add as much data (keys, values) to the dict as you want and the table will always be drawn to match the content. Give it a try!</li>
 </ul>
@@ -278,7 +315,7 @@
             <script type="text/javascript">
                 var disqus_shortname = 'http-pybit-es';
                 var disqus_identifier = 'flask-for-loop.html';
-                var disqus_url = './flask-for-loop.html';
+                var disqus_url = 'https://pybit.es/flask-for-loop.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -298,11 +335,11 @@
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Sitemap</div>
                         <ul class="list-unstyled">
-                            <li><a href="./pages/guests.html">Authors</a></li>
-                            <li><a href="./pages/community.html">Community</a></li>
-                            <li><a href="./pages/100days.html">100 Days Of Code</a></li>
-                            <li><a href="./pages/search.html">Search</a></li>
-                            <li><a href="./pages/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
                             <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
                             <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
                         </ul>
