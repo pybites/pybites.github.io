@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -173,9 +176,9 @@ environment). The primary language for developing these programs
 under Unix is <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>, which has amazing power for both <a href="https://www.toptal.com/c/after-all-these-years-the-world-is-still-powered-by-c-programming">good</a> and
 <a href="https://www.radford.edu/ibarland/Manifestoes/whyC++isBad.shtml">evil</a>.</p>
 <blockquote>
-<div class="highlight"><pre><span></span> &quot;C gets sh*t done.&quot;
+<div class="highlight"><pre><span></span> <span class="ss">&quot;C gets sh*t done.&quot;</span>
 
-     - a handsome and yet strangely anonymous C programmer
+     <span class="o">-</span> <span class="n">a</span> <span class="n">handsome</span> <span class="k">and</span> <span class="n">yet</span> <span class="n">strangely</span> <span class="n">anonymous</span> <span class="k">C</span> <span class="n">programmer</span>
 </pre></div>
 
 
@@ -253,35 +256,35 @@ switches. Think about command invocations like <code>/bin/ls -alSh</code>,
 <code>getopt</code> is the function originally used to parse that argument
 string. Using <code>getopt</code> makes parsing the command-line pretty easy and
 improves the user experience (UX).</p>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;getopt.h&gt;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span>#<span class="k">include</span> <span class="o">&lt;</span><span class="nv">stdio</span>.<span class="nv">h</span><span class="o">&gt;</span>
+#<span class="k">include</span> <span class="o">&lt;</span><span class="nv">getopt</span>.<span class="nv">h</span><span class="o">&gt;</span>
 
-<span class="cp">#define OPTSTR &quot;b:f:&quot;</span>
+#<span class="nv">define</span> <span class="nv">OPTSTR</span> <span class="s2">&quot;</span><span class="s">b:f:</span><span class="s2">&quot;</span>
 
-<span class="k">extern</span> <span class="kt">char</span> <span class="o">*</span><span class="n">optarg</span><span class="p">;</span>
+<span class="nv">extern</span> <span class="nv">char</span> <span class="o">*</span><span class="nv">optarg</span><span class="c1">;</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">opt</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">bar</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="nv">int</span> <span class="nv">main</span><span class="ss">(</span><span class="nv">int</span> <span class="nv">argc</span>, <span class="nv">char</span> <span class="o">**</span><span class="nv">argv</span><span class="ss">)</span> {
+    <span class="nv">int</span> <span class="nv">opt</span><span class="c1">;</span>
+    <span class="nv">char</span> <span class="o">*</span><span class="nv">bar</span> <span class="o">=</span> <span class="nv">NULL</span><span class="c1">;</span>
+    <span class="nv">char</span> <span class="o">*</span><span class="nv">foo</span> <span class="o">=</span> <span class="nv">NULL</span><span class="c1">;</span>
 
-    <span class="k">while</span><span class="p">((</span><span class="n">opt</span><span class="o">=</span><span class="n">getopt</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">OPTSTR</span><span class="p">))</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">)</span>
-       <span class="k">switch</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">case</span> <span class="sc">&#39;b&#39;</span><span class="o">:</span>
-              <span class="n">bar</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="sc">&#39;f&#39;</span><span class="o">:</span>
-              <span class="n">foo</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
-              <span class="k">break</span><span class="p">;</span>
-          <span class="k">case</span> <span class="sc">&#39;h&#39;</span><span class="o">:</span>
-          <span class="k">default</span><span class="err">&#39;</span><span class="o">:</span>
-              <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Huh? try again.&quot;</span><span class="p">);</span>
-              <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">while</span><span class="ss">((</span><span class="nv">opt</span><span class="o">=</span><span class="nv">getopt</span><span class="ss">(</span><span class="nv">argc</span>, <span class="nv">argv</span>, <span class="nv">OPTSTR</span><span class="ss">))</span> <span class="o">!=</span> <span class="nv">EOF</span><span class="ss">)</span>
+       <span class="nv">switch</span><span class="ss">(</span><span class="nv">opt</span><span class="ss">)</span> {
+          <span class="nv">case</span> <span class="s1">&#39;</span><span class="s">b</span><span class="s1">&#39;</span>:
+              <span class="nv">bar</span> <span class="o">=</span> <span class="nv">optarg</span><span class="c1">;</span>
+              <span class="k">break</span><span class="c1">;</span>
+          <span class="nv">case</span> <span class="s1">&#39;</span><span class="s">f</span><span class="s1">&#39;</span>:
+              <span class="nv">foo</span> <span class="o">=</span> <span class="nv">optarg</span><span class="c1">;</span>
+              <span class="k">break</span><span class="c1">;</span>
+          <span class="nv">case</span> <span class="s1">&#39;</span><span class="s">h</span><span class="s1">&#39;</span>:
+          <span class="nv">default</span><span class="s1">&#39;</span><span class="s">:</span>
+              <span class="nv">fprintf</span><span class="ss">(</span><span class="nv">stderr</span>, <span class="s2">&quot;</span><span class="s">Huh? try again.</span><span class="s2">&quot;</span><span class="ss">)</span><span class="c1">;</span>
+              <span class="k">exit</span><span class="ss">(</span><span class="o">-</span><span class="mi">1</span><span class="ss">)</span><span class="c1">;</span>
               <span class="cm">/* NOTREACHED */</span>
-       <span class="p">}</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">foo</span> <span class="o">?</span> <span class="nl">foo</span> <span class="p">:</span> <span class="s">&quot;Empty foo&quot;</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">bar</span> <span class="o">?</span> <span class="nl">bar</span> <span class="p">:</span> <span class="s">&quot;Empty bar&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+       }
+    <span class="nv">printf</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">%s</span><span class="se">\n</span><span class="s2">&quot;</span>, <span class="nv">foo</span> ? <span class="nv">foo</span> : <span class="s2">&quot;</span><span class="s">Empty foo</span><span class="s2">&quot;</span><span class="ss">)</span><span class="c1">;</span>
+    <span class="nv">printf</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">%s</span><span class="se">\n</span><span class="s2">&quot;</span>, <span class="nv">bar</span> ? <span class="nv">bar</span> : <span class="s2">&quot;</span><span class="s">Empty bar</span><span class="s2">&quot;</span><span class="ss">)</span><span class="c1">;</span>
+}
 </pre></div>
 
 

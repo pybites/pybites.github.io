@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -167,16 +170,16 @@ Best practice would be to create a venv within your project and use it to run yo
 <h2>Step by Step</h2>
 <p>Let's create a venv called "awesome-test". You'd preferably run the following commands in your project root dir:</p>
 <h3>Unix Commands</h3>
-<div class="highlight"><pre><span></span># python3 -m venv awesome-test
-# ls
-awesome-test
+<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
+<span class="o">#</span> <span class="n">ls</span>
+<span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
 </pre></div>
 
 
 <h3>Windows Commands</h3>
-<div class="highlight"><pre><span></span># python -m venv awesome-test
-# dir
-awesome-test
+<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
+<span class="o">#</span> <span class="n">dir</span>
+<span class="n">awesome</span><span class="o">-</span><span class="n">test</span>
 </pre></div>
 
 
@@ -186,34 +189,34 @@ awesome-test
 <p>The next step is to activate the venv.
 Activating the venv puts you into a standalone Python instance that has pretty much nothing installed by default:</p>
 <h3>Unix Commands</h3>
-<div class="highlight"><pre><span></span># cd awesome-test
-# ls
-bin     include     lib     pyvenv.cfg
+<div class="highlight"><pre><span></span># <span class="nv">cd</span> <span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span>
+# <span class="nv">ls</span>
+<span class="nv">bin</span>     <span class="k">include</span>     <span class="nv">lib</span>     <span class="nv">pyvenv</span>.<span class="nv">cfg</span>
 #
-# source bin/activate
-(awesome-test) #
-(awesome-test) # echo YAY!
-YAY!
+# <span class="nv">source</span> <span class="nv">bin</span><span class="o">/</span><span class="nv">activate</span>
+<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> #
+<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> # <span class="nv">echo</span> <span class="nv">YAY</span><span class="o">!</span>
+<span class="nv">YAY</span><span class="o">!</span>
 </pre></div>
 
 
 <h3>Windows Commands</h3>
-<div class="highlight"><pre><span></span># cd awesome-test
-# dir
-Include/    Lib/    pyvenv.cfg  Scripts/
-# Scripts\activate
-(awesome-test) #
-(awesome-test) # echo YAY!
-YAY!
+<div class="highlight"><pre><span></span># <span class="nv">cd</span> <span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span>
+# <span class="nv">dir</span>
+<span class="k">Include</span><span class="o">/</span>    <span class="nv">Lib</span><span class="o">/</span>    <span class="nv">pyvenv</span>.<span class="nv">cfg</span>  <span class="nv">Scripts</span><span class="o">/</span>
+# <span class="nv">Scripts</span>\<span class="nv">activate</span>
+<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> #
+<span class="ss">(</span><span class="nv">awesome</span><span class="o">-</span><span class="nv">test</span><span class="ss">)</span> # <span class="nv">echo</span> <span class="nv">YAY</span><span class="o">!</span>
+<span class="nv">YAY</span><span class="o">!</span>
 </pre></div>
 
 
 <p>The <em>(awesome-test)</em> tag preceding your shell prompt indicates you're now in the venv.
 Now list out the modules installed in this python instance:</p>
-<div class="highlight"><pre><span></span># pip list
-pip (9.0.1)
-setuptools (28.8.0)
-#
+<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">pip</span> <span class="n">list</span>
+<span class="n">pip</span> <span class="p">(</span><span class="mi">9</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">setuptools</span> <span class="p">(</span><span class="mi">28</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="o">#</span>
 </pre></div>
 
 
@@ -221,14 +224,14 @@ setuptools (28.8.0)
 <p>You can now play around and install whatever the heck you want without having to worry about corrupting or screwing up your primary environment. All modules installed in this venv will remain local to the venv.</p>
 <p>When you're done using the venv you then exit (deactivate) it using the deactivate command:</p>
 <h3>Unix Command</h3>
-<div class="highlight"><pre><span></span>(awesome-test) # deactivate
-# 
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">awesome</span><span class="o">-</span><span class="n">test</span><span class="p">)</span> <span class="o">#</span> <span class="n">deactivate</span>
+<span class="o">#</span> 
 </pre></div>
 
 
 <h3>Windows Command</h3>
-<div class="highlight"><pre><span></span>(awesome-test) # Scripts\deactivate
-#
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">awesome</span><span class="o">-</span><span class="n">test</span><span class="p">)</span> <span class="o">#</span> <span class="n">Scripts</span><span class="err">\</span><span class="n">deactivate</span>
+<span class="o">#</span>
 </pre></div>
 
 

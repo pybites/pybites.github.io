@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -194,10 +197,10 @@
 </li>
 <li>
 <p>Each retrieved tweet (and its meta data) was stored as json by the data collector script. This generator retrieves them from the input file (further down):</p>
-<div class="highlight"><pre><span></span>def get_tweets(input_file):
-    with open(input_file) as f:
-        for line in f.readlines():
-            yield json.loads(line)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_tweets</span><span class="ss">(</span><span class="nv">input_file</span><span class="ss">)</span>:
+    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">input_file</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
+        <span class="k">for</span> <span class="nv">line</span> <span class="nv">in</span> <span class="nv">f</span>.<span class="nv">readlines</span><span class="ss">()</span>:
+            <span class="nv">yield</span> <span class="nv">json</span>.<span class="nv">loads</span><span class="ss">(</span><span class="nv">line</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -208,27 +211,27 @@
 <p>The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0].</p>
 </blockquote>
 <p>So we defined:  </p>
-<div class="highlight"><pre><span></span>def get_sentiment(polarity):
-    if polarity &lt; 0:
-        return &quot;negative&quot;
-    elif polarity == 0:
-        return &quot;neutral&quot;
-    else:
-        return &quot;positive&quot;
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_sentiment</span><span class="ss">(</span><span class="nv">polarity</span><span class="ss">)</span>:
+    <span class="k">if</span> <span class="nv">polarity</span> <span class="o">&lt;</span> <span class="mi">0</span>:
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="s">negative</span><span class="s2">&quot;</span>
+    <span class="nv">elif</span> <span class="nv">polarity</span> <span class="o">==</span> <span class="mi">0</span>:
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="s">neutral</span><span class="s2">&quot;</span>
+    <span class="k">else</span>:
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="s">positive</span><span class="s2">&quot;</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>We pass the script the data_1487581986.json file we collected on our server:</p>
-<div class="highlight"><pre><span></span>if __name__ == &quot;__main__&quot;:
-    if len(sys.argv) &lt; 2:
-        print(&#39;please provide json data file&#39;)
-        sys.exit(1)
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s">__main__</span><span class="s2">&quot;</span>:
+    <span class="k">if</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">sys</span>.<span class="nv">argv</span><span class="ss">)</span> <span class="o">&lt;</span> <span class="mi">2</span>:
+        <span class="nv">print</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">please provide json data file</span><span class="s1">&#39;</span><span class="ss">)</span>
+        <span class="nv">sys</span>.<span class="k">exit</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
 
-    input_file = sys.argv[1]
+    <span class="nv">input_file</span> <span class="o">=</span> <span class="nv">sys</span>.<span class="nv">argv</span>[<span class="mi">1</span>]
 
-    tweets = get_tweets(input_file)
+    <span class="nv">tweets</span> <span class="o">=</span> <span class="nv">get_tweets</span><span class="ss">(</span><span class="nv">input_file</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -236,29 +239,29 @@
 <li>
 <p>We use a defaultdict to store the sentiments. We use a collections.defaultdict + set here (over the simpler collections.Counter) for two reasons: 1. ignore duplicate tweets, 2. store the texts for further inspection (see further down).</p>
 <p>This really shows the magic of external libraries and a nice API: few lines of code, hiding complexity:</p>
-<div class="highlight"><pre><span></span>    sentiments = defaultdict(set)
+<div class="highlight"><pre><span></span>    <span class="nv">sentiments</span> <span class="o">=</span> <span class="nv">defaultdict</span><span class="ss">(</span><span class="nv">set</span><span class="ss">)</span>
 
-    for tw in tweets:
-        text = dict(tw)[&#39;text&#39;].lower()
-        blob = TextBlob(text)
-        sent = get_sentiment(blob.sentiment.polarity)
-        sentiments[sent].add(text)
+    <span class="k">for</span> <span class="nv">tw</span> <span class="nv">in</span> <span class="nv">tweets</span>:
+        <span class="nv">text</span> <span class="o">=</span> <span class="nv">dict</span><span class="ss">(</span><span class="nv">tw</span><span class="ss">)</span>[<span class="s1">&#39;</span><span class="s">text</span><span class="s1">&#39;</span>].<span class="nv">lower</span><span class="ss">()</span>
+        <span class="nv">blob</span> <span class="o">=</span> <span class="nv">TextBlob</span><span class="ss">(</span><span class="nv">text</span><span class="ss">)</span>
+        <span class="nv">sent</span> <span class="o">=</span> <span class="nv">get_sentiment</span><span class="ss">(</span><span class="nv">blob</span>.<span class="nv">sentiment</span>.<span class="nv">polarity</span><span class="ss">)</span>
+        <span class="nv">sentiments</span>[<span class="nv">sent</span>].<span class="nv">add</span><span class="ss">(</span><span class="nv">text</span><span class="ss">)</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Calculate percentages and print the results:</p>
-<div class="highlight"><pre><span></span>    total = sum(len(i) for i in sentiments.values())
+<div class="highlight"><pre><span></span>    <span class="nv">total</span> <span class="o">=</span> <span class="nv">sum</span><span class="ss">(</span><span class="nv">len</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span> <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">sentiments</span>.<span class="nv">values</span><span class="ss">())</span>
 
-    perc_pos = len(sentiments[&quot;positive&quot;]) / total * 100
-    perc_neg = len(sentiments[&quot;negative&quot;]) / total * 100
-    perc_neu = len(sentiments[&quot;neutral&quot;]) / total * 100
+    <span class="nv">perc_pos</span> <span class="o">=</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">sentiments</span>[<span class="s2">&quot;</span><span class="s">positive</span><span class="s2">&quot;</span>]<span class="ss">)</span> <span class="o">/</span> <span class="nv">total</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="nv">perc_neg</span> <span class="o">=</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">sentiments</span>[<span class="s2">&quot;</span><span class="s">negative</span><span class="s2">&quot;</span>]<span class="ss">)</span> <span class="o">/</span> <span class="nv">total</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="nv">perc_neu</span> <span class="o">=</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">sentiments</span>[<span class="s2">&quot;</span><span class="s">neutral</span><span class="s2">&quot;</span>]<span class="ss">)</span> <span class="o">/</span> <span class="nv">total</span> <span class="o">*</span> <span class="mi">100</span>
 
-    print(&quot;Analyzed {} tweets&quot;.format(total))
-    print(&quot;Positive: {:.2f}%&quot;.format(perc_pos))
-    print(&quot;Negative: {:.2f}%&quot;.format(perc_neg))
-    print(&quot;Neutral: {:.2f}%&quot;.format(perc_neu))
+    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Analyzed {} tweets</span><span class="s2">&quot;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">total</span><span class="ss">))</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Positive: {:.2f}%</span><span class="s2">&quot;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">perc_pos</span><span class="ss">))</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Negative: {:.2f}%</span><span class="s2">&quot;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">perc_neg</span><span class="ss">))</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Neutral: {:.2f}%</span><span class="s2">&quot;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">perc_neu</span><span class="ss">))</span>
 </pre></div>
 
 
@@ -277,23 +280,23 @@ Neutral: <span class="m">52</span>.29%
 <p>Would be nice to break this down further, maybe by region. We wanted to look at gender, but this data was not provided by the Twitter API. </p>
 <h3>Some anonymous examples</h3>
 <p>We peaked at some tweets for validation. As you see it's not 100% correct (doubts marked with '?'), but it does give you a good indication:</p>
-<div class="highlight"><pre><span></span>neutral
--- 50 shades darker though.. oouuu. 🙆🏽
--- ❤🤴🏼❤ — watching 50 shades darker...
--- still don&#39;t know what to think of 50 shades darker🤔🤔
----
+<div class="highlight"><pre><span></span><span class="n">neutral</span>
+<span class="c1">-- 50 shades darker though.. oouuu. 🙆🏽</span>
+<span class="c1">-- ❤🤴🏼❤ — watching 50 shades darker...</span>
+<span class="c1">-- still don&#39;t know what to think of 50 shades darker🤔🤔</span>
+<span class="c1">---</span>
 
-positive
--- can&#39;t get over how amazing 50 shades darker is 😍
--- i enjoyed 50 shades darker very much
-?-- that 50 shades darker was kind of sorry
----
+<span class="n">positive</span>
+<span class="c1">-- can&#39;t get over how amazing 50 shades darker is 😍</span>
+<span class="c1">-- i enjoyed 50 shades darker very much</span>
+<span class="o">?</span><span class="c1">-- that 50 shades darker was kind of sorry</span>
+<span class="c1">---</span>
 
-negative
-?-- still haven&#39;t seen 50 shades darker :(  
--- 50 shades darker might be the worst movie i&#39;ve ever seen ...
--- 50 shades darker was terrible god i wish i could get those 2 hours back
----
+<span class="n">negative</span>
+<span class="o">?</span><span class="c1">-- still haven&#39;t seen 50 shades darker :(  </span>
+<span class="c1">-- 50 shades darker might be the worst movie i&#39;ve ever seen ...</span>
+<span class="c1">-- 50 shades darker was terrible god i wish i could get those 2 hours back</span>
+<span class="c1">---</span>
 </pre></div>
 
 

@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -164,14 +167,14 @@
 <p>In this article I'm going to show you (and to document for myself!) how to declare persistent environment variables in Python Virtual Environments with python-dotenv.</p>
 <h2>Environment Variables in a Virtual Environment</h2>
 <p>With a UNIX based OS you'd traditionally declare your environment variables by explicitly defining them at the OS level. Take variables <code>CLIENT_ID</code> and <code>CLIENT_SECRET</code> as an example:</p>
-<div class="highlight"><pre><span></span>#CLIENT_ID=&quot;01234509876&quot;
-#CLIENT_SECRET=&quot;julianandsilentbobstrikeback&quot;
-#
-#echo $CLIENT_ID
-0123450987
-#
-#echo $CLIENT_SECRET
-julianandsilentbobstrikeback
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">CLIENT_ID</span><span class="o">=</span><span class="ss">&quot;01234509876&quot;</span>
+<span class="o">#</span><span class="n">CLIENT_SECRET</span><span class="o">=</span><span class="ss">&quot;julianandsilentbobstrikeback&quot;</span>
+<span class="o">#</span>
+<span class="o">#</span><span class="n">echo</span> <span class="err">$</span><span class="n">CLIENT_ID</span>
+<span class="mi">0123450987</span>
+<span class="o">#</span>
+<span class="o">#</span><span class="n">echo</span> <span class="err">$</span><span class="n">CLIENT_SECRET</span>
+<span class="n">julianandsilentbobstrikeback</span>
 </pre></div>
 
 
@@ -190,11 +193,11 @@ julianandsilentbobstrikeback
 </ol>
 <h2>python-dotenv Example</h2>
 <h3>1. Create your <code>.env</code> file</h3>
-<div class="highlight"><pre><span></span>(venv)#vim .env
-(venv)#cat .env
-CLIENT_ID=&quot;1234509876&quot;
-CLIENT_SECRET=&quot;julianandsilentbobstrikeback&quot;
-(venv)#
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="o">#</span><span class="n">vim</span> <span class="p">.</span><span class="n">env</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="o">#</span><span class="n">cat</span> <span class="p">.</span><span class="n">env</span>
+<span class="n">CLIENT_ID</span><span class="o">=</span><span class="ss">&quot;1234509876&quot;</span>
+<span class="n">CLIENT_SECRET</span><span class="o">=</span><span class="ss">&quot;julianandsilentbobstrikeback&quot;</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="o">#</span>
 </pre></div>
 
 
@@ -230,25 +233,25 @@ CLIENT_SECRET=&quot;julianandsilentbobstrikeback&quot;
 
 <p><br>
 Running this script returns the following:</p>
-<div class="highlight"><pre><span></span>#python routes.py 
-The client id is: 1234509876.
-The secret id is: julianandsilentbobstrikeback.
-#
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">python</span> <span class="n">routes</span><span class="p">.</span><span class="n">py</span> 
+<span class="n">The</span> <span class="n">client</span> <span class="n">id</span> <span class="k">is</span><span class="p">:</span> <span class="mi">1234509876</span><span class="p">.</span>
+<span class="n">The</span> <span class="n">secret</span> <span class="n">id</span> <span class="k">is</span><span class="p">:</span> <span class="n">julianandsilentbobstrikeback</span><span class="p">.</span>
+<span class="o">#</span>
 </pre></div>
 
 
 <h2>PERSISTENCE AT LAST!</h2>
 <p>The original problem was that when you'd deactivate and reactivate the venv you'd lose the environment variables.</p>
 <p>Watch the persistence in action!</p>
-<div class="highlight"><pre><span></span>(venv)#deactivate
-#
-#
-#source venv/bin/activate
-(venv)#
-(venv)#python routes.py 
-The client id is: 1234509876.
-The secret id is: julianandsilentbobstrikeback.
-#
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="o">#</span><span class="n">deactivate</span>
+<span class="o">#</span>
+<span class="o">#</span>
+<span class="o">#</span><span class="k">source</span> <span class="n">venv</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="o">#</span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="o">#</span><span class="n">python</span> <span class="n">routes</span><span class="p">.</span><span class="n">py</span> 
+<span class="n">The</span> <span class="n">client</span> <span class="n">id</span> <span class="k">is</span><span class="p">:</span> <span class="mi">1234509876</span><span class="p">.</span>
+<span class="n">The</span> <span class="n">secret</span> <span class="n">id</span> <span class="k">is</span><span class="p">:</span> <span class="n">julianandsilentbobstrikeback</span><span class="p">.</span>
+<span class="o">#</span>
 </pre></div>
 
 
@@ -257,9 +260,9 @@ The secret id is: julianandsilentbobstrikeback.
 <p>Pro-tip: if you're committing to a public repo, make sure .env files are listed in the .gitignore file. <strong>You don't want your environment variables being pushed to a public repo!</strong></p>
 <p>That said, you'll want to let people know what environment variables to configure for themselves if they're going to clone your repo or use your script.</p>
 <p>The nice way to do this is to create an "empty" .env.example file:</p>
-<div class="highlight"><pre><span></span>#vim .env.example
-CLIENT_ID=&quot;&quot;
-CLIENT_SECRET=&quot;&quot;
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">vim</span> <span class="p">.</span><span class="n">env</span><span class="p">.</span><span class="n">example</span>
+<span class="n">CLIENT_ID</span><span class="o">=</span><span class="ss">&quot;&quot;</span>
+<span class="n">CLIENT_SECRET</span><span class="o">=</span><span class="ss">&quot;&quot;</span>
 </pre></div>
 
 

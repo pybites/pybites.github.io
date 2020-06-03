@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -161,11 +164,11 @@
     <div class="container content">
         <p>Have you ever wondered why there are mutable and immutable types in Python?</p>
 <p>Have you ever encountered this error in Python?</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
-&gt;&gt;&gt; s[0] = &#39;H&#39;
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-TypeError: &#39;str&#39; object does not support item assignment
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="k">call</span> <span class="k">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="n">TypeError</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="k">object</span> <span class="n">does</span> <span class="k">not</span> <span class="n">support</span> <span class="n">item</span> <span class="k">assignment</span>
 </pre></div>
 
 
@@ -178,29 +181,29 @@ TypeError: &#39;str&#39; object does not support item assignment
 <p>Let's look at some examples.</p>
 <h2>String building</h2>
 <p>When I started Python I was not too concerned with string concatenations. I would have long chains of string building code of:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
-&gt;&gt;&gt; s += &#39;world&#39;
-&gt;&gt;&gt; s += ...
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;world&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+=</span> <span class="p">...</span>
 </pre></div>
 
 
 <p>However if we look at the <code>id</code>s of <code>s</code> after each concatenation we discover:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; s = &#39;hello&#39;
-&gt;&gt;&gt; id(s)
-4341555696
-&gt;&gt;&gt; s += &#39;world&#39;
-&gt;&gt;&gt; id(s)
-4341545584  =&gt; new object created!
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="mi">4341555696</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;world&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="mi">4341545584</span>  <span class="o">=&gt;</span> <span class="k">new</span> <span class="k">object</span> <span class="n">created</span><span class="o">!</span>
 </pre></div>
 
 
 <p>This is not efficient. So here you want to use a mutable type:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; l = [&#39;hello&#39;]
-&gt;&gt;&gt; id(l)
-4341463496
-&gt;&gt;&gt; l.append(&#39;world&#39;)
-&gt;&gt;&gt; id(l)
-4341463496  =&gt; same object
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="mi">4341463496</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;world&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="mi">4341463496</span>  <span class="o">=&gt;</span> <span class="n">same</span> <span class="k">object</span>
 </pre></div>
 
 
@@ -210,14 +213,14 @@ TypeError: &#39;str&#39; object does not support item assignment
 <h2>Immutability</h2>
 <p>Another advantage of immutables is the guarantee that these objects will never change.</p>
 <p>Mutable types have a risk of being unexpectedly modified anywhere in your program:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; l
-[&#39;hello&#39;, &#39;world&#39;]
-&gt;&gt;&gt; ll = l  # somewhere a shallow copy was made
-&gt;&gt;&gt; l[0] = &#39;spam&#39;
-&gt;&gt;&gt; l
-[&#39;spam&#39;, &#39;world&#39;]
-&gt;&gt;&gt; ll
-[&#39;spam&#39;, &#39;world&#39;]  # oops!
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">l</span>
+<span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ll</span> <span class="o">=</span> <span class="n">l</span>  <span class="o">#</span> <span class="n">somewhere</span> <span class="n">a</span> <span class="n">shallow</span> <span class="k">copy</span> <span class="n">was</span> <span class="n">made</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;spam&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span>
+<span class="p">[</span><span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ll</span>
+<span class="p">[</span><span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">]</span>  <span class="o">#</span> <span class="n">oops</span><span class="o">!</span>
 </pre></div>
 
 
@@ -239,14 +242,14 @@ TypeError: &#39;str&#39; object does not support item assignment
 <p>Further reading: <a href="https://hackernoon.com/5-benefits-of-immutable-objects-worth-considering-for-your-next-project-f98e7e85b6ac">5 Benefits of Immutable Objects Worth Considering for Your Next Project</a></p>
 <h2>Grain of salt</h2>
 <p>Notice that <em>immutable</em> is sometimes not 100% guaranteed. For instance, you can have a tuple with a list inside of it:</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; a = (1, [2, 3], 4)
-&gt;&gt;&gt; a[0] = 2
-Traceback (most recent call last):
-File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-TypeError: &#39;tuple&#39; object does not support item assignment
-&gt;&gt;&gt; a[1].append(3.5)
-&gt;&gt;&gt; a
-(1, [2, 3, 3.5], 4)
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="k">call</span> <span class="k">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="ss">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="n">TypeError</span><span class="p">:</span> <span class="s1">&#39;tuple&#39;</span> <span class="k">object</span> <span class="n">does</span> <span class="k">not</span> <span class="n">support</span> <span class="n">item</span> <span class="k">assignment</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">.</span><span class="mi">5</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
 

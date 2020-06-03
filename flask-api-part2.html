@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -165,10 +168,10 @@
 <h2>Design</h2>
 <p>So we have the API = Flask, the back-end = Google Docs. What about the interface? </p>
 <p>I wanted something for both laptop and mobile = Slack. Enter the <a href="https://api.slack.com/slash-commands">Slack API / Slash Commands</a>. I defined this super basic interface: </p>
-<div class="highlight"><pre><span></span>/dw &lt;time&gt; (&lt;activity&gt;)
-- /dw is the slack command
-- time can be an int (hour) or more specifically hh:mm
-- activity is optional, if not provided it defaults to the name of the channel
+<div class="highlight"><pre><span></span><span class="o">/</span><span class="nv">dw</span> <span class="o">&lt;</span><span class="nv">time</span><span class="o">&gt;</span> <span class="ss">(</span><span class="o">&lt;</span><span class="nv">activity</span><span class="o">&gt;</span><span class="ss">)</span>
+<span class="o">-</span> <span class="o">/</span><span class="nv">dw</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">slack</span> <span class="nv">command</span>
+<span class="o">-</span> <span class="nv">time</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">an</span> <span class="nv">int</span> <span class="ss">(</span><span class="nv">hour</span><span class="ss">)</span> <span class="nv">or</span> <span class="nv">more</span> <span class="nv">specifically</span> <span class="nv">hh</span>:<span class="nv">mm</span>
+<span class="o">-</span> <span class="nv">activity</span> <span class="nv">is</span> <span class="nv">optional</span>, <span class="k">if</span> <span class="nv">not</span> <span class="nv">provided</span> <span class="nv">it</span> <span class="nv">defaults</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">channel</span>
 </pre></div>
 
 
@@ -186,10 +189,10 @@
 </li>
 <li>
 <p>Deploying an app is a challenge in itself. For example how do you get the client_secret.json file in Heroku? I had to go with <a href="http://stackoverflow.com/questions/7908667/how-to-deploy-heroku-app-with-secret-yaml-configuration-file-without-committing">this (not ideal) workaround</a>.</p>
-<div class="highlight"><pre><span></span># put client_secret.json in .gitignore on master
-# commit it to secret-branch you keep between localhost and Heroku (not Github)
-...
-$ git push heroku secret-branch:master
+<div class="highlight"><pre><span></span><span class="o">#</span> <span class="n">put</span> <span class="n">client_secret</span><span class="p">.</span><span class="n">json</span> <span class="k">in</span> <span class="p">.</span><span class="n">gitignore</span> <span class="k">on</span> <span class="n">master</span>
+<span class="o">#</span> <span class="k">commit</span> <span class="n">it</span> <span class="k">to</span> <span class="n">secret</span><span class="o">-</span><span class="n">branch</span> <span class="n">you</span> <span class="n">keep</span> <span class="k">between</span> <span class="n">localhost</span> <span class="k">and</span> <span class="n">Heroku</span> <span class="p">(</span><span class="k">not</span> <span class="n">Github</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">secret</span><span class="o">-</span><span class="n">branch</span><span class="p">:</span><span class="n">master</span>
 </pre></div>
 
 
@@ -204,16 +207,16 @@ $ git push heroku secret-branch:master
 <li>You can set an Autocomplete help text which is useful to your team</li>
 <li>
 <p>This is the payload Slack sends to your API for consumption: </p>
-<div class="highlight"><pre><span></span>token=xyz
-team_id=T0001
-team_domain=example
-channel_id=C123
-channel_name=deepwork
-user_id=U123
-user_name=bbelderbos  -&gt; cool: the app can be used by the whole team on Slack
-command=/dw
-text=your_entered_text
-response_url=https://hooks.slack.com/commands/1234/5678
+<div class="highlight"><pre><span></span><span class="n">token</span><span class="o">=</span><span class="n">xyz</span>
+<span class="n">team_id</span><span class="o">=</span><span class="n">T0001</span>
+<span class="n">team_domain</span><span class="o">=</span><span class="n">example</span>
+<span class="n">channel_id</span><span class="o">=</span><span class="n">C123</span>
+<span class="n">channel_name</span><span class="o">=</span><span class="n">deepwork</span>
+<span class="n">user_id</span><span class="o">=</span><span class="n">U123</span>
+<span class="n">user_name</span><span class="o">=</span><span class="n">bbelderbos</span>  <span class="o">-&gt;</span> <span class="n">cool</span><span class="p">:</span> <span class="n">the</span> <span class="n">app</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="k">by</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">team</span> <span class="k">on</span> <span class="n">Slack</span>
+<span class="n">command</span><span class="o">=/</span><span class="n">dw</span>
+<span class="nb">text</span><span class="o">=</span><span class="n">your_entered_text</span>
+<span class="n">response_url</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">hooks</span><span class="p">.</span><span class="n">slack</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">commands</span><span class="o">/</span><span class="mi">1234</span><span class="o">/</span><span class="mi">5678</span>
 </pre></div>
 
 

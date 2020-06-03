@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -166,9 +169,9 @@
 <ul>
 <li>
 <p>We used a class to keep state. We used two lists for secret and guessed_word. Looking at it now self.secret_word should probably be a tuple (inmutable). Handling non-ASCII in the constructor made the rest easier:</p>
-<div class="highlight"><pre><span></span>self.secret_word = list(word.lower())
-self.guessed_word = [PLACEHOLDER if c in ASCII else c
-                    for c in self.secret_word]
+<div class="highlight"><pre><span></span><span class="nv">self</span>.<span class="nv">secret_word</span> <span class="o">=</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">word</span>.<span class="nv">lower</span><span class="ss">())</span>
+<span class="nv">self</span>.<span class="nv">guessed_word</span> <span class="o">=</span> [<span class="nv">PLACEHOLDER</span> <span class="k">if</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">ASCII</span> <span class="k">else</span> <span class="nv">c</span>
+                    <span class="k">for</span> <span class="nv">c</span> <span class="nv">in</span> <span class="nv">self</span>.<span class="nv">secret_word</span>]
 </pre></div>
 
 

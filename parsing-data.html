@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -167,17 +170,17 @@
 <p>If you’re going to play with CSV files, <code>DictReader</code> is your friend. It converts each row into an <code>OrderedDict</code> (Hallelujah!).</p>
 <p><strong>Reading the contents of a CSV file:</strong></p>
 <p><a href="https://github.com/pybites/100DaysOfCode/blob/master/001/pytip.py">Code Link</a></p>
-<div class="highlight"><pre><span></span>for entry in csv.DictReader(f, fieldnames=FIELDS):
-    yield entry
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">entry</span> <span class="nv">in</span> <span class="nv">csv</span>.<span class="nv">DictReader</span><span class="ss">(</span><span class="nv">f</span>, <span class="nv">fieldnames</span><span class="o">=</span><span class="nv">FIELDS</span><span class="ss">)</span>:
+    <span class="nv">yield</span> <span class="nv">entry</span>
 </pre></div>
 
 
 <p><br>
 <strong>Opening and reading the CSV using a <code>with</code> statement:</strong></p>
 <p><a href="https://github.com/pybites/100DaysOfCode/blob/master/030/movies.py">Code Link</a></p>
-<div class="highlight"><pre><span></span>def read_csv(cf=CSV_FILE):
-    with open(cf, &#39;r&#39;) as csvfile:
-        return list(csv.DictReader(csvfile))
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">read_csv</span><span class="ss">(</span><span class="nv">cf</span><span class="o">=</span><span class="nv">CSV_FILE</span><span class="ss">)</span>:
+    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">cf</span>, <span class="s1">&#39;</span><span class="s">r</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">csvfile</span>:
+        <span class="k">return</span> <span class="nv">list</span><span class="ss">(</span><span class="nv">csv</span>.<span class="nv">DictReader</span><span class="ss">(</span><span class="nv">csvfile</span><span class="ss">))</span>
 </pre></div>
 
 
@@ -186,33 +189,33 @@
 <p>JSON is a must these days, especially if you want to work with APIs. </p>
 <p><strong>Simple read of JSON data pulled down by <code>requests</code>:</strong></p>
 <p><a href="https://github.com/pybites/100DaysOfCode/blob/master/027/warcraft_scraper.py">Code Link</a></p>
-<div class="highlight"><pre><span></span>data = json.loads(r.text)
+<div class="highlight"><pre><span></span><span class="k">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="nb">text</span><span class="p">)</span>
 </pre></div>
 
 
 <p><br>
 <strong>One of our first articles used a <code>with</code> statement to load in JSON data:</strong></p>
 <p><a href="http://pybit.es/kindle-json-to-html.html">Article/Code Link</a></p>
-<div class="highlight"><pre><span></span>def load_json(json_file):    
-    with open(json_file) as f:        
-        return json.loads(f.read())
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">load_json</span><span class="ss">(</span><span class="nv">json_file</span><span class="ss">)</span>:    
+    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">json_file</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:        
+        <span class="k">return</span> <span class="nv">json</span>.<span class="nv">loads</span><span class="ss">(</span><span class="nv">f</span>.<span class="nv">read</span><span class="ss">())</span>
 </pre></div>
 
 
 <p><br>
 <strong>Our Challenge 07 review used <code>yield</code> to return the JSON data:</strong></p>
 <p><a href="http://pybit.es/codechallenge07_review.html">Article/Code Link</a></p>
-<div class="highlight"><pre><span></span>def get_tweets(input_file):
-    with open(input_file) as f:
-        for line in f.readlines():
-            yield json.loads(line)
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_tweets</span><span class="ss">(</span><span class="nv">input_file</span><span class="ss">)</span>:
+    <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">input_file</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
+        <span class="k">for</span> <span class="nv">line</span> <span class="nv">in</span> <span class="nv">f</span>.<span class="nv">readlines</span><span class="ss">()</span>:
+            <span class="nv">yield</span> <span class="nv">json</span>.<span class="nv">loads</span><span class="ss">(</span><span class="nv">line</span><span class="ss">)</span>
 </pre></div>
 
 
 <p><br>
 <strong>Note the <code>.json()</code> method on <code>requests.get</code>:</strong></p>
 <p><a href="https://github.com/pybites/weather_compare/blob/master/weather.py">Code Link</a></p>
-<div class="highlight"><pre><span></span>data = requests.get(API_URL.format(city, API_KEY)).json()
+<div class="highlight"><pre><span></span><span class="k">data</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">API_URL</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="n">API_KEY</span><span class="p">)).</span><span class="n">json</span><span class="p">()</span>
 </pre></div>
 
 
@@ -241,7 +244,7 @@
 <p>XML! The data format of choice for RSS feeds. Can be a bit troublesome at times but always worth the effort.</p>
 <p><strong>Example of using <code>xml.etree.ElementTree</code> to parse the Safari RSS feed:</strong></p>
 <p><a href="https://github.com/pybites/100DaysOfCode/blob/master/017/safari.py">Code Link</a> - Worth checking out the full code but the gist of it is…</p>
-<div class="highlight"><pre><span></span>for item in doc.iterfind(&#39;channel/item&#39;):
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">item</span> <span class="nv">in</span> <span class="nv">doc</span>.<span class="nv">iterfind</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">channel/item</span><span class="s1">&#39;</span><span class="ss">)</span>:
     ...
 </pre></div>
 
@@ -249,10 +252,10 @@
 <p><br>
 <strong>Using <code>feedparser</code> to pull specific XML tags and add to a list:</strong></p>
 <p><a href="https://github.com/pybites/100DaysOfCode/blob/master/045/xml_steam_scraper.py">Code Link</a></p>
-<div class="highlight"><pre><span></span>feed = feedparser.parse(FEED_FILE)
-    for entry in feed[&#39;entries&#39;]:
-        Game = (entry[&#39;title&#39;], entry[&#39;link&#39;])
-            games_list.append(Game)
+<div class="highlight"><pre><span></span><span class="nv">feed</span> <span class="o">=</span> <span class="nv">feedparser</span>.<span class="nv">parse</span><span class="ss">(</span><span class="nv">FEED_FILE</span><span class="ss">)</span>
+    <span class="k">for</span> <span class="nv">entry</span> <span class="nv">in</span> <span class="nv">feed</span>[<span class="s1">&#39;</span><span class="s">entries</span><span class="s1">&#39;</span>]:
+        <span class="nv">Game</span> <span class="o">=</span> <span class="ss">(</span><span class="nv">entry</span>[<span class="s1">&#39;</span><span class="s">title</span><span class="s1">&#39;</span>], <span class="nv">entry</span>[<span class="s1">&#39;</span><span class="s">link</span><span class="s1">&#39;</span>]<span class="ss">)</span>
+            <span class="nv">games_list</span>.<span class="nv">append</span><span class="ss">(</span><span class="nv">Game</span><span class="ss">)</span>
 </pre></div>
 
 

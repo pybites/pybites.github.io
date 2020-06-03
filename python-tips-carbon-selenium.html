@@ -90,6 +90,9 @@
                                 <a href="https://github.com/PyBites-Open-Source"
                                     target="_blank"
                                 >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
                                 <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
                                     target="_blank"
                                 >Newsletter</a>
@@ -164,17 +167,17 @@
 <h2>Getting Ready</h2>
 <p>If you want to follow along, the final code is <a href="https://github.com/pybites/blog_code/blob/master/tips/tips.py">here</a>.</p>
 <p>First make <a href="https://pybit.es/the-beauty-of-virtualenv.html">a virtual environment</a> and <code>pip install</code> <a href="https://github.com/pybites/blog_code/blob/master/tips/requirements.txt">the requirements</a>. Also make sure you have the <a href="http://chromedriver.chromium.org/">chromedriver</a> in your <code>PATH</code>.</p>
-<div class="highlight"><pre><span></span>[bobbelderbos@imac code]$ mkdir carbon &amp;&amp; cd $_
-[bobbelderbos@imac carbon]$ alias pvenv
-alias pvenv=&#39;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7 -m venv venv &amp;&amp; source venv/bin/activate&#39;
-[bobbelderbos@imac carbon]$ pvenv
-(venv) [bobbelderbos@imac carbon]$ python -V
-Python 3.7.0
-(venv) [bobbelderbos@imac carbon]$ pip install -r requirements.txt
-...
-Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet-3.0.4 idna-2.8 requests-2.21.0 selenium-3.141.0 soupsieve-1.8 urllib3-1.24.1
-(venv) [bobbelderbos@imac carbon]$ ls ~/bin/chromedriver
-/Users/bobbelderbos/bin/chromedriver
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="n">bobbelderbos@imac code</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="n">carbon</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="err">$</span><span class="n">_</span><span class="w"></span>
+<span class="o">[</span><span class="n">bobbelderbos@imac carbon</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="k">alias</span><span class="w"> </span><span class="n">pvenv</span><span class="w"></span>
+<span class="k">alias</span><span class="w"> </span><span class="n">pvenv</span><span class="o">=</span><span class="s1">&#39;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7 -m venv venv &amp;&amp; source venv/bin/activate&#39;</span><span class="w"></span>
+<span class="o">[</span><span class="n">bobbelderbos@imac carbon</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pvenv</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac carbon</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="o">-</span><span class="n">V</span><span class="w"></span>
+<span class="n">Python</span><span class="w"> </span><span class="mf">3.7.0</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac carbon</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="n">requirements</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
+<span class="p">...</span><span class="w"></span>
+<span class="n">Successfully</span><span class="w"> </span><span class="n">installed</span><span class="w"> </span><span class="n">beautifulsoup4</span><span class="o">-</span><span class="mf">4.7.1</span><span class="w"> </span><span class="n">bs4</span><span class="o">-</span><span class="mf">0.0.1</span><span class="w"> </span><span class="n">certifi</span><span class="o">-</span><span class="mf">2018.11.29</span><span class="w"> </span><span class="n">chardet</span><span class="o">-</span><span class="mf">3.0.4</span><span class="w"> </span><span class="n">idna</span><span class="o">-</span><span class="mf">2.8</span><span class="w"> </span><span class="n">requests</span><span class="o">-</span><span class="mf">2.21.0</span><span class="w"> </span><span class="n">selenium</span><span class="o">-</span><span class="mf">3.141.0</span><span class="w"> </span><span class="n">soupsieve</span><span class="o">-</span><span class="mf">1.8</span><span class="w"> </span><span class="n">urllib3</span><span class="o">-</span><span class="mf">1.24.1</span><span class="w"></span>
+<span class="p">(</span><span class="n">venv</span><span class="p">)</span><span class="w"> </span><span class="o">[</span><span class="n">bobbelderbos@imac carbon</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">ls</span><span class="w"> </span><span class="o">~/</span><span class="n">bin</span><span class="o">/</span><span class="n">chromedriver</span><span class="w"></span>
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">bobbelderbos</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">chromedriver</span><span class="w"></span>
 </pre></div>
 
 
@@ -282,53 +285,53 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 </ul>
 <h2>Parsing the tips</h2>
 <p>At this point the code at best will throw an <code>AttributeError</code>, because our tips <code>dict</code> is empty. So let's write <code>retrieve_tips</code> to populate it:</p>
-<div class="highlight"><pre><span></span>def retrieve_tips():
-    &quot;&quot;&quot;Grab and parse all tips from https://codechalleng.es/tips
-    returning a dict of keys: tip IDs and values: Tip namedtuples
-    &quot;&quot;&quot;
+<div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">retrieve_tips</span><span class="p">():</span>
+    <span class="ss">&quot;&quot;&quot;Grab and parse all tips from https://codechalleng.es/tips</span>
+<span class="ss">    returning a dict of keys: tip IDs and values: Tip namedtuples</span>
+<span class="ss">    &quot;&quot;&quot;</span>
 </pre></div>
 
 
 <p>Firt we need to retrieve the page with <code>requests</code>:</p>
-<div class="highlight"><pre><span></span>    html = requests.get(TIPS_PAGE)
+<div class="highlight"><pre><span></span>    <span class="n">html</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">TIPS_PAGE</span><span class="p">)</span>
 </pre></div>
 
 
 <p>We then instantiate a <code>BeautifulSoup</code> object passing it in the response text and parser:</p>
-<div class="highlight"><pre><span></span>    soup = BeautifulSoup(html.text, &#39;html.parser&#39;)
+<div class="highlight"><pre><span></span>    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">.</span><span class="nb">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>As we saw all the tips are in a table, each one in a table row or <code>tr</code>, so let's get all of them:</p>
-<div class="highlight"><pre><span></span>    trs = soup.findAll(&quot;tr&quot;)
+<div class="highlight"><pre><span></span>    <span class="n">trs</span> <span class="o">=</span> <span class="n">soup</span><span class="p">.</span><span class="n">findAll</span><span class="p">(</span><span class="ss">&quot;tr&quot;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Next let's use a data structure to store the tips. At first I used a <code>list</code> but later I wanted to index by tip ID, so a <code>dict</code> turned out to be more appropriate:</p>
-<div class="highlight"><pre><span></span>    tips = {}
+<div class="highlight"><pre><span></span>    <span class="n">tips</span> <span class="o">=</span> <span class="err">{}</span>
 </pre></div>
 
 
 <p>Next let's loop through the rows, creating Tip <code>namedtuple</code>s and adding them to our <code>tips dict</code>:</p>
-<div class="highlight"><pre><span></span>    for tr in trs:
-        tds = tr.find_all(&quot;td&quot;)
-        id_ = int(tds[0].text.strip().rstrip(&#39;.&#39;))
-        tip_html = tds[1]
+<div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="nv">tr</span> <span class="nv">in</span> <span class="nv">trs</span>:
+        <span class="nv">tds</span> <span class="o">=</span> <span class="nv">tr</span>.<span class="nv">find_all</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">td</span><span class="s2">&quot;</span><span class="ss">)</span>
+        <span class="nv">id_</span> <span class="o">=</span> <span class="nv">int</span><span class="ss">(</span><span class="nv">tds</span>[<span class="mi">0</span>].<span class="nv">text</span>.<span class="nv">strip</span><span class="ss">()</span>.<span class="nv">rstrip</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">.</span><span class="s1">&#39;</span><span class="ss">))</span>
+        <span class="nv">tip_html</span> <span class="o">=</span> <span class="nv">tds</span>[<span class="mi">1</span>]
 
-        links = tip_html.findAll(&quot;a&quot;, class_=&quot;left&quot;)
-        share_link = links[0].attrs.get(&#39;href&#39;)
+        <span class="nv">links</span> <span class="o">=</span> <span class="nv">tip_html</span>.<span class="nv">findAll</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">a</span><span class="s2">&quot;</span>, <span class="nv">class_</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">left</span><span class="s2">&quot;</span><span class="ss">)</span>
+        <span class="nv">share_link</span> <span class="o">=</span> <span class="nv">links</span>[<span class="mi">0</span>].<span class="nv">attrs</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">href</span><span class="s1">&#39;</span><span class="ss">)</span>
 
-        pre = tip_html.find(&quot;pre&quot;)
-        code = pre and pre.text or &#39;&#39;
+        <span class="nv">pre</span> <span class="o">=</span> <span class="nv">tip_html</span>.<span class="nv">find</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">pre</span><span class="s2">&quot;</span><span class="ss">)</span>
+        <span class="nv">code</span> <span class="o">=</span> <span class="nv">pre</span> <span class="nv">and</span> <span class="nv">pre</span>.<span class="nv">text</span> <span class="nv">or</span> <span class="s1">&#39;&#39;</span>
 
-        # skip if tweeted or not code in tip
-        if PYBITES_HAS_TWEETED in share_link or not code:
-            continue
+        # <span class="nv">skip</span> <span class="k">if</span> <span class="nv">tweeted</span> <span class="nv">or</span> <span class="nv">not</span> <span class="nv">code</span> <span class="nv">in</span> <span class="nv">tip</span>
+        <span class="k">if</span> <span class="nv">PYBITES_HAS_TWEETED</span> <span class="nv">in</span> <span class="nv">share_link</span> <span class="nv">or</span> <span class="nv">not</span> <span class="nv">code</span>:
+            <span class="k">continue</span>
 
-        tip = tip_html.find(&quot;blockquote&quot;).text
-        src = len(links) &gt; 1 and links[1].attrs.get(&#39;href&#39;) or &#39;&#39;
+        <span class="nv">tip</span> <span class="o">=</span> <span class="nv">tip_html</span>.<span class="nv">find</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">blockquote</span><span class="s2">&quot;</span><span class="ss">)</span>.<span class="nv">text</span>
+        <span class="nv">src</span> <span class="o">=</span> <span class="nv">len</span><span class="ss">(</span><span class="nv">links</span><span class="ss">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="nv">and</span> <span class="nv">links</span>[<span class="mi">1</span>].<span class="nv">attrs</span>.<span class="nv">get</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">href</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">or</span> <span class="s1">&#39;&#39;</span>
 
-        tips[id_] = Tip(tip, code, src)
+        <span class="nv">tips</span>[<span class="nv">id_</span>] <span class="o">=</span> <span class="nv">Tip</span><span class="ss">(</span><span class="nv">tip</span>, <span class="nv">code</span>, <span class="nv">src</span><span class="ss">)</span>
 </pre></div>
 
 
@@ -363,7 +366,7 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 </li>
 </ul>
 <p>Lastly we return the tips <code>dict</code>:</p>
-<div class="highlight"><pre><span></span>    return tips
+<div class="highlight"><pre><span></span>    <span class="k">return</span> <span class="nv">tips</span>
 </pre></div>
 
 
@@ -383,56 +386,56 @@ Successfully installed beautifulsoup4-4.7.1 bs4-0.0.1 certifi-2018.11.29 chardet
 <p>We can automate this using Selenium to click the <em>Tweet</em> button, capturing the generated image link. This is why I defined the <code>TWEET_BTN_CLASS</code> constant which is the class set on this button.</p>
 <h2>Use Selenium to create tip code image</h2>
 <p>Let's write the second function <code>get_carbon_image</code>:</p>
-<div class="highlight"><pre><span></span>def get_carbon_image(tip):
-    &quot;&quot;&quot;Visit carbon.now.sh with the code, click the Tweet button
-    and grab and return the Twitter picture url
-    &quot;&quot;&quot;
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_carbon_image</span><span class="ss">(</span><span class="nv">tip</span><span class="ss">)</span>:
+    <span class="s2">&quot;&quot;&quot;</span><span class="s">Visit carbon.now.sh with the code, click the Tweet button</span>
+    <span class="nv">and</span> <span class="nv">grab</span> <span class="nv">and</span> <span class="k">return</span> <span class="nv">the</span> <span class="nv">Twitter</span> <span class="nv">picture</span> <span class="nv">url</span>
+    <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 
 
 <p>First we need to encode (replace special characters) the tip code snippet. <code>quote_plus</code> (from <code>urllib.parse</code>) <em>also replaces spaces by plus signs, as required for quoting HTML form values when building up a query string to go into a URL</em> (see <a href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.quote_plus">docs</a>).</p>
-<div class="highlight"><pre><span></span>    code = urllib.parse.quote_plus(tip.code)
+<div class="highlight"><pre><span></span>    <span class="n">code</span> <span class="o">=</span> <span class="n">urllib</span><span class="p">.</span><span class="n">parse</span><span class="p">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">tip</span><span class="p">.</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 
 
 <p>With that done we define the full url:</p>
-<div class="highlight"><pre><span></span>    url = CARBON.format(code=code)
+<div class="highlight"><pre><span></span>    <span class="n">url</span> <span class="o">=</span> <span class="n">CARBON</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">)</span>
 </pre></div>
 
 
 <p>We then start the Chromedriver. Unlike <a href="https://pybit.es/selenium-headless-on-heroku.html">last time</a> I am not going to use <em>headless</em> mode here, because I'd actually like to see what Selenium is doing:</p>
-<div class="highlight"><pre><span></span>    driver = webdriver.Chrome()
-    driver.get(url)
+<div class="highlight"><pre><span></span>    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="p">.</span><span class="n">Chrome</span><span class="p">()</span>
+    <span class="n">driver</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Here we locate mentioned <code>TWEET_BTN_CLASS</code> (<em>jsx-2739697134</em>) button and click on it:</p>
-<div class="highlight"><pre><span></span>    driver.find_element_by_class_name(TWEET_BTN_CLASS).click()
+<div class="highlight"><pre><span></span>    <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">TWEET_BTN_CLASS</span><span class="p">).</span><span class="n">click</span><span class="p">()</span>
 </pre></div>
 
 
 <p>Trial and error taught me that this might take a bit so I use <code>sleep</code>:</p>
-<div class="highlight"><pre><span></span>    sleep(5)
+<div class="highlight"><pre><span></span>    <span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
 
 <h2>Retrieve the image from popup</h2>
 <p>And here is the tricky part. The <em>Tweet</em> button opened a popup but the driver is still on the main browser page window (see seconds 15 and 41 of the demo below).</p>
 <p>You can toggle windows though using <code>driver.switch_to.window</code>:</p>
-<div class="highlight"><pre><span></span>    window_handles = driver.window_handles
-    driver.switch_to.window(window_handles[1])
+<div class="highlight"><pre><span></span>    <span class="n">window_handles</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">window_handles</span>
+    <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="n">window</span><span class="p">(</span><span class="n">window_handles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 
 
 <p>Now I am on the Twitter popup window and I can target the <em>status</em> ID field and grab the image URL from it:</p>
-<div class="highlight"><pre><span></span>    status = driver.find_element_by_id(&#39;status&#39;)
-    img = status.text.split(&#39; &#39;)[-1]
+<div class="highlight"><pre><span></span>    <span class="n">status</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">status</span><span class="p">.</span><span class="nb">text</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
 
 <p>Finally I quit the <code>driver</code> (this closes the browser) and return the image string:</p>
-<div class="highlight"><pre><span></span>    driver.quit()
-    return img
+<div class="highlight"><pre><span></span>    <span class="nv">driver</span>.<span class="nv">quit</span><span class="ss">()</span>
+    <span class="k">return</span> <span class="nv">img</span>
 </pre></div>
 
 
