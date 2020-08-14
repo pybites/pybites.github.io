@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Introduction If you&#39;ve ever tested code involving dates and times in Python you&#39;ve probably had to mock the datetime module. And if you&#39;ve mocked the datetime module, at some point it probably...">
+        <meta name="keywords" content="datetime, freezegun, mocking, packages, testing, timedelta">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+
+        <title>Freezegun - Real Joy for Fake Dates in Python - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/modules.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '204929054292880');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=204929054292880&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+
+                        <div class="dropdown">
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:support@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Freezegun - Real Joy for Fake Dates in Python</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/aj-kerrigan.html">AJ Kerrigan</a>, Fri 14 August 2020,  <a href="https://pybit.es/category/modules.html">Modules</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/datetime.html">datetime</a>, <a href="https://pybit.es/tag/freezegun.html">freezegun</a>, <a href="https://pybit.es/tag/mocking.html">mocking</a>, <a href="https://pybit.es/tag/packages.html">packages</a>, <a href="https://pybit.es/tag/testing.html">testing</a>, <a href="https://pybit.es/tag/timedelta.html">timedelta</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h3>Introduction</h3>
+<p>If you've ever tested code involving dates and times in Python you've probably had to mock the <a href="https://docs.python.org/3/library/datetime.html">datetime</a> module. And if you've mocked the datetime module, at some point it probably mocked you back when your tests failed.</p>
+<p><img alt="Icelandic horse mocks you" src="images/guest-freezegun/dan-cook-MCauAnBJeig-unsplash.jpg"></p>
+<blockquote>
+<p>Photo by <a href="https://unsplash.com/@dan_scape?utm_content=creditCopyText">Dan Cook</a> on <a href="https://unsplash.com/?utm_content=creditCopyText">Unsplash</a></p>
+</blockquote>
+<p>Let's look at some problems that pop up with fake datetimes, and how <a href="https://github.com/spulec/freezegun">freezegun</a> can help address them.</p>
+<h3>A simple test</h3>
+<p>First, here's a snippet of date-sensitive code:</p>
+<p><em>tomorrow.py</em></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="k">def</span> <span class="nf">tomorrow</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>When we test that function, we probably want the result to be the same every day. One way to handle that is by using a fake date in the test:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">patch</span><span class="p">,</span> <span class="n">Mock</span>
+
+<span class="kn">import</span> <span class="nn">tomorrow</span>
+
+<span class="n">fake_date</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">(</span><span class="n">wraps</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+<span class="n">fake_date</span><span class="o">.</span><span class="n">today</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;datetime.date&#39;</span><span class="p">,</span> <span class="n">fake_date</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_tomorrow</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">tomorrow</span><span class="o">.</span><span class="n">tomorrow</span><span class="p">()</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>That works, great! Now let's break it.</p>
+<h3>A catalog of failures</h3>
+<p>Let's say that during a refactor, we change this:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="k">def</span> <span class="nf">tomorrow</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>to this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="k">def</span> <span class="nf">tomorrow</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>or perhaps this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span> <span class="k">as</span> <span class="n">dt</span><span class="p">,</span> <span class="n">timedelta</span> <span class="k">as</span> <span class="n">td</span>
+
+<span class="k">def</span> <span class="nf">tomorrow</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="n">td</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Both changes cause the test to fail, even though there is no functional change. Why?</p>
+<p>With <code>from datetime import date, timedelta</code>, the code under test gets a reference to the unpatched <code>datetime.date</code> at import time. By the time the test runs, its <code>@patch</code> has no practical effect.</p>
+<p>Following the advice in <a href="https://docs.python.org/3/library/unittest.mock.html#where-to-patch">"Where to patch"</a>, we could get the test working again by patching our own code rather than the builtin datetime module:</p>
+<div class="highlight"><pre><span></span><span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;tomorrow.date&#39;</span><span class="p">,</span> <span class="n">fake_date</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_tomorrow</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">tomorrow</span><span class="o">.</span><span class="n">tomorrow</span><span class="p">()</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>That wouldn't cover the second change though - we'd need to also patch <code>tomorrow.dt</code> for that. Just a couple examples make this test start to feel brittle and tightly coupled to the implementation.</p>
+<p>We can do better though.</p>
+<h3>A more resilient test</h3>
+<p>We're looking for a test that can verify the behavior of our code even if subtle implementation details change. Aside from import variations, we've got different ways to fetch the current date (<code>date.today()</code>, <code>datetime.now()</code>, <code>datetime.utcnow()</code>, et cetera). By starting with the simplest test possible and working toward flexibility, it's possible to end up with something like this:</p>
+<div class="highlight"><pre><span></span><span class="n">fake_dttm</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">(</span><span class="n">wraps</span><span class="o">=</span><span class="n">datetime</span><span class="p">)</span>
+<span class="n">fake_dttm</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">fake_dttm</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">fake_dttm</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;tomorrow.date&#39;</span><span class="p">,</span> <span class="n">fake_dttm</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;tomorrow.datetime&#39;</span><span class="p">,</span> <span class="n">fake_dttm</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;tomorrow.dt&#39;</span><span class="p">,</span> <span class="n">fake_dttm</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_tomorrow</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">tomorrow</span><span class="o">.</span><span class="n">tomorrow</span><span class="p">()</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Which feels like an uncanny valley between thoroughness and pragmatism.</p>
+<p>For a PyBites <a href="https://codechalleng.es/">code challenge </a>, the tests carry an extra consideration. You write tests for an "official solution", but the tests also run against user-submitted code. So it shouldn't matter if one person uses <code>import datetime as dt</code> while another opts for <code>from datetime import date as dt, timedelta as td</code>.</p>
+<p>There are a few different ways to tackle this. I list some references at the end of this post, but for now we'll look at the <a href="https://github.com/spulec/freezegun">freezegun</a> library.</p>
+<h3>Adding freezegun to our tests</h3>
+<p><a href="https://github.com/spulec/freezegun">Freezegun</a> provides a <code>freeze_time()</code> decorator that we can use to set a fixed date for our test functions. Picking up from the last section, that helps evolve this:</p>
+<div class="highlight"><pre><span></span><span class="n">fake_date</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">(</span><span class="n">wraps</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+<span class="n">fake_date</span><span class="o">.</span><span class="n">today</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nd">@patch</span><span class="p">(</span><span class="s1">&#39;tomorrow.date&#39;</span><span class="p">,</span> <span class="n">fake_date</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_tomorrow</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">tomorrow</span><span class="o">.</span><span class="n">tomorrow</span><span class="p">()</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>into this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">freezegun</span> <span class="kn">import</span> <span class="n">freeze_time</span>
+
+<span class="nd">@freeze_time</span><span class="p">(</span><span class="s1">&#39;2020-07-02&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_tomorrow</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">tomorrow</span><span class="o">.</span><span class="n">tomorrow</span><span class="p">(</span><span class="n">include_time</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>There are a few neat things going on there. For one, we can use a friendly date string (courtesy of the excellent <a href="https://dateutil.readthedocs.io">dateutil</a> library) rather than a handcrafted <code>date</code> or <code>datetime</code> object. That gets even more useful when we're dealing with full timestamps rather than dates.</p>
+<p>It's also useful (but less immediately clear) that <code>freeze_time</code> patches a number of common datetime methods under the hood:</p>
+<ul>
+<li><code>datetime.datetime.now()</code></li>
+<li><code>datetime.datetime.utcnow()</code></li>
+<li><code>datetime.date.today()</code></li>
+<li><code>time.time()</code></li>
+<li><code>time.localtime()</code></li>
+<li><code>time.gmtime()</code></li>
+<li><code>time.strftime()</code></li>
+</ul>
+<p>Because of <em>how</em> freezegun patches those methods, we can guarantee seeing the frozen date as long as the code under test uses those builtin methods. So our tests will smoothly handle import variations like:</p>
+<ul>
+<li><code>import datetime</code></li>
+<li><code>from datetime import date</code></li>
+<li><code>from datetime import date as dt</code></li>
+</ul>
+<h3>Deep and thorough fakes</h3>
+<p>Freezegun keeps your tests simple by faking Python datetimes thoroughly. Not only does it patch methods from <code>datetime</code> and <code>time</code>, it looks at existing imports so it can be sure they're patched too. For anyone interested in the details, <a href="https://github.com/spulec/freezegun/blob/6cfbc48/freezegun/api.py#L589-L668">this section</a> of the freezegun API code is a fine read!</p>
+<p>If you're rolling your own fakes, you're not likely to be as thorough as freezegun. You probably don't need to be! But for at least some cases, a library like freezegun can offer more thorough tests that are also simpler and more readable.</p>
+<h3>Taking it further</h3>
+<p>For high volume, performance-sensitive tests with fake dates, <a href="https://pypi.org/project/libfaketime/">libfaketime</a> may be worth a look. Additionally, there are <a href="https://pytest.org">pytest</a> plugins available for both <a href="https://pypi.org/project/pytest-freezegun/">freezegun</a> and <a href="https://gitlab.com/yaal/pytest-libfaketime">libfaketime</a>.</p>
+<h3>References</h3>
+<p>This post was a pretty narrowly-focused look at some common issues that pop up when testing with fake dates. I'm not an expert on any of this stuff, but I've been inspired by folks who know it better. So if you found this post interesting, some of these resources may also be worth a look:</p>
+<ul>
+<li><a href="https://realpython.com/python-mock-library/">Understanding the Python Mock Object Library</a> (Real Python)</li>
+<li><a href="https://nedbatchelder.com/blog/201908/why_your_mock_doesnt_work.html">Why your mock doesn't work</a> (Ned Batchelder)</li>
+<li><a href="https://hakibenita.com/python-dependency-injection">Stop using datetime.now!</a> (Haki Benita)</li>
+<li><a href="https://docs.python.org/3/library/unittest.mock.html#id6">unittest.mock - "Where to patch"</a> (Python Documentation)</li>
+<li>Anything with Brian Okken's name attached to it. There's a whole Okkensphere out there, including:<ul>
+<li><a href="https://testandcode.com/">Test and Code</a> (Podcast)</li>
+<li><a href="https://pythontesting.net/books/pytest/">Python Testing with Pytest</a> (Book)</li>
+<li><a href="https://pythontesting.net/start-here/">Python Testing</a> (Web site)</li>
+</ul>
+</li>
+</ul>
+<p>And since we're talking about dates and times here, I can't help including <a href="FalsehoodsAboutTime.com">Falsehoods programmers believe about time</a>.</p>
+<h3>Acknowledgements</h3>
+<p>Thanks to the <a href="https://pybit.es/">PyBites</a> community for inspiring this post. Notably:</p>
+<ul>
+<li>Nitin George Cherian, for kickstarting a discussion about fake dates</li>
+<li>Terry Spotts, for authoring and refactoring a relevant code challenge</li>
+<li>Bob Belderbos, for pointing out that this topic deserved a post</li>
+</ul>
+<p>And of course, thanks to <a href="https://github.com/spulec/">Steve Pulec</a> for creating freezegun. (While I'm at it, thanks for <a href="https://github.com/spulec/moto">moto</a> too!)</p>
+<p>Keep calm and code in Python!</p>
+<p>-- <a href="pages/guests.html#ajkerrigan">AJ</a></p>
+
+
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'guest-freezegun.html';
+                var disqus_url = 'https://pybit.es/guest-freezegun.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                              <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                              <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                            <li><a href="mailto:support@pybit.es" title="Contact us by email">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:support@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
