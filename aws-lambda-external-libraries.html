@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="AWS Lambda is awesome, but sometimes it can be hard to get external libraries working in this serverless environment. No worries, we learned a lesson or two which I will share in this article....">
+        <meta name="keywords" content="AWS, biopython, cloud, deployment, Docker, Klayers, lambda, packages, pandas, PYPI, SAAS, wheels">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+
+        <title>How to Run External Python Libraries in AWS Cloud - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/tools.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '204929054292880');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=204929054292880&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+
+                        <div class="dropdown">
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/archives.html"
+                                >Articles</a>
+                                <a href="/pages/community.html"
+                                >Community</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro</a>
+                                <a href="https://pybit.us14.list-manage.com/subscribe?u=822043293f280259d4b8d2a3e&id=ac7e2eb9ef"
+                                    target="_blank"
+                                >Newsletter</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="/pages/newbie.html"
+                                >Newbies</a>
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Python Exercises</a>
+                                <a href="/pages/100days.html"
+                                >100 Days Of Code</a>
+                                <a href="/pages/schools.html"
+                                >Schools</a>
+                                <a href="/pages/enterprise.html"
+                                >Enterprise</a>
+                                <a href="/pages/recruiting.html"
+                                >Recruiter</a>
+                                <a href="/pages/apply.html"
+                                >Coaching</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>TALK TO US</span>
+                          <div class="dropdown-content">
+                                <a href="mailto:support@pybit.es"
+                                >Email</a>
+                                <a href="https://twitter.com/pybites"
+                                    target="_blank"
+                                >Twitter</a>
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">How to Run External Python Libraries in AWS Cloud</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Mon 17 August 2020,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/aws.html">AWS</a>, <a href="https://pybit.es/tag/biopython.html">biopython</a>, <a href="https://pybit.es/tag/cloud.html">cloud</a>, <a href="https://pybit.es/tag/deployment.html">deployment</a>, <a href="https://pybit.es/tag/docker.html">Docker</a>, <a href="https://pybit.es/tag/klayers.html">Klayers</a>, <a href="https://pybit.es/tag/lambda.html">lambda</a>, <a href="https://pybit.es/tag/packages.html">packages</a>, <a href="https://pybit.es/tag/pandas.html">pandas</a>, <a href="https://pybit.es/tag/pypi.html">PYPI</a>, <a href="https://pybit.es/tag/saas.html">SAAS</a>, <a href="https://pybit.es/tag/wheels.html">wheels</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>AWS Lambda is awesome, but sometimes it can be hard to get external libraries working in this serverless environment.</p>
+<p>No worries, we learned a lesson or two which I will share in this article.</p>
+<p>Ready to run almost any Python library in the cloud? This should excite you and even trigger some of you to think about building your own SAAS ...</p>
+<h2>What is AWS Lambda? First steps</h2>
+<blockquote>
+<p>Amazon Web Services (AWS) Lambda is an on-demand compute service that lets you run code in response to events or HTTP requests (<a href="https://realpython.com/code-evaluation-with-aws-lambda-and-api-gateway/">source</a>)</p>
+</blockquote>
+<p>If you are new to this technology, I recommend rolling your own lambda using only Python's standard library (simplest use case):</p>
+<ol>
+<li>
+<p>Follow <a href="https://realpython.com/code-evaluation-with-aws-lambda-and-api-gateway/">this article</a> to set up a Lambda function and configuring an AWS Gateway API endpoint to invoke the lambda.</p>
+</li>
+<li>
+<p>Make an AWS account and take <a href="https://codechalleng.es/challenges/36/">our code challenge #36</a> and/or play with <a href="https://github.com/bbelderbos/first-aws-lambda">our example repo</a>.</p>
+</li>
+</ol>
+<p>For inspiration, here is how we use AWS Lambda on <a href="https://codechalleng.es/">our coding platform</a>:</p>
+<p><img alt="PyBites platform aws lambda use" src="https://pybit.es/images/pybites-platform-architecture.png"></p>
+<h2>Use external libraries</h2>
+<p>Now that you have an AWS lambda running, the next challenge is how to work with <a href="https://pypi.org/">external dependencies</a>.</p>
+<p>Lambda is a sandbox with Python's standard library, any external packages you need to install yourself, typically using a virtual environment and creating a zipfile of lambda function code + dependencies (see <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-package.html">the docs</a>).</p>
+<p>The procedure is something like this after you've created your virtual env and pip installed the packages you want to use:</p>
+<div class="highlight"><pre><span></span><span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> $ <span class="nv">cd</span> <span class="nv">venv</span><span class="o">/</span><span class="nv">lib</span><span class="o">/</span><span class="nv">python3</span>.<span class="mi">8</span><span class="o">/</span><span class="nv">site</span><span class="o">-</span><span class="nv">packages</span><span class="o">/</span>
+<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> $ <span class="nv">zip</span> <span class="o">-</span><span class="nv">r9</span> <span class="nv">lambda</span>.<span class="nv">pkg</span>.<span class="nv">zip</span> <span class="o">*</span>
+<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> $ <span class="nv">ls</span> <span class="o">-</span><span class="nv">lrth</span> <span class="o">*</span><span class="nv">zip</span>  # <span class="nv">should</span> <span class="nv">be</span> <span class="o">&lt;</span> <span class="mi">50</span> <span class="nv">MB</span> <span class="ss">(</span><span class="nv">use</span> <span class="nv">Klayers</span> <span class="nv">to</span> <span class="nv">reduce</span> <span class="nv">size</span> <span class="o">-</span> <span class="nv">see</span> <span class="k">next</span><span class="ss">)</span>
+<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> $ <span class="nv">mv</span> <span class="nv">lambda</span>.<span class="nv">pkg</span>.<span class="nv">zip</span> ..<span class="o">/</span>..<span class="o">/</span>..<span class="o">/</span>..<span class="o">/</span>
+<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> $ <span class="nv">cd</span> ..<span class="o">/</span>..<span class="o">/</span>..<span class="o">/</span>..<span class="o">/</span>
+<span class="ss">(</span><span class="nv">venv</span><span class="ss">)</span> $ <span class="nv">zip</span> <span class="o">-</span><span class="nv">g</span> <span class="nv">lambda</span>.<span class="nv">pkg</span>.<span class="nv">zip</span> <span class="nv">lambda</span>.<span class="nv">py</span>
+</pre></div>
+
+
+<p>Basically we put the lambda script (<a href="https://github.com/bbelderbos/first-aws-lambda/blob/master/pep_lambda.py">example code</a>) and all the pip installed package at the same top level directory and recursively zip it up. This zip file you would upload in your lambda's <em>Function code</em> section:</p>
+<p><img alt="Upload lambda zip file" src="https://pybit.es/images/deploy-lambda-zip.png"></p>
+<h2>Add AWS Lambda Layers</h2>
+<p>This does not work for all packages though. When we introduced <a href="https://codechalleng.es/bites/search/pandas"><code>pandas</code> Bites</a>, we could not just take the package we pip installed on our Mac and expect it to work in a Linux environment. We needed a Linux compatible package.</p>
+<p>Thankfully <a href="pages/guests.html#ajkerrigan">AJ</a> tipped us about <a href="https://github.com/keithrozario/Klayers">Keith's Layers (Klayers)</a> which gives compiled packages you can add using the <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">AWS Lambda layers feature</a>.</p>
+<p>You can just select the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)</a> for <a href="https://github.com/keithrozario/Klayers/tree/master/deployments/python3.8/arns">your region</a> and add it to your Lambda's layers. For example:</p>
+<p><img alt="Lambda Layers example" src="https://pybit.es/images/klayers-example.png"></p>
+<h2>Add pre- or self-compiled packages</h2>
+<p><em>Klayers</em> only offer a subset of packages though. Yesterday we had to get <code>biopython</code> working for <a href="https://codechalleng.es/bites/298/">Bite 298</a> and there was not a <em>Klayer</em> nor did the locally pip installed package work due to missing compiled files.</p>
+<p>Luckily the Bite Author, <a href="https://twitter.com/schustercf?lang=en">Chris</a>, found an answer:</p>
+<p><a href="https://aws.amazon.com/premiumsupport/knowledge-center/lambda-python-package-compatible/">How do I add Python packages with compiled binaries to my deployment package and make the package compatible with Lambda?</a></p>
+<p>You can download the <code>.whl</code> (wheel) file and unzip that in your root lambda folder which then gives you the OS compatible files.</p>
+<blockquote>
+<p>A wheel is a ZIP-format archive with a specially formatted file name and the .whl extension (<a href="https://www.python.org/dev/peps/pep-0427/">source</a>)</p>
+</blockquote>
+<p>In this case we just had to use the <code>manylinux1</code> version for our lambda:</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="err">$</span> <span class="n">unzip</span> <span class="o">-</span><span class="n">l</span> <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="o">-</span><span class="n">cp38</span><span class="o">-</span><span class="n">cp38</span><span class="o">-</span><span class="n">manylinux1_x86_64</span><span class="p">.</span><span class="n">whl</span> <span class="o">|</span> <span class="n">head</span>
+<span class="n">Archive</span><span class="p">:</span>  <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="o">-</span><span class="n">cp38</span><span class="o">-</span><span class="n">cp38</span><span class="o">-</span><span class="n">manylinux1_x86_64</span><span class="p">.</span><span class="n">whl</span>
+<span class="k">Length</span>      <span class="nb">Date</span>    <span class="n">Time</span>    <span class="n">Name</span>
+<span class="c1">---------  ---------- -----   ----</span>
+    <span class="mi">3267</span>  <span class="mi">05</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">2020</span> <span class="mi">23</span><span class="p">:</span><span class="mi">07</span>   <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="p">.</span><span class="n">dist</span><span class="o">-</span><span class="n">info</span><span class="o">/</span><span class="n">LICENSE</span><span class="p">.</span><span class="n">rst</span>
+    <span class="mi">108</span>  <span class="mi">05</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">2020</span> <span class="mi">23</span><span class="p">:</span><span class="mi">07</span>   <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="p">.</span><span class="n">dist</span><span class="o">-</span><span class="n">info</span><span class="o">/</span><span class="n">WHEEL</span>
+    <span class="mi">11</span>  <span class="mi">05</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">2020</span> <span class="mi">23</span><span class="p">:</span><span class="mi">07</span>   <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="p">.</span><span class="n">dist</span><span class="o">-</span><span class="n">info</span><span class="o">/</span><span class="n">top_level</span><span class="p">.</span><span class="n">txt</span>
+    <span class="mi">3267</span>  <span class="mi">05</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">2020</span> <span class="mi">23</span><span class="p">:</span><span class="mi">07</span>   <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="p">.</span><span class="n">dist</span><span class="o">-</span><span class="n">info</span><span class="o">/</span><span class="n">LICENSE</span>
+    <span class="mi">12659</span>  <span class="mi">05</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">2020</span> <span class="mi">23</span><span class="p">:</span><span class="mi">07</span>   <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="p">.</span><span class="n">dist</span><span class="o">-</span><span class="n">info</span><span class="o">/</span><span class="n">METADATA</span>
+    <span class="mi">53906</span>  <span class="mi">05</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">2020</span> <span class="mi">23</span><span class="p">:</span><span class="mi">07</span>   <span class="n">biopython</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">77</span><span class="p">.</span><span class="n">dist</span><span class="o">-</span><span class="n">info</span><span class="o">/</span><span class="n">RECORD</span>
+    <span class="p">...</span>
+    <span class="p">...</span>
+</pre></div>
+
+
+<p>(Note that <code>biopython</code> has <code>numpy</code> as dependency, but we already added that via a <em>Klayer</em>.)</p>
+<p>And now we have <code>biopython</code> running on our platform, awesome!</p>
+<p>If for some reason the package on PYPI does not have compatible <em>wheels</em>, as a last resource you can try to use <a href="https://github.com/lambci/docker-lambda">docker-lambda</a> to compile your own.</p>
+<blockquote>
+<p>You can use docker-lambda for running your functions in the same strict Lambda environment, knowing that they'll exhibit the same behavior when deployed live. You can also use it to compile native dependencies knowing that you're linking to the same library versions that exist on AWS Lambda and then deploy using the AWS CLI. [README]</p>
+</blockquote>
+<hr>
+<p>I hope this was useful and inspired you to get your own lambda working with your own favorite external library.</p>
+<p>You'll soon notice the possibilities are endless and you can do this for fun and profit (more below).</p>
+<p>Keep Calm and Code in Python!</p>
+<p>-- Bob</p>
+<hr>
+<p>Do you like what you've read so far? Do you have <strong>an idea</strong> you think you can develop into a <strong>SAAS product</strong> over time?</p>
+<p>We can help you turn your cool idea into a <strong>business</strong>. We have turned our Python knowledge into products, leveraging <strong>serverless</strong> technology like AWS Lambda along the way.</p>
+<p>And now we help our clients do the same.</p>
+<p>Let us help you design your app and guide you while you implement it. Talking is easy, even <em>Python exercising</em> can only push you that far. Coding (and designing) a <strong>complete product</strong> end-to-end is much harder.</p>
+<p>Ready to build your <strong>dream app</strong>? <a href="https://pybit.es/pages/apply.html">Book a <strong>strategy session</strong> with us</a>. We want to help you.</p>
+<p>Remember, the best time to plant a tree is yesterday.</p>
+
+
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'aws-lambda-external-libraries.html';
+                var disqus_url = 'https://pybit.es/aws-lambda-external-libraries.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/pages/100days.html">100 Days Of Code</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                              <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                              <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                            <li><a href="mailto:support@pybit.es" title="Contact us by email">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:support@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
