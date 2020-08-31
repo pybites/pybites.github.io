@@ -183,7 +183,7 @@
 <li>In <code>classifiers</code> you set the Python versions you support, here I use Python 3.x</li>
 <li>In <code>packages</code> you specify which directories to bundle up, here it's just <code>pytip</code>. Note that I called it <code>pytip</code> instead of <code>src</code>. I discovered that is how it ends up in your virtual environment's <code>site-packages</code>.</li>
 <li>In <code>install_requires</code> you specify any 3rd party dependencies, in this case <code>requests</code>. Note that this makes <code>requirements.txt</code> redundant, because <code>python setup.py install</code> will now pull it in automatically.</li>
-<li>And one of the coolest things I learned: <a href="https://stackoverflow.com/questions/4042905/what-is-main-py">__main__.py</a>, it allows you to run your package as a console script. So here <code>entry_points</code> &gt; <code>console_scripts</code> makes an alias <code>pytip</code> that points to <code>pytip</code> directory (package) &gt; <code>\_\_main\_\_</code> module &gt; <code>main</code> function which has some <code>argparse</code> logic to make this a CLI app (read much more about this in Erik's <a href="https://pybit.es/guest-exploring-python-clis.html">Exploring the Modern Python Command-Line Interface</a>). So when you pip install this package, you can just run <code>pytip</code>, how cool is that, no?!</li>
+<li>And one of the coolest things I learned: <a href="https://stackoverflow.com/questions/4042905/what-is-main-py"><strong>main</strong>.py</a>, it allows you to run your package as a console script. So here <code>entry_points</code> &gt; <code>console_scripts</code> makes an alias <code>pytip</code> that points to <code>pytip</code> directory (package) &gt; <code>__main__</code> module &gt; <code>main</code> function which has some <code>argparse</code> logic to make this a CLI app (read much more about this in Erik's <a href="https://pybit.es/guest-exploring-python-clis.html">Exploring the Modern Python Command-Line Interface</a>). So when you pip install this package, you can just run <code>pytip</code>, how cool is that, no?!</li>
 </ul>
 <h2>Wheels and PyPI</h2>
 <p>This is 80% of the battle. Uploading it to PyPI is actually very easy.</p>
@@ -236,9 +236,11 @@
 </ul>
 <h2>"Modern" Python</h2>
 <p>Setup.py is still the way to go in many cases, but <a href="https://python-poetry.org/">Poetry</a> and the standardized <code>toml</code> file is a strong contender.</p>
-<p>Check it out for yourself:
-- <a href="https://snarky.ca/what-the-heck-is-pyproject-toml/">What the heck is pyproject.toml</a>
-- <a href="https://github.com/PyBites-Open-Source/karmabot">We (Patrick G) used it in our own Karmabot</a></p>
+<p>Check it out for yourself:</p>
+<ul>
+<li><a href="https://snarky.ca/what-the-heck-is-pyproject-toml/">What the heck is pyproject.toml</a></li>
+<li><a href="https://github.com/PyBites-Open-Source/karmabot">We (Patrick G) used it in our own Karmabot</a></li>
+</ul>
 <hr>
 <p>Keep Calm and Code in Python!</p>
 <p>-- Bob</p>
