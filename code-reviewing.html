@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="We originally sent the following 10 tips to our Friends List; we got requests to post it here for reference, so here you go ... Ever wondered what you could learn from a code review? Here are some...">
+        <meta name="description" content="We originally sent the following 10 tips to our Friends List and we received requests to post it here for reference, so here you go ... Ever wondered what you could learn from a code review? Here...">
         <meta name="keywords" content="best practices, clean code, code reviewing, software development, software quality">
         <link rel="icon" href="https://pybit.es/favicon.ico">
 
@@ -156,7 +156,7 @@
 
         <!-- Content -->
     <div class="container content">
-        <p><em>We originally sent the following 10 tips to our <a href="https://pybit.es/pages/friends">Friends List</a>; we got requests to post it here for reference, so here you go ...</em></p>
+        <p><em>We originally sent the following 10 tips to our <a href="https://pybit.es/pages/friends">Friends List</a> and we received requests to post it here for reference, so here you go ...</em></p>
 <p>Ever wondered what you could learn from a code review?</p>
 <p>Here are some things we picked up from code reviews that when addressed can make your code a lot cleaner:</p>
 <ol>
@@ -168,11 +168,11 @@
 <p>Move <em>magic numbers</em> sprinkled in your code, to constants (at the top of your module) - again easier to reuse, more readable, less surprises later on.</p>
 </li>
 <li>
-<p>Watch out for anything that you put in the global scope, localize variables (data) as much as possible - less unexpected side consequences.</p>
+<p>Watch out for anything that you put in the global scope, localize variables (data) as much as possible and you'll have less unexpected side consequences.</p>
 </li>
 <li>
-<p>Use <code>flake8</code> (or <code>black</code>) - more consistent (<a href="https://pep8.org/">PEP8</a> compliant code) is easier to read and earns you more respect from fellow developers (also remember: "how you do the small things determines how you do the big things" - very true with software development).</p>
-<p>This also goes back to developers writing code not only for machines, but also (and more importantly) for other developers. Really long lines might annoy your colleagues that use vsplit to look at multiple code files at once.</p>
+<p>Use <code>flake8</code> (or <code>black</code>) - more consistent, (<a href="https://pep8.org/">PEP8</a> compliant code) is easier to read and earns you more respect from fellow developers (also remember: "how you do the small things determines how you do the big things" - very true with software development).</p>
+<p>This  goes back to developers writing code not only for machines, but also (and more importantly) for other developers. E.g.: really long lines might annoy your colleagues that use vsplit to look at multiple code files at once.</p>
 </li>
 <li>
 <p>Keep <code>try/except</code> blocks narrow (ask yourself: "Are all those lines in between really going to throw this exception?!") and avoid <em>bare exceptions</em> or just using pass or reraising an exception without additional error handling code (e.g. at least log the error).</p>
@@ -192,7 +192,7 @@
 <p>Long <code>if-elif-elif-elif-elif-else</code>'s are quite ugly and hard to maintain. You can beautifully refactor those using dictionaries (mappings) - less lines of code, easier to maintain.</p>
 </li>
 <li>
-<p>Flat is better than nested (<a href="https://en.wikipedia.org/wiki/Zen_of_Python">Zen of Python</a>, btw pipe <code>import this</code> to your printer now ...) - closely related to number 1., but worth emphasizing: if you have a for in a for, and the inner for has a bunch of nested ifs, it's time to rethink what you are trying to do, because this code will be very hard to test and maintain in the future.</p>
+<p>Flat is better than nested (<a href="https://en.wikipedia.org/wiki/Zen_of_Python">Zen of Python</a>. Go send <code>import this</code> to your printer now and keep it handy) - closely related to number 1., but worth emphasizing: if you have a <code>for</code> in a <code>for</code>, and the inner for has a bunch of nested ifs, it's time to rethink what you are trying to do. This code will be very hard to test and maintain in the future.</p>
 </li>
 </ol>
 <p>Hope that helps! What cool tips have you learned from going through code reviews? Comment below ...</p>
