@@ -8,7 +8,7 @@
         <meta name="keywords" content="argparse, bash, importlib, inspect, pathlib, pydoc, source code, Standard Library, vim">
         <link rel="icon" href="https://pybit.es/favicon.ico">
 
-        <title>Get to Python source code instantly using inspect and importlib - PyBites</title>
+        <title>Get to Python source code instantly using importlib and inspect - PyBites</title>
 
         <!-- Stylesheets -->
         <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
@@ -136,7 +136,7 @@
         <div class="row">
               <div class="col-lg-12">
                   <div class="header-content">
-                      <h1 class="header-title">Get to Python source code instantly using inspect and importlib</h1>
+                      <h1 class="header-title">Get to Python source code instantly using importlib and inspect</h1>
                       <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Mon 14 December 2020,  <a href="https://pybit.es/category/tools.html">Tools</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
@@ -159,17 +159,12 @@
         <p>Have you ever wondered how to get Python source code quickly? It turns out the Standard Library can do this pretty effortlessly. Here is some code to read more Python source.</p>
 <h2>The code</h2>
 <p>The source is <a href="https://gist.github.com/pybites/87318a06c8cfef8b40ddd1967768a446">here</a>:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3.9</span>
-<span class="kn">import</span> <span class="nn">argparse</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">importlib</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">pydoc</span>
 </pre></div>
-</td></tr></table>
+
 
 <p>Here is where the magic happens (credit to <a href="https://stackoverflow.com/a/8790232">this Stack Overflow</a> thread): we use <code>importlib</code> to import the module from a string and get the class or function from this imported module using <code>getattr</code>:</p>
 <div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">get_callable</span><span class="ss">(</span><span class="nv">arg</span><span class="ss">)</span>:
@@ -189,7 +184,7 @@
 <hr>
 <p>To make it stick, check out <a href="https://codechalleng.es/tips/import-module-from-a-string">another example of <code>importlib.import_module</code></a> and <a href="https://codechalleng.es/tips/read-in-source-code">here is another example of <code>inspect</code></a>.</p>
 <hr>
-<p>Lastly <a href="https://codechalleng.es/tips/if-name-main">under <code>if __name__ == "__main__":</code></a> we handle command line arguments. We require a <code>module(.submodule).name</code> for which we want to see the source and we have an optional <code>pager</code> argument. Then we call the 2 functions.</p>
+<p>Lastly <a href="https://codechalleng.es/tips/if-name-main">under <code>if __name__ == "__main__":</code></a> we handle command line arguments. We require a <code>module(.submodule).name</code> for which we want to see the source and we have an optional <code>pager</code> argument. Then we call the two functions:</p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="nv">__name__</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s">__main__</span><span class="s2">&quot;</span>:
     <span class="nv">parser</span> <span class="o">=</span> <span class="nv">argparse</span>.<span class="nv">ArgumentParser</span><span class="ss">(</span><span class="nv">description</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">Read Python source.</span><span class="s1">&#39;</span><span class="ss">)</span>
     <span class="nv">parser</span>.<span class="nv">add_argument</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">-m</span><span class="s2">&quot;</span>, <span class="s2">&quot;</span><span class="s">--module</span><span class="s2">&quot;</span>, <span class="nv">required</span><span class="o">=</span><span class="nv">True</span>, <span class="nv">dest</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">module</span><span class="s1">&#39;</span>,
@@ -205,12 +200,12 @@
 
 <p>(I used <code>sys.argv</code> in my first iteration, but <code>argparse</code> makes this so much more cleaner and extensible! Of course <a href="https://pybit.es/guest-exploring-python-clis.html">there are more options</a> as well ...)</p>
 <h2>Calling it from within Vim</h2>
-<p>I stored this script in my <code>$HOME/bin</code> folder and <a href="https://michaelabrahamsen.com/">Michael</a> was so kind to come up with this alias and gif demo:</p>
-<div class="highlight"><pre><span></span><span class="nv">autocmd</span> <span class="nv">FileType</span> <span class="nv">python</span> <span class="nv">map</span> <span class="o">&lt;</span><span class="nv">leader</span><span class="o">&gt;</span><span class="nv">py</span> :<span class="k">exec</span> <span class="s1">&#39;</span><span class="s">!$HOME/bin/pysource.py &lt;C-R&gt;&lt;C-A&gt;</span><span class="s1">&#39;</span><span class="o">&lt;</span><span class="nv">CR</span><span class="o">&gt;</span>
+<p>I stored this script in my <code>$HOME/bin</code> folder and <a href="https://michaelabrahamsen.com/">Michael</a> was so kind to come up with an alias to use it in Vim:</p>
+<div class="highlight"><pre><span></span><span class="nv">autocmd</span> <span class="nv">FileType</span> <span class="nv">python</span> <span class="nv">map</span> <span class="o">&lt;</span><span class="nv">leader</span><span class="o">&gt;</span><span class="nv">py</span> :<span class="k">exec</span> <span class="s1">&#39;</span><span class="s">!python3.9 $HOME/bin/pysource.py -m &lt;C-R&gt;&lt;C-A&gt;</span><span class="s1">&#39;</span><span class="o">&lt;</span><span class="nv">CR</span><span class="o">&gt;</span>
 </pre></div>
 
 
-<p>So when you are on a <code>module.class</code> or <code>module.function</code> it calls the script:</p>
+<p>He even made this nice little gif demo how it calls the script when you press <code>&lt;leader&gt;py</code> when you are on <code>module.class</code> or <code>module.function</code>:</p>
 <p><img alt="demo of this script" src="https://pybit.es/images/pysource-example.gif"></p>
 <p>Here we actually wanted to know how <code>pathlib</code> did operator overloading (answer: it implements <code>__truediv__</code>).</p>
 <p>Of course you can also just call it from the command line:</p>
