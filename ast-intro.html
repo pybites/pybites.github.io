@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Index What is an Abstract Syntax Tree (AST)? The ast Python module and its use Using the ast module to investigate the PyBites Bite exercises builtins popularity Modules popularity Dissecting an...">
+        <meta name="keywords" content="ast, data structures, Mutpy, Syntax Tree">
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+
+        <title>Abstract Syntax Trees in Python - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/concepts.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '767652523960315');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=767652523960315&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+
+                        <div class="dropdown">
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/friends"
+                                >PyBites Friends</a>
+                                <a href="/community"
+                                >PyBites Community</a>
+                                <a href="/archives"
+                                >PyBites Articles</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >PyBites Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro Course</a>
+                                <a href="/category/challenges"
+                                >Blog Code Challenges</a>
+                                <a href="/100days"
+                                >100 Days of Code</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >PyBites Platform</a>
+                                <a href="https://members.pybit.es/offers/mfFWRKHG/checkout"
+                                    target="_blank"
+                                >Python Intro Course</a>
+                                <a href="https://pybit.es/tips"
+                                    target="_blank"
+                                >Python Tips Book</a>
+                                <a href="/talk"
+                                >PyBites Career Advice</a>
+                                <a href="https://pybitesdevelopermindset.com/"
+                                    target="_blank"
+                                >Build Bigger Apps</a>
+                                <a href="/pages/schools"
+                                >PyBites in the Classroom</a>
+                                <a href="/pages/enterprise"
+                                >PyBites in Your Team</a>
+                                <a href="/pages/recruiting"
+                                >PyBites for Interviewing</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <a href="https://www.pybitespodcast.com/" id="workshopButton">PyBites Podcast</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Abstract Syntax Trees in Python</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/alessandro-finamore.html">Alessandro Finamore</a>, Sat 20 February 2021,  <a href="https://pybit.es/category/concepts.html">Concepts</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/ast.html">ast</a>, <a href="https://pybit.es/tag/data-structures.html">data structures</a>, <a href="https://pybit.es/tag/mutpy.html">Mutpy</a>, <a href="https://pybit.es/tag/syntax-tree.html">Syntax Tree</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h2>Index</h2>
+<ul>
+<li><a href="#what-is-an-abstract-syntax-tree-ast">What is an Abstract Syntax Tree (AST)?</a></li>
+<li><a href="#the-ast-python-module-and-its-use">The <code>ast</code> Python module and its use</a></li>
+<li><a href="#using-the-ast-module-to-investigate-the-pybites-bite-exercises">Using the <code>ast</code> module to investigate the PyBites Bite exercises</a><ul>
+<li><a href="#builtins-popularity"><code>builtins</code> popularity</a></li>
+<li><a href="#modules-popularity">Modules popularity</a></li>
+</ul>
+</li>
+<li><a href="#dissecting-an-assignment-instruction-using-the-ast-module">Dissecting an assignment instruction using the <code>ast</code> module</a><ul>
+<li><a href="#the-moduletype_ignores-attribute-and-type-comments">The <code>Module.type_ignores</code> attribute and type comments</a></li>
+</ul>
+</li>
+<li><a href="#the-ast-module-apis">The <code>ast</code> module APIs</a><ul>
+<li><a href="#visiting-an-ast">Visiting an AST</a></li>
+<li><a href="#modifying-an-ast">Modifying an AST</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Requirement</strong>: All examples are compatible with at least Python v3.6, except for using <code>ast.dump()</code> with the attribute <code>indent=</code> which has been added in Python v3.9. </p>
+</blockquote>
+<p><a name="what-is-an-abstract-syntax-tree-ast"></a></p>
+<h2>What is an Abstract Syntax Tree (AST)?</h2>
+<p>An Abstract Syntax Tree (AST) is a data structure used to reason about the grammar of a programming language in the context of the instructions provided into source code.</p>
+<p><img alt="From source code to binary" src="images/astintro/pipeline.png"></p>
+<p>For instance, compilers use ASTs when transforming source code into binary code:</p>
+<ol>
+<li>
+<p>Given some text source code, the compiler first tokenizes the text to identify programming language keywords, variables, literals, etc. Each token represents an "atom" of an instruction.</p>
+</li>
+<li>
+<p>Tokens are then rearranged into an AST, a tree where nodes are the "atoms" of the instructions, and edges the relationships between the atoms based on the programming language grammar. For instance, the AST make explicit the presence of a function call, the related input arguments, the instructions composing the function, etc.</p>
+</li>
+<li>
+<p>The compiler then can apply multiple optimizations to the AST, and ultimately converts it into binary code.</p>
+</li>
+</ol>
+<p>Despite their role for compilers, ASTs are useful for a broader set of use-cases. Let's discuss this more in details.</p>
+<p><a name="the-ast-python-module-and-its-use"></a></p>
+<h2>The <code>ast</code> Python module and its use</h2>
+<p>The <code>ast</code> module in the Python standard library can be used to create, visit, and modify AST related to Python source code. It has been introduced in <a href="https://docs.python.org/release/2.6/whatsnew/2.6.html#the-ast-module">Python 2.6</a>, and since then it evolved alongside the Python grammar.</p>
+<p>Even if it is part of standard library since a long time, it is not common to use it <em>directly</em>. Rather, you might have used it <em>indirectly</em> as popular tools use it under-the-hood:</p>
+<ul>
+<li>
+<p><strong>code testing</strong>: <a href="https://pypi.org/project/MutPy/"><code>mutpy</code></a> is a mutation testing tool used to alters the code under testing to broaden the set of tests in an automated fashion. In practice a mutation is an artificial modification of the AST generated from the code under testing. To see how PyBites uses <code>mutpy</code>, check out <a href="https://pybit.es/guest-mutpy-exploration.html">this article</a>.</p>
+</li>
+<li>
+<p><strong>code coverage</strong>: <a href="https://pypi.org/project/vulture/"><code>vulture</code></a> is a static code analyzer that studies an AST to identify portion of the code not used.</p>
+</li>
+<li>
+<p><strong>code vulnerabilities</strong>: <a href="https://pypi.org/project/bandit/"><code>bandit</code></a> uses the AST representation to identify security vulnerabilities.</p>
+</li>
+<li>
+<p><strong>code autocompletion</strong>: <a href="https://pypi.org/project/jedi/"><code>jedi</code></a> is an IDE and text editors autocompletion tool relying on the <code>ast</code> module functionality to safely evaluate expressions.</p>
+</li>
+<li>
+<p><strong>code reformating</strong>: <a href="https://pypi.org/project/black/"><code>black</code></a> and <a href="https://pypi.org/project/flake8/"><code>flake8</code></a> are two popular tools to enforce code reformatting, and they both use an AST representation of the source code to apply their formatting rules.</p>
+</li>
+</ul>
+<p><a name="using-the-ast-module-to-investigate-the-pybites-bite-exercises"></a></p>
+<h2>Using the <code>ast</code> module to investigate the PyBites Bite exercises</h2>
+<p>Still not convinced of the relevance of an AST? Fair enough: let's consider a more practical, and closer to the PyBites Platform, use-case.</p>
+<p>The PyBites Platform is currently offering 300+ Bite exercises, and the number is constantly increasing. Given the (semi)hidden intention of the platform is to offer a varied set of challenges covering different Python modules and functionalities, it starts to be more and more challenging to identify what is covered by already available exercises, and what is instead left to explore.</p>
+<p>This is where we can take advantage of the <code>ast</code> module. Specifically, we can process the source code of the solution of the exercises (as provided by the authors of the challenges) and recover some statistics about their content. For instance, which are the popular modules and builtin functions used.</p>
+<p>Here some of the results.</p>
+<p><a name="builtins-popularity"></a></p>
+<h3>Builtins popularity</h3>
+<p><img src="images/astintro/plot_builtins.png" alt="Pybites exercises - builtins popularity" height="600px"></p>
+<p>The histogram above shows the Python builtin calls sorted by their popularity. In other words, using the <code>ast</code> module one can detect when a function call has been made, and if it relates to the <code>builtins</code> module or not. Three colors are used to visually distinguish between exception types, the creation of base types (<code>int</code>, <code>float</code>, <code>bool</code>, <code>list</code>, and <code>set</code>), or other functions. The histogram is a normalized frequency count, i.e., the frequency of each element is cumulated across all exercises, and divided by the sum of all elements occurrence across all exercises.</p>
+<p>A few observations:</p>
+<ul>
+<li>The distribution is heavy tailed, with <code>len()</code> representing 13.4% of all builtin calls, while <code>dir()</code> being used only once. </li>
+<li>All five base types are used, but <code>bool()</code> is used only in 1 challenge.</li>
+<li>Only 5 of the standard exceptions are used, with <code>ValueError</code> being the most common.</li>
+<li>Most of the builtin functions are already used by exercises, but considering the <a href="https://docs.python.org/3/howto/functional.html">functional programming calls</a> you can notice that <code>map()</code> appears while <code>filter()</code> does not (as indeed the common practice is to prefer <a href="https://realpython.com/list-comprehension-python/#profile-to-optimize-performance">list comprehension</a>).</li>
+</ul>
+<p><a name="modules-popularity"></a></p>
+<h3>Modules popularity</h3>
+<p><img src="images/astintro/plot_modules.png" alt="Pybites exercises - modules popularity" height="600px"></p>
+<p>The histogram above shows the ranking for modules. For simplicity we limit to report on the root modules only. If submodules are used, their frequencies are cumulated into the frequency of the respective root modules.</p>
+<p>As before, the histogram is heavy tailed, a testament that the PyBites Bite exercises try to "cover a little bit of everything".</p>
+<p>We can observe the presence of non-standard modules, such as <code>pandas</code> and <code>pytest</code>, as well more ad-hoc modules such as as <code>zodiac</code> and <code>fibonacci</code> that are created for the purpose of the challenges themselves.</p>
+<p>One can easily expand the analysis to understand the functions used in each module/submodule, as well as dive into more specific analysis. What is relevant to highlight is that the results reported here are generated with about 50 lines of Python code and using <code>ast</code> module. Processing the 300+ source code files with tools like <a href="https://www.gnu.org/software/gawk/manual/gawk.html"><code>awk</code></a>, <a href="https://www.gnu.org/software/grep/"><code>grep</code></a>, or anything else would have been significantly harder.</p>
+<p>Hopefully this examples gave you a rough idea of what you can achieve with an AST. The next step is to understand how to create such data structures, and investigate their composition.</p>
+<p><a name="dissecting-an-assignment-instruction-using-the-ast-module"></a></p>
+<h2>Dissecting an assignment instruction using the <code>ast</code> module</h2>
+<p>To start familiarize with the <code>ast</code> module, let's see what happens when we analyze a single instruction: <code>one_plus_two = 1+2</code></p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ast</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;one_plus_two = 1+2&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ast</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Module</span><span class="p">(</span>
+    <span class="n">body</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;one_plus_two&#39;</span><span class="p">,</span> <span class="n">ctx</span><span class="o">=</span><span class="n">Store</span><span class="p">())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Add</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">)))],</span>
+    <span class="n">type_ignores</span><span class="o">=</span><span class="p">[])</span>
+</pre></div>
+
+
+<p>It might not be obvious at first, but the output generated by <code>ast.dump()</code> is actually a tree:
+- The words starting with capital letter are nodes of the tree.
+- The attributes of the nodes are either edges of the tree or metadata.</p>
+<p>Let's rework the output into a diagram with the following conventions:
+- One rectangle for each node, marking in bold the related node type.
+- Node attributes collecting metadata are reported in blue.
+- Other node attributes are annotated with their type.
+- Nodes are connected based on their attributes.</p>
+<p><img alt="AST sketch" src="images/astintro/tree-sketch.png"></p>
+<p>With this visualization at hand we can observe a few things.</p>
+<p>The root of the tree is a <code>Module</code> node. In fact, even if our example is a single line program, it is still a true Python module. The node contains two attributes <code>body</code> and <code>type_ignores</code>. Let's put the aside <code>type_ignores</code> for a moment and focus on <code>body</code>.</p>
+<p>As a Python module contains a series of instructions, the <code>Module.body</code> attribute is a list of nodes, one for each instruction in the program. Our example consists of a single assignment operation, hence <code>Module.body</code> contains only one <code>Assign</code> node.</p>
+<p>An assignment operation has a <em>right-hand side</em> specifying the <em>operation</em> to perform, and a <em>left-hand side</em> specifying the <em>destination</em> of the operation. The two sides are associated to the <code>Assign.value</code> and <code>Assign.targets</code> attributes of the <code>Assign</code> node.</p>
+<p>Considering the right-hand side, the <code>Assign.value</code> attribute is a <code>BinOp</code> node, since the instruction is a binary operation between two operands, which is fully specified with three attributes: </p>
+<ul>
+<li><code>BinOp.op</code> is a <code>Add</code> node given we are performing an addition.</li>
+<li><code>BinOp.left</code> and <code>BinOp.right</code> are the addition operands and consist of <code>Constant</code> nodes, each holding the raw value in the <code>Constant.value</code> attribute.</li>
+</ul>
+<p>Considering the left-side, as Python supports multiple assignments and tuple unpacking, the <code>Assign.targets</code> attribute is a list collecting the different destinations of the operation. In our case the assignment is for a single variable, so a single <code>Name</code> node is used. In turn, the <code>Name</code> node has 2 attributes:</p>
+<ul>
+<li><code>Name.id</code> stores the name of the variable used in the program (<code>"one_plus_two"</code>). </li>
+<li><code>Name.ctx</code> specifies how variable reference is used in the program. This can only be one of types <code>ast.Load</code>, <code>ast.Remove</code> or <code>ast.Store</code>, but those are always empty nodes. </li>
+</ul>
+<p><a name="the-moduletype_ignores-attribute-and-type-comments"></a></p>
+<h3>The <code>Module.type_ignores</code> attribute and type comments</h3>
+<p>The attribute <code>Module.type_ignores</code> in the vast majority of the cases is going to be an empty list. This is why in the sketch is colored in blue. To understand why this is the case and what is the actual purpose of the attribute, we need to make a digression.</p>
+<p>Python 3.0 introduced annotations, and few years later those have been expanded into type hints. If you are not familiar with those concepts, check this <a href="https://realpython.com/lessons/type-comments/">Real Python tutorial</a> and the <a href="https://docs.python.org/3/library/typing.html?highlight=typing#module-typing">official doc</a>.</p>
+<p>Those changes were not back ported to Python 2, which instead was using <strong>type comments</strong> as a form of annotation. For more information, see <a href="https://www.python.org/dev/peps/pep-0484/#type-comments">PEP 484</a> or this <a href="https://realpython.com/lessons/type-comments/">Real Python tutorial</a>.</p>
+<p>The attribute <code>Module.type_ignores</code> refers to a special type comment <code># type: ignore</code> that was used to indicate to type checker (such as <a href="http://mypy-lang.org">mypy</a>) to suppress errors if one was found. For legacy reasons, the <code>ast</code> module is still reporting on those comments, but <em>only when asked</em> to do so.</p>
+<p>Let's see an example.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">code</span> <span class="o">=</span> <span class="c">&#39;one_plus_two = 1+2 # type: int&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">type_comments</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="n">ast</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">Module</span><span class="p">(</span>
+    <span class="n">body</span><span class="o">=[</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;one_plus_two&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Add</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+            <span class="n">type_comment</span><span class="o">=</span><span class="c">&#39;int&#39;)],</span>
+    <span class="n">type_ignores</span><span class="o">=[]</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Notice that the only difference with respect to the detailed analysis of the AST previously discussed is the presence of the attribute <code>Assign.type_comment='int'</code>. The attribute reflects the metadata provided by type comment <code># type: int</code>, and is added to the AST tree <code>Assign</code> node because we specified <code>type_comment=True</code> when triggering the parsing. </p>
+<p>However, <code># type: ignore</code> is treated differently. Those type comments are stored into the <code>Module.type_ignores</code> attribute as <code>TypeIgnore</code> objects rather than being collected as metadata in the inner nodes of the tree.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">code</span> <span class="o">=</span> <span class="c">&#39;one_plus_two = 1+2 # type: ignore&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">type_comments</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">print</span><span class="p">(</span><span class="n">ast</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">Module</span><span class="p">(</span>
+    <span class="n">body</span><span class="o">=[</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;one_plus_two&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Add</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">)))</span><span class="o">]</span><span class="p">,</span>
+    <span class="n">type_ignores</span><span class="o">=[</span>
+        <span class="n">TypeIgnore</span><span class="p">(</span><span class="n">lineno</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="c">&#39;&#39;)])</span>
+</pre></div>
+
+
+<p><a name="the-ast-module-apis"></a></p>
+<h2>The <code>ast</code> module APIs</h2>
+<p>The <code>ast</code> module is mostly a large collection of classes, one for each of the different aspects of the Python grammar. Overall, there are about 100 classes, ranging from literals, to more complex construct such as list comprehensions.</p>
+<p><code>ast.AST</code> is the base class for all other classes in the module, and it defines the following base attributes for all AST nodes:
+- <code>lineno</code>, <code>col_offset</code>, <code>end_lineno</code>, and <code>end_col_offset</code> are used to track the precise position of the related instruction in the source code.
+- <code>_fields</code> contains the list of attribute names (you can think that is a list of "children" names).</p>
+<p>When dealing with an AST the trickiest part is understanding nodes and attributes semantic. In fact, there are a lot of variants and corner cases, so it is easy to get confused.</p>
+<p>A good way to start to familiarize with an AST is to use an interactive console such as <a href="https://ipython.org"><code>ipython</code></a> similarly to what we did in the previous examples. If you are used to an IDE, both <a href="https://plugins.jetbrains.com/plugin/227-psiviewer">PyCharm</a> and <a href="https://marketplace.visualstudio.com/items?itemName=azeemba.python-ast-preview">Visual Studio Code</a> provide plugins to visualize an AST (notice that PyCharm uses its own version of AST called <a href="https://plugins.jetbrains.com/docs/intellij/psi.html">Program Structure Interface - PSI</a>)</p>
+<p>No matter your preferred choice, the documentation is a fundamental resource to keep at hand. Yet, a couple of remarks:
+- Given that the Python language is in constant evolution, make sure to use the <a href="https://docs.python.org/3/library/ast.html?highlight=ast">most recent version of the Python doc</a>.
+- The official documentation also suggests to consult <a href="https://greentreesnakes.readthedocs.io/">Green Tree Snake</a>, which indeed does a good job at complementing the official documentation on parts that that otherwise would seem "dry" of details.</p>
+<p>Beside the classes, the <code>ast</code> module defines how to perform a visit of a tree, and how to do transformations.</p>
+<p><a name="visiting-an-ast"></a></p>
+<h3>Visiting an AST</h3>
+<p>You can visit an AST in two ways: using helper functions, or via an <code>ast.NodeVisitor</code> class.</p>
+<p>Let's starts reviewing the helper functions:
+- <code>ast.walk()</code> visit the specified node, and <em>recursively</em> all its descendant, but in a non specified order.
+- <code>ast.iter_fields()</code> and <code>ast.iter_child_nodes()</code> are similar to <code>.items()</code> and <code>.keys()</code> of a <code>dict</code> data structure, but applied to a specific node only, and they are <em>not recursive.</em></p>
+<p>Here some examples:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">ast</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;one_plus_two = 1+2&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">Module</span>
+<span class="n">Assign</span>
+<span class="n">Name</span>
+<span class="n">BinOp</span>
+<span class="n">Store</span>
+<span class="n">Constant</span>
+<span class="n">Add</span>
+<span class="n">Constant</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">iter_fields</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="n">body</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">_ast</span><span class="o">.</span><span class="n">Assign</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10c60be80</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">type_ignores</span> <span class="p">[]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">iter_child_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">Assign</span>
+</pre></div>
+
+
+<p>When using an <code>ast.NodeVisitor</code> instead, one can register specific callbacks to trigger when visiting specific node types. </p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">BinOpVisitor</span>(<span class="n">ast</span>.<span class="n">NodeVisitor</span>):
+
+    <span class="n">def</span> <span class="n">visit_BinOp</span>(<span class="k">self</span>, <span class="n">node</span>):
+        <span class="nb">print</span>(<span class="n">f&#39;found</span> <span class="n">BinOp</span> <span class="n">at</span> <span class="n">line:</span> {<span class="n">node</span>.<span class="n">lineno</span>}&#39;)
+        <span class="k">self</span>.<span class="n">generic_visit</span>(<span class="n">node</span>)
+</pre></div>
+
+
+<p>In this example: 
+- We define a class <code>BinOpVisitor</code> extending the <code>ast.NodeVisitor</code>.
+- We register a callback to be triggered when <code>ast.BinOp</code> nodes are visited. The name of callback is always <code>visit_XYZ</code> where <code>XYZ</code> is one of the predefined node types name (<code>BinOp</code> in our case).
+- When the callback is invoked it receives the reference of the node under analysis. In this example we use the node info to print the line number of the instruction it relates to.
+- Finally, we invoke <code>self.generic_visit(node)</code> to propagate the visit on the children of the input node.</p>
+<p>What sort of <em>black magic</em> happens behind the scene to trigger the callbacks? It is actually simple.  A <code>ast.NodeVisitor</code> also defines a <code>visit()</code> function which is always invoked first: if the input node type matches one of the callbacks, such callback is called, otherwise <code>generic_visit()</code> is invoked to visit the node children. In our example we are not overwriting <code>visit()</code>, hence we can trigger a visit of the tree simply invoking the method:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">vis</span> <span class="o">=</span> <span class="n">BinOpVisitor</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">vis</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Here the complete example:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ast</span>
+
+<span class="k">class</span> <span class="nc">BinOpVisitor</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">visit_BinOp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;found BinOp at line: {node.lineno}&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+
+<span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">left_op = 1</span>
+<span class="s2">right_op = 2</span>
+<span class="s2">sum_two_things = left_op + right_op</span>
+<span class="s2">other_sum = sum_two_things - 1</span>
+
+<span class="s2">print(sum_two_things)</span>
+<span class="s2">print(other_sum)</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;=== full AST ===&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="k">print</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;=== visit ===&quot;</span><span class="p">)</span>
+<span class="n">vis</span> <span class="o">=</span> <span class="n">BinOpVisitor</span><span class="p">()</span>
+<span class="n">vis</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Running the program we obtain the following output:</p>
+<div class="highlight"><pre><span></span><span class="o">===</span> <span class="n">full</span> <span class="n">AST</span> <span class="o">===</span>
+<span class="n">Module</span><span class="p">(</span>
+    <span class="n">body</span><span class="o">=[</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;left_op&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;right_op&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;left_op&#39;, ctx=Load()),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Add</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;right_op&#39;, ctx=Load()))),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;other_sum&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Load()),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Sub</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">))),</span>
+        <span class="n">Expr</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="k">Call</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;print&#39;, ctx=Load()),</span>
+                <span class="n">args</span><span class="o">=[</span>
+                    <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Load())],</span>
+                <span class="n">keywords</span><span class="o">=[]</span><span class="p">)),</span>
+        <span class="n">Expr</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="k">Call</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;print&#39;, ctx=Load()),</span>
+                <span class="n">args</span><span class="o">=[</span>
+                    <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;other_sum&#39;, ctx=Load())],</span>
+                <span class="n">keywords</span><span class="o">=[]</span><span class="p">))</span><span class="o">]</span><span class="p">,</span>
+    <span class="n">type_ignores</span><span class="o">=[]</span><span class="p">)</span>
+
+<span class="o">===</span> <span class="n">visit</span> <span class="o">===</span>
+<span class="n">found</span> <span class="n">BinOp</span> <span class="n">at</span> <span class="n">line</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">found</span> <span class="n">BinOp</span> <span class="n">at</span> <span class="n">line</span><span class="p">:</span> <span class="mi">5</span>
+</pre></div>
+
+
+<p><a name="modifying-an-ast"></a></p>
+<h3>Modifying an AST</h3>
+<p>A <code>ast.NodeTransformer</code> can be used as base class for a transformers, similarly to the logic used for the visitor class. This time, rather than simply visiting the nodes, the callbacks are used to modify, replace, add new nodes.</p>
+<p>Here an example:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">class</span> <span class="nc">ConstantTransformer</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeTransformer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">visit_Constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">new_value</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;replacing constant {node.value} -&gt; {new_value} at lineno: {node.lineno}&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_node</span>
+</pre></div>
+
+
+<p>In this example:
+- We registered a callback to be triggered when handing a <code>ast.Constant</code> node.
+- The callback generates a random number between (-10, 10), creates a new <code>ast.Constant()</code> node with the generated value, and reports a message on the standard output.
+- Finally, it returns the reference of the new node.</p>
+<p>The reference returned by the callbacks represent the node to use in the AST. In this example we are replacing the original node. When returning <code>None</code> instead, the visited node is removed from the tree.</p>
+<p>To trigger the transformation, we use the same operation used for the visit. This time the visit returns the reference of the tree modified:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">vis</span> <span class="o">=</span> <span class="n">ConstantTransformer</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">new_tree</span> <span class="o">=</span> <span class="n">vis</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Here the full example:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">class</span> <span class="nc">ConstantTransformer</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeTransformer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">visit_Constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">new_value</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;replacing constant {node.value} -&gt; {new_value} at lineno: {node.lineno}&#39;</span><span class="p">)</span>
+        <span class="n">new_node</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_node</span>
+
+<span class="k">def</span> <span class="nf">exec_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;=== AST ===&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>
+
+    <span class="n">tree_fixed</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">fix_missing_locations</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="n">code_obj</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">tree_fixed</span><span class="p">,</span> <span class="s1">&#39;&lt;string&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">)</span>
+    <span class="k">exec</span><span class="p">(</span><span class="n">code_obj</span><span class="p">)</span>
+
+<span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">left_op = 1</span>
+<span class="s2">right_op = 2</span>
+<span class="s2">sum_two_things = left_op + right_op</span>
+<span class="s2">other_sum = sum_two_things - 1</span>
+
+<span class="s2">print(sum_two_things)</span>
+<span class="s2">print(other_sum)</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="n">exec_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+
+<span class="c1">## fix seed</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1">## apply the transformations</span>
+<span class="n">vis</span> <span class="o">=</span> <span class="n">ConstantTransformer</span><span class="p">()</span>
+<span class="n">new_tree</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The source code in <code>code</code> is the same as the one used to do a simple visit. Likewise, the process to generate the related tree.</p>
+<p>Then we fix a seed for the random number generator via <code>random.seed()</code>, so to have consistent output when running the program multiple times.</p>
+<p>We create a <code>ConstantTransformer()</code> object, and we visit it obtaining <code>new_tree</code>, which is a transformed version of the original tree.</p>
+<p>To verify the transformations, we can print the AST, and "run it" by transforming into executable code. To do so, we use the helper function <code>exec_tree()</code>:
+- We start printing the content of the tree using <code>ast.dump()</code> as seen in previous examples.
+- We then apply <code>ast.fix_missing_locations()</code> to the tree. Each node in the AST is indeed expected to have <code>lineno</code> filled, but rather than filling it when doing the transformations, the helper function <code>ast.fix_missing_locations()</code> allows to delay this fix until the compilation is required.
+- Finally, the builtin function <code>compile()</code> is used to transform the AST to a code object, which in turn is executed calling the builtin <code>exec()</code>.</p>
+<p>Here the output related to <code>exec_tree(tree)</code>:</p>
+<div class="highlight"><pre><span></span><span class="o">===</span> <span class="n">AST</span> <span class="o">===</span>
+<span class="n">Module</span><span class="p">(</span>
+    <span class="n">body</span><span class="o">=[</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;left_op&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;right_op&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;left_op&#39;, ctx=Load()),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Add</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;right_op&#39;, ctx=Load()))),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;other_sum&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Load()),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Sub</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">))),</span>
+        <span class="n">Expr</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="k">Call</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;print&#39;, ctx=Load()),</span>
+                <span class="n">args</span><span class="o">=[</span>
+                    <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Load())],</span>
+                <span class="n">keywords</span><span class="o">=[]</span><span class="p">)),</span>
+        <span class="n">Expr</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="k">Call</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;print&#39;, ctx=Load()),</span>
+                <span class="n">args</span><span class="o">=[</span>
+                    <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;other_sum&#39;, ctx=Load())],</span>
+                <span class="n">keywords</span><span class="o">=[]</span><span class="p">))</span><span class="o">]</span><span class="p">,</span>
+    <span class="n">type_ignores</span><span class="o">=[]</span><span class="p">)</span>
+<span class="o">---</span>
+<span class="mi">3</span>
+<span class="mi">2</span>
+</pre></div>
+
+
+<p>The output for <code>exec_tree(new_tree)</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">replacing</span> <span class="n">constant</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">8</span> <span class="n">at</span> <span class="n">lineno</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">replacing</span> <span class="n">constant</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="o">-</span><span class="mi">9</span> <span class="n">at</span> <span class="n">lineno</span><span class="p">:</span> <span class="mi">3</span>
+<span class="n">replacing</span> <span class="n">constant</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">3</span> <span class="n">at</span> <span class="n">lineno</span><span class="p">:</span> <span class="mi">5</span>
+
+<span class="o">===</span> <span class="n">AST</span> <span class="o">===</span>
+<span class="n">Module</span><span class="p">(</span>
+    <span class="n">body</span><span class="o">=[</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;left_op&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">8</span><span class="p">)),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;right_op&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=-</span><span class="mi">9</span><span class="p">)),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;left_op&#39;, ctx=Load()),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Add</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;right_op&#39;, ctx=Load()))),</span>
+        <span class="n">Assign</span><span class="p">(</span>
+            <span class="n">targets</span><span class="o">=[</span>
+                <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;other_sum&#39;, ctx=Store())],</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">BinOp</span><span class="p">(</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Load()),</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">Sub</span><span class="p">(),</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">))),</span>
+        <span class="n">Expr</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="k">Call</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;print&#39;, ctx=Load()),</span>
+                <span class="n">args</span><span class="o">=[</span>
+                    <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;sum_two_things&#39;, ctx=Load())],</span>
+                <span class="n">keywords</span><span class="o">=[]</span><span class="p">)),</span>
+        <span class="n">Expr</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="k">Call</span><span class="p">(</span>
+                <span class="n">func</span><span class="o">=</span><span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;print&#39;, ctx=Load()),</span>
+                <span class="n">args</span><span class="o">=[</span>
+                    <span class="n">Name</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="c">&#39;other_sum&#39;, ctx=Load())],</span>
+                <span class="n">keywords</span><span class="o">=[]</span><span class="p">))</span><span class="o">]</span><span class="p">,</span>
+    <span class="n">type_ignores</span><span class="o">=[]</span><span class="p">)</span>
+<span class="o">---</span>
+<span class="o">-</span><span class="mi">1</span>
+<span class="o">-</span><span class="mi">4</span>
+</pre></div>
+
+
+<p>The output now is "randomized", as expected by the transformation. However, the transformation has overwritten the original tree, as <code>new_tree</code> and <code>tree</code> are the same object.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">id</span><span class="p">(</span><span class="n">tree</span><span class="p">),</span> <span class="n">id</span><span class="p">(</span><span class="n">new_tree</span><span class="p">)</span>
+<span class="mi">4350659920</span><span class="p">,</span> <span class="mi">4350659920</span>
+</pre></div>
+
+
+<p>To avoid this however one simply use the <a href="https://docs.python.org/3.9/library/copy.html?highlight=deepcopy#copy.deepcopy"><code>copy</code> module</a> to clone the whole tree before triggering the transformation, or overwrite the <code>visit()</code> method and define the ad-hoc logic for the use-case at hand.</p>
+<p>Keep calm and happy Python coding!</p>
+<p>-- <a href="pages/guests.html#alessandrofinamore">Alessandro</a></p>
+
+
+<div id="pbproducts">
+  <h3>PyBites Python Tips</h3>
+  <div>
+    <p>Do you want to get <strong>250+ concise and applicable Python tips</strong> in an ebook that will cost you less than 10 bucks (future updates included), check it out <a href="https://gumroad.com/l/pbtips" target="_blank">here</a>.</p>
+    <p>
+      <a href="https://gumroad.com/l/pbtips" target="_blank">
+        <img src="https://codechalleng.es/static/img/tips-book-thumb.07692e3ba331.png" alt="Get our Python Tips Book">
+      </a>
+    </p>
+
+    <div id="testimonials">
+      <p><i>"The discussions are succinct yet thorough enough to give you a solid grasp of the particular problem. I just wish I would have had this book when I started learning Python." - Daniel H </i></p>
+      <p><i>"Bob and Julian are the masters at aggregating these small snippets of code that can really make certain aspects of coding easier." - Jesse B </i></p>
+      <p><i>"This is now my favourite first Python go-to reference." - Anthony L </i></p>
+      <p><i>"Do you ever go on one of those cooking websites for a recipe and have to scroll for what feels like an eternity to get to the ingredients and the 4 steps the recipe actually takes? This is the opposite of that." - Sergio S </i></p>
+      <p class="buttonWrapper">
+        <a class="button" href="https://gumroad.com/l/pbtips" target="_blank">
+          Get the book
+        </a>
+      </p>
+    </div>
+  </div>
+</div>    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'ast-intro.html';
+                var disqus_url = 'https://pybit.es/ast-intro.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/100days">#100DaysOfCode</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                              <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                              <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                            <li><a href="mailto:support@pybit.es" title="Contact us by email">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:support@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
