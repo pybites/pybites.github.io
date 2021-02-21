@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Index What is an Abstract Syntax Tree (AST)? The ast Python module and its use Using the ast module to investigate the PyBites Bite exercises builtins popularity Modules popularity Dissecting an...">
-        <meta name="keywords" content="ast, data structures, Mutpy, Syntax Tree">
+        <meta name="keywords" content="ast, data structures, IPython, Jupyter notebook, linters, Mutpy, mypy, PyBites Platform, random, Syntax Tree, typing">
         <link rel="icon" href="https://pybit.es/favicon.ico">
 
         <title>Abstract Syntax Trees in Python - PyBites</title>
@@ -149,7 +149,7 @@
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/ast.html">ast</a>, <a href="https://pybit.es/tag/data-structures.html">data structures</a>, <a href="https://pybit.es/tag/mutpy.html">Mutpy</a>, <a href="https://pybit.es/tag/syntax-tree.html">Syntax Tree</a>                      </p>
+<a href="https://pybit.es/tag/ast.html">ast</a>, <a href="https://pybit.es/tag/data-structures.html">data structures</a>, <a href="https://pybit.es/tag/ipython.html">IPython</a>, <a href="https://pybit.es/tag/jupyter-notebook.html">Jupyter notebook</a>, <a href="https://pybit.es/tag/linters.html">linters</a>, <a href="https://pybit.es/tag/mutpy.html">Mutpy</a>, <a href="https://pybit.es/tag/mypy.html">mypy</a>, <a href="https://pybit.es/tag/pybites-platform.html">PyBites Platform</a>, <a href="https://pybit.es/tag/random.html">random</a>, <a href="https://pybit.es/tag/syntax-tree.html">Syntax Tree</a>, <a href="https://pybit.es/tag/typing.html">typing</a>                      </p>
                   </div>
               </div>
         </div>
@@ -226,9 +226,9 @@
 <p><a name="using-the-ast-module-to-investigate-the-pybites-bite-exercises"></a></p>
 <h2>Using the <code>ast</code> module to investigate the PyBites Bite exercises</h2>
 <p>Still not convinced of the relevance of an AST? Fair enough: let's consider a more practical, and closer to the PyBites Platform, use-case.</p>
-<p>The PyBites Platform is currently offering 300+ Bite exercises, and the number is constantly increasing. Given the (semi)hidden intention of the platform is to offer a varied set of challenges covering different Python modules and functionalities, it starts to be more and more challenging to identify what is covered by already available exercises, and what is instead left to explore.</p>
+<p>The <a href="https://codechalleng.es/">PyBites Platform</a> is currently offering 300+ Bite exercises, and the number is constantly increasing. Given the (semi)hidden intention of the platform is to offer a varied set of challenges covering different Python modules and functionalities, it starts to be more and more challenging to identify what is covered by already available exercises, and what is instead left to explore.</p>
 <p>This is where we can take advantage of the <code>ast</code> module. Specifically, we can process the source code of the solution of the exercises (as provided by the authors of the challenges) and recover some statistics about their content. For instance, which are the popular modules and builtin functions used.</p>
-<p>Here some of the results.</p>
+<p>Here some of the results. To follow along check out <a href="https://github.com/pybites/notebooks/tree/main/ast-intro">this Jupyter notebook</a>.</p>
 <p><a name="builtins-popularity"></a></p>
 <h3>Builtins popularity</h3>
 <p><img src="images/astintro/plot_builtins.png" alt="Pybites exercises - builtins popularity" height="600px"></p>
