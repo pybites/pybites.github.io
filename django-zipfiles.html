@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it...">
         <meta name="keywords" content="admin, archive, DB, Django, migrations, request, response, snippets, sqlite3, virtualenv, zipfile">
-        <link rel="icon" href="https://pybit.es/favicon.ico">
 
+        <meta property="og:site_name" content="PyBites"/>
+        <meta property="og:title" content="How to Create and Serve Zipfiles from Django"/>
+        <meta property="og:description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ..."/>
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:url" content="https://pybit.es/django-zipfiles.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="article:published_time" content="2019-05-08 08:00:00+02:00"/>
+        <meta property="article:modified_time" content=""/>
+        <meta property="article:author" content="https://pybit.es/author/bob.html">
+        <meta property="article:section" content="Django"/>
+        <meta property="article:tag" content="Django"/>
+        <meta property="article:tag" content="zipfile"/>
+        <meta property="article:tag" content="snippets"/>
+        <meta property="article:tag" content="archive"/>
+        <meta property="article:tag" content="response"/>
+        <meta property="article:tag" content="request"/>
+        <meta property="article:tag" content="admin"/>
+        <meta property="article:tag" content="DB"/>
+        <meta property="article:tag" content="sqlite3"/>
+        <meta property="article:tag" content="migrations"/>
+        <meta property="article:tag" content="virtualenv"/>
+        <meta property="og:image" content="https://pybit.es/theme/img/profile.png">
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@pybites" />
+        <meta name="twitter:title" content="How to Create and Serve Zipfiles from Django" />
+        <meta name="twitter:description" content="We added support to our platfom for bulk downloading of all your code submissions. This feature required creating and serving up zipfiles through Django. In this article I show you how to do it creating a simple Django app collecting code snippets through the admin interface, and serving them up in a zipfile via a download endpoint. Let's dive straight in ..." />
+        <meta name="twitter:image" content="https://pybit.es/theme/img/profile.png" />
+
+        <link rel="icon" href="https://pybit.es/favicon.ico">
         <title>How to Create and Serve Zipfiles from Django - PyBites</title>
 
         <!-- Stylesheets -->
