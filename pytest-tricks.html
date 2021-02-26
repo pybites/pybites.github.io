@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Here are 10 things we learned writing pytest code that might come in handy: 1. Testing package structure People new to pytest are often thrown off by this: $ tree . ├── src │ ├── __init__.py │ └──...">
+        <meta name="keywords" content="command line, debugging, exceptions, fixtures, floats, logging, poetry, pytest, testing, tips">
+
+        <meta property="og:site_name" content="PyBites"/>
+        <meta property="og:title" content="10 Cool Pytest Tips You Might Not Know About"/>
+        <meta property="og:description" content="Here are 10 things we learned writing pytest code that might come in handy."/>
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:url" content="https://pybit.es/pytest-tricks.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="article:published_time" content="2021-02-26 15:15:00+01:00"/>
+        <meta property="article:modified_time" content=""/>
+        <meta property="article:author" content="https://pybit.es/author/bob.html">
+        <meta property="article:section" content="Testing"/>
+        <meta property="article:tag" content="pytest"/>
+        <meta property="article:tag" content="testing"/>
+        <meta property="article:tag" content="tips"/>
+        <meta property="article:tag" content="exceptions"/>
+        <meta property="article:tag" content="logging"/>
+        <meta property="article:tag" content="poetry"/>
+        <meta property="article:tag" content="fixtures"/>
+        <meta property="article:tag" content="floats"/>
+        <meta property="article:tag" content="debugging"/>
+        <meta property="article:tag" content="command line"/>
+        <meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@pybites" />
+        <meta name="twitter:title" content="10 Cool Pytest Tips You Might Not Know About" />
+        <meta name="twitter:description" content="Here are 10 things we learned writing pytest code that might come in handy." />
+        <meta name="twitter:image" content="https://pybit.es/images/featured/pb-article.png">
+
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <title>10 Cool Pytest Tips You Might Not Know About - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/testing.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '767652523960315');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=767652523960315&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://pybit.es/images/pytest-planes.jpeg'); background-position: center; ">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+
+                        <div class="dropdown">
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/friends"
+                                >PyBites Friends</a>
+                                <a href="/community"
+                                >PyBites Community</a>
+                                <a href="/archives"
+                                >PyBites Articles</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >PyBites Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro Course</a>
+                                <a href="/category/challenges"
+                                >Blog Code Challenges</a>
+                                <a href="/100days"
+                                >100 Days of Code</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >PyBites Platform</a>
+                                <a href="https://members.pybit.es/offers/mfFWRKHG/checkout"
+                                    target="_blank"
+                                >Python Intro Course</a>
+                                <a href="https://pybit.es/tips"
+                                    target="_blank"
+                                >Python Tips Book</a>
+                                <a href="/talk"
+                                >PyBites Career Advice</a>
+                                <a href="https://pybitesdevelopermindset.com/"
+                                    target="_blank"
+                                >Build Bigger Apps</a>
+                                <a href="/pages/schools"
+                                >PyBites in the Classroom</a>
+                                <a href="/pages/enterprise"
+                                >PyBites in Your Team</a>
+                                <a href="/pages/recruiting"
+                                >PyBites for Interviewing</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <a href="https://www.pybitespodcast.com/" id="workshopButton">PyBites Podcast</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">10 Cool Pytest Tips You Might Not Know About</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/bob.html">Bob</a>, Fri 26 February 2021,  <a href="https://pybit.es/category/testing.html">Testing</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/command-line.html">command line</a>, <a href="https://pybit.es/tag/debugging.html">debugging</a>, <a href="https://pybit.es/tag/exceptions.html">exceptions</a>, <a href="https://pybit.es/tag/fixtures.html">fixtures</a>, <a href="https://pybit.es/tag/floats.html">floats</a>, <a href="https://pybit.es/tag/logging.html">logging</a>, <a href="https://pybit.es/tag/poetry.html">poetry</a>, <a href="https://pybit.es/tag/pytest.html">pytest</a>, <a href="https://pybit.es/tag/testing.html">testing</a>, <a href="https://pybit.es/tag/tips.html">tips</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>Here are 10 things we learned writing <code>pytest</code> code that might come in handy:</p>
+<h2>1. Testing package structure</h2>
+<p>People new to <code>pytest</code> are often thrown off by this:</p>
+<div class="highlight"><pre><span></span><span class="gp">$</span> tree
+<span class="go">.</span>
+<span class="go">├── src</span>
+<span class="go">│   ├── __init__.py</span>
+<span class="go">│   └── script.py</span>
+<span class="go">└── tests</span>
+<span class="go">    └── test_script.py</span>
+
+<span class="go">2 directories, 3 files</span>
+
+<span class="gp">$</span> more src/script.py
+<span class="go">def hello():</span>
+<span class="go">    return &#39;hello&#39;</span>
+
+<span class="gp">$</span> more tests/test_script.py
+<span class="go">from src.script import hello</span>
+
+
+<span class="go">def test_hello():</span>
+<span class="go">    assert hello() == &quot;hello&quot;</span>
+
+<span class="gp">$</span> pytest
+<span class="go">...</span>
+<span class="go">ImportError while importing test module &#39;/Users/bobbelderbos/Downloads/demo/tests/test_script.py&#39;.</span>
+<span class="go">Hint: make sure your test modules/packages have valid Python names.</span>
+<span class="go">Traceback:</span>
+<span class="go">/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/importlib/__init__.py:127: in import_module</span>
+<span class="go">    return _bootstrap._gcd_import(name[level:], package, level)</span>
+<span class="go">tests/test_script.py:1: in &lt;module&gt;</span>
+<span class="go">    from src.script import hello</span>
+<span class="go">E   ModuleNotFoundError: No module named &#39;src&#39;</span>
+<span class="go">============================================================================================= short test summary info ==============================================================================================</span>
+<span class="go">ERROR tests/test_script.py</span>
+<span class="go">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+<span class="go">================================================================================================= 1 error in 0.42s =================================================================================================</span>
+<span class="gp">$</span> touch tests/__init__.py
+<span class="gp">$</span> pytest
+<span class="go">...</span>
+
+<span class="go">tests/test_script.py .                                                                                                                                                                                       [100%]</span>
+<span class="go">================================================================================================ 1 passed in 0.19s =================================================================================================</span>
+</pre></div>
+
+
+<p>So the <code>tests</code> directory needs an <code>__init__.py</code> file as well.</p>
+<p>Setting your project up with <a href="https://python-poetry.org/docs/basic-usage/">Poetry</a> makes this a lot easier / automatic.</p>
+<p>If you don't turn your code directory into a package (so not including an <code>__init__.py</code> file), you might want to use <a href="https://pypi.org/project/pytest-pythonpath/"><code>pytest-pythonpath</code></a>:</p>
+<blockquote>
+<p>a py.test plugin for adding to the PYTHONPATH from the pytests.ini file before tests run.</p>
+</blockquote>
+<h2>2. Organize your fixtures</h2>
+<p>You can use a <code>conftest.py</code> file to create <a href="https://pybit.es/pytest-fixtures.html">your fixtures</a> (setup and tear down code) for reuse across your test modules, making them leaner.</p>
+<p>See more info <a href="https://docs.pytest.org/en/stable/fixture.html?highlight=conftest#conftest-py-sharing-fixtures-across-multiple-files">in the documentation</a> and a practical example <a href="https://github.com/PyBites-Open-Source/pysource/tree/main/tests">in one of our projects</a>.</p>
+<h2>3. Filter out particular tests</h2>
+<p>You can use <code>pytest</code>'s <code>-k</code> switch to filter tests by expression:</p>
+<div class="highlight"><pre><span></span>  <span class="o">-</span><span class="nv">k</span> <span class="nv">EXPRESSION</span>         <span class="nv">only</span> <span class="nv">run</span> <span class="nv">tests</span> <span class="nv">which</span> <span class="nv">match</span> <span class="nv">the</span> <span class="nv">given</span> <span class="nv">substring</span>
+                        <span class="nv">expression</span>. <span class="nv">An</span> <span class="nv">expression</span> <span class="nv">is</span> <span class="nv">a</span> <span class="nv">python</span> <span class="nv">evaluatable</span>
+                        <span class="nv">expression</span> <span class="nv">where</span> <span class="nv">all</span> <span class="nv">names</span> <span class="nv">are</span> <span class="nv">substring</span><span class="o">-</span><span class="nv">matched</span>
+                        <span class="nv">against</span> <span class="nv">test</span> <span class="nv">names</span> <span class="nv">and</span> <span class="nv">their</span> <span class="nv">parent</span> <span class="nv">classes</span>. <span class="nv">Example</span>:
+                        <span class="o">-</span><span class="nv">k</span> <span class="s1">&#39;</span><span class="s">test_method or test_other</span><span class="s1">&#39;</span> <span class="nv">matches</span> <span class="nv">all</span> <span class="nv">test</span>
+                        <span class="nv">functions</span> <span class="nv">and</span> <span class="nv">classes</span> <span class="nv">whose</span> <span class="nv">name</span> <span class="nv">contains</span>
+                        <span class="s1">&#39;</span><span class="s">test_method</span><span class="s1">&#39;</span> <span class="nv">or</span> <span class="s1">&#39;</span><span class="s">test_other</span><span class="s1">&#39;</span>, <span class="k">while</span> <span class="o">-</span><span class="nv">k</span> <span class="s1">&#39;</span><span class="s">not</span>
+                        <span class="nv">test_method</span><span class="s1">&#39;</span><span class="s"> matches those that don</span><span class="s1">&#39;</span><span class="nv">t</span> <span class="nv">contain</span>
+                        <span class="s1">&#39;</span><span class="s">test_method</span><span class="s1">&#39;</span> <span class="nv">in</span> <span class="nv">their</span> <span class="nv">names</span>. ...
+</pre></div>
+
+
+<p>Or you can mark them with <code>@pytest.mark</code>, for example:</p>
+<div class="highlight"><pre><span></span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">slow</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">test_func_slow</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">pass</span><span class="w"></span>
+</pre></div>
+
+
+<p>Then target those "marked" tests individually. <a href="https://docs.pytest.org/en/stable/example/simple.html?highlight=pytest%20mark#control-skipping-of-tests-according-to-command-line-option">The docs</a> show a good example of how to do this.</p>
+<p>This can be useful if you want to target fast vs. slow tests for example.</p>
+<p>Another cool use case is <code>@pytest.mark.skipif</code> to skip a test based on a condition:</p>
+<div class="highlight"><pre><span></span><span class="c1"># comments.py (code with a syntax error)</span>
+<span class="k">def</span> <span class="nf">time_printer</span><span class="p">():</span>
+    <span class="n">this</span> <span class="n">line</span> <span class="n">should</span> <span class="n">be</span> <span class="n">commented</span>
+
+<span class="c1"># test_comments.py</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="k">def</span> <span class="nf">_can_import</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">comments</span>  <span class="c1"># noqa F401</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">except</span> <span class="ne">IndentationError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">test_import_fails_because_not_all_garbage_commented</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_can_import</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="err">…</span>
+
+<span class="nd">@pytest.mark.skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">_can_import</span><span class="p">(),</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Only run if import works&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_output_time_printer_with_time_arg_returns_string</span><span class="p">(</span><span class="n">capfd</span><span class="p">):</span>
+    <span class="c1"># tests past successful import ...</span>
+
+<span class="c1"># nicer output + skip other test</span>
+<span class="err">$</span> <span class="n">pytest</span> <span class="p">[</span><span class="n">output</span> <span class="n">truncated</span><span class="p">]</span>
+<span class="n">E</span>           <span class="n">Failed</span><span class="p">:</span> <span class="n">comments</span><span class="o">.</span><span class="n">py</span> <span class="n">raised</span> <span class="n">an</span> <span class="ne">IndentationError</span><span class="p">,</span> <span class="n">did</span> <span class="n">you</span> <span class="n">comment</span> <span class="n">it</span> <span class="n">properly</span><span class="err">?</span>
+<span class="o">===</span> <span class="mi">1</span> <span class="n">failed</span><span class="p">,</span> <span class="mi">1</span> <span class="n">skipped</span> <span class="ow">in</span> <span class="mf">0.05</span> <span class="n">seconds</span> <span class="o">===</span>
+</pre></div>
+
+
+<h2>4. Testing floats</h2>
+<p>Ever hit this when testing <code>float</code>s? </p>
+<div class="highlight"><pre><span></span><span class="n">E</span>       <span class="n">assert</span> <span class="mi">0</span><span class="p">.</span><span class="mi">30000000000000004</span> <span class="o">==</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3</span>
+<span class="n">E</span>        <span class="o">+</span>  <span class="k">where</span> <span class="mi">0</span><span class="p">.</span><span class="mi">30000000000000004</span> <span class="o">=</span> <span class="n">sum_numbers</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Yikes!</p>
+<p>No worries though, <code>pytest</code>'s <code>approx</code> has your back, this passes: </p>
+<div class="highlight"><pre><span></span><span class="n">assert</span> <span class="n">sum_numbers</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="n">approx</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>5. Working with temporary files</h2>
+<p>Creating and cleaning up temporary files can be a lot of work, but <code>pytest</code> makes this quite effortlessly.</p>
+<p>In this example taken from <a href="https://codechalleng.es/bites/161/">Bite 161</a> we create 5 files in a temporary directory and assert that <code>count_dirs_and_files</code> returns a tuple of counts (0 directories and 5 files):</p>
+<div class="highlight"><pre><span></span><span class="nv">def</span> <span class="nv">test_only_files</span><span class="ss">(</span><span class="nv">tmp_path</span><span class="ss">)</span>:
+    <span class="k">for</span> <span class="nv">i</span> <span class="nv">in</span> <span class="nv">range</span><span class="ss">(</span><span class="mi">1</span>, <span class="mi">6</span><span class="ss">)</span>:
+        <span class="nv">path</span> <span class="o">=</span> <span class="nv">tmp_path</span> <span class="o">/</span> <span class="nv">f</span><span class="s1">&#39;</span><span class="s">{i}.txt</span><span class="s1">&#39;</span>
+        <span class="nv">with</span> <span class="nv">open</span><span class="ss">(</span><span class="nv">path</span>, <span class="s1">&#39;</span><span class="s">w</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">as</span> <span class="nv">f</span>:
+            <span class="nv">f</span>.<span class="nv">write</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">hello</span><span class="s1">&#39;</span><span class="ss">)</span>
+    <span class="nv">assert</span> <span class="nv">count_dirs_and_files</span><span class="ss">(</span><span class="nv">tmp_path</span><span class="ss">)</span> <span class="o">==</span> <span class="ss">(</span><span class="mi">0</span>, <span class="mi">5</span><span class="ss">)</span>
+</pre></div>
+
+
+<h2>6. Test exceptions</h2>
+<p>Here is an example from <a href="https://codechalleng.es/bites/110/">Intro Bite #10</a> that uses <code>pytest.raises(...)</code> to test an exception:</p>
+<div class="highlight"><pre><span></span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">parametrize</span><span class="p">(</span><span class="ss">&quot;numerator, denominator&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n"></span>
+<span class="n">    (2, &#39;s&#39;),</span>
+<span class="n">    (&#39;s&#39;, 2),</span>
+<span class="n">    (&#39;v&#39;, &#39;w&#39;),</span>
+<span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">test_divide_numbers_raises_value_error</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">with</span><span class="w"> </span><span class="n">pytest</span><span class="p">.</span><span class="n">raises</span><span class="p">(</span><span class="n">ValueError</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">divide_numbers</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+
+
+<h2>7. Enhance your parametrized tests</h2>
+<p>In this previous example I changed <code>divide_numbers</code> to trigger another exception:</p>
+<div class="highlight"><pre><span></span><span class="nv">FAILED</span> <span class="nv">test_division</span>.<span class="nv">py</span>::<span class="nv">test_divide_numbers_raises_value_error</span>[<span class="mi">2</span><span class="o">-</span><span class="nv">s</span>] <span class="o">-</span> <span class="nv">TypeError</span>: <span class="nv">unsupported</span> <span class="nv">operand</span> <span class="nv">type</span><span class="ss">(</span><span class="nv">s</span><span class="ss">)</span> <span class="k">for</span> <span class="o">/</span>: <span class="s1">&#39;</span><span class="s">int</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">str</span><span class="s1">&#39;</span>
+</pre></div>
+
+
+<p>This is ok, but we can make the <code>[2-s]</code> part a bit more readable.</p>
+<p>We can wrap the <code>parametrize</code> list arguments inside <code>pytest.param</code> giving it <em>test IDs</em> (see <a href="https://docs.pytest.org/en/stable/example/parametrize.html#different-options-for-test-ids">here</a>):</p>
+<div class="highlight"><pre><span></span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">parametrize</span><span class="p">(</span><span class="ss">&quot;numerator, denominator&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n"></span>
+<span class="n">    pytest.param(2, &#39;s&#39;, id=&quot;denominator_wrong_type&quot;),</span>
+<span class="n">    pytest.param(&#39;s&#39;, 2, id=&quot;numerator_wrong_type&quot;),</span>
+<span class="n">    pytest.param(&#39;v&#39;, &#39;w&#39;, id=&quot;both_numerator_denominator_wrong_type&quot;),</span>
+<span class="o">]</span><span class="p">)</span><span class="w"></span>
+<span class="n">def</span><span class="w"> </span><span class="n">test_divide_numbers_raises_value_error</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">with</span><span class="w"> </span><span class="n">pytest</span><span class="p">.</span><span class="n">raises</span><span class="p">(</span><span class="n">ValueError</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">divide_numbers</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+
+
+<p>Now this will show up in the failing test:</p>
+<div class="highlight"><pre><span></span><span class="nv">FAILED</span> <span class="nv">test_division</span>.<span class="nv">py</span>::<span class="nv">test_divide_numbers_raises_value_error</span>[<span class="nv">denominator_wrong_type</span>] <span class="o">-</span> <span class="nv">TypeError</span>: <span class="nv">unsupported</span> <span class="nv">operand</span> <span class="nv">type</span><span class="ss">(</span><span class="nv">s</span><span class="ss">)</span> <span class="k">for</span> <span class="o">/</span>: <span class="s1">&#39;</span><span class="s">int</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">str</span><span class="s1">&#39;</span>
+</pre></div>
+
+
+<p>And we can target these strings with <code>pytest -k</code>, for example to only run <code>both_numerator_denominator_wrong_type</code>:</p>
+<div class="highlight"><pre><span></span><span class="gp">$</span> pytest -k both_numerator
+<span class="go">...</span>
+
+<span class="go">test_division.py .                                                                                                                                                                                           [100%]</span>
+
+<span class="go">========================================================================================= 1 passed, 8 deselected in 0.11s ==========================================================================================</span>
+</pre></div>
+
+
+<h2>8. Drop into the debugger upon failure</h2>
+<p>This is one the most useful tips in my opinion: when something breaks you want to be able to debug right then and there.</p>
+<p>So in the previous failing example if we run the tests with <code>pytest --pdb</code> it drops into the debugger:</p>
+<div class="highlight"><pre><span></span><span class="gp">&gt;</span> /Users/bobbelderbos/code/bitesofpy/110/division.py<span class="o">(</span><span class="m">9</span><span class="o">)</span>divide_numbers<span class="o">()</span>
+<span class="go">-&gt; return int(numerator)/denominator</span>
+<span class="go">(Pdb)</span>
+</pre></div>
+
+
+<p>For more variations check out <a href="https://docs.pytest.org/en/stable/usage.html#dropping-to-pdb-python-debugger-on-failures">the docs</a>.</p>
+<p>And in order to debug a hanging test, check out <a href="https://pybit.es/pytest-timeout.html">our related article</a>.</p>
+<h2>9. Test logging</h2>
+<p>You can test logging with <code>pytest</code>'s <code>caplog</code> fixture:</p>
+<div class="highlight"><pre><span></span><span class="c1"># script.py</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;a debug message to ignore&quot;</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;an info message&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;cannot divide by 0&quot;</span><span class="p">)</span>
+
+<span class="c1"># test_script.py</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">script</span> <span class="kn">import</span> <span class="n">func</span>
+
+<span class="k">def</span> <span class="nf">test_func</span><span class="p">(</span><span class="n">caplog</span><span class="p">):</span>
+    <span class="n">caplog</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">func</span><span class="p">()</span>
+    <span class="n">record1</span><span class="p">,</span> <span class="n">record2</span> <span class="o">=</span> <span class="n">caplog</span><span class="o">.</span><span class="n">records</span>
+    <span class="k">assert</span> <span class="n">record1</span><span class="o">.</span><span class="n">levelname</span> <span class="o">==</span> <span class="s2">&quot;INFO&quot;</span>  <span class="c1"># no debug</span>
+    <span class="k">assert</span> <span class="n">record1</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="s2">&quot;an info message&quot;</span>
+    <span class="k">assert</span> <span class="n">record2</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="s2">&quot;cannot divide by 0&quot;</span>
+    <span class="k">assert</span> <span class="n">record2</span><span class="o">.</span><span class="n">exc_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ne">ZeroDivisionError</span>
+</pre></div>
+
+
+<p>Here we made a function called <code>func</code> that logs 3 messages: <code>DEBUG</code>, <code>INFO</code> and <code>ERROR</code> (by the way, <a href="https://docs.python.org/3/library/logging.html#logging.exception"><code>logging.exception</code></a> is really useful, it adds exception info the logging message!)</p>
+<p>In the test we use the <code>caplog</code> fixture to grab those logging messages and test them.</p>
+<h2>10. Test standard output</h2>
+<p>How to test a function that prints to standard output (as opposed to returning something)?</p>
+<p>You can use the <code>capsys</code> or <code>capfd</code> fixtures for this.</p>
+<p>Here is an example of <a href="https://codechalleng.es/bites/101/">our first intro Bite</a>.</p>
+<p>Code (spoiler alert!):</p>
+<div class="highlight"><pre><span></span><span class="nv">MIN_DRIVING_AGE</span> <span class="o">=</span> <span class="mi">18</span>
+
+
+<span class="nv">def</span> <span class="nv">allowed_driving</span><span class="ss">(</span><span class="nv">name</span>, <span class="nv">age</span><span class="ss">)</span>:
+    <span class="s2">&quot;&quot;&quot;</span><span class="s">Print &#39;{name} is allowed to drive&#39; or &#39;{name} is not allowed to drive&#39;</span>
+       <span class="nv">checking</span> <span class="nv">the</span> <span class="nv">passed</span> <span class="nv">in</span> <span class="nv">age</span> <span class="nv">against</span> <span class="nv">the</span> <span class="nv">MIN_DRIVING_AGE</span> <span class="nv">constant</span><span class="s2">&quot;&quot;&quot;</span>
+    <span class="nv">is_allowed</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">is allowed</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="nv">age</span> <span class="o">&gt;=</span> <span class="nv">MIN_DRIVING_AGE</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="s">is not allowed</span><span class="s1">&#39;</span>
+    <span class="nv">print</span><span class="ss">(</span><span class="nv">f</span><span class="s1">&#39;</span><span class="s">{name} {is_allowed} to drive</span><span class="s1">&#39;</span><span class="ss">)</span>
+</pre></div>
+
+
+<p>Tests:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">driving</span> <span class="kn">import</span> <span class="n">allowed_driving</span>
+
+
+<span class="k">def</span> <span class="nf">test_not_allowed_to_drive</span><span class="p">(</span><span class="n">capfd</span><span class="p">):</span>
+    <span class="n">allowed_driving</span><span class="p">(</span><span class="s1">&#39;tim&#39;</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;tim is not allowed to drive&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">test_allowed_to_drive</span><span class="p">(</span><span class="n">capfd</span><span class="p">):</span>
+    <span class="n">allowed_driving</span><span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;bob is allowed to drive&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">test_allowed_to_drive_other_name</span><span class="p">(</span><span class="n">capfd</span><span class="p">):</span>
+    <span class="n">allowed_driving</span><span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;julian is allowed to drive&#39;</span>
+</pre></div>
+
+
+<hr>
+<p>I hope you learned something new and that you can use this in your tests. If you want to share other cool <code>pytest</code> tips, please comment below ...</p>
+<p>Keep Calm and Write more Tests!</p>
+<p>-- Bob</p>
+
+
+<div id="pbproducts">
+  <h3>PyBites Python Tips</h3>
+  <div>
+    <p>Do you want to get <strong>250+ concise and applicable Python tips</strong> in an ebook that will cost you less than 10 bucks (future updates included), check it out <a href="https://gumroad.com/l/pbtips" target="_blank">here</a>.</p>
+    <p>
+      <a href="https://gumroad.com/l/pbtips" target="_blank">
+        <img src="https://codechalleng.es/static/img/tips-book-thumb.07692e3ba331.png" alt="Get our Python Tips Book">
+      </a>
+    </p>
+
+    <div id="testimonials">
+      <p><i>"The discussions are succinct yet thorough enough to give you a solid grasp of the particular problem. I just wish I would have had this book when I started learning Python." - Daniel H </i></p>
+      <p><i>"Bob and Julian are the masters at aggregating these small snippets of code that can really make certain aspects of coding easier." - Jesse B </i></p>
+      <p><i>"This is now my favourite first Python go-to reference." - Anthony L </i></p>
+      <p><i>"Do you ever go on one of those cooking websites for a recipe and have to scroll for what feels like an eternity to get to the ingredients and the 4 steps the recipe actually takes? This is the opposite of that." - Sergio S </i></p>
+      <p class="buttonWrapper">
+        <a class="button" href="https://gumroad.com/l/pbtips" target="_blank">
+          Get the book
+        </a>
+      </p>
+    </div>
+  </div>
+</div>    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'pytest-tricks.html';
+                var disqus_url = 'https://pybit.es/pytest-tricks.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/100days">#100DaysOfCode</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                              <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                              <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                            <li><a href="mailto:support@pybit.es" title="Contact us by email">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:support@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
