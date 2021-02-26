@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Here are 10 things we learned writing pytest code that might come in handy: 1. Testing package structure People new to pytest are often thrown off by this: $ tree . ├── src │ ├── __init__.py │ └──...">
-        <meta name="keywords" content="command line, debugging, exceptions, fixtures, floats, logging, poetry, pytest, testing, tips">
+        <meta name="keywords" content="caplog, capsys, command line, debugging, exceptions, fixtures, floats, logging, poetry, pytest, pytest-pythonpath, testing, tips">
 
         <meta property="og:site_name" content="PyBites"/>
         <meta property="og:title" content="10 Cool Pytest Tips You Might Not Know About"/>
@@ -28,6 +28,9 @@
         <meta property="article:tag" content="floats"/>
         <meta property="article:tag" content="debugging"/>
         <meta property="article:tag" content="command line"/>
+        <meta property="article:tag" content="pytest-pythonpath"/>
+        <meta property="article:tag" content="capsys"/>
+        <meta property="article:tag" content="caplog"/>
         <meta property="og:image" content="https://pybit.es/images/featured/pb-article.png">
 
         <meta name="twitter:card" content="summary" />
@@ -178,7 +181,7 @@
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://pybit.es/tag/command-line.html">command line</a>, <a href="https://pybit.es/tag/debugging.html">debugging</a>, <a href="https://pybit.es/tag/exceptions.html">exceptions</a>, <a href="https://pybit.es/tag/fixtures.html">fixtures</a>, <a href="https://pybit.es/tag/floats.html">floats</a>, <a href="https://pybit.es/tag/logging.html">logging</a>, <a href="https://pybit.es/tag/poetry.html">poetry</a>, <a href="https://pybit.es/tag/pytest.html">pytest</a>, <a href="https://pybit.es/tag/testing.html">testing</a>, <a href="https://pybit.es/tag/tips.html">tips</a>                      </p>
+<a href="https://pybit.es/tag/caplog.html">caplog</a>, <a href="https://pybit.es/tag/capsys.html">capsys</a>, <a href="https://pybit.es/tag/command-line.html">command line</a>, <a href="https://pybit.es/tag/debugging.html">debugging</a>, <a href="https://pybit.es/tag/exceptions.html">exceptions</a>, <a href="https://pybit.es/tag/fixtures.html">fixtures</a>, <a href="https://pybit.es/tag/floats.html">floats</a>, <a href="https://pybit.es/tag/logging.html">logging</a>, <a href="https://pybit.es/tag/poetry.html">poetry</a>, <a href="https://pybit.es/tag/pytest.html">pytest</a>, <a href="https://pybit.es/tag/pytest-pythonpath.html">pytest-pythonpath</a>, <a href="https://pybit.es/tag/testing.html">testing</a>, <a href="https://pybit.es/tag/tips.html">tips</a>                      </p>
                   </div>
               </div>
         </div>
@@ -243,11 +246,12 @@
 <p>Setting your project up with <a href="https://python-poetry.org/docs/basic-usage/">Poetry</a> makes this a lot easier / automatic.</p>
 <p>If you don't turn your code directory into a package (so not including an <code>__init__.py</code> file), you might want to use <a href="https://pypi.org/project/pytest-pythonpath/"><code>pytest-pythonpath</code></a>:</p>
 <blockquote>
-<p>a py.test plugin for adding to the PYTHONPATH from the pytests.ini file before tests run.</p>
+<p>... a py.test plugin for adding to the PYTHONPATH from the pytests.ini file before tests run.</p>
 </blockquote>
+<p>Thanks <a href="https://twitter.com/martin_heroux">Martin</a> for telling us about this plugin.</p>
 <h2>2. Organize your fixtures</h2>
-<p>You can use a <code>conftest.py</code> file to create <a href="https://pybit.es/pytest-fixtures.html">your fixtures</a> (setup and tear down code) for reuse across your test modules, making them leaner.</p>
-<p>See more info <a href="https://docs.pytest.org/en/stable/fixture.html?highlight=conftest#conftest-py-sharing-fixtures-across-multiple-files">in the documentation</a> and a practical example <a href="https://github.com/PyBites-Open-Source/pysource/tree/main/tests">in one of our projects</a>.</p>
+<p>You can use a <code>conftest.py</code> file to create <a href="https://pybit.es/pytest-fixtures.html">your fixtures</a> (setup and tear down code) for reuse across your test modules.</p>
+<p>See more info <a href="https://docs.pytest.org/en/stable/fixture.html?highlight=conftest#conftest-py-sharing-fixtures-across-multiple-files">in the documentation</a> and a practical example <a href="https://github.com/PyBites-Open-Source/pysource/tree/main/tests">in one of our projects</a>. This will definitely make your test modules leaner.</p>
 <h2>3. Filter out particular tests</h2>
 <p>You can use <code>pytest</code>'s <code>-k</code> switch to filter tests by expression:</p>
 <div class="highlight"><pre><span></span>  <span class="o">-</span><span class="nv">k</span> <span class="nv">EXPRESSION</span>         <span class="nv">only</span> <span class="nv">run</span> <span class="nv">tests</span> <span class="nv">which</span> <span class="nv">match</span> <span class="nv">the</span> <span class="nv">given</span> <span class="nv">substring</span>
@@ -326,7 +330,8 @@
 </pre></div>
 
 
-<h2>6. Test exceptions</h2>
+<p>The files were created in a temporary directory and I did not have to clean anything up manually.</p>
+<h2>6. Testing exceptions</h2>
 <p>Here is an example from <a href="https://codechalleng.es/bites/110/">Intro Bite #10</a> that uses <code>pytest.raises(...)</code> to test an exception:</p>
 <div class="highlight"><pre><span></span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">parametrize</span><span class="p">(</span><span class="ss">&quot;numerator, denominator&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n"></span>
 <span class="n">    (2, &#39;s&#39;),</span>
@@ -340,7 +345,7 @@
 
 
 <h2>7. Enhance your parametrized tests</h2>
-<p>In this previous example I changed <code>divide_numbers</code> to trigger another exception:</p>
+<p>For this tip I changed <code>divide_numbers</code> to have <code>test_divide_numbers_raises_value_error</code> fail:</p>
 <div class="highlight"><pre><span></span><span class="nv">FAILED</span> <span class="nv">test_division</span>.<span class="nv">py</span>::<span class="nv">test_divide_numbers_raises_value_error</span>[<span class="mi">2</span><span class="o">-</span><span class="nv">s</span>] <span class="o">-</span> <span class="nv">TypeError</span>: <span class="nv">unsupported</span> <span class="nv">operand</span> <span class="nv">type</span><span class="ss">(</span><span class="nv">s</span><span class="ss">)</span> <span class="k">for</span> <span class="o">/</span>: <span class="s1">&#39;</span><span class="s">int</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">str</span><span class="s1">&#39;</span>
 </pre></div>
 
@@ -358,21 +363,12 @@
 </pre></div>
 
 
-<p>Now this will show up in the failing test:</p>
+<p>Now this string will show up in the failing test:</p>
 <div class="highlight"><pre><span></span><span class="nv">FAILED</span> <span class="nv">test_division</span>.<span class="nv">py</span>::<span class="nv">test_divide_numbers_raises_value_error</span>[<span class="nv">denominator_wrong_type</span>] <span class="o">-</span> <span class="nv">TypeError</span>: <span class="nv">unsupported</span> <span class="nv">operand</span> <span class="nv">type</span><span class="ss">(</span><span class="nv">s</span><span class="ss">)</span> <span class="k">for</span> <span class="o">/</span>: <span class="s1">&#39;</span><span class="s">int</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="s1">&#39;</span><span class="s">str</span><span class="s1">&#39;</span>
 </pre></div>
 
 
-<p>And we can target these strings with <code>pytest -k</code>, for example to only run <code>both_numerator_denominator_wrong_type</code>:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> pytest -k both_numerator
-<span class="go">...</span>
-
-<span class="go">test_division.py .                                                                                                                                                                                           [100%]</span>
-
-<span class="go">========================================================================================= 1 passed, 8 deselected in 0.11s ==========================================================================================</span>
-</pre></div>
-
-
+<p>And we can target these strings with <code>pytest -k</code> as well, for example <code>pytest -k both_numerator</code> runs only the third test of <code>test_divide_numbers_raises_value_error</code>, <code>pytest -k numerator</code> would run two tests.</p>
 <h2>8. Drop into the debugger upon failure</h2>
 <p>This is one the most useful tips in my opinion: when something breaks you want to be able to debug right then and there.</p>
 <p>So in the previous failing example if we run the tests with <code>pytest --pdb</code> it drops into the debugger:</p>
@@ -385,7 +381,7 @@
 <p>For more variations check out <a href="https://docs.pytest.org/en/stable/usage.html#dropping-to-pdb-python-debugger-on-failures">the docs</a>.</p>
 <p>And in order to debug a hanging test, check out <a href="https://pybit.es/pytest-timeout.html">our related article</a>.</p>
 <h2>9. Test logging</h2>
-<p>You can test logging with <code>pytest</code>'s <code>caplog</code> fixture:</p>
+<p>You can test logging with <code>pytest</code>'s <a href="https://docs.pytest.org/en/stable/logging.html"><code>caplog</code> fixture</a>:</p>
 <div class="highlight"><pre><span></span><span class="c1"># script.py</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
@@ -417,8 +413,8 @@
 <p>In the test we use the <code>caplog</code> fixture to grab those logging messages and test them.</p>
 <h2>10. Test standard output</h2>
 <p>How to test a function that prints to standard output (as opposed to returning something)?</p>
-<p>You can use the <code>capsys</code> or <code>capfd</code> fixtures for this.</p>
-<p>Here is an example of <a href="https://codechalleng.es/bites/101/">our first intro Bite</a>.</p>
+<p>You can use the <a href="https://docs.pytest.org/en/stable/capture.html"><code>capsys</code> / <code>capfd</code> fixtures</a> for this.</p>
+<p>Here is an example from <a href="https://codechalleng.es/bites/101/">Intro Bite #01</a>.</p>
 <p>Code (spoiler alert!):</p>
 <div class="highlight"><pre><span></span><span class="nv">MIN_DRIVING_AGE</span> <span class="o">=</span> <span class="mi">18</span>
 
@@ -440,22 +436,13 @@
     <span class="n">output</span> <span class="o">=</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;tim is not allowed to drive&#39;</span>
 
-
-<span class="k">def</span> <span class="nf">test_allowed_to_drive</span><span class="p">(</span><span class="n">capfd</span><span class="p">):</span>
-    <span class="n">allowed_driving</span><span class="p">(</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;bob is allowed to drive&#39;</span>
-
-
-<span class="k">def</span> <span class="nf">test_allowed_to_drive_other_name</span><span class="p">(</span><span class="n">capfd</span><span class="p">):</span>
-    <span class="n">allowed_driving</span><span class="p">(</span><span class="s1">&#39;julian&#39;</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">capfd</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;julian is allowed to drive&#39;</span>
+<span class="o">...</span>
 </pre></div>
 
 
 <hr>
-<p>I hope you learned something new and that you can use this in your tests. If you want to share other cool <code>pytest</code> tips, please comment below ...</p>
+<p>I hope you learned something new and that you can use any of this when you are writing <code>pytest</code> code.</p>
+<p>If you want to share other cool <code>pytest</code> tips, please comment below ...</p>
 <p>Keep Calm and Write more Tests!</p>
 <p>-- Bob</p>
 
