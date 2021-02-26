@@ -266,15 +266,22 @@
 </pre></div>
 
 
-<p>Or you can mark them with <code>@pytest.mark</code>, for example:</p>
+<p>Or you can mark tests using <code>@pytest.mark</code>, for example:</p>
 <div class="highlight"><pre><span></span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">slow</span><span class="w"></span>
 <span class="n">def</span><span class="w"> </span><span class="n">test_func_slow</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
 <span class="w">    </span><span class="n">pass</span><span class="w"></span>
 </pre></div>
 
 
-<p>Then target those "marked" tests individually. <a href="https://docs.pytest.org/en/stable/example/simple.html?highlight=pytest%20mark#control-skipping-of-tests-according-to-command-line-option">The docs</a> show a good example of how to do this.</p>
-<p>This can be useful if you want to target fast vs. slow tests for example.</p>
+<p>For this to work though you need to register the mark in your <code>pytest.ini</code> file, as per <a href="https://docs.pytest.org/en/stable/mark.html">docs</a>:</p>
+<div class="highlight"><pre><span></span><span class="k">[pytest]</span>
+<span class="na">markers</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    slow: marks tests as slow (deselect with &#39;-m &quot;not slow&quot;&#39;)</span>
+<span class="s">    serial</span>
+</pre></div>
+
+
+<p>Now you can run "slow" tests with: <code>pytest -m slow</code>.</p>
 <p>Another cool use case is <code>@pytest.mark.skipif</code> to skip a test based on a condition:</p>
 <div class="highlight"><pre><span></span><span class="c1"># comments.py (code with a syntax error)</span>
 <span class="k">def</span> <span class="nf">time_printer</span><span class="p">():</span>
