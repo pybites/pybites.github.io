@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Index Introduction Game concept Basic game implementation Starting the code The main class Who&#39;s the winner? Let&#39;s play I always lose playing against myself It&#39;s your move machine! References...">
+        <meta name="keywords" content="AI, games theory, guest, tic-tac-toe">
+
+        <meta property="og:site_name" content="PyBites"/>
+        <meta property="og:title" content="Naughts and Crosses Gets a Little Help"/>
+        <meta property="og:description" content="Naughts and Crosses (Tic-Tac-Toe to some audiences) is a popular skill game often played by children. It can also be usefully employed to distract dial up computers, at NORAD for example, rather than allowing the 'playing' of Global Thermonuclear War. Would you like to play a game?"/>
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:url" content="https://pybit.es/naughts-and-crosses.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="article:published_time" content="2021-03-12 18:45:00+01:00"/>
+        <meta property="article:modified_time" content=""/>
+        <meta property="article:author" content="https://pybit.es/author/geoff-riley.html">
+        <meta property="article:section" content="Concepts"/>
+        <meta property="article:tag" content="guest"/>
+        <meta property="article:tag" content="games theory"/>
+        <meta property="article:tag" content="AI"/>
+        <meta property="article:tag" content="tic-tac-toe"/>
+        <meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@pybites" />
+        <meta name="twitter:title" content="Naughts and Crosses Gets a Little Help" />
+        <meta name="twitter:description" content="Naughts and Crosses (Tic-Tac-Toe to some audiences) is a popular skill game often played by children. It can also be usefully employed to distract dial up computers, at NORAD for example, rather than allowing the 'playing' of Global Thermonuclear War. Would you like to play a game?" />
+        <meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <title>Naughts and Crosses Gets a Little Help - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/concepts.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '767652523960315');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=767652523960315&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+
+                        <div class="dropdown">
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="/friends"
+                                >PyBites Friends</a>
+                                <a href="/community"
+                                >PyBites Community</a>
+                                <a href="/archives"
+                                >PyBites Articles</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >PyBites Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro Course</a>
+                                <a href="/category/challenges"
+                                >Blog Code Challenges</a>
+                                <a href="/100days"
+                                >100 Days of Code</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >PyBites Platform</a>
+                                <a href="https://members.pybit.es/offers/mfFWRKHG/checkout"
+                                    target="_blank"
+                                >Python Intro Course</a>
+                                <a href="https://pybit.es/tips"
+                                    target="_blank"
+                                >Python Tips Book</a>
+                                <a href="https://pybit.es/productivity"
+                                    target="_blank"
+                                >Python Productivity</a>
+                                <a href="/talk"
+                                >PyBites Career Advice</a>
+                                <a href="https://pybitesdevelopermindset.com/"
+                                    target="_blank"
+                                >Build Bigger Apps</a>
+                                <a href="/pages/schools"
+                                >PyBites in the Classroom</a>
+                                <a href="/pages/enterprise"
+                                >PyBites in Your Team</a>
+                                <a href="/pages/recruiting"
+                                >PyBites for Interviewing</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <a href="https://www.pybitespodcast.com/" id="workshopButton">PyBites Podcast</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Naughts and Crosses Gets a Little Help</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/geoff-riley.html">Geoff Riley</a>, Fri 12 March 2021,  <a href="https://pybit.es/category/concepts.html">Concepts</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/ai.html">AI</a>, <a href="https://pybit.es/tag/games-theory.html">games theory</a>, <a href="https://pybit.es/tag/guest.html">guest</a>, <a href="https://pybit.es/tag/tic-tac-toe.html">tic-tac-toe</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p><span class="originalWidth">
+<img alt="Header image: Naughts and Crosses, Os and Xs, Tic Tac Toe" src="images/guest-naughts-and-crosses-ai/title-bar.png">
+</span>
+<!-- Indexes are always a good start! --></p>
+<h2>Index</h2>
+<ul>
+<li><a href="#introduction">Introduction</a><ul>
+<li><a href="#game-concept">Game concept</a></li>
+</ul>
+</li>
+<li><a href="#basic-game-implementation">Basic game implementation</a><ul>
+<li><a href="#starting-the-code">Starting the code</a></li>
+<li><a href="#the-main-class">The main class</a></li>
+<li><a href="#whos-the-winner">Who's the winner?</a></li>
+</ul>
+</li>
+<li><a href="#lets-play">Let's play</a></li>
+<li><a href="#i-always-lose-playing-against-myself">I always lose playing against myself</a><ul>
+<li><a href="#its-your-move-machine">It's your move machine!</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+<p><a name="introduction"></a></p>
+<h2>Introduction</h2>
+<p><span class="originalWidth">
+<img alt="Would you like to play a game?" src="images/guest-naughts-and-crosses-ai/like-to-play.png">
+</span>
+<em>(<a href="https://www.imdb.com/title/tt0086567/">Wargames (1983)</a>)</em></p>
+<p>If you happen to have recently hacked into <a href="https://www.norad.mil/">NORAD (North American Aerospace Defense Command)</a>
+then it is quite possible that you are stuck in the 1980s and are looking to play <strong>Global Thermonuclear War</strong> 
+<em>(<a href="https://www.imdb.com/title/tt0086567/">Wargames (1983)</a>)</em>,
+take it from me: it really won't turn out hope you hope.</p>
+<p>On the other hand if you are looking for what is arguably the simplest of all strategy games, then you've come to the
+right place. This article was inspired by the <a href="https://codechalleng.es/challenges/12/"><em>PyBites Coding Challenge 12</em>—<strong>Build a Tic-tac-toe Game</strong></a>.</p>
+<p><a name="game-concept"></a></p>
+<h3>Game concept</h3>
+<p><span class="originalWidth">
+<img alt="Image of naughts and crosses grid" src="images/guest-naughts-and-crosses-ai/grid-blank.png">
+</span></p>
+<p>Traditionally, naughts and crosses <em>(<a href="https://en.wikipedia.org/wiki/Tic-tac-toe">Wikipedia article on Tic-tac-toe</a>)</em> is a pencil and paper game for two players: one playing the symbol 'O',
+pronounced 'naught' or 'oh', and the other playing 'X', pronounced 'cross' or 'ex'. The game begins with a 3x3 grid of
+nine cells, and the players take turns at drawing their symbols into one of the empty cells. The aim is to achieve the
+occupation of three cells in a row, horizontally, vertically or diagonally, with their own symbol, whilst <em>at the same
+time</em> interfering with their opponents attempts to do likewise. There are eight possible winning lines are shown in the
+figure below.</p>
+<p><span class="originalWidth">
+<img alt="Image of winning positions" src="images/guest-naughts-and-crosses-ai/winning-positions.png">
+</span></p>
+<p><a name="basic-game-implementation"></a></p>
+<h2>Basic game implementation</h2>
+<p>The first thing that is necessary in implementing <em>any</em> game is deciding how it should be represented both to the player
+and when it is held in the computer memory. We are working with fixed a three by three grid in this game, so it is easy
+to see that a series of nine consecutive elements of an array can be used. Like this:</p>
+<p><span class="originalWidth">
+<img alt="Image of array of nine memory cells numbered zero to nine" src="images/guest-naughts-and-crosses-ai/memory-cells.png">
+</span></p>
+<p>These memory cells, in turn, map to the three rows of three cells that will be displayed to the player. To help the
+player to associate the positions of the cells, however, it is convenient to give a different <em>external</em> mapping that is
+based upon something familiar. A familiar three by three grid is found on the keyboard numeric keypad, but this is
+'upside down' compared to how we have suggested the internal representation will be achieved.</p>
+<p>This difference in representation can be handled in a few different ways:</p>
+<ul>
+<li>change the internal representation to match the external representation;</li>
+<li>change the external representation to match the internal representation; or</li>
+<li>find a way to translate between the two representations as and when needed.</li>
+</ul>
+<p>There are implications for each of these options. Firstly, if the internal representation is changed, it will be
+necessary to extract the details for the grid when it is being displayed in a non-sequential order. This is not an
+impossible situation, but adds a layer of complexity that is probably undesirable. Secondly, if the external
+representation is changed, then it inconveniences the player who will have to think more about the value of the cell
+rather than the position. Thirdly, and finally, translating between the two systems allows the positives of both
+representations to be exercised with a minor inconvenience of ensuring that the interface between the two sides is
+patrolled appropriately.</p>
+<p>Assuming that the third option is taken we have the following representations:</p>
+<p><span class="originalWidth">
+<img alt="Image of internal cell numbering" src="images/guest-naughts-and-crosses-ai/numbering-internal.png">
+</span>
+<span class="originalWidth">
+<img alt="Image of external cell numbering" src="images/guest-naughts-and-crosses-ai/numbering-external.png">
+</span></p>
+<p><a name='starting-the-code'></a></p>
+<h3>Starting the code</h3>
+<p>It is always wise to start off a Python file with a descriptive comment about the file, who wrote it, any copyright
+declarations, the place within a project that it belongs and what the weather is like when you write the code, possibly
+less likely on that last one. So, we begin our project and, as it is going to be a single file, just comment on what the
+whole project is about. If this was to be a one of a number of files then the description would focus upon the
+functionality of this particular file.</p>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Proper name: &#39;Naughts and Crosses&#39;</span>
+<span class="sd">    Irish name: &#39;Xs and Os&#39;</span>
+<span class="sd">    American name: &#39;Tic Tac Toe&#39;</span>
+<span class="sd">    Reason: Who on Earth has a clue?  It&#39;s an historical thing.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+
+
+<p>Lovely. That'll do nicely. Not much coding going on there though. There are going to be some <code>import</code>s of various
+modules to help us with the coding, straight off the bat we know that we are going to be dealing with some kind of
+memory cells, this brings to mind that we'll need coding hints for things like <code>List</code> and perhaps <code>Union</code> so we'll add
+those in for a starter. Later on we'll add more in at this place in the file.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+</pre></div>
+
+
+<p>There are a number of elements of the game that can be usefully given names to help to document the code as we go along.
+The extra advantage to defining things by name at this point is that if we want to change things later on, then any
+changes made here automatically reflect through the whole code. (Hurrah!)</p>
+<p>So, what elements need to be defined? We have already identified that there are internal and external representations
+involved, therefore those should be defined along with the mapping between the two. Externally we know that we're going
+to have 'O' and 'X' to show the symbols—that much is obvious—but there is a third symbol too: the blank. The blank could
+be just a space character, but that isn't very <em>visible</em> if you want to <strong>see</strong> the grid, particular when it is empty,
+but also when working out which row and column a single symbol might be on. For this reason we'll use the
+underscore ('_') to represent a blank space.</p>
+<div class="highlight"><pre><span></span><span class="c1"># External representations of the playing symbols </span>
+<span class="n">BLANK_SYM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span>
+<span class="n">O_SYM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;O&#39;</span>
+<span class="n">X_SYM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+</pre></div>
+
+
+<p>That will make any grids clear:</p>
+<div class="highlight"><pre><span></span> ___     _X_     ___
+ ___     ___     _O_
+ ___     ___     ___
+Blank / One X / One O
+</pre></div>
+
+
+<p>What about internal representations? Does it matter? We could use the same symbols, however we <em>do</em> know that string
+comparisons are slower than integer comparisons, and so it would probably be better to use the quicker of the two given
+that there are a lot of comparisons that will be made. Let us keep it simple and just use the values zero to two.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Internal representations of the playing symbols </span>
+<span class="n">BLANK_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">O_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">X_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+
+
+<p>Now that we have those defined, we can create a couple of dictionaries that map between the two systems:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Translation between systems</span>
+<span class="n">VAL_TO_SYM</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">BLANK_VALUE</span><span class="p">:</span> <span class="n">BLANK_SYM</span><span class="p">,</span>
+    <span class="n">O_VALUE</span><span class="p">:</span> <span class="n">O_SYM</span><span class="p">,</span>
+    <span class="n">X_VALUE</span><span class="p">:</span> <span class="n">X_SYM</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">SYM_TO_VAL</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">BLANK_SYM</span><span class="p">:</span> <span class="n">BLANK_VALUE</span><span class="p">,</span>
+    <span class="n">O_SYM</span><span class="p">:</span> <span class="n">O_VALUE</span><span class="p">,</span>
+    <span class="n">X_SYM</span><span class="p">:</span> <span class="n">X_VALUE</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The chances are that whilst we are going through checking for winning lines and such like, we might want a quick way to
+refer to the opponent of the current player; we might not need it, but it could prove useful:</p>
+<div class="highlight"><pre><span></span><span class="n">OPPONENT</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">O_VALUE</span><span class="p">:</span> <span class="n">X_VALUE</span><span class="p">,</span>
+    <span class="n">X_VALUE</span><span class="p">:</span> <span class="n">O_VALUE</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Just a couple of other things that need to be taken care of: the translation of internal to external grid positions, and
+vise versa. Looking at the graphical images of the two representations, it is easy to write out a couple of dictionary
+constants mapping between the two:</p>
+<p><span class="originalWidth">
+<img alt="Image of internal and external representations of grid" src="images/guest-naughts-and-crosses-ai/numbering-int-and-ext.png">
+</span></p>
+<div class="highlight"><pre><span></span><span class="n">INTERNAL_TO_EXTERNAL</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="mi">3</span>
+<span class="p">}</span>
+<span class="n">EXTERNAL_TO_INTERNAL</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">7</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">8</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In order to help validate the player input we'll create a list of valid positions for their pieces, remember that
+<code>range()</code> returns value that <em>includes</em> the first parameter, but <em>excludes</em> the second parameter:</p>
+<div class="highlight"><pre><span></span><span class="n">VALID_POSITIONS</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+
+<p>I originally created this as a <code>list</code> but realised later that it was better (essentially more efficient) as a <code>set</code> so
+it is necessary to add <code>Set</code> to the <code>from typing import</code> line</p>
+<p>Oh, and of course we need a list of winning combinations so that it is quick to check. It is convenient to specify a
+winning line as a tuple of three integers, so here we have a list of (tuples of (three integers)): ah, <code>Tuple</code>, that's
+another item to import from the <code>typing</code> module. The winning lines are describing the <em>internal</em> numbering as per this
+diagram:</p>
+<p><span class="originalWidth">
+<img alt="Image of winning combination in same order as defined array" src="images/guest-naughts-and-crosses-ai/winning-positions.png">
+</span>
+<span class="originalWidth">
+<img alt="Image of internal numbering" src="images/guest-naughts-and-crosses-ai/numbering-internal.png">
+</span></p>
+<div class="highlight"><pre><span></span><span class="c1"># A winning combination exists for three symbols in a row:</span>
+<span class="n">WINNING_COMBINATIONS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p><a name='the-main-class'></a></p>
+<h3>The main class</h3>
+<p>Class. Yes, this game is going to be encompassed within an object!  We can start getting into the nitty-gritty right off
+by declaring our class… in deference to our US cousins we'll call our class <code>TicTacToe</code>—it's both shorter than
+<code>NaughtsAndCrosses</code> and less likely to cause argument over 'Nau…' versus 'Nou…' <em>(<a href="https://www.grammar.com/naught_vs._nought">Naught vs. Nought</a>)</em>.</p>
+<p>At the start of the class we'll define a few variables that are going to be useful throughout the game code, and define
+the types that we're expecting them to hold:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TicTacToe</span><span class="p">:</span>
+    <span class="c1"># define the types of various internal variables</span>
+    <span class="n">_board</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">_turn</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">_turn_cycle</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">_move</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+
+
+<p>Going through these:</p>
+<ul>
+<li><code>_board</code>: this will hold the current <em>internal</em> representation of the playing area;</li>
+<li><code>_turn</code>: keeping track of whose turn it is will be very necessary, this should only ever be <code>O_VALUE</code> or <code>X_VALUE</code>;</li>
+<li><code>_turn_cycle</code>: a useful iterator object that returns an endless sequence of <code>O_VALUE</code>, <code>X_VALUE</code>, <code>O_VALUE</code>,
+  <code>X_VALUE</code>, and so on; and</li>
+<li><code>_move</code>: a count of the number of moves taken. There are nine spaces and so there is a maximum of nine moves.</li>
+</ul>
+<p>As we're adding yet another type hint here, it's probably best to make sure that our import statement has caught up with
+all the various additions:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Iterator</span>
+</pre></div>
+
+
+<p>Hopefully that's got all our typing needs covered now.</p>
+<p>An important part of every class in the <code>__init__()</code> initializer method, or <em>Constructor</em>, that is used to set up the
+blank object:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor, allocate the blank board&quot;&quot;&quot;</span>
+        <span class="c1"># Create an array of cells to hold the grid positions.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_board</span> <span class="o">=</span> <span class="p">[</span><span class="n">BLANK_VALUE</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">VALID_POSITIONS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turn_cycle</span> <span class="o">=</span> <span class="n">cycle</span><span class="p">([</span><span class="n">O_VALUE</span><span class="p">,</span> <span class="n">X_VALUE</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_turn</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_move</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>A little explanation may be useful here, the <code>_board</code> is set by the curious construction above: multiplying a
+single element list by the length of a set?? In this case the <code>*</code> does not literally indicate mathematical
+multiplication, but rather duplication: it indicates that the list element is to be repeated. As an example here is a
+sort console log showing the use of the functionality:</p>
+<div class="highlight"><pre><span></span>Python 3.8.5 (default, Sep  4 2020, 07:30:14) 
+[GCC 7.3.0] on linux
+&gt;&gt;&gt; f = [1]
+&gt;&gt;&gt; f
+[1]
+&gt;&gt;&gt; f * 8
+[1, 1, 1, 1, 1, 1, 1, 1]
+</pre></div>
+
+
+<p>This is a simple method of creating a list containing a repeated element, however, it should be noted that it is not
+good for very large lists due to the requirement of core memory in making the list. We know that in this case the length
+of the <code>VALID_POSITIONS</code> set is only nine so there is no worry about excessive memory use.</p>
+<p>The <code>_turn_cycle</code> variable is created with a very useful element of the <code>itertools</code> module. <code>cycle</code> creates a repeating
+iterator from the provided iterable parameter. Here we are passing a two element list, consisting of the two player
+options, and in return we get an object that will respond to the <code>next()</code> method by returning each element in turn, when
+the list is exhausted it automatically starts at the beginning again <em>(<a href="https://docs.python.org/3.8/library/itertools.html#itertools.cycle">Python Docs, 
+<code>itertols.cycle(iterable)</code></a>)</em>. 
+Our imports do not currently include the itertools module, so we need to add the extra import line at the top of the 
+file:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
+</pre></div>
+
+
+<p>Looking back at the <code>__init__()</code> method it can be seen that <code>_turn</code> is initialised by the return value of another
+method, <code>_next_turn()</code>. It is possibly easy to guess what this method does, but let's sketch it in now to be sure:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">_next_turn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn_cycle</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Yes, we're using the <code>_turn_cycle</code> variable to pick off the next player; this is why it was necessary to assign 
+<code>_turn_cycle</code> before <code>_turn</code> in the <code>__init__()</code> method.  It might seem a little odd to have a 'private' method that 
+just returns the value from a private iterator, but there are two reasons for doing this:
+1. it ensures that the syntax for <code>next(self._turn_cycle)</code> is consistently followed; and, more importantly
+2. it allows for additional functionality to be performed when the next turn is being selected without having to seek
+    out every instance of the operation.</p>
+<p>Arguably one of the most important elements of the object is to provide a visible version of the board layout, remember
+that our internal representation follows for directly printing out in three rows so there is no need to manipulate
+the order before generating the output:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print the board&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">VAL_TO_SYM</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">s</span> <span class="o">*</span> <span class="mi">3</span><span class="p">:(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">]</span>
+            <span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+
+
+<p>This looks a little complex because it is using multiply nested <code>str.join()</code> statements. It may become clearer if we
+unwind it into a longer version:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Alternative view of same function&quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">s</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">VAL_TO_SYM</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+
+
+<p>It is much easier to see now that there are two loops counting from zero to two (remember that the value in <code>range()</code> 
+is exclusive on the upper limit); the outer loop <code>s</code> counts the rows, whilst the inner loop <code>t</code> counts the columns. A 
+cell value <code>c</code> is extracted from the <code>_board</code> using an offset calculation, and then the <code>VAL_TO_SYM</code> dictionary 
+translates the internal value to the external symbol and adds it to <code>row</code>. Once a full <code>row</code> has been compiled, 
+it is added to <code>output</code> as a single string with spaces between each value using <code>' '.join(row)</code>. Finally, once the 
+three rows have been added to <code>output</code>, they, in turn, are joined together with a newline character inserted between
+each row. The joined together rows are returned as a single string, completing the method.  The 'single line' version 
+of the method, above, has all the same functionality, but tightly parcelled up in a 
+<a href="https://docs.python.org/3.8/tutorial/datastructures.html#nested-list-comprehensions">nested list comprehension</a>.</p>
+<p>Now we're going to introduce a couple of helper methods to the class.  These two methods will not actually change any
+element of the class object, but rather compute the logical mappings between internal and external grid positions. 
+Since they are not making any changes, they can be marked as 'static' methods.  All they actually do is to use the 
+dictionaries that we set up earlier to perform the translation.  Using methods in this way, again allows modifications
+to structures without requiring wholesale rewrites.</p>
+<div class="highlight"><pre><span></span>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_ndx_to_cell_</span><span class="p">(</span><span class="n">ndx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">EXTERNAL_TO_INTERNAL</span><span class="p">[</span><span class="n">ndx</span><span class="p">]</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_cell_to_ndx_</span><span class="p">(</span><span class="n">cell</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">INTERNAL_TO_EXTERNAL</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span>
+</pre></div>
+
+
+<p>In order to save on typing, we have named these methods using the abbreviation 'ndx' for the external index, and 'cell' 
+for the internal cell offset.</p>
+<p>Right, we're now up to the point where we're going to actually put a players move onto the board.  As this is an 
+interaction between the player and the computer, it is always wise to attempt to anticipate things that the player
+could do wrong… such as entering the number of a cell that has already been played, or even trying to play in cells that
+do not exist!  Python has the perfect mechanism for flagging up this kind of error: the <code>Exception</code> system.  We can 
+create a couple of custom exceptions for ourselves by putting the following code <em>above</em> the main class declaration:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BlockedCell</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">InvalidMove</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<p>As easy as that! To create a custom exception all we need to do is to create a class inheriting from the systems 
+<code>Exception</code> class.  If we wanted our exception to do something beyond the normal exception system, such as automatic 
+logging of the error, then it can be built onto this definition; otherwise, if we just want a new exception name, it is
+appropriate to state <code>pass</code>, meaning (in this case) don't add anything to the standard class.</p>
+<p>So to the <code>player_move()</code> method. As the game object is stateful (it knows what the current state of play is and keeps
+track of which player is playing), we can just pass the location that the user wishes to play in.  This will be an 
+<em>external</em> position as it's coming from the user, so we'll be making use of the <code>_ndx_to_cell_()</code> helper method to do
+the appropriate translation once we've made sure that the <code>target_position</code> is on the board. Here's the code:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">player_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_position</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempt to place the player move</span>
+
+<span class="sd">        May raise exceptions: BlockCell, InvalidMove</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">target_position</span> <span class="ow">in</span> <span class="n">VALID_POSITIONS</span><span class="p">:</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndx_to_cell_</span><span class="p">(</span><span class="n">target_position</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span> <span class="ow">is</span> <span class="n">BLANK_VALUE</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turn</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">BlockedCell</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s1">&#39;Cannot play at {target_position}, it is already held by {VAL_TO_SYM[self._board[cell]]}&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidMove</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Invalid move, {target_position} not available&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Notice that the documentary comment (the <code>docstring</code>) at the start of the method notes that it can raise exceptions: 
+this is a good habit to cultivate so that you know by requesting the documentation either by using an IDE that 
+automatically does so, or by typing <code>help(TicTacToe.player_move)</code> in the interactive python console:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; from tictactoe import TicTacToe 
+&gt;&gt;&gt; help(TicTacToe.player_move)
+Help on function player_move in module tictactoe:
+
+player_move(self, target_position: int)
+    Attempt to place the player move
+
+    May raise exceptions: BlockCell, InvalidMove
+</pre></div>
+
+
+<p>The second thing to note is that it doesn't assume that the player is either 'O' or 'X', rather it uses the <code>_turn</code>
+variable to identify the current player.  In this way, the same routine can play to the board for either player.</p>
+<p>Once the player has made their move, the (private) method <code>_next_turn()</code> will advance to the next player. Why was it
+made as a 'private' method?  The reason was because it is designed to work with <em>internal</em> representations, it is a 
+wrapper around the <code>_turn_cycle</code> iterator, and we want to stop the internal values being inadvertently revealed outside 
+the object. We need a public method that can be used to switch players, save the active player, and which returns the 
+<em>external</em> representation of the player whose turn it is:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">next_player</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_turn</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">VAL_TO_SYM</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]</span>
+</pre></div>
+
+
+<p>We use the private method to obtain the next scheduled player, save it as the current <code>_turn</code> and then use the 
+<code>VAL_TO_SYM</code> dict to return either 'O' or 'X' as appropriate.</p>
+<p><a name="whos-the-winner"></a></p>
+<h3>Who's the winner?</h3>
+<p>To summarise, our <code>TicTacToe</code> class so far:</p>
+<ul>
+<li>sets up a blank board;</li>
+<li>keeps track of which player has the turn;</li>
+<li>allows the player to place a symbol on an empty space; and</li>
+<li>returns a textural representation of the board.</li>
+</ul>
+<p>There is something missing though: deciding a winner! </p>
+<p>There are three distinct outcomes for a finished game: win, lose or draw. In order for the outcome to be revealed we
+can create properties that evaluate the state of the board with respect to the current player.  As there is a common
+thread in all these tests, we make a helper method, <code>find_winner()</code>, to hold the common code.</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">find_winner</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="bp">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Find a winner, &#39;O&#39;, &#39;X&#39; or None&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="n">O_VALUE</span><span class="p">,</span> <span class="n">X_VALUE</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">combo</span><span class="p">)</span> <span class="k">for</span> <span class="n">combo</span> <span class="ow">in</span> <span class="n">WINNING_COMBINATIONS</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">s</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+
+
+<p>There is a strange looking construct in the <code>if</code> statement here <code>any()</code> and <code>all()</code> are builtin functions of Python,
+(<a href="https://docs.python.org/3.8/library/functions.html#all">Python Docs, <code>all(iterable)</code></a>
+and <a href="https://docs.python.org/3.8/library/functions.html#any">Python Docs, <code>any(iterable)</code></a>)
+that can evaluate a group of boolean expressions in a way that smartly returns a result as soon as it is confident.
+Taking <code>any()</code> as the example, it will work through all the elements of the iterable until it find <em>one</em> that evaluates
+to <code>True</code>, if it gets to the end of the iterable, or the iterable is empty, then it returns <code>False</code>. This technique of 
+stopping as soon as a result is confident is known as <em>short circuit</em> evaluation. As a regular function it would be 
+coded as:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">any</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">element</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="bp">False</span>
+</pre></div>
+
+
+<p>Similarly, <code>all()</code> works through the iterable until it finds one that is False:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+
+
+<p>(These two examples are taken from the Python Docs page on 
+<a href="https://docs.python.org/3.8/library/functions.html">library functions</a>.)
+Going back to the <code>find_winner()</code> method, we can see that there is an <code>all()</code> function nested inside an <code>any()</code> 
+function: let us unpick what is going on.  Just as with the <code>__str__()</code> method above, we have a nested comprehension, so
+we can unroll it and see it in an expanded view, taking into account the definitions of <code>all()</code> and <code>any()</code> above:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">find_winner</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="bp">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Find a winner, &#39;O&#39;, &#39;X&#39; or None&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="n">O_VALUE</span><span class="p">,</span> <span class="n">X_VALUE</span><span class="p">]:</span>
+            <span class="c1"># ANY of the following</span>
+            <span class="n">any_ok</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">for</span> <span class="n">combo</span> <span class="ow">in</span> <span class="n">WINNING_COMBINATIONS</span><span class="p">:</span>
+                <span class="c1"># ALL of the following</span>
+                <span class="n">all_ok</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">combo</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">:</span>
+                        <span class="n">all_ok</span> <span class="o">=</span> <span class="bp">False</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">all_ok</span><span class="p">:</span>
+                    <span class="n">any_ok</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="n">any_ok</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">s</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</pre></div>
+
+
+<p>Starting from the bit that hasn't changed, we're going to loop through the two player values to make the comparisons.
+The variable <code>s</code> is being used to hold the currently being tested player, normally it would be recommended that a 
+longer, descriptive, name would be used but to do so in the original short method would have resulted in an
+overlong line with negligible benefit: this kind of trade off should be considered carefully before being used too 
+often. At the next level we process the <code>any()</code> function.  As we're not using the builtin function, we need a flag to
+track when we can <em>short circuit</em> the test.  We are going to loop through each of the possible <code>WINNING_COMBINATIONS</code>,
+passing each combination to the <code>all()</code> function level. Again a flag is needed to keep track… </p>
+<p>We've come to the meat of the method now: <code>combo</code> holds a particular winning combination of cells, <code>all_ok</code> is set to
+<code>True</code> as the default 'return' value for the inner loop and <code>any_ok</code> is set to <code>False</code> as the default 'return' value 
+for the outer loop.  The inner loop looks through the cells indicated in <code>combo</code> to check if they all have the currently
+being tested player: as soon as a cell is found that doesn't have that value, <code>all_ok</code> is reset to <code>False</code> and a <code>break</code>
+is executed to 'escape' from the <code>for c in combo:</code> loop. At this point either the test found a cell that wasn't the 
+right player, or it looped right through finding all the cells belonging to the currently being tested player.  If the 
+latter happened, then <code>all_ok</code> will still be set to <code>True</code> and we've found a winning line so we can set <code>any_ok</code> to
+<code>True</code> and <code>break</code> out of the <code>for combo in…</code> loop.  Again we do a check, this time on <code>any_ok</code>  to see if there's been
+a winning line found, and, if so, we actually return the winning player value.  Finally if the <code>for s in…</code> loop passes 
+out with no winning line found for either player then we return <code>None</code>.  This indicates 'no winner' <em>not</em> 'draw'.</p>
+<p>Now that we have that helper method we can create a set of properties that will provide the current state of the game:</p>
+<div class="highlight"><pre><span></span>    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">win</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Test if the game is won&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_winner</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turn</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Test if the game is lost&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_winner</span><span class="p">()</span> <span class="o">==</span> <span class="n">OPPONENT</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Test if the game is a draw&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">BLANK_VALUE</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">win_draw_lose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Test if the game is still in play&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">win</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lose</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw</span>
+</pre></div>
+
+
+<p>The properties <code>win</code> and <code>lose</code> purely check the returned value to see if it is the player or the opponents internal
+value. On the other hand, <code>draw</code> searches through the board for a <code>BLANK_VALUE</code>, if there are no blanks present then
+there is no where left to play, therefore, it's a draw. Lastly, the property <code>win_draw_lose</code> checks to see if there is 
+any reason for the game to have ended without being specific.</p>
+<p>One final property and we should be ready to play!  What is that last property?  The player symbol is needed to prompt
+the appropriate player for their turn:</p>
+<div class="highlight"><pre><span></span>    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">player</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">VAL_TO_SYM</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]</span>
+</pre></div>
+
+
+<p><a name="lets-play"></a></p>
+<h2>Let's play</h2>
+<p>Time to write some code to actually use the <code>TicTacToe</code> class.  In the normal line of development we would have been
+developing this piece of code in tandem with the actual class, however, in order to concentrate on the class it has
+been left until this point.  As it's going to be tacked to the end of the file we'll use a special test so that it can
+still be used as a module if so desired:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</pre></div>
+
+
+<p>When Python imports a file through an <code>import</code> instruction (or similar), it automatically sets the special variable 
+<code>__name__</code> to the name of the module. However, when Python loads a module as a script in order to 'run' it, then 
+<code>__name__</code> is set to the value "<strong>main</strong>" allowing us to easily detect when we're, ahem, the main file.</p>
+<p>We are going to set up a 'forever' loop to keep playing… we won't ever want to stop will we??</p>
+<div class="highlight"><pre><span></span>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</pre></div>
+
+
+<p>At the start of our game loop we create an instance of the <code>TicTacToe</code> object, and announce our intention:</p>
+<div class="highlight"><pre><span></span>        <span class="n">game</span> <span class="o">=</span> <span class="n">TicTacToe</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Let&#39;s play Naughts and Crosses!&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>There is an inner loop here that keeps going until the game is won, drawn or lost… we have a useful property to check
+that.  Each time around the loop we print out what the board look like, asking the object to print like this 
+automatically invokes the <code>__str__()</code> method:</p>
+<div class="highlight"><pre><span></span>        <span class="k">while</span> <span class="ow">not</span> <span class="n">game</span><span class="o">.</span><span class="n">win_draw_lose</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Current state of game:&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Now we have some player input so we should anticipate problems, using a <code>try…except…</code> construct will make sure we have
+a chance of keeping control of any such problems.  We ask for a game play, using <code>game.player</code> to display either 'O' or
+'X' and then attempt to convert that typed in game play into an integer.  Note that if the player does not enter a 
+number then the attempted conversion will raise an exception, we'll handle this later but we need not worry about it
+in the rest of this piece of code.</p>
+<div class="highlight"><pre><span></span>            <span class="k">try</span><span class="p">:</span>
+                <span class="n">mv</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Where would you like to play your {game.player}? &#39;</span><span class="p">)</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We have the players intended move now in <code>position</code> (<em>external</em> representation), so that can be passed to 
+<code>game.player_move()</code> to place the appropriate symbol.  Remember that <code>player_move()</code> can raise a couple of exceptions, 
+however, as we are in the middle of a <code>try…except…</code> construct we need not worry about errors at this point and can 
+continue knowing that the move was accepted.</p>
+<div class="highlight"><pre><span></span>                <span class="n">game</span><span class="o">.</span><span class="n">player_move</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This is the point at which we check for the game having been won or drawn, as the current player cannot have lost by
+making a move, we need not check for the 'lose' condition.  If either of the two conditions are met then we print out 
+the game grid in its final position along with a message indicating the win or draw status.  Then there is a <code>break</code> in
+each case: this will exit the <code>while not game.win_draw_lose</code> loop allowing a new game to begin.</p>
+<div class="highlight"><pre><span></span>                <span class="k">if</span> <span class="n">game</span><span class="o">.</span><span class="n">win</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;**WIN** We have a WINNER!!  Well done {game.player}.&#39;</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">if</span> <span class="n">game</span><span class="o">.</span><span class="n">draw</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;**DRAW** That was a little pointless in the end.&#39;</span><span class="p">)</span>
+                    <span class="k">break</span>
+</pre></div>
+
+
+<p>If the game is not won or drawn though, then we move the game object on to the next player before repeating the play
+position input at the top of the <code>while not game.win_draw_lose</code> loop.</p>
+<div class="highlight"><pre><span></span>                <span class="n">game</span><span class="o">.</span><span class="n">next_player</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Remember those error possibilities with the <code>game.player_move(position)</code>? Well here at the end of the <code>try…</code> construct 
+we have a series of <code>except…</code> clauses picking up on the specific errors that we are expecting.  In each case the 
+response is to print an error message as appropriate and then to return to the top of the <code>while</code> loop.</p>
+<div class="highlight"><pre><span></span>            <span class="k">except</span> <span class="n">InvalidMove</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Poor choice, Grasshopper, &quot;{mv}&quot; is not and acceptable move: use the numeric keypad layout!&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">BlockedCell</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Sorry that spot is already taken.&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>There was one other possible exception that we anticipated: when converting the players typed in move, we attempt to 
+convert the string to an integer.  This can raise a <code>ValueError</code> that we pick up here to give an appropriate error 
+message before going on back to the top of the <code>while</code> loop.</p>
+<div class="highlight"><pre><span></span>            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Please indicate position as though it were the numeric keypad.&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>At this point, if everything works out as it should, you should have a working Noughts and Crosses game for two players;
+or yourself playing two sides!</p>
+<p><a name='i-always-lose-playing-against-myself'></a></p>
+<h2>I always lose playing against myself</h2>
+<p>It can get tiring playing just against yourself, perhaps we can spice things up a bit by getting the computer to play
+against us?</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Tic-tac-toe">Wikipedia article on Tic-tac-toe</a> has a set of steps forming a strategy 
+that can be followed when playing a game, these steps are an excellent starting point for programming an artificial 
+opponent. Let us take a look at the steps from a programming point of view and work out if it is possible to craft an 
+opponent:</p>
+<p><span class="originalWidth">
+<img alt="1. Win" src="images/guest-naughts-and-crosses-ai/t_1_win.png">
+</span></p>
+<p>Go for the win! What we actually want to seek here is one of the winning rows which has a gap and two of the current
+players symbols in. </p>
+<p><span class="originalWidth">
+<img alt="Examples of one move short of a winning line" src="images/guest-naughts-and-crosses-ai/almost_winning_lines.png">
+</span></p>
+<p>It would be useful if we could check each line without actually needing to compare all the values
+individually.  There are actually ten distinct combinations of 'O' and 'X' lines, ignoring ordering and reflections, as 
+can be seen in the following graphic</p>
+<p><span class="originalWidth">
+<img alt="Image of rows of distinct combinations of Os and Xs" src="images/guest-naughts-and-crosses-ai/combinations.png">
+</span></p>
+<p>We need a method to:</p>
+<ul>
+<li>uniquely identify each of the possible lines;</li>
+<li>particularly pick out two Os or two Xs and a blank, whatever order the symbols are; and</li>
+<li>not interfere with the existing code logic.</li>
+</ul>
+<p>In order to fulfil these requirements we should look at a method that combines the three internal values into a single 
+value that is the same regardless of ordering: this leads us to a summation or product of the values.  Let's see how 
+this works out.</p>
+<p>Currently, we have:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Internal representations of the playing symbols</span>
+<span class="n">BLANK_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">O_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">X_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+
+
+<p>The combinations result in:</p>
+<table>
+<thead>
+<tr>
+<th align="center">combination</th>
+<th align="center">values</th>
+<th align="right">sum</th>
+<th align="right">product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">_ _ _</td>
+<td align="center">0 0 0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O _ _</td>
+<td align="center">1 0 0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O O _</td>
+<td align="center">1 1 0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O O O</td>
+<td align="center">1 1 1</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="center">O X _</td>
+<td align="center">1 2 0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O O X</td>
+<td align="center">1 1 2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="center">X _ _</td>
+<td align="center">2 0 0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">X X _</td>
+<td align="center">2 2 0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">X X X</td>
+<td align="center">2 2 2</td>
+<td align="right">6</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="center">X X O</td>
+<td align="center">2 2 1</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>From these results it is easy to see that two Xs and a blank uniquely give a sum of four and a product of zero; 
+unfortunately two Os and a blank give exactly the same values as one X and two blanks.  The product value actually only
+really identifies when there is a space in the line, and it is necessary to calculate both the sum and the product to 
+correctly identify the one line that we do want.  This seems excessive.  Part of the problem with separating the 
+identity of 'O' and 'X' is that the values we currently have are factors of each other, perhaps using prime numbers 
+would make a difference?</p>
+<p>Suggested new values:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Internal representations of the playing symbols</span>
+<span class="n">BLANK_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">O_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">X_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+
+
+<p>The combinations result in:</p>
+<table>
+<thead>
+<tr>
+<th align="center">combination</th>
+<th align="center">values</th>
+<th align="right">sum</th>
+<th align="right">product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">_ _ _</td>
+<td align="center">2 2 2</td>
+<td align="right">6</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="center">O _ _</td>
+<td align="center">3 2 2</td>
+<td align="right">7</td>
+<td align="right">12</td>
+</tr>
+<tr>
+<td align="center">O O _</td>
+<td align="center">3 3 2</td>
+<td align="right">8</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="center">O O O</td>
+<td align="center">3 3 3</td>
+<td align="right">9</td>
+<td align="right">27</td>
+</tr>
+<tr>
+<td align="center">O X _</td>
+<td align="center">3 5 2</td>
+<td align="right">10</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td align="center">O O X</td>
+<td align="center">3 3 5</td>
+<td align="right">11</td>
+<td align="right">45</td>
+</tr>
+<tr>
+<td align="center">X _ _</td>
+<td align="center">5 2 2</td>
+<td align="right">9</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="center">X X _</td>
+<td align="center">5 5 2</td>
+<td align="right">12</td>
+<td align="right">50</td>
+</tr>
+<tr>
+<td align="center">X X X</td>
+<td align="center">5 5 5</td>
+<td align="right">15</td>
+<td align="right">125</td>
+</tr>
+<tr>
+<td align="center">X X O</td>
+<td align="center">5 5 3</td>
+<td align="right">13</td>
+<td align="right">75</td>
+</tr>
+</tbody>
+</table>
+<p>Now we have unique values for both the two Os and the two Xs, in the sum and the product.  However, in the summation
+there is a conflict of identification for the rows consisting of three Os and of a single X.  We could experiment with
+other values, but the product values are fully unique across our requirements.</p>
+<p>In order to seek a winning move we can scan through the <code>WINNING_COMBINATIONS</code> to search for a product of 18 for a 'O'
+win or 50 for an 'X' win.  In our code we can do something like this:</p>
+<div class="highlight"><pre><span></span><span class="c1"># New imports</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">mul</span>
+
+<span class="c1"># Update the internal representations of the playing symbols, this will automatically change </span>
+<span class="c1"># the internal values throughout the program.</span>
+<span class="n">BLANK_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">O_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">X_VALUE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Add a new function to the class.</span>
+<span class="k">class</span> <span class="nc">TicTacToe</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">_ai_move</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Identify a move for the computer to make&quot;&quot;&quot;</span>
+        <span class="n">winning_lines</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">WINNING_COMBINATIONS</span><span class="p">:</span>
+            <span class="n">prod</span> <span class="o">=</span> <span class="nb">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">line</span><span class="p">])</span>
+            <span class="n">winning_lines</span><span class="p">[</span><span class="n">prod</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We are creating a dictionary of lines that share the same 'product value', so if there are multiple lines capable of a
+winning move then they will all be listed in the <code>set</code> associated with the appropriate value. Speaking of winning moves,
+it would be useful to define the values that we are looking for up at the top of the file, we'll create a dictionary
+named <code>WINNING_PROD</code>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># The product of values in an *almost* winning line…</span>
+<span class="n">WINNING_PROD</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">O_VALUE</span><span class="p">:</span> <span class="n">O_VALUE</span> <span class="o">*</span> <span class="n">O_VALUE</span> <span class="o">*</span> <span class="n">BLANK_VALUE</span><span class="p">,</span>
+    <span class="n">X_VALUE</span><span class="p">:</span> <span class="n">X_VALUE</span> <span class="o">*</span> <span class="n">X_VALUE</span> <span class="o">*</span> <span class="n">BLANK_VALUE</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Note that the references are for <code>O_VALUE</code>, <code>X_VALUE</code> and 'BLANK_VALUE' so that if we change those again, they will 
+be automatically updated.  Now that that has been done, it is a very simple test to check if a winning line is 
+available.</p>
+<div class="highlight"><pre><span></span>        <span class="c1"># 1. Let&#39;s see if there is a winning line for the current player</span>
+        <span class="k">if</span> <span class="n">winning_lines</span><span class="p">[</span><span class="n">WINNING_PROD</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]]:</span>
+            <span class="c1"># find the blank in the first winning line.</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">winning_lines</span><span class="p">[</span><span class="n">WINNING_PROD</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLANK_VALUE</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+
+<p>This takes advantage of the <code>defaultdict</code> property of returning an empty entry if the requested index doesn't exist.  If
+there is a set associated with the appropriate index then one item, it doesn't matter which as multiple entries will all
+be appropriate 'nearly winning lines.'  A list comprehension searches out the <code>BLANK_VALUE</code> and finally returns the 
+<em>internal</em> location of the gap by dereferencing the first, and only, element.</p>
+<p><span class="originalWidth">
+<img alt="2. Block" src="images/guest-naughts-and-crosses-ai/t_2_block.png">
+</span></p>
+<p>If we cannot win with the next move, then the next priority is to make sure that our opponent doesn't win… we need to 
+play a blocking move; or, to put it another way, put our symbol in the spot when the opponent could make a winning
+move.  Conveniently we have already created a dictionary holing all the lines that could be played, and that includes 
+'nearly winning lines' of our opponents too.  This means that a block move is just a case of looking for a winning
+position like above, but for the opponent.</p>
+<div class="highlight"><pre><span></span>        <span class="c1"># 2. Block: If the opponent has two in a row, the player</span>
+        <span class="c1">#       must play the third themselves to block the opponent.</span>
+        <span class="k">if</span> <span class="n">winning_lines</span><span class="p">[</span><span class="n">WINNING_PROD</span><span class="p">[</span><span class="n">OPPONENT</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]]]:</span>
+            <span class="c1"># find the blank to play a block.</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">winning_lines</span><span class="p">[</span><span class="n">WINNING_PROD</span><span class="p">[</span><span class="n">OPPONENT</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]]]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">line</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLANK_VALUE</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+
+<p>This is almost exactly the same as the first section above, but uses the <code>OPPONENT</code> dictionary to pick out our
+opponents symbol instead.</p>
+<p>The similarities of these two pieces of code indicate a good place to examine for refactoring once we have completed
+the function.</p>
+<p><span class="originalWidth">
+<img alt="3. Fork" src="images/guest-naughts-and-crosses-ai/t_3_fork.png">
+</span></p>
+<p>Creating a fork means placing a piece that can contribute to two separate lines to give a win.</p>
+<p><span class="originalWidth">
+<img alt="Image showing examples of forks" src="images/guest-naughts-and-crosses-ai/fork_examples.png">
+</span></p>
+<p>In this image the first two grids show 'O' having just played a fork move (indicated by the green 'O'); in the second 
+two grids we see just why these positions are called 'forks,' the cyan '+' marks the alternative places that 'X' could 
+play, in each case 'O' wins on the next turn by playing the alternative.</p>
+<p><span class="originalWidth">
+<img alt="4. Blocking an opponent's fork" src="images/guest-naughts-and-crosses-ai/t_4_block_fork.png">
+</span></p>
+<p>In a similar case to the above, blocking an opponent's fork means anticipating when your opponent is about to play 
+a move that will lead to a fork and playing in that spot before they can.  If we examine the moves leading up to 
+position <em>A1</em> above:</p>
+<p><span class="originalWidth">
+<img alt="Image of set of boards showing each move leading to OXO on the diagonal" src="images/guest-naughts-and-crosses-ai/play_to_o_fork_threat.png">
+</span></p>
+<p>'O' starts off playing in the bottom corner, 'X' replies by playing in the middle, then 'O' plays in the opposite 
+corner… at this point 'X' spots that 'O' can play in either of the other two corners (marked with the cyan '+' symbols) 
+and end up with a fork: he cannot possibly block both of these cases though, and so the actual solution is to go for 
+the draw and play in a side.</p>
+<p>For now, we'll leave coding of forks because we want some form of weakness in our algorithm that a player might have 
+some small change of winning!</p>
+<p><span class="originalWidth">
+<img alt="5. Centre" src="images/guest-naughts-and-crosses-ai/t_5_centre.png">
+</span></p>
+<p>This play is a no-brainer: play in the centre. If this is the very first move of a game, then this is not such a good
+move though, as playing in a corner is the move that grants your opponent the most opportunities to make a mistake.</p>
+<div class="highlight"><pre><span></span>        <span class="c1"># 5. Center: A player marks the center.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLANK_VALUE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">4</span>
+</pre></div>
+
+
+<p><span class="originalWidth">
+<img alt="6. Opposite corner" src="images/guest-naughts-and-crosses-ai/t_6_opposite.png">
+</span></p>
+<p>If we have progressed this far through our algorithm, then the chances are that there haven't been many moves: let's 
+see if we can find an empty space opposite a space occupied by our opponent:</p>
+<div class="highlight"><pre><span></span>        <span class="c1"># 6. Opposite corner: If the opponent is in a corner, the</span>
+        <span class="c1">#       player plays the opposite corner.</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">OPPONENT</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_turn</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLANK_VALUE</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+
+
+<p><span class="originalWidth">
+<img alt="7. Empty corner" src="images/guest-naughts-and-crosses-ai/t_7_empty_corner.png">
+</span></p>
+<p>Failing to find an opposite corner, we just select an empty corner.</p>
+<div class="highlight"><pre><span></span>        <span class="c1"># 7. Empty corner: The player plays in a corner square.</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLANK_VALUE</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+
+
+<p><span class="originalWidth">
+<img alt="8. Empty side" src="images/guest-naughts-and-crosses-ai/t_8_empty_side.png">
+</span></p>
+<p>Finally, all other spaces have been checked, so there can only be side(s) remaining. Select one of those.</p>
+<div class="highlight"><pre><span></span>        <span class="c1"># 8. Empty side: The player plays in a middle square on any</span>
+        <span class="c1">#       of the 4 sides.</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_board</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">BLANK_VALUE</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+
+
+<p>By the time we have worked through all of these options a valid move will have been returned—in <em>internal</em> 
+representation. However, what if something that we were not expecting happened?  For example, if the <code>_ai_move()</code>
+method was called when the board has no moves left?  It is worth including an exception at the end of a routine
+that is intended to return a value, rather than leave it to default to returning <code>None</code>:</p>
+<div class="highlight"><pre><span></span>        <span class="k">raise</span> <span class="n">InvalidMove</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Couldn&#39;t identify a move to make for AI controlled {self.player}&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><a name='its-your-move-machine'></a></p>
+<h3>It's your move machine!</h3>
+<p>Our <code>_ai_move()</code> method is now as complete as we need it to be, so all that is required is to build a mechanism for it
+to be called.</p>
+<p>First off, as we will want to let the player know what is going on we need to have a method that calls this internal 
+method and translates it to <em>external</em> representation ready to be shown to the user.  The easiest, and quickest, way to
+achieve this is to add a method like this:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">ai_move</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cell_to_ndx_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ai_move</span><span class="p">()))</span>
+</pre></div>
+
+
+<p>We wrap up the internal method in a call to the helper method <code>_cell_to_ndx()</code> before casting it to a string ready for
+return.</p>
+<p>The driver code at the bottom of our file can now be modified to make use of this at any time to request an automatic
+move selection: notice that it doesn't look for an 'O' move or an 'X' move, it looks purely for a <em>next</em> move.  This 
+being the case, we can replace the move request <code>input()</code> with a call to <code>game.ai_move()</code> and receive an appropriate
+selection regardless of which player is next.  So, we can replace:</p>
+<div class="highlight"><pre><span></span>                <span class="n">mv</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Where would you like to play your {game.player}? &#39;</span><span class="p">)</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+</pre></div>
+
+
+<p>with</p>
+<div class="highlight"><pre><span></span>                <span class="k">if</span> <span class="n">game</span><span class="o">.</span><span class="n">player</span> <span class="o">==</span> <span class="n">O_SYM</span><span class="p">:</span>
+                    <span class="n">mv</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Where would you like to play your {game.player}? &#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mv</span> <span class="o">=</span> <span class="n">game</span><span class="o">.</span><span class="n">ai_move</span><span class="p">()</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Computer chooses to play {game.player} at {mv}.&#39;</span><span class="p">)</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and the computer will seamlessly take over playing the 'X' moves.</p>
+<h2>And finally Esther…</h2>
+<p>There you have it: a playable naughts and crosses game to keep your little darlings entertained for hours… however, 
+there is always room for improvement. For example:</p>
+<ul>
+<li>In the <code>_ai_move()</code> code there is a great similarity in the code between options 1 (win) and 2 (block), maybe this 
+  could be pulled out into a helper method?</li>
+<li>Once you start playing, there is no easy way to stop: would it be possible to give an easy escape by watching for 
+  the player typing 'quit' or just 'q'?</li>
+<li>The printing of the grid doesn't give any help as to the numbers to press: you just have an error message telling you
+  that the numeric keypad is the pattern to follow. What is a player is using a laptop without a numeric keypad?</li>
+</ul>
+<h2>Gists of code:</h2>
+<p>For your convenience, the completed versions of the naughts and crosses code are stored here:</p>
+<ul>
+<li>Manual version: <a href="https://gist.github.com/GeoffRiley/5df355830937dd84828fd7470c3b46ac">tictactoe_manual.py</a></li>
+<li>Computer assisted version: <a href="https://gist.github.com/GeoffRiley/84a4c52af105062c6620cb405da6660c">tictactoe_ai.py</a></li>
+</ul>
+<p>-- <a href="pages/guests.html#geoff-riley">Geoff Riley</a></p>
+<p><span class="originalWidth">
+<img alt="Image of slogan: May the code be with you" src="images/guest-naughts-and-crosses-ai/the_code_be_with_you.png">
+</span></p>
+<p><a name='references'></a></p>
+<h2>References</h2>
+<ul>
+<li><a href="https://www.imdb.com/title/tt0086567/">Wargames (1983)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tic-tac-toe">Wikipedia article on Tic-tac-toe</a></li>
+<li><a href="https://codechalleng.es/challenges/12/">PyBites coding challenge 12</a></li>
+<li><a href="https://www.grammar.com/naught_vs._nought">Naught vs. Nought</a></li>
+<li><a href="https://docs.python.org/3.8/library/itertools.html#itertools.cycle">Python Docs, <code>itertols.cycle(iterable)</code></a></li>
+<li><a href="https://docs.python.org/3.8/tutorial/datastructures.html#nested-list-comprehensions">Python Docs, Nested list comprehension</a></li>
+<li><a href="https://docs.python.org/3.8/library/functions.html#all">Python Docs, <code>all(iterable)</code></a></li>
+<li><a href="https://docs.python.org/3.8/library/functions.html#any">Python Docs, <code>any(iterable)</code></a></li>
+</ul>
+
+
+<div id="pbproducts">
+  <h3>PyBites Python Tips</h3>
+  <div>
+    <p>Do you want to get <strong>250+ concise and applicable Python tips</strong> in an ebook that will cost you less than 10 bucks (future updates included), check it out <a href="https://gumroad.com/l/pbtips" target="_blank">here</a>.</p>
+    <p>
+      <a href="https://gumroad.com/l/pbtips" target="_blank">
+        <img src="https://codechalleng.es/static/img/tips-book-thumb.07692e3ba331.png" alt="Get our Python Tips Book">
+      </a>
+    </p>
+
+    <div id="testimonials">
+      <p><i>"The discussions are succinct yet thorough enough to give you a solid grasp of the particular problem. I just wish I would have had this book when I started learning Python." - Daniel H </i></p>
+      <p><i>"Bob and Julian are the masters at aggregating these small snippets of code that can really make certain aspects of coding easier." - Jesse B </i></p>
+      <p><i>"This is now my favourite first Python go-to reference." - Anthony L </i></p>
+      <p><i>"Do you ever go on one of those cooking websites for a recipe and have to scroll for what feels like an eternity to get to the ingredients and the 4 steps the recipe actually takes? This is the opposite of that." - Sergio S </i></p>
+      <p class="buttonWrapper">
+        <a class="button" href="https://gumroad.com/l/pbtips" target="_blank">
+          Get the book
+        </a>
+      </p>
+    </div>
+  </div>
+</div>    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'naughts-and-crosses.html';
+                var disqus_url = 'https://pybit.es/naughts-and-crosses.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/100days">#100DaysOfCode</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                              <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                              <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                            <li><a href="mailto:support@pybit.es" title="Contact us by email">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:support@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
