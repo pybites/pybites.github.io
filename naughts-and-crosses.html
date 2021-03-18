@@ -151,7 +151,7 @@
                         </div>
 
                         <div class="dropdown">
-                          <a href="https://pybitesdevelopermindset.com/" id="workshopButton">Python Coaching</a>
+                          <a href="https://pybitesdevelopermindset.com/" id="workshopButton" target="_blank">Python Coaching</a>
                         </div>
 
                     </div>
@@ -859,20 +859,78 @@ this works out.</p>
 
 
 <p>The combinations result in:</p>
-<p><span class="styledTable">
-| combination | values | sum | product |
-| :---: | :---: | ---: | ---: |
-| _ <em> _ | 0 0 0 | 0 | 0 |
-| O _ </em> | 1 0 0 | 1 | 0 |
-| O O _ | 1 1 0 | 2 | 0 |
-| O O O | 1 1 1 | 3 | 1 |
-| O X _ | 1 2 0 | 3 | 0 |
-| O O X | 1 1 2 | 4 | 2 |
-| X _ _ | 2 0 0 | 2 | 0 |
-| X X _ | 2 2 0 | 4 | 0 |
-| X X X | 2 2 2 | 6 | 8 |
-| X X O | 2 2 1 | 5 | 4 |
-</span></p>
+<table>
+<thead>
+<tr>
+<th align="center">combination</th>
+<th align="center">values</th>
+<th align="right">sum</th>
+<th align="right">product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">_ _ _</td>
+<td align="center">0 0 0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O _ _</td>
+<td align="center">1 0 0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O O _</td>
+<td align="center">1 1 0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O O O</td>
+<td align="center">1 1 1</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="center">O X _</td>
+<td align="center">1 2 0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">O O X</td>
+<td align="center">1 1 2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="center">X _ _</td>
+<td align="center">2 0 0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">X X _</td>
+<td align="center">2 2 0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="center">X X X</td>
+<td align="center">2 2 2</td>
+<td align="right">6</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="center">X X O</td>
+<td align="center">2 2 1</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
 <p>From these results it is easy to see that two Xs and a blank uniquely give a sum of four and a product of zero; 
 unfortunately two Os and a blank give exactly the same values as one X and two blanks.  The product value actually only
 really identifies when there is a space in the line, and it is necessary to calculate both the sum and the product to 
@@ -888,20 +946,78 @@ would make a difference?</p>
 
 
 <p>The combinations result in:</p>
-<p><span class="styledTable">
-| combination | values | sum | product |
-| :---: | :---: | ---: | ---: |
-| _ <em> _ | 2 2 2 | 6 | 8 |
-| O _ </em> | 3 2 2 | 7 | 12 |
-| O O _ | 3 3 2 | 8 | 18 |
-| O O O | 3 3 3 | 9 | 27 |
-| O X _ | 3 5 2 | 10 | 30 |
-| O O X | 3 3 5 | 11 | 45 |
-| X _ _ | 5 2 2 | 9 | 20 |
-| X X _ | 5 5 2 | 12 | 50 |
-| X X X | 5 5 5 | 15 | 125 |
-| X X O | 5 5 3 | 13 | 75 |
-</span></p>
+<table>
+<thead>
+<tr>
+<th align="center">combination</th>
+<th align="center">values</th>
+<th align="right">sum</th>
+<th align="right">product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">_ _ _</td>
+<td align="center">2 2 2</td>
+<td align="right">6</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="center">O _ _</td>
+<td align="center">3 2 2</td>
+<td align="right">7</td>
+<td align="right">12</td>
+</tr>
+<tr>
+<td align="center">O O _</td>
+<td align="center">3 3 2</td>
+<td align="right">8</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="center">O O O</td>
+<td align="center">3 3 3</td>
+<td align="right">9</td>
+<td align="right">27</td>
+</tr>
+<tr>
+<td align="center">O X _</td>
+<td align="center">3 5 2</td>
+<td align="right">10</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td align="center">O O X</td>
+<td align="center">3 3 5</td>
+<td align="right">11</td>
+<td align="right">45</td>
+</tr>
+<tr>
+<td align="center">X _ _</td>
+<td align="center">5 2 2</td>
+<td align="right">9</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="center">X X _</td>
+<td align="center">5 5 2</td>
+<td align="right">12</td>
+<td align="right">50</td>
+</tr>
+<tr>
+<td align="center">X X X</td>
+<td align="center">5 5 5</td>
+<td align="right">15</td>
+<td align="right">125</td>
+</tr>
+<tr>
+<td align="center">X X O</td>
+<td align="center">5 5 3</td>
+<td align="right">13</td>
+<td align="right">75</td>
+</tr>
+</tbody>
+</table>
 <p>Now we have unique values for both the two Os and the two Xs, in the sum and the product.  However, in the summation
 there is a conflict of identification for the rows consisting of three Os and of a single X.  We could experiment with
 other values, but the product values are fully unique across our requirements.</p>
