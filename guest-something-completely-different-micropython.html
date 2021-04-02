@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Don&#39;t ask why, don&#39;t ask how, but I recently found myself purchasing a bunch of microcontrollers and circuitboards again! Today, I&#39;ll take you with me on my path through the circuits of the...">
+        <meta name="keywords" content="esp32, IOT, microcontrollers, micropython">
+
+        <meta property="og:site_name" content="PyBites"/>
+        <meta property="og:title" content="And now for something completely different... MicroPython!"/>
+        <meta property="og:description" content="What if you could control a little circuitboard with a bunch of IO's, integrated WiFi and a camera slot on board?"/>
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:url" content="https://pybit.es/guest-something-completely-different-micropython.html"/>
+        <meta property="og:type" content="article"/>
+        <meta property="article:published_time" content="2021-04-01 18:00:00+02:00"/>
+        <meta property="article:modified_time" content=""/>
+        <meta property="article:author" content="https://pybit.es/author/cedric-sambre.html">
+        <meta property="article:section" content="Learning"/>
+        <meta property="article:tag" content="micropython"/>
+        <meta property="article:tag" content="microcontrollers"/>
+        <meta property="article:tag" content="esp32"/>
+        <meta property="article:tag" content="IOT"/>
+        <meta property="og:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@pybites" />
+        <meta name="twitter:title" content="And now for something completely different... MicroPython!" />
+        <meta name="twitter:description" content="What if you could control a little circuitboard with a bunch of IO's, integrated WiFi and a camera slot on board?" />
+        <meta name="twitter:image" content="https://pybit.es/images/featured/pb-guest.png">
+
+        <link rel="icon" href="https://pybit.es/favicon.ico">
+        <title>And now for something completely different... MicroPython! - PyBites</title>
+
+        <!-- Stylesheets -->
+        <link href="https://pybit.es/theme/css/all.min.css" rel="stylesheet">
+        <link href="https://pybit.es/theme/css/style.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="PyBites Full Atom Feed" />
+        <link href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Full RSS Feed" />
+        <link href="https://pybit.es/feeds/learning.rss.xml" type="application/rss+xml" rel="alternate" title="PyBites Categories RSS Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+          <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5859c6a67eb6254d" async="async"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-89294245-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+
+    <!-- mailchimp subscribe -->
+    <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us14.list-manage.com","uuid":"822043293f280259d4b8d2a3e","lid":"ac7e2eb9ef","uniqueMethods":true}) })</script>
+    <!-- end mailchimp subscribe -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '767652523960315');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=767652523960315&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://pybit.es/"><img class="mr20" src="https://pybit.es/images/logo.png" alt="logo"></a>
+                    </div>
+                    <div class="nav pull-right">
+
+                        <div class="dropdown">
+                          <span>RESOURCES</span>
+                          <div class="dropdown-content">
+                                <a href="https://www.pybitespodcast.com/"
+                                    target="_blank"
+                                >Podcast</a>
+                                <a href="/community"
+                                >Community</a>
+                                <a href="/friends"
+                                >Friends List</a>
+                                <a href="/archives"
+                                >Blog Articles</a>
+                                <a href="/category/challenges"
+                                >Blog Code Challenges</a>
+                                <a href="https://github.com/PyBites-Open-Source"
+                                    target="_blank"
+                                >PyBites Open Source</a>
+                                <a href="https://www.udemy.com/course/python-flask-for-beginners/"
+                                    target="_blank"
+                                >Flask Intro Course</a>
+                                <a href="/100days"
+                                >#100DaysOfCode</a>
+                                <a href="https://codechalleng.es/tips"
+                                    target="_blank"
+                                >Weekly Email Tips</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <span>SERVICES</span>
+                          <div class="dropdown-content">
+                                <a href="https://codechalleng.es"
+                                    target="_blank"
+                                >Platform</a>
+                                <a href="https://pybit.es/tips"
+                                    target="_blank"
+                                >Tips Book</a>
+                                <a href="https://members.pybit.es/offers/mfFWRKHG/checkout"
+                                    target="_blank"
+                                >Python Intro Course</a>
+                                <a href="https://pybitesproductivity.com/"
+                                    target="_blank"
+                                >Productivity Course</a>
+                          </div>
+                        </div>
+
+                        <div class="dropdown">
+                          <a href="https://pybitesdevelopermindset.com/" id="workshopButton" target="_blank">Python Coaching</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">And now for something completely different... MicroPython!</h1>
+                      <p class="header-date"> <a href="https://pybit.es/author/cedric-sambre.html">Cedric Sambre</a>, Thu 01 April 2021,  <a href="https://pybit.es/category/learning.html">Learning</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://pybit.es/tag/esp32.html">esp32</a>, <a href="https://pybit.es/tag/iot.html">IOT</a>, <a href="https://pybit.es/tag/microcontrollers.html">microcontrollers</a>, <a href="https://pybit.es/tag/micropython.html">micropython</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>Don't ask why, don't ask how, but I recently found myself purchasing a bunch of microcontrollers and circuitboards again!
+Today, I'll take you with me on my path through the circuits of the ESP32-CAM!</p>
+<h2>Index</h2>
+<ul>
+<li><a href="#a-little-different">A little different</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#laying-it-out">Laying it out</a></li>
+<li><a href="#wiring-it-up">Wiring it up</a></li>
+<li><a href="#micropython">Micropython</a></li>
+<li><a href="#thonny-interpreter">Thonny: Accessing the interpreter</a></li>
+<li><a href="#automation-themicropython-way">Automation the MicroPython way</a></li>
+<li><a href="#installing-packages-upip">Installing packages: upip</a></li>
+<li><a href="#moving-forward">Moving forward</a></li>
+<li><a href="#a-different-approach">A different approach</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+<p><a name="a-little-different"></a></p>
+<h2>A little different</h2>
+<p>Don't worry, I just really wanted to use that <a href="https://en.wikiquote.org/wiki/And_Now_For_Something_Completely_Different">Monthy Python quote</a>.</p>
+<p>This article is still going to be about Python, but we'll be using it on a different "level" than we usually do, but then again, it's the same...</p>
+<p><img alt="The Same... but different." src="images/guest-something-completely-different-micropython/its-the-same-but-different.jpg"></p>
+<p>The focus will be more on the setup and exploring the possibilities of running Python on microprocessors, there's no real advanced code in here, just a different way into our habitat!</p>
+<p>There will also be a few Hardware requirements if you really want to dive into this stuff, but you can perfectly read along without it.
+All of this stuff will be available for about 15-20$ with jumper cables and everything included, and that's with a margin of 5-10$ depending on where you get your stuff!</p>
+<p><a name="requirements"></a></p>
+<h2>Requirements</h2>
+<h3>Software</h3>
+<ul>
+<li><a href="https://github.com/thonny/thonny">Thonny</a></li>
+</ul>
+<h3>Python libraries</h3>
+<ul>
+<li><a href="https://github.com/espressif/esptool">esptool</a></li>
+</ul>
+<h3>Hardware</h3>
+<p>This are just pages with a lot of info, not necessarily where I bought them. You might have this stuff laying around or find it elsewhere cheaper! 
+<em> <a href="https://learn.adafruit.com/ftdi-friend">FTDI programmer</a>
+</em> If you have an Arduino laying around, that can be used as well but will require some changes to the setup. I did it with an old <a href="https://store.arduino.cc/arduino-uno-rev3">Arduino Uno</a> before!
+<em> <a href="https://www.espressif.com/en/news/ESP32_CAM">ESP32-CAM Module</a>
+</em> Some jumper cables, I used 4 male to female, and a single female to female jumper.</p>
+<p><a name="laying-it-out"></a></p>
+<h2>Laying it out</h2>
+<p><img alt="Laying it out" src="images/guest-something-completely-different-micropython/laying-it-out.jpg"></p>
+<p>From left to right:</p>
+<ul>
+<li>Mini Usb Cable (for the FTDI Programmer)</li>
+<li>FTDI Basic from Sparkfun</li>
+<li>ESP32Cam Module</li>
+<li>Jumpers</li>
+</ul>
+<p>The ESP32 board is 2.5 cm x 4 cm or about 1 x 1.5 inches.
+It has a very low power usage (down to 6mA in deep sleep mode) and this esp32-cam version came with an OV2640 camera, an onboard led-flash (for the camera), sd card slot and WiFi and BLE module.</p>
+<p>I expected nothing much when I ordered them, but oh boy, was I in for a suprise.</p>
+<p><a name="wiring-it-up"></a></p>
+<h2>Wiring it up</h2>
+<p>This part, although for some of us a bit out of our comfort zone, is really just what we've been doing since forever.
+Matching types and shapes.</p>
+<p>5V goes into 5V, GND goes into GND, What you T(ransmit)X on one end must be R(eceived)X'ed on the other and vice versa.
+Finally, the F2F jumper goes from GPIO 0 to GND.</p>
+<p><img alt="Wiring it up" src="images/guest-something-completely-different-micropython/wiring-it-up.jpg"></p>
+<p>That last wire is because the board's internals check if that pin is set to decide if it will boot in normal mode or in programming (Flash) mode.</p>
+<p>Inside the circuitry of the ESP32, GPIO 0 is connected to a 10KΩ <a href="https://eepower.com/resistor-guide/resistor-applications/pull-up-resistor-pull-down-resistor/">Pull up resistor</a>.
+This circuit creates a voltage on GPIO0 causing it to be set to 'HIGH' (meaning there is a certain voltage on it).
+The ESP32 boot code checks if this pin is High to decide if flash memory can be written or if it should just read it and boot on. </p>
+<p>That might sound complex, but look at it like this:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">GPIO0</span><span class="p">:</span>
+    <span class="n">boot_normally</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">enter_programming_mode</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Not like that boot code is written in Python, but again. It's the same, but different :-)</p>
+<p>By connecting that GPIO pin to Ground, we're giving the current an easier road to take towards ground, so it wont flow to the chips GPIO0, and that pin state will turn LOW (no / low voltage), entering programming mode.</p>
+<p><a name="micropython"></a></p>
+<h2>MicroPython: For really tiny computers</h2>
+<p>If anyone would've told me a couple years ago that I would be working on 512KB of RAM and a blasting 240MHz dual core processor again, I wouldn't believe 'em, yet here we are.
+But there's a problem. Just starting a blank interpreter is already using about 5MB of RAM on my Windows machine. </p>
+<p>Usually these ESP's are programmed using C or Assembly. Surely it can't run Python?</p>
+<p>Enter <a href="http://micropython.org">Micropython</a>!</p>
+<p>There's a lot to be said about the Micropython project. But the most important thing to know is that it's a very lightweight python compiler and runtime that exposes some additional libraries for direct control of the hardware.</p>
+<p><a name="firmware-flashing-esptool"></a></p>
+<h2>Flashing the firmware with esptool.py</h2>
+<p>If you've wired everything up like I said and connect the FTDI programmer to your computer, we can get to a cozy new pip environment and install <code>esptool</code>.</p>
+<p><code>pip3 install esptool</code></p>
+<p>ESP Tool is a super cool toolbox to do all sorts of programming on the different ESP chips. Here's what it can do:</p>
+<div class="highlight"><pre><span></span><span class="nv">esptool</span>.<span class="nv">py</span>
+<span class="nv">esptool</span>.<span class="nv">py</span> <span class="nv">v3</span>.<span class="mi">0</span>
+<span class="nv">usage</span>: <span class="nv">esptool</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">--</span><span class="nv">chip</span> {<span class="nv">auto</span>,<span class="nv">esp8266</span>,<span class="nv">esp32</span>,<span class="nv">esp32s2</span>,<span class="nv">esp32s3beta2</span>,<span class="nv">esp32c3</span>}] [<span class="o">--</span><span class="nv">port</span> <span class="nv">PORT</span>] [<span class="o">--</span><span class="nv">baud</span> <span class="nv">BAUD</span>] [<span class="o">--</span><span class="nv">before</span> {<span class="nv">default_reset</span>,<span class="nv">no_reset</span>,<span class="nv">no_reset_no_sync</span>}] [<span class="o">--</span><span class="nv">after</span> {<span class="nv">hard_reset</span>,<span class="nv">soft_reset</span>,<span class="nv">no_reset</span>}] [<span class="o">--</span><span class="nv">no</span><span class="o">-</span><span class="nv">stub</span>] [<span class="o">--</span><span class="nv">trace</span>]
+               [<span class="o">--</span><span class="nv">override</span><span class="o">-</span><span class="nv">vddsdio</span> [{<span class="mi">1</span>.<span class="mi">8</span><span class="nv">V</span>,<span class="mi">1</span>.<span class="mi">9</span><span class="nv">V</span>,<span class="nv">OFF</span>}]] [<span class="o">--</span><span class="k">connect</span><span class="o">-</span><span class="nv">attempts</span> <span class="nv">CONNECT_ATTEMPTS</span>]
+               {<span class="nv">load_ram</span>,<span class="nv">dump_mem</span>,<span class="nv">read_mem</span>,<span class="nv">write_mem</span>,<span class="nv">write_flash</span>,<span class="nv">run</span>,<span class="nv">image_info</span>,<span class="nv">make_image</span>,<span class="nv">elf2image</span>,<span class="nv">read_mac</span>,<span class="nv">chip_id</span>,<span class="nv">flash_id</span>,<span class="nv">read_flash_status</span>,<span class="nv">write_flash_status</span>,<span class="nv">read_flash</span>,<span class="nv">verify_flash</span>,<span class="nv">erase_flash</span>,<span class="nv">erase_region</span>,<span class="nv">version</span>,<span class="nv">get_securit</span>
+<span class="nv">y_info</span>}
+               ...
+
+<span class="nv">esptool</span>.<span class="nv">py</span> <span class="nv">v3</span>.<span class="mi">0</span> <span class="o">-</span> <span class="nv">ESP8266</span> <span class="nv">ROM</span> <span class="nv">Bootloader</span> <span class="nv">Utility</span>
+
+<span class="nv">positional</span> <span class="nv">arguments</span>:
+  {<span class="nv">load_ram</span>,<span class="nv">dump_mem</span>,<span class="nv">read_mem</span>,<span class="nv">write_mem</span>,<span class="nv">write_flash</span>,<span class="nv">run</span>,<span class="nv">image_info</span>,<span class="nv">make_image</span>,<span class="nv">elf2image</span>,<span class="nv">read_mac</span>,<span class="nv">chip_id</span>,<span class="nv">flash_id</span>,<span class="nv">read_flash_status</span>,<span class="nv">write_flash_status</span>,<span class="nv">read_flash</span>,<span class="nv">verify_flash</span>,<span class="nv">erase_flash</span>,<span class="nv">erase_region</span>,<span class="nv">version</span>,<span class="nv">get_security_info</span>}
+                        <span class="nv">Run</span> <span class="nv">esptool</span> {<span class="nv">command</span>} <span class="o">-</span><span class="nv">h</span> <span class="k">for</span> <span class="nv">additional</span> <span class="nv">help</span>
+    <span class="nv">load_ram</span>            <span class="nv">Download</span> <span class="nv">an</span> <span class="nv">image</span> <span class="nv">to</span> <span class="nv">RAM</span> <span class="nv">and</span> <span class="nv">execute</span>
+    <span class="nv">dump_mem</span>            <span class="nv">Dump</span> <span class="nv">arbitrary</span> <span class="nv">memory</span> <span class="nv">to</span> <span class="nv">disk</span>
+    <span class="nv">read_mem</span>            <span class="nv">Read</span> <span class="nv">arbitrary</span> <span class="nv">memory</span> <span class="nv">location</span>
+    <span class="nv">write_mem</span>           <span class="nv">Read</span><span class="o">-</span><span class="nv">modify</span><span class="o">-</span><span class="nv">write</span> <span class="nv">to</span> <span class="nv">arbitrary</span> <span class="nv">memory</span> <span class="nv">location</span>
+    <span class="nv">write_flash</span>         <span class="nv">Write</span> <span class="nv">a</span> <span class="nv">binary</span> <span class="nv">blob</span> <span class="nv">to</span> <span class="nv">flash</span>
+    <span class="nv">run</span>                 <span class="nv">Run</span> <span class="nv">application</span> <span class="nv">code</span> <span class="nv">in</span> <span class="nv">flash</span>
+    <span class="nv">image_info</span>          <span class="nv">Dump</span> <span class="nv">headers</span> <span class="nv">from</span> <span class="nv">an</span> <span class="nv">application</span> <span class="nv">image</span>
+    <span class="nv">make_image</span>          <span class="nv">Create</span> <span class="nv">an</span> <span class="nv">application</span> <span class="nv">image</span> <span class="nv">from</span> <span class="nv">binary</span> <span class="nv">files</span>
+    <span class="nv">elf2image</span>           <span class="nv">Create</span> <span class="nv">an</span> <span class="nv">application</span> <span class="nv">image</span> <span class="nv">from</span> <span class="nv">ELF</span> <span class="nv">file</span>
+    <span class="nv">read_mac</span>            <span class="nv">Read</span> <span class="nv">MAC</span> <span class="nv">address</span> <span class="nv">from</span> <span class="nv">OTP</span> <span class="nv">ROM</span>
+    <span class="nv">chip_id</span>             <span class="nv">Read</span> <span class="nv">Chip</span> <span class="nv">ID</span> <span class="nv">from</span> <span class="nv">OTP</span> <span class="nv">ROM</span>
+    <span class="nv">flash_id</span>            <span class="nv">Read</span> <span class="nv">SPI</span> <span class="nv">flash</span> <span class="nv">manufacturer</span> <span class="nv">and</span> <span class="nv">device</span> <span class="nv">ID</span>
+    <span class="nv">read_flash_status</span>   <span class="nv">Read</span> <span class="nv">SPI</span> <span class="nv">flash</span> <span class="nv">status</span> <span class="nv">register</span>
+    <span class="nv">write_flash_status</span>  <span class="nv">Write</span> <span class="nv">SPI</span> <span class="nv">flash</span> <span class="nv">status</span> <span class="nv">register</span>
+    <span class="nv">read_flash</span>          <span class="nv">Read</span> <span class="nv">SPI</span> <span class="nv">flash</span> <span class="nv">content</span>
+    <span class="nv">verify_flash</span>        <span class="nv">Verify</span> <span class="nv">a</span> <span class="nv">binary</span> <span class="nv">blob</span> <span class="nv">against</span> <span class="nv">flash</span>
+    <span class="nv">erase_flash</span>         <span class="nv">Perform</span> <span class="nv">Chip</span> <span class="nv">Erase</span> <span class="nv">on</span> <span class="nv">SPI</span> <span class="nv">flash</span>
+    <span class="nv">erase_region</span>        <span class="nv">Erase</span> <span class="nv">a</span> <span class="nv">region</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">flash</span>
+    <span class="nv">version</span>             <span class="nv">Print</span> <span class="nv">esptool</span> <span class="nv">version</span>
+    <span class="nv">get_security_info</span>   <span class="nv">Get</span> <span class="nv">some</span> <span class="nv">security</span><span class="o">-</span><span class="nv">related</span> <span class="nv">data</span>
+</pre></div>
+
+
+<p>So there's a few things we're going to want to do:</p>
+<ol>
+<li>First we want to clear the flash memory (I have some C Code on there, or there might be factory firmware on your end)</li>
+<li>Next we want to write the micropython Firmware to the flash memory</li>
+</ol>
+<p>In my case, the FTDI programmer got detected as port COM6. So we can erase the flash with:</p>
+<p><code>esptool.py --port COM6 erase_flash</code></p>
+<p>You could set other arguments, but the tool figures out most of it on its own.
+After 12 seconds, the programmer was done.</p>
+<div class="highlight"><pre><span></span><span class="nv">esptool</span>.<span class="nv">py</span> <span class="nv">v3</span>.<span class="mi">0</span>
+<span class="nv">Serial</span> <span class="nv">port</span> <span class="nv">COM6</span>
+<span class="nv">Connecting</span>........<span class="nv">_____</span>
+<span class="nv">Detecting</span> <span class="nv">chip</span> <span class="nv">type</span>... <span class="nv">ESP32</span>
+<span class="nv">Chip</span> <span class="nv">is</span> <span class="nv">ESP32</span><span class="o">-</span><span class="nv">D0WD</span> <span class="ss">(</span><span class="nv">revision</span> <span class="mi">1</span><span class="ss">)</span>
+<span class="nv">Features</span>: <span class="nv">WiFi</span>, <span class="nv">BT</span>, <span class="nv">Dual</span> <span class="nv">Core</span>, <span class="mi">240</span><span class="nv">MHz</span>, <span class="nv">VRef</span> <span class="nv">calibration</span> <span class="nv">in</span> <span class="nv">efuse</span>, <span class="nv">Coding</span> <span class="nv">Scheme</span> <span class="nv">None</span>
+<span class="nv">Crystal</span> <span class="nv">is</span> <span class="mi">40</span><span class="nv">MHz</span>
+<span class="nv">MAC</span>: <span class="nv">f4</span>:<span class="nv">cf</span>:<span class="nv">a2</span>:<span class="mi">99</span>:<span class="nv">c0</span>:<span class="mi">38</span>
+<span class="nv">Uploading</span> <span class="nv">stub</span>...
+<span class="nv">Running</span> <span class="nv">stub</span>...
+<span class="nv">Stub</span> <span class="nv">running</span>...
+<span class="nv">Erasing</span> <span class="nv">flash</span> <span class="ss">(</span><span class="nv">this</span> <span class="nv">may</span> <span class="nv">take</span> <span class="nv">a</span> <span class="k">while</span><span class="ss">)</span>...
+<span class="nv">Chip</span> <span class="nv">erase</span> <span class="nv">completed</span> <span class="nv">successfully</span> <span class="nv">in</span> <span class="mi">12</span>.<span class="mi">6</span><span class="nv">s</span>
+<span class="nv">Hard</span> <span class="nv">resetting</span> <span class="nv">via</span> <span class="nv">RTS</span> <span class="nv">pin</span>...
+</pre></div>
+
+
+<p>After erasing te flash, push the tiny reset button on your ESP. The FTDI tries to do a reset, but we didnt connect any Reset cables.</p>
+<p>I read that it required soldering an extra capacitor to 2 pins on the ESP board in order to have it reset automatically, and figured it was less effort to just push the damn button :-)</p>
+<p>Next, we want to write the Micropython firmware to the flash memory, so we can boot off of that.</p>
+<p>It's important to note that the ESP32 documentation states the bootloader starts at address 0x1000. So that's were we'll start writing the firmware.</p>
+<div class="highlight"><pre><span></span><span class="n">esptool</span><span class="p">.</span><span class="n">py</span> <span class="c1">--port COM6 write_flash 0x1000 E:\Users\Jarvis\Downloads\esp32-idf3-20210202-v1.14.bin</span>
+
+<span class="n">esptool</span><span class="p">.</span><span class="n">py</span> <span class="n">v3</span><span class="p">.</span><span class="mi">0</span>
+<span class="nb">Serial</span> <span class="n">port</span> <span class="n">COM6</span>
+<span class="n">Connecting</span><span class="p">........</span>
+<span class="n">Detecting</span> <span class="n">chip</span> <span class="k">type</span><span class="p">...</span> <span class="n">ESP32</span>
+<span class="n">Chip</span> <span class="k">is</span> <span class="n">ESP32</span><span class="o">-</span><span class="n">D0WD</span> <span class="p">(</span><span class="n">revision</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Features</span><span class="p">:</span> <span class="n">WiFi</span><span class="p">,</span> <span class="n">BT</span><span class="p">,</span> <span class="n">Dual</span> <span class="n">Core</span><span class="p">,</span> <span class="mi">240</span><span class="n">MHz</span><span class="p">,</span> <span class="n">VRef</span> <span class="n">calibration</span> <span class="k">in</span> <span class="n">efuse</span><span class="p">,</span> <span class="n">Coding</span> <span class="n">Scheme</span> <span class="k">None</span>
+<span class="n">Crystal</span> <span class="k">is</span> <span class="mi">40</span><span class="n">MHz</span>
+<span class="n">MAC</span><span class="p">:</span> <span class="n">f4</span><span class="p">:</span><span class="n">cf</span><span class="p">:</span><span class="n">a2</span><span class="p">:</span><span class="mi">99</span><span class="p">:</span><span class="n">c0</span><span class="p">:</span><span class="mi">38</span>
+<span class="n">Uploading</span> <span class="n">stub</span><span class="p">...</span>
+<span class="n">Running</span> <span class="n">stub</span><span class="p">...</span>
+<span class="n">Stub</span> <span class="n">running</span><span class="p">...</span>
+<span class="n">Configuring</span> <span class="n">flash</span> <span class="k">size</span><span class="p">...</span>
+<span class="n">Compressed</span> <span class="mi">1445632</span> <span class="n">bytes</span> <span class="k">to</span> <span class="mi">925476</span><span class="p">...</span>
+<span class="n">Wrote</span> <span class="mi">1445632</span> <span class="n">bytes</span> <span class="p">(</span><span class="mi">925476</span> <span class="n">compressed</span><span class="p">)</span> <span class="k">at</span> <span class="mi">0</span><span class="n">x00001000</span> <span class="k">in</span> <span class="mi">81</span><span class="p">.</span><span class="mi">9</span> <span class="n">seconds</span> <span class="p">(</span><span class="n">effective</span> <span class="mi">141</span><span class="p">.</span><span class="mi">3</span> <span class="n">kbit</span><span class="o">/</span><span class="n">s</span><span class="p">)...</span>
+<span class="n">Hash</span> <span class="k">of</span> <span class="k">data</span> <span class="n">verified</span><span class="p">.</span>
+</pre></div>
+
+
+<p>You can find the different MicroPython firmware versions for ESP32 <a href="https://micropython.org/download/esp32/">here</a>!</p>
+<p>When this is done we can disconnect the wire running from GPIO0 to GND, so the ESP will know it can boot.
+It will start booting from that address 0x1000 where the bootloader for our micropython environment is now waiting!</p>
+<p>It's best practise to always remove all power sources before adding or removing cables or components, so unplug your USB!</p>
+<p>We'll leave the other wires all connected for now.
+TX and RX will be used to communicate with the interpreter on the board, and our 5v and GND will provide power to the ESP32 to keep it running.</p>
+<p>We don't have to worry about the draw on the USB port, as a single USB port usually allows at least 500mA to be drawn, and from what I've found, the highest peak draw from an esp32 was about 450 mA.</p>
+<p><a name="thonny-accessing-interpreter"></a></p>
+<h2>Accessing the interpreter with Thonny</h2>
+<p>I had never heard of Thonny before reading about MicroPython, but it's a very minimalistic Python IDE that also integrates smoothly with Micropython.</p>
+<p><img alt="Thonny on startup" src="images/guest-something-completely-different-micropython/thonny-startup.jpg"></p>
+<p>In order to set it to talk to our ESP32, all we have to do is go into the settings and set the interpreter accordingly:</p>
+<p><img alt="Interpreter Settings" src="images/guest-something-completely-different-micropython/thonny-interpreter-settings.jpg"></p>
+<p>Thonny actually even allows you to do the whole flashing process automatically (I've conveniently cropped out the option above).</p>
+<p>But the automatic reset does not work without an extra capacitor, which i didnt know at the time, so while debugging I grew to appreciate the versatility of esptool and chose to proceed with that.</p>
+<p>Next, you can "Stop/Restart" the backend and your interpreter should greet you!</p>
+<p><img alt="Interpreter / OS Module" src="images/guest-something-completely-different-micropython/os-module.jpg"></p>
+<p>You can clearly see what makes a platform like micropython so small and powerful.
+In our ESP we have functions for accessing our filesystem (like the SD Card if we'd use one), but no extended help text or functions like <code>os.name</code>.</p>
+<p>We don't even have <code>exit()</code>, because we don't need it! Effectively saving a fair part of memory.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">exit</span><span class="ss">()</span>
+<span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
+  <span class="nv">File</span> <span class="s2">&quot;</span><span class="s">&lt;stdin&gt;</span><span class="s2">&quot;</span>, <span class="nv">line</span> <span class="mi">1</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+<span class="nv">NameError</span>: <span class="nv">name</span> <span class="s1">&#39;</span><span class="s">exit</span><span class="s1">&#39;</span> <span class="nv">isn</span><span class="s1">&#39;</span><span class="s">t defined</span>
+</pre></div>
+
+
+<p>Something we DO have, is a <code>network</code> module, since we have an on board wifi chip!</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">network</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">);</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;telenet-7T892F&quot;</span><span class="p">,</span> <span class="s2">&quot;nofreewififoryou!&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">isconnected</span><span class="p">()</span>
+<span class="kc">True</span>
+</pre></div>
+
+
+<p>Next we can set our ip configuration and check status etc:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="mi">1010</span> <span class="c1"># Meaning we got an IP</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">()</span>
+<span class="p">(</span><span class="s1">&#39;192.168.0.187&#39;</span><span class="p">,</span> <span class="s1">&#39;255.255.255.0&#39;</span><span class="p">,</span> <span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;42.2.24.0&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="n">sta_if</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">())</span>
+<span class="nb">object</span> <span class="p">(</span><span class="s1">&#39;192.168.0.187&#39;</span><span class="p">,</span> <span class="s1">&#39;255.255.255.0&#39;</span><span class="p">,</span> <span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;42.2.24.0&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="n">of</span> <span class="nb">type</span> <span class="nb">tuple</span>
+  <span class="n">count</span> <span class="o">--</span> <span class="o">&lt;</span><span class="n">function</span><span class="o">&gt;</span>
+  <span class="n">index</span> <span class="o">--</span> <span class="o">&lt;</span><span class="n">function</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sta_if</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">((</span><span class="s1">&#39;192.168.0.6&#39;</span><span class="p">,</span> <span class="s1">&#39;255.255.255.0&#39;</span><span class="p">,</span> <span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;8.8.8.8&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<p><a name="automation-themicropython-way"></a></p>
+<h2>Automation: The Micropython way.</h2>
+<p>Now this is all very nice, but as soon as we pull the power from this thing, the interpreter shuts down, the memory is emptied, and things like the <code>sta_if</code> object above that contains our configuration will be gone.</p>
+<p>Normally, we can just open our IDE or shell, run python with some arguments and control what script is running basically 'through' the OS.</p>
+<p>But now, just like we had to place the bootloader on position 0x1000 in the flash memory, we'll tell Micropython what to do on startup by placing a simple <code>boot.py</code> on the device.</p>
+<p>I'll start by making the network connection and setting up the static IP like above, and we'll make a GET request to a <code>http.server</code> running on a different machine to check if everything worked.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">network</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="k">def</span> <span class="nf">connect_to_wifi</span><span class="p">(</span><span class="n">wait_connection</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">wlan</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
+    <span class="n">wlan</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">wlan</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;telenet-37854A&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">wait_connection</span><span class="p">:</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">wlan</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
+            <span class="k">pass</span>
+    <span class="n">wlan</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">((</span><span class="s1">&#39;192.168.0.6&#39;</span><span class="p">,</span> <span class="s1">&#39;255.255.255.0&#39;</span><span class="p">,</span> <span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;8.8.8.8&#39;</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">send_test_request</span><span class="p">():</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+
+    <span class="n">ai</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="s2">&quot;192.168.0.4&quot;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Address infos:&quot;</span><span class="p">,</span> <span class="n">ai</span><span class="p">)</span>
+    <span class="n">addr</span> <span class="o">=</span> <span class="n">ai</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;GET /hello-from-esp HTTP/1.0</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span> <span class="c1"># Let&#39;s be polite.</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">connect_to_wifi</span><span class="p">()</span>
+    <span class="n">send_test_request</span><span class="p">()</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+
+<p>And save it to micropython as <code>boot.py</code>, again, Thonny makes this a breeze and just gives us the choice:</p>
+<p><img alt="Where to save to?" src="images/guest-something-completely-different-micropython/thonny-save-to.jpg"></p>
+<p>After saving, just press the reset button on the ESP and soon you'll see the request come in on your <code>http.server</code>.</p>
+<p><code>::ffff:192.168.0.6 - - [03/Feb/2021 20:02:59] "GET /hello-from-esp HTTP/1.0" 404 -</code></p>
+<p><a name="installing-packages-upip"></a></p>
+<h2>Installing packages: upip</h2>
+<p>Micropython is tiny but it does have multiple package management systems, one of them being upip.
+Packages on the micropython filesystem are stored in the <code>/lib/</code> directory.</p>
+<p>In order to save memory, upip doesn't come as a separate application like <code>pip</code> but as a module.
+To install a package, we can <code>import upip</code> and then call the <code>install()</code> function.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">upip</span>
+<span class="n">upip</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="s1">&#39;ujson&#39;</span><span class="p">)</span>
+<span class="n">upip</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="s1">&#39;picoweb&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>It's a bit limited in the sense that from the code I've seen in the current master branch, it's not possible to select specific versions.
+<code>upip</code> will always install the latest version of the package, and when working with different firmwares, that can be annoying.</p>
+<p><a name="moving-forward"></a></p>
+<h2>Moving Forward from here</h2>
+<p>Now that we got a good idea of the basics and how our regular flow translates to micropython, it's time to take it a bit further.
+Sadly, the official MicroPython distribution has no support for the Camera module on the ESP32-Cam, and to be completely honest, compiling the firmware with the OV2640 camera module included is a bit of a hassle.</p>
+<p>Things got a bit complicated here and eventually even put me to a halt.
+After a small break and a chat with Bob, I decided to try again with renewed effort and found <a href="https://lemariva.com/blog/2019/09/micropython-how-about-taking-photo-esp32">a blogpost from 2019</a> with a pretty detailed guide to setting up camera enabled firmware.</p>
+<p>Here's a picture of my stickerspot on my monitor!</p>
+<p><img alt="Camera in action" src="images/guest-something-completely-different-micropython/camera_shot.jpg"></p>
+<p>Every picture is requested at a rate of about 400 ms average on the VGA (640x480) resolution:
+<img alt="Image Request" src="images/guest-something-completely-different-micropython/average-request-speed.jpg"></p>
+<p><a name="a-different-approach"></a></p>
+<h2>A different approach</h2>
+<p>Like I said, I was a bit turned down by how hard it was to get the camera working.
+First, the firmware didn't have the camera module, then I found firmware that did, but wasn't compatible with <code>picoweb</code>.
+Next it was compatible with <code>picoweb</code> but not with <code>uasyncio</code> causing <code>picoweb</code> to crash on every request.
+Then I found a version that did everything but didn't have the network module.</p>
+<p>For compiling my own firmware I went through a maze of versions in order to find one that was compatible with the camera and the WiFi chip, but I kept running into issues. </p>
+<p>Even now, on every request, the interpreter is riddled with errors and warnings, the image occasionally times out or decodes incorrectly, and 400 ms average is about 2-3 FPS which is kinda slow if we wanted to stream this somehow.</p>
+<p>MicroPython does have specialized boards out there that seem to work very well, but I don't have one of those laying around. </p>
+<p>I reflashed the old C firmware that ran stable and wrote a piece of code to test the speed now:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">CAMERA_IP</span> <span class="o">=</span> <span class="s2">&quot;192.168.0.10&quot;</span>
+<span class="n">PROTO</span> <span class="o">=</span> <span class="s2">&quot;http&quot;</span>
+<span class="n">ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;CAPTURE&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">fetch_image</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">_sess</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">_sess</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{PROTO}</span><span class="s2">://</span><span class="si">{CAMERA_IP}</span><span class="s2">/</span><span class="si">{ENDPOINT}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">millis</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">elapsed</span><span class="o">.</span><span class="n">microseconds</span> <span class="o">//</span> <span class="mi">1000</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{millis}</span><span class="s2"> ms&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">millis</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">timings</span> <span class="o">=</span> <span class="p">[</span><span class="n">fetch_image</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)]</span>
+    <span class="n">average</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">timings</span><span class="p">)</span> <span class="o">/</span> <span class="mi">50</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Average: </span><span class="si">{average}</span><span class="s2"> ms / image&quot;</span><span class="p">)</span>
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+
+<p>And we had a 400% performance increase on a range of 50 images:</p>
+<div class="highlight"><pre><span></span><span class="k">[...]</span>
+<span class="na">70 ms</span>
+<span class="na">76 ms</span>
+<span class="na">62 ms</span>
+<span class="na">194 ms</span>
+<span class="na">63 ms</span>
+<span class="na">141 ms</span>
+<span class="na">206 ms</span>
+<span class="na">69 ms</span>
+<span class="na">127 ms</span>
+<span class="na">Average: 104.06 ms / image</span>
+</pre></div>
+
+
+<p>It's hard to say if this is because of the instability of the version I'm using, or just because MicroPython is adding a whole bunch of extra overhead cycles on the 160-240MHz ESP32 CPU in camera streaming mode, but it seems that if we care about performance for the camera, we're better off to sticking to python for just the client side.</p>
+<p><a name="conclusion"></a></p>
+<h2>Conclusion</h2>
+<p>A lot of food for thought! Allthough I didn't get to test the full power of microPython, something tells me that it will run smoother on <a href="https://store.micropython.org/">a specialized board</a> than on an ESP32, especially when it comes to the camera.
+If I manage to get my hands on one, I'll be sure to report back!</p>
+<p>Here's the summary when it comes to the ESP32CAM:</p>
+<h5>Upsides of MicroPython on esp32:</h5>
+<ul>
+<li>The official firmware is easy to set up</li>
+<li>The interpreter over Serial allows you to test your code way faster than a C setup.</li>
+<li>It's python on a PCB, do you really need more ? :-)</li>
+</ul>
+<h5>Downsides of MicroPython on esp32:</h5>
+<ul>
+<li>No native support for some modules like the camera</li>
+<li>A lot of people resorted to making their own modules = a lot of incompatible firmware / packages scattered all over the internet</li>
+<li>Compiling your own firmware and keeping it maintained can take a lot of time and can be hard if you haven't done it before.</li>
+</ul>
+<p>Running micropython on these ESP boards to get acquainted with the whole process is really fun. It's also a good way into the microcontroller world if you're not familiar with C.
+The workload required to get specialized modules working, in my opinion, isn't really worth it when you also get a serious performance decrease with it.</p>
+<p>Maybe it's better to resort to the original ESP32-Wrover firmware, and then build something cool around that, since it also includes face detection and recognition.<br>
+You could probably even go as far as building a FastAPI powered face-recognition doorbell with that!</p>
+<p>I'm heading back to the lab! </p>
+<p>--</p>
+<p>Thanks for reading, I hope you enjoyed it as much as I enjoyed writing it. 
+If you have any remarks or questions, you can likely find me on the <a href="pages/community.html">Pybites Slack Channel</a> as 'Jarvis'.</p>
+<p>Keep calm and code in Python!</p>
+<p>-- <a href="pages/guests.html#cedricsambre">Cedric</a></p>
+
+
+<div id="pbproducts">
+  <h3>PyBites Python Tips</h3>
+  <div>
+    <p>Do you want to get <strong>250+ concise and applicable Python tips</strong> in an ebook that will cost you less than 10 bucks (future updates included), check it out <a href="https://gumroad.com/l/pbtips" target="_blank">here</a>.</p>
+    <p>
+      <a href="https://gumroad.com/l/pbtips" target="_blank">
+        <img src="https://codechalleng.es/static/img/tips-book-thumb.07692e3ba331.png" alt="Get our Python Tips Book">
+      </a>
+    </p>
+
+    <div id="testimonials">
+      <p><i>"The discussions are succinct yet thorough enough to give you a solid grasp of the particular problem. I just wish I would have had this book when I started learning Python." - Daniel H </i></p>
+      <p><i>"Bob and Julian are the masters at aggregating these small snippets of code that can really make certain aspects of coding easier." - Jesse B </i></p>
+      <p><i>"This is now my favourite first Python go-to reference." - Anthony L </i></p>
+      <p><i>"Do you ever go on one of those cooking websites for a recipe and have to scroll for what feels like an eternity to get to the ingredients and the 4 steps the recipe actually takes? This is the opposite of that." - Sergio S </i></p>
+      <p class="buttonWrapper">
+        <a class="button" href="https://gumroad.com/l/pbtips" target="_blank">
+          Get the book
+        </a>
+      </p>
+    </div>
+  </div>
+</div>    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http-pybit-es';
+                var disqus_identifier = 'guest-something-completely-different-micropython.html';
+                var disqus_url = 'https://pybit.es/guest-something-completely-different-micropython.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Sitemap</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://pybit.es/pages/guests.html">Authors</a></li>
+                            <li><a href="https://pybit.es/pages/community.html">Community</a></li>
+                            <li><a href="https://pybit.es/100days">#100DaysOfCode</a></li>
+                            <li><a href="https://pybit.es/pages/search.html">Search</a></li>
+                            <li><a href="https://pybit.es/pages/privacy-policy.html">Privacy Policy</a></li>
+                              <li><a href="https://pybit.es/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">Atom Feed</a></li>
+                              <li><a href="https://pybit.es/feeds/all.rss.xml" type="application/rss+xml" rel="alternate">RSS Feed</a></li>
+                            <li><a href="mailto:support@pybit.es" title="Contact us by email">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Reach Out</div>
+                        <ul class="list-unstyled">
+                            <li><a href="mailto:support@pybit.es" target="_blank">Email</a></li>
+                            <li><a href="https://twitter.com/pybites" target="_blank">Twitter</a></li>
+                            <li><a href="https://facebook.com/pybites" target="_blank">Facebook</a></li>
+                            <li><a href="https://github.com/pybites" target="_blank">Github</a></li>
+                            <li><a href="https://github.com/PyBites-Open-Source" target="_blank">Open Source</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCBn-uKDGsRBfcB0lQeOB_gA" target="_blank">YouTube</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; PyBites 2016+</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
